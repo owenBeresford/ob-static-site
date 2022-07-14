@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Go Lang notes</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Things I needed to find out in a hurry for Golang." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Go Lang notes">
+<meta itemprop="description" content="Things I needed to find out in a hurry for Golang.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Go Lang notes">
+<meta name="twitter:description" content="Things I needed to find out in a hurry for Golang.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Go Lang notes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/golang-notes" />
+<meta property="og:description" content="Things I needed to find out in a hurry for Golang." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:30:57" />
+<meta property="article:modified_time" content="31st of May 2021" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Go Lang notes",
+	"article:published_time":"14th of Jul 2022, 14:30:57", 
+    "article:modified_time":"31st of May 2021",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>Target audience: myself, professional developers.</p>
+
+<p>This is probably quite a dull article; but I am summarising a lot of repetitious blog articles which omitted some data that I needed. <br />
+I do not know if it is considered better in prose to write “golang” or “go-lang”.  For human to computer communication it is “go”.<br />
+Before I started using Golang; I was focussing on “how to type in this language”.  When I started the project I suddenly realised I need to manage the build chain (à la C++ with UTF-8 and POSIX &amp; win32 API).  If I add threads to that problem spec; this is the sweet spot for Golang.</p>
+
+
+<h2 class="dontend" id="toc0"> To manage Golang projects  <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">For Ubuntu/Debian people, the OS doesn't prioritise new releases of Golang; but if you use </li>
+</ul>
+
+<p><sup><a href="https://launchpad.net/%7Elongsleep/+archive/ubuntu/golang-backports" target="_blank">1</a></sup> <sup><a href="https://askubuntu.com/questions/513/any-ppas-for-googles-go-language" target="_blank">2</a></sup> you can use go1.16 and a package manager.  Do not follow any of the tonnes of webpages saying “download tarball now”, its not the 1980s.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">As a general note, `go help X` will detail all options for X; like a poly-platform man page <sup><a href="https://golang.org/cmd/go/" target="_blank">3</a></sup>.  The blog articles omit this point.</li>
+</ul>
+
+<p>Compilation, files and build targets:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">When using `go build`, to get results, rather than validate; append a `-o $BIN_NAME`; or no binary file is made <sup><a href="https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies" target="_blank">4</a></sup>.  Reading the `man` page gives you `go build -o /tmp/test1 -x -v -work ./...` to be abit more informative.</li>
+    <li class="libasic">When using the current version of goland; there is a small error in the default config; it sets -o twice [XXX].  This leads to files that can't be executed.</li>
+    <li class="libasic">As Golang is like another VM (see also Java); compiling any go native project to any platform supported by Go is trivial: in Bash set $GOOS and $GOARCH before running `go build` <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04" target="_blank">5</a></sup>.   With my current experience I am not aware of any single OS libraries in Go; but that statement is very limited scope.   The other online examples seem to use `env`, which would save a sub-shell.<ul class="ulbasic">
+        <li class="libasic">NB for win32 users: Values match what Linux or python <sup><a href="https://stackoverflow.com/questions/20728767/all-possible-goos-value" target="_blank">6</a></sup> uses (“amd64”, not “Azure”, “AMd64”, “Xbox Live™ &quot; or something) .</li>
+    </ul></li>
+    <li class="libasic">I tested linux/amd64 compiling for windows/amd64; which works on recent editions of windows without any fiddling at all.  TODO: compat testing on a wider variety of machines. </li>
+    <li class="libasic">The build command `go build ./... ` can take a triple dot as a path quantifier to mean all the packages inside this base path <sup><a href="https://stackoverflow.com/questions/30612611/what-does-go-build-build-go-build-vs-go-install" target="_blank">7</a></sup>. </li>
+    <li class="libasic">The default value for GOPATH is '~/go' on linux <sup><a href="https://blog.learngoprogramming.com/what-are-goroot-and-gopath-1231b084723if" target="_blank">8</a></sup> <sup><a href="https://stackoverflow.com/questions/7970390/what-should-be-the-values-of-gopath-and-goroot" target="_blank">9</a></sup> <sup><a href="https://www.reddit.com/r/golang/comments/lnfd0t/help_confused_with_go_116_goroot_and_gopath/" target="_blank">10</a></sup>; and can be left as is, for many people</li>
+    <li class="libasic">Golang can build to blobs that seem like JAR files; and actual executable binaries. The “blobs” are technically Ar files, and can be unpacked/reviewed on any normal Linux server (I looked at the build artifact).   An executable build in a PE2 or ELF file (etc for other OS)  in normal fashion (I looked at the build artifacts).</li>
+    <li class="libasic">There is gccgo <sup><a href="https://gcc.gnu.org/onlinedocs/gccgo/" target="_blank">11</a></sup>, but I haven't needed to use it. </li>
+    <li class="libasic">Golang binaries do not need a script host (see Java, ASP etc).  </li>
+    <li class="libasic">The `go build` command includes the trace and debug data unless this is disabled.  For applications which are considered stable adding -ldflags &quot;-s” leads to smaller files <sup><a href="https://stackoverflow.com/questions/29599209/how-to-build-a-release-version-binary-in-go" target="_blank">12</a></sup></li>
+    <li class="libasic">If you are doing a manual build (i.e. no Make) use `go build -ldflags &quot;-s” -o $RESULT_NAME $RELATIVEPATH_TO_FILE_WITH_MAIN()`.  AFAIK, the main Package needs to link every other package (directly or indirectly), for Golang to be able to load the library.</li>
+    <li class="libasic">We want to target go1.5 or greater as the modules system is now complete.  Notes <sup><a href="https://insujang.github.io/2020-04-04/go-modules/" target="_blank">13</a></sup> <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">14</a></sup>.  Golang defines modules as “A module is a collection of Go packages stored in a file tree with a go.mod file at its root. The go.mod file defines the module’s module path, which is also the import path used for the root directory, and its dependency requirements, which are the other modules needed for a successful build. Each dependency requirement is written as a module path and a specific semantic version.&quot; from <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">15</a></sup>.   A worked example for golang modules <sup><a href="https://github.com/GowthamGirithar/employee-service" target="_blank">16</a></sup>.</li>
+    <li class="libasic">Go before go1.4, go is really keen on having all source in a single source root.</li>
+    <li class="libasic">Go after go1.4 adds support for modules, implying multi-homing for source code and adds $GOPATH.  Current implementation of $GOPATH is weak, as not all features can read more than one directory in this variable.  I hope this is enhanced in later versions.</li>
+    <li class="libasic">Go is painful for excess directories; whoever this can be managed with `go mod edit` <sup><a href="https://golang.org/doc/tutorial/call-module-code" target="_blank">17</a></sup>.</li>
+    <li class="libasic">`go mod $BLAH` series of commands will be requirement for later versions of go; deprecating `go get $BLAH` <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">18</a></sup>.</li>
+    <li class="libasic">The main entry point must be in a package called 'main', and be a function called main <sup><a href="https://golang.org/ref/spec#Program_execution" target="_blank">19</a></sup> <sup><a href="https://www.callicoder.com/golang-packages/" target="_blank">20</a></sup> <sup><a href="https://stackoverflow.com/questions/42333488/package-main-and-func-main" target="_blank">21</a></sup>.<ul class="ulbasic">
+        <li class="libasic">Those two statements do not talk about the file name; which is flexible.</li>
+        <li class="libasic">According to <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">22</a></sup> the “main” package doesn't need to be in a directory called “main”; so it can be stored with the other Go files.  My recent practical experience contradicts this.  I make an extra “main” subpackage, to keep it out of the way.</li>
+    </ul></li>
+    <li class="libasic">A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">23</a></sup>.  I will update this  point with which one is best.</li>
+    <li class="libasic">Golang files generally have .go as a suffix <sup><a href="https://stackoverflow.com/questions/25161774/what-are-conventions-for-filenames-in-go" target="_blank">24</a></sup>; I do not know if that is required anywhere.</li>
+    <li class="libasic">There is nearly a standard file system layout <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">25</a></sup></li>
+    <li class="libasic">In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">26</a></sup> <sup><a href="https://ednsquare.com/story/public-and-private-packages-functions-in-golang------KgKYKs" target="_blank">27</a></sup>.</li>
+</ul>
+
+<p>Dependencies:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">On my first simple test1; I did not run `go mod init`.  I think for a more realistic and larger project with dependencies I will need to; and the previous build steps may need adjusting.</li>
+    <li class="libasic">On my second simple test2; I included a large middleware (iris <sup><a href="https://pkg.go.dev/github.com/kataras/iris#section-readme" target="_blank">28</a></sup>); and things seem to work without attention. </li>
+    <li class="libasic">As of “time of print”; dependencies are added as source code via `go get $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">29</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">30</a></sup>.  This (after go1.3) adds a line to go.mod file; secondly downloading the source code to a appropriately named sub-directory of $GOROOT.</li>
+    <li class="libasic">Dependencies can be removed via `go clean -i $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Remove_object_files_and_cached_files" target="_blank">31</a></sup>.  I think this was added in `go1.3`.</li>
+    <li class="libasic">Dependencies can be upgraded with `go get -u $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">32</a></sup>.</li>
+    <li class="libasic">The `go get` command can be appended with GIT hashes or release tag names for greater precision <sup><a href="https://golang.org/pkg/cmd/go/internal/get/" target="_blank">33</a></sup> <sup><a href="https://medium.com/faun/managing-dependency-and-module-versioning-using-go-modules-c7c6da00787a" target="_blank">34</a></sup>.</li>
+    <li class="libasic">If a dependency is added before it is used; in go.mod it will be tagged with `/ /indirect` <sup><a href="https://golangbyexample.com/indirect-dependency-golang/" target="_blank">35</a></sup>.  Used dependencies (in the source code) are not.  </li>
+    <li class="libasic">You can list/ verify dependencies with `go mod tidy -v`; to be able to reduce unneeded deps on your local disk <sup><a href="https://golang.org/cmd/go/#hdr-Maintaining_module_requirements" target="_blank">36</a></sup> <sup><a href="https://golangbyexample.com/go-mod-tidy/" target="_blank">37</a></sup>.</li>
+    <li class="libasic">In the source files, dependencies are imported on the package level and using the keyword 'import' <sup><a href="https://golangdocs.com/import-in-golang" target="_blank">38</a></sup> <sup><a href="https://www.golangprograms.com/golang-import-struct-from-another-or-child-package.html" target="_blank">39</a></sup>. </li>
+    <li class="libasic">The import can be an array or a scalar (which is better than most languages) <sup><a href="https://medium.com/golangspec/import-declarations-in-go-8de0fd3ae8ff" target="_blank">40</a></sup>.  Much faster than Java as there is no need to specify each class.  This can be tricky as C++ with many defines <sup><a href="https://developpaper.com/golang-import-local-package-and-import-related-details/" target="_blank">41</a></sup> </li>
+    <li class="libasic">There is a compile constraint feature (like Pascal uses); this is written as a comment starting  `// +build `.  Some more detailed notes <sup><a href="https://www.jetbrains.com/help/go/configuring-build-constraints-and-vendoring.html#build-constraints" target="_blank">42</a></sup> <sup><a href="https://golang.org/pkg/cmd/go/internal/help/" target="_blank">43</a></sup> <sup><a href="https://www.kofo.dev/build-tags-in-golang" target="_blank">44</a></sup> </li>
+    <li class="libasic">Notes on cross compilation <sup><a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5" target="_blank">45</a></sup></li>
+    <li class="libasic">The Golang supports alias <sup><a href="https://golang.org/ref/spec#Import_declarations" target="_blank">46</a></sup> <sup><a href="https://www.golangprograms.com/golang-package-examples/how-to-import-and-use-packages-of-the-same-name.html" target="_blank">47</a></sup>; to be able to reference packages in a more convenient fashion. </li>
+    <li class="libasic">NB: just like Node, there is a high rate of change on quite a few projects.</li>
+    <li class="libasic">To support an CTO request; how-to link existing C++ code to a Golang runtime, a terse recipe: compile the C++ code as *SO, with exported symbols; put SO file in golang project root directory, with a *.syso  suffix; add build-constraints to the go code to say load the external binary.  This supports static and dynamic linking.  Links: <sup><a href="https://golang.org/cmd/link/" target="_blank">48</a></sup> <sup><a href="https://stackoverflow.com/questions/26418883/golang-how-to-link-c-objects-using-cgo-ofiles" target="_blank">49</a></sup> <sup><a href="https://github.com/vladimirvivien/go-cshared-examples" target="_blank">50</a></sup>.  Notes for run-time linking of the two binary formats <sup><a href="https://medium.com/learning-the-go-programming-language/calling-go-functions-from-other-languages-4c7d8bcc69bf" target="_blank">51</a></sup></li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> Preferred Source tree referencing <sup><a href="https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md" target="_blank">52</a></sup></h3>
+<ul class="ulbasic">
+    <li class="libasic">situation: I have business objectives to make a small app; I have half of the features in existing libraries.  I do not wish to upload non-compileable half typed code to git; but I need to do test builds.</li>
+    <li class="libasic">solution: I start a new project dir; I create sub modules/ directories as seems appropriate; in the very small sub module that holds main(), I create a vendor with `go mod vendor`; I create a symlink from the current project root dir to a new same name directory symlink in the system lib dir. </li>
+    <li class="libasic">This means I can test-compile/ and or build tests without uploading anything to the git server.</li>
+    <li class="libasic">On completion of the module; upload it to git; and delete local symlink</li>
+    <li class="libasic">Doing this needs a git ignore marker on the vendor directory.</li>
+    <li class="libasic">It is probably simplest to put the main() in the project root.<ul class="ulbasic">
+        <li class="libasic">A different solution is to have your own git server, and pull everything from there. </li>
+    </ul></li>
+</ul>
+
+<p>Some assorted links for writing Go code (not covered in article) <sup><a href="https://golang.org/doc/code.html" target="_blank">53</a></sup> <sup><a href="https://marcofranssen.nl/start-on-your-first-golang-project/" target="_blank">54</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">55</a></sup> <sup><a href="https://thenewstack.io/understanding-golang-type-system/" target="_blank">56</a></sup> <sup><a href="https://golang.org/doc/gopath_code.html" target="_blank">57</a></sup> <sup><a href="https://github.com/kataras/iris" target="_blank">58</a></sup> <sup><a href="https://www.iris-go.com/docs/#/" target="_blank">59</a></sup> <sup><a href="https://docs.iris-go.com/iris/mvc/mvc-quickstart" target="_blank">60</a></sup> <sup><a href="https://github.com/iris-contrib/examples/blob/master/mvc/basic/main.go" target="_blank">61</a></sup> <sup><a href="https://github.com/ybkuroki/go-webapp-sample" target="_blank">62</a></sup> <sup><a href="https://hacked.work/blog/writing-simple-http2-server-go/" target="_blank">63</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">64</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">65</a></sup> <sup><a href="https://www.iris-go.com/docs/#/?id=template-rendering" target="_blank">66</a></sup> <sup><a href="https://golang.org/pkg/html/template/" target="_blank">67</a></sup> <sup><a href="https://bitfieldconsulting.com/golang/map-string-interface" target="_blank">68</a></sup> <sup><a href="https://golangdocs.com/interfaces-in-golang" target="_blank">69</a></sup> <sup><a href="https://stackoverflow.com/questions/41884806/how-to-parse-query-strings-in-iris" target="_blank">70</a></sup> <br />
+Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_blank">71</a></sup> <sup><a href="https://github.com/go-playground/assert/" target="_blank">72</a></sup></p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Go Lang notes</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-notes" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Go Lang notes</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-notes" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2021-05-31T11:09:24">31st of May 2021</time></span>
+<span>Created <time datetime="2021-02-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Feb 2021</time> </span>
+</span>
+<a href="Array/resource/golang-notes" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">To manage Golang projects</a></li>
+<li><a href="#toc1">Preferred Source tree referencing</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:30:57">14th of Jul 2022, 14:30:57</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2021-05-31T11:09:24">31st of May 2021</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<script type="text/javascript">
+$(document).ready(function() { 
+	var r1=new RegExp('\(`[^`]+`\)', 'g'), r2=new RegExp('\/ \/', 'g'); 
+	$('.halferWords')[0].innerHTML = $('.halferWords')[0].innerHTML.replaceAll(r1, '<span style="font-family:monospace; background-color:#ccc;">$1</span>'); 
+	$('.halferWords')[0].innerHTML = $('.halferWords')[0].innerHTML.replaceAll(r2, '//'); 
+
+} );
+</script>
+</body>
+</html>

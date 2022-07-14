@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Safe rendering of your email address</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Several solutions to show users an email address without software being able to see it." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Safe rendering of your email address">
+<meta itemprop="description" content="Several solutions to show users an email address without software being able to see it.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Safe rendering of your email address">
+<meta name="twitter:description" content="Several solutions to show users an email address without software being able to see it.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Safe rendering of your email address" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/email-display" />
+<meta property="og:description" content="Several solutions to show users an email address without software being able to see it." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:30:56" />
+<meta property="article:modified_time" content="20th of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Safe rendering of your email address",
+	"article:published_time":"14th of Jul 2022, 14:30:56", 
+    "article:modified_time":"20th of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <p>If you are running a website as a publishing and publicity process, you will want people to be able to contact you.  Depending on the content you are publishing, and the type of response; a public forum type response may not be appropriate.  From this site I may contacted via twitter or email.</p>
+
+<p>However, there are robots that read websites retrieving email addresses, so commercial emails may be bulk distributed, hopefully leading to sales.   This article should be unnecessary, the majority of the world has anti-spam legislation.  However, if the product is less legal or comes from a less organised part of the world, this works less reliably.  Please read the references for a legal perspective.</p>
+
+
+<h2 class="dontend" id="toc0"> Tech history. <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>The above condition has been consistent for at least a decade, web authors have been using the following avoidance strategies :</p>
+
+<ol>
+    <li>Munging the email address, in a fashion a human can spot and edit;</li>
+    <li>Putting the email address as a picture, so software can't read it;</li>
+    <li>Char encoding, so the source is written differently, but renders as an email address;</li>
+    <li>Creating the text of the mail address via JS, so it doesn't occur in the page source;</li>
+    <li>Using “contact me” forms, so never publishing your address;</li>
+</ol>
+
+
+<h2 class="dontend" id="toc1"> Alternative strategies. <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>If one considers email addresses to be public information, like store locations and registered offices, then other activities to deal with any email that arrives are required.  Useful email services include anti-virus filters, and spam filtering is an extension of this concept.  Email matching various heuristics is likely to be automated commercial email, and can be ignored by the mail reader.<br />
+There are a variety of tools to do this.  Listing them seems outside of scope of this article.</p>
+
+
+<h2 class="dontend" id="toc2"> A modest proposal. <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>Email harvesters work by extracting sections of text that resemble email addresses. The above solutions work by breaking this position.  To the best of my knowledge (although I have done no research on this), no one is using CSS to break the pattern matching.  I have embedded the CSS in style elements, as the offsets will be specific to each site.  The generated HTML should be fairly google friendly, as google breaks up search input into separate words, and treats adjacent text as clustered, which this is.<br />
+If we write the following:</p>
+
+
+<h4 class="dontend" id="toc3"> Plain text :  <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+
+<pre class="codeblock"><code>
+Contact me at my.name@emailhost.tld</code></pre>
+
+
+<h4 class="dontend" id="toc4"> Re-ordered version (v1) : <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+
+<pre class="codeblock"><code>
+Contact me at  &lt;div id=“emailHolder1” class=“emailHolder”&gt;&lt;span style=“position:relative; left:100px;&quot;&gt;.tld&lt;/span&gt;
+&lt;span style=“position:relative; left:60px;&quot;&gt;@&lt;/span&gt; 
+&lt;span style=“position:relative; left:0px;&quot;&gt;my.name&lt;/span&gt; 
+&lt;span style=“position:relative; left:70px;&quot;&gt; emailhost&lt;/span&gt;&lt;/div&gt;</code></pre>
+
+
+<h4 class="dontend" id="toc5"> Re-ordered version (smarter, v2) : <a href="#toc5"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+
+<pre class="codeblock"><code>
+Contact me at &lt;ol id=“emailHolder2” class=“emailHolder”&gt;
+&lt;li style=“left:100px;&quot;&gt;.tld&lt;/li&gt;
+&lt;li style=“left:60px;&quot;&gt;@&lt;/li&gt; 
+&lt;li style=“left:0px; text-align:right;&quot;&gt;my.name&lt;/li&gt; 
+&lt;li style=“left:70px;&quot;&gt; emailhost&lt;/li&gt;
+&lt;/ol&gt;
+&lt;style type=“text/css”&gt;
+#emailHolder2 li { display:inline; position:relative; }
+&lt;/style&gt;</code></pre>
+
+<p>One should be able to copy and paste this text, from the webrowser without problem.<br />
+This does inhibit the ability to click to send emails, still.  Sample code, following overcomes this limitation.   A third party could run the page in a system that ran JS and gain access to the email address; but if you consider how much JS there is on many web applications, I don't think they would.   This is abit less clumsy, but still too heavy, and requires custom CSS for email address (as different number of chars).</p>
+
+
+<pre class="codeblock"><code>
+&lt;script type=“text/javascript”&gt;
+var $t1=$('.emailHolder span');
+var $email=$t1[2].text()+$t1[1].text()+$t1[3].text()+$t1[0].text();
+ $('#emailHolder2').html('&lt;a href=“mailto:'+$email+'&quot; title=“Send an email to '+$t1[2].text()+'&quot;&gt;'+$email+'&lt;/a&gt;');
+&lt;/script&gt;</code></pre>
+
+<p>This does have the deficit of being long winded, and needing custom CSS for email address (different number of chars).</p>
+
+<p>As I do not give up, I try again :</p>
+
+
+<pre class="codeblock"><code>
+Contact me at &lt;span id=“myname”&gt;name&lt;/span&gt;&lt;span id=“myhost”&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;span id=“mytld”&gt;.tld&lt;/span&gt;
+&lt;style type=“text/css”&gt;
+#myname {} /* . . . . */
+#myhost { content:&quot;@emailhost”; width:150px; }
+#mytld  {} /* . . . . */
+&lt;/style&gt;</code></pre>
+
+<p>Some of the spans can probably be removed, the only critical one is the middle one.   If you embed the entire email address in the CSS, I suspect the robot will still find it.   I really wanted to use this CSS instruction in 2003, but browsers didn't support it very well.</p>
+
+UPDATE: a solution I scrapped from <sup><a href="https://stackoverflow.com/a/41434964/2375161" target="_blank">1</a></sup><br />
+Obviously that JS code is ancient, and probably simplified to be easier to read.<br />
+
+<pre class="codeblock"><code>
+&lt;a href=“mailto:user@domain@@com”
+   onmouseover=“this.href=this.href.replace('@@','.');&quot;&gt;
+   Send email
+&lt;/a&gt;</code></pre>
+
+<br />
+I also suggest you read <sup><a href="https://stackoverflow.com/a/41342264/2375161" target="_blank">2</a></sup>
+<h4 class="dontend" id="toc6"> Final solution <a href="#toc6"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<p>When first I thought about this, it seemed a simple idea.  Now I have written this, its trying to be clever without much gain.  #ToBeUpdated<br />
+The best solution that I am aware of is CSS generated content.  I am using generated content in other situations, so I am confused about why its not working...</p>
+
+<p>Please note these are proposals; not an agreed solution.  None of these is compliant to UK and EU legislation.  Please see <sup><a href="https://www.gov.uk/service-manual/helping-people-to-use-your-service/making-your-service-accessible-an-introduction" target="_blank">3</a></sup> or <sup><a href="https://cielo24.com/2016/12/uk-web-accessibility-law/" target="_blank">4</a></sup>, which is why I'm not using them.</p>
+
+
+<h2 class="dontend" id="toc7"> References. <a href="#toc7"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ol>
+    <li><a class="cleanimage" href="http://en.wikipedia.org/wiki/Email_address_harvesting" target="_blank">http://en.wikipedia.org/wiki/Email_address_harvesting</a></li>
+    <li><a class="cleanimage" href="http://www.private.org.il/harvest.html" target="_blank">http://www.private.org.il/harvest.html</a></li>
+    <li><a class="cleanimage" href="http://www.small-business-database-marketing.com/anti-spam-laws.html" target="_blank">http://www.small-business-database-marketing.com/anti-spam-laws.html</a></li>
+    <li><a class="cleanimage" href="http://www.lawdonut.co.uk/law/sales-and-marketing/marketing-and-advertising/your-email-marketing-and-anti-spam-law" target="_blank">http://www.lawdonut.co.uk/law/sales-and-marketing/marketing-and-advertising/your-email-marketing-and-anti-spam-law</a></li>
+    <li><a class="cleanimage" href="http://www.scotchspam.org.uk/law.html" target="_blank">http://www.scotchspam.org.uk/law.html</a></li>
+    <li><a class="cleanimage" href="http://www.w3.org/TR/CSS21/generate.html#content" target="_blank">http://www.w3.org/TR/CSS21/generate.html#content</a></li>
+    <li><a class="cleanimage" href="http://caniuse.com/css-gencontent" target="_blank">http://caniuse.com/css-gencontent</a></li>
+    <li><a class="cleanimage" href="http://www.labnol.org/internet/hide-email-address-web-pages/28364/#" target="_blank">http://www.labnol.org/internet/hide-email-address-web-pages/28364/#</a>!</li>
+</ol>
+
+
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="martech"><a name="adjacent" href=""></a> <p>Some similar articles in martech </p><div id="groupmartech" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-martech" title="This article lists all items in martech group.">All of <br />martech </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Safe rendering of your email address</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Femail-display" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Femail-display" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Femail-display" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Safe rendering of your email address</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Femail-display" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Femail-display" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Femail-display" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-20T23:27:40">20th of Sep 2020</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+<a href="Array/resource/email-display" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Tech history.</a></li>
+<li><a href="#toc1">Alternative strategies.</a></li>
+<li class="h4_odd"><a href="#toc2">A modest proposal.</a></li>
+<li><a href="#toc3">Plain text :</a></li>
+<li class="h4_odd"><a href="#toc4">Re-ordered version (v1) :</a></li>
+<li><a href="#toc5">Re-ordered version (smarter, v2) :</a></li>
+<li class="h4_odd"><a href="#toc6">Final solution</a></li>
+<li><a href="#toc7">References.</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:30:56">14th of Jul 2022, 14:30:56</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-20T23:27:40">20th of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

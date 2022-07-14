@@ -1,0 +1,212 @@
+
+ErrorDocument  500  /resource/500.html
+ErrorDocument  403  /resource/403.hgtml
+ErrorDocument  404  /resource/404
+DirectoryIndex index.html
+
+#  `index.htm`  is  ignored 
+Options  -Indexes  +FollowSymLinks -Multiviews
+IndexIgnore  */.ht*  *~  *#  */HEADER*  */README*  */_vti* 
+RewriteEngine  on 
+RewriteBase /
+
+rewritecond %{REQUEST_URI}     /test/
+rewriterule ^(.*)              http://owenberesford.me.uk/ [L,R=301]
+
+
+# if yiu can see this text, uoy can see the file system.
+rewritecond %{REQUEST_URI}      /res/  [OR]
+rewritecond %{REQUEST_URI}      /res-reach/  [OR]
+rewritecond %{REQUEST_URI}      /ast/  [OR]
+rewritecond %{REQUEST_URI}      /site/  [OR]
+rewritecond %{REQUEST_URI}      /lib/  [OR]
+rewritecond %{REQUEST_URI}      /res-test/ [OR] 
+rewritecond %{REQUEST_URI}      /.git/ [OR]
+rewritecond %{REQUEST_URI}      /.gitignore
+rewriterule ^(.*)               http://owenberesford.me.uk/ [L,R=301]
+
+
+RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
+rewritecond %{REQUEST_URI}		(.*)
+rewriterule ^(.*) http://owenberesford.me.uk/$1 [L,R=301]
+
+RewriteCond %{REQUEST_URI}      ^[/]*$
+RewriteRule .*				    /resource/home	[QSA,L]
+
+RewriteCond %{REQUEST_URI}      ^/resource/shopping-list-hack
+RewriteRule .*					/resource/shopping-list
+
+RewriteCond %{REQUEST_URI}      ^/resource/fullstack-developer
+RewriteRule .*					/resource/UX-engineer
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-martech
+RewriteRule .*					/render.php?resource=group-XXX&first=group-martech
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-engineering
+RewriteRule .*					/render.php?resource=group-XXX&first=group-engineering
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-research
+RewriteRule .*					/render.php?resource=group-XXX&first=group-research
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-uitools
+RewriteRule .*					/render.php?resource=group-XXX&first=group-uitools
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-worklog
+RewriteRule .*					/render.php?resource=group-XXX&first=group-worklog
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-legacy
+RewriteRule .*					/render.php?resource=group-XXX&first=group-legacy
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-architecture
+RewriteRule .*					/render.php?resource=group-XXX&first=group-architecture
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-english
+RewriteRule .*					/render.php?resource=group-XXX&first=group-english
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-images
+RewriteRule .*					/render.php?resource=group-XXX&first=group-images
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-research
+RewriteRule .*					/render.php?resource=group-XXX&first=group-research
+
+RewriteCond %{REQUEST_URI}      ^/resource/group-testing
+RewriteRule .*					/render.php?resource=group-XXX&first=group-testing
+
+
+# there is something different about the regex's on the live box.
+# I seem to need both variants to gt i to work on the live server.
+#RewriteCond %{REQUEST_URI}      ^/jdi 
+#RewriteCond %{REQUEST_URI}	 	!^/jdi/jdi.php [NC]
+#RewriteCond %{REQUEST_FILENAME}	!-f
+#RewriteCond %{REQUEST_URI}	 	!^/jdi/asset/ 
+#RewriteCond %{REQUEST_URI}      !^/mdb/
+#RewriteCond %{THE_REQUEST}		^[A-Z]+[\ \t]+/jdi/([^?#]*)\ HTTP\/.*$
+#RewriteRule .*		            /jdi/jdi.php?resource=%1	[L]
+#
+#RewriteCond %{REQUEST_URI}      ^/mdb/
+#RewriteCond %{THE_REQUEST}		^[A-Z]+[\ \t]+/mdb/([^?#]*)\ HTTP\/.*$
+#RewriteRule .*		            /mdb/public/index.php?%1	[L]
+
+#RewriteCond %{REQUEST_URI}      ^/jdi 
+#RewriteCond %{REQUEST_URI}	 	!^/jdi/jdi.php [NC]
+#RewriteCond %{REQUEST_FILENAME}	!-f
+#RewriteCond %{REQUEST_URI}	 	!^/jdi/asset/ 
+#RewriteCond %{REQUEST_URI}      !^/mdb/
+#RewriteCond %{THE_REQUEST}		^[A-Z]+[\ \t]+/jdi/([^?#]*)([#\?](.+))?\ HTTP\/.*$
+#RewriteRule .*		            /jdi/jdi.php?resource=%1&%3	[L]
+
+#RewriteCond %{REQUEST_URI}      ^/sf2 
+#RewriteCond %{REQUEST_URI}	 	!^/sf2/web/app.php [NC]
+#RewriteCond %{REQUEST_URI}      !^/mdb/
+#RewriteCond %{REQUEST_FILENAME}	!-f
+#RewriteCond %{THE_REQUEST}		^[A-Z]+[\ \t]+/sf2/([^?#]*)\ HTTP\/.*$
+#RewriteRule .*		            /sf2/web/app.php/%1	[L]
+
+<IfModule mod_headers.c>
+<Files "*.woff">
+Header add Access-Control-Allow-Origin 154.59.155.12
+Header add Access-Control-Allow-Origin 176.32.230.19
+</Files>
+<Files "*.woff2">
+Header add Access-Control-Allow-Origin 154.59.155.12
+Header add Access-Control-Allow-Origin 176.32.230.19
+</Files>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE text/javascript;charset=UTF-8
+  AddOutputFilterByType DEFLATE text/javascript  
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/css;charset=UTF-8
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE font/woff2
+  AddOutputFilterByType DEFLATE font/woff
+</IfModule>
+
+<FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2)$">
+<IfModule mod_headers.c>
+Header unset pragma
+Header unset cache-control 
+
+Header set Cache-Control "max-age=604800, public"
+Header set Pragma public
+Header set X-timing-data "%t %D"
+</IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+<If "%{REQUEST_URI} =~ /references/">
+	Header set Content-Type 'application/json; encoding=utf8'
+	Header set Cache-Control 'max-age=33280'
+</If>
+
+<If "%{REQUEST_URI} !~ /-references/">
+	Header set Content-Type 'text/html; encoding=utf8'
+	Header set Cache-Control 'max-age=86400'
+</If>
+<If "%{REQUEST_URI} !~ /-meta/">
+	Header set Content-Type 'text/html; encoding=utf8'
+	Header set Cache-Control 'max-age=86400'
+</If>
+
+<If "%{REQUEST_URI} =~ /min\.css/">
+	Header unset Content-Type 
+	Header set Content-Type 'text/css; encoding=utf8'
+</If>
+
+<If "%{REQUEST_URI} =~ /min\.js/">
+	Header unset Content-Type 
+	Header set Content-Type 'text/javascript; encoding=utf8'
+</If>
+
+<If "%{REQUEST_URI} =~ /\.jpeg$/">
+	Header unset Content-Type 
+	Header set Content-Type 'image/jpeg'
+</If>
+
+<If "%{REQUEST_URI} =~ /\.png$/">
+	Header unset Content-Type 
+	Header set Content-Type 'image/png'
+</If>
+
+<If "%{REQUEST_URI} =~ /\.woff$/">
+	Header unset Content-Type 
+	Header set Content-Type 'font/woff'
+</If>
+
+<If "%{REQUEST_URI} =~ /\.woff2$/">
+	Header unset Content-Type 
+	Header set Content-Type 'font/woff2'
+</If>
+
+<If "%{REQUEST_URI} =~ /\.ico$/">
+	Header unset Content-Type 
+	Header set Content-Type 'image/x-icon'
+</If>
+
+
+
+
+</IfModule>
+
+# vi: ts=4
+# vim: ts=4 sw=4 fdm=marker syn=apache
+

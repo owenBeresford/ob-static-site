@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Hash table notes</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Some notes about hashtables, why and how" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Hash table notes">
+<meta itemprop="description" content="Some notes about hashtables, why and how">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Hash table notes">
+<meta name="twitter:description" content="Some notes about hashtables, why and how">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Hash table notes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/hashtables" />
+<meta property="og:description" content="Some notes about hashtables, why and how" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:30:57" />
+<meta property="article:modified_time" content="21st of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Hash table notes",
+	"article:published_time":"14th of Jul 2022, 14:30:57", 
+    "article:modified_time":"21st of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+
+<h3 class="dontend" id="toc0"> What are hash tables? <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>This is an article for a meeting.  I am primarily putting this up to be able to display the images.  This is necessary, as to draw a tidy diagram with readable handwriting will take longer than I am supposed to spend during the contact time.</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Hash_table_5_0_1_1_1_1_0_LL.svg/1000px-Hash_table_5_0_1_1_1_1_0_LL.svg.png" alt="1000px-Hash_table_5_0_1_1_1_1_0_LL.svg.png" /></p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Hash_table_5_0_1_1_1_1_0_SP.svg/1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" alt="1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" /><br />
+Both these images are creative common images hosted in wiki.  The hosting URL is embedded.</p>
+
+<p>I sketch this as (in bigO, which was very popular when they designed these things)<br />
+First variant: O( X + Y ) degrading to O( X + nY )</p>
+
+<p>Second variant: O( X + Y ) degrading to O( X + 5Y ) ~ this is a guess on the worse bound.</p>
+
+<p>where X is the cost to make the hash, and Y the cost of retrieving the data (may or may not be in current memory).</p>
+
+<p>Discuss (this is verbal, so I have not written):</p>
+
+<ul class="ulbasic">
+    <li class="libasic">concept.</li>
+    <li class="libasic">why different to arrays.</li>
+    <li class="libasic">why different to general AVP structures structures (config files, “moron grade” NoSQL<a class="" href="https://www.google.co.uk/search?q=NoSQL">?</a>).</li>
+    <li class="libasic">low density use</li>
+    <li class="libasic">high density use</li>
+    <li class="libasic">buffering (d/b vs o/s)</li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> Historical requirements <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>When hashes where being designed as an algorithm, computers where much slower.  Secondly storage media on large amounts of data was considerably slower than it is currently.   Tricks to avoid any type of sequential search where considered valuable.  The algorithm was designed <sup><a href="http://www.perl.com/pub/2002/10/01/hashes.html" target="_blank">1</a></sup> in the early 1950s, before computers reliably had harddisks.<br />
+The basic idea of “do a extra step of computation” which would be a fixed cost, to void any other lookup overheads was appealing. There are a lot of possible algorithms to make a hash, some are outlined <sup><a href="http://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf" target="_blank">2</a></sup>.</p>
+
+<p>These days, expensive machines could just use a flat address space of 2^32 (signed) offsets, and an array.  Which is faster and simpler to compute.</p>
+
+
+<h3 class="dontend" id="toc2"> References <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>I pulled up some references as I only have 10m to talk about this.  These articles are longer and more detailed.</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><a class="cleanimage" href="http://en.wikipedia.org/wiki/Hash_table" target="_blank">http://en.wikipedia.org/wiki/Hash_table</a></li>
+    <li class="libasic"><a class="cleanimage" href="http://pointlessprogramming.wordpress.com/2011/02/20/what-in-the-hell-are-hash-tables/" target="_blank">http://pointlessprogramming.wordpress.com/2011/02/20/what-in-the-hell-are-hash-tables/</a></li>
+    <li class="libasic"><a class="cleanimage" href="http://www.laurentluce.com/posts/python-dictionary-implementation/" target="_blank">http://www.laurentluce.com/posts/python-dictionary-implementation/</a></li>
+    <li class="libasic"><a class="cleanimage" href="http://nikic.github.io/2012/03/28/Understanding-PHPs-internal-array-implementation.html" target="_blank">http://nikic.github.io/2012/03/28/Understanding-PHPs-internal-array-implementation.html</a></li>
+    <li class="libasic"><a class="cleanimage" href="https://www.cs.auckland.ac.nz/~jmor159/PLDS210/niemann/s_has.htm" target="_blank">https://www.cs.auckland.ac.nz/~jmor159/PLDS210/niemann/s_has.htm</a></li>
+    <li class="libasic"><a class="cleanimage" href="http://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf" target="_blank">http://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf</a></li>
+    <li class="libasic"><a class="cleanimage" href="http://web.textfiles.com/hacking/DYNAMICHELL/hashtables.txt" target="_blank">http://web.textfiles.com/hacking/DYNAMICHELL/hashtables.txt</a></li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> Some common implementations <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">Python has dictionaries, see <a href="http://svn.python.org/view/python/trunk/Objects/dictobject.c?view=markup" target="_blank">src</a></li>
+    <li class="libasic">Perl has hashes, see <sup><a href="http://cpansearch.perl.org/src/RURBAN/illguts-0.42/index-14.html" target="_blank">3</a></sup> <sup><a href="http://www.perl.com/pub/2002/10/01/hashes.html" target="_blank">4</a></sup> couldn't find a readable source inside reasonable time.</li>
+    <li class="libasic">PHP uses <a href="http://uk1.php.net/manual/en/language.types.array.php" target="_blank">associative arrays</a> , which are close relatives of hashes ~ <a href="https://github.com/php/php-src/blob/master/ext/standard/array.c" target="_blank">src</a></li>
+    <li class="libasic">C + + hash table libraries <sup><a href="http://www.cplusplus.com/forum/general/11875/" target="_blank">5</a></sup> <sup><a href="http://attractivechaos.wordpress.com/2008/08/28/comparison-of-hash-table-libraries/" target="_blank">6</a></sup> <sup><a href="http://www.cplusplus.com/reference/functional/hash/" target="_blank">7</a></sup></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"><a name="adjacent" href=""></a> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Hash table notes</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhashtables" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhashtables" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhashtables" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Hash table notes</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhashtables" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhashtables" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhashtables" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-21T07:32:03">21st of Sep 2020</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+<a href="Array/resource/hashtables" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">What are hash tables?</a></li>
+<li><a href="#toc1">Historical requirements</a></li>
+<li class="h4_odd"><a href="#toc2">References</a></li>
+<li><a href="#toc3">Some common implementations</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:30:57">14th of Jul 2022, 14:30:57</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-21T07:32:03">21st of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<script type="text/javascript"> 
+var f1=function() {
+$('div.fewWords p img').css("margin-left", "-300px");
+}
+$('document').ready(f1);
+</script>
+</body>
+</html>

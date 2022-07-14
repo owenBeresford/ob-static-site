@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>UX Engineer</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Discussion about work at HLL, I find it interesting." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="UX Engineer">
+<meta itemprop="description" content="Discussion about work at HLL, I find it interesting.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="UX Engineer">
+<meta name="twitter:description" content="Discussion about work at HLL, I find it interesting.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="UX Engineer" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/UX-engineer" />
+<meta property="og:description" content="Discussion about work at HLL, I find it interesting." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:31:33" />
+<meta property="article:modified_time" content="10th of Jun 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "UX Engineer",
+	"article:published_time":"14th of Jul 2022, 14:31:33", 
+    "article:modified_time":"10th of Jun 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>Hoptroff London was a startup and a new sub-company (the main company was producing luxury, massively high-tech and nano-second precise watches) that was founded to supply timekeeping solutions to banks and trading organisations, which as of mid 2017 must be compliant to MIFID2 legislation. Employed by a company that is technically groundbreaking; and holds patents for new process (at time of press, patent pending; I believe it was obtained in 2020).    This law <sup><a href="http://ec.europa.eu/finance/securities/isd/mifid2/index_en.htm" target="_blank">1</a></sup> is to limit organisations ability to <i>frontrun</i> trades.  Secondly HLL website says the company assists in GDPR as a secondary benefit <sup><a href="https://hoptroff.com/industries/marketing/" target="_blank">2</a></sup>.  This is not a normal e-commerce employer, they will only be selling to large banks and trading organisations.</p>
+
+<p>I was hired as “the developer” for the <i>user interface</i> for these solutions.  Most of the company's tech staff are C++ engineers doing the internal mechanisms for really precise distributed timing.  I think most of the value that I supplied was building a user centric perspective to the product.  In this company 'frontend' starts at the datastore, which my code doesn't populate.  I liked this project as it was complex, demanding and had a <i>quantifiable</i> definition of correct.  The heavy volumes of data to display mean it would be a challenge to render on mobile (not a core userstory).</p>
+
+<p>This entire project is very clearly NDA-d, the tech challenges that I have solved are:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">The MIFID2 terms state that data must be held for seven years, and as these companies trade all the time, every second must be covered. This requires a volume of data for every relevant machine, sampled on each metric, each second.  I designed most of the DB Schema.  The DB is written to continuously, and reads are aggregate operations.</li>
+    <li class="libasic">Being able to interactively render a medium volume of data (e.g. a 10^6 recordset); as most platforms allow over a month to be on screen.  For the analysts or auditors to be able to see this data in a clear numerically-valid fashion.</li>
+    <li class="libasic">A clear challenge was being able to perform statistics on fairly large datasets, without exceeding “maximum user wait time”, or available RAM.  This is hard  development and needs to be very test first process.   Secondly that volume of data exceeds the datastore query capacities; so the read queries have to be done in “sips” of data (see fire hydrant analogy).</li>
+    <li class="libasic">Convert all the raw numbers (which it is essential to keep); into summaries, as they are more useful in the visualiser.</li>
+    <li class="libasic">To do necessary statistics, so that the viewer has a clear vision of the trends, and therefore the visualiser must do calculations to display this. </li>
+    <li class="libasic">Another standard feature of platforms like this, is the creation of alerts.  Hoptroff London also has configurable alert generator to report when the current state exceeds various boundaries.  Obviously I took care that the data which resembles white noise a) raises enough alerts, b) doesn't raise too many (more stats).  This means that alerts that I am making are actionable.</li>
+    <li class="libasic">To require less user attention; the data in the client-side automatically updates. </li>
+    <li class="libasic">As each section of the UI requires alot of stats; each section is loaded as a different API call. Very carefully organised everything so each API didn't block the others; and the most conspicuous ones were done first.</li>
+    <li class="libasic">Least impressive: most user stories; I increased the levels of code maturity, for example automated build scripts to reduce repeated testing on deployment configuration.  </li>
+</ul>
+
+<p>The UX angle:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">There were two dominant story epics; report anything abnormal that is happening now (so remedial action can be performed); secondly report for legal or audit purposes, any particular event that happened in the past.  Some of the C++ code is managing clock adjustments, but that is not a feature of the visualisers.  </li>
+    <li class="libasic">I created Personas, which feeds my next point.</li>
+    <li class="libasic">I have created all the graphic design that this visualiser uses.  As an experience centred workflow, I focussed on Nouns used more than my colleagues e.g. customers used a “Compliance Report”, and ensured that when managers called this report “a PDF” it didn't get into the user interface.  The user interface mentioning “Why” is more useful to Users intentions than “How”.</li>
+    <li class="libasic">This project is atypical for e-commerce, in that only trained &amp; authorised Users will be accessing it.  </li>
+    <li class="libasic">I smoothed the interactions, so context is clear; and system state is coherent.    </li>
+    <li class="libasic">Regardless if the current interaction leaves the browser session; the user journey must be joined up.</li>
+    <li class="libasic">To make the volume of data easier to see, I integrated a client side graphing library.  I accumulatively spent months improving mathematical presentation and added some UX-optimisations.</li>
+    <li class="libasic">Set  URLs to match the current terminology; despite that the product pivoted; and changed the words.   In line with REST, I allowed most settings to be set via the URL, so links can easily be shared/ reloaded. </li>
+    <li class="libasic">For some users, alerts are the most frequent interaction point on the autonomous system.  The wording on these has been carefully optimised so that it fits without wrapping or scrolling on a older iphone5 (a reference phone with longevity).  Secondly I revised the first draft of another developer, so that the white-space made the other content much more clear, again important for small screens. </li>
+    <li class="libasic">I created the whole process to allow users to evaluate the first product (i.e. the non-core user stories).  This is quite heavy in people management and release management.  </li>
+    <li class="libasic">On the first product, implemented a smooth content infill; so a inline graph placeholder is on screen and then swapped with real data.</li>
+    <li class="libasic">In later products, I am using SVG graphs, which are obviously good for RWD.  I didn't do this in the early iterations of the first product, as a director was keen for a type of stacked graph, which I could only find in 1 OSS library (but it is also available in Highcharts and Google Charts).</li>
+</ul>
+
+<p>As this is a small company roster, I was doing a wide range of professional behaviour as is common in small companies.  This is not a demotion from my previous job title, unless you look at the title alone.  After 3rd quarter of 2018, HLL has expanded, and recruited more staff.  My initial title was “full stack developer”, and my activities where quite broad.   The brochure website was outsourced, and not done by me.   By 2021, my work in the company then refered to multiple products, in a more narrow domain.  I have performed the same types of work in each case.   Further note, that if you read the whole of my site, on this resource I am using the term “User”, on other resources, I am not.  This a different project, in a different situation.<br />
+Retrospectively, this startup had a fairly high rate of churn amongst senior non-share owning employees.   After I left, I have been called back once for some contracting; as the static business requirement was changing.  I will not let this interfere with later contracts.</p>
+
+
+<br />
+<summary>
+<!-- this widget only applies to the list of jobs; so I haven't made a new template. . . .yet -->
+<dl class="focuss" title="Recruiters: Extracted list of keywords for this role.">
+<dt>Keywords:</dt>
+<dd>UX, data normalisation, data modeling, graphing, communication via graphs, notifications, data exceptions, stateless updates </dd>
+</dl>
+</summary>
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"><a name="adjacent" href=""></a> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>UX Engineer</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2FUX-engineer" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2FUX-engineer" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2FUX-engineer" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>UX Engineer</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2FUX-engineer" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2FUX-engineer" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2FUX-engineer" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-06-10T11:19:30">10th of Jun 2022</time></span>
+<span>Created <time datetime="2020-06-08T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >8th of Jun 2020</time> </span>
+</span>
+<a href="Array/resource/UX-engineer" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:31:33">14th of Jul 2022, 14:31:33</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-06-10T11:19:30">10th of Jun 2022</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

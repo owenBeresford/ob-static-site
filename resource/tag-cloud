@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Tag cloud plan.</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Are tag clouds still relevant? What are the requirements of tagclouds?" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Tag cloud plan.">
+<meta itemprop="description" content="Are tag clouds still relevant? What are the requirements of tagclouds?">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Tag cloud plan.">
+<meta name="twitter:description" content="Are tag clouds still relevant? What are the requirements of tagclouds?">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Tag cloud plan." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/tag-cloud" />
+<meta property="og:description" content="Are tag clouds still relevant? What are the requirements of tagclouds?" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:31:33" />
+<meta property="article:modified_time" content="22nd of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Tag cloud plan.",
+	"article:published_time":"14th of Jul 2022, 14:31:33", 
+    "article:modified_time":"22nd of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h2 class="dontend" id="toc0">Very old article <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>As this is my own data-space, I would like to add alternative forms of access.  For me personally linear indices have a fairly low utility, as I 'chunk' English differently.   <strong>This is not “cool technology”</strong>, but a way to avoid regimented-English-use, which is opaque to casual or first time users.</p>
+
+
+<h2 class="dontend" id="toc1"> Discussion on usage. <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>I haven't used tag-clouds in blogs very much.  The prototype that I picked up at University of London was just a GUI rendering of a PhD student thesis.  The interesting bits where the analysis and interpretation.   I have seen alternate UI to Google since then, which played on the same theme <a href="http://owenberesford.me.uk/resource/tag-cloud#note1" target="_blank">1</a>.  Zeitgeist summarisation/ rendering.<br />
+As a list of keywords in the current document, a cloud seems low utility.  The size impling weighting allows to on to very quickly adsorb a summary, but hopefully an abstract and titles list would do the same thing.<br />
+My intended use is a link to any of the <b>content</b> in the entire site.   To clarify, people put content in structures that represent the organisational and philosophical structures of the author(s).  The reader is a different person, and may not chunk the data in the same fashion.  “I need a thingie” is a common problem, but tag-clouds should invert the knowledge/learning expectations, so the computer tells you what 'thingie' you meant.  As ever, more technology makes the correct and precise use of language more important.</p>
+
+
+<h2 class="dontend" id="toc2"> My initial sketch solution <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ol>
+    <li>Fillin all the keywords properly</li>
+    <li>Extend keywords to take  a weighting (as http language selection)</li>
+    <li>Build a cache of all keyword and weightings to resources, in both directions</li>
+    <li>Create weighting=fontsize (will need to be normalised) SPAN elements</li>
+    <li>Let the html renderer pack them</li>
+    <li>When selecting via tag, add to strapline somehow</li>
+    <li>Add a box below the menu</li>
+</ol>
+
+
+<h2 class="dontend" id="toc3"> Data capture discussion <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>On the basis that the outcome required is a list of links the user may select, it is better use of screen estate to stem everything.  A word may always be used in the plural form, but the tag would be singular, this allows cancelling of duplicates easier.  All spelling is to be dictionary standard.</p>
+
+<p>Text is to be normalised, currently this process is defined as :</p>
+
+<ol>
+    <li>Text chunks are exploded and trimmed down to lists of “just words”, </li>
+    <li>stop word filtered, </li>
+    <li>spell checked (failures logged, for human analysis),</li>
+    <li>and stemmed</li>
+</ol>
+
+<p>Sources for tags</p>
+
+<ol>
+    <li>The meta data currently supports a list of keywords, to be used in the HTML headers.  This is a convenient point for non-explicit concepts, for example as would happen when the resource subject isn't listed in the titles, and the subject isn't frequently occurring in the content.   <ol>
+        <li>This list has no weighting attached to it, the format will need to be extended to include this data. This change is tagged for development in format2<a class="" href="">?</a></li>
+    </ol></li>
+    <li>Extract resource titles, and process them.  I will need to perform this computation “out of line”, there is no need to install textual analysis tools on the live host, as I am the only author.  This section will be little value for documents which resemble CPAN project pages. The text will be normalised and “contextual interpretation” - that is a title of “References” shouldn't be a tag in the resource.  This stage would need to be done with <a href="http://linux.softpedia.com/get/Text-Editing-Processing/Others/WordNet-29452.shtml" target="_blank">Wordnet</a> or similar analysis tools.</li>
+    <li>Backlinks as a concept are not proprietary to Google, and are highly effective.  As a second “out of line” process, spider the site, caching normalised visible text to describe resources.</li>
+    <li>Frequent noun extraction, this is sensitive.   With my writing style, I don't know if this list would be valuable.  Words would need to be classified using <a href="http://linux.softpedia.com/get/Text-Editing-Processing/Others/WordNet-29452.shtml" target="_blank">Wordnet</a>.  All the normalised words over a certain frequency could be used.</li>
+</ol>
+
+<p>Applying the above should build a list of tags for each document.  The importance of each tag can be assigned from how many of the above factors include it, how many other resources include it, and a hard-coded weighting spread, similar to Googles semantic extraction.</p>
+
+
+<h3 class="dontend" id="toc4"> Further reading. <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>I am creating this widget as a study of data systems, and NoSQL style structures.  I reference the following caveats <sup><a href="http://www.smashingmagazine.com/2007/11/07/tag-clouds-gallery-examples-and-good-practices/" target="_blank">1</a></sup> <sup><a href="http://en.wikipedia.org/wiki/Tag_cloud" target="_blank">2</a></sup> <sup><a href="http://woorkup.com/2010/01/20/the-death-of-tag-clouds/" target="_blank">3</a></sup><br />
+There is an article written in 2007, recommending tag-clouds; but the example with technorati clearly demonstrates why to not use them <sup><a href="http://joeldowns.com/2007/03/04/why-everyone-should-use-tag-clouds/" target="_blank">4</a></sup>.</p>
+
+<p>Personally alphabetically sorting the tags seems low utility (this type of character centric mentality, rather than semantics, is what I was attempting to avoid).  Humans are not a computation, but a relationship.</p>
+
+<p>The tag cloud on this is nice (but its implemented in Flash) <sup><a href="http://www.economist.com/blogs/freeexchange/2013/04/exchange-rates" target="_blank">5</a></sup></p>
+
+
+<h2 class="dontend" id="toc5"> Third party tag-cloud libraries. <a href="#toc5"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>I want to have good use of the source, but below are examples of some of the libraries I looked at.  The libraries seem to focus on rendering rather than information spaces.  Making an UL list and styling it is trivial, and not the focus of my attention.  That is a library defining a function “import_tags” with a static PHP array of keywords is valueless to current requirements <sup><a href="http://stevethomas.com.au/php/how-to-make-a-tag-cloud-in-php-mysql-and-css.html" target="_blank">6</a></sup> <sup><a href="http://hub.lotsofcode.com/tag-cloud/" target="_blank">7</a></sup> <sup><a href="http://www.phpclasses.org/package/3466-PHP-Generate-tag-clouds-from-lists-of-tags.html" target="_blank">8</a></sup> <sup><a href="http://www.wolf-software.com/downloads/php-classes/development-classes/tag-cloud-class/" target="_blank">9</a></sup> <sup><a href="http://viralpatel.net/blogs/2009/03/generating-tag-cloud-with-php-mysql.html" target="_blank">10</a></sup></p>
+
+
+</div>
+
+<a name="note1">[1]</a> Sorry that was a hard disk ago, the reference is lost.
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="martech"><a name="adjacent" href=""></a> <p>Some similar articles in martech </p><div id="groupmartech" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-martech" title="This article lists all items in martech group.">All of <br />martech </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Tag cloud plan.</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftag-cloud" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftag-cloud" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftag-cloud" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Tag cloud plan.</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftag-cloud" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftag-cloud" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftag-cloud" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-22T23:09:08">22nd of Sep 2020</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+<a href="Array/resource/tag-cloud" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Very old article</a></li>
+<li><a href="#toc1">Discussion on usage.</a></li>
+<li class="h4_odd"><a href="#toc2">My initial sketch solution</a></li>
+<li><a href="#toc3">Data capture discussion</a></li>
+<li class="h4_odd"><a href="#toc4">Further reading.</a></li>
+<li><a href="#toc5">Third party tag-cloud libraries.</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:31:33">14th of Jul 2022, 14:31:33</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-22T23:09:08">22nd of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

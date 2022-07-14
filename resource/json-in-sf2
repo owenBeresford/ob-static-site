@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>JSON POSTs in SF2</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Plans and requirements for using JSON directly in SF2." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="JSON POSTs in SF2">
+<meta itemprop="description" content="Plans and requirements for using JSON directly in SF2.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="JSON POSTs in SF2">
+<meta name="twitter:description" content="Plans and requirements for using JSON directly in SF2.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="JSON POSTs in SF2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/json-in-sf2" />
+<meta property="og:description" content="Plans and requirements for using JSON directly in SF2." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:30:58" />
+<meta property="article:modified_time" content="21st of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "JSON POSTs in SF2",
+	"article:published_time":"14th of Jul 2022, 14:30:58", 
+    "article:modified_time":"21st of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>I can see a big use case for SF2 being a REST SOA for applications.  I can see JSON being a common approach for communication inside this.  As a modularised framework, SF2 doesn't do JSON transactions natively, but it is easy to educate it.  It would also likely to be a REST API, but REST is implemented via <a href="https://packagist.org/packages/friendsofsymfony/rest-bundle" target="_blank">FOS REST bundle</a>, so there is little point in going into that in this article.  The FOS module is widely used and seems to have an active development cycle.  There are new releases quite frequently.</p>
+
+<p>SF2 does have quite good POST validation libraries and transcoders (so your business logic only needs to consume Entities not raw arrays).  The Validation is described in the SF2 docs, and various howtos online, so I will omit that from this article as well.  The input validation can't read JSON blocks by default.</p>
+
+<p><i>If there really isn't a library for this, I will need to write one.  Engineering requires that this library exists, but not that it is public. </i></p>
+
+
+<h3 class="dontend" id="toc0"> Requirements <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>The requirements are longer than just parse JSON, as this will reduce the cost of the business logic, and increase quality faster.  Likewise the business logic shouldn't care if a client does requests in XML, the framework should deal with the translation.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Process JSON POSTs or PUTs from clients (its a business logic decision what to do with the request);</li>
+    <li class="libasic">Deal with any UTF-8 issues;</li>
+    <li class="libasic">Deal with anything to do with dates, so business logic gets a DateTime object or similar.  JSON is abit poor with dates;</li>
+    <li class="libasic">Deal with objects and arrays of objects;</li>
+    <li class="libasic">Must not crash on empty requests (I guess a HTTP400 error);</li>
+    <li class="libasic">The resultant entities classes will need to be configurable;</li>
+    <li class="libasic"><b>Route configuration is not part of this feature;</b></li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> Notes <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">PHP does ship with a JSON decoder and encoder.</li>
+    <li class="libasic">It is possible to set the content in the Request object, via replace() for old versions of SF2. This feature has been removed.  For new version you can make a new Request object.</li>
+    <li class="libasic">The single purpose JSON actions should be isolated from requests they shouldn't need to handle.  The point of a flexible and extendible routing layer is all the specific and valid routes can be skimpy on input validation. e.g. JSON POST actions don't need to think about GET, a GET will be routed to a different action.</li>
+    <li class="libasic">Most POST readers require a name for the POST data.  In many B2B<a class="" href="https://www.google.co.uk/search?q=B2B">?</a> systems, I have standardised on 'xml', I guess this could be 'json'.</li>
+    <li class="libasic">The Entities will probably need to implement one of the interfaces, as you do for ORM.   Work should be pushed into the parser, so Entities don't all need to implement an unpack function.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> Existing solutions <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>This is the first time I have addressed this inside SF2, but this is not a new requirement.  There must be an existing library (although there is no need for it to be public).</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Although only partially relevant, SF2 does have <i>Symfony\Component\Serializer\Encoder\JsonDecode<a class="" href="https://www.google.co.uk/search?q=JsonDecode">?</a></i>.   M. Noback does have a concept <sup><a href="http://php-and-symfony.matthiasnoback.nl/2012/01/the-symfony2-serializer-component-create-a-normalizer-for-json-class-hinting/" target="_blank">1</a></sup>, but this would not be portable in a heterogeneous environment.</li>
+    <li class="libasic">Qandidate have published <sup><a href="http://labs.qandidate.com/blog/2014/08/13/handling-angularjs-post-requests-in-symfony/" target="_blank">2</a></sup> or code <sup><a href="https://github.com/qandidate-labs/symfony-json-request-transformer" target="_blank">3</a></sup>.</li>
+    <li class="libasic">W Durand <sup><a href="http://williamdurand.fr/2012/08/02/rest-apis-with-symfony2-the-right-way/" target="_blank">4</a></sup>.</li>
+    <li class="libasic">As related work, A Quaile's library <sup><a href="https://github.com/adamquaile/json-object-mapper" target="_blank">5</a></sup> does JSON to array of objects.</li>
+    <li class="libasic">I find this odd.  I tried repeating the search without mentioning Symfony2, I get back articles with good quality pseudo code; no libraries</li>
+</ul>
+
+
+<h2 class="dontend" id="toc3"> Update: FOS REST bundle includes a decoder. <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"><a name="adjacent" href=""></a> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>JSON POSTs in SF2</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjson-in-sf2" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjson-in-sf2" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjson-in-sf2" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>JSON POSTs in SF2</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjson-in-sf2" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjson-in-sf2" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjson-in-sf2" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-21T08:49:49">21st of Sep 2020</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+<a href="Array/resource/json-in-sf2" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Requirements</a></li>
+<li><a href="#toc1">Notes</a></li>
+<li class="h4_odd"><a href="#toc2">Existing solutions</a></li>
+<li><a href="#toc3">Update: FOS REST bundle includes a decoder.</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:30:58">14th of Jul 2022, 14:30:58</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-21T08:49:49">21st of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

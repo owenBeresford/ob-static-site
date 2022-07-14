@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Architectures and Agile</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="This article is an attempt to push a large set of ideas and process into text.  This is important, please read." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Architectures and Agile">
+<meta itemprop="description" content="This article is an attempt to push a large set of ideas and process into text.  This is important, please read.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Architectures and Agile">
+<meta name="twitter:description" content="This article is an attempt to push a large set of ideas and process into text.  This is important, please read.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Architectures and Agile" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/architecture" />
+<meta property="og:description" content="This article is an attempt to push a large set of ideas and process into text.  This is important, please read." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:30:55" />
+<meta property="article:modified_time" content="8th of Jun 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Architectures and Agile",
+	"article:published_time":"14th of Jul 2022, 14:30:55", 
+    "article:modified_time":"8th of Jun 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p>I recently went to a short course on architectures, and engineering tools.  I now have another cert for my file.  This is an article about the course and the teaching, I do not intend to write out the course material.  I write my reflections on the supplied information.  Writing these is important, or one tends not to apply the course material to ones process, but quite time expensive.<br />
+The course notes and quite a few papers are provided free access via <a href="http://www.gilb.com" target="_blank">T Gilb's website</a>.  If you are interested in your own study, please contact T Gilb, who is focussing more on courses than contracts at present.  There was a supplementary course on the Friday on communications, but I needed to get back to work.</p>
+
+
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> Core precepts <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>T Gilb is an Agile coach; that is he encourages business to revise architecture so it is compliant to Agile process.   I claim to be able to follow Agile, which is the majority of what T Gilb's activity objectives are, and have been paid for doing them.  However T Gilb is doing them on a scale substantially larger than me; apparently on the scale that he is contracted for, failure is quite common.  I normally justify my expense.  He states that this is mostly to do with the first level documentation, which people are very busy writing, but they write wrongly/ with an ineffective approach.<br />
+In all of his experience, it is always necessary to model a large number of stakeholders, all of which want different things.  His process is numerically focussed, so he can state he only fails when there is data not supplied to him.  To clarify that, he will focus his budget on the best known method to build the most important thing; but if he is mis-told the most important thing, he will fail to produce a valuable outcome.   The large number of stakeholders mean any requirements and process will be quite complex to compute.  Again his analytical technique carries this concept.  He focusses on the most important stakeholder, and their most important ten goals.  This provides a known improvement, on the biggest thing.  As he is normally controls his budget situation, further objectives can be pursued afterwards.  I will supply this document to my paperwork-shy “agile” colleges (as an example of paperwork being a useful tool to generate the right results, inside an Agile environment.  If you can't type, docs are slow, but so is coding).   As an extension of this, correctness is important, accuracy is important, precision isn't.  My idea which is <em>roughly</em> four times faster, is still worth investing in; but if it costs more than the return to work out precisely the gain, it isn't worth investing in, not even the paperwork.</p>
+
+<p>He states something I had never analysed before: We are rarely building a new system ~ we are building a better version of what we have.  For example banking hasn't changed since the 1800s, new computer systems are deployed every few years which decrease costs, increase performance and increase the userbase.  We ~ the technical people ~ should only sell on these values.  The new systems MUST perform better than the current one (unlike the 5wd for a cheque to clear, done by a PC; which was 3wd in the 1970s, done by hand).  He also talked about the difference between engineering and science.  My first degree is in computer science, I make experiments, and write it up afterwards.  Failure is an allowed outcome, as I am doing something new.  With engineering, I am building towards definite goals, with a known and tested process.  This is spending someone's money to give them something; failure isn't one of the options.</p>
+
+<p>T Gilb's modus operandi is to take the current architecture and redraft it so it an Agile architecture.  To decompose the majority of sentences into three heaps: functions, qualities and solutions.  There should be NO solutions in the initial specification.  These are choices which should come later in the process.  As just written, the functions are largely predictable, and should not be affected by marketplace competition.  If you provide a different thing, the users wanting the original thing will ignore you; if you provide a better thing than your competition, they will talk with you.  To purge the solutions, which are likely to be listed; keep asking “why” (a la the Japanese management technique <sup><a href="http://amorebeautifulquestion.com/ask-why-five-times/" target="_blank">1</a></sup>). To clarify that with an example, you do not want a password on your system, its poor usability; you want a secure system, with data integrity.  As everything is rendered to a number, there should be consistent quality in the specification.  This means it is easier to produce the right thing.</p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+<p>There should be no attachment to solutions, and these should not be listed in the requirements.  If this process is followed, one may try a solution, if it doesn't work, swap it out for a second.  It was not discussed how this plays with iterative development.  T Gilbs process goal is the biggest known-cost changes come first, so there is some visible improvement to the system, this occurs at the start.  K Gilb states that all features can be free at a really low quality, so small quick alterations allow “a solution”.  The iterative structures were designed for “new systems”, so whatever solution one presented was a new thing.</p>
+
+
+<h3 class="dontend" id="toc1"> What are my words/ communication? <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>This section is under this title, as T Gilb uses more structured language than I do.  He adds emphasis to certain terms.  The words he uses are to reduce length, and after good definition, quite orthogonal to each other.</p>
+
+<p>For the last several years, I have been doing implementation planning with the titles “whut”, “why”, “how”.  About 60 or 70% of “how” is how to test.   These documents are as concise as practical; not massively formal; and support the fact I write better English when I do it at a separate time to writing code.  They either live in the code repository along with the source, or in the project tracking software.<br />
+I am not in an architect role at present, and so not doing architecture.  As comparison ~ at ms ~ although under a developer role; I did large amount of non-feature value creation.  I changed the what the directors (who also did client work) needed to do, in order to present solutions.  To take a single example, I spent about 2wd to remove about 0.5wd on every subsequent piece of work, by redefining the process (and automating 50% of it).  If one is using the light weight Agile process, this is as much of an “architect” role as the company needed.<br />
+In future, I will try to get the commercial people (representative of the actual external clients) to have “value” section on larger bits of work.  What are the values and goals that I am fulfilling?  This is one of the points that T Gilb describes for reducing failure.<br />
+T Gilb is actually retired, and so had his education a long time ago.  The “time and motion” studies <sup><a href="http://en.wikipedia.org/wiki/Time_and_motion_study" target="_blank">1</a></sup>  were fashionable in the 1950/1960s.  His initial understanding of “management” and “engineering” is influenced from this time ~ everything should be calculatable as a number.  To broaden the scope of his abilities, he is also was applying the numerical analysis perspective to words.  Weighted terms for the Gilbs are “clear”, “quantitative”, “clarify”; “define” and “concrete” should be, but they didn't mention them.   As they are selling a management and concentration process, rather than skills in any domain; detail on language used is universally important.  They claim to push for all key nouns in documents being defined, to reduce ambiguity; and I guess reducing verbosity (when a word is defined, precisely; it may cover several sentences, which would otherwise be needed).  <br />
+The biggest difference between this and other processes that I have read is the enforcement of quantitative output, for the initial change request.  From a developer or designers perspective this generates definite bounds on what is required, so the right solution is justifiable.   If you need to effect a large change in outcomes, it is obvious you need to effect a change in the way you do things.  Numerical analysis on this stage is therefore valuable.  Conversely a small change, shouldn't require a rewrite of anything.  Being able to use the consultants skills, so that management to express their goals in terms of quantifiable results, not emotive ambitions is very useful.  This does balance the quantitative analysis on the developers activities/ performance.  The quantified changes listed the in specification should also list the quantified change the competition have done recently / are expected to do.</p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+<p>T Gilb dislikes the terms “MUST” and “SHALL” (with “MUST NOT” and “SHALL NOT”).  He states these are inflexible, and fail to support the number of different concurrent requirements that need consideration.  Looking at his stakeholder analysis, I would tend to agree with that.  I have only seen these terms used in RFC, where I think they are justified.  If all parties are going to communicate, they MUST talk the same language (pun intentional).  Sensible RFC do not constrain your implementation (e.g. RFC 2866 <sup><a href="http://tools.ietf.org/html/rfc2866" target="_blank">1</a></sup>), but some of the commercially created ones are someone's implementation plan, with the confidential bits stripped <a href="http://owenberesford.me.uk/resource/architecture#note1" target="_blank">1</a>.  RFC are not supposed to be implementation plans, or requirements lists.  They are supposed to be detailed contracts for the boundaries between entities.  A document on what software MUST do, so any any piece of compliant software may talk with any other compliant software.  What use is SQL if we don't agree how to say things?</p>
+
+
+<h3 class="dontend" id="toc2"> What do I gain <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>For writing requirements (not implementation plans), one lists impacts (not transforms).  Having a written quantified scale on what change is needed, T Gilb does a few estimates on what change could be performed to effect these.  The documents he uses have many conditional clauses in them, and resemble CSS.  Where the proposed solutions and the supplied resources don't match, he renegotiates ~ early before much is spent.  His paperwork process allows this type of discussion after a few days.  One of other terms is “ambition”.  Due to there being large number of stakeholders, renegotiation is quite common.  For example, if one is commissioned to rebuild the interior of a public use mansion, and the owner is thinking of a large spiral staircase in marble; the stakeholder for legal compliance will need to be consulted for the best way to still keep them happy for wheelchair access.  The person paying is clearly the most important stakeholder, but legal requirements cannot be avoided.</p>
+
+
+</div>
+<p>T Gilb has a symbol for scales, which looks like a old technology pole ladder; or a slider dial.  As everything is quantified, it is clearer/ faster to read in graphical form.  His quantified scales looks like this:</p>
+  
+<pre class="codeBlock literal">
+    Past [2012, en_UK, DataElements=All, Purpose=Testing]
+		40% ± 30% percentage of code tested <- TsG
+
+    NewProcessReleaseDate [late2013, en_UK, DataElements=All, Purpose=Testing]
+		60% ± 10% percentage of code tested <- OAB1
+    NewProcessReleaseDate [late2013, ES, DataElements=All, Purpose=Testing]
+		30% ± 10% percentage of code tested <- OAB1
+    NewProcessReleaseDate [late2013, cn_HK, DataElements=All, Purpose=Testing]
+		30% ± 10% percentage of code tested <- OAB1
+</pre>
+<div class="lotsOfWords">
+<p>To express that as English, the testing must be to a known saturation, or it is not much use.   Not everything needs to be tested, which is why the target is only 60%.  With the example, there is definite bounds on the change needed so “does it work” is simple to compute.  The big reason for this change to reduce reduce ambiguity on what is tested, so we can sign things off.  My initials are on the new state, as I set the required saturation (its the ratio between utility code, and decision making code; one needs to test the latter).  After all the decision making code is tested in English, some testing is needed for other languages, but not as much.  I hope it is obvious which requirements representation most useful, and which can be speed-read.<br />
+As previously stated everything is accurate, but not necessarily precise.  A good example of this trend is GPS (when co-ord are quoted to 4 or 5 DP).  Note, every datum is notorised with a source, so we may check its validity.  Otherwise “nameless authority” leads to lack of taking responsibility, and quality dropping off.</p>
+
+
+</div>
+
+<hr />
+<a name="note1">[1]</a> There is an RFC that I am thinking of, written under the microsoft flag, which is a list of their API calls.  Probably version locked to a specific version of windows.  I have read this, but need to justify my claim.
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering,research"><a name="adjacent" href=""></a> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div><p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Architectures and Agile</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitecture" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitecture" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitecture" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Architectures and Agile</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitecture" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitecture" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitecture" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-06-08T21:02:57">8th of Jun 2022</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+<a href="Array/resource/architecture" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Core precepts</a></li>
+<li><a href="#toc1">What are my words/ communication?</a></li>
+<li class="h4_odd"><a href="#toc2">What do I gain</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:30:55">14th of Jul 2022, 14:30:55</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-06-08T21:02:57">8th of Jun 2022</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

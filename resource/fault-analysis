@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Fault Analysis</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="How to trace a fault in a PHP stack platform." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Fault Analysis">
+<meta itemprop="description" content="How to trace a fault in a PHP stack platform.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Fault Analysis">
+<meta name="twitter:description" content="How to trace a fault in a PHP stack platform.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Fault Analysis" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/fault-analysis" />
+<meta property="og:description" content="How to trace a fault in a PHP stack platform." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:30:56" />
+<meta property="article:modified_time" content="20th of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Fault Analysis",
+	"article:published_time":"14th of Jul 2022, 14:30:56", 
+    "article:modified_time":"20th of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>I wrote this text, as it is quite hard to articulate a fault finding process.  From an initial unknown problem, there are many different vectors to investigate.  The list of failure conditions are things that I have had happen to me, I haven't googled anything; just written with better structure.</p>
+
+<p>Please note, I can use step-through debuggers; but generally feel that they are a slow solution.  They are useful for looking at an unknown segfault that you can't spot, but as most errors report under Unix systems; they offer little additional information.  I use these when stuck, and not before.</p>
+
+
+<h3 class="dontend" id="toc0"> Situation: <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>Some of your companies code is failing a percentage of the time. Instead of a page, a bold white screen is returned.</p>
+
+
+<h3 class="dontend" id="toc1"> My Process: <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>if you have a well setup system, this list of items is fast.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">The first thing is a binary search on the platform to partition what is failing.<ul class="ulbasic">
+        <li class="libasic">Does the fault occur in all browsers?</li>
+        <li class="libasic">If I look at the client diagnostic tools (e.g. Firebug or Venkmann etc) am I getting valid output?</li>
+        <li class="libasic">Are there any faults written in the webservers error log (or general syslog log if relevant)?</li>
+        <li class="libasic">Look at the log book, what has changed recently ?</li>
+        <li class="libasic">On a test server, run the code without resource constraints, and see if the issue still occurs.  If this stops it breaking, maintain service availability by making this change, whilst actually looking for the fault.</li>
+        <li class="libasic">Assuming the system has user profiles, does the fault occur for all types of user?</li>
+        <li class="libasic">How many features have this fault (what area of the code)?</li>
+    </ul></li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> Possible causes: <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">Sometimes high usage will lead to databases “gone away” (literal text).  This can be resolved by altering how your interpreter is using DB connections, or by increasing the number of DB workers.</li>
+    <li class="libasic">Sometimes congestion will lead to a saturated DB, and some queries hang not execute.  This can be resolved by improving your SQL.  Frozen queries should be aborted (via tools) to improve the service for everything else.</li>
+    <li class="libasic">It is potentially possible that the number of client has exceeded the number of Apache workers.  To resolve, add more workers; or look at why your asset processing is taking so long.</li>
+    <li class="libasic">Long running SPA may exhaust RAM on the client.  This is mostly a MSIE problem.  Use the MSIEleaks tool, fix your memory leaks; or build your client side scripts so that they pass id string, not the DOM objects.</li>
+    <li class="libasic">If you are starting and stopping XML parsers alot, it is possible to exhaust handles on Expat.  They are still exhausted if you kill all PHP processes; to resolve you have to reboot.  Ensure your code deallocates all the Expat resources that it uses, specifically in the error states.</li>
+    <li class="libasic">With massive concurrency, it is possible to exhaust IO handles (as allocated by the kernel).  To fix, don't open handles that you don't need, and look at your architecture. There is probably something that should be changed.</li>
+    <li class="libasic">Don't forkbomb.</li>
+    <li class="libasic">Be careful about creating Perl processes; the maximum limit for Perl is lower than other processes types.</li>
+    <li class="libasic">On some filesystems/ via some tools; writing more than 2GB per file leads to problems. Analyse if you need this (yes for DB, which are written specifically to deal with this...). </li>
+    <li class="libasic">See if a complex computation could be performed by a different library, written in a more high performance language.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> Actions: <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">For the above list of items; was any specific data returned?  If so resolution should be easy.</li>
+    <li class="libasic">If this is practical; run all the testcases, specifically the performance ones on complete subsystems.</li>
+    <li class="libasic">Turn on crash reporting features (to log to a log).  This will tell you about the failures better.  I have crash handlers etc</li>
+    <li class="libasic">If you have no useful analysis; fail over to xdebug.  I repeat everyone elses notes about not running that on a production machine.  This will provide better data about segfaults, if other mechanisms failed.  Alter what the xdebug trace tells you.</li>
+    <li class="libasic">Run xdebug in interactive mode, can't be done on a production server.   I don't need to use this approach very often; as I can read code quite well, and earlier mechanisms generically tell me what I need to know.  I note that Zend likes people using the debugger, as it encourages sales on their IDE.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"><a name="adjacent" href=""></a> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Fault Analysis</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffault-analysis" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffault-analysis" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffault-analysis" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Fault Analysis</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffault-analysis" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffault-analysis" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffault-analysis" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-20T23:29:03">20th of Sep 2020</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+<a href="Array/resource/fault-analysis" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Situation:</a></li>
+<li><a href="#toc1">My Process:</a></li>
+<li class="h4_odd"><a href="#toc2">Possible causes:</a></li>
+<li><a href="#toc3">Actions:</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:30:56">14th of Jul 2022, 14:30:56</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-20T23:29:03">20th of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

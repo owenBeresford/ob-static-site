@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Visitors tool</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A several month project I wrote at a previous employer, read for heatmaps and pinmaps." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Visitors tool">
+<meta itemprop="description" content="A several month project I wrote at a previous employer, read for heatmaps and pinmaps.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Visitors tool">
+<meta name="twitter:description" content="A several month project I wrote at a previous employer, read for heatmaps and pinmaps.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Visitors tool" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://owenberesford.me.uk/resource/visitors" />
+<meta property="og:description" content="A several month project I wrote at a previous employer, read for heatmaps and pinmaps." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Jul 2022, 14:31:33" />
+<meta property="article:modified_time" content="22nd of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Visitors tool",
+	"article:published_time":"14th of Jul 2022, 14:31:33", 
+    "article:modified_time":"22nd of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>My first project at MT was to create a visual interface for the tracking and usage data users of sites create.  It is important to marketeers to be able to see what happens when they launch a new campaign, and that it reaches its audience.  <br />
+This was work ahead of sale, so had to be generically branded.  Due to the uncertain goals, the implementation needed to be flexible.  I have no idea on any current release schedules.</p>
+
+
+<h3 class="dontend" id="toc0"> What data? <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>The business outcome was a tool to be able to see what end-users where doing, against time, location, and a few data categories.  The data needed to be rasterised in a way that let sales people see large volumes of results easily.  Secondly in a fashion that made trends visible.  <br />
+Data sources are what make and break this type of application.  Google spends something like a small countries GNP on hardware <sup><a href="http://www.google.com/finance?fstype=ii&amp;amp;q=NASDAQ:GOOG" target="_blank">1</a></sup> to allow quick data lookups by a lot of the planet concurrently.  MT is contractually prohibited from using Google analytics services on it main platforms, so other data sources are required.  This is quite a difficult problem, but not the focus of this text.  The raw data was converted so that each IP was also recorded a GPS-style location.  The data was categorised via the URLs into into action types, so it could be used better.</p>
+
+
+<h4 class="dontend" id="toc1"> This project is: <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<p>A point usage pin map</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Rendering aggregate data points into a google map;</li>
+    <li class="libasic">Each point has an attached template that provides non-graphical information;<ul class="ulbasic">
+        <li class="libasic">in addition to the details on the aggregates;</li>
+    </ul></li>
+    <li class="libasic">The pins are colour coded, so the sales enquiries are different to general searches;</li>
+    <li class="libasic">Client side event loop polls the server every so often and downloads more recent pins;</li>
+    <li class="libasic">When enabled, older pins are deleted, to conserve RAM on the clients machine;</li>
+</ul>
+
+<p>Alternatively a heatmap</p>
+
+<ul class="ulbasic">
+    <li class="libasic">The same data, but rendered as an intensity gradient heatmap;</li>
+    <li class="libasic">Contained a slide-show function, to refresh the data at predetermined intervals;</li>
+    <li class="libasic">The IP of the company.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> As a discussion on technology <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">Some care was needed to avoid flooding the data collector, during busy patches;<ul class="ulbasic">
+        <li class="libasic">The data needed to be mapped URLs =&gt; clients, so the right data may be returned to them;</li>
+    </ul></li>
+    <li class="libasic">The raw data off the webserver obviously held the client IP, but no co-ordinates;<ul class="ulbasic">
+        <li class="libasic">A lookup service was used for IP =&gt; [long,lat] mapping;</li>
+        <li class="libasic">Obviously my test data from the LAN is meaningless, LAN IPs have no geographical location;</li>
+        <li class="libasic">The currentness and accuracy of the mapping data is important.  Knowing the location of the registered offices of an ISP (who are renting the IPs) does nothing useful;</li>
+        <li class="libasic">Some people with static IPs sometimes give away more information;</li>
+        <li class="libasic">Quite a few of the IP mappers held useful data in a single continent, but more vague else where. Chinese IPs tend to be useless, they all say the centre of that country;</li>
+        <li class="libasic">There are still some IPs with no known location;</li>
+    </ul></li>
+    <li class="libasic">The most configurable heatmapping tool was written in Python ~ an OSS product ;<ul class="ulbasic">
+        <li class="libasic">I edited it, so it read from MTs DB (the OSS version ran from text files);</li>
+        <li class="libasic">I performance tweaked the script by about 1000% speedup (although it was originally really bad).  The original script was designed to be run asynchronous to the webserver, so performance was no concern;</li>
+        <li class="libasic">I adjusted the class hierarchy, to allow the interaction with various DBs in a credible fashion for OO.</li>
+        <li class="libasic">I added range clipping so it only rendered the currently visible bits of the planet;</li>
+    </ul></li>
+    <li class="libasic">To implement a heatmap via Google's heatmapapi (one of the tech options), one needs to proxy data via your server to prohibit cross-site-scripting.<ul class="ulbasic">
+        <li class="libasic">Second to this, one needs to manage ones google licence carefully, a heatmap of 100points isn't professionally useful.</li>
+        <li class="libasic">One may clip the off-screen data from the heatmap request to make best use of that 100.</li>
+        <li class="libasic">It is unfortunate that the map cells in the google overlay are controlled by the client (Google API).  The data goes from the server to the client, for the googlemap api, to request it from the server, as a proxy request to the google heatmap server.</li>
+        <li class="libasic">The google image rendering code was written in a faster platform than Python, or they had some sort of cache (convert the data to a fast fourier, use the result as a hash key, and select data rendered last week from a large memcache? );</li>
+        <li class="libasic">I had more plans for more complex use of DB, and a few other enhancements in the Python build;</li>
+    </ul></li>
+    <li class="libasic">I spent some time trying to get a “nice looking slider” for the heatmap.  After the images are computed, the images can be rendered for the user at the speed of the users internet connection;<ul class="ulbasic">
+        <li class="libasic">Obviously good trending visibility;</li>
+        <li class="libasic">The values in the slider need to be dynamically computed to match the users current start and stop selection;</li>
+        <li class="libasic">Start and stop entries are comparatively simple;</li>
+        <li class="libasic">The existing CMS needed updates to support complex libraries interacting with tabs;</li>
+    </ul></li>
+    <li class="libasic">The existing CMS supported the logins, and user identities, so nothing needed changing there;</li>
+    <li class="libasic">It should be noted that PHP5.4 is a much better language for doing OO, than earlier builds.  The amount of OO practice that can be applied in older code is limited.  This comment is focused on the established CMS.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> As a discussion on PM <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>This list will be more short.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">My original spec was vague, so I made a point of showing my stakeholders something every so often (at least once a week).  I was asking for feedback regularly.</li>
+    <li class="libasic">Further to this I did a static visualisation prototype in Gimp (there was some L&amp;F updates going through the CMS, and I didn't want to clash with the new release).  As I could steal screenshots of the existing site, this process didn't take more than a few hours.</li>
+    <li class="libasic">As I needed to integrate quick a few JS libraries (which may or may not operate together), I built quick UX demos.   The second reason for this is the ability to demo something before the data collectors were installed.  </li>
+    <li class="libasic">My process was fairly Agile, in that I did short sprints, and had a fairly lean process.  In my opinion that application was too complicated, and had a lot of data, so structuring was required.   Even in Agile, everything must work; so I wrote quite alot of testcases (using differing approaches and tool kits for different aspects).</li>
+    <li class="libasic">I followed the IEEE mandate on getting something running, then make it fast.</li>
+    <li class="libasic">I learned my way into MT systems, whilst building this.</li>
+    <li class="libasic">The project was about 60% frontend technologies, of various types.  It covered two server-side languages, three front-end languages, five data storage systems and four test platforms.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc4"> As a discussion on testing <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">The Python project shipped with test cases, I extended them, as I wrote more code.  I has plans to do various implementations, and performance monitor the outcomes, but this was clearly a “do last” thing.  </li>
+    <li class="libasic">I created testcases to the limits of the platform for the work inside the established CMS.   The underlying CMS isn't built to the methodology for unit tests, although to be fair dependency injection and interface isolation is harder in the older versions of PHP.</li>
+    <li class="libasic">With the JS, I had alot more control.  My JS was created in objects, and I unit tested it.  This process was abit more complex then desirable, as I needed to mock the communications with the server in the test cases.  </li>
+    <li class="libasic">When the basic system was together, I started updating the UX (this is roughly testing).  I demonstrated the system to some people; monitoring their responses, but this uncovered no major changes required.</li>
+    <li class="libasic">I did heavy usage over a period of of time.  Logged the memory consumption across time.  For a range of browsers.</li>
+</ul>
+
+
+</div>
+<!-- no Giles, Pete etc, I am not telling people about the internal structures of your established software.  Or any of the complications. That would be petty. -->
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"><a name="adjacent" href=""></a> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Visitors tool</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvisitors" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvisitors" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvisitors" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Visitors tool</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvisitors" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvisitors" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvisitors" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-22T23:20:37">22nd of Sep 2020</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+<a href="Array/resource/visitors" class="button">[look]</a>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">What data?</a></li>
+<li><a href="#toc1">This project is:</a></li>
+<li class="h4_odd"><a href="#toc2">As a discussion on technology</a></li>
+<li><a href="#toc3">As a discussion on PM</a></li>
+<li class="h4_odd"><a href="#toc4">As a discussion on testing</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-14T14:31:33">14th of Jul 2022, 14:31:33</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-22T23:20:37">22nd of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
