@@ -157,13 +157,19 @@ Header set X-timing-data "%t %D"
 	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=33280'
 </If>
-
 <If "%{REQUEST_URI} !~ /-references/">
+Header set Content-Type 'text/html; encoding=utf8'
+Header set Cache-Control 'max-age=86400'
+</If>
+
+<If "%{REQUEST_URI} =~ /-meta/">
+	Header unset Content-Type 
 	Header set Content-Type 'text/html; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
 </If>
-<If "%{REQUEST_URI} !~ /-meta/">
-	Header set Content-Type 'text/html; encoding=utf8'
+<If "%{REQUEST_URI} =~ /rss$/">
+	Header unset Content-Type 
+	Header set Content-Type 'text/xml'
 	Header set Cache-Control 'max-age=86400'
 </If>
 
