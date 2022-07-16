@@ -11,10 +11,17 @@ RewriteEngine  on
 RewriteBase /
 
 rewritecond %{REQUEST_URI}     /test/
-rewriterule ^(.*)              http://owenberesford.me.uk/ [L,R=301]
+rewriterule ^(.*)              https://owenberesford.me.uk/ [L,R=301]
 
+rewritecond %{SERVER_PROTOCOL}  HTTP
+rewritecond %{REQUEST_URI}		(.*)
+rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
-# if yiu can see this text, uoy can see the file system.
+RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
+rewritecond %{REQUEST_URI}		(.*)
+rewriterule ^(.*) https://owenberesford.me.uk/$1 [L,R=301]
+
+# if you can see this text, uoy can see the file system.
 rewritecond %{REQUEST_URI}      /res/  [OR]
 rewritecond %{REQUEST_URI}      /res-reach/  [OR]
 rewritecond %{REQUEST_URI}      /ast/  [OR]
@@ -23,16 +30,12 @@ rewritecond %{REQUEST_URI}      /lib/  [OR]
 rewritecond %{REQUEST_URI}      /res-test/ [OR] 
 rewritecond %{REQUEST_URI}      /.git/ [OR]
 rewritecond %{REQUEST_URI}      /.gitignore
-rewriterule ^(.*)               http://owenberesford.me.uk/ [L,R=301]
+rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
 
-
-RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
-rewritecond %{REQUEST_URI}		(.*)
-rewriterule ^(.*) http://owenberesford.me.uk/$1 [L,R=301]
 
 RewriteCond %{REQUEST_URI}      ^[/]*$
 RewriteRule .*				    /resource/home	[QSA,L]
-
+n
 RewriteCond %{REQUEST_URI}      ^/resource/shopping-list-hack
 RewriteRule .*					/resource/shopping-list
 

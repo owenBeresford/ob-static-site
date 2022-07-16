@@ -21,10 +21,10 @@
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="Geo lookup" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://owenberesford.me.uk/resource/geo-lookup" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/geo-lookup" />
 <meta property="og:description" content="Some background resources for GIS data sources." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="16th of Jul 2022, 13:50:53" />
+<meta property="article:published_time" content="16th of Jul 2022, 18:06:47" />
 <meta property="article:modified_time" content="13th of Jul 2022" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -36,7 +36,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Geo lookup",
-	"article:published_time":"16th of Jul 2022, 13:50:53", 
+	"article:published_time":"16th of Jul 2022, 18:06:47", 
     "article:modified_time":"13th of Jul 2022",
     "article:section":"technology",
 
@@ -57,7 +57,7 @@ TODO: magic tune selection against some index/DB -->
 
 <h3 class="dontend" id="toc0"> Problem <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <p>It is quite common to want to be able to translate an IP to a location.  To avoid complications with country demarcations, and charsets; it is also common to put this into a [long,lat].  [lat,long] works well with maps.<br />
-There are a range of possible outcomes when attempting to compute location.  Obviously LAN IPs have no location. Some IPs aren't registered in mainstream blocks handed to ISPs; so don't show up in records.  Alternatively there may be some “hide me” service, as there is with phone numbers.  On random real usage, mostly from the US, this amounted to about 3% of requests.  There are some IPs which seem to be been logged to ships, oil-rigs or satellites, as they where in the middle of the ocean (this occurred frequently enough that serious use would require a filter).  Obviously care must be taken with rounding numbers, not in the least between language systems.  For <a class="" href="http://owenberesford.me.uk/resource/visitors#">my use</a>, I rounded everything to 5DP, as I'm not confident in the data below that resolution. I was attempting to demark geo-usage, not individual people.  It should be noted for plain DSL for endusers, the IP is likely to resolve to the DSLAM, as that is where the edge of the internets IP network is (and thus ones public IP).  For example my current personal PC resolves to Skys equipment in WD17, North London.  I was having much better data from business users, who had their own high-use equipment.</p>
+There are a range of possible outcomes when attempting to compute location.  Obviously LAN IPs have no location. Some IPs aren't registered in mainstream blocks handed to ISPs; so don't show up in records.  Alternatively there may be some “hide me” service, as there is with phone numbers.  On random real usage, mostly from the US, this amounted to about 3% of requests.  There are some IPs which seem to be been logged to ships, oil-rigs or satellites, as they where in the middle of the ocean (this occurred frequently enough that serious use would require a filter).  Obviously care must be taken with rounding numbers, not in the least between language systems.  For <a class="" href="https://owenberesford.me.uk/resource/visitors#">my use</a>, I rounded everything to 5DP, as I'm not confident in the data below that resolution. I was attempting to demark geo-usage, not individual people.  It should be noted for plain DSL for endusers, the IP is likely to resolve to the DSLAM, as that is where the edge of the internets IP network is (and thus ones public IP).  For example my current personal PC resolves to Skys equipment in WD17, North London.  I was having much better data from business users, who had their own high-use equipment.</p>
 
 <p>Please note Mobile IP is a different set of technology, reporting tools built for the DSL or dialup markets won't work.  Due to the higher levels of tech infrastructure, better quality data is available, but not generally publicly.  The reporting will tell you that your phone is in your current country (the mobile operator is doing all the rest of the traffic routing).  This is not covered in this article.</p>
 
@@ -71,7 +71,7 @@ There are a range of possible outcomes when attempting to compute location.  Obv
 
 
 <h3 class="dontend" id="toc2"> Nominated vendor <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
-<p>Due to operational cost and supporting a US customer base, <a class="" href="http://owenberesford.me.uk/resource/visitors#">a previous project</a> MT used <a href="http://dev.maxmind.com/geoip/legacy/downloadable/" target="_blank">Maxminds</a>.  Since I wrote that code, <a href="https://github.com/maxmind" target="_blank">maxminds</a> have rebuilt everything to PHP5.4 and are using github.  I would advise looking at their newer services.  As some of my usage data was from known sources (we knew who was doing it, and where their office was), I tested the generated location data against  what we knew.  For business users, it was good quality data.  See references to DSLAM throughout this document, its not the lookup software thats the problem.  In Aus ~ where alot of this code was written ~ the nearest city is a good guess. Telephony is more complex here, and there are many more people.<br />
+<p>Due to operational cost and supporting a US customer base, <a class="" href="https://owenberesford.me.uk/resource/visitors#">a previous project</a> MT used <a href="http://dev.maxmind.com/geoip/legacy/downloadable/" target="_blank">Maxminds</a>.  Since I wrote that code, <a href="https://github.com/maxmind" target="_blank">maxminds</a> have rebuilt everything to PHP5.4 and are using github.  I would advise looking at their newer services.  As some of my usage data was from known sources (we knew who was doing it, and where their office was), I tested the generated location data against  what we knew.  For business users, it was good quality data.  See references to DSLAM throughout this document, its not the lookup software thats the problem.  In Aus ~ where alot of this code was written ~ the nearest city is a good guess. Telephony is more complex here, and there are many more people.<br />
 If one needs to verify the mapping, put the generated [lat,long] into google maps.  Please note mapping systems take vertical axis first, due to historical technology.  Graphics systems take the horizontal axis first due to different historical technology.</p>
 
 
@@ -119,10 +119,10 @@ If one needs to verify the mapping, put the generated [lat,long] into google map
 <header>
 <h1>Geo lookup</h1>
 </header>
-<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
- Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
-<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>Geo lookup</h1></header>
@@ -130,10 +130,10 @@ If one needs to verify the mapping, put the generated [lat,long] into google map
 
 <p id="shareGroup" class="addReading"> 
 	<span class="centerBlock">
-	<a href="http://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
-	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
-	<a href="http://www.reddit.com/submit?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
-	<a href="https://www.linkedin.com/sharing/share-offsite/?url=http%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
@@ -176,9 +176,9 @@ If one needs to verify the mapping, put the generated [lat,long] into google map
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2022-07-16T13:50:53">16th of Jul 2022, 13:50:53</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="http://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-07-13T20:04:07">13th of Jul 2022</time>. <br />
+</div> Page rendered <time datetime="2022-07-16T18:06:47">16th of Jul 2022, 18:06:47</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-07-13T20:04:07">13th of Jul 2022</time>. <br />
 
-Read the generous <a rel="license" href="http://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="http://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="http://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script src="/asset/ob1.min.js" ></script>
