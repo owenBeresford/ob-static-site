@@ -1,6 +1,6 @@
 
-ErrorDocument  500  /resource/500.html
-ErrorDocument  403  /resource/403.hgtml
+ErrorDocument  500  /resource/500
+ErrorDocument  403  /resource/403
 ErrorDocument  404  /resource/404
 DirectoryIndex index.html
 
@@ -10,16 +10,14 @@ IndexIgnore  */.ht*  *~  *#  */HEADER*  */README*  */_vti*
 RewriteEngine  on 
 RewriteBase /
 
-rewritecond %{REQUEST_URI}     /test/
-rewriterule ^(.*)              https://owenberesford.me.uk/ [L,R=301]
-
 rewritecond %{SERVER_PROTOCOL}  HTTP
+RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
 rewritecond %{REQUEST_URI}		(.*)
 rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
 RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
 rewritecond %{REQUEST_URI}		(.*)
-rewriterule ^(.*) https://owenberesford.me.uk/$1 [L,R=301]
+rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
 # if you can see this text, uoy can see the file system.
 rewritecond %{REQUEST_URI}      /res/  [OR]
@@ -32,10 +30,12 @@ rewritecond %{REQUEST_URI}      /.git/ [OR]
 rewritecond %{REQUEST_URI}      /.gitignore
 rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
 
+rewritecond %{REQUEST_URI}     /test/
+rewriterule ^(.*)              https://owenberesford.me.uk/ [L,R=301]
 
 RewriteCond %{REQUEST_URI}      ^[/]*$
 RewriteRule .*				    /resource/home	[QSA,L]
-n
+
 RewriteCond %{REQUEST_URI}      ^/resource/shopping-list-hack
 RewriteRule .*					/resource/shopping-list
 
