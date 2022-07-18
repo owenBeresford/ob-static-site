@@ -43,37 +43,37 @@ RewriteCond %{REQUEST_URI}      ^/resource/fullstack-developer
 RewriteRule .*					/resource/UX-engineer
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-martech
-RewriteRule .*					/render.php?resource=group-XXX&first=group-martech
+RewriteRule .*					/resource/group-XXX&first=group-martech
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-engineering
-RewriteRule .*					/render.php?resource=group-XXX&first=group-engineering
+RewriteRule .*					/resource/group-XXX&first=group-engineering
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/render.php?resource=group-XXX&first=group-research
+RewriteRule .*					/resource/group-XXX&first=group-research
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-uitools
-RewriteRule .*					/render.php?resource=group-XXX&first=group-uitools
+RewriteRule .*					/resource/group-XXX&first=group-uitools
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-worklog
-RewriteRule .*					/render.php?resource=group-XXX&first=group-worklog
+RewriteRule .*					/resource/group-XXX&first=group-worklog
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-legacy
-RewriteRule .*					/render.php?resource=group-XXX&first=group-legacy
+RewriteRule .*					/resource/group-XXX&first=group-legacy
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-architecture
-RewriteRule .*					/render.php?resource=group-XXX&first=group-architecture
+RewriteRule .*					/resource/group-XXX&first=group-architecture
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-english
-RewriteRule .*					/render.php?resource=group-XXX&first=group-english
+RewriteRule .*					/resource/group-XXX&first=group-english
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-images
-RewriteRule .*					/render.php?resource=group-XXX&first=group-images
+RewriteRule .*					/resource/group-XXX&first=group-images
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/render.php?resource=group-XXX&first=group-research
+RewriteRule .*					/resource/group-XXX&first=group-research
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-testing
-RewriteRule .*					/render.php?resource=group-XXX&first=group-testing
+RewriteRule .*					/resource/group-XXX&first=group-testing
 
 
 # there is something different about the regex's on the live box.
@@ -115,41 +115,12 @@ Header add Access-Control-Allow-Origin 154.59.155.12
 Header add Access-Control-Allow-Origin 176.32.230.19
 </Files>
 </IfModule>
-
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE application/javascript
-  AddOutputFilterByType DEFLATE text/javascript;charset=UTF-8
-  AddOutputFilterByType DEFLATE text/javascript  
-  AddOutputFilterByType DEFLATE application/json
-  AddOutputFilterByType DEFLATE application/rss+xml
-  AddOutputFilterByType DEFLATE application/x-font
-  AddOutputFilterByType DEFLATE application/x-font-opentype
-  AddOutputFilterByType DEFLATE application/x-font-otf
-  AddOutputFilterByType DEFLATE application/x-font-truetype
-  AddOutputFilterByType DEFLATE application/x-font-ttf
-  AddOutputFilterByType DEFLATE application/x-javascript
-  AddOutputFilterByType DEFLATE application/xhtml+xml
-  AddOutputFilterByType DEFLATE application/xml
-  AddOutputFilterByType DEFLATE font/opentype
-  AddOutputFilterByType DEFLATE font/otf
-  AddOutputFilterByType DEFLATE font/ttf
-  AddOutputFilterByType DEFLATE image/svg+xml
-  AddOutputFilterByType DEFLATE image/x-icon
-  AddOutputFilterByType DEFLATE text/css
-  AddOutputFilterByType DEFLATE text/css;charset=UTF-8
-  AddOutputFilterByType DEFLATE text/html
-  AddOutputFilterByType DEFLATE text/javascript
-  AddOutputFilterByType DEFLATE text/xml
-  AddOutputFilterByType DEFLATE font/woff2
-  AddOutputFilterByType DEFLATE font/woff
-</IfModule>
-
 <FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2)$">
 <IfModule mod_headers.c>
 Header unset pragma
 Header unset cache-control 
 
-Header set Cache-Control "max-age=604800, public"
+Header set Cache-Control "max-age=2592000, public"
 Header set Pragma public
 Header set X-timing-data "%t %D"
 </IfModule>
@@ -172,49 +143,88 @@ Header set Cache-Control 'max-age=86400'
 </If>
 <If "%{REQUEST_URI} =~ /rss$/">
 	Header unset Content-Type 
-	Header set Content-Type 'text/xml'
+	Header set Content-Type 'application/rss+xml'
 	Header set Cache-Control 'max-age=86400'
 </If>
 
 <If "%{REQUEST_URI} =~ /min\.css/">
 	Header unset Content-Type 
 	Header set Content-Type 'text/css; encoding=utf8'
+	Header set Cache-Control 'max-age=2592000'
 </If>
 
 <If "%{REQUEST_URI} =~ /min\.js/">
 	Header unset Content-Type 
 	Header set Content-Type 'text/javascript; encoding=utf8'
+	Header set Cache-Control 'max-age=2592000'
 </If>
 
 <If "%{REQUEST_URI} =~ /\.jpeg$/">
 	Header unset Content-Type 
 	Header set Content-Type 'image/jpeg'
+	Header set Cache-Control 'max-age=2592000'
 </If>
 
 <If "%{REQUEST_URI} =~ /\.png$/">
 	Header unset Content-Type 
 	Header set Content-Type 'image/png'
+	Header set Cache-Control 'max-age=2592000'
 </If>
 
 <If "%{REQUEST_URI} =~ /\.woff$/">
 	Header unset Content-Type 
 	Header set Content-Type 'font/woff'
+	Header set Cache-Control 'max-age=2592000'
 </If>
 
 <If "%{REQUEST_URI} =~ /\.woff2$/">
 	Header unset Content-Type 
 	Header set Content-Type 'font/woff2'
+	Header set Cache-Control 'max-age=2592000'
 </If>
 
 <If "%{REQUEST_URI} =~ /\.ico$/">
 	Header unset Content-Type 
 	Header set Content-Type 'image/x-icon'
+	Header set Cache-Control 'max-age=2592000'
 </If>
 
-
-
-
 </IfModule>
+
+#<IfModule mod_deflate.c>
+#  SetOutputFilter DEFLATE
+#  Header append Content-Encoding gzip
+#  Header append Vary Accept-Encoding
+#  AddOutputFilterByType DEFLATE text/html;encoding=utf8
+#  AddOutputFilterByType DEFLATE text/html; encoding=utf8
+#  AddOutputFilterByType DEFLATE text/html
+#  AddOutputFilterByType DEFLATE application/javascript
+#  AddOutputFilterByType DEFLATE text/javascript;charset=UTF-8
+#  AddOutputFilterByType DEFLATE text/javascript  
+#  AddOutputFilterByType DEFLATE application/json
+#  AddOutputFilterByType DEFLATE application/rss+xml
+#  AddOutputFilterByType DEFLATE application/x-font
+#  AddOutputFilterByType DEFLATE application/x-font-opentype
+#  AddOutputFilterByType DEFLATE application/x-font-otf
+#  AddOutputFilterByType DEFLATE application/x-font-truetype
+#  AddOutputFilterByType DEFLATE application/x-font-ttf
+#  AddOutputFilterByType DEFLATE application/x-javascript
+#  AddOutputFilterByType DEFLATE application/xhtml+xml
+#  AddOutputFilterByType DEFLATE application/xml
+#  AddOutputFilterByType DEFLATE font/opentype
+#  AddOutputFilterByType DEFLATE font/otf
+#  AddOutputFilterByType DEFLATE font/ttf
+#  AddOutputFilterByType DEFLATE image/svg+xml
+#  AddOutputFilterByType DEFLATE image/x-icon
+#  AddOutputFilterByType DEFLATE text/css
+#  AddOutputFilterByType DEFLATE text/css;charset=UTF-8
+#  AddOutputFilterByType DEFLATE text/html
+#  AddOutputFilterByType DEFLATE text/javascript
+#  AddOutputFilterByType DEFLATE text/xml
+#  AddOutputFilterByType DEFLATE font/woff2
+#  AddOutputFilterByType DEFLATE font/woff
+#</IfModule>
+#
 
 # vi: ts=4
 # vim: ts=4 sw=4 fdm=marker syn=apache
