@@ -43,37 +43,37 @@ RewriteCond %{REQUEST_URI}      ^/resource/fullstack-developer
 RewriteRule .*					/resource/UX-engineer
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-martech
-RewriteRule .*					/resource/group-XXX&first=group-martech
+RewriteRule .*					/resource/group-XXX?first=group-martech
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-engineering
-RewriteRule .*					/resource/group-XXX&first=group-engineering
+RewriteRule .*					/resource/group-XXX?first=group-engineering
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/resource/group-XXX&first=group-research
+RewriteRule .*					/resource/group-XXX?first=group-research
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-uitools
-RewriteRule .*					/resource/group-XXX&first=group-uitools
+RewriteRule .*					/resource/group-XXX?first=group-uitools
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-worklog
-RewriteRule .*					/resource/group-XXX&first=group-worklog
+RewriteRule .*					/resource/group-XXX?first=group-worklog
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-legacy
-RewriteRule .*					/resource/group-XXX&first=group-legacy
+RewriteRule .*					/resource/group-XXX?first=group-legacy
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-architecture
-RewriteRule .*					/resource/group-XXX&first=group-architecture
+RewriteRule .*					/resource/group-XXX?first=group-architecture
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-english
-RewriteRule .*					/resource/group-XXX&first=group-english
+RewriteRule .*					/resource/group-XXX?first=group-english
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-images
-RewriteRule .*					/resource/group-XXX&first=group-images
+RewriteRule .*					/resource/group-XXX?first=group-images
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/resource/group-XXX&first=group-research
+RewriteRule .*					/resource/group-XXX?first=group-research
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-testing
-RewriteRule .*					/resource/group-XXX&first=group-testing
+RewriteRule .*					/resource/group-XXX?first=group-testing
 
 
 # there is something different about the regex's on the live box.
@@ -129,7 +129,7 @@ Header set X-timing-data "%t %D"
 <IfModule mod_headers.c>
 <If "%{REQUEST_URI} =~ /references/">
 	Header set Content-Type 'application/json; encoding=utf8'
-	Header set Cache-Control 'max-age=33280'
+	Header set Cache-Control 'max-age=86400'
 </If>
 <If "%{REQUEST_URI} !~ /-references/">
 Header set Content-Type 'text/html; encoding=utf8'
@@ -225,7 +225,6 @@ Header set Cache-Control 'max-age=86400'
 #  AddOutputFilterByType DEFLATE font/woff
 #</IfModule>
 #
-
 # vi: ts=4
 # vim: ts=4 sw=4 fdm=marker syn=apache
 
