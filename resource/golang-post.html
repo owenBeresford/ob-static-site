@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Golang HTTP post</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="I have this weird gap in the 'making apps' process in golang." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Golang HTTP post">
+<meta itemprop="description" content="I have this weird gap in the 'making apps' process in golang.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Golang HTTP post">
+<meta name="twitter:description" content="I have this weird gap in the 'making apps' process in golang.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Golang HTTP post" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/golang-post" />
+<meta property="og:description" content="I have this weird gap in the 'making apps' process in golang." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:03:26" />
+<meta property="article:modified_time" content="21st of Jul 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Golang HTTP post",
+	"article:published_time":"22nd of Jul 2022, 19:03:26", 
+    "article:modified_time":"21st of Jul 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+<p>The CTO of my current employer is trying to move everything to Golang; to reduce dev cost (compared to C++), and reduce resource use (compared to more squidgy languages, like PHP).   So I now have some experience in this not very web centric programming language.  Compared to PHP, the compile error messages are awkward; and somethings takes ages.   The HTTP frameworks have many less features; mostly due to the way that Golang statically includes libraries, meaning the binaries get very big quite quickly.   In Golang there is a strong cultural bias towards random developers doing everything from raw; polar opposite to PHP and JS.</p>
+
+<p>I have to create everything to do POST multipart uploads.  There are plenty of webpages saying how to send a multipart form; but none on <i>receiving</i> them.</p>
+
+<p>stdlib Components</p>
+
+<ul class="ulbasic">
+    <li class="libasic">mime</li>
+    <li class="libasic">mime/multipart</li>
+    <li class="libasic">labstack/echo ~ Ok, yes I did install that one extra</li>
+    <li class="libasic">net/http</li>
+    <li class="libasic">io</li>
+</ul>
+
+
+
+<pre class="code" lang="go">
+// this function doesn't iterate if you have uploaded multiple things in 1 POST
+
+func GetMulitPartPostFile(ctx echo.Context, formname string) (string, err) {
+	boundary 	:= ctx.request().Header.Get("Content-Type")
+	mtype, list, err:=mine.ParseMediaType(boundary)
+	boundary	=list["boundary"]
+
+	partreader  := multipart.NewReader( ctx.Request().Body, boundary)
+	buf			:= make([]byte, A_SIZE_CONST)
+	part, err	:= partreader.NextPart()
+	if err ==io.EOF {
+		// log error
+		return "", ctx.NoContent(400)
+	}
+	if part == nil {
+		// log error
+		return "", ctx.NoContent(400)
+	}
+	if part.FormName() != formname {
+		return "", io.EOF
+	}
+	
+	sz, err		= part.Read(buf)
+	if err == io.EOF &amp;&amp; sz==0 {
+		// log error
+		return "", ctx.NoContent(400)
+	}
+	if sz==0 || sz==A_SIZE_COUNT {
+		// log error
+		return "", ctx.NoContent(400)	
+	}
+	useful		:= string(buf)
+	useful		= strings.Trim(useful, "\t \n\r\x00")
+	return useful, nil
+}
+</pre>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,worklog"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Golang HTTP post</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-post" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-post" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-post" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Golang HTTP post</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-post" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-post" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-post" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-07-21T10:43:37">21st of Jul 2022</time></span>
+<span>Created <time datetime="2021-09-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >15th of Sep 2021</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:03:26">22nd of Jul 2022, 19:03:26</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-07-21T10:43:37">21st of Jul 2022</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.css" />
+<script defer src="/asset/jquery-hilight-1.06.js" ></script>
+</body>
+</html>

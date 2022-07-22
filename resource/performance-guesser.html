@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Performance GuessR</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="This is between a spoof and a serious proposition. It guesses server resources needed" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Performance GuessR">
+<meta itemprop="description" content="This is between a spoof and a serious proposition. It guesses server resources needed">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Performance GuessR">
+<meta name="twitter:description" content="This is between a spoof and a serious proposition. It guesses server resources needed">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Performance GuessR" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/performance-guesser" />
+<meta property="og:description" content="This is between a spoof and a serious proposition. It guesses server resources needed" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:03:59" />
+<meta property="article:modified_time" content="21st of Jul 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Performance GuessR",
+	"article:published_time":"22nd of Jul 2022, 19:03:59", 
+    "article:modified_time":"21st of Jul 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+<p>This is a quick hack to guess how much computer resources you need to serve a web project. Fork to update if you want to have other technology profiles.  All numbers are computed in your browser and are not sent anywhere (click to 'view source' if interested).<br />
+The render speed and RAM needed are average numbers I have found, and may be wrong in your instance.  If your project uses alot of resources, or you have measured things, please apply your local values to the inputs.  The RAM used is 'per webpage', and should include resources for ORMs etc.  This tool displays average resource usage and burst usage; as a business is likely to make the most revenue during the burst periods.  As this is a simple tool this skips the are trade-offs between faster/ pricier machines, and more machines.  It assumes that there is little difference between 2 processes with a RAM limit of 2GB each, and 1 process with a limit of 4GB.  For page rendering type technology this is normally true.  For data centric things like DB, it is definitely better to use 1 heavier process.</p>
+
+<p>This tool <em>must</em> be worth a million pounds of VP funding, as I missed the last 'e' out. :-)</p>
+
+
+<br />
+<form method="get" name="values" id="values">
+<p id="totalPopWrapper" class=""><label for="totalPop" id="totalPopLabel" class="h4_label">Total number of users :</label><input type="number" name="totalPop" id="totalPop" value="" class="" /></p>
+<p id="instantPopWrapper" class=""><label for="instantPop" id="instantPopLabel" class="h4_label">Avg concurrent users :</label><input type="number" name="instantPop" id="instantPop" value="" class="" /></p>
+<p id="spikePopWrapper" class=""><label for="spikePop" id="spikePopLabel" class="h4_label">Burst concurrent users :</label><input type="number" name="spikePop" id="spikePop" value="" class="" /></p>
+<p id="maxDelayWrapper" class=""><label for="maxDelay" id="maxDelayLabel" class="h4_label">Maximum acceptable render time (ms) :</label><input type="number" name="maxDelay" id="maxDelay" value="" class="" /></p>
+<p id="langWrapper" class=""><label for="lang" id="langLabel" class="h4_label">The impl language is :</label><select name="lang" id="lang" class="" >
+<option selected="selected" value="php7">Sensible PHP</option><option value="php5">Legacy PHP</option><option value="node1">old NodeJS</option><option value="node4">new NodeJS</option><option value="wp">WordPress</option><option value="java">Java*</option><option value="perl">Perl*</option><option value="python">Python + Django</option><option value="pixies">Pixies</option>
+</select></p>
+<p id="langRAMWrapper" class=""><label for="langRAM" id="langRAMLabel" class="h4_label">RAM cost (MB) :</label><input type="number" name="langRAM" id="langRAM" value="" class="" /></p>
+<p id="langTimeWrapper" class=""><label for="langTime" id="langTimeLabel" class="h4_label">Render time (ms) :</label><input type="number" name="langTime" id="langTime" value="" class="" /></p>
+<p id="httpsWrapper" class=""><label for="https" id="httpsLabel" class="h4_label">Using HTTPS? :</label><select name="https" id="https" class="" >
+<option value="HTTPS">yes</option><option value="HTTP">no</option>
+</select></p>
+<p id="btnSubmitWrapper" class=""><input type="button" name="btnSubmit" id="btnSubmit" value="Compute" class="button" /></p>
+<p id="avg_freqHostWrapper" class=""><label for="avg_freqHost" id="avg_freqHostLabel" class="h4_label">AVG Num of machines :</label><input type="number" name="avg_freqHost" id="avg_freqHost" value="" class="" /></p>
+<p id="avg_RAMHostWrapper" class=""><label for="avg_RAMHost" id="avg_RAMHostLabel" class="h4_label">AVG How much RAM (on each)? :</label><input type="number" name="avg_RAMHost" id="avg_RAMHost" value="" class="" /></p>
+<p id="avg_CPUHostWrapper" class=""><label for="avg_CPUHost" id="avg_CPUHostLabel" class="h4_label">AVG How fast? :</label><input type="number" name="avg_CPUHost" id="avg_CPUHost" value="" class="" /></p>
+<p id="spike_freqHostWrapper" class=""><label for="spike_freqHost" id="spike_freqHostLabel" class="h4_label">SPIKE Num of machines :</label><input type="number" name="spike_freqHost" id="spike_freqHost" value="" class="" /></p>
+<p id="spike_RAMHostWrapper" class=""><label for="spike_RAMHost" id="spike_RAMHostLabel" class="h4_label">SPIKE How much RAM (on each)? :</label><input type="number" name="spike_RAMHost" id="spike_RAMHost" value="" class="" /></p>
+<p id="spike_CPUHostWrapper" class=""><label for="spike_CPUHost" id="spike_CPUHostLabel" class="h4_label">SPIKE How fast? :</label><input type="number" name="spike_CPUHost" id="spike_CPUHost" value="" class="" /></p>
+
+</form>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="martech"><a name="adjacent" href=""></a> <p>Some similar articles in martech </p><div id="groupmartech" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=martech" title="This article lists all items in martech group.">All of <br />martech </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Performance GuessR</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Performance GuessR</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-07-21T10:43:37">21st of Jul 2022</time></span>
+<span>Created <time datetime="2017-04-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Apr 2017</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:03:59">22nd of Jul 2022, 19:03:59</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-07-21T10:43:37">21st of Jul 2022</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<script defer type="text/javascript" src="/asset/jquery-validate.min.js" ></script>
+<script type="text/javascript">
+if(!Object.freeze) {
+// you are free to use your current webrowser, and buy software from another source.
+// many opensource people have the same attitude ~ "Localised responsibility".
+	window.alert("For free software, I only support new browsers.\n pls upgrade.\nWith the exception of MSIE, upgrades are *free*.");
+	throw new Error("Old browser problem.");
+}
+"use strict";
+const techCosts={
+	php7:{ RAM:128, render:10, },
+	php5:{ RAM:128, render:80, },
+	node1:{ RAM:6, render:200, },
+	node7:{ RAM:6, render:200, },
+	wp:{ RAM:20, render:1000, },
+	java:{ RAM:200, render:200, },
+	perl:{ RAM:200, render:200, },
+	python:{ RAM:15, render:200, },
+	pixies:{ RAM:1, render:1, },
+};
+Object.freeze( techCosts);
+
+
+const updateResources =function () {
+	let lang=$('#lang').val();
+	if( techCosts[lang]) {
+		$('#langRAM').val( techCosts[lang].RAM );		
+		$('#langTime').val( techCosts[lang].render );		
+
+	} else {
+		console.log("What ya done? lang is "+lang);
+	}
+}
+const computeResources =function () {
+	const RAM_FOR_OS=1500;
+	const AVG_CPU_COUNT= parseInt($('#instantPop').val())/ (parseInt($('#maxDelay').val()) / parseInt($('#langTime').val() )) ;
+	const SPIKE_CPU_COUNT= parseInt($('#spikePop').val())/( parseInt($('#maxDelay').val()) / parseInt($('#langTime').val()) );
+	let requires={ 
+		avg:{ 
+			ram: (parseInt($('#instantPop').val()) * parseInt($('#langRAM').val()))/AVG_CPU_COUNT + RAM_FOR_OS, 
+			cpu: Math.ceil(AVG_CPU_COUNT),
+			}, 
+		spike:{
+			ram: ( parseInt($('#spikePop').val()) * parseInt($('#langRAM').val()))/SPIKE_CPU_COUNT + RAM_FOR_OS, 
+			cpu: Math.ceil(SPIKE_CPU_COUNT),
+		}  };
+
+	$('#avg_freqHost').val(requires.avg.cpu);
+	$('#avg_RAMHost').val(requires.avg.ram);
+
+	$('#spike_freqHost').val(requires.spike.cpu);
+	$('#spike_RAMHost').val(requires.spike.ram);
+	$('#comment').css('display', 'block');
+	return false;
+}
+
+const loadPage= function() {
+	$('#lang').on('change', updateResources);
+	updateResources();
+	$('#avg_freqHostWrapper').append('<span style="display:none; text-align:center; " id="comment">If you think this value is wrong, check average render time.</span>');
+	$('#btnSubmit').on('click keypress touch', computeResources);
+}
+
+$('document').ready( loadPage);
+// vim: ts=4 syn=html
+</script>
+</body>
+</html>

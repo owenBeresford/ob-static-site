@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>DB rollover</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A short set of options for high availability writes" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="DB rollover">
+<meta itemprop="description" content="A short set of options for high availability writes">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="DB rollover">
+<meta name="twitter:description" content="A short set of options for high availability writes">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="DB rollover" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/db-rollover" />
+<meta property="og:description" content="A short set of options for high availability writes" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:03:25" />
+<meta property="article:modified_time" content="20th of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "DB rollover",
+	"article:published_time":"22nd of Jul 2022, 19:03:25", 
+    "article:modified_time":"20th of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+
+<h2 class="dontend" id="toc0"> High availability for writes <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>Situation: there is a compliance table which continuously logs data.  Your business needs to run at all times; so your audit must also.  What can one do for more than 99 percent availability?  How can you keep keep tables small and snappy?</p>
+
+<p><i> <b>NB:</b> Most people have a distinct preference for either SQL/ noSQL.  I have no axe to grind, I choose the strongest solution to the current situation. </i>.  This article presents both options in a disinterested fashion.</p>
+
+
+<h3 class="dontend" id="toc1"> Architectures focussed on RDMS <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ol>
+    <li>A) Shard data on one of the variables (e.g. Monthly table names); but use a view to hide this.  Works better with some RDBMS than others.</li>
+    <li>B) Above sharding, but write multiplexing code.  I have implemented this, but couldn't with an ORM.   When your shard is a predictable hash, this is easy.</li>
+    <li>B2) The first sharding, and have the multiplexing code as a storproc.  I have implemented this, when required to use an ORM.</li>
+    <li>C) Singular table, but have a background copy process to copy data out to the shard structure.  This is a weak solution.</li>
+    <li>D) Have multiple write servers, and flip write channel over to another server ~ an n+1 architecture is useful anyway.   This is hard to manage with RDBMS.</li>
+    <li>E) Monthly, stop the service, copy all data to a manual shard; truncate original; restart service. I dislike this option, and it is slow. </li>
+</ol>
+
+
+<h3 class="dontend" id="toc2"> Other architectures <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>This list is shorter, but the solutions are <i>more useful</i>.</p>
+
+<ol>
+    <li>F) Write the data into a NoSQL platform that claims to have infinite scaling.  Test to a power of ten more data than what you can guess will be expected use.</li>
+    <li>G) Write the data into a buffer first, e.g. rabbitMQ; RabbitMQ<a class="" href="https://www.google.co.uk/search?q=RabbitMQ">?</a> has event merging, write the data in merged chunks, into the shards. </li>
+    <li>H) Redis, or Hadoop.  Massively parallel processing at your convenience. </li>
+    <li>I) Not for logs, but systems like RRDTool work very well for their intended purpose.</li>
+</ol>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"><a name="adjacent" href=""></a> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>DB rollover</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-rollover" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-rollover" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-rollover" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>DB rollover</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-rollover" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-rollover" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-rollover" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-20T23:22:06">20th of Sep 2020</time></span>
+<span>Created <time datetime="2015-08-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Aug 2015</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">High availability for writes</a></li>
+<li><a href="#toc1">Architectures focussed on RDMS</a></li>
+<li class="h4_odd"><a href="#toc2">Other architectures</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:03:25">22nd of Jul 2022, 19:03:25</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-20T23:22:06">20th of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

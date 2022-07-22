@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>HTML5 img / picture element</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A simple HTML demo." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="HTML5 img / picture element">
+<meta itemprop="description" content="A simple HTML demo.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="HTML5 img / picture element">
+<meta name="twitter:description" content="A simple HTML demo.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="HTML5 img / picture element" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/html5-img" />
+<meta property="og:description" content="A simple HTML demo." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:03:26" />
+<meta property="article:modified_time" content="21st of Jul 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "HTML5 img / picture element",
+	"article:published_time":"22nd of Jul 2022, 19:03:26", 
+    "article:modified_time":"21st of Jul 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p style="max-width:80%; text-align:center;"><a href="#piccie" class="button">Jump straight to the demo</a>.  These demo images are taken from <a href="http://stocks-for-free-use.deviantart.com/art/Winter-54-342813901" title="dA id: SweediesArt, the source of this image.">K Claesson's public collection</a>, as seen on March 2015. </p>
+<div class="halferWords">
+<p>This is a <b>tech demo</b> ~ not a design demo ~ for a new HTML5 feature.  For a design demo, I would be happier using a [paper] sketch book. This tech demo is mostly due to the fact that I talk with the people creating the specs and browser features on twitter.  The IMG tag doesn't work very well with RWD as its for a fixed image.  For some things a <b>vector is useful (e.g. fonts)</b> but this isn't globally applicable.  For photos, you don't want to send a retina grade image to small phone with a slow network; but you do if the web client is on a retina grade screen.  This does mean that you need to add several copies of any images ~ image editing time.  This can be avoided if the images where scaled via <a href="http://www.imagemagick.org/" target="_blank">imagick</a> or similar, but that may affect the quality of the result image.  For people who can't code, there is a “technical solution as a service” <sup><a href="http://imageresizer.io/" target="_blank">1</a></sup>.  As I could create a basic edition of image resizing in a few hours; and would have no future licence issues, I'm not sure about the scope of this.  The third party API would require you to upload the images to their servers before they could be displayed on your website.  My several hours estimate is accurate, as I have done it in several hours, for a previous agency.</p>
+
+<p>This is an <b>obvious feature for RWD libraries</b>, although I haven't seen it.  One of the critiques of RWD is that the images made everything too slow <sup><a href="http://blog.cloudfour.com/css-media-query-for-mobile-is-fools-gold/" target="_blank">2</a></sup>.  According to <a href="http://caniuse.com/#search=picture" target="_blank">can I use</a>?, about 40% of the browser population supports this as a technology.  <b>UPDATE 2022:</b> the support is now at 95%.  If you happen to be using wordpress, you will need to do alot of hacking, as wordpress likes to set image width and height, so fullscreen desktop will render better (if these are set, the browser can allocate screen space to the image before it is downloaded).  This is a problem with using simple software outside of its design scope.  As a parallel technology, one may use an <i>IMG.srcset</i>; this isn't covered here.  As nearly every browser supports media queries, one may adjust images using these and <i>background-image</i> CSS.  This technique is nice when it deals with screen orientation cleanly.  The picture tag allows decisions on things other than screen size, for example image format.   It would be nice to <b>detect browser preference for high contrast images</b> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast" target="_blank">3</a></sup>, and serve more saturated/edge exaggerated images for people with less good vision. The feature could be used to serve all the MSIE users with BMP images, as MSFT favour that format.  An important item is giving <b>retina screen users the high PPI images</b> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio" target="_blank">4</a></sup>, assuming you have mac or iphone users.  I have confirmed my understanding on JPEG, the PPI is just a JPEG meta information, a <a href="http://www.photoshopessentials.com/essentials/the-72-ppi-web-resolution-myth/" target="_blank">readable guide</a>.</p>
+
+<p>Here I am presenting 2 options for graceful degradation.  First via an JS shim, which requires this language; second just using CSS and HTML5. The first image is is harder to place on the screen, but is less demanding for the browser ~ if I resize alot I can hear the CPU fan with the second one, for the image scaling.  The second is <b>not efficient in bandwidth</b> (using the wrong size image), and the image scaling is quite taxing for some of the earlier/ simpler phones.  Thirdly as a design, it only works with some layouts and image.  On the positive side, nearly everyone can render this, and with scripting disabled.  If the picture element isn't working, the second option isn't good use of technology.</p>
+
+<p>In the larger context, this technology should be included into RWD templates. I don't have enough time to do the complete template, here. This does mean that we will need to use background-image less.  This is all open source, please view source if you are technical.  The <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-picture-element" target="_blank">spec</a> that this is written from. Or read some of the <a href="http://webdesign.tutsplus.com/tutorials/quick-tip-how-to-use-html5-picture-for-responsive-images--cms-21015" target="_blank">failure conditions</a>.  The <a href="https://github.com/teleject/hisrc" target="_blank">hiSRC</a> project is useful for getting the right size images.<br />
+As this is a new technology demo, there will be concerns on stability.  This is demonstrated as working on:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">FF 36 (but only with config for native support for Picture elements disabled)</li>
+    <li class="libasic">when I resize this browser, picturefill and the picture element swaps the image to the correct size image.</li>
+    <li class="libasic">Chrome 41</li>
+    <li class="libasic">Opera 12</li>
+    <li class="libasic">Safari mobile</li>
+    <li class="libasic">Chrome mobile</li>
+    <li class="libasic">blackberry webrowser ~ mobile</li>
+    <li class="libasic">The unit build as of 09/03/2015 for picturefill doesn't work with a standard install of MSIE11 ~ the picture element does.  I guess this is the picturefill turning its-self off as MSIE reports the native object exists.</li>
+</ul>
+
+<p>The biggest image is ~2000px across, the smallest ~200px.  As a user, you aren't supposed to spot any sleight of hand.</p>
+
+
+<!-- does this mean I am disclosing secrets? well, not really, it is open source for me too. -->
+</div>
+<br /><hr /><br />
+<div class="piccie fewWords">
+<h4>Okay, an image on screen; what is this?</h4>
+<ul>
+<li><a name="toc0">In a few years time</a>, the correct size image for <strong>your</strong> screen.  <strong>UPDATE 2022</strong>, this is now supported by 95% of the browser market <sup><a href="https://caniuse.com/?search=picture">2</a></sup> , but I think there is small percentage error in those numbers, as the listed percentages do not add up to 100%</li>
+<li><strong>without any scripting</strong>, or downloading excess data.</li>
+<li>For the current settings (resolution, image format, colour saturation, borders etc),</li> 
+<li>like current webservers can serve different languages.</li>
+<li>Really new. This is better UX than what we could do a few months ago.</li>
+<li>Also to be viewed on a range of phones and any projectors you have.</li>
+</ul>
+<p>Rendering images to fit your screen size, via polyfil. </p>
+<img id="rwd_polyfil" class="rwdimg" sizes="(max-width:300px) 20vw, (max-width:500px) 40vw, (min-width:500px) 75vw, (min-width:1200px) 120vw" srcset="/asset/winter_54_by_sweedies-xsm-d5o3owd.jpg 200w, /asset/winter_54_by_sweedies-sm-d5o3owd.jpg 450w, /asset/winter_54_by_sweedies-med-d5o3owd.jpg 1000w, /asset/winter_54_by_sweedies-hi-d5o3owd.jpg 2048w" alt="A snowscape photo made by a Swede." /> 
+</div>
+<br />
+<div class="piccie fewWords">
+<p>Rendering images to fit your screen size, via PICTURE tag and CSS2. </p>
+<picture>
+<!-- I am using px, as I have no idea what your font size is.  Please use 'em' for real use. -->
+   <!--[if IE 9]><video style="display: none;"><![endif]-->
+   <source media="(min-width: 1200px)" srcset="/asset/winter_54_by_sweedies-hi-d5o3owd.jpg">
+   <source media="(min-width: 700px)" srcset="/asset/winter_54_by_sweedies-med-d5o3owd.jpg">
+   <source media="(max-width: 400px)" srcset="/asset/winter_54_by_sweedies-sm-d5o3owd.jpg">
+   <!--[if IE 9]></video><![endif]--> 
+   <img class="rwdimg" src="/asset/winter_54_by_sweedies-med-d5o3owd.jpg" alt="A snowscape photo made by a Swede." />
+</picture>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,images"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>HTML5 img / picture element</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>HTML5 img / picture element</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-07-21T10:43:37">21st of Jul 2022</time></span>
+<span>Created <time datetime="2015-03-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Okay, an image on screen; what is this?</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:03:26">22nd of Jul 2022, 19:03:26</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-07-21T10:43:37">21st of Jul 2022</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<script type="text/javascript">
+//this should be part of es5-shim.
+ document.createElement( "picture" );
+</script>
+<script defer src="https://raw.githubusercontent.com/scottjehl/picturefill/2.2.0/dist/picturefill.js" type="text/javascript"></script>
+<style type="text/css">
+.piccie { text-align:center; width:90%; display:block; }
+.rwdimg { max-width:100%; height: auto; }
+</style>
+<script type="text/javascript" >
+jQuery(document).ready(function() {
+try {
+	picturefill( {
+	elements: [ document.getElementById( "rwd_polyfil" ) ]
+				 } );
+} catch ($e) {
+	console.log($e.message);
+}
+});
+</script>
+</body>
+</html>

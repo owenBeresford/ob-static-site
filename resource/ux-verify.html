@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>UX verify notes</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A UI test library to be run in the browser, link into Mocha and Chai" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="UX verify notes">
+<meta itemprop="description" content="A UI test library to be run in the browser, link into Mocha and Chai">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="UX verify notes">
+<meta name="twitter:description" content="A UI test library to be run in the browser, link into Mocha and Chai">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="UX verify notes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ux-verify" />
+<meta property="og:description" content="A UI test library to be run in the browser, link into Mocha and Chai" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:04:02" />
+<meta property="article:modified_time" content="20th of Apr 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "UX verify notes",
+	"article:published_time":"22nd of Jul 2022, 19:04:02", 
+    "article:modified_time":"20th of Apr 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+
+<h2 class="dontend" id="toc0"> Context  <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>Common requirements for high reliability UI testing</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Demonstrate product is usable in all browsers</li>
+    <li class="libasic">Demonstrate branding is OK in all browsers</li>
+</ul>
+
+<p>Common requirements for QA UI testing</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Demonstrate product supports user stories/ scenarios</li>
+    <li class="libasic">Detect any weird crashes in obscure setups</li>
+    <li class="libasic">Ensure products are compliant with #a11y laws <sup><a href="https://www.w3.org/WAI/policies/" target="_blank">1</a></sup> <sup><a href="https://www.out-law.com/page-330" target="_blank">2</a></sup> <sup><a href="https://webdevlaw.uk/2016/12/05/plain-english-guide-eu-accessibility-directive/" target="_blank">3</a></sup> <sup><a href="http://ec.europa.eu/ipg/standards/accessibility/index_en.htm" target="_blank">4</a></sup>.  </li>
+</ul>
+
+<p>I am currently using Mocha as my primary test tool in JS.  It can be run as BDD or a TDD, so there is less tool management.<br />
+Mocha can be run in browser <sup><a href="https://medium.com/dailyjs/running-mocha-tests-as-native-es6-modules-in-a-browser-882373f2ecb0" target="_blank">5</a></sup> <sup><a href="https://stackoverflow.com/questions/42857778/how-do-you-run-mocha-tests-in-the-browser" target="_blank">6</a></sup>.  I have not found a extension like Swarm <sup><a href="https://libraries.io/npm/swarm-js/0.1.21" target="_blank">7</a></sup> for Mocha, but Jenkins <sup><a href="https://stackoverflow.com/questions/30458114/running-jenkins-job-with-multiple-browsers" target="_blank">8</a></sup> would work as a substitute.  This article isn't about distributed testing, but Swarm seems like a good idea, good enough to be used for testing jQuery releases <sup><a href="https://github.com/jquery/testswarm/wiki" target="_blank">9</a></sup>.  For forking and parallel running, Jasmine is a better organised tool <sup><a href="https://www.seleniumeasy.com/protractor-angularjs-tutorials/run-tests-on-multiple-browsers-parallel" target="_blank">10</a></sup>.</p>
+
+<p>I did a quick literature search but didn't find anything useful.  Obviously many people use Selenuim <sup><a href="https://www.seleniumhq.org/projects/" target="_blank">11</a></sup> to meet this requirement.  Jest <sup><a href="https://devhints.io/jest" target="_blank">12</a></sup> <sup><a href="https://blog.logrocket.com/testing-with-jest-from-zero-to-hero-85ce0e9cc953/" target="_blank">13</a></sup> has some relevant features, but lacks the data normalisation of my planned tool.<br />
+UPDATE 2022: I found <sup><a href="https://github.com/testing-library/react-testing-library" target="_blank">14</a></sup> <sup><a href="https://www.npmjs.com/package/@testing-library/react" target="_blank">15</a></sup> cheatsheet <sup><a href="https://testing-library.com/docs/react-testing-library/cheatsheet/" target="_blank">16</a></sup> whilst looking for something.  The extra tool is mostly “get an element with this text”, which is less like declarative code.  Whilst pulling references for this , I notice the recent jQuery has a &quot;:contains” search feature <sup><a href="https://api.jquery.com/contains-selector/" target="_blank">17</a></sup>, for text matching.  I will add a similar function to my library, as its a good idea.</p>
+
+<p><b>objective: use a library to concisely make declarative UI statements about webpages/ webapps</b> (e.g. assert that all visible text is larger than 15px on screen).  This MUST be run in a webrowser, in the normal operating condition.  With this library, UI regression tests can be quickly defined.  A unit test, in a well maintained library, can be easily ran in all browsers.</p>
+
+<p>It is not intended to look at tag well-formed-ness, as that isn't UX/UI, but implementation.   If tag well-formed-ness is required in a unit-test; I would recommend tidy <sup><a href="https://packages.ubuntu.com/trusty/tidy" target="_blank">18</a></sup>.<br />
+I am not focussing on page load speed, as there are many tools that do this.  It should be noted that there are many implementations / notations of features, and to be useful all of these need supporting.   For example a font size may be specified in px, pt, em, rem, %, vh, vw, vmin, vmax <sup><a href="https://www.w3.org/Style/Examples/007/units.en.html#font-size" target="_blank">19</a></sup>, dp, su, sp, gp, gs, gr <sup><a href="https://github.com/alexfoxy/react-native-units" target="_blank">20</a></sup> and more .   The conversion will need to be done at runtime, as it is device and setting specific.   A person reading the whole of this site may note the overlap between this tool and <a class="" href="https://owenberesford.me.uk/resource/cain-project#">CAIN-project</a>, <a class="" href="https://owenberesford.me.uk/resource/cain-introduction#">cain-introduction</a>.<br />
+As a more applied analysis; the metrics in <sup><a href="https://davidwalsh.name/vital-web-performance" target="_blank">21</a></sup> <sup><a href="https://medium.com/weekly-webtips/observer-apis-in-javascript-part-ii-5dba957295ab" target="_blank">22</a></sup> should be thought about.  Conveniently the same article says the required JS feature is already present in blink based browsers <sup><a href="https://caniuse.com/?search=PerformanceObserver" target="_blank">23</a></sup> so has a good level of support.   Please note there will need to be some work to get this feature loaded on page load, rather than after first paint.   I will work out how to convert the Observables events to a boolean statement for an unit assertion.  There are many blog articles on this API, but I used <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver/observe" target="_blank">24</a></sup> to write my test.   With regards to delayed input, <sup><a href="https://requestmetrics.com/web-performance/first-input-delay" target="_blank">25</a></sup> explains what the speed warnings on mouse-events in Chrome mean (built with same API).<br />
+To use the PerformanceObserver feature; the JS blob will need to load TinyColor and PresentationAsserts before other libraries.  Maybe the most sensible process is to have two build scripts; one with “with test tools”, which at scale may also include Mocha, Chai etc; and one for “production”, without these deps.  The PresentationAsserts class is nearly stateless (TinyColor is the sole Object variable to avoid a global variable).  I will make a build later which is self executing; but I need to be careful about compatibility with class loaders. <br />
+This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcceptable()</i> but this just makes the underlying browser feature into a unit test feature.  I don't really have any say in weather it works or not.  Any users of this feature need to think carefully with any results (success or failure).   To repeat the last paragraph, it <em>can't work</em> if the PresentationAsserts code is loaded too late.   It would be possible to load with a null in place of the TinyColors, as that is less code, so faster.  Then inject the real one before running any tests that involve colour manipulation.</p>
+
+<p>Current JS file is <a href="https://github.com/owenBeresford/oab1-conf/blob/master/lib/PresentationAsserts.js" target="_blank">available</a>, requires tinyColor.js; which is in the same folder in GIT.  I have a resource for a wide range of UTF-8 symbols; this is useful for testing utf8 support <sup><a href="http://kermitproject.org/utf8.html" target="_blank">26</a></sup> <sup><a href="http://www.columbia.edu/~fdc/utf8/" target="_blank">27</a></sup>.  Another useful UTF-8 tool is <sup><a href="https://onlineunicodetools.com/escape-unicode" target="_blank">28</a></sup> <sup><a href="https://convertcodes.com/utf8-encode-decode-convert-string/" target="_blank">29</a></sup>, used for building escape sequences of UTF-8 literals.</p>
+
+
+<h2 class="dontend" id="toc1"> Metrics that are required (IMO)  <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">font sizes</li>
+    <li class="libasic">which font</li>
+    <li class="libasic">check logo is present</li>
+    <li class="libasic">check images support screen size X</li>
+    <li class="libasic">color contrast (pls see <sup><a href="https://projects.susielu.com/viz-palette" target="_blank">30</a></sup>)</li>
+    <li class="libasic">title/ tooltip is present &amp; has content</li>
+    <li class="libasic">image alt text is present &amp; had content</li>
+    <li class="libasic">check colour (used for branding)</li>
+    <li class="libasic">current object location</li>
+    <li class="libasic">literal text is present (This is a frail test, so I avoid these. Brand people care about this. Also absence of common spelling errors e.g. in product name)</li>
+    <li class="libasic">text direction and alignment</li>
+    <li class="libasic">absence of corrupt chars (see badly encoded UTF8, which shouldn't still occur)</li>
+    <li class="libasic">language meta tagging (i.e. is X a page of Big5 text, <b>and</b> meta tagged as Big5, )</li>
+    <li class="libasic">check if “on screen”/ get co-ordinates</li>
+    <li class="libasic">detect visual overlaps</li>
+    <li class="libasic">all 'label' elements are properly populated</li>
+    <li class="libasic">HTML5 elements are present to support semantics and screen readers etc</li>
+    <li class="libasic">content movement. As UX, I hate page re-flows, I don't need your advertising; I really don't want to wait for the advertising to load 6 different JS frameworks. XX</li>
+    <li class="libasic">page load speed (as noted, use a different tool)</li>
+</ul>
+
+
+<h2 class="dontend" id="toc2"> Method <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">font sizes<ul class="ulbasic">
+        <li class="libasic">getComputedStyle, getPropertyValue</li>
+        <li class="libasic">Convert all units <sup><a href="https://websemantics.uk/articles/font-size-conversion/" target="_blank">31</a></sup> <sup><a href="https://websemantics.uk/tools/convert-pixel-point-em-rem-percent/" target="_blank">32</a></sup> </li>
+        <li class="libasic">return value</li>
+    </ul></li>
+    <li class="libasic">which font<ul class="ulbasic">
+        <li class="libasic">getComputedStyle, getPropertyValue</li>
+        <li class="libasic">Results would need to be compared to a literal</li>
+        <li class="libasic">There may be a algorithm to convert fonts to font-family <sup><a href="https://itstillworks.com/font-family-names-css-8267965.html" target="_blank">33</a></sup> (don't know enough detail)</li>
+        <li class="libasic">return value</li>
+    </ul></li>
+    <li class="libasic">color contrast<ul class="ulbasic">
+        <li class="libasic">use check colour solution to get foreground and background</li>
+        <li class="libasic">subtract one from other <sup><a href="https://ux.stackexchange.com/questions/107318/formula-for-color-contrast-between-text-and-background" target="_blank">34</a></sup></li>
+        <li class="libasic">return delta</li>
+    </ul></li>
+    <li class="libasic">title/ tooltip is present &amp; has content</li>
+    <li class="libasic">image alt text is present &amp; had content</li>
+    <li class="libasic">check logo is present<ul class="ulbasic">
+        <li class="libasic">querySelector, getAttribute, check value length</li>
+        <li class="libasic">return bool</li>
+    </ul></li>
+    <li class="libasic">check colour (used for branding)<ul class="ulbasic">
+        <li class="libasic">getComputedStyle, getPropertyValue</li>
+        <li class="libasic">Convert the units to a single standard <a href="https://github.com/bgrins/TinyColor" target="_blank">git</a> <sup><a href="https://www.w3schools.com/lib/w3color.js" target="_blank">35</a></sup></li>
+        <li class="libasic">return value</li>
+    </ul></li>
+    <li class="libasic">current object location<ul class="ulbasic">
+        <li class="libasic">Bounding boxes are part of HTML, see <sup><a href="https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element" target="_blank">36</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect" target="_blank">37</a></sup></li>
+        <li class="libasic">return value array, need to make new array, as Browser one is RO</li>
+    </ul></li>
+    <li class="libasic">literal text is present (this is frail, so I avoid these)<ul class="ulbasic">
+        <li class="libasic">Get all text, see <sup><a href="https://github.com/owenBeresford/oab1-conf/blob/master/bin/textExtract.js" target="_blank">38</a></sup>, or select from supplied selector </li>
+        <li class="libasic">Apply RegExp of argument to text block</li>
+        <li class="libasic">return bool of match</li>
+    </ul></li>
+    <li class="libasic">text direction and alignment<ul class="ulbasic">
+        <li class="libasic">Look for the attrib, as outlined <sup><a href="https://stackoverflow.com/questions/15725988/how-to-detect-text-direction-of-element-using-javascript" target="_blank">39</a></sup>, wrapping getComputedStyle, getPropertyValue</li>
+        <li class="libasic">return value</li>
+    </ul></li>
+    <li class="libasic">absence of corrupt chars (see badly encoded UTF8, which shouldn't still occur)<ul class="ulbasic">
+        <li class="libasic">Not intensionally sarcastic, but a traditional solution is to get a cheap human to read it.  I have created a method, but I'm not sure it deals with /all/ cases.  </li>
+    </ul></li>
+    <li class="libasic">language meta tagging (ie is X a page of Big5 text, <b>and</b> meta tagged as Big5, )<ul class="ulbasic">
+        <li class="libasic">Extract attributes, according to <sup><a href="http://nimbupani.com/declaring-languages-in-html-5.html" target="_blank">40</a></sup> <sup><a href="https://www.w3.org/International/questions/qa-html-language-declarations" target="_blank">41</a></sup>.  Country codes should be limited to <sup><a href="https://gist.github.com/JamieMason/3748498" target="_blank">42</a></sup>                     </li>
+        <li class="libasic">?guess language of text?  My initial plan involved use of RE code-point classes <sup><a href="https://www.regular-expressions.info/unicode.html#script" target="_blank">43</a></sup>, but this isn't part of JS</li>
+        <li class="libasic">can return first item</li>
+    </ul></li>
+    <li class="libasic">check if “on screen”<ul class="ulbasic">
+        <li class="libasic">Apply current object location</li>
+        <li class="libasic">return whether values are outside of a bounding box that is that browser size</li>
+    </ul></li>
+    <li class="libasic">detect visual overlaps<ul class="ulbasic">
+        <li class="libasic">Takes two element ids</li>
+        <li class="libasic">Apply current object location</li>
+        <li class="libasic">Do maths to spot overlap</li>
+        <li class="libasic">return bool</li>
+    </ul></li>
+    <li class="libasic">content movement<ul class="ulbasic">
+        <li class="libasic">Must be sampled across time, do this last. NB: The most common movement is on page load.</li>
+        <li class="libasic">Get location of item from passed selector, use location computation from other metrics.</li>
+        <li class="libasic">Practically will needs to be run separately, as it will take the most time.</li>
+    </ul></li>
+    <li class="libasic">page load speed <ul class="ulbasic">
+        <li class="libasic">blah, blah.  There are many tools, pls see <a class="" href="https://owenberesford.me.uk/resource/stress-tools#">stress-tools</a> if you have no experience.</li>
+    </ul></li>
+</ul>
+
+<p>My initial plan is to provide methods that take a HTML selector, and return the value of the named metric, in a normalised form.  I am really fortunate that querySelector() is widely supported <sup><a href="https://caniuse.com/#feat=queryselector" target="_blank">44</a></sup>.  <br />
+NB: tools must be made with older JS to supply higher reliability in older or awkward browsers, so no 'class' keyword.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing"><a name="adjacent" href=""></a> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>UX verify notes</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>UX verify notes</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-04-20T17:01:24">20th of Apr 2022</time></span>
+<span>Created <time datetime="2019-01-22T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >22nd of Jan 2019</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Context</a></li>
+<li><a href="#toc1">Metrics that are required (IMO)</a></li>
+<li class="h4_odd"><a href="#toc2">Method</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:04:02">22nd of Jul 2022, 19:04:02</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-04-20T17:01:24">20th of Apr 2022</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

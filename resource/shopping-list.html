@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Shopping list hack</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Maquette, to play with JS/TS tooling" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Shopping list hack">
+<meta itemprop="description" content="Maquette, to play with JS/TS tooling">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Shopping list hack">
+<meta name="twitter:description" content="Maquette, to play with JS/TS tooling">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Shopping list hack" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/shopping-list" />
+<meta property="og:description" content="Maquette, to play with JS/TS tooling" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:04:01" />
+<meta property="article:modified_time" content="21st of Jul 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Shopping list hack",
+	"article:published_time":"22nd of Jul 2022, 19:04:01", 
+    "article:modified_time":"21st of Jul 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h2 class="dontend" id="toc0"> Goals: <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">To work cleanly on a 'Driod phone (very easy, but important).</li>
+    <li class="libasic">Quickly add/build this weeks shopping list.</li>
+    <li class="libasic">To manage dates on shopping lists, so humans do not need to.</li>
+    <li class="libasic">To be able to swipe-off done items.</li>
+    <li class="libasic">To be able to swipe-on previous weeks items (as entire list).</li>
+    <li class="libasic">To be able to swipe-on previous weeks items (as single item).</li>
+    <li class="libasic">To be able to push a list between client nodes (desktop or phone).</li>
+    <li class="libasic">Prefer, to be able to host server in LAN only, and have app run in offline mode in the journey and shop.</li>
+    <li class="libasic">Be able to swap lists with my partner.</li>
+    <li class="libasic">Prefer system to be isolated from supermarket systems, as I am unaware of any supermarket system that lets you wander between merchants without friction.</li>
+    <li class="libasic">Stretch: to access current floor plan from supermarket, so items can be ordered in “shop order” automatically.</li>
+    <li class="libasic">Stretch: to be able to read barcodes from empty packets, via phone camera.</li>
+    <li class="libasic">Not a goal: stock control for dwelling.</li>
+    <li class="libasic">Not a goal: chat client or selfie interaction. </li>
+    <li class="libasic">Not a goal: user logins.  This is LAN only.  </li>
+</ul>
+
+
+<h2 class="dontend" id="toc1"> Context: <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>Since I left school, I rarely handwrite anything, as its not a profitable activity.   This means I have an irregular scrawl that a medical doctorate would find awkward.   I find paper lists frustrating, slow to access, and whilst in shop, its hard to maintain state.   The third issue with dead-tree solutions is there is no easy tool to copy old lists, *and* extend/ alter them.   A photocopier would do this, but I do not want to buy a photocopier just for shopping-lists.<br />
+ I do shopping physically as if you bounce in and out early, it uses the least amount of time (yes faster than net based shopping as you do not need to wait for any deliveries).   I split goods between several different supermarkets; as they cover different product ranges (this makes the delivery windows larger again).  <br />
+One supermarket is a vast metal-framed building and has very poor mobile reception (so querying an items presence or absence is hard).   The lack of reception means any server based state is fairly useless.  The volumes of data are quite small, I can just host all the data on the phone.  Unless you want to share a list whilst out shopping (which I don't do); there is no need for a server whilst out.   No remotely accessible server mean no need to think about security, so the dev process costs a lot less.   The data/ code will need to be cached on the phone; but that shouldn't be an issue.   <br />
+Writing this code is optional/ doesn't led to employment, but is a useful maquette.</p>
+
+
+<h2 class="dontend" id="toc2"> Aggregated updates <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">UPDATE (will get edited): I have the basic two screens and a menu; data loads and saves locally; edit, add and delete item work; the swipe interactions work; the design is OK on recent phones that have a larger screen.  It has a persistence API, and state sharing.</li>
+</ul>
+
+
+<h2 class="dontend" id="toc3">Retrospective <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">In order to complete this project, I have done a survey of build tools (see end).   Tooling for <i>Vue3.2 + typescript</i> is immature and fragile.  It is stable for <i>vue2.6 and typescript</i> or <i>react X and typescript</i>. </li>
+    <li class="libasic">I added a state library relatively late in the dev process, as I initially didn't have state.  I think I should assume I will get state, so just add <i>vuex</i> etc at the start.</li>
+    <li class="libasic">I think my 'small project' single CSS file is a sensible process.  Previously where I wasn't the first developer, I was amending SCSS inside SCF files (either Vue or React), which didn't seem to add anything for the code/ project at hand.  Code that has not been written to be reusable isn't worth trying to reuse.  </li>
+    <li class="libasic">I am getting experience managing JS of different generations inside the same project.  In this project I am trying to maximise library use, and have more generic things that can be pulled from libraries; so am having problems like build tool failures more frequently.</li>
+    <li class="libasic">Some step in the build process, or render process mangles UTF-8 chars in JSX.  If you keep the UTF8 in JS strings they are not mangled; this means UTF8 prose needs by added via “v-html”.</li>
+    <li class="libasic">As this is opensource, the completed product will have tidy naming.  </li>
+    <li class="libasic">As we have been playing with interaction design on this project; the other massive benefit is that we can hold shopping lists for shops that we visit once every six-months, at low admin cost compared to paper.</li>
+    <li class="libasic">I have no intent to support small-screen phones like an iPhone5, as not needed by target user-group. </li>
+    <li class="libasic">This project is in Vue, but I made no effort to tidyup legacy versions of anything, or NPM security warnings.  I have <strong>no npm security errors at all on the front-end</strong>.  At Swyvl I was putting dev budget (i.e. staff time) into getting updates on packages as the basic build had &gt;70 security errors of various strengths.</li>
+    <li class="libasic">Although a pure JS build chain would be prettier; it is contradicted by all the flags that I need to pass the Node interpreter. </li>
+    <li class="libasic">As a repeat on do not use Typescript with Vue3 yet; after alot of experimentation I do not have a way to have 1 copy of each library in the bundled source, unless I hand link it.  Obviously shared state between components is fragile when every component has a private copy of the service classes.  All the builds via JS tooling have duplicate copies of each module/ class as the compiler state they cannot know if an import has side effects; so each import needs to be done separately, rather than shared.  The first time I measured this, the uncompressed test build was 19MB; the same code should be 80KB.  Rollup has poor no-bundle features compared to babel.   Maybe a long-term plan is to try again with Babel</li>
+</ul>
+
+
+<details>
+<summary>Sketch solutions: </summary> 
+<ul class="ulbasic">
+    <li class="libasic"><i>[v1] written before code</i></li>
+    <li class="libasic">Define simple list Object (remember its Typescript), each item storing name, state, count; and the list having a name an create date </li>
+    <li class="libasic">For dev performance, use a minimal vue2</li>
+    <li class="libasic">Have dict of lists storage in localStorage</li>
+    <li class="libasic">Index “page” that lists current lists, with date</li>
+    <li class="libasic">View “page” that renders the list </li>
+    <li class="libasic">Copy list “page” that displays two lists side by side</li>
+    <li class="libasic">Manually make list “page”</li>
+    <li class="libasic">Simple REST servers to receive pre-built lists, and publish them back</li>
+    <li class="libasic">Server also manages JS bundles to drive frontend</li>
+    <li class="libasic"><i>[v2] after some code</i></li>
+    <li class="libasic">Swiping was more of a foreground work-activity than is desirable (its a common library action)</li>
+    <li class="libasic">I'm adding some interstitial docs in app; purely for code reviewers; I will give both the normal operatives a 2min walk though </li>
+    <li class="libasic">I plan to use actual file-write for list persistence, rather than a DB or similar.  This is a too low volume service to bother with enterprise tooling anywhere.</li>
+    <li class="libasic">The state sharing (sync with server) will need to be done in a Webworker, as its likely to fail quite often.</li>
+    <li class="libasic">Obviously the cache building (for installation) is typically done in a Webworker.</li>
+    <li class="libasic">I have have pushed back for the compare function; as on consideration its not that useful. It shouldn't be hard to do.</li>
+</ul>
+
+
+</details>
+<details>
+<summary>Project updates: </summary> 
+<ul class="ulbasic">
+    <li class="libasic">I ran a few things.  `npm` gave me vue3 in March 2022, this project got delayed as I was too busy previously.</li>
+    <li class="libasic">I am using libraries wrapped by Vue; so the development time should be reduced.</li>
+    <li class="libasic">I am building this with a common framework based CSS, an architecture choice.  IMO “the best button styling” is likely to be common to many business problems; and getting it to behave consistently across a heterogeneous browser population is not a dev cost to repeat for each button.  IMO “private CSS per component” only seems to be useful when the CSS is very different from generic business features.  For example if you have a Vue component that renders SVG graphs, it would have many CSS statements correct labeling on axis, and the values on the axis; that other business features will not need, or will contradict.  These atypical Components need private style sheets; most of my components are about data, and have boring CSS.</li>
+    <li class="libasic">A value I was aiming at was better control on swipe events/ swipe code.  I think it would be useful for more mobile centric work in future.   I wanted to get a demo done before I started Swyvl on this; but didn't have time.  </li>
+    <li class="libasic">I would like a /install button, as an example of “clear and simple” UI.  I can build this using cacheStorage, but that forces me to make this a HTTPS service.  </li>
+    <li class="libasic">As modern JS supports UTF8 and therefore other charsets; I am tending to write “variables with generic software engineering names” in not-English; so it doesn't clash with the keywords which are in English.   If this was a commercial project, I would organise the rest of the dev team to have a language that we held in common.  I think “série:string” is much better than the average US solution of “MyString:string”.  Note IDEs and typed languages are convenient here.   </li>
+    <li class="libasic">For development, I am using the snakeOil cert that is supplied with vite project.   As it asks you to confirm the cert each time, this is not a complete solution.</li>
+    <li class="libasic">I tried to remove the default export from the Vue components for aesthetics; but when I do this rollup generated code doesn't work; so I have to use export default.</li>
+</ul>
+
+
+</details>
+<details>
+<summary>Discussion on tools, vue3 + typescript</summary>
+<ul class="ulbasic">
+    <li class="libasic">I don't normally foreground a long list of my failures.  However I think these are important notes.</li>
+    <li class="libasic"><i>vue-cli</i> tooling works; but forces vue2. This uses <i>babel</i>, automagically.</li>
+    <li class="libasic"><i>vite</i> tooling ~ recommended by Ethan You @youyuxi ~  has less features, doesn't seem to like <i>babel</i> or <i>webpack</i> so much</li>
+    <li class="libasic">No <i>ts*</i> tool wants to touch *.vue SCF files.</li>
+    <li class="libasic"><i>vue-tsc</i> exists, but doesn't want to write any JS files. I'm using it to build the d.ts type outline files.</li>
+    <li class="libasic">Tried using <i>tslint</i>, </li>
+    <li class="libasic">tried <i>browserify, typescriptifier</i>, but the second one was making empty files without anything other than static loader.</li>
+    <li class="libasic">Went back to <i>eslint</i> as it supplies better output &amp; have all the linting correct.  </li>
+    <li class="libasic">I have half a solution with <i>esbuild</i>, but still need a thing to convert the SCF files. </li>
+    <li class="libasic">To compile the Vue files, I have tried <i>vue-template-compiler @vue/compiler-sfc vue-loader@next vue-loader/vueify</i> and <i>vue3-sfc-loader</i>.</li>
+    <li class="libasic">Remove esbuild.  To compile *.vue files with typescript and vue3.2, I try <i>rollup</i>, and official plugins.  This fails as it feeds typescript into the JS interpreter.  Iterate on each of the available plugins and config file settings.</li>
+    <li class="libasic">Try again with <i>rollup and rollup-plugin-typescript2</i> (which is not the official plugin). </li>
+    <li class="libasic">Rollup.js is framework for compiling and a bundling.  I'm only using it to transpile/compile the SCF; as it doesn't crash like other tools do.  I'm telling it not to include deps <sup><a href="https://docs.w3cub.com/cheatsheets/rollup.html" target="_blank">1</a></sup>; Rollup.js plugins cannot process “ts-json-object” as that library builds exports.default in a weird ~ but valid ~ fashion.</li>
+    <li class="libasic">I adjusted the import path, so the bundler didn't complain; however it is now leaving out the class though.</li>
+    <li class="libasic">I added <i>rollup-plugin-legacy</i> to manipulate the legacy JS code packaging, and <i>@rollup/plugin-replace</i> to edit strings.</li>
+    <li class="libasic">Its not possible to use <i>plugin-replace</i> in the output.plugins; so I tried <i>rollup-plugin-postprocess</i>.</li>
+    <li class="libasic">With the old <i>vue-cli</i>, files named .vue are converted to JS before any other steps are applied (and import paths remapped).   Other tooling keeps fighting this standard. </li>
+    <li class="libasic">I note that rollup wants Vue SCF files to be 'export default'; but doesn't care if normal modules are 'export default'.  I try to minimise 'export default' as it leads to less confusion when going between languages. </li>
+    <li class="libasic">Current hack (used for unit tests): no JS modules, just use IIFE, and use <i>external</i> and global builds.</li>
+    <li class="libasic">Better outcomes if I change the IIFE to es modules (used in main app); with still using static external libraries though.</li>
+    <li class="libasic">Know about flags for rollup: --environment INCLUDE_DEPS,BUILD:$buildenv <sup><a href="https://github.com/rollup/rollup/blob/master/docs/01-command-line-reference.md" target="_blank">2</a></sup> <sup><a href="https://github.com/roxiness/routify-starter/issues/61" target="_blank">3</a></sup> </li>
+    <li class="libasic">To get the server code to link properly, I have added <i>--es-module-specifier-resolution=node</i> to the npm script, and <i>“type”: “module”</i>.</li>
+    <li class="libasic">I was using rollup to covert TS Vue SCF into JS files, as separate files; then doing a second build step to merge everything.  I am having RAM limit crashes on the Node process doing transpilation.  I have increased the heap limit <i>node --max_old_space_size=8184</i>; and its still doing it.  I will change the build process to merge and build; aside from the Vue files; as that will also speed things up; and should side-step 70% of the crashes.</li>
+    <li class="libasic">In order to reduce the heap size crashes, I am doing the services files in a different rollup process.</li>
+    <li class="libasic">I spent two weeks trying to engineer a solution to get tree shaking to work; during linking/ bundling. I have no solution, I am hand linking so I have a executable, but this is not a solution.</li>
+</ul>
+
+
+</details>
+<details>
+<summary>Discussion on typescript features</summary>
+<p>I learn systems best by breaking them, whilst having all the documentation.   Just pressing a “go” button teaches you nothing.  I wasn't intending to learn a lot on JS/TS compiling/ transpiling tools; and in a commercial environment I would have changed my architecture after a day of failure.  Things I have learned from this small project:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">I think this book is good <sup><a href="https://www.typescriptlang.org/docs/handbook/2/classes.html" target="_blank">1</a></sup></li>
+    <li class="libasic">An reasonable excuse to limit use of arrow functions in code-to-be-reused <sup><a href="https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1" target="_blank">2</a></sup>. </li>
+    <li class="libasic">A reasonable excuse to limit default exports <sup><a href="https://www.npmjs.com/package/rollup-plugin-terser" target="_blank">3</a></sup>.   I mostly only do that with components, but hadn't thought about it very much.  This (explicit import encouraged) follows common practice on MVC frameworks in Perl.</li>
+    <li class="libasic">A better breakdown on unit tests in components.</li>
+    <li class="libasic">Clear use of JS modules; but that is shallow results if you have used Python or something.</li>
+    <li class="libasic">A very simple reference State feature, which on top of JS modules is trivial (see other languages again).  I also am using Vuex (think like Redux).</li>
+    <li class="libasic">Use of arrow functions to not need to use “this” when its not needed (pure functions which didn't reference local state).</li>
+    <li class="libasic">Nestjs uses many decorators; these are not technically function calls, and do not want a semi-colon, or have a return value.  Decorators must be turned ON in the tsconfig.json.  </li>
+    <li class="libasic">I have added a few interfaces purely for the TS typing analysis (the source was expecting to run inside a JS engine so doesn't have them).</li>
+    <li class="libasic">As I add unit tests, I am splitting functions abit, and reorganising to avoid any circular dependancies (purely created as I was dumping everything in too few files).</li>
+    <li class="libasic">Operational deployment for Mocha (fast to do), Jest (fairly fast).  “dev-dep” is much larger than would be normal in a commercial project. </li>
+    <li class="libasic">I have pulled serving the front-end code into the API project; to reduce management overheads abit.</li>
+    <li class="libasic">I have common interfaces like I am a real developer.  I have basic factories to instantiate objects.</li>
+    <li class="libasic">I would like to show that I can use an Enum, but haven't worked out where to add this. </li>
+    <li class="libasic">I have added a variodic function.</li>
+    <li class="libasic">I have added a forward declared function. </li>
+    <li class="libasic">I am pulling all the  interfaces and types into separate files, which will be moved into a types namespace soon.  I will follow the Trait naming style (i.e. things are named '&lt;noun&gt;...able'); although this doesn't seem as common in JS.  These changes make the code more readable.</li>
+    <li class="libasic">Quite a few people writing blogs like GenericTypes, this feels like C++ envy.  I think this problem space is too small for generic types; I have interfaces and different functionality inside a common interface instead.</li>
+</ul>
+
+<p>things that I made</p>
+
+
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Shopping list hack</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fshopping-list" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fshopping-list" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fshopping-list" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Shopping list hack</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fshopping-list" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fshopping-list" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fshopping-list" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-07-21T10:43:38">21st of Jul 2022</time></span>
+<span>Created <time datetime="2021-09-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Sep 2021</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Goals:</a></li>
+<li><a href="#toc1">Context:</a></li>
+<li class="h4_odd"><a href="#toc2">Aggregated updates</a></li>
+<li><a href="#toc3">Retrospective</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:04:01">22nd of Jul 2022, 19:04:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-07-21T10:43:38">21st of Jul 2022</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<style>
+summary { font-size:130%; margin:1em; }
+details[open] {
+	width:30em; height: calc( 100% - 8vh ); position:fixed; z-index:2; top:8vh; left:calc( 50% - 15em ); 
+	right:calc( 50% - 15em ); background-color:white;
+}
+details[open] summary::after { content:"X"; margin-left:2em; float:right; font-weight:bold; border:grey 1px solid; padding:0 1em ; } 
+details[open] summary:hover { background-color:#d7f2fa; } 
+
+details[open] ul {
+   margin:1em; margin-left:2em; overflow-y:scroll; background-color:white; height:100%;
+}
+
+@media screen and (min-width:1200px) {
+	details[open] {
+		width:40em; left:calc( 50% - 20em ); right:calc( 50% - 20em );
+	}
+}
+@media screen and (min-width:1600px) {
+	details[open] {
+		width:60em; left:calc( 50% - 30em ); right:calc( 50% - 30em );
+	}
+}
+
+</style>
+</body>
+</html>

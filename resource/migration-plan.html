@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Migration plan</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Notes on how drop some cheap work from 2010" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Migration plan">
+<meta itemprop="description" content="Notes on how drop some cheap work from 2010">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Migration plan">
+<meta name="twitter:description" content="Notes on how drop some cheap work from 2010">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Migration plan" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/migration-plan" />
+<meta property="og:description" content="Notes on how drop some cheap work from 2010" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:03:28" />
+<meta property="article:modified_time" content="21st of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Migration plan",
+	"article:published_time":"22nd of Jul 2022, 19:03:28", 
+    "article:modified_time":"21st of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+<p>I would like to migrate my content to a less old platform. I have been putting content into a format that I wrote.  Keeping my content and its format is the most valuable objective.</p>
+
+
+<h2 class="dontend" id="toc0"> Summary of history <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>In 2010, as I couldn't convince the CTO of a number of things including changing to PHP5 was needed, I thought I ought to change employer.  This was my first proper job, I had been working there for six years and helped it grow from a three employee company selling dialup to a nation wide service with millions of customers using DSL.  Delivery of telecoms systems and contracts aren't suited to fast iterations; test coverage is necessary and service availability must be above 99%.  In my last month, I worked extra hours to ensure I left behind documentation for the systems that where managed solely by me.<br />
+In 2010, I was less confident with writing things in English, although was better than when I was eighteen. I felt that everyone else on the jobmarket would have PHP5 experience, I had to get some very fast.  I wanted a project I could create during gardening leave which showed I understood what Agile was, and I use current languages, e.g. PHP5.  Now having work experience, the more academic focussed stuff needed to take up less space on my CV.  To meet these objectives, I started a project that had a lot of English, technology last, and was very Agile. You are reading it.  I could have created a wordpress site, at which point I probably would have dropped the project by now, and it would lack PHP5 (Wordpress doesn't really have objects yet, in 2018).  I lacked much claimable experience in visible work, as at mIS I was building B2B<a class="" href="https://www.google.co.uk/search?q=B2B">?</a> XML RPC mostly.  <br />
+In total on this project, I think 80% of the time has gone on English prose. Of this, 30% may be pulling references.  In 2013, I reskinned the site to a better layout and colour scheme.  The new layout worked better with the larger amounts of content.  In the middle of 2017 I reskinned it again, mostly dropping code from 2007 era, and updating the CSS for todays CSS (soo much shorter, more stable, less CPU expensive).  In the 2017 update, I added no new features; previously I had been adding one or two UX niceties per year; I compiled/merged the JS and CSS to have less separate assets, so the site is now much faster.  <br />
+Like many 'Agile messes', I have been focussing on user-centric design and not technology.  PHP has moved, and by now there is little - if any - value in sole-author whole codebases (an intensional decision for maximal personal experience).  I want to use the newer object features... and have good enough source that people can see it.</p>
+
+
+<h2 class="dontend" id="toc1"> Migration into 2018 <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>This site fits “blog” quite closely, although I intentionally have no marketing trackers. The blog market is owned by PHP, Perl was displaced by 2005. There are few large scale blog sites in Node, although it should work really well.  I assume the zeitgeist ignores Node for a reason, and so I wrote a Bridge <sup><a href="https://en.wikipedia.org/wiki/Bridge_pattern" target="_blank">1</a></sup> from Symfony3 to my file format <a href="https://github.com/owenBeresford/icelineDocRender" target="_blank">git</a>.  <br />
+In order to deploy my new renderer, as less-old solution, I will need to move to a different webhost. FTP is bad technology in todays world.  Symfony uses many compiled formats, and these are built via command line activities. Yes it is possible to have a “webadmin”, but please see the <b>very long list of security problems with phpMyAdmin and wordpress</b> <sup><a href="https://nakedsecurity.sophos.com/2013/09/27/how-to-avoid-being-one-of-the-73-of-wordpress-sites-vulnerable-to-attack/" target="_blank">2</a></sup> <sup><a href="https://www.phpmyadmin.net/security/" target="_blank">3</a></sup> <sup><a href="https://stackoverflow.com/questions/2631269/how-to-secure-phpmyadmin" target="_blank">4</a></sup> <sup><a href="https://moz.com/blog/the-definitive-guide-to-wordpress-security" target="_blank">5</a></sup> <sup><a href="https://www.whitefirdesign.com/blog/2014/12/16/security-vulnerability-fixes-often-left-unmentioned-in-wordpress-plugin-changelogs/" target="_blank">6</a></sup> <sup><a href="https://wordpress.org/about/security/" target="_blank">7</a></sup> <sup><a href="https://premium.wpmudev.org/blog/wordpress-security-exploits/" target="_blank">8</a></sup> <sup><a href="https://www.wordfence.com/learn/how-to-protect-yourself-from-wordpress-security-issues/" target="_blank">9</a></sup>  for why this is a very bad idea.  There is somethings that should not be done “in band”, on the same public HTTP(S) channel.</p>
+
+<p>The obsite <a href="https://github.com/owenBeresford/jquery-ob1" target="_blank">git</a> project is the last JS/CSS project that I need to have a cleaner codebase.</p>
+
+<p>Actionables:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">locate a new host that is based on VM or something, and allows SSH access</li>
+    <li class="libasic">work out the least hassle for moving DNS</li>
+    <li class="libasic">add another bundle to the renderer, which is “the site” specific sections</li>
+    <li class="libasic">copy wiki files into new bundle</li>
+    <li class="libasic">impl all the packaging for the JS &amp; add to new bundle</li>
+    <li class="libasic"></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"><a name="adjacent" href=""></a> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Migration plan</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmigration-plan" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmigration-plan" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmigration-plan" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Migration plan</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmigration-plan" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmigration-plan" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmigration-plan" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-21T22:48:20">21st of Sep 2020</time></span>
+<span>Created <time datetime="2018-04-11T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >11th of Apr 2018</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Summary of history</a></li>
+<li><a href="#toc1">Migration into 2018</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:03:28">22nd of Jul 2022, 19:03:28</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-21T22:48:20">21st of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

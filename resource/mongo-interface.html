@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Mongo Admin Interface</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Notes on how to integrate with Mongo from PHP, advanced reading." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Mongo Admin Interface">
+<meta itemprop="description" content="Notes on how to integrate with Mongo from PHP, advanced reading.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Mongo Admin Interface">
+<meta name="twitter:description" content="Notes on how to integrate with Mongo from PHP, advanced reading.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Mongo Admin Interface" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/mongo-interface" />
+<meta property="og:description" content="Notes on how to integrate with Mongo from PHP, advanced reading." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:03:28" />
+<meta property="article:modified_time" content="21st of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Mongo Admin Interface",
+	"article:published_time":"22nd of Jul 2022, 19:03:28", 
+    "article:modified_time":"21st of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>I will be writing code to access my self hosted NoSQL server, and the normal usage will be to treat it as a fancy file system.   To do data imports, and similar administration functions, a management tool is faster.   For MySQL (which is also self hosted here), I generally use the MySQL shell, so I can check my changes into my project.  SQL is just another language, that I need to be able to edit professionally.  When I am contributing to existing projects where OO is used properly, I am not using much SQL, as everything is a model.  At this point GUI tools are better again.  In this resource, I am writing down my research, under the theory that this will speed up other people.</p>
+
+<p>Tools to use the MongoDB.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">First most basic, PHP interpreter level access <sup><a href="http://docs.mongodb.org/ecosystem/drivers/php/" target="_blank">1</a></sup> with the PHP API docs <sup><a href="http://uk1.php.net/mongo" target="_blank">2</a></sup>.  No comments really, this is how my code will interface Mongo, unless I find a PDO driver.  Obviously if you are using other languages, read more <sup><a href="http://docs.mongodb.org/ecosystem/drivers/" target="_blank">3</a></sup></li>
+    <li class="libasic">Like the MySQL shell, Mongo has a client shell <sup><a href="http://docs.mongodb.org/manual/mongo/" target="_blank">4</a></sup>, API <sup><a href="http://docs.mongodb.org/manual/reference/method/" target="_blank">5</a></sup>.  It is written in JS, and is executed <sup><a href="http://docs.mongodb.org/manual/tutorial/getting-started-with-the-mongo-shell/" target="_blank">6</a></sup> similar to Node.js.  Allowing for the different language, this may be used in exactly the same fashion as sqlplus or mysql.  Someone wrote a <a href="http://www.mongodbspain.com/wp-content/uploads/2014/03/MongoDBSpain-CheetSheet.pdf" target="_blank">condensed summary</a>, which fits on 2x A4 sides.</li>
+    <li class="libasic">MongoDB provides tools <sup><a href="http://docs.mongodb.org/manual/core/import-export/" target="_blank">7</a></sup> similar to mysqldump or sqlldr.  If you had a CSV dump from a third party, you would convert it to JSON before importing it.  This is quite programmatically simple, alternatively <a href="http://docs.mongodb.org/manual/reference/program/mongoimport/" target="_blank">mongoimport</a> <sup><a href="http://www.cparker15.com/code/utilities/csv-to-json/" target="_blank">8</a></sup> <sup><a href="http://www.convertcsv.com/csv-to-json.htm" target="_blank">9</a></sup> public implementations are available.  For large volumes of data (&gt;100KB), I would solve this outside of a webrowser, as its more efficient.  It would be more useful to make BSON <sup><a href="http://bsonspec.org/#/specification" target="_blank">10</a></sup> <a href="http://docs.mongodb.org/manual/core/document/" target="_blank">mongo bson</a>, as it has a more useful range of types, but again this is very affordable. According to the ES spec, it is legal to use most of utf-8 as a variable name <sup><a href="https://en.wikipedia.org/wiki/ECMAScript" target="_blank">11</a></sup> <sup><a href="http://es5.github.io/x7.html#x7.6" target="_blank">12</a></sup> (discussion, not spec <sup><a href="http://mathiasbynens.be/notes/javascript-identifiers" target="_blank">13</a></sup> ), so column headers may be in a third parties locale (so used as variable names in the JSON object).  In terms of operational efficiency, converting internal labels to the same language as the developers will lead to better engineering.</li>
+    <li class="libasic">Integration with Symfony based systems is simple <a href="http://symfony.com/doc/current/bundles/DoctrineMongoDBBundle/index.html" target="_blank">DoctrineMongoDBBundle</a> <a href="http://www.symfony-project.org/plugins/sfMondongoPlugin" target="_blank">sfMondongoPlugin</a> or <sup><a href="http://code.google.com/p/mongodbloganalyzer/" target="_blank">14</a></sup>.  To get Mongo functioning in ZF2, use <a href="http://www.doctrine-project.org/projects/mongodb-odm.html" target="_blank">Doctrine ODM</a> or <a href="https://github.com/coen-hyde/Shanty-Mongo" target="_blank">Shanty</a>.  There is a quite mature integration with Cake <sup><a href="https://github.com/ichikaway/cakephp-mongodb" target="_blank">15</a></sup>.</li>
+</ul>
+
+<p>It is not my goal to be a MongoDB DBA, but to have a good understanding of a new tool, and be able to use it efficiently.  As ever; where someone else has publicly written stuff, I try not to duplicate their work.  If you are doing this for non R&amp;D purposes, a host <sup><a href="http://tour.mongohq.com/BestPractice?k=%2Bmongodb%20%2Bmanagement" target="_blank">16</a></sup> is probably more efficient, as for webservers.</p>
+
+<p>This article is a list of lists, and some commentary.  These lists here, are my source for the below tools:</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><a class="cleanimage" href="http://zoomq.qiniudn.com/ZQScrapBook/ZqFLOSS/data/20110719141804/index.html" target="_blank">http://zoomq.qiniudn.com/ZQScrapBook/ZqFLOSS/data/20110719141804/index.html</a> </li>
+    <li class="libasic"><a class="cleanimage" href="http://docs.mongodb.org/ecosystem/tools/administration-interfaces/" target="_blank">http://docs.mongodb.org/ecosystem/tools/administration-interfaces/</a></li>
+</ul>
+
+<p>Individual tools</p>
+
+<ul class="ulbasic">
+    <li class="libasic">mongo3 <a href="http://github.com/derailed/mongo3" target="_blank">git</a></li>
+    <li class="libasic">futon 4 mongo <a href="http://github.com/sbellity/futon4mongo" target="_blank">git</a></li>
+    <li class="libasic">opricot <sup><a href="http://www.icmfinland.fi/oss/opricot" target="_blank">17</a></sup> <a href="https://github.com/argon/Opricot-MongoConsole" target="_blank">git</a> the first link doesn't seem to be a valid domain name, but is all over the internet.</li>
+    <li class="libasic">phpMoAdmin <sup><a href="http://www.phpmoadmin.com/" target="_blank">18</a></sup></li>
+    <li class="libasic">mongohub ~ this was linked to the apple store, but apple deny hosting this tool. I extracted <sup><a href="http://code.google.com/p/mongohub/" target="_blank">19</a></sup> <a href="https://github.com/bububa/MongoHub" target="_blank">git</a> <sup><a href="https://github.com/bububa/MongoHub-Mac" target="_blank">20</a></sup> (mac)</li>
+    <li class="libasic">mongovue <sup><a href="http://www.mongovue.com/" target="_blank">21</a></sup></li>
+    <li class="libasic">RockMongo <sup><a href="http://rockmongo.com/" target="_blank">22</a></sup> </li>
+    <li class="libasic">Fang of Mongo <sup><a href="http://blueone.pl:8001/fangofmongo/" target="_blank">23</a></sup> <a href="http://github.com/Fiedzia/Fang-of-Mongo" target="_blank">git</a></li>
+    <li class="libasic">JMongoBrowser home page: <sup><a href="http://edgytech.com/jmongobrowser/" target="_blank">24</a></sup> <a href="http://github.com/agirbal/JMongoBrowser" target="_blank">git</a></li>
+    <li class="libasic">MongoExplorer <sup><a href="http://mongoexplorer.com/" target="_blank">25</a></sup></li>
+    <li class="libasic">MongoHub <sup><a href="http://mongohub.todayclose.com/" target="_blank">26</a></sup></li>
+    <li class="libasic">MongoVision <sup><a href="http://code.google.com/p/mongo-vision/" target="_blank">27</a></sup></li>
+    <li class="libasic">Meclipse <sup><a href="http://update.exoanalytic.com/org.mongodb.meclipse/" target="_blank">28</a></sup></li>
+    <li class="libasic">Database Master <sup><a href="http://www.nucleonsoftware.com/" target="_blank">29</a></sup></li>
+    <li class="libasic">mongs <sup><a href="http://www.whit537.org/mongs/" target="_blank">30</a></sup></li>
+    <li class="libasic">tag1 <sup><a href="http://tag1consulting.com/blog/mongodb-nagios-check" target="_blank">31</a></sup></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Mongo Admin Interface</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongo-interface" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongo-interface" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongo-interface" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Mongo Admin Interface</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongo-interface" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongo-interface" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongo-interface" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-21T22:48:43">21st of Sep 2020</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:03:28">22nd of Jul 2022, 19:03:28</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-21T22:48:43">21st of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

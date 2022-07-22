@@ -19,6 +19,9 @@ RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
 rewritecond %{REQUEST_URI}		(.*)
 rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
+rewritecond %{SERVER_PROTOCOL}  HTTP
+rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
+
 # if you can see this text, uoy can see the file system.
 rewritecond %{REQUEST_URI}      /res/  [OR]
 rewritecond %{REQUEST_URI}      /res-reach/  [OR]
@@ -28,10 +31,8 @@ rewritecond %{REQUEST_URI}      /lib/  [OR]
 rewritecond %{REQUEST_URI}      /res-test/ [OR] 
 rewritecond %{REQUEST_URI}      /.git/ [OR]
 rewritecond %{REQUEST_URI}      /.gitignore
-rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
-
 rewritecond %{REQUEST_URI}     /test/
-rewriterule ^(.*)              https://owenberesford.me.uk/ [L,R=301]
+rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
 
 RewriteCond %{REQUEST_URI}      ^[/]*$
 RewriteRule .*				    /resource/home	[QSA,L]
@@ -115,6 +116,7 @@ Header add Access-Control-Allow-Origin 154.59.155.12
 Header add Access-Control-Allow-Origin 176.32.230.19
 </Files>
 </IfModule>
+
 <FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2)$">
 <IfModule mod_headers.c>
 Header unset pragma
@@ -127,13 +129,16 @@ Header set X-timing-data "%t %D"
 </FilesMatch>
 
 <IfModule mod_headers.c>
-<If "%{REQUEST_URI} =~ /references/">
+<If "%{REQUEST_URI} =~ /-references/">
 	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
 </If>
-<If "%{REQUEST_URI} !~ /-references/">
+<If "%{REQUEST_URI} !~ /(-references|-meta|rss|min\.js|min\.css|\.png|\.woff|\.woff2|\.jpeg)/">
 Header set Content-Type 'text/html; encoding=utf8'
 Header set Cache-Control 'max-age=86400'
+RewriteCond %{REQUEST_URI}      ^/resource/
+RewriteCond %{REQUEST_FILENAME}	!-f
+RewriteRule (.*)				$1.html
 </If>
 
 <If "%{REQUEST_URI} =~ /-meta/">

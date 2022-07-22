@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>PHAR notes</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Short article about compressed php bundles" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="PHAR notes">
+<meta itemprop="description" content="Short article about compressed php bundles">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="PHAR notes">
+<meta name="twitter:description" content="Short article about compressed php bundles">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="PHAR notes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/phar-notes" />
+<meta property="og:description" content="Short article about compressed php bundles" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:03:59" />
+<meta property="article:modified_time" content="21st of Jul 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "PHAR notes",
+	"article:published_time":"22nd of Jul 2022, 19:03:59", 
+    "article:modified_time":"21st of Jul 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>Notes on what I needed to do to make a PHAR file, so I will find it faster next time.  Article not expected to be exciting, but to save time.</p>
+
+<p>Technically PHAR is modelled on a Java JAR file, with the same basic compressed file bundle and manifest meta file <sup><a href="https://en.wikipedia.org/wiki/PHAR_%28file_format%29" target="_blank">1</a></sup>. Since PHP 5.3, phar is a standard module, and likely to be available in your interpreter <sup><a href="http://php.net/manual/en/wrappers.phar.php" target="_blank">2</a></sup> <sup><a href="http://php.net/manual/en/class.phar.php" target="_blank">3</a></sup>.    <br />
+The minimum build process is outlined <sup><a href="http://php.net/manual/en/phar.buildfromiterator.php" target="_blank">4</a></sup> <sup><a href="http://php.net/manual/en/phar.createdefaultstub.php" target="_blank">5</a></sup> on the PHP language website.  A slightly better version is on stack-overflow <sup><a href="https://stackoverflow.com/questions/11082337/how-to-make-an-executable-phar#11082338" target="_blank">6</a></sup> or <sup><a href="https://stackoverflow.com/questions/15750913/generating-a-phar-for-a-simple-application" target="_blank">7</a></sup>.  Here is a unit test for PHARs, as someone misused the build library <sup><a href="https://stackoverflow.com/questions/38214154/how-do-i-correctly-create-and-then-require-a-phar-file" target="_blank">8</a></sup><br />
+The raw PHAR library in PHP supports BZIP2 and GZIP compression, which would make the files smaller <sup><a href="https://secure.php.net/manual/en/phar.compress.php" target="_blank">9</a></sup>.  If one needs to use PHAR directly to as a website, use webPhar <sup><a href="https://secure.php.net/manual/en/phar.webphar.php" target="_blank">10</a></sup> to manage the “file path routing” automatically as (the files are bundled, there isn't any file paths).</p>
+
+<p>There is a custom PHAR making project <a href="https://github.com/box-project/box2" target="_blank">git</a> that <a href="https://github.com/Seldaek" target="_blank">@seldaek</a> recommended in 2011.  I haven't asked him to see if the recommendation still holds. However a more recent article by <a href="https://github.com/theofidry" target="_blank">@tfidry</a> also references “state of the art” and box2.   Box installed without any issues, although it did tell me to allow writing to PHAR files, which is a PHP ini setting. I need to do something to the default setup, as the source code is verbatim in the generated file. UPDATE: I mean enable compression, which the presented sample now does.   It would be a much smaller file if converted to byte codes.  <br />
+A different tools is <sup><a href="https://packagist.org/packages/macfja/phar-builder" target="_blank">11</a></sup>, this one supports compression, and supports exec commands during build.<br />
+If you use phpci <sup><a href="https://www.phptesting.org/" target="_blank">12</a></sup>, they have integrated PHAR <sup><a href="https://www.phptesting.org/wiki/Phar-Plugin" target="_blank">13</a></sup></p>
+
+
+<h4 class="dontend" id="toc0"> Gotchas of PHAR <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">If you are using Box2, with compression enabled (recommended); due to the way the PHAR extension handles files; you need to set `ulimit -n` to a large number. Do not do this on production servers.  If you are using win16, win32 or win64; I have no idea if or how to set this.</li>
+    <li class="libasic">Some people report compression rates of 80%. For my scenarios, I get around 60% smaller (e.g. 3MB to 1MB).  </li>
+    <li class="libasic">You need to be careful with build paths, as the filesystem paths are different pre-PHAR and post-PHAR. With symfony, you need to hack the AppKernel quite heavily, but fortunately, all the decision points are in this single file.  To access files inside the PHAR with fopen(), the paths should be in format “phar://directories/to/phar/file.phar/directories/inside/phar/file.php”. Fortunately modern class loaders can do most of this by magic.</li>
+    <li class="libasic">Again, for Symfony, the config file “source” feature doesn't work, if you pack the config files. You can either keep all config outside of the PHAR, or inline everything into one big file. Or I suppose push a branch to symfony/config...</li>
+    <li class="libasic">Referencing symfony again, but this would be generically applicable, the boilerplate code for bin/console and app/AppKernel etc is cumbersome to carry around. For my PHAR of CLI tools I make a custom bootstrap file which inlines the above functionality, loads the reduced config files more simply.  As this bootstrap only applies to this CLI, there is no need for the user to pass in the vendor/command param.  The custom bootstrap should be checked in to the bundle and repo, and avoid symfony/create-project.</li>
+    <li class="libasic">When deploying to servers, your work should include a PHP version check; as old servers won't support PHAR.</li>
+    <li class="libasic">I haven't used this todate; but SSL signing code (as Apple store apps, or Java beans are) is recommended for commercially retailed software.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> Sample Box config file to build my clone of phpunit-skelgen <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+
+<pre class="code" lang="javascript">
+{
+    "alias": "phpunit-skelgen.phar",
+    "chmod": "0755",
+    "directories": ["src"],
+    "files": [
+        "LICENSE"
+    ],
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": ["Tests", "build"],
+            "in": "vendor"
+        }
+    ],
+    "git-version": "package_version",
+    "main": "phpunit-skelgen",
+    "output": "skelgen.phar",
+    "stub": true,
+	"compress":"BZ2"
+} 
+</pre>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"><a name="adjacent" href=""></a> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>PHAR notes</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>PHAR notes</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-07-21T10:43:37">21st of Jul 2022</time></span>
+<span>Created <time datetime="2018-01-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Jan 2018</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Gotchas of PHAR</a></li>
+<li><a href="#toc1">Sample Box config file to build my clone of phpunit-skelgen</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:03:59">22nd of Jul 2022, 19:03:59</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-07-21T10:43:37">21st of Jul 2022</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.css" />
+<script defer src="/asset/jquery-hilight-1.06.js" ></script>
+<style> .halferWords ul, .halferWords ol, .halferWords p { text-align:left; } </style>
+</body>
+</html>

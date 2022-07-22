@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>How-to API</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Considerations for REST API, construction and usage." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="How-to API">
+<meta itemprop="description" content="Considerations for REST API, construction and usage.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="How-to API">
+<meta name="twitter:description" content="Considerations for REST API, construction and usage.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="How-to API" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/howto-API" />
+<meta property="og:description" content="Considerations for REST API, construction and usage." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:03:26" />
+<meta property="article:modified_time" content="21st of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "How-to API",
+	"article:published_time":"22nd of Jul 2022, 19:03:26", 
+    "article:modified_time":"21st of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h2 class="dontend" id="toc0"> Intro <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p>For quite a few years I have been saying with respect to server side: “I make REST API”.  I have read the spec, and by and large I am compliant to the REST objectives/notes.  As someone who mostly works for startups, compliance to business requirements and situation-awareness is more urgent than architectural details that only have impact when doing more than 10,000 transactions per day. <br />
+I like the reasoning behind REST; it is a clearer and easier/ faster-to-test build style than SOAP or other XML RPC.  It addresses many more concerns than the older CSV-over-HTTP approach.   Most of this article is my opinion, and I am not claiming references.</p>
+
+
+<h2 class="dontend" id="toc1"> Why REST is good <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">Statelessness makes systems simpler, more reliable and more scalable. This statement is written to compare to the X11 windowing system, and some XML API that thought that statefulness was good. </li>
+    <li class="libasic">If each request <i>could be</i> entered by a human with a webrowser, it is much easier to test, to isolate failure, and to scale.  This should be compared to database interactions, and certainly many XML API.</li>
+    <li class="libasic">REST is a short specification, increasing the odds that it is wholely implemented correctly.  Also as it is short, and reuses technology; it is affordable.</li>
+    <li class="libasic">REST results can be cached, making them easily laterally scalable.  This statement is significant when compared to some Enterprise XML software, which was too clever, has security features which suppress caching, and runs very slowly. </li>
+</ul>
+
+<p>Many of these values are a optimisation towards a particular direction. Your current userstory may be leaning the other direction, in which case look at the systems I am comparing to.  The most popular characteristics tend to swing between extremes.<br />
+</p>
+
+
+<h2 class="dontend" id="toc2"> Metrics by which I make REST. <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">Keep all the exposed API Nouns in the domain layer, i.e. a customer would place a <i>Order</i>, then make a <i>Payment</i>, and later download a list of <i>Invoices</i>.  This example is fairly generic, and frequently a more specific one should be used.</li>
+    <li class="libasic">Keep the API Nouns aligned with business process steps.  If the user process justs grabs a series of answers from the user, then saves it;  there may be little value in sub dividing the API, unless you are performing &gt;80,000 requests each day.  Although, with this example, a PAF would still be a different API call.  <i>There are articles written by fans of graphQL which claim that each REST API call should map to precisely 1 db entity (so as concrete example, to build an invoice is 20 API calls for each line item, then another to create the invoice with the address section). </i> </li>
+    <li class="libasic">In some places, primary keys are needed in the client side, but in many places they do not make a good search term (e.g. searching for the order placed at '100 whodunnit street' makes sense; searching for the order placed at address Id '0x94563f2342e234564a345345dd' doesn't. How would the client or the user get this datum? ). In the frequent case, do not expose your Ids.  More recent databases have good levels of flexibility on what data you can use for keys.</li>
+    <li class="libasic">Although there are security reasons why to return very vague error or rejection messages; I don't like this.  HTTP204, HTTP403, HTTP214 are semantic responses, and useful.  If it is critical to make it hard to attack a resource, why are you making it public?  Having a web application that returns the homepage and HTTP200 for any HTTP404 response isn't very useful; and wont slow down any attackers by any statistically noticeable amount, as they will spot the identical responses.  Concise HTTP responses will use less bytes, so cost less to run, on most cloud based services. </li>
+    <li class="libasic">Sometimes “its better English” to allow API clients more than one access path to a piece of data.  This needs to be done carefully, as it is unneeded development expense. Concrete example: a banking API is likely to support download the log of a particular transaction, and all the transactions between a pair of limiting dates.</li>
+    <li class="libasic">As an observed heuristic, you may need to adjust structures if any complex-data API response (e.g. JSON or XML) is expected to exceed 1MB regularly. This generally takes a few second to parse on phones, and so needs to be chunked for better usability.  If that 1MB of JSON represents 1000 orders, then it needs to be chunked so the user can find what they are looking for.  For images, video or audio, this size isn't unreasonable.</li>
+    <li class="libasic">Trim whitespace on inputs that may be feed by copy and pasting. </li>
+    <li class="libasic">Making REST URN case insensitive, like the underlying DNS system is.</li>
+    <li class="libasic">For cachable GET request API, I try to get all the data points of the request in the URN (not as param).  This maps for caching or analysis software better. I also do this for PUT API, as PHP support for HTTP bodies with PUT is weak/brittle. </li>
+    <li class="libasic">Choosing the response encoding type via an input in the request is a nice idea; but I have no commercial use for that.  I also don't have many API that supply the same data in a different format.</li>
+    <li class="libasic">I use HTTP headers for data I don't want visible, but am sending.  Classically a session identifier, or a HMAC hash.  </li>
+    <li class="libasic">I only use PUT for idempotent requests (e.g. turn X feature OFF). I use POST for non-cacheable “create things” requests.  In practice I think that PATCH is too complex to test, so has limited usefulness.  A PUT request with the whole of a user profile is likely to be less than 2K of JSON, so a PATCH request of a change delta wont save any noticeable bandwidth or development time.</li>
+    <li class="libasic">As a UX heuristic, execution time of REST API MUST be kept to less than 3s, and SHOULD be less than 1s.  For a pure B2B process without a user interface, this constraint isn't relevant.  Where possible, comply to it anyway to reduce load on the REST server.</li>
+    <li class="libasic">As a reflection on the last, APIs can be constructed with three calls to support creation, polling and lastly download of results.  This can be used to supported “larger data system” requests.  Example: reseller A hires me to make a nice shiny API to support their sales process; they wish to use Bank B for payments as they get very good rates, but Bank B's API is terribly slow.  The async architecture allows better UX layer reactiveness.</li>
+    <li class="libasic">Although not a visible feature, all API points that are supporting a business contract should have request logging/ audit (e.g. a POST order to buy a 100 spigots must be logged).</li>
+    <li class="libasic">All current webrowsers support various HTTP compression schemes, many HTTP programming libraries also support HTTP compression. Using appropriate headers, I compress data when its in transit.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"><a name="adjacent" href=""></a> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>How-to API</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhowto-API" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhowto-API" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhowto-API" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>How-to API</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhowto-API" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhowto-API" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhowto-API" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-21T07:37:09">21st of Sep 2020</time></span>
+<span>Created <time datetime="2018-05-07T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >7th of May 2018</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">Why REST is good</a></li>
+<li class="h4_odd"><a href="#toc2">Metrics by which I make REST.</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:03:26">22nd of Jul 2022, 19:03:26</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-21T07:37:09">21st of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

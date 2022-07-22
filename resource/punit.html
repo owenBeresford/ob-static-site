@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>punit ~ objects are business necessary, therefore tests should be objects.</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Case notes for my Perl unit test framework." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="punit ~ objects are business necessary, therefore tests should be objects.">
+<meta itemprop="description" content="Case notes for my Perl unit test framework.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="punit ~ objects are business necessary, therefore tests should be objects.">
+<meta name="twitter:description" content="Case notes for my Perl unit test framework.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="punit ~ objects are business necessary, therefore tests should be objects." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/punit" />
+<meta property="og:description" content="Case notes for my Perl unit test framework." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:04:00" />
+<meta property="article:modified_time" content="13th of Feb 2022" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "punit ~ objects are business necessary, therefore tests should be objects.",
+	"article:published_time":"22nd of Jul 2022, 19:04:00", 
+    "article:modified_time":"13th of Feb 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p>Source is available: <a class="button" title="A public GIT repo of this project." href="https://github.com/owenBeresford/punit"><i class="fa fa-github" aria-hidden="true"></i></a> or <strike class="button" >cpan</strike>.   The second half is mostly <a title="The first article, mostly discussion on implementation." href="https://owenberesford.me.uk/resource/punit-implementation">implementation</a>. </p>
+<div class="lotsOfWords">
+<p>A well-designed unit test will give one confidence in ones unit, it reduces development time, it improves API design.   A unit test is a definite long term asset, as it allows later changes at low risk.  If you don't want to write in objects, this tool isn't going to help you.   For the whole of this document “skelgen” is a contraction of “skeleton-generator”, code that auto-magically builds a class outline and attempts to fillin function definitions where possible; likewise “codegen” is a condensed “code-generator”.</p>
+
+
+<h3 class="dontend" id="toc0"> Other Perl tools <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>Perl does have a testing culture, although it isn't OO, or matching other languages.  Most modules in CPAN ship with some tests.  Why develop punit?   Most of the existing tools aren't focussed on objects, and they don't supply “effort saving” features.  Test coverage is best supported by reducing the time to create each test, down to decisions in terms of the solution-space.   I think it is a big win to not leave your decision space when making the API.</p>
+
+<p>There are the following, as a non-complete list (more available <sup><a href="http://qa.perl.org/test-modules.html" target="_blank">1</a></sup>):</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><b>Test::Skeleton::Generator</b> ~ an alternative library with similar functionality to this project.   It is less attached to objects, which I think are necessary for code reuse; and therefore cheap development.  As I intend to add annotation support to my project, it was faster to start with a fresh codebase.  People are encouraged to have a quick look at this library in addition ~ if you aren't attached to objects either, this may suit better.</li>
+    <li class="libasic"><b>Test::More</b> ~ the basic library for recent versions of Perl.</li>
+    <li class="libasic"><b>Test::Exception</b> ~ just for Exceptions</li>
+    <li class="libasic"><b>Test::Common</b> ~ a wrapper module, to reduce the number of specific test libraries that you need to import.</li>
+    <li class="libasic"><b>Test::Assert</b> ~ a library to provide logical condition statements, similar API to xUnit.</li>
+    <li class="libasic"><b>Test::Class</b> ~ an xUnit library that seems more useful. Unfortunately lacks the skelgen.</li>
+    <li class="libasic"><b>Test::Unit</b> ~ a procedural test framework.</li>
+    <li class="libasic"><b>Test::MockObject</b> ~ I haven't used this, but reflection in Perl is quite easy. </li>
+    <li class="libasic"><b>Test::Extreme</b> ~ this claims to be a “perlish xUnit” library.   Doesn't ship with any type of skelgen.</li>
+    <li class="libasic"><b>Test::Builder</b> ~ not a code gen, despite the name.   Framework to manage TAP output and improve inter-operation between test libraries. </li>
+    <li class="libasic"><b>Test::Subs</b> ~ I went to a <a href="http://www.meetup.com/London-Perl-Mongers/events/227844261/" target="_blank">hackday</a>, this is one of the things that I take home with me.  Subs looks like a useful API, although I have already coded with Test::Assert.  This is a small piece of a solution. </li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> Perl vs Other OO languages <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>Chronologically Perl isn't my first language, neither is Perl my first enterprise language.  I expect there to be a test framework / platform in place before I start using a language.   I tend towards writing in objects, as the scoping and responsibility mapping gives you a better code structure.  In business terms, code like this is cheaper to run, and may flex to the current situation easier.   <br />
+The other languages that I use tend to be more forceful about using objects, and so ship with object based unit-testers (Java specifically).   I have alot of commercial use of PHP, but have only ever written objects with it.  I wrote tests, via a variety of methods, for every single class that I made.  I write objects in JS, and where it makes sense to have the JS object separate to the DOM, I write unit tests in JS (where the code is too coupled to the DOM, I create a test page, technically my R&amp;D copy).</p>
+
+<p>What I want from unit test framework is be be able to express decisions in a concise language  (e.g. assigning the same password twice to a user object is an error, and should raise an exception).  Tests normally include alot of bureaucracy to make managing the population easier.  A good framework will automate this paperwork.  A good test framework will address things like orthogonality, test isolation, and test repeatability (e.g. a test for a delete function must be callable more than once).</p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc2"> Functional spec for punit <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>This tool SHOULD :</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Create tests for units/ classes.</li>
+    <li class="libasic">Create at least one test per testee-class function.</li>
+    <li class="libasic">Under current analysis ignore private functions </li>
+    <li class="libasic">Support Fixture structures.</li>
+    <li class="libasic">Implement the logic conditions (e.g. assert*) as outlined in other unit-test suites.</li>
+    <li class="libasic">Where there is output, make this TAP compliant.</li>
+    <li class="libasic">Be linkable into other Perl tools.</li>
+    <li class="libasic">As an extension to previous, runnable with prove.</li>
+    <li class="libasic">Automate as much as possible, so using this tool reduces time to solution.</li>
+</ul>
+
+<p>This tool SHOULD NOT:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Force a particular OO style on the operator.</li>
+    <li class="libasic">Create tests that are fragile, so needing alot of test maintenance.  This point is with respect to comment parsing on the second edition in particular.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> Implementation discussion <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>My goal is to have results, more than write alot of code.   As such, I will import other libraries as it seems to assist my goals.  The presence of Moose and similar libraries will complicate the test framework.   Performance of the thing to build test-cases isn't seen as an important issue.  This tool shouldn't be run as apart of CI or regression testing, as 100% automation is not a practical goal. The remaining hand-code will need to be done.    <br />
+The mechanisms in Test::Common and Test::Assert fight each other, so those two cannot be used together.  I will test each of the classes in this project using existing simpler test tools (which I trust to have already been tested).<br />
+A minimal implementation would create the skeleton unit-tests, provide the assert type interface and provide the harness to execute the test case with.  In practical terms unit tests are run for populations of classes, and the harness manages execution of each.  A more useful implementation would import the grammar from jUnit/ phpunit-skelgen <sup><a href="http://blog.teamlazerbeez.com/2009/08/18/phpunit-annotations/" target="_blank">1</a></sup> <sup><a href="http://docs.tadiavo.com/phpunit/www.phpunit.de/pocket_guide/3.1/en/skeleton-generator.html" target="_blank">2</a></sup> [1].  This would allow the creation of tests in a more logical context (and its faster).</p>
+
+<p>The requirement for ignoring private functions is common to test tools.   One can argue that there shouldn't be too many private functions, and certainly as they are implementation details, they should be free to change API.  In practical terms, I will probably make this a config item, to allow better inter-operation with different coding standards.  If there is a algorithmic way to automate the creation of setup() functions, I haven't seen it.  I will create code to create a default testee object, but the params feed to this will need to be edited by the operator. It would be very useful to auto-magically guess, but hard for test conditions.</p>
+
+<p>In practical terms, in other languages; I define the API (as interfaces) at the end of the requirements stage.   This is mostly assigning responsibilities to the vague concepts of classes.  I define the test conditions against this API.  Creating this executable test plan frequently requires altering the params feed to API, but this is a valuable verification exercise on the interface.  As this is just an interface, change is quite cheap.  I then generate the test cases (including filling in the manual bits), so there is an executable unit-test, covering all the algorithmically important points.  People who dislike OO have commented that OO breaks up and hides algorithms.  I think that this depends how you write the code.  I do create algorithms; and use objects, and have testable code.</p>
+
+<p>I asked CPAN, apparently one writes ones code (I guess managed via bitbucket or github, for VCS); then uploads an edition as a tar ball to CPAN.  One gets a PAUSE account to ID the source.  This is different, as every other OSS platform I have used allows access to a VCS.</p>
+
+<p>One of the required features for a skelgen is to map the API on the testee class.  Any Perl developer will be aware of Universal, and being able to read a classes symbol table.  There will need to be some verification to confirm a method is defined in the current class, rather than imported.  I think it is more correct to only build test methods for the current testee classes methods.  If you need to test an ancestor, define a separate unit-test for the ancestor.  This is safer/ easier to manage when API change.  I may be able to just use something like Symbol::Util, to be tested. <b>EDIT</b>: This feature is implemented as discussed.</p>
+
+<p>In practical terms, I haven't worked out if it is better to use a larger number of skinny libraries ~ better testing; or less external dependencies, so its easier to start using my code.  Unit tests should never be constructed on the actual operational servers so having a long list of requirements isn't a process headache.  Where a library has narrow functionality, if there are odd errors; it may be faster to write my own.   It is a hard decision: write 30lines of code; or manage the test cases that ship with an external module.  The test cases will obviously be to the standard of the previous tools, as the code was written earlier.</p>
+
+<p>Please see next <a class="" href="https://owenberesford.me.uk/resource/punit-implementation#">article</a>.</p>
+
+
+</div>
+<hr />
+<p>[1] I am unable to find docs for the @assert feature of jUnit.</p>
+
+
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing,worklog"><a name="adjacent" href=""></a> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div><p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>punit ~ objects are business necessary, therefore tests should be objects.</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>punit ~ objects are business necessary, therefore tests should be objects.</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2022-02-13T11:02:23">13th of Feb 2022</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Other Perl tools</a></li>
+<li><a href="#toc1">Perl vs Other OO languages</a></li>
+<li class="h4_odd"><a href="#toc2">Functional spec for punit</a></li>
+<li><a href="#toc3">Implementation discussion</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:04:00">22nd of Jul 2022, 19:04:00</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-02-13T11:02:23">13th of Feb 2022</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

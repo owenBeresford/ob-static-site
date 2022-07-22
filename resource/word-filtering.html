@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Word filtering</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="On text cleaning, and the algorithms necessary. This is future work." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Word filtering">
+<meta itemprop="description" content="On text cleaning, and the algorithms necessary. This is future work.">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Word filtering">
+<meta name="twitter:description" content="On text cleaning, and the algorithms necessary. This is future work.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Word filtering" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/word-filtering" />
+<meta property="og:description" content="On text cleaning, and the algorithms necessary. This is future work." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:04:02" />
+<meta property="article:modified_time" content="22nd of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Word filtering",
+	"article:published_time":"22nd of Jul 2022, 19:04:02", 
+    "article:modified_time":"22nd of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     
+<h3 class="dontend" id="toc0"> Context <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>This is a sketch of a solution.   The site currently has absolutely no need of this feature (without user submitted data a filter to ensure its hygienic is niaf), and the security focussed clean up is more urgent.  To achieve reasonable features I intend to use external binaries, which will need managing.  I could write everything from raw; but duplication of source, just so it is in a single process isn't Unix practice or OSS practice.<br />
+This is to be used with a spellcheck, but isn't a combined feature.  Common sense says put the spellcheck as close to the user as possible; whereas word filtering this is part of processing.  It may be useful to run several batches of wordfiltering, to support contextual behaviour (i.e. any mentions to a certain footballs club mean the content gets a club strip branding style-sheet applied to it).   In terms of outcomes, much of this is similar to a Bayesian net spam filter.   By volume the usecase for this is swear filtering, although this not why the solution is interesting.</p>
+
+<p><em>Code like this is why I'm writing iceline.</em></p>
+
+
+<h3 class="dontend" id="toc1"> Goals <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">To create an extendable sub-system to “understand” all nouns in a given text. Understand is quoted, as this is machine processing; but when the <strong>target concepts</strong> are mentioned, return a message to the caller.</li>
+    <li class="libasic">This subsystem should be written to support <strong>human languages</strong>, although practicality may constrain deployed versions to en_UK.  See discussion on language structures. </li>
+    <li class="libasic">To deal with realworld spelling correctly, the way a human does, this is <a href="http://stackoverflow.com/questions/6549197/php-form-curse-word-input-filter-solution" target="_blank">discussed</a> .</li>
+    <li class="libasic">Where feasible create this so it can be ported into other systems.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> Example 1 <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+
+<div class="pullout2">
+   Bhenchod! When that fracking phreak was on the way out he did something clever to the FS.  Fecking fsck has crashed, wtf do I do to get my email back?
+</div>
+<table id="filteredWords"><thead><tr><th class="">Word</th><th class="">Comment</th></tr></thead>
+<tr class="h4_odd"><td class="">Bhenchod</td><td class=""> is in Punjabi (“sisterfucker”), and should be filtered.  Catching this will be hard, as <strong>all</strong> dictionaries will need to be loaded.</td></tr>
+<tr class="even"><td class="">fracking</td><td class="">is a US synonym for 'fucking', stem to 'fuck', and should be filtered.</td></tr>
+<tr class="h4_odd"><td class="">phreak</td><td class="">although sounds the same means something completely different, and should be left alone.</td></tr>
+<tr class="even"><td class="">Fecking</td><td class="">is an Irish synomym for 'fucking', stem to 'fuck', and should be filtered.</td></tr>
+<tr class="h4_odd"><td class="">fsck</td><td class="">is spelt correctly, if ones dictionary is large enough, and should be preserved.  With a small dictionary it is likely to be filtered, which is incorrect.</td></tr>
+<tr class="even"><td class="">wtf</td><td class="">is aliased swearing, but could probably be left in, as it is encoded.  The system should understand that it means “what-the-fuck”.  Partial matches like this should be flagged depending on options, as it will fail language style guidelines.</td></tr>
+</table>
+
+<p>Please note the handling of 'feck' and 'fsck' is completely different, even though there is only one letter difference.  If the author was annoyed and wrote bhenchod out in Devengali, this script probably can't deal with this until we have Devengali dictionaries.  Likewise spelling word in regional extended ASCII, or UTF8 characters is likely to slide through niaf implementations.<br />
+In the rest of this document, I continue to mention “dictionaries”.  Human text is just an arbitrary sequence of letters attached to a meaning.  Different groups of people created different letter-cluster -&gt; meaning bindings.   None of this computable.  Arbitrary symbol replacements can be coded as a recipe (e.g. try adding a second set of words with all 'e' replaced for '3'), but are also not dynamically/ variably computable.  <br />
+Due to the requested complexities of the features in this, it may be required to have some sort of asynchronous processing.</p>
+
+
+<h3 class="dontend" id="toc3"> Requirements <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">The target concepts are to be selected with each usage, and chosen at runtime.</li>
+    <li class="libasic">This is just to understand and detect the target words. Actions as a result are controlled by the caller code.  Look at the structure of pspell in PHP for reference.</li>
+    <li class="libasic">Everything must be locale-aware where possible, e.g. there are non-ascii-20 word separation characters used in Arabic.  Perl regex are quite good for this type of awareness.</li>
+    <li class="libasic">The feature is to decompose the block into words and “homogenise” them.  Then feed them into a semantic parser, loaded with additional dictionaries.  The semantic parser should report what concept the word means.  </li>
+    <li class="libasic">To cleanly report supported and non-supported locales;</li>
+    <li class="libasic">NICE-TO-HAVE Auto populating “sp3ling” synonyms to feed the dictionary with.  As this system is to understand language as it is written, rather than any formal definition this stage is more important than in other system. </li>
+    <li class="libasic">NICE-TO-HAVE A contextual guesser, to make a guess at what language a section of text is in, and so what stemming, dictionaries and grammar rules apply.  This is hard on short sections.</li>
+    <li class="libasic">NICE-TO-HAVE An option to tag all items that the feature can't parse, so it is cleanly possible to detect poor dictionaries.</li>
+    <li class="libasic">NICE-TO-HAVE A utility function to “hash out” words, according to a config setting. </li>
+    <li class="libasic">NICE-TO-HAVE A strictness option (like a grammar check does).  If you are just running this to capture “things that might lose me contracts”, its a different usage to “that guy can't write in formal English, I had better do linguistic fascism”.  In the first case preserving authentic voice <sup><a href="http://books.google.co.uk/books?id=qbDb7UbYFh8C&amp;amp;pg=PA63&amp;amp;lpg=PA63&amp;amp;dq=%22national+heritage+%22+%22authentic+voice%22&amp;amp;source=bl&amp;amp;&amp;amp;hl=en&amp;amp;sa=X&amp;amp;v=onepage&amp;amp;q=%22national%20heritage%20%22%20%22authentic%20voice%22&amp;amp;f=false#v=snippet&amp;amp;q=%22national%20heritage%20%22%20%22authentic%20voice%22&amp;amp;f=false" target="_blank">1</a></sup> is important.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc4"> Current practice <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>I mention stemming in this article.  A <a href="http://www.chuggnutt.com/stemmer|PHP" target="_blank">implementation</a> is described here, although it looks like a <a href="http://tartarus.org/~martin/PorterStemmer/php.txt" target="_blank">clone PHP5 edition</a> would be better.</p>
+
+<p>Some dictionaries <sup><a href="http://www.noswearing.com/index.php" target="_blank">2</a></sup> <sup><a href="http://www.skipcares.org/wp-content/uploads/2011/11/Censored.txt" target="_blank">3</a></sup> <sup><a href="https://metacpan.org/module/Bad::Words" target="_blank">4</a></sup>. More dictionaries <sup><a href="http://www.bannedwordlist.com/" target="_blank">5</a></sup></p>
+
+<p>This is what seems to happen in the blogosphere:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">This one doesn't look very complicated, the developer needs to load the dictionaries themselves, so do internationalisation <sup><a href="http://wordpress.org/plugins/wp-content-filter/" target="_blank">6</a></sup>;</li>
+    <li class="libasic">A better tool supports a range of language “out of the box” <sup><a href="http://wordpress.org/plugins/webpurifytextreplace/" target="_blank">7</a></sup></li>
+    <li class="libasic">This is the kind of complexity of the feature I am proposing <sup><a href="http://wordpress.org/plugins/sitebrains-1/" target="_blank">8</a></sup></li>
+    <li class="libasic">A pure JS implementation <sup><a href="http://codecanyon.net/item/live-swear-words-filter-filters-as-you-type/127462" target="_blank">9</a></sup></li>
+    <li class="libasic">This is an index, but does contain alot of useful information <sup><a href="http://lorelle.wordpress.com/2007/02/26/wordpress-plugins-for-comments/" target="_blank">10</a></sup></li>
+    <li class="libasic">filtration <sup><a href="http://wordpress.org/plugins/filtration/" target="_blank">11</a></sup></li>
+</ul>
+
+<p>Writing test cases for this will be “fun”.   I will add more length to this article, probably as a second resource.</p>
+
+
+    </article>
+   </main>
+	 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Word filtering</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fword-filtering" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fword-filtering" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fword-filtering" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Word filtering</h1></header>
+<p>This article contains >18 language, please don't read if you are a minor in your states legislation.</p>
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fword-filtering" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fword-filtering" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fword-filtering" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-22T23:27:32">22nd of Sep 2020</time></span>
+<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Context</a></li>
+<li><a href="#toc1">Goals</a></li>
+<li class="h4_odd"><a href="#toc2">Example 1</a></li>
+<li><a href="#toc3">Requirements</a></li>
+<li class="h4_odd"><a href="#toc4">Current practice</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:04:02">22nd of Jul 2022, 19:04:02</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-22T23:27:32">22nd of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

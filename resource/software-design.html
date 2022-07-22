@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Software design</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Generator" content="iceline webkit 2.1" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Article to describe heuristic process of designing a software" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Software design">
+<meta itemprop="description" content="Article to describe heuristic process of designing a software">
+<!-- meta name="twitter:card" content="summary_large_image" -->
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Software design">
+<meta name="twitter:description" content="Article to describe heuristic process of designing a software">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Software design" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/software-design" />
+<meta property="og:description" content="Article to describe heuristic process of designing a software" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Jul 2022, 19:04:01" />
+<meta property="article:modified_time" content="22nd of Sep 2020" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Software design",
+	"article:published_time":"22nd of Jul 2022, 19:04:01", 
+    "article:modified_time":"22nd of Sep 2020",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+<p>This article is an attempt at a description of heuristic process.  I was asked by a non-developer technical person, how to design a system. Background points:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Always use version control on your source code. This allows you to reverse decisions if you later feel they are wrong.  I would suggest git, as it is widely supported by tools. </li>
+    <li class="libasic">Before one writes something, work out how to test it.  If one doesn't know how to test an item, don't assume you can write it correctly.</li>
+    <li class="libasic">Where possible use libraries, a solution to a problem covers many hours work.  Using tools and libraries allows one to avoid this work.</li>
+    <li class="libasic">Only use relevant tools/libraries.  Using a thing that isn't relevant to your problem will slow you down.</li>
+    <li class="libasic">Don't do everything different task in one go.  Different tasks require different bits of your brain, and it is hard to provide good solution on each skill-set.  A few minutes break is all that is required, for example looking at other solutions.</li>
+    <li class="libasic">Use 1 set of formatting rules for the whole project.  Some common ones <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style0" target="_blank">K n R</a> <a href="http://zf2-docs.readthedocs.io/en/latest/ref/coding.standard.html" target="_blank">ZF2</a> <a href="https://symfony.com/doc/current/contributing/code/standards.html" target="_blank">Symfony3</a> <a href="https://docs.npmjs.com/misc/coding-style" target="_blank">NPM</a> <a href="http://contribute.jquery.org/style-guide/js/" target="_blank">jQuery</a></li>
+    <li class="libasic">Remember that you are paid for results; not typing, or squinting at the keyboard.</li>
+</ul>
+
+
+<h2 class="dontend" id="toc0"> Specifics on software design. <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<p><i>This is not the same as UX or requirements analysis.</i></p>
+
+<ul class="ulbasic">
+    <li class="libasic">Read all the design patterns, but for commercial work don't get constrained by them.</li>
+    <li class="libasic">Understand <a href="https://en.wikipedia.org/wiki/Inversion_of_control" target="_blank">IoC</a>, <a href="https://en.wikipedia.org/wiki/Dependency_injection" target="_blank">DI</a>, <a href="https://en.wikipedia.org/wiki/%2FSOLID_%28object-oriented_design%29" target="_blank">SOLID</a> and all my notes on <a class="" href="https://owenberesford.me.uk/resource/testing-epic#"> test stuff</a>.</li>
+    <li class="libasic">Write a paragraph (in normal English) of what you are trying to achieve.</li>
+    <li class="libasic">Split all the sentences up.  For each sentence:<ul class="ulbasic">
+        <li class="libasic">Each noun is an Object in your solution.</li>
+        <li class="libasic">Each verb is a message to that Object.</li>
+    </ul></li>
+    <li class="libasic">If you have a Noun/ Object without any verbs/ messages, work out if it is needed in the solution</li>
+    <li class="libasic">Add extra sentences in English, where your first paragraph lacked detail.</li>
+    <li class="libasic">If one noun/ Object has all the verbs/ messages (e.g. more than eight), think about splitting it to two more precise nouns.</li>
+    <li class="libasic">None of these words in the English should be technology solution specific.</li>
+    <li class="libasic">Extract all the nouns into a list.</li>
+    <li class="libasic">Work out which nouns relate to each other, should they inherit, or depend on each other?</li>
+    <li class="libasic">Mark each noun, does this behave like a common language structure (e.g. an Iterator)</li>
+</ul>
+
+
+<h2 class="dontend" id="toc1"> Practice implementation <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">Most IDEs will supply tools to generate class templates, use these to build your above noun/ verb suggestions. </li>
+    <li class="libasic">By hand, pretend to be the computer, and walk through your class outlines.  Doing this this will make you spot any further details that you omitted.</li>
+    <li class="libasic">Assuming you can do the entire process, start writing your tests.</li>
+    <li class="libasic"><i>More to be added.</i></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering,english"><a name="adjacent" href=""></a> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div><p>Some similar articles in english </p><div id="groupenglish" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=english" title="This article lists all items in english group.">All of <br />english </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+<legend></legend>
+<nav>
+<div id="tinyScreen" class="addReading">
+<header>
+<h1>Software design</h1>
+</header>
+<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
+ Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
+<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
+<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+</div>
+<div id="bigScreen" class="row">
+<div class="h4_title column"><header><h1>Software design</h1></header>
+
+
+<p id="shareGroup" class="addReading"> 
+	<span class="centerBlock">
+	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
+	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
+	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+&shy; Follow 
+	</span>
+	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
+<span class="ultraSkinny"> 
+<span>Edited <time datetime="2020-09-22T22:59:14">22nd of Sep 2020</time></span>
+<span>Created <time datetime="2017-02-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Feb 2017</time> </span>
+</span>
+</p></div>
+<fieldset class="h4_menu column">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu><ul class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Specifics on software design.</a></li>
+<li><a href="#toc1">Practice implementation</a></li>
+</ul>
+</menu><br />
+
+</fieldset>
+</div>
+<menu>
+<ul class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class=""><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/translate" id="translateA">Translate <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="#adjacent">Similar articles</a></li>
+</ul>
+</menu>
+</nav>
+</fieldset>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+<div class="leftFooter"> 
+<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+</div> Page rendered <time datetime="2022-07-22T19:04:01">22nd of Jul 2022, 19:04:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-22T22:59:14">22nd of Sep 2020</time>. <br />
+
+Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
