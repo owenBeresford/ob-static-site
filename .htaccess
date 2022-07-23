@@ -1,7 +1,7 @@
 
-ErrorDocument  500  /resource/500
-ErrorDocument  403  /resource/403
-ErrorDocument  404  /resource/404
+ErrorDocument  500  /resource/500.html
+ErrorDocument  403  /resource/403.html
+ErrorDocument  404  /resource/404.html
 DirectoryIndex index.html
 
 #  `index.htm`  is  ignored 
@@ -20,6 +20,7 @@ rewritecond %{REQUEST_URI}		(.*)
 rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
 rewritecond %{SERVER_PROTOCOL}  HTTP
+rewritecond %{REQUEST_URI}		(.*)
 rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
 # if you can see this text, uoy can see the file system.
@@ -38,43 +39,43 @@ RewriteCond %{REQUEST_URI}      ^[/]*$
 RewriteRule .*				    /resource/home	[QSA,L]
 
 RewriteCond %{REQUEST_URI}      ^/resource/shopping-list-hack
-RewriteRule .*					/resource/shopping-list
+RewriteRule .*					/resource/shopping-list.html
 
 RewriteCond %{REQUEST_URI}      ^/resource/fullstack-developer
-RewriteRule .*					/resource/UX-engineer
+RewriteRule .*					/resource/UX-engineer.html
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-martech
-RewriteRule .*					/resource/group-XXX?first=group-martech
+RewriteRule .*					/resource/group-XXX.html?first=group-martech
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-engineering
-RewriteRule .*					/resource/group-XXX?first=group-engineering
+RewriteRule .*					/resource/group-XXX.html?first=group-engineering
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/resource/group-XXX?first=group-research
+RewriteRule .*					/resource/group-XXX.html?first=group-research
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-uitools
-RewriteRule .*					/resource/group-XXX?first=group-uitools
+RewriteRule .*					/resource/group-XXX.html?first=group-uitools
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-worklog
-RewriteRule .*					/resource/group-XXX?first=group-worklog
+RewriteRule .*					/resource/group-XXX.html?first=group-worklog
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-legacy
-RewriteRule .*					/resource/group-XXX?first=group-legacy
+RewriteRule .*					/resource/group-XXX.html?first=group-legacy
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-architecture
-RewriteRule .*					/resource/group-XXX?first=group-architecture
+RewriteRule .*					/resource/group-XXX.html?first=group-architecture
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-english
-RewriteRule .*					/resource/group-XXX?first=group-english
+RewriteRule .*					/resource/group-XXX.html?first=group-english
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-images
-RewriteRule .*					/resource/group-XXX?first=group-images
+RewriteRule .*					/resource/group-XXX.html?first=group-images
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/resource/group-XXX?first=group-research
+RewriteRule .*					/resource/group-XXX.html?first=group-research
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-testing
-RewriteRule .*					/resource/group-XXX?first=group-testing
+RewriteRule .*					/resource/group-XXX.html?first=group-testing
 
 
 # there is something different about the regex's on the live box.
@@ -136,8 +137,9 @@ Header set X-timing-data "%t %D"
 <If "%{REQUEST_URI} !~ /(-references|-meta|rss|min\.js|min\.css|\.png|\.woff|\.woff2|\.jpeg)/">
 Header set Content-Type 'text/html; encoding=utf8'
 Header set Cache-Control 'max-age=86400'
+Header set X-ICELINE "add html"
 RewriteCond %{REQUEST_URI}      ^/resource/
-RewriteCond %{REQUEST_FILENAME}	!-f
+RewriteCond "%{REQUEST_FILENAME}.html" -f
 RewriteRule (.*)				$1.html
 </If>
 
@@ -145,11 +147,20 @@ RewriteRule (.*)				$1.html
 	Header unset Content-Type 
 	Header set Content-Type 'text/html; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
+	Header set X-ICELINE "add JSON"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.json" -f
+	RewriteRule (.*)				$1.json
 </If>
 <If "%{REQUEST_URI} =~ /rss$/">
 	Header unset Content-Type 
 	Header set Content-Type 'application/rss+xml'
 	Header set Cache-Control 'max-age=86400'
+	Header set X-ICELINE "add XML"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.xml" -f
+	RewriteRule (.*)				$1.xml
+
 </If>
 
 <If "%{REQUEST_URI} =~ /min\.css/">
