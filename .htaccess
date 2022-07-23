@@ -133,11 +133,16 @@ Header set X-timing-data "%t %D"
 <If "%{REQUEST_URI} =~ /-references/">
 	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
+	Header set X-ICELINE "add ref JSON "
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.json" -f
+	RewriteRule (.*)				$1.json
+
 </If>
 <If "%{REQUEST_URI} !~ /(-references|-meta|rss|min\.js|min\.css|\.png|\.woff|\.woff2|\.jpeg)/">
 Header set Content-Type 'text/html; encoding=utf8'
 Header set Cache-Control 'max-age=86400'
-Header set X-ICELINE "add html"
+Header set X-ICELINE "add HTML"
 RewriteCond %{REQUEST_URI}      ^/resource/
 RewriteCond "%{REQUEST_FILENAME}.html" -f
 RewriteRule (.*)				$1.html
@@ -145,7 +150,7 @@ RewriteRule (.*)				$1.html
 
 <If "%{REQUEST_URI} =~ /-meta/">
 	Header unset Content-Type 
-	Header set Content-Type 'text/html; encoding=utf8'
+	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
 	Header set X-ICELINE "add JSON"
 	RewriteCond %{REQUEST_URI}      ^/resource/
