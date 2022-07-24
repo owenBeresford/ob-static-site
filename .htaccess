@@ -19,6 +19,11 @@ RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
 rewritecond %{REQUEST_URI}		(.*)
 rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
+rewritecond %{SERVER_PROTOCOL}  HTTP
+rewritecond %{REQUEST_URI}		(.*)
+rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
+
+
 # if you can see this text, uoy can see the file system.
 rewritecond %{REQUEST_URI}      /res/  [OR]
 rewritecond %{REQUEST_URI}      /res-reach/  [OR]
@@ -28,10 +33,8 @@ rewritecond %{REQUEST_URI}      /lib/  [OR]
 rewritecond %{REQUEST_URI}      /res-test/ [OR] 
 rewritecond %{REQUEST_URI}      /.git/ [OR]
 rewritecond %{REQUEST_URI}      /.gitignore
-rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
-
 rewritecond %{REQUEST_URI}     /test/
-rewriterule ^(.*)              https://owenberesford.me.uk/ [L,R=301]
+rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
 
 RewriteCond %{REQUEST_URI}      ^[/]*$
 RewriteRule .*				    /resource/home	[QSA,L]
@@ -138,7 +141,7 @@ Header set Cache-Control 'max-age=86400'
 
 <If "%{REQUEST_URI} =~ /-meta/">
 	Header unset Content-Type 
-	Header set Content-Type 'text/html; encoding=utf8'
+	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
 </If>
 <If "%{REQUEST_URI} =~ /rss$/">
