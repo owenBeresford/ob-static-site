@@ -21,7 +21,7 @@ rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
 # https://linuxize.com/post/redirect-http-to-https-in-apache/
 # the server_protocol variable doesnt seem to work with http2
-#rewritecond %{SERVER_PROTOCOL}  HTTP
+# rewritecond %{SERVER_PROTOCOL}  HTTP
 RewriteCond %{HTTPS} 			off
 rewritecond %{REQUEST_URI}		(.*)
 rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
@@ -100,13 +100,15 @@ RewriteRule .*					/resource/group-XXX.html?first=group-testing
 # I seem to need both variants to gt i to work on the live server.
 
 <IfModule mod_headers.c>
-<Files "*.woff">
+<Files "*.woff2$">
 Header add Access-Control-Allow-Origin 154.59.155.12
 Header add Access-Control-Allow-Origin 176.32.230.19
+Header add Access-Control-Allow-Origin 90.193.48.206
 </Files>
-<Files "*.woff2">
+<Files "*.woff$">
 Header add Access-Control-Allow-Origin 154.59.155.12
 Header add Access-Control-Allow-Origin 176.32.230.19
+Header add Access-Control-Allow-Origin 90.193.48.206
 </Files>
 </IfModule>
 
