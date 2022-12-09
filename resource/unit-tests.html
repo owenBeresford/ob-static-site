@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/unit-tests" />
 <meta property="og:description" content="On low level testing." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="11th of Aug 2022, 20:04:17" />
-<meta property="article:modified_time" content="22nd of Sep 2020" />
+<meta property="article:published_time" content="28th of Nov 2022, 20:52:19" />
+<meta property="article:modified_time" content="28th of Nov 2022" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Unit tests",
-	"article:published_time":"11th of Aug 2022, 20:04:17", 
-    "article:modified_time":"22nd of Sep 2020",
+	"article:published_time":"28th of Nov 2022, 20:52:19", 
+    "article:modified_time":"28th of Nov 2022",
     "article:section":"technology",
 
     "author": {
@@ -63,7 +63,7 @@ TODO: magic tune selection against some index/DB -->
 <p>In good PHP codebases, you are likely to be using DI, as its easier to manage a project.  It makes testing a lot easier, as you can inject static stubs.  For current practice (i.e. using <a href="http://pimple.sensiolabs.org/" target="_blank">Pimple</a> and <a href="https://getcomposer.org/" target="_blank">composer</a>), I make <i>some tests</i> (but not all) using the DI and the config file (e.g. <a href="http://symfony.com/doc/current/book/service_container.html" target="_blank">services.yml in Symfony</a>) which allows you to <i>test the config file</i>.  To repeat, for most tests, having isolated unit tests encourages stability and test speed.</p>
 
 <p>There are measures about isolation <sup><a href="http://stackoverflow.com/questions/972259/code-metrics" target="_blank">1</a></sup> [XXX], and use of frameworks.  If you are writing inside a good OO framework, you will find it hard to be completely isolated.  Assuming the framework is well maintained, using small bits of the framework should a manageable risk.  Generally you want to avoid using non-maintained frameworks.  For expanding projects, there should be an expanding test population.  This means you are likely to be duplicating things in your tests.  Refactoring at this point is valuable, for general code hygiene.  This follows normal code practice.   <br />
-If your objects emit primitives (e.g. ints, strings in some languages but not in others), it is easier to test. This is considered poor OO by many OO people <sup><a href="http://programmers.stackexchange.com/questions/194739/why-do-some-of-object-oriented-languages-let-programmer-use-primitive-types" target="_blank">2</a></sup> <sup><a href="http://stackoverflow.com/questions/5199359/why-do-people-still-use-primitive-types-in-java" target="_blank">3</a></sup> <sup><a href="http://stackoverflow.com/questions/2509025/when-to-use-primitive-and-when-reference-types-in-java" target="_blank">4</a></sup>.  There are reasons for both positions.  Ensuring that types are objects is easier to manage in PHP, due to limitations in the interpreter <sup><a href="http://php.net/manual/en/language.oop5.typehinting.php" target="_blank">5</a></sup> <sup><a href="http://www.pabloviquez.com/2009/07/php-5-3-with-improved-type-hinting-and-type-casting/" target="_blank">6</a></sup>.  It is easier to extend functionality when using objects than primitives.  <b>EDIT:</b> Obviously the use of PHP7 allows more type hinting capacity, and return type hinting.</p>
+If your objects emit primitives (e.g. ints, strings in some languages but not in others), it is easier to test. This is considered poor OO by many OO people <sup><a href="http://programmers.stackexchange.com/questions/194739/why-do-some-of-object-oriented-languages-let-programmer-use-primitive-types" target="_blank">2</a></sup> <sup><a href="http://stackoverflow.com/questions/5199359/why-do-people-still-use-primitive-types-in-java" target="_blank">3</a></sup> <sup><a href="http://stackoverflow.com/questions/2509025/when-to-use-primitive-and-when-reference-types-in-java" target="_blank">4</a></sup>.  There are reasons for both positions.  Ensuring that types are objects is easier to manage in PHP, due to limitations in the interpreter <sup><a href="https://php.net/manual/en/language.oop5.typehinting.php" target="_blank">5</a></sup> <sup><a href="http://www.pabloviquez.com/2009/07/php-5-3-with-improved-type-hinting-and-type-casting/" target="_blank">6</a></sup>.  It is easier to extend functionality when using objects than primitives.  <b>EDIT:</b> Obviously the use of PHP7 allows more type hinting capacity, and return type hinting.</p>
 
 <p>Short OO code uses exceptions, as it reduces the code volume needed.  People from a C background don't like them (its a <i>lngjmp</i>, dressed up to look pretty in a high level language <sup><a href="http://www.di.unipi.it/~nids/docs/longjump_try_trow_catch.html" target="_blank">7</a></sup>, and keeping the extra stack data offends them).  I like Exceptions, I think they are the best feature added in PHP5.  As this isn't about C, we are already paying for exceptions ~ the stack frame references ~ so use them.   I am paid for solutions, rather than saying <i>“hangon, I'm still typing the error handling code...&quot;</i>.   Exceptions should be tested in unit tests.  It is important to test that you get the semantically correct exception.  Likewise the units should be written to encode this data.   As far as Exceptions are a <i>lngjmp</i>, you can code simpler, so there will be less bugs.  Again, a good idea.   Exceptions can be integrated into your error response logic, if for example each Exception in a web platform included the name of the correct error template.</p>
 
@@ -110,7 +110,7 @@ If your objects emit primitives (e.g. ints, strings in some languages but not in
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2020-09-22T23:12:06">22nd of Sep 2020</time></span>
+<span>Edited <time datetime="2022-11-28T18:02:47">28th of Nov 2022</time></span>
 <span>Created <time datetime="2015-04-11T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >11th of Apr 2015</time> </span>
 </span>
 </p></div>
@@ -145,7 +145,7 @@ If your objects emit primitives (e.g. ints, strings in some languages but not in
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2022-08-11T20:04:17">11th of Aug 2022, 20:04:17</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-22T23:12:06">22nd of Sep 2020</time>. <br />
+</div> Page rendered <time datetime="2022-11-28T20:52:19">28th of Nov 2022, 20:52:19</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-11-28T18:02:47">28th of Nov 2022</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

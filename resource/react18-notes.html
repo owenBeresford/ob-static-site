@@ -9,23 +9,23 @@
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Generator" content="iceline webkit 2.1" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="XXX" />
+<meta name="Description" content="Notes by a software engineer on how React18 works; and what features got in the completed edition.  More detailed than many other articles on this." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="React 18 Architecture">
-<meta itemprop="description" content="XXX">
+<meta itemprop="description" content="Notes by a software engineer on how React18 works; and what features got in the completed edition.  More detailed than many other articles on this.">
 <!-- meta name="twitter:card" content="summary_large_image" -->
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="React 18 Architecture">
-<meta name="twitter:description" content="XXX">
+<meta name="twitter:description" content="Notes by a software engineer on how React18 works; and what features got in the completed edition.  More detailed than many other articles on this.">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="React 18 Architecture" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/react18-notes" />
-<meta property="og:description" content="XXX" />
+<meta property="og:description" content="Notes by a software engineer on how React18 works; and what features got in the completed edition.  More detailed than many other articles on this." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="5th of Oct 2022, 20:17:51" />
-<meta property="article:modified_time" content="13th of Sep 2022" />
+<meta property="article:published_time" content="9th of Dec 2022, 11:01:26" />
+<meta property="article:modified_time" content="9th of Dec 2022" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "React 18 Architecture",
-	"article:published_time":"5th of Oct 2022, 20:17:51", 
-    "article:modified_time":"13th of Sep 2022",
+	"article:published_time":"9th of Dec 2022, 11:01:26", 
+    "article:modified_time":"9th of Dec 2022",
     "article:section":"technology",
 
     "author": {
@@ -53,78 +53,253 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker">
-<div class="fewWords">
-<p>Architecture notes for React 18, on 1 simple page, with no banner ads.  Your idea for “good docs” is either likely to be “here are ThreeThings to need to know” (small list to make it easier); or “here is Everything” (reading source-code is a slower process and to be avoided).  I am definitely on the Everything model.  @dan_abramov recently said he had spent several months updating docs <sup><a href="https://twitter.com/dan_abramov/status/1567854990479220736" target="_blank">1</a></sup>, I suspect what I have referenced is this.</p>
+<p><b>Target audience</b>: Software engineers who have used many frameworks, and like detailed notes.</p>
 
+<p>Architecture notes for React 18, on 1 simple page, with no banner ads.  The idea for “good docs” is typically either likely to be “here are ThreeThings to need to know” (small list to make it easier); or “here is Everything” (reading source-code is a slower process and to be avoided).  I am definitely on the Everything model.  @dan_abramov recently said he had spent several months updating docs <sup><a href="https://twitter.com/dan_abramov/status/1567854990479220736" target="_blank">1</a></sup>, I suspect what I have referenced is this.</p>
+
+
+<div class="lotsOfWords">
 
 <h3 class="dontend" id="toc0"> Basic component API, react18  <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
-<p>The newest version of react has a slightly different life cycle model; and some of the older process has been retired <sup><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">2</a></sup> <sup><a href="https://medium.com/how-to-react/react-life-cycle-methods-with-examples-2bdb7465332b" target="_blank">3</a></sup> <sup><a href="https://medium.com/swlh/react-lifecycle-hooks-71547ef4e7a8" target="_blank">4</a></sup>.</p>
+<p>The newest version of react has a slightly different life cycle model; and some of the older process have been retired <sup><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">1</a></sup> <sup><a href="https://medium.com/how-to-react/react-life-cycle-methods-with-examples-2bdb7465332b" target="_blank">2</a></sup> <sup><a href="https://medium.com/swlh/react-lifecycle-hooks-71547ef4e7a8" target="_blank">3</a></sup>.</p>
 
-<p>React18 hooks <sup><a href="https://reactjs.org/docs/hooks-intro.html" target="_blank">5</a></sup></p>
+
+<h5 id="toc1"> Architecture prefix</h5>
+<p>Older versions of React supported FP, but didn't push a developer towards it so strongly. Many people wrote components as JS classes. A end user level diagram would look like <img src="/asset/react16-arch.webp" width="100%" height="inherit" alt="Diagram of React16 architecture; pls see full webpage in following attribution" title="Diagram of React16 architecture; pls see full webpage in following attribution" />, image taken from <a href="https://www.communicationcrafts.com/react-architecture-best-practices-and-tips-from-experts/" target="_blank">communicationcrafts</a>.  This has some good points, and some bad points; but looks like code written in other languages.  Larger projects would become messy and slow; unless tightly managed.</p>
+
+<p>'Modern react' i.e. after v16.6 has a more functional architecture; using many hooks.  Many people in JS like FP; and so think that this is a better way to build things.  As a side effect of moving to FP, it is more strongly reactive; see <a class="" href="https://owenberesford.me.uk/resource/reactive-architecture#">reactive-architecture</a> for more details.  JS, as used in webrowsers, is very much a single thread of execution; many JS people try to hide this limitation.  JS Webworkers are roughly a OS process thread; and roughly allow better async processing; but the communication and synchronisation bottle-neck is terrible.  Compare language features with a non-browser Java app (probably on your Android) for a realistic second opinion.  A React stack cannot be properly reactive whilst it only uses a single process/ thread execution context.</p>
+
+<p>Like many frameworks; React18 is using ObjectComposition pattern <sup><a href="https://en.wikipedia.org/wiki/Object_composition" target="_blank">4</a></sup>.   A reason to upgrade to React18 is attempts at concurrency have been created <sup><a href="https://www.react18.com/concurrency" target="_blank">5</a></sup> <sup><a href="https://reactjs.org/blog/2022/03/29/react-v18.html#what-is-concurrent-react" target="_blank">6</a></sup>.  The framework for concurrency allows Batching.   If you are using server side rendering; you will like Suspense (new feature); but where probably using it previously via plugin like Nextjs or Hydrogen <sup><a href="https://www.freecodecamp.org/news/whats-new-in-react-18/" target="_blank">7</a></sup>.</p>
+
+
+<h5 id="toc2"> React18 hooks <sup><a href="https://reactjs.org/docs/hooks-intro.html" target="_blank">8</a></sup></h5>
+<p>Most of these function names are well chosen, and are really obvious/ clear.  I have added the behavioural notes for when I am feeling stupid and so needing documentation.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">A vastly over engineered diagram, drawn in React <sup><a href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/" target="_blank">6</a></sup></li>
-    <li class="libasic">standard: useState() <sup><a href="https://reactjs.org/docs/hooks-state.html" target="_blank">7</a></sup>, useMemo(), useReducer(), useEffect() <sup><a href="https://reactjs.org/docs/hooks-effect.html" target="_blank">8</a></sup> which everyone must have used.</li>
-    <li class="libasic">componentDidMount() <sup><a href="https://reactjs.org/docs/react-component.html#mounting" target="_blank">9</a></sup></li>
-    <li class="libasic">componentWillUnmount() <sup><a href="https://reactjs.org/docs/react-component.html#unmounting" target="_blank">10</a></sup></li>
-    <li class="libasic">shouldComponentUpdate() <sup><a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">11</a></sup> <sup><a href="https://wanago.io/2019/07/08/algorithm-react-update-the-view-increasing-the-performance/" target="_blank">12</a></sup> used as a test, and is a micro-optimisation, shouldn't affect local state </li>
-    <li class="libasic">componentDidUpdate() <sup><a href="https://reactjs.org/docs/react-component.html#updating" target="_blank">13</a></sup> </li>
-    <li class="libasic">getSnapshotBeforeUpdate() <sup><a href="https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate" target="_blank">14</a></sup></li>
-    <li class="libasic">static getDerivedStateFromProps() <sup><a href="https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops" target="_blank">15</a></sup> check if needed first as this will make code more complex.</li>
-    <li class="libasic">constructor() <sup><a href="https://reactjs.org/docs/react-component.html#constructor" target="_blank">16</a></sup>, only used when your components are more complex</li>
-    <li class="libasic">static getDerivedStateFromError() <sup><a href="https://reactjs.org/docs/react-component.html#static-getderivedstatefromerror" target="_blank">17</a></sup></li>
-    <li class="libasic">componentDidCatch() <sup><a href="https://reactjs.org/docs/react-component.html#componentdidcatch" target="_blank">18</a></sup></li>
-    <li class="libasic">render() <sup><a href="https://reactjs.org/docs/react-component.html#render" target="_blank">19</a></sup></li>
-    <li class="libasic">useTransition(), (=&gt; isPending, startTransition() ) ~ act as replacement/ improvement for useEffect() <sup><a href="https://reactjs.org/docs/hooks-reference.html#usetransition" target="_blank">20</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">21</a></sup>.   </li>
-    <li class="libasic">userId() <sup><a href="https://reactjs.org/docs/hooks-reference.html#useid" target="_blank">22</a></sup> ~ added for server side rendering, generate an ID</li>
-    <li class="libasic">useDeferredValue() ~ have an current value until a Promise resolves then use the new value.</li>
-    <li class="libasic">useSyncExternalStore() <sup><a href="https://reactjs.org/docs/hooks-reference.html#usesyncexternalstore" target="_blank">23</a></sup> ~ probably for library dev only,</li>
-    <li class="libasic">useInsertionEffect() <sup><a href="https://reactjs.org/docs/hooks-reference.html#useinsertioneffect" target="_blank">24</a></sup> ~ a new hook that allows CSS-in-JS libraries</li>
-    <li class="libasic">useLayoutEffect <sup><a href="https://reactjs.org/docs/hooks-reference.html#uselayouteffect" target="_blank">25</a></sup></li>
-    <li class="libasic">useCallback</li>
-    <li class="libasic">useRef</li>
-    <li class="libasic">useImperativeHandle</li>
-    <li class="libasic">useDebugValue</li>
+    <li class="libasic"><b>useState()</b> <sup><a href="https://reactjs.org/docs/hooks-state.html" target="_blank">9</a></sup> COMMON ~ Stores a value, with a process to update it.<ul class="ulbasic">
+        <li class="libasic">const [state, setState] = useState(initialState);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-effect.html" target="_blank">10</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useeffect" target="_blank">11</a></sup> COMMON ~ Place a function that will get executed when a value of data changes.  It is designed for expensive function calls (...networking).  USE CAREFULLY, be aware of recursive effects, and update cascades if multiple useEffect() are created.  The function is executed with the item in data as params.  This is triggered after render() <sup><a href="https://stackoverflow.com/a/68201925/2375161" target="_blank">12</a></sup>, which is why re-triggering is problematic. <ul class="ulbasic">
+        <li class="libasic">useEffect(()=&gt;()=&gt;void, [data*])</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useMemo()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usememo" target="_blank">13</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Memoization" target="_blank">14</a></sup> COMMON ~ Computes a value, triggered by changes in params.  This is executed during the render(), if there is a change <sup><a href="https://stackoverflow.com/questions/71925654/difference-between-useeffect-and-usememo" target="_blank">15</a></sup>,  <ul class="ulbasic">
+        <li class="libasic">const memoizedValue = useMemo(() =&gt; computeExpensiveValue(a, b), [a, b]);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useReducer()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usereducer" target="_blank">16</a></sup> ~ An parallel option for useState(), takes data and saves it for later.   The noticeable difference is an additional function allows you to edit / improve the raw data.  As useState(), there is a dispatch function to update it.<ul class="ulbasic">
+        <li class="libasic">const [state, dispatch] = useReducer(reducer, initialArg, init);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useId()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useid" target="_blank">17</a></sup> <sup><a href="https://towardsdev.com/useid-the-new-hook-introduced-in-react-18-1ef2ce5c5353" target="_blank">18</a></sup> ~ Added for server side rendering, generate a unique ID, to for example link a LABEL and an INPUT elements.  Created value is a computation of the object tree that React is rendering <sup><a href="https://beta.reactjs.org/apis/react/useId#specifying-a-shared-prefix-for-all-generated-ids" target="_blank">19</a></sup>; if different values are needed, manually add suffixes; secondly cannot be used for keys in any lists.<ul class="ulbasic">
+        <li class="libasic">const id = useId();</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic">...   </li>
+    <li class="libasic"><b>useCallback()</b> <sup><a href="https://beta.reactjs.org/apis/react/useCallback" target="_blank">20</a></sup> <sup><a href="https://dmitripavlutin.com/react-usecallback/" target="_blank">21</a></sup> ~ Create a memorised function that will execute when the params change.  This is to be used when passing data to child components that use refs.  Is equivalent to a useMemo() call. <ul class="ulbasic">
+        <li class="libasic">const memoizedCallback = useCallback( () =&gt; {  doSomething(a, b); }, [a, b],);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useRef()</b> <sup><a href="https://beta.reactjs.org/apis/react/useRef" target="_blank">22</a></sup> <sup><a href="https://medium.com/trabe/react-useref-hook-b6c9d39e2022" target="_blank">23</a></sup> ~ Ref is short for Reference; this is a smart pointer structure.   The pointed to data is mutable.<ul class="ulbasic">
+        <li class="libasic">const refContainer = useRef(initialValue);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useTransition()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usetransition" target="_blank">24</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">25</a></sup>.  Invokes a callback on the next relevant priority update cycle in the render function.  Transitions are similar to RDBMS Locks; its a scheduling feature to make small really visible updates not get blocked by things that require computation.   <ul class="ulbasic">
+        <li class="libasic">const [isPending, startTransition] = useTransition();</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useDeferredValue()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html?#usedeferredvalue" target="_blank">26</a></sup> <sup><a href="https://academind.com/tutorials/react-usetransition-vs-usedeferredvalue#usedeferredvalue-in-action" target="_blank">27</a></sup> ~ Have an current value until a Promise resolves then use the new value.  The updated value will be applied as soon as any current render()s are complete. <ul class="ulbasic">
+        <li class="libasic">const deferredValue = useDeferredValue(value);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useImperativeHandle()</b> <sup><a href="https://beta.reactjs.org/apis/react/useImperativeHandle" target="_blank">28</a></sup> <sup><a href="https://medium.com/trabe/react-useref-hook-b6c9d39e2022" target="_blank">29</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useimperativehandle" target="_blank">30</a></sup> ~ Try to avoid using this.   Creates a action ~ the createHandle ~ that will be executed when data exposed to a parent ref is changed.   <ul class="ulbasic">
+        <li class="libasic">useImperativeHandle(ref, createHandle, [deps]);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useLayoutEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#uselayouteffect" target="_blank">31</a></sup> <sup><a href="https://blog.logrocket.com/useeffect-vs-uselayouteffect-examples/" target="_blank">32</a></sup> ~ Note same signature as useEffect; but this one fires after render/ *any* changes to the DOM, rather than params. <ul class="ulbasic">
+        <li class="libasic">useLayoutEffect(()=&gt;()=&gt;void, [data*]); </li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useInsertionEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useinsertioneffect" target="_blank">33</a></sup> ~ A hook that allows CSS-in-JS libraries.  Fires before render()/ DOM changes.<ul class="ulbasic">
+        <li class="libasic">useInsertionEffect(()=&gt;()=&gt;void, [data*]); </li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useSyncExternalStore()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usesyncexternalstore" target="_blank">34</a></sup> ~ Probably for library dev only,   Clearly named function, allows a non-standard Redux-clone library.<ul class="ulbasic">
+        <li class="libasic">const state = useSyncExternalStore(subscribe, getSnapshot[, getServerSnapshot]); </li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useDebugValue()</b> <sup><a href="https://beta.reactjs.org/apis/react/useDebugValue" target="_blank">35</a></sup> <sup><a href="https://reactjsguru.com/react-usedebugvalue-hook/" target="_blank">36</a></sup> ~ Renders a value to ReactDebugTools<a class="" href="https://www.google.co.uk/search?q=ReactDebugTools">?</a>; Also supports a version without the Adaptor. <ul class="ulbasic">
+        <li class="libasic">useDebugValue(data, (data) =&gt; any);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>useContext()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usecontext" target="_blank">37</a></sup> “Context provides a way to pass data through the component tree without having to pass props down manually at every level.&quot; <sup><a href="https://reactjs.org/docs/context.html" target="_blank">38</a></sup> <ul class="ulbasic">
+        <li class="libasic">const MyContext = React.createContext(defaultValue); const value = useContext(MyContext);</li>
+        <li class="libasic">package: React</li>
+    </ul></li>
+    <li class="libasic"><b>isValidElement()</b> <sup><a href="https://reactjs.org/docs/react-api.html#isvalidelement" target="_blank">39</a></sup> As self-described. Returns boolean.<ul class="ulbasic">
+        <li class="libasic">package: React</li>
+    </ul></li>
 </ul>
 
-<p>React18 functions (which are not hooks)</p>
 
+</div>
+<hr />
+<div class="lotsOfWords">
+
+<h5 id="toc3"> React18 functions (which are not hooks)</h5>
 <ul class="ulbasic">
-    <li class="libasic">createRef()</li>
-    <li class="libasic">setState()</li>
-    <li class="libasic">lazy() for SSR</li>
-    <li class="libasic">unmount()</li>
-    <li class="libasic">createRoot() <sup><a href="https://www.syncfusion.com/blogs/post/everything-you-should-know-about-react-18.aspx" target="_blank">26</a></sup>, which is in react-dom project</li>
-    <li class="libasic">forceUpdate() </li>
-    <li class="libasic">flushSync() ~ most updates are async and batched; this makes updates synchronous  </li>
+    <li class="libasic"><b>constructor()</b> <sup><a href="https://reactjs.org/docs/react-component.html#constructor" target="_blank">1</a></sup>, only used when your components are more complex.  General notes for functions <sup><a href="https://reactjs.org/docs/react-api.html" target="_blank">2</a></sup><ul class="ulbasic">
+        <li class="libasic">projecf: React</li>
+    </ul></li>
+    <li class="libasic"><b>render()</b> <sup><a href="https://reactjs.org/docs/react-component.html#render" target="_blank">3</a></sup> ~ The “main function” that most people see as “React”. Should specify have to convert this React interface/ object / component (term depending on version) into a DOM Island.   This has magic-context-free access to class variables; but is typically considered a pure function for performance outcomes.    <ul class="ulbasic">
+        <li class="libasic">projecf: React</li>
+    </ul></li>
+    <li class="libasic"><b>createRef() / useRef()</b> <sup><a href="https://beta.reactjs.org/apis/react/createRef" target="_blank">4</a></sup> <sup><a href="https://reactjs.org/docs/react-api.html#reactcreateref" target="_blank">5</a></sup> Creates a reference to the current Component, so it can be manipulated (see closures) <sup><a href="https://stackoverflow.com/questions/65418747/how-does-react-createref-actually-work" target="_blank">6</a></sup>.<ul class="ulbasic">
+        <li class="libasic">const refContainer = useRef(initialValue);</li>
+        <li class="libasic">projecf: React</li>
+    </ul></li>
+    <li class="libasic"><b>setState()</b> <sup><a href="https://reactjs.org/docs/react-component.html#setstate" target="_blank">7</a></sup>.  Setter function to assign a value to the Components local state; needs to be used in conjunction with componentDidUpdate <sup><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">8</a></sup> <sup><a href="https://riptutorial.com/reactjs/example/5936/setstate" target="_blank">9</a></sup><ul class="ulbasic">
+        <li class="libasic">setState(updater[, callback])    </li>
+        <li class="libasic">projecf: React</li>
+    </ul></li>
+    <li class="libasic"><b>createRoot()</b> <sup><a href="https://beta.reactjs.org/apis/react-dom/client/createRoot" target="_blank">10</a></sup> <sup><a href="https://reactjs.org/docs/react-dom-client.html#createroot" target="_blank">11</a></sup> <sup><a href="https://www.syncfusion.com/blogs/post/everything-you-should-know-about-react-18.aspx" target="_blank">12</a></sup> <sup><a href="https://www.techiediaries.com/react-18-createroot/" target="_blank">13</a></sup>.   This is the new way to start executing a React project.  As the 'React thing' is a data tree, this is its root; and bound to a real DOM node.<ul class="ulbasic">
+        <li class="libasic">createRoot(container[, options]);</li>
+        <li class="libasic">project: react-dom</li>
+    </ul></li>
+    <li class="libasic"><b>hydrateRoot()</b> <sup><a href="https://beta.reactjs.org/apis/react-dom/client/hydrateRoot" target="_blank">14</a></sup> When a react node is built on a server; this call adds the actual data into it, to be run on the client. <ul class="ulbasic">
+        <li class="libasic">const root = hydrateRoot(domNode, reactNode, options?)</li>
+        <li class="libasic">project: react-dom</li>
+    </ul></li>
 </ul>
 
-<p>React18 builtin tags</p>
+<p>Limit use of (React tries to organise changes so they are executed quickly, but this maybe not the order you want):</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Suspense, used to FP style supply a loading screen without branching, needs createRoot() to be active <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">27</a></sup></li>
-    <li class="libasic">SuspenseList <sup><a href="https://yagmurcetintas.com/journal/whats-new-in-react-18" target="_blank">28</a></sup></li>
-    <li class="libasic">Offscreen</li>
-    <li class="libasic">StrictMode <sup><a href="https://reactjs.org/docs/strict-mode.html" target="_blank">29</a></sup> Note only for dev builds</li>
+    <li class="libasic"><b>flushSync()</b> <sup><a href="https://beta.reactjs.org/apis/react-dom/flushSync" target="_blank">15</a></sup> ~ Most updates are async and batched; this makes updates synchronous, please read caveats in next link <sup><a href="https://beta.reactjs.org/apis/react-dom/flushSync" target="_blank">16</a></sup> <sup><a href="https://stackoverflow.com/questions/62725935/what-does-flushsync-do-in-react" target="_blank">17</a></sup> <ul class="ulbasic">
+        <li class="libasic">flushSync(callback)  </li>
+        <li class="libasic">project: react-dom</li>
+    </ul></li>
+    <li class="libasic"><b>forceUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#forceupdate" target="_blank">18</a></sup> <sup><a href="https://stackoverflow.com/questions/57883814/forceupdate-with-react-hooks" target="_blank">19</a></sup> ~ Forces a render() to happen now on this component. <ul class="ulbasic">
+        <li class="libasic">component.forceUpdate(callback)</li>
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
 </ul>
 
-<p>Things some guy on twitter didn't want people using <sup><a href="https://twitter.com/housecor/status/1567502647732625410" target="_blank">30</a></sup></p>
+<p>Functions that you may not need to use:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Class components ~ Use react-error-boundary package</li>
+    <li class="libasic"><b>componentDidMount()</b> <sup><a href="https://reactjs.org/docs/react-component.html#mounting" target="_blank">20</a></sup> ~ A function to report when a component is mounted; implement to do things like setup timers.  <ul class="ulbasic">
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
+    <li class="libasic"><b>componentWillUnmount()</b> <sup><a href="https://reactjs.org/docs/react-component.html#unmounting" target="_blank">21</a></sup> ~ A function to undo whatever happened in componentDidMount.<ul class="ulbasic">
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
+    <li class="libasic"><b>shouldComponentUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">22</a></sup> <sup><a href="https://wanago.io/2019/07/08/algorithm-react-update-the-view-increasing-the-performance/" target="_blank">23</a></sup> used as a test, and is a micro-optimisation, shouldn't affect local state. <ul class="ulbasic">
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
+    <li class="libasic"><b>componentDidUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#updating" target="_blank">24</a></sup> ~ A function that trigger after render().  The notes <sup><a href="https://reactjs.org/docs/react-component.html#componentdidupdate" target="_blank">25</a></sup> say that this can be used for network requests, as long as there is a check for delta on data.    <ul class="ulbasic">
+        <li class="libasic">componentDidUpdate(prevProps, prevState, snapshot) </li>
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
+    <li class="libasic"><b>getSnapshotBeforeUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate" target="_blank">26</a></sup> Allows access to DOM just before a state change is applied.<ul class="ulbasic">
+        <li class="libasic">getSnapshotBeforeUpdate(prevProps, prevState)</li>
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
+    <li class="libasic">static <b>getDerivedStateFromProps()</b> <sup><a href="https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops" target="_blank">27</a></sup> Used to be able to render data that is affected by time.  Note that is called in every render cycle.  Check if needed first as this will make code more complex.<ul class="ulbasic">
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
+    <li class="libasic">static <b>getDerivedStateFromError()</b> <sup><a href="https://reactjs.org/docs/react-component.html#static-getderivedstatefromerror" target="_blank">28</a></sup> This function is used to supply a revised state; executed when an error is thrown, this gets passed the error.  <ul class="ulbasic">
+        <li class="libasic">static getDerivedStateFromError(error)</li>
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
+    <li class="libasic"><b>forwardRef()</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactforwardref" target="_blank">29</a></sup> Create a component that use a ref that was made else where. This new component is supposed to be inside/ below the older one<ul class="ulbasic">
+        <li class="libasic">project: react</li>
+    </ul></li>
+    <li class="libasic"><b>componentDidCatch()</b> <sup><a href="https://reactjs.org/docs/react-component.html#componentdidcatch" target="_blank">30</a></sup>.  A method to catch errors created by child components; designed to be used for actions like logging.  <ul class="ulbasic">
+        <li class="libasic">componentDidCatch(error, info)</li>
+        <li class="libasic">project: react/Component</li>
+    </ul></li>
+    <li class="libasic"><b>lazy()</b> for SSR <sup><a href="https://reactjs.org/blog/2018/10/23/react-v-16-6.html" target="_blank">31</a></sup> <sup><a href="https://reactgo.com/tutorial-reactlazy-react-suspense/" target="_blank">32</a></sup> Function lets you render a dynamic import as a regular component.<ul class="ulbasic">
+        <li class="libasic">const OtherComponent = React.lazy(() =&gt; import('./OtherComponent'));</li>
+        <li class="libasic">project: react</li>
+    </ul></li>
+    <li class="libasic"><b>unmount()</b> <sup><a href="https://reactjs.org/docs/implementation-notes.html#unmounting" target="_blank">33</a></sup> <sup><a href="https://beta.reactjs.org/apis/react-dom/client/hydrateRoot#root-unmount" target="_blank">34</a></sup> <sup><a href="https://www.pluralsight.com/guides/how-to-unmount-react.js-node" target="_blank">35</a></sup> Deallocates local resources.<ul class="ulbasic">
+        <li class="libasic">project: react</li>
+    </ul></li>
+    <li class="libasic"><b>memo()</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactmemo" target="_blank">36</a></sup> A method version of useMemo() hook.<ul class="ulbasic">
+        <li class="libasic">project: react</li>
+    </ul></li>
+    <li class="libasic">cloneElement(),  createContext(), createElement() are unchanged from previous versions <sup><a href="https://reactjs.org/docs/react-api.html#createelement" target="_blank">37</a></sup><ul class="ulbasic">
+        <li class="libasic">project: react</li>
+    </ul></li>
+</ul>
+
+
+<h5 id="toc4"> React18 builtin tags</h5>
+<ul class="ulbasic">
+    <li class="libasic"><b>Fragment</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactfragment" target="_blank">38</a></sup> you have probably used this as the next line; but this is its name.<ul class="ulbasic">
+        <li class="libasic">&lt;&gt;&lt;/&gt;</li>
+        <li class="libasic">project: React</li>
+    </ul></li>
+    <li class="libasic"><b>Suspense</b> <sup><a href="https://reactjs.org/docs/react-api.html#suspense" target="_blank">39</a></sup>, used to FP style supply a loading screen without branching, needs createRoot() to be active <sup><a href="https://blog.bitsrc.io/quick-walkthrough-to-suspenselist-in-react-b930d1ece892" target="_blank">40</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">41</a></sup>.  <a href="https://dev.to/vaukalak/react-18-suspense-minimal-example-3j0k" target="_blank">Minimal sample</a>.    <ul class="ulbasic">
+        <li class="libasic">project: React</li>
+    </ul></li>
+    <li class="libasic"><b>StrictMode</b> <sup><a href="https://reactjs.org/docs/strict-mode.html" target="_blank">42</a></sup> Note only for dev builds; enables more detailed error reporting.  In some code you get effects <sup><a href="https://blog.ag-grid.com/avoiding-react-18-double-mount/" target="_blank">43</a></sup> <sup><a href="https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode" target="_blank">44</a></sup>.  <a href="https://medium.com/nmc-techblog/wait-youre-not-using-react-strictmode-a9713927a33b" target="_blank">Minimal example</a> <ul class="ulbasic">
+        <li class="libasic">project: React</li>
+    </ul></li>
+    <li class="libasic"><strike> SuspenseList</strike> <sup><a href="https://yagmurcetintas.com/journal/whats-new-in-react-18" target="_blank">45</a></sup> Basically the same idea, for a list of items.  ONLY IN VERY EARLY VERSIONS OF react18, DO NOT USE <a href="https://www.programcreek.com/typescript/?api=react.SuspenseList" target="_blank">Minimal samples</a><ul class="ulbasic">
+        <li class="libasic">project: React</li>
+    </ul></li>
+    <li class="libasic"><strike>Offscreen</strike>, ONLY IN VERY EARLY VERSIONS OF react18, DO NOT USE.  If this feature is needed in stable versions of react18, try react-offscreen <a href="https://www.npmjs.com/package/react-offscreen" target="_blank">Minimal examples</a> in npmjs.<ul class="ulbasic">
+        <li class="libasic">project: React</li>
+    </ul></li>
+</ul>
+
+<p>I was expecting this list to be longer; I have walked the exported Objects, and no.</p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+<ul class="ulbasic">
+    <li class="libasic">A vastly over engineered diagram, drawn in React <sup><a href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/" target="_blank">1</a></sup>.  Someones test code to explore hooks <sup><a href="https://github.com/GregNicholas/hooks-in-react18-next" target="_blank">2</a></sup> </li>
+</ul>
+
+
+<h5 id="toc5"> Project structure</h5>
+<p>Most developers interact with React via JSX.  This is a convenience notation for humans that the compilers discard quite quickly; read <sup><a href="https://ui.dev/react-elements-vs-react-components" target="_blank">3</a></sup> <sup><a href="https://reactjs.org/docs/jsx-in-depth.html" target="_blank">4</a></sup> if this statement is new to you.   “Recent” versions of React (larger than React 2, I think) split the bit of react that interacts with the DOM, from the bits that are creating and processing events.   The DOM section has different implementations depending which JS runtime the app is hosted in (Mobile native, browser native, or server emulation).  More details <sup><a href="https://techstacker.com/react-vs-react-dom-vs-react-native-whats-the-difference/" target="_blank">5</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units" target="_blank">6</a></sup>.   The most important thing in the update-DOM code is a function that compares an old state with a newer state and makes a diff <sup><a href="https://reactjs.org/docs/reconciliation.html" target="_blank">7</a></sup> <sup><a href="https://medium.com/@abdellani/how-does-the-diff-algorithm-work-in-react-js-c4296548f84b" target="_blank">8</a></sup>.  The diff is what is applied to the real DOM in this update cycle.  To make the diff-ing work better, React creates a VirtualDOM structure <sup><a href="https://www.testim.io/blog/shadow-dom-vs-virtual-dom/" target="_blank">9</a></sup> <sup><a href="https://medium.com/duomly-blockchain-online-courses/shadow-dom-vs-virtual-dom-what-is-the-difference-f2611da536ab" target="_blank">10</a></sup> as an intermediate structure which is closer to the DOM.</p>
+
+<p>The most import distinction between a website (made up of pages) and a webapp (made up of screens) is the singular page/ DOM loaded.  Although there is caching, each webpage in a website is a separate thing/ DOM; and loads its libraries each impression.   An app loads its heavy libraries once (ideally in an install phase, not every 09:02 when you start working).  This implies apps need to be more careful with memory management, and use some sort of Router to change to the next screen.   I have never needed to use any router other than the basic one, per toolkit.  For React in the browser, its <sup><a href="https://ui.dev/react-router-tutorial" target="_blank">11</a></sup> <sup><a href="https://www.npmjs.com/package/react-router" target="_blank">12</a></sup>; there is a React-native version (as pages are a “user-land” programmer structure there) <sup><a href="https://dev.to/syncfusion/react-router-vs-react-router-dom-mfl" target="_blank">13</a></sup>.  Most Router libraries are using the History object in the JS interpreter; but the recipe it outlined in <sup><a href="https://ogzhanolguncu.com/blog/build-a-custom-react-router-from-scratch" target="_blank">14</a></sup> <sup><a href="https://reactnavigation.org/docs/custom-routers/" target="_blank">15</a></sup>.</p>
+
+<p>Graphic design is not the same discipline as form/ data-system UI design.  Imagine if every invoice has custom typography and styling, so one needed a custom reader to process it.   Quite a few React people like the idea of having custom CSS for each Component.  Whilst this does lead to more reusable Components; nearly all my foreground items are in $foreground1 colour whatever that is defined as.  Occasionally there maybe some specific colouration; but as people use one font per screen; there is normally one foreground colour.  It seems more sensible to define UI style on a per app basis; or better, adjusted per user, as this helps this user use the system.  If per-component CSS is needed, it should be regulated by using CSS variables and relative units, as the user is using the whole ecosystem rather than just your button <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank">16</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units" target="_blank">17</a></sup>.  A component with a local stylesheet should have double settings, e.g. background-color: var(--bgcolour, #fdfdfd); so when not supplied a value is still used <sup><a href="https://stackoverflow.com/questions/68546715/is-it-possible-to-check-if-a-css-variable-is-defined-or-not" target="_blank">18</a></sup>.  Use of CSS variables makes it much easier to use and create Themes... <br />
+</p>
+
+
+<h5 id="toc6"> Related material</h5>
+<p><b>Isomorphic structures</b> ~ the word means “corresponding or similar in form or relations” ~ are stated to be: a) faster loading, b) have better accessibility for search, and c) with better support for old browsers.   React based apps can be structured to support this architecture.   They need to be run on a larger server, as the React Widgets are rendered to HTML there.   <strong>However</strong>, Google ~ and I assume other large search engines ~ execute JS when they crawl, so the search doesn't apply is less relevant.  Fairly recently Microsoft have cancelled MSIE support; so the most awkward browser is now Safari; and that is much less awkward; so old browsers should be less important too.  Longer notes about isomorphic apps are <sup><a href="https://www.baeldung.com/react-nashorn-isomorphic-app" target="_blank">19</a></sup> <sup><a href="https://stackoverflow.com/questions/43064707/what-does-isomorphic-react-mean" target="_blank">20</a></sup> <sup><a href="https://www.delftstack.com/howto/react/isomorphic-react/" target="_blank">21</a></sup> <sup><a href="https://www.ohmycrawl.com/isomorphic-react/" target="_blank">22</a></sup>. <br />
+It would be extremely an heretical statement; but this architecture can be achieved by using a “less React” approach.  If some site features are made with accessible HTML5 and CSS (possibly as an inline STYLE element); it will be faster.  The complex / very often updated features are a better fit for React and should stay inside this. For large projects, it feels fairly simple to have an engine made in Python or Golang or something that emits either: a) a block of HTML + modular CSS + JS event handlers; b) a minified JS file containing a React component of the same data without JSX.  Generating a JS file from source data is a well understood problem and could be automated.  Most of the complex JS code should be in a different JS file, and imported as needed.</p>
+
+<p>There are some complexities with the JS object model; the Arrays need more special handling than is desirable.  As part of FP, <b>Immutable.js</b> was created and is a widely talked about feature.   In languages with a proper const; I use const widely; for data that should persist, but not change.  There are a couple of libraries to make variables Immutable, and there are awkward language features to deliver the same.  Immutable <sup><a href="https://immutable-js.com/" target="_blank">23</a></sup> <sup><a href="https://www.npmjs.com/package/immutable" target="_blank">24</a></sup> <sup><a href="https://www.sitepoint.com/immutability-javascript/" target="_blank">25</a></sup>.</p>
+
+<p>Things some guy on twitter didn't want people using <sup><a href="https://twitter.com/housecor/status/1567502647732625410" target="_blank">26</a></sup></p>
+
+<ul class="ulbasic">
+    <li class="libasic">Class components ~ Use react-error-boundary package <sup><a href="https://www.npmjs.com/package/react-error-boundary" target="_blank">27</a></sup></li>
     <li class="libasic">useEffect() ~ often overused, there are options</li>
     <li class="libasic">Context ~ use for mostly static global config; can also use props and or third party libraries </li>
     <li class="libasic">prop-types, he says its “only at runtime”, and use typescript types; IMO use both </li>
-    <li class="libasic">style - Try: Tailwind, CSS modules, --CSS-in-JS--, Sprinkles</li>
+    <li class="libasic">style - Try: Tailwind <sup><a href="https://www.npmjs.com/package/tailwindcss" target="_blank">28</a></sup>, CSS modules, <strike>CSS–in–JS</strike>, Sprinkles <sup><a href="https://www.npmjs.com/package/@vanilla-extract/sprinkles" target="_blank">29</a></sup></li>
     <li class="libasic">create-react-app - Try: Vite, Next, Remix, Astro, Gatby, Docusaurus, Redwood, NX, Hydrogen</li>
 </ul>
 
 
 </div>
+
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="XXX"><a name="adjacent" href=""></a> <p>Some similar articles in XXX </p><div id="groupXXX" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=XXX" title="This article lists all items in XXX group.">All of <br />XXX </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 <legend></legend>
@@ -152,8 +327,8 @@ TODO: magic tune selection against some index/DB -->
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-09-13T19:48:05">13th of Sep 2022</time></span>
-<span>Created <time datetime="1970-01-01T01:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+<span>Edited <time datetime="2022-12-09T10:44:48">9th of Dec 2022</time></span>
+<span>Created <time datetime="2022-08-01T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of Aug 2022</time> </span>
 </span>
 </p></div>
 <fieldset class="h4_menu column">
@@ -187,12 +362,12 @@ TODO: magic tune selection against some index/DB -->
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2022-10-05T20:17:51">5th of Oct 2022, 20:17:51</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-09-13T19:48:05">13th of Sep 2022</time>. <br />
+</div> Page rendered <time datetime="2022-12-09T11:01:26">9th of Dec 2022, 11:01:26</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-09T10:44:48">9th of Dec 2022</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer src="/asset/ob1.min.js" ></script>
+<script src="/asset/ob1.min.js" ></script>
 
 </body>
 </html>

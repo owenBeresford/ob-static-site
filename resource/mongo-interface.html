@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/mongo-interface" />
 <meta property="og:description" content="Notes on how to integrate with Mongo from PHP, advanced reading." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="11th of Aug 2022, 20:03:43" />
-<meta property="article:modified_time" content="21st of Sep 2020" />
+<meta property="article:published_time" content="28th of Nov 2022, 20:50:47" />
+<meta property="article:modified_time" content="28th of Nov 2022" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Mongo Admin Interface",
-	"article:published_time":"11th of Aug 2022, 20:03:43", 
-    "article:modified_time":"21st of Sep 2020",
+	"article:published_time":"28th of Nov 2022, 20:50:47", 
+    "article:modified_time":"28th of Nov 2022",
     "article:section":"technology",
 
     "author": {
@@ -59,7 +59,7 @@ TODO: magic tune selection against some index/DB -->
 <p>Tools to use the MongoDB.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">First most basic, PHP interpreter level access <sup><a href="http://docs.mongodb.org/ecosystem/drivers/php/" target="_blank">1</a></sup> with the PHP API docs <sup><a href="http://uk1.php.net/mongo" target="_blank">2</a></sup>.  No comments really, this is how my code will interface Mongo, unless I find a PDO driver.  Obviously if you are using other languages, read more <sup><a href="http://docs.mongodb.org/ecosystem/drivers/" target="_blank">3</a></sup></li>
+    <li class="libasic">First most basic, PHP interpreter level access <sup><a href="http://docs.mongodb.org/ecosystem/drivers/php/" target="_blank">1</a></sup> with the PHP API docs <sup><a href="https://uk1.php.net/mongo" target="_blank">2</a></sup>.  No comments really, this is how my code will interface Mongo, unless I find a PDO driver.  Obviously if you are using other languages, read more <sup><a href="http://docs.mongodb.org/ecosystem/drivers/" target="_blank">3</a></sup></li>
     <li class="libasic">Like the MySQL shell, Mongo has a client shell <sup><a href="http://docs.mongodb.org/manual/mongo/" target="_blank">4</a></sup>, API <sup><a href="http://docs.mongodb.org/manual/reference/method/" target="_blank">5</a></sup>.  It is written in JS, and is executed <sup><a href="http://docs.mongodb.org/manual/tutorial/getting-started-with-the-mongo-shell/" target="_blank">6</a></sup> similar to Node.js.  Allowing for the different language, this may be used in exactly the same fashion as sqlplus or mysql.  Someone wrote a <a href="http://www.mongodbspain.com/wp-content/uploads/2014/03/MongoDBSpain-CheetSheet.pdf" target="_blank">condensed summary</a>, which fits on 2x A4 sides.</li>
     <li class="libasic">MongoDB provides tools <sup><a href="http://docs.mongodb.org/manual/core/import-export/" target="_blank">7</a></sup> similar to mysqldump or sqlldr.  If you had a CSV dump from a third party, you would convert it to JSON before importing it.  This is quite programmatically simple, alternatively <a href="http://docs.mongodb.org/manual/reference/program/mongoimport/" target="_blank">mongoimport</a> <sup><a href="http://www.cparker15.com/code/utilities/csv-to-json/" target="_blank">8</a></sup> <sup><a href="http://www.convertcsv.com/csv-to-json.htm" target="_blank">9</a></sup> public implementations are available.  For large volumes of data (&gt;100KB), I would solve this outside of a webrowser, as its more efficient.  It would be more useful to make BSON <sup><a href="http://bsonspec.org/#/specification" target="_blank">10</a></sup> <a href="http://docs.mongodb.org/manual/core/document/" target="_blank">mongo bson</a>, as it has a more useful range of types, but again this is very affordable. According to the ES spec, it is legal to use most of utf-8 as a variable name <sup><a href="https://en.wikipedia.org/wiki/ECMAScript" target="_blank">11</a></sup> <sup><a href="http://es5.github.io/x7.html#x7.6" target="_blank">12</a></sup> (discussion, not spec <sup><a href="http://mathiasbynens.be/notes/javascript-identifiers" target="_blank">13</a></sup> ), so column headers may be in a third parties locale (so used as variable names in the JSON object).  In terms of operational efficiency, converting internal labels to the same language as the developers will lead to better engineering.</li>
     <li class="libasic">Integration with Symfony based systems is simple <a href="http://symfony.com/doc/current/bundles/DoctrineMongoDBBundle/index.html" target="_blank">DoctrineMongoDBBundle</a> <a href="http://www.symfony-project.org/plugins/sfMondongoPlugin" target="_blank">sfMondongoPlugin</a> or <sup><a href="http://code.google.com/p/mongodbloganalyzer/" target="_blank">14</a></sup>.  To get Mongo functioning in ZF2, use <a href="http://www.doctrine-project.org/projects/mongodb-odm.html" target="_blank">Doctrine ODM</a> or <a href="https://github.com/coen-hyde/Shanty-Mongo" target="_blank">Shanty</a>.  There is a quite mature integration with Cake <sup><a href="https://github.com/ichikaway/cakephp-mongodb" target="_blank">15</a></sup>.</li>
@@ -128,7 +128,7 @@ TODO: magic tune selection against some index/DB -->
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2020-09-21T22:48:43">21st of Sep 2020</time></span>
+<span>Edited <time datetime="2022-11-28T17:56:27">28th of Nov 2022</time></span>
 <span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 </span>
 </p></div>
@@ -162,7 +162,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2022-08-11T20:03:43">11th of Aug 2022, 20:03:43</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-21T22:48:43">21st of Sep 2020</time>. <br />
+</div> Page rendered <time datetime="2022-11-28T20:50:47">28th of Nov 2022, 20:50:47</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-11-28T17:56:27">28th of Nov 2022</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

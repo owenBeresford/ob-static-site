@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/php-code-loading" />
 <meta property="og:description" content="What do you want to hire?  Software engineer OR web designer" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="11th of Aug 2022, 20:04:14" />
-<meta property="article:modified_time" content="21st of Sep 2020" />
+<meta property="article:published_time" content="28th of Nov 2022, 20:51:09" />
+<meta property="article:modified_time" content="28th of Nov 2022" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "History: code control and reuse",
-	"article:published_time":"11th of Aug 2022, 20:04:14", 
-    "article:modified_time":"21st of Sep 2020",
+	"article:published_time":"28th of Nov 2022, 20:51:09", 
+    "article:modified_time":"28th of Nov 2022",
     "article:section":"technology",
 
     "author": {
@@ -62,7 +62,7 @@ TODO: magic tune selection against some index/DB -->
 
 <p>More recent PHP code may use classloaders (and exceptions, access modifiers, closures, namespaces etc).  My more recent employers mention IP less often, and don't mind me using frameworks/ libraries.   My above text is boring tech history.  Class loading may be done lazily / dynamically ~ which is better for short-lived varied-execution-path activities; or statically in advance ~ massively better for anything to do with strict timing on execution, and very long lived processes.  For example, my above business systems ~ when I had a good grip on the technology ~ had a process lifespan to match the requirements iteration.  Classes may be mapped on service start up (which Java system classes do), or discovered by a rigid naming method (see ZF1 paragraph long class names).  There are also hybrid solutions, that avoid the excessive naming schemes, and the cost of building the maps.  I think the SF2 classloader and mapper is better than the old ZF2 one.   The SF2 mapper uses a combination of coder-specified object-creation definitions (called services.yml), and directory enumeration.  This combined list is written out to a classes.map and a custom class loader instantiates against this list.  The Yii framework <sup><a href="http://www.yiiframework.com/wiki/165/understanding-autoloading-helper-classes-and-helper-functions/" target="_blank">1</a></sup> uses a lazy loading, compound naming ~ which looks like a namespace; with optional mapping hints.  I think this is a function of being started before PHP5.3 was built. Ancestor code <sup><a href="http://framework.zend.com/manual/1.5/en/zend.loader.html" target="_blank">2</a></sup> ~ still used by some businesses ~ has been built without namespaces.  This is a link to an older version of ZF1 on purpose to avoid notes on autoloaders, that are available from PHP5.2 and above.  ZF1 started along time ago, for PHP4; and uses a complex class naming scheme as a consequence.  The classnames encode what directories the PHP file is in, but the PHP named after the last section of the class. A popular framework for e-commerce is Magento, which is ZF1 with extra bits, including a management GUI.  ZF1 where continuing to work against the older and less engineered code, so publish things <sup><a href="http://framework.zend.com/manual/1.12/en/performance.classloading.html" target="_blank">3</a></sup>.   ZF2 compiles all classes on process start <sup><a href="http://framework.zend.com/manual/current/en/modules/zend.loader.standard-autoloader.html" target="_blank">4</a></sup>, and is designed to work with php-cgi <sup><a href="https://wiki.apache.org/httpd/PHP-FPM" target="_blank">5</a></sup>.   ZF2 does ship with several autoloaders.  Other more-recent frameworks, Laravel <sup><a href="http://jonathanmh.com/php-mvc-the-laravel-framework/" target="_blank">6</a></sup> and Sylius <sup><a href="http://sylius.org/" target="_blank">7</a></sup> use SF2 components for classloading.  I have used CodeIgniter <sup><a href="http://www.codeigniter.com/" target="_blank">8</a></sup> for one project; the framework wants wide compatibility with old versions of PHP, and uses a custom loader <sup><a href="http://www.codeigniter.com/userguide2/general/autoloader.html" target="_blank">9</a></sup> ~ not SPL.  The popularity of current PHP frameworks is reported <sup><a href="http://www.sitepoint.com/best-php-framework-2015-sitepoint-survey-results/" target="_blank">10</a></sup> <sup><a href="http://beebom.com/2015/02/best-free-php-frameworks" target="_blank">11</a></sup>.</p>
 
-<p>The recommended method for code loading is to use spl_autoload suite <sup><a href="http://php.net/manual/en/function.spl-autoload-register.php" target="_blank">12</a></sup>. This was added in 5.2, but became more useful in 5.3.  This is just a programmer controllable point to compile classes, similar to Perl.  When you write this class, it is recommended to do the directory mapping yourself, as it is faster that PHP repeatedly walking all the directories.</p>
+<p>The recommended method for code loading is to use spl_autoload suite <sup><a href="https://www.php.net/manual/en/function.spl-autoload-register.php" target="_blank">12</a></sup>. This was added in 5.2, but became more useful in 5.3.  This is just a programmer controllable point to compile classes, similar to Perl.  When you write this class, it is recommended to do the directory mapping yourself, as it is faster that PHP repeatedly walking all the directories.</p>
 
 <p>Back to PHP4: After a year (or so), I got enough control on my process to pitch more aggressively.   I want to avoid statically defining dependant classes.   This reduces reuse and makes testing harder.  I was still stuck to PHP4, so had no Interfaces.   I created a Manager class, have it create all the classes, hold the references, and hand these out.  Without Interfaces, IoC is too messy, but you can effect DI.  The Manager supplied objects, by name, not type.  A config defined the late-linking, and all the object names.   Every class has a standardised constructor, which takes a reference to the Manager, and the Config.  I write <i>reference</i> repeatedly, as I needed to manage the amount of RAM consumed (accidental copy of datacaches will lead to process death).   The Manager took about a day to test and write, and was used in all later points.</p>
 
@@ -103,7 +103,7 @@ TODO: magic tune selection against some index/DB -->
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2020-09-21T23:18:46">21st of Sep 2020</time></span>
+<span>Edited <time datetime="2022-11-28T17:59:10">28th of Nov 2022</time></span>
 <span>Created <time datetime="2015-06-22T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >22nd of Jun 2015</time> </span>
 </span>
 </p></div>
@@ -137,7 +137,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2022-08-11T20:04:14">11th of Aug 2022, 20:04:14</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2020-09-21T23:18:46">21st of Sep 2020</time>. <br />
+</div> Page rendered <time datetime="2022-11-28T20:51:09">28th of Nov 2022, 20:51:09</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-11-28T17:59:10">28th of Nov 2022</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

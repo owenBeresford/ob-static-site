@@ -2,30 +2,30 @@
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
-<title>Git and process for GIT</title>
+<title>Git and workflow for GIT</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Generator" content="iceline webkit 2.1" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="Advanced Git notes, some tips which are omitted from general sites." />
+<meta name="Description" content="Advanced Git notes and Git workflow on how to use it to solve practical problems with it, with extensive performance tips list which are omitted from general sites." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="Git and process for GIT">
-<meta itemprop="description" content="Advanced Git notes, some tips which are omitted from general sites.">
+<meta itemprop="name" content="Git and workflow for GIT">
+<meta itemprop="description" content="Advanced Git notes and Git workflow on how to use it to solve practical problems with it, with extensive performance tips list which are omitted from general sites.">
 <!-- meta name="twitter:card" content="summary_large_image" -->
 <meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="Git and process for GIT">
-<meta name="twitter:description" content="Advanced Git notes, some tips which are omitted from general sites.">
+<meta name="twitter:title" content="Git and workflow for GIT">
+<meta name="twitter:description" content="Advanced Git notes and Git workflow on how to use it to solve practical problems with it, with extensive performance tips list which are omitted from general sites.">
 <meta name="twitter:creator" content="@channelOwen">
-<meta property="og:title" content="Git and process for GIT" />
+<meta property="og:title" content="Git and workflow for GIT" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/git-notes" />
-<meta property="og:description" content="Advanced Git notes, some tips which are omitted from general sites." />
+<meta property="og:description" content="Advanced Git notes and Git workflow on how to use it to solve practical problems with it, with extensive performance tips list which are omitted from general sites." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="11th of Aug 2022, 20:03:41" />
-<meta property="article:modified_time" content="7th of Jun 2022" />
+<meta property="article:published_time" content="28th of Nov 2022, 9:24:51" />
+<meta property="article:modified_time" content="14th of Nov 2022" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -35,9 +35,9 @@ TODO: magic tune selection against some index/DB -->
   {
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
-    "name": "Git and process for GIT",
-	"article:published_time":"11th of Aug 2022, 20:03:41", 
-    "article:modified_time":"7th of Jun 2022",
+    "name": "Git and workflow for GIT",
+	"article:published_time":"28th of Nov 2022, 9:24:51", 
+    "article:modified_time":"14th of Nov 2022",
     "article:section":"technology",
 
     "author": {
@@ -62,67 +62,36 @@ TODO: magic tune selection against some index/DB -->
 
 <h4 class="dontend" id="toc0"> Context <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>Source control is necessary for all long term projects, and again for parallel development projects.  There are a variety of tools to do this, but basically they add data integrity mechanisms  to text files (like SQL engines do).<br />
-<a href="http://git-scm.com/" target="_blank">Git</a> is a tool for massively concurrent software development.  It scales better than <a href="http://subversion.apache.org/" target="_blank">svn</a> (you may wish to read “the redbean <a href="http://svnbook.red-bean.com/" target="_blank">book</a>”), as its structured differently.  It runs abit faster for some operations.  It is du jour, and originally created by <a href="http://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank">Linus Torvalds</a>.  It is massively better than <a href="http://cvs.nongnu.org/" target="_blank">CVS</a> or <a href="http://www.gnu.org/software/rcs/" target="_blank">RCS</a> in my opinion.  This is due to the more complicated design model, which matches current large projects.  There is another DRCS called <a href="http://mercurial.selenic.com/" target="_blank">Mercurial</a>, which I have yet to use.  This is better documented in <a href="http://hgbook.red-bean.com/" target="_blank">this book</a>.  Diligence will make me list other operating systems, Microsoft have a <a href="http://msdn.microsoft.com/en-us/library/ms181038(v=vs.80).aspx" target="_blank">VSS </a> product, although the <a href="http://en.wikipedia.org/wiki/Microsoft_Visual_SourceSafe" target="_blank">wiki article</a> is interesting.  This looks like a better multi-developer tool <a href="http://www.sourcegear.com/vault/documentation/SG_VaultPro_DS.pdf" target="_blank">source-vault</a>.  Alternatively, <a href="http://www.fogcreek.com/kiln/" target="_blank">this</a> is a frontend for traditional CLI interfaces.<br />
+<a href="http://git-scm.com/" target="_blank">Git</a> is a tool for massively concurrent software development.  It scales better than <a href="http://subversion.apache.org/" target="_blank">svn</a> (you may wish to read “the redbean <a href="http://svnbook.red-bean.com/" target="_blank">book</a>”), as it's structured differently.  It runs a bit faster for some operations.  It is du jour, and originally created by <a href="http://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank">Linus Torvalds</a>.  It is massively better than <a href="http://cvs.nongnu.org/" target="_blank">CVS</a> or <a href="http://www.gnu.org/software/rcs/" target="_blank">RCS</a> in my opinion.  This is due to the more complicated design model, which matches current large projects.  There is another DRCS called <a href="http://mercurial.selenic.com/" target="_blank">Mercurial</a>, which I have yet to use.  This is better documented in <a href="http://hgbook.red-bean.com/" target="_blank">this book</a>.  Diligence will make me list other operating systems, Microsoft have a <a href="http://msdn.microsoft.com/en-us/library/ms181038(v=vs.80).aspx" target="_blank">VSS </a> product, although the <a href="http://en.wikipedia.org/wiki/Microsoft_Visual_SourceSafe" target="_blank">wiki article</a> is interesting.  This looks like a better multi-developer tool <a href="http://www.sourcegear.com/vault/documentation/SG_VaultPro_DS.pdf" target="_blank">source-vault</a>.  Alternatively, <a href="http://www.fogcreek.com/kiln/" target="_blank">this</a> is a frontend for traditional CLI interfaces.<br />
 For a more detailed look on the options, see this <a href="http://en.wikipedia.org/wiki/Comparison_of_revision_control_software" target="_blank">massive list</a>.   Discussions on tools are useful <sup><a href="http://stackoverflow.com/questions/4716071/best-source-control-development-tool-for-windows-net" target="_blank">1</a></sup>, <sup><a href="http://stackoverflow.com/questions/49601/is-there-a-barebones-windows-version-control-system-thats-suitable-for-only-one" target="_blank">2</a></sup>.</p>
 
 
-<h3 class="dontend" id="toc1"> Reading <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
-<p>There are alot of “introduction to GIT” articles on the web.  It seems pointless to duplicate anyone else work.  Please read some of the following :</p>
+<h3 class="dontend" id="toc1"> External reading <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>There are a lot of “introduction to GIT” articles on the web.  It seems pointless to duplicate anyone else's work.  Please read some of the following :</p>
 
 <ul class="ulbasic">
-    <li class="libasic">The entire GIT manual<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="http://git-scm.com/book" target="_blank">http://git-scm.com/book</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://it-ebooks.info/book/145/" target="_blank">http://it-ebooks.info/book/145/</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://git-htmldocs.googlecode.com/git/git.html" target="_blank">http://git-htmldocs.googlecode.com/git/git.html</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://www.kernel.org/pub/software/scm/git/docs/" target="_blank">https://www.kernel.org/pub/software/scm/git/docs/</a></li>
-    </ul></li>
-    <li class="libasic">Configuring GIT for first use<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup" target="_blank">http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://wiki.spheredev.org/Git_for_the_lazy" target="_blank">http://wiki.spheredev.org/Git_for_the_lazy</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://www.atlassian.com/git" target="_blank">https://www.atlassian.com/git</a></li>
-    </ul></li>
-    <li class="libasic">How-to github (a site for hosting your git-backed project source)<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="http://lesseverything.com/blog/archives/2008/03/25/got-git-howto-git-and-github/" target="_blank">http://lesseverything.com/blog/archives/2008/03/25/got-git-howto-git-and-github/</a></li>
-    </ul></li>
-    <li class="libasic">Initial checkout<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="http://cworth.org/hgbook-git/tour/" target="_blank">http://cworth.org/hgbook-git/tour/</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://stackoverflow.com/questions/6167905/git-clone-through-ssh" target="_blank">http://stackoverflow.com/questions/6167905/git-clone-through-ssh</a></li>
-    </ul></li>
-    <li class="libasic">Branches in GIT<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank">http://nvie.com/posts/a-successful-git-branching-model/</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://git-scm.com/book/en/Git-Branching-Branch-Management" target="_blank">http://git-scm.com/book/en/Git-Branching-Branch-Management</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://kentnguyen.com/development/visualized-git-practices-for-team/" target="_blank">http://kentnguyen.com/development/visualized-git-practices-for-team/</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://gitready.com/intermediate/2009/02/13/list-remote-branches.html" target="_blank">http://gitready.com/intermediate/2009/02/13/list-remote-branches.html</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://drupal.org/node/1066342" target="_blank">https://drupal.org/node/1066342</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://help.github.com/articles/pushing-to-a-remote" target="_blank">https://help.github.com/articles/pushing-to-a-remote</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://thelucid.com/2008/12/02/git-setting-up-a-remote-repository-and-doing-an-initial-push/" target="_blank">http://thelucid.com/2008/12/02/git-setting-up-a-remote-repository-and-doing-an-initial-push/</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches" target="_blank">https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches</a></li>
-    </ul></li>
-    <li class="libasic">Remotes<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="http://gitref.org/remotes/" target="_blank">http://gitref.org/remotes/</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://git-scm.com/book/en/Git-Basics-Working-with-Remotes" target="_blank">http://git-scm.com/book/en/Git-Basics-Working-with-Remotes</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://help.github.com/categories/18/articles" target="_blank">https://help.github.com/categories/18/articles</a></li>
-    </ul></li>
-    <li class="libasic">Repo management<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="http://stackoverflow.com/questions/1241720/git-cherry-pick-vs-merge-workflow" target="_blank">http://stackoverflow.com/questions/1241720/git-cherry-pick-vs-merge-workflow</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://technicalprose.blogspot.co.uk/2013/11/losing-my-head-over-git.html" target="_blank">http://technicalprose.blogspot.co.uk/2013/11/losing-my-head-over-git.html</a></li>
-    </ul></li>
-    <li class="libasic">Commit control<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="http://stackoverflow.com/questions/927358/how-to-undo-the-last-git-commit" target="_blank">http://stackoverflow.com/questions/927358/how-to-undo-the-last-git-commit</a></li>
-    </ul></li>
+    <li class="libasic">The entire GIT manual as a book <sup><a href="http://git-scm.com/book" target="_blank">3</a></sup> <sup><a href="http://it-ebooks.info/book/145/" target="_blank">4</a></sup> <sup><a href="https://kernel.googlesource.com/pub/scm/git/git-htmldocs/" target="_blank">5</a></sup> <sup><a href="https://www.kernel.org/pub/software/scm/git/docs/" target="_blank">6</a></sup></li>
+    <li class="libasic">Configuring GIT for first use <sup><a href="http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup" target="_blank">7</a></sup> <sup><a href="https://wiki.spheredev.org/index.php/Git_for_the_lazy" target="_blank">8</a></sup> <sup><a href="https://www.atlassian.com/git" target="_blank">9</a></sup></li>
+    <li class="libasic">How-to github (a site for hosting your git-backed project source) <sup><a href="http://lesseverything.com/blog/archives/2008/03/25/got-git-howto-git-and-github/" target="_blank">10</a></sup></li>
+    <li class="libasic">Initial checkout <sup><a href="http://cworth.org/hgbook-git/tour/" target="_blank">11</a></sup> <sup><a href="http://stackoverflow.com/questions/6167905/git-clone-through-ssh" target="_blank">12</a></sup></li>
+    <li class="libasic">Branches in GIT <sup><a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank">13</a></sup> <sup><a href="http://git-scm.com/book/en/Git-Branching-Branch-Management" target="_blank">14</a></sup> <sup><a href="https://github.com/git-school/visualizing-git" target="_blank">15</a></sup> <sup><a href="http://gitready.com/intermediate/2009/02/13/list-remote-branches.html" target="_blank">16</a></sup> <sup><a href="https://drupal.org/node/1066342" target="_blank">17</a></sup> <sup><a href="https://help.github.com/articles/pushing-to-a-remote" target="_blank">18</a></sup> <sup><a href="http://thelucid.com/2008/12/02/git-setting-up-a-remote-repository-and-doing-an-initial-push/" target="_blank">19</a></sup> <sup><a href="https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches" target="_blank">20</a></sup></li>
+    <li class="libasic">“git flow” is an expression some people use to describe the branching and merging process.  <a href="https://i.stack.imgur.com/n7PKj.png" id="piccie" class="button" target="_blank" title="A diagram showing branching and merging.  Opens new tab">A git flow diagram.</a></li>
+    <li class="libasic">Remotes <sup><a href="http://git.github.io/git-reference/remotes/#remote" target="_blank">21</a></sup> <sup><a href="http://git-scm.com/book/en/Git-Basics-Working-with-Remotes" target="_blank">22</a></sup> <sup><a href="https://help.github.com/categories/18/articles" target="_blank">23</a></sup></li>
+    <li class="libasic">Repo management <sup><a href="http://stackoverflow.com/questions/1241720/git-cherry-pick-vs-merge-workflow" target="_blank">24</a></sup> <sup><a href="http://technicalprose.blogspot.co.uk/2013/11/losing-my-head-over-git.html" target="_blank">25</a></sup></li>
+    <li class="libasic">Commit control <sup><a href="http://stackoverflow.com/questions/927358/how-to-undo-the-last-git-commit" target="_blank">26</a></sup></li>
 </ul>
 
 
 <h4 class="dontend" id="toc2"> Installation <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
-<p>For normal operating systems, I would recommend using your package manager, same as normal.   If you use ms Windows, GIT may be acquired from <a href="http://git-scm.com/downloads" target="_blank">git-scm</a> or a <a href="http://msysgit.github.io/" target="_blank">windows specific build</a>.  Apple Mac should be able to use normal tools, or otherwise it is <a href="http://git-scm.com/downloads" target="_blank">available</a>.  If you are developing from a phone, it looks like it necessary to use the <a href="https://github.com/git/git" target="_blank">web interface</a>.</p>
+<p>For normal operating systems, I would recommend using your package manager, same as normal.   If you use MS Windows, GIT may be acquired from <a href="http://git-scm.com/downloads" target="_blank">git-scm</a> or a <a href="http://msysgit.github.io/" target="_blank">windows specific build</a>.  Apple Mac should be able to use normal tools, or otherwise it is <a href="http://git-scm.com/downloads" target="_blank">available</a>.  If you are developing from a phone, it looks like it's necessary to use the <a href="https://github.com/git/git" target="_blank">web interface</a>.</p>
 
 <p>To publicly host your GIT backed projects one may use:</p>
 
 <ul class="ulbasic">
     <li class="libasic"><a href="https://github.com/explore" target="_blank">github</a></li>
-    <li class="libasic"><a href="http://code.google.com/" target="_blank">googlecode</a> ~ UPDATE 2015: this project was killed by Google inc. </li>
-    <li class="libasic"><a href="http://sourceforge.net/" target="_blank">sourceforge</a></li>
+    <li class="libasic"><a href="http://code.google.com/" target="_blank">googlecode</a> ~ NB: this project was killed by Google inc. in 2015.</li>
     <li class="libasic"><a href="https://bitbucket.org/" target="_blank">bitbucket</a></li>
+    <li class="libasic"><a href="http://sourceforge.net/" target="_blank">sourceforge</a> ~ This has slid into oblivion.</li>
 </ul>
 
 
@@ -140,7 +109,7 @@ Basic note: create a branch with a different remote name (for those of us with s
 <pre class="codeblock"><code>
    git checkout $myBrnachName 
    git push $remoteRepo $myBranchName
-   # in many cases $remoteRepo will be origin, but it doesn't need to be.</code></pre>
+   # in many cases $remoteRepo will be called origin, but it doesn't need to be.</code></pre>
 
 <br />
 List changed files since branch creation<br />
@@ -148,7 +117,7 @@ List changed files since branch creation<br />
 <pre class="codeblock"><code>
    git cherry $remoteRepo $branchName
    git diff --name-only $firstListedId $lastListedId
-   # I think this could be scripted to extract the first and last ids out, the do the second call automatically.</code></pre>
+   # I think this could be scripted to extract the first and last ids out, then do the second call automatically.</code></pre>
 
 <br />
 List change set since branch creation<br />
@@ -158,7 +127,7 @@ List change set since branch creation<br />
    git diff $firstListedId $lastListedId</code></pre>
 
 <br />
-A method to fix annoying spelling issues.   New edition will be easier, reference <sup><a href="https://smartlogic.io/blog/git-commit-amend/" target="_blank">3</a></sup><br />
+A method to fix annoying spelling issues.   New edition will be easier, reference <sup><a href="https://smartlogic.io/blog/git-commit-amend/" target="_blank">27</a></sup><br />
 
 <pre class="codeblock"><code>
    git commit $file -m “i have aspellidg drgdrgd &quot;
@@ -170,8 +139,7 @@ A method to fix annoying spelling issues.   New edition will be easier, referenc
    </code></pre>
 
 <br />
-Force change branch, because its faster than deleting random test code.<br />
-  * Courtesy of <a href="http://uk.linkedin.com/pub/james-van-buskirk/16/45/784" target="_blank">J van Buskirk</a>.<br />
+Force change branch, because it's faster than deleting random test code.  Courtesy of <a href="http://uk.linkedin.com/pub/james-van-buskirk/16/45/784" target="_blank">J van Buskirk</a>.<br />
 
 <pre class="codeblock"><code>
    git checkout -f $branchName</code></pre>
@@ -197,7 +165,7 @@ Tidy up the local repo, including directories<br />
    git clean -fd</code></pre>
 
 <br />
-Put a branch upto the server with a different name.<br />
+Put a branch up to the server with a different name.<br />
 
 <pre class="codeblock"><code>
    git push -u origin $localName:$niceName</code></pre>
@@ -221,11 +189,11 @@ Allow upload when you have many server certs keys for server interaction<br />
    # requires git &gt; 2.3, but new git is generally better.</code></pre>
 
 <br />
-Allow upload when you want to use a client cert, but be using ssh-agent for server work.<br />
-Combine this with a second “deploy account” in git which is readonly, and its quite useful.  <br />
+Allow upload when you want to use a client cert, but use ssh-agent for server work.<br />
+Combine this with a second “deploy account” in git which is read-only, and it's quite useful.  <br />
 
 <pre class="codeblock"><code> 
-   # if ssh-add -l reports a list of keys, which don't include your repo cert
+   # if ssh-add -l reports a list of keys which don't include your repo cert
    export GIT_SSH_COMMAND=“ssh -i ~/.ssh/my_private_key_rsa -o IdentitiesOnly=yes” 
    # requires git &gt; 2.3, but new git is generally better.</code></pre>
 
@@ -238,26 +206,32 @@ Combine this with a second “deploy account” in git which is readonly, and it
    git diff -w --word-diff-regex=[^[:space:]] $branch1 $branch2 -- $file</code></pre>
 
 <br />
-Performance enhancement from M Gechev @mgechev<br />
+Performance enhancement from M Gechev <a href="https://twitter.com/mgechev" target="_blank">@mgechev</a><br />
 
 <pre class="codeblock"><code> 
    # to make git clone faster
     git clone $repo --depth 1</code></pre>
 
 <br />
-The ability to clone a repo inc history to a new repo was added at some point; assume it works in any recent copy (I don't know min version..).  This doesn't affect the local image; and specifically does not overlap with set-remote.<br />
+The ability to clone a repo inc history to a new repo was added at some point; assume it works in any recent copy (I don't know the minimum version..).  This doesn't affect the local image; and specifically does not overlap with set-remote.<br />
 
 <pre class="codeblock"><code> 
-   # to publish existing repo to new but empty repo.
+   # to publish existing repo to new and empty repo.
    # if you want multiple branches upload, run multiple times.
    git push --set-upstream $newServerURL $branch</code></pre>
 
-<p>NSFW, but useful, pls read read <sup><a href="http://ohshitgit.com/" target="_blank">4</a></sup>.<br />
-A list of useful things, <sup><a href="https://blog.ochronus.com/git-tips-from-the-trenches-5c796d5f114c#.ka8037xlu" target="_blank">5</a></sup><br />
-    <br />
-This list will be updated.  I am using GIT everyday, but mostly routine.</p>
+<br />
+To revert whitespace-only changes before committing your changes to git <sup><a href="https://stackoverflow.com/a/45486981/69868" target="_blank">28</a></sup> from <a href="https://stackoverflow.com/users/2438446/kent-munthe-caspersen" target="_blank">Kent Munthe Caspersen</a><br />
 
-<p>My development model with GIT for the iceline project is much simpler than this, although I will do things like I do at work, when other people are involved.  I only upload to the GIT server features that have completed testing, and as I am the only creator, there can't be any conflicts.</p>
+<pre class="codeblock"><code>
+git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --unidiff-zero -</code></pre>
+
+<p>NSFW, but useful, please read <sup><a href="http://ohshitgit.com/" target="_blank">29</a></sup>.<br />
+A list of useful things, <sup><a href="https://archive.ochronus.com/git-tips-from-the-trenches/" target="_blank">30</a></sup><br />
+    <br />
+This page will be updated.  I am using GIT everyday, but mostly routine.</p>
+
+<p>My development model with GIT for the iceline project is much simpler than the branching discussed here, although I will do things like I do at work, when other people are involved.  I only upload to the GIT server features that have completed testing, and as I am the only creator, there can't be any conflicts.</p>
 
 
 </div>
@@ -271,7 +245,7 @@ This list will be updated.  I am using GIT everyday, but mostly routine.</p>
 <nav>
 <div id="tinyScreen" class="addReading">
 <header>
-<h1>Git and process for GIT</h1>
+<h1>Git and workflow for GIT</h1>
 </header>
 <a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
  Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgit-notes" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
@@ -279,7 +253,7 @@ This list will be updated.  I am using GIT everyday, but mostly routine.</p>
 <a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgit-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
-<div class="h4_title column"><header><h1>Git and process for GIT</h1></header>
+<div class="h4_title column"><header><h1>Git and workflow for GIT</h1></header>
 
 
 <p id="shareGroup" class="addReading"> 
@@ -292,7 +266,7 @@ This list will be updated.  I am using GIT everyday, but mostly routine.</p>
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-06-07T12:26:35">7th of Jun 2022</time></span>
+<span>Edited <time datetime="2022-11-14T12:07:29">14th of Nov 2022</time></span>
 <span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 </span>
 </p></div>
@@ -300,7 +274,7 @@ This list will be updated.  I am using GIT everyday, but mostly routine.</p>
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
 <menu><ul class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Context</a></li>
-<li><a href="#toc1">Reading</a></li>
+<li><a href="#toc1">External reading</a></li>
 <li class="h4_odd"><a href="#toc2">Installation</a></li>
 <li><a href="#toc3">Implementation</a></li>
 </ul>
@@ -330,7 +304,7 @@ This list will be updated.  I am using GIT everyday, but mostly routine.</p>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2022-08-11T20:03:41">11th of Aug 2022, 20:03:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-06-07T12:26:35">7th of Jun 2022</time>. <br />
+</div> Page rendered <time datetime="2022-11-28T09:24:51">28th of Nov 2022, 9:24:51</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-11-14T12:07:29">14th of Nov 2022</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
