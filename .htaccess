@@ -196,6 +196,16 @@ RewriteRule (.*)				$1.html
 	Header set Content-Type 'image/png'
 	Header set Cache-Control 'max-age=2592000'
 </If>
+<If "%{REQUEST_URI} =~ /\.svg$/">
+	Header unset Content-Type 
+	Header set Content-Type 'image/svg+xml'
+	Header set Cache-Control 'max-age=2592000'
+</If>
+<If "%{REQUEST_URI} =~ /\.webp$/">
+	Header unset Content-Type 
+	Header set Content-Type 'image/webp'
+	Header set Cache-Control 'max-age=2592000'
+</If>
 
 <If "%{REQUEST_URI} =~ /\.woff$/">
 	Header unset Content-Type 
