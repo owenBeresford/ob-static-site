@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/html5-img" />
 <meta property="og:description" content="A simple HTML demo." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Dec 2022, 11:33:57" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="2nd of Jan 2023, 11:36:55" />
+<meta property="article:modified_time" content="29th of Dec 2022" />
 <!-- the below track is just a generic cheese track, but the style fits. Progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "HTML5 img / picture element",
-	"article:published_time":"26th of Dec 2022, 11:33:57", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"2nd of Jan 2023, 11:36:55", 
+    "article:modified_time":"29th of Dec 2022",
     "article:section":"technology",
 
     "author": {
@@ -57,7 +57,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="halferWords">
 <p>This is a <b>tech demo</b> ~ not a design demo ~ for a new HTML5 feature.  For a design demo, I would be happier using a [paper] sketch book. This tech demo is mostly due to the fact that I talk with the people creating the specs and browser features on twitter.  The IMG tag doesn't work very well with RWD as its for a fixed image.  For some things a <b>vector is useful (e.g. fonts)</b> but this isn't globally applicable.  For photos, you don't want to send a retina grade image to small phone with a slow network; but you do if the web client is on a retina grade screen.  This does mean that you need to add several copies of any images ~ image editing time.  This can be avoided if the images where scaled via <a href="http://www.imagemagick.org/" target="_blank">imagick</a> or similar, but that may affect the quality of the result image.  For people who can't code, there is a “technical solution as a service” <sup><a href="http://imageresizer.io/" target="_blank">1</a></sup>.  As I could create a basic edition of image resizing in a few hours; and would have no future licence issues, I'm not sure about the scope of this.  The third party API would require you to upload the images to their servers before they could be displayed on your website.  My several hours estimate is accurate, as I have done it in several hours, for a previous agency.</p>
 
-<p>This is an <b>obvious feature for RWD libraries</b>, although I haven't seen it.  One of the critiques of RWD is that the images made everything too slow <sup><a href="http://blog.cloudfour.com/css-media-query-for-mobile-is-fools-gold/" target="_blank">2</a></sup>.  According to <a href="http://caniuse.com/#search=picture" target="_blank">can I use</a>?, about 40% of the browser population supports this as a technology.  <b>UPDATE 2022:</b> the support is now at 95%.  If you happen to be using wordpress, you will need to do alot of hacking, as wordpress likes to set image width and height, so fullscreen desktop will render better (if these are set, the browser can allocate screen space to the image before it is downloaded).  This is a problem with using simple software outside of its design scope.  As a parallel technology, one may use an <i>IMG.srcset</i>; this isn't covered here.  As nearly every browser supports media queries, one may adjust images using these and <i>background-image</i> CSS.  This technique is nice when it deals with screen orientation cleanly.  The picture tag allows decisions on things other than screen size, for example image format.   It would be nice to <b>detect browser preference for high contrast images</b> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast" target="_blank">3</a></sup>, and serve more saturated/edge exaggerated images for people with less good vision. The feature could be used to serve all the MSIE users with BMP images, as MSFT favour that format.  An important item is giving <b>retina screen users the high PPI images</b> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio" target="_blank">4</a></sup>, assuming you have mac or iphone users.  I have confirmed my understanding on JPEG, the PPI is just a JPEG meta information, a <a href="http://www.photoshopessentials.com/essentials/the-72-ppi-web-resolution-myth/" target="_blank">readable guide</a>.</p>
+<p>This is an <b>obvious feature for RWD libraries</b>, although I haven't seen it.  One of the critiques of RWD is that the images made everything too slow <sup><a href="http://blog.cloudfour.com/css-media-query-for-mobile-is-fools-gold/" target="_blank">2</a></sup>.  According to <a href="https://caniuse.com/#search=picture" target="_blank">can I use</a>?, about 40% of the browser population supports this as a technology.  <b>UPDATE 2022:</b> the support is now at 95%.  If you happen to be using wordpress, you will need to do alot of hacking, as wordpress likes to set image width and height, so fullscreen desktop will render better (if these are set, the browser can allocate screen space to the image before it is downloaded).  This is a problem with using simple software outside of its design scope.  As a parallel technology, one may use an <i>IMG.srcset</i>; this isn't covered here.  As nearly every browser supports media queries, one may adjust images using these and <i>background-image</i> CSS.  This technique is nice when it deals with screen orientation cleanly.  The picture tag allows decisions on things other than screen size, for example image format.   It would be nice to <b>detect browser preference for high contrast images</b> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-contrast" target="_blank">3</a></sup>, and serve more saturated/edge exaggerated images for people with less good vision. The feature could be used to serve all the MSIE users with BMP images, as MSFT favour that format.  An important item is giving <b>retina screen users the high PPI images</b> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio" target="_blank">4</a></sup>, assuming you have mac or iphone users.  I have confirmed my understanding on JPEG, the PPI is just a JPEG meta information, a <a href="http://www.photoshopessentials.com/essentials/the-72-ppi-web-resolution-myth/" target="_blank">readable guide</a>.</p>
 
 <p>Here I am presenting 2 options for graceful degradation.  First via an JS shim, which requires this language; second just using CSS and HTML5. The first image is is harder to place on the screen, but is less demanding for the browser ~ if I resize alot I can hear the CPU fan with the second one, for the image scaling.  The second is <b>not efficient in bandwidth</b> (using the wrong size image), and the image scaling is quite taxing for some of the earlier/ simpler phones.  Thirdly as a design, it only works with some layouts and image.  On the positive side, nearly everyone can render this, and with scripting disabled.  If the picture element isn't working, the second option isn't good use of technology.</p>
 
@@ -135,8 +135,11 @@ As this is a new technology demo, there will be concerns on stability.  This is 
 </a>
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
 <a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
-<div id="popup1" class="popup1">
+<dialog id="popup1" class="popup1">
+<form method="dialog">
 <p>your server: <input id="mastodonserver" max-width="50" type="text" value="" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" placeholder="mastodon.social" /> <a class="button" href="#" onclick="shareMastodon" title="Share article to *your* mastodon server">Share</a>
+</form>
+</dialog>
 </div>
 </div>
 <div id="bigScreen" class="row">
@@ -165,13 +168,16 @@ As this is a new technology demo, there will be concerns on stability.  This is 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2022-12-29T10:05:37">29th of Dec 2022</time></span>
 <span>Created <time datetime="2015-03-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 </span>
 </p></div>
-<div id="popup2" class="popup1">
+<dialog id="popup2" class="popup1">
+<form method="dialog">
 <p>your server: <input id="mastodonserver2" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhtml5-img" type="text" value="" placeholder="mastodon.social" /> <a class="button masto2" href="#" title="Share article to *your* mastodon server">Share</a>
 </div>
+</form>
+</dialog>
 
 <fieldset class="h4_menu column">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
@@ -204,7 +210,7 @@ As this is a new technology demo, there will be concerns on stability.  This is 
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2022-12-26T11:33:57">26th of Dec 2022, 11:33:57</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-02T11:36:55">2nd of Jan 2023, 11:36:55</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-29T10:05:37">29th of Dec 2022</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

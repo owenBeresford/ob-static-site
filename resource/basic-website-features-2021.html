@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/basic-website-features-2021" />
 <meta property="og:description" content="A list of things that a developer should do for each website on the internet." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Dec 2022, 11:32:57" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="2nd of Jan 2023, 11:35:52" />
+<meta property="article:modified_time" content="29th of Dec 2022" />
 <!-- the below track is just a generic cheese track, but the style fits. Progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "23 basic website features list 2021",
-	"article:published_time":"26th of Dec 2022, 11:32:57", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"2nd of Jan 2023, 11:35:52", 
+    "article:modified_time":"29th of Dec 2022",
     "article:section":"technology",
 
     "author": {
@@ -65,11 +65,11 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">Artifact: terms &amp; conditions (for anything commercial).</li>
     <li class="libasic">Artifact: a sitemap, for search-engines, and less traditional users (e.g. blind people).</li>
     <li class="libasic">Artifact: consider if logins are actually needed.  no login= no data stored = simple life.   Marketing people want everyone to identify themselves at every step so they are easier to sell to.   If logins are needed, consider outsourcing the process; it's not a USP or significant user-journey for nearly every business.</li>
-    <li class="libasic">Artifact: If the site is a sales platform / landing-&gt;lead funnel, add standard SEO features (I don't normally make these)</li>
+    <li class="libasic">Artifact: If the site is a sales platform / landing-&gt;lead funnel, add standard SEO features (I don't normally make these manually; stereotypically use a wordpress plugin)</li>
     <li class="libasic">Tech: HTTPS access, and headers to force HTTPS, [1] and also see HSTS below</li>
     <li class="libasic">Tech: a <a href="https://en.wikipedia.org/wiki/HTTP_404" target="_blank">HTTP 404</a> handler [2]</li>
     <li class="libasic">Tech: a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500" target="_blank">HTTP 5*</a> handler [2]</li>
-    <li class="libasic">Tech: a <a href="https://moz.com/learn/seo/robotstxt" target="_blank">robots.txt</a> <sup><a href="http://www.robotstxt.org/" target="_blank">1</a></sup> <sup><a href="https://developers.google.com/search/docs/advanced/robots/intro" target="_blank">2</a></sup> <ul class="ulbasic">
+    <li class="libasic">Tech: a <a href="https://moz.com/learn/seo/robotstxt" target="_blank">robots.txt</a> <sup><a href="https://www.robotstxt.org/" target="_blank">1</a></sup> <sup><a href="https://developers.google.com/search/docs/advanced/robots/intro" target="_blank">2</a></sup> <ul class="ulbasic">
         <li class="libasic">Recommend blocking search engine access to any URLs which are not content centric (e.g. contact-me)</li>
         <li class="libasic">supported browsers: approximately all .</li>
     </ul></li>
@@ -115,7 +115,7 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">Tech admin: Analysis of logging, so any errors can be resolved promptly.  If you are using a website as an active communication channel with your users; this is essential.</li>
 </ul>
 
-<p>Lists of other headers <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers" target="_blank">18</a></sup> <sup><a href="https://www.whitehatsec.com/blog/list-of-http-response-headers/" target="_blank">19</a></sup> <sup><a href="http://netinfo.link/http/headers.html" target="_blank">20</a></sup></p>
+<p>Lists of other headers <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers" target="_blank">18</a></sup> <sup><a href="https://www.whitehatsec.com/blog/list-of-http-response-headers/" target="_blank">19</a></sup> <sup><a href="https://netinfo.link/http/headers.html" target="_blank">20</a></sup></p>
 
 <hr />
 <p>Footer notes<br />
@@ -158,8 +158,11 @@ Note there are golang HTTP middleware frameworks which ship without 404 or 500 s
 </a>
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbasic-website-features-2021" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
 <a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbasic-website-features-2021" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
-<div id="popup1" class="popup1">
+<dialog id="popup1" class="popup1">
+<form method="dialog">
 <p>your server: <input id="mastodonserver" max-width="50" type="text" value="" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbasic-website-features-2021" placeholder="mastodon.social" /> <a class="button" href="#" onclick="shareMastodon" title="Share article to *your* mastodon server">Share</a>
+</form>
+</dialog>
 </div>
 </div>
 <div id="bigScreen" class="row">
@@ -188,13 +191,16 @@ Note there are golang HTTP middleware frameworks which ship without 404 or 500 s
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2022-12-29T15:42:46">29th of Dec 2022</time></span>
 <span>Created <time datetime="2021-07-16T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >16th of Jul 2021</time> </span>
 </span>
 </p></div>
-<div id="popup2" class="popup1">
+<dialog id="popup2" class="popup1">
+<form method="dialog">
 <p>your server: <input id="mastodonserver2" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbasic-website-features-2021" type="text" value="" placeholder="mastodon.social" /> <a class="button masto2" href="#" title="Share article to *your* mastodon server">Share</a>
 </div>
+</form>
+</dialog>
 
 <fieldset class="h4_menu column">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
@@ -227,7 +233,7 @@ Note there are golang HTTP middleware frameworks which ship without 404 or 500 s
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2022-12-26T11:32:57">26th of Dec 2022, 11:32:57</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-02T11:35:52">2nd of Jan 2023, 11:35:52</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-29T15:42:46">29th of Dec 2022</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
