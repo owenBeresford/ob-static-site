@@ -9,23 +9,23 @@
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Generator" content="iceline webkit 2.1" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="An article on my findings to plan making the my site load faster." />
+<meta name="Description" content="An article on my findings for the next iteration with making my site load faster." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="JS Autoloader/ classloader">
-<meta itemprop="description" content="An article on my findings to plan making the my site load faster.">
+<meta itemprop="description" content="An article on my findings for the next iteration with making my site load faster.">
 <!-- meta name="twitter:card" content="summary_large_image" -->
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="JS Autoloader/ classloader">
-<meta name="twitter:description" content="An article on my findings to plan making the my site load faster.">
+<meta name="twitter:description" content="An article on my findings for the next iteration with making my site load faster.">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="JS Autoloader/ classloader" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-classloader" />
-<meta property="og:description" content="An article on my findings to plan making the my site load faster." />
+<meta property="og:description" content="An article on my findings for the next iteration with making my site load faster." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:37:11" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="9th of Jan 2023, 18:17:12" />
+<meta property="article:modified_time" content="9th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS Autoloader/ classloader",
-	"article:published_time":"2nd of Jan 2023, 11:37:11", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"9th of Jan 2023, 18:17:12", 
+    "article:modified_time":"9th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -47,7 +47,7 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body">
+<body id="body" class="annoyingBody">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -58,7 +58,7 @@ TODO: magic tune selection against some index/DB -->
 <em>This article is limited to client side JS.</em>  At point of writing this site has no good process loading JS.  There was originally a small number of JS libraries, and my personal shim to fix (now historical) browser faults.   I have been adding to the UX niceities, so the JS is getting heavier.   I want a better solution than statically linking JS classes in the main/root template.  I am writing an exploration (this text) ahead of any decisions or work.</p>
 
 
-<h2 class="dontend" id="toc0"> Possible Architectures <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h4 class="dontend" id="toc0"> Possible Architectures <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>In terms of architecture, the following approaches exist (this section doesn't mention solutions, or integration costs):</p>
 
 <ul class="ulbasic">
@@ -71,12 +71,12 @@ TODO: magic tune selection against some index/DB -->
         <li class="libasic">Easy to edit the JS source in separate files.</li>
         <li class="libasic">Would be used with gzip on the network.</li>
         <li class="libasic">Very easy to make.</li>
-        <li class="libasic">Avoids many HTTP connections, but is mostly obselete due to HTTP1.1 pipelining.</li>
+        <li class="libasic">Avoids many HTTP connections, but is mostly obsolete due to HTTP1.1 pipelining.</li>
         <li class="libasic">Can be dynamically configured for each page, as the files are assembled in real time.</li>
     </ul></li>
     <li class="libasic">Dynamically server-side compiled buffers from separate source files (like C compilation).<ul class="ulbasic">
         <li class="libasic">Easy to edit the JS source in separate files.</li>
-        <li class="libasic">The compiled form doesn't need whitespace, or to be readable (variable name replacement).</li>
+        <li class="libasic">The compiled form doesn't need white-space, or to be readable (variable name replacement).</li>
         <li class="libasic">Can include analysis tools to report likely failures.</li>
         <li class="libasic">This leads to a smaller footprint but static linking.</li>
         <li class="libasic">When each page uses the same libraries (or SPA), this is efficient.</li>
@@ -93,32 +93,32 @@ TODO: magic tune selection against some index/DB -->
 </ul>
 
 
-<h2 class="dontend" id="toc1"> Aside: AMD. <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
-<p>I am not the first person to think that “traditional web designers” leave something to be desired when it comes to code management.  AMD has been designed as a spec to push ideas to webbrowsers, and implemented in JS as shims until the browsers are extended to included this idea.  AMD is short for 'Asynchronous module definition' <sup><a href="https://en.wikipedia.org/wiki/Asynchronous_module_definition" target="_blank">2</a></sup>.  The objective of AMD is an easier way to manage JS class loading, similar to what is used in Java, and more recent versions of Symfony2 (a project started by a Java developer).  There seems to be a project root at <sup><a href="https://github.com/amdjs" target="_blank">3</a></sup>, but I am unable to locate a RFC.  AMD is discussed in the following articles <sup><a href="https://www.devbridge.com/articles/understanding-amd-requirejs/" target="_blank">4</a></sup> <sup><a href="http://addyosmani.com/writing-modular-js/" target="_blank">5</a></sup> <sup><a href="https://www.safaribooksonline.com/library/view/learning-javascript-design/9781449334840/ch11s02.html" target="_blank">6</a></sup> <sup><a href="http://tomdale.net/2012/01/amd-is-not-the-answer/" target="_blank">7</a></sup> <sup><a href="http://requirejs.org/docs/whyamd.html" target="_blank">8</a></sup> <sup><a href="http://dojotoolkit.org/documentation/tutorials/1.10/modules/index.html" target="_blank">9</a></sup> <sup><a href="http://addyosmani.com/largescalejavascript/" target="_blank">10</a></sup> <sup><a href="http://unscriptable.com/code/Using-AMD-loaders/#0" target="_blank">11</a></sup> <sup><a href="https://davidwalsh.name/curljs" target="_blank">12</a></sup> <sup><a href="http://aaronhardy.com/javascript/javascript-architecture-requirejs-dependency-management/" target="_blank">13</a></sup>...(presented as links as I see no value in copying the content, and google inc agrees with me in this).</p>
+<h4 class="dontend" id="toc1"> Aside: AMD. <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<p>I am not the first person to think that “traditional web designers” leave something to be desired when it comes to code management.  AMD has been designed as a spec to push ideas to webrowsers, and implemented in JS as shims until the browsers are extended to included this idea.  AMD is short for 'Asynchronous module definition' <sup><a href="https://en.wikipedia.org/wiki/Asynchronous_module_definition" target="_blank">2</a></sup>.  The objective of AMD is an easier way to manage JS class loading, similar to what is used in Java, and more recent versions of Symfony2 (a project started by a Java developer).  There seems to be a project root at <sup><a href="https://github.com/amdjs" target="_blank">3</a></sup>, but I am unable to locate a RFC.  AMD is discussed in the following articles <sup><a href="https://www.devbridge.com/articles/understanding-amd-requirejs/" target="_blank">4</a></sup> <sup><a href="https://addyosmani.com/writing-modular-js/" target="_blank">5</a></sup> <sup><a href="https://www.safaribooksonline.com/library/view/learning-javascript-design/9781449334840/ch11s02.html" target="_blank">6</a></sup> <sup><a href="https://tomdale.net/2012/01/amd-is-not-the-answer/" target="_blank">7</a></sup> <sup><a href="https://requirejs.org/docs/whyamd.html" target="_blank">8</a></sup> <sup><a href="https://dojotoolkit.org/documentation/tutorials/1.10/modules/index.html" target="_blank">9</a></sup> <sup><a href="https://addyosmani.com/largescalejavascript/" target="_blank">10</a></sup> <sup><a href="http://unscriptable.com/code/Using-AMD-loaders/#0" target="_blank">11</a></sup> <sup><a href="https://davidwalsh.name/curljs" target="_blank">12</a></sup> <sup><a href="https://blog.cjgammon.com/requirejs-better-organizing-dependencies/" target="_blank">13</a></sup>...(presented as links as I see no value in copying the content, and google inc agrees with me in this).</p>
 
 
 </div>
 <hr />
 <div class="lotsOfWords">
 
-<h2 class="dontend" id="toc2"> Possible solutions <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h4 class="dontend" id="toc2"> Possible solution for a good JS tool <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>There is little value in writing a platform from scratch, <em>although I can do</em> see [1].  From a quick google search here are some options:</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><b> RequireJS </b> <sup><a href="http://requirejs.org/docs/api.html" target="_blank">1</a></sup>, a common JS framework for dependency injection.  This has integration with several JS tools such as Angular.</li>
-    <li class="libasic"><b>Steal </b> <sup><a href="http://stealjs.com/" target="_blank">2</a></sup> <a href="https://github.com/stealjs/steal" target="_blank">github</a> <a href="http://stealjs.com/docs/index.html" target="_blank">docs</a>.  This is reviewed as <sup><a href="https://lastzero.net/2012/10/how-to-use-the-stealjs-file-loader-as-a-stand-alone-tool/" target="_blank">3</a></sup>, its <a href="https://stackoverflow.com/questions/tagged/stealjs" target="_blank">stackexchange</a> seems to have sensible questions.  </li>
-    <li class="libasic"><b>Dojo toolkit</b> <sup><a href="https://dojotoolkit.org/community/roadmap/" target="_blank">4</a></sup> <a href="https://github.com/dojo/loader" target="_blank">github</a>  This project believes in docs in word files, I link the loader <sup><a href="https://docs.google.com/document/d/1-gbawq5nhi1GuYuVMoTJBFAzESaqgYKlS_aLzHzaAXs/edit?pref=2&amp;amp;pli=1#heading=h.mknz10lo6jxp" target="_blank">5</a></sup>.  This is distributed with the 'new BSD' licence.   An article advocating Dojo <sup><a href="http://code.tutsplus.com/tutorials/10-reasons-why-your-projects-should-use-the-dojo-toolkit--net-26072" target="_blank">6</a></sup> although it seems to have declined popularity <sup><a href="https://www.quora.com/Why-has-the-Dojo-toolkit-disappeared-off-peoples-radar" target="_blank">7</a></sup> (for the whole framework..)</li>
+    <li class="libasic"><b> RequireJS </b> <sup><a href="https://requirejs.org/docs/api.html" target="_blank">1</a></sup>, a common JS framework for dependency injection.  This has integration with several JS tools such as Angular.</li>
+    <li class="libasic"><b>Steal </b> <sup><a href="https://stealjs.com/" target="_blank">2</a></sup> <a href="https://github.com/stealjs/steal" target="_blank">github</a> <a href="https://stealjs.com/docs/index.html" target="_blank">docs</a>.  This is reviewed as <sup><a href="https://lastzero.net/2012/10/how-to-use-the-stealjs-file-loader-as-a-stand-alone-tool/" target="_blank">3</a></sup>, its <a href="https://stackoverflow.com/questions/tagged/stealjs" target="_blank">stackexchange</a> seems to have sensible questions.  </li>
+    <li class="libasic"><b>Dojo toolkit</b> <sup><a href="https://dojotoolkit.org/community/roadmap/" target="_blank">4</a></sup> <a href="https://github.com/dojo/loader" target="_blank">github</a>  This project believes in docs in word files, I link the loader <sup><a href="https://docs.google.com/document/d/1-gbawq5nhi1GuYuVMoTJBFAzESaqgYKlS_aLzHzaAXs/edit?pref=2&amp;amp;pli=1#heading=h.mknz10lo6jxp" target="_blank">5</a></sup>.  This is distributed with the 'new BSD' licence.   An article advocating Dojo <sup><a href="https://code.tutsplus.com/tutorials/10-reasons-why-your-projects-should-use-the-dojo-toolkit--net-26072" target="_blank">6</a></sup> although it seems to have declined popularity <sup><a href="https://www.quora.com/Why-has-the-Dojo-toolkit-disappeared-off-peoples-radar" target="_blank">7</a></sup> (for the whole framework..)</li>
     <li class="libasic"><b>curl.js</b> <sup><a href="https://github.com/cujojs/curl" target="_blank">8</a></sup>.  This is a good tool, but it seems the project is suspended, so its use should be considered with caution.</li>
     <li class="libasic"><b> ScriptmanJS </b> I can see notes referencing this on AMD sites.  This site has an expired domain, I assume a dead project.  Google doesn't return the github project either.</li>
     <li class="libasic">UPDATE: I need to look the tools listed in here <sup><a href="https://stackoverflow.com/questions/12893046/how-to-manage-client-side-javascript-dependencies" target="_blank">9</a></sup></li>
 </ul>
 
-<p>A while ago, there was a standards focussed group called CommonJS <sup><a href="http://www.commonjs.org/" target="_blank">10</a></sup> (didn't directly make any code).  This is focussed on <i>serverside JS</i>, and is mentioned here for completeness; and that if ignorant people are reading this “AMD like” subject, notes on what to ignore may save them time.<br />
+<p>A while ago, there was a standards focussed group called CommonJS <sup><a href="https://www.commonjs.org/" target="_blank">10</a></sup> (didn't directly make any code).  This is focussed on <i>serverside JS</i>, and is mentioned here for completeness; and that if ignorant people are reading this “AMD like” subject, notes on what to ignore may save them time.<br />
 UPDATE 2019: Last year I started started including a project called CommonJS, to allow deps to load better.   If this was supposed to be used in node, its very browser friendly in architecture.  The project is in NPM <sup><a href="https://www.npmjs.com/package/common-js" target="_blank">11</a></sup> or <sup><a href="https://unpkg.com/common-js@latest" target="_blank">12</a></sup>, authored by Andrea Giammarchi aka <sup><a href="https://github.com/WebReflection/common-js" target="_blank">13</a></sup>.</p>
 
 
 <h2 class="dontend" id="toc3"> TODO <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
-<p>My actual requirements is to fix the JS HTTP headers, and give the pages a per page module load list.  I don't like “manual include statements”, but this may be the most appropriate level of technology on this site.  I will make/ import a  minimiser, as secondary target.  Don't think this is worth a github project for.<br />
+<p>My actual requirements is to fix the JS HTTP headers, and give the pages a per page module load list.  I don't like “manual include statements”, but this may be the most appropriate level of technology on this site.  I will make/ import a minimiser, as secondary target.  Don't think this is worth a github project for.<br />
 Obviously the least stupid solution is to use native require() support in the browser from a HTTP2 server. I am still waiting.</p>
 
 <p>[ 1 ] I am writing a <a class="" href="https://owenberesford.me.uk/resource/punit#">Perl unit test</a> skeleton generator, as I am unable to find one.</p>
@@ -158,7 +158,7 @@ Obviously the least stupid solution is to use native require() support in the br
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-classloader" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-classloader" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-classloader" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>JS Autoloader/ classloader</h1></header>
@@ -180,13 +180,13 @@ Obviously the least stupid solution is to use native require() support in the br
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-classloader" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-classloader" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-classloader" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-09T12:32:37">9th of Jan 2023</time></span>
 <span>Created <time datetime="2015-12-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Dec 2015</time> </span>
 </span>
 </p></div>
@@ -200,7 +200,7 @@ Obviously the least stupid solution is to use native require() support in the br
 <menu><ul class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Possible Architectures</a></li>
 <li><a href="#toc1">Aside: AMD.</a></li>
-<li class="h4_odd"><a href="#toc2">Possible solutions</a></li>
+<li class="h4_odd"><a href="#toc2">Possible solution for a good JS tool</a></li>
 <li><a href="#toc3">TODO</a></li>
 </ul>
 </menu><br />
@@ -224,12 +224,12 @@ Obviously the least stupid solution is to use native require() support in the br
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:37:11">2nd of Jan 2023, 11:37:11</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-09T18:17:12">9th of Jan 2023, 18:17:12</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-09T12:32:37">9th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

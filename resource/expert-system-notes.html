@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/expert-system-notes" />
 <meta property="og:description" content="Some background data on machine decision making" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:36:24" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="5th of Jan 2023, 10:11:16" />
+<meta property="article:modified_time" content="4th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Expert Systems Notes",
-	"article:published_time":"2nd of Jan 2023, 11:36:24", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"5th of Jan 2023, 10:11:16", 
+    "article:modified_time":"4th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -53,11 +53,13 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker">
-<div class="fewWords">
-A previous contract asked for a plan for a extra project; where I wasn't involved.  This doesn't really contain anything confidential, in that I'm suggesting “build X”;  but I'm not involved.<br />
- <p>NPM has many libraries <sup><a href="https://www.npmjs.com/browse/keyword/ai" target="_blank">1</a></sup> for AI.<br />
+<div class="halferWords">
+<p>A previous contract asked for a plan for a extra project; where I wasn't involved.  This doesn't really contain anything confidential, in that I'm suggesting “build X”;  but I'm not involved.</p>
+
+<p><br />
+NPM has many libraries <sup><a href="https://www.npmjs.com/browse/keyword/ai" target="_blank">1</a></sup> for AI.<br />
 Pls isolate this into a module etc so it has a clear interface; we will be rewriting/extending this quite a lot.  Kind of obvious.<br />
-This feature doesn't need to be the fastest code; but can Node fork() (yes <sup><a href="https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options" target="_blank">2</a></sup> ), to avoid blocking the 1 thread HTTP/S server?</p>
+This feature doesn't need to be the fastest code; but can Node fork() (yes <sup><a href="https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options" target="_blank">2</a></sup> ), to avoid blocking the 1 thread HTTP/S server. <b>UPDATE 2020:</b> Also one can link other languages into a Node interpreter, see <a class="" href="https://owenberesford.me.uk/resource/nodejs-linking#">nodejs-linking</a>.</p>
 
 
 <h2 class="dontend" id="toc0"> Goal: SC requested step1 version <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
@@ -83,26 +85,17 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 
 <h2 class="dontend" id="toc2"> References <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li class="libasic">Some work on decision trees:<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="https://en.wikipedia.org/wiki/Decision_tree_learning" target="_blank">https://en.wikipedia.org/wiki/Decision_tree_learning</a></li>
-        <li class="libasic"><a class="cleanimage" href="http://www.csun.edu/~twang/595DM/Slides/Week4.pdf" target="_blank">http://www.csun.edu/~twang/595DM/Slides/Week4.pdf</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://arxiv.org/pdf/1301.7384.pdf" target="_blank">https://arxiv.org/pdf/1301.7384.pdf</a></li>
-    </ul></li>
-    <li class="libasic">A Node neural net lib <ul class="ulbasic">
+    <li class="libasic">Some work on decision trees <sup><a href="https://en.wikipedia.org/wiki/Decision_tree_learning" target="_blank">3</a></sup> <sup><a href="https://www.csun.edu/~twang/595DM/Slides/Week4.pdf" target="_blank">4</a></sup> <sup><a href="https://arxiv.org/pdf/1301.7384.pdf" target="_blank">5</a></sup></li>
+    <li class="libasic">A Node neural net lib <sup><a href="https://caza.la/synaptic/" target="_blank">6</a></sup><ul class="ulbasic">
         <li class="libasic">As noted above, this approach will only work if a body of data for training can be assembled</li>
-        <li class="libasic"><a class="cleanimage" href="http://caza.la/synaptic/" target="_blank">http://caza.la/synaptic/</a></li>
     </ul></li>
-    <li class="libasic">Expert systems<ul class="ulbasic">
-        <li class="libasic"><a class="cleanimage" href="https://en.wikipedia.org/wiki/Expert_system" target="_blank">https://en.wikipedia.org/wiki/Expert_system</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://en.wikipedia.org/wiki/Rule-based_system" target="_blank">https://en.wikipedia.org/wiki/Rule-based_system</a></li>
-        <li class="libasic">Only look at algorthms on here <a class="cleanimage" href="http://intelligence.worldofcomputing.net/expert-systems-articles/rule-based-expert-systems.html" target="_blank">http://intelligence.worldofcomputing.net/expert-systems-articles/rule-based-expert-systems.html</a></li>
-        <li class="libasic"><a class="cleanimage" href="https://en.wikipedia.org/wiki/Drools" target="_blank">https://en.wikipedia.org/wiki/Drools</a></li>
-        <li class="libasic">An expert system API (NodeJS<a class="" href="https://www.google.co.uk/search?q=NodeJS">?</a> binding to an established expert system) <a class="cleanimage" href="https://github.com/atrniv/node-clips" target="_blank">https://github.com/atrniv/node-clips</a> Docs <a class="cleanimage" href="http://clipsrules.sourceforge.net/OnlineDocs.html" target="_blank">http://clipsrules.sourceforge.net/OnlineDocs.html</a></li>
-        <li class="libasic">Most of the following are built with Rete algorithm <a class="cleanimage" href="https://en.wikipedia.org/wiki/Rete_algorithm" target="_blank">https://en.wikipedia.org/wiki/Rete_algorithm</a></li>
-        <li class="libasic">NodeJS<a class="" href="https://www.google.co.uk/search?q=NodeJS">?</a> lib, check status, or a fork <a class="cleanimage" href="https://github.com/C2FO/nools" target="_blank">https://github.com/C2FO/nools</a></li>
-        <li class="libasic">C project, with NodeJS<a class="" href="https://www.google.co.uk/search?q=NodeJS">?</a> (and other langs) bindings <a class="cleanimage" href="https://github.com/jruizgit/rules" target="_blank">https://github.com/jruizgit/rules</a>, newer than last</li>
-        <li class="libasic">Doesn't mention anything to do with its architecture <a class="cleanimage" href="https://www.npmjs.com/package/node-rules" target="_blank">https://www.npmjs.com/package/node-rules</a> </li>
-        <li class="libasic">Seems an inert project <a class="cleanimage" href="https://www.npmjs.com/package/rulezb" target="_blank">https://www.npmjs.com/package/rulezb</a></li>
+    <li class="libasic">Expert systems <sup><a href="https://en.wikipedia.org/wiki/Expert_system" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Rule-based_system" target="_blank">8</a></sup><ul class="ulbasic">
+        <li class="libasic">Only look at algorthms on here <sup><a href="https://www.researchgate.net/publication/292780022_Rule-Based_Expert_Systems" target="_blank">9</a></sup> <sup><a href="https://link.springer.com/chapter/10.1007/978-3-642-21004-4_7" target="_blank">10</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Drools" target="_blank">11</a></sup></li>
+        <li class="libasic">An expert system API (NodeJS binding to an established expert system) <sup><a href="https://github.com/atrniv/node-clips" target="_blank">12</a></sup> Docs <sup><a href="https://www.clipsrules.net/documentation/v640/bpg640.pdf" target="_blank">13</a></sup> from <sup><a href="https://www.clipsrules.net/" target="_blank">14</a></sup></li>
+        <li class="libasic">Most of the following are built with Rete algorithm <sup><a href="https://en.wikipedia.org/wiki/Rete_algorithm" target="_blank">15</a></sup></li>
+        <li class="libasic">NodeJS lib, check status, or a fork <sup><a href="https://github.com/C2FO/nools" target="_blank">16</a></sup></li>
+        <li class="libasic">C project, with NodeJS (and other langs) bindings <sup><a href="https://github.com/jruizgit/rules" target="_blank">17</a></sup>, newer than last</li>
+        <li class="libasic">Doesn't mention anything to do with its architecture <sup><a href="https://www.npmjs.com/package/node-rules" target="_blank">18</a></sup> </li>
     </ul></li>
 </ul>
 
@@ -115,7 +108,7 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
     <li class="libasic">time of year (peak in summer)</li>
     <li class="libasic">nearness to holidays/festivals (list in a DB table?)</li>
     <li class="libasic">Cultural match to the event (i.e. Chinese venue at Chinese new year is more expensive)</li>
-    <li class="libasic">Nearness to “an event”, this will need to be scraped, sample data sources <sup><a href="https://www.visitengland.com/things-to-do/events" target="_blank">3</a></sup> <sup><a href="http://www.bbc.co.uk/sport/34453641" target="_blank">4</a></sup> <sup><a href="http://www.cognique.co.uk/blog/key-marketing-dates-for-2016/" target="_blank">5</a></sup>.  Pretending we are rich, we can buy data from a company to do the aggregation for us (easier).  Otherwise, the next years event calendar will need to be imported</li>
+    <li class="libasic">Nearness to “an event”, this will need to be scraped, sample data sources <sup><a href="https://www.visitengland.com/things-to-do/events" target="_blank">19</a></sup> <sup><a href="http://www.bbc.co.uk/sport/34453641" target="_blank">20</a></sup> <sup><a href="http://www.cognique.co.uk/blog/key-marketing-dates-for-2016/" target="_blank">21</a></sup>.  Pretending we are rich, we can buy data from a company to do the aggregation for us (easier).  Otherwise, the next years event calendar will need to be imported</li>
     <li class="libasic">weather estimate (maybe drop this one)</li>
     <li class="libasic">size of booking (compared to venue) maybe up/ maybe down, but affects price</li>
     <li class="libasic">previous bookings (not sure if up or down here either)</li>
@@ -141,7 +134,7 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="martech"><a name="adjacent" href=""></a> <p>Some similar articles in martech </p><div id="groupmartech" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=martech" title="This article lists all items in martech group.">All of <br />martech </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"><a name="adjacent" href=""></a> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 <legend></legend>
@@ -171,7 +164,7 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>Expert Systems Notes</h1></header>
@@ -193,13 +186,13 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-04T10:09:59">4th of Jan 2023</time></span>
 <span>Created <time datetime="2016-11-23T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >23rd of Nov 2016</time> </span>
 </span>
 </p></div>
@@ -238,12 +231,12 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:36:24">2nd of Jan 2023, 11:36:24</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-05T10:11:16">5th of Jan 2023, 10:11:16</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-04T10:09:59">4th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/cors-headers" />
 <meta property="og:description" content="An intro for a simple requirement in current webstuff." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:36:08" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="5th of Jan 2023, 10:11:00" />
+<meta property="article:modified_time" content="3rd of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "CORS headers",
-	"article:published_time":"2nd of Jan 2023, 11:36:08", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"5th of Jan 2023, 10:11:00", 
+    "article:modified_time":"3rd of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -56,8 +56,8 @@ TODO: magic tune selection against some index/DB -->
 <div class="fewWords">
 
 <h2 class="dontend" id="toc0"> Intro <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
-<p>This is a very basic article, as I haven't published any public articles in quite some time.   This is a really simple theory.   CORS is a lock added to recent browsers to stop badly written or malicious code from breaking servers, and to preserve IP rights.   With older browsers, one may upload a comment to a popular news site; which has embedded JS, the JS is to request to view a resource on a fourth site repeatedly.  A million people view their favourite news, incidentally view the comment.  The fourth server is flooded with all the requests, and will have problems keeping up (i.e. DDOS, <sup><a href="http://www.webopedia.com/TERM/D/DDoS_attack.html" target="_blank">1</a></sup>). <br />
-The CORS <sup><a href="http://www.w3.org/TR/cors/" target="_blank">2</a></sup> <sup><a href="https://tools.ietf.org/html/rfc6454" target="_blank">3</a></sup> process uses an OPTIONS HTTP <sup><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html" target="_blank">4</a></sup> request first, to determine if an AJAX request may occur.   Systems need to support the OPTIONS, this more of an issue for REST systems <sup><a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">5</a></sup> which may require more work to add this.  The OPTIONS response looks like a HEAD response <sup><a href="http://zacstewart.com/2012/04/14/http-options-method.html" target="_blank">6</a></sup>.  CORS headers are just more HTTP headers <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank">8</a></sup> <sup><a href="http://www.html5rocks.com/en/tutorials/cors/" target="_blank">9</a></sup>.   The AJAX requests should announce what service they are calling from by using a Origin header <sup><a href="https://tools.ietf.org/html/rfc6454#page-6" target="_blank">10</a></sup>.<br />
+<p>This is a very basic article, as I haven't published any public articles in quite some time.   This is a really simple theory.   CORS is a lock added to recent browsers to stop badly written or malicious code from breaking servers, and to preserve IP rights.   With older browsers, one may upload a comment to a popular news site; which has embedded JS, the JS is to request to view a resource on a fourth site repeatedly.  A million people view their favourite news, incidentally view the comment.  The fourth server is flooded with all the requests, and will have problems keeping up (i.e. DDOS, <sup><a href="https://www.webopedia.com/definitions/ddos-attack/" target="_blank">1</a></sup>). <br />
+The CORS <sup><a href="https://fetch.spec.whatwg.org/#http-cors-protocol" target="_blank">2</a></sup> <sup><a href="https://tools.ietf.org/html/rfc6454" target="_blank">3</a></sup> process uses an OPTIONS HTTP <sup><a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-options" target="_blank">4</a></sup> request first, to determine if an AJAX request may occur.   Systems need to support the OPTIONS, this more of an issue for REST systems <sup><a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">5</a></sup> which may require more work to add this.  The OPTIONS response looks like a HEAD response <sup><a href="https://zacstewart.com/2012/04/14/http-options-method.html" target="_blank">6</a></sup>.  CORS headers are just more HTTP headers <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank">8</a></sup> <sup><a href="https://www.websitebuilderpoint.net/what-is-cors-in-web-development/" target="_blank">9</a></sup>.   The AJAX requests should announce what service they are calling from by using a Origin header <sup><a href="https://tools.ietf.org/html/rfc6454#page-6" target="_blank">10</a></sup>.<br />
 In practice the OPTIONS request needs to be implemented fast and light.  The above scenario would still leave the fourth party server processing millions of OPTIONS headers.<br />
 UPDATE, more recently browsers are constraining what headers one may set from JS.  The browsers are implementing the following RFC <sup><a href="https://fetch.spec.whatwg.org/#forbidden-header-name" target="_blank">11</a></sup>. Things relating to cookies can be set via cookie <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie" target="_blank">12</a></sup>. I normally use a wrapper object <sup><a href="https://www.npmjs.com/package/cookie_js" target="_blank">13</a></sup> to do all the date manipulation etc.  <br />
 I started a section marked 'Protocol' to be more articulate, but after I put my references in, this seemed excessive.  Many of the above links are RFCs.</p>
@@ -75,7 +75,7 @@ To manage CORS practically, run your browser in a web dev mode that reports all 
 
 <ul class="ulbasic">
     <li class="libasic">in Symfony2 <sup><a href="https://stackoverflow.com/questions/29975384/symfony2-allow-access-control-allow-origin-with-google-charts" target="_blank">15</a></sup></li>
-    <li class="libasic">in Node <sup><a href="http://enable-cors.org/server_expressjs.html" target="_blank">16</a></sup></li>
+    <li class="libasic">in Node <sup><a href="https://enable-cors.org/server_expressjs.html" target="_blank">16</a></sup></li>
     <li class="libasic">in Apache <sup><a href="https://stackoverflow.com/questions/14467673/enable-cors-in-htaccess" target="_blank">17</a></sup></li>
     <li class="libasic">in ZF2</li>
     <li class="libasic">in Perl</li>
@@ -117,7 +117,7 @@ To manage CORS practically, run your browser in a web dev mode that reports all 
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>CORS headers</h1></header>
@@ -139,13 +139,13 @@ To manage CORS practically, run your browser in a web dev mode that reports all 
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-03T11:36:50">3rd of Jan 2023</time></span>
 <span>Created <time datetime="2015-08-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Aug 2015</time> </span>
 </span>
 </p></div>
@@ -182,12 +182,12 @@ To manage CORS practically, run your browser in a web dev mode that reports all 
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:36:08">2nd of Jan 2023, 11:36:08</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-05T10:11:00">5th of Jan 2023, 10:11:00</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-03T11:36:50">3rd of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

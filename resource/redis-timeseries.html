@@ -9,23 +9,23 @@
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Generator" content="iceline webkit 2.1" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="Notes about Tedis timeseries feature of Redis" />
+<meta name="Description" content="Notes about Redis timeseries feature of Redis" />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="Redis notes">
-<meta itemprop="description" content="Notes about Tedis timeseries feature of Redis">
+<meta itemprop="description" content="Notes about Redis timeseries feature of Redis">
 <!-- meta name="twitter:card" content="summary_large_image" -->
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="Redis notes">
-<meta name="twitter:description" content="Notes about Tedis timeseries feature of Redis">
+<meta name="twitter:description" content="Notes about Redis timeseries feature of Redis">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="Redis notes" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/redis-timeseries" />
-<meta property="og:description" content="Notes about Tedis timeseries feature of Redis" />
+<meta property="og:description" content="Notes about Redis timeseries feature of Redis" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:38:24" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="8th of Jan 2023, 21:05:06" />
+<meta property="article:modified_time" content="7th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Redis notes",
-	"article:published_time":"2nd of Jan 2023, 11:38:24", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"8th of Jan 2023, 21:05:06", 
+    "article:modified_time":"7th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -47,14 +47,14 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body">
+<body id="body" class="annoyingBody">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
     <article>
      <div class="blocker">
 <div class="lotsOfWords">
-<p>This resource is a) data logged about Redis <sup><a href="https://en.wikipedia.org/wiki/Redis" target="_blank">1</a></sup>, previously my contact was a <a class="" href="https://owenberesford.me.uk/resource/random-notes#">meetup</a> b) notes on a module “timeseries” <a href="https://github.com/RedisTimeSeries" target="_blank">git</a>.</p>
+<p>This resource is a) data logged about Redis <sup><a href="https://en.wikipedia.org/wiki/Redis" target="_blank">1</a></sup>, previously my contact was a <a class="" href="https://owenberesford.me.uk/resource/random-notes#">meetup</a> b) notes on a module “timeseries” <a href="https://github.com/RedisTimeSeries" target="_blank">git</a> c) some practical details from a demo install I built at Hoprtoff.</p>
 
 
 <h2 class="dontend" id="toc0"> Basic Redis features <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
@@ -63,7 +63,7 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">As everything is in RAM, its FAST! <sup><a href="https://www.slideshare.net/dvirsky/introduction-to-redis-version-2/3" target="_blank">3</a></sup> <sup><a href="https://stackoverflow.com/a/18455118" target="_blank">4</a></sup></li>
     <li class="libasic">As other NoSQL, Redis is designed for data structures <sup><a href="https://redis.io/topics/data-types-intro" target="_blank">5</a></sup> <sup><a href="https://redis.io/topics/data-types" target="_blank">6</a></sup>.  Redis architecture is that is not possible to make a generic very optimised system for large amounts of data; however providing tools to allow devs to optimise a structure to their requirements works <sup><a href="https://redis.io/topics/memory-optimization" target="_blank">7</a></sup>.</li>
     <li class="libasic">Most of Redis is optimised for SELECT side, not INSERT side <sup><a href="https://redis.io/topics/data-types-intro#redis-sorted-sets" target="_blank">8</a></sup> <sup><a href="https://stackoverflow.com/a/12475238" target="_blank">9</a></sup> <sup><a href="https://stackoverflow.com/a/10809430" target="_blank">10</a></sup>.   It has a fairly even spread on execution time in this bench mark <sup><a href="https://www.reddit.com/r/redis/comments/74kwfi/redisbenchmark_to_show_percentile_latency/" target="_blank">11</a></sup> (but this doesn't list any technique).</li>
-    <li class="libasic">Redis doesn't implement your security model, <i>you have to</i> <sup><a href="http://antirez.com/news/96" target="_blank">12</a></sup> <sup><a href="https://www.reddit.com/r/redis/comments/3zv85m/new_security_feature_redis_protected_mode/" target="_blank">13</a></sup>.  It doesn't make sense to allow the internet to talk to your data store anyway...</li>
+    <li class="libasic">Redis doesn't implement your security model, <i>you have to</i> <sup><a href="https://www.reddit.com/r/redis/comments/3rby8c/a_few_things_about_redis_security/" target="_blank">12</a></sup> <sup><a href="https://www.reddit.com/r/redis/comments/3zv85m/new_security_feature_redis_protected_mode/" target="_blank">13</a></sup>.  It doesn't make sense to allow the internet to talk to your data store anyway...</li>
     <li class="libasic">Redis is a dictionary/ keystore structure, with <em>Indexes</em> <sup><a href="https://redis.io/topics/indexes" target="_blank">14</a></sup> <sup><a href="https://redis.io/commands/lindex" target="_blank">15</a></sup> <sup><a href="https://redislabs.com/blog/indexing-with-redis/" target="_blank">16</a></sup> <a href="https://redislabs.com/redis-best-practices/indexing-patterns/geospatial/" target="_blank">GIS</a> <sup><a href="https://www.codeproject.com/articles/1072137/indexing-columns-in-redis" target="_blank">17</a></sup> <sup><a href="https://redislabs.com/redis-best-practices/indexing-patterns/" target="_blank">18</a></sup> (compared to RRDtool, or sleepycat, being both is weird).</li>
     <li class="libasic">Redis uses types more strictly than other NoSQL systems e.g. <sup><a href="https://redis.io/topics/data-types" target="_blank">19</a></sup>. In particular, look at hashes as a means to store app Objects or Beans [Java speak] or documents [in Mongo speak]. </li>
     <li class="libasic">Redis does support multiple “databases”, <sup><a href="https://stackoverflow.com/questions/8805004/redis-select-performance" target="_blank">20</a></sup> although please observe this is in the <em>same process</em>, so there may not be any point.   The same link states that the overhead from multiple Redis instances is small, and does horizontal scaling better.</li>
@@ -105,11 +105,7 @@ I don't think the EXPIREAT command is specfic to RTS, but for continuous accumul
 
 <p>These are mostly quite intuitive action from their names.</p>
 
-<p>Random links I haven't put into the txt yet:</p>
-
-<p><a class="cleanimage" href="https://www.quora.com/What-is-the-best-way-to-store-time-series-data-in-Redis" target="_blank">https://www.quora.com/What-is-the-best-way-to-store-time-series-data-in-Redis</a><br />
-<a class="cleanimage" href="https://files.meetup.com/19025268/Redis-Labs-Using-Redis-as-a-Time-Series-Database-1215.pdf" target="_blank">https://files.meetup.com/19025268/Redis-Labs-Using-Redis-as-a-Time-Series-Database-1215.pdf</a><br />
-Python access in a fairly readable fashion <sup><a href="https://pypi.org/project/redis-timeseries/" target="_blank">52</a></sup></p>
+<p>Python access in a fairly readable fashion <sup><a href="https://pypi.org/project/redis-timeseries/" target="_blank">52</a></sup></p>
 
 
 </div>
@@ -146,7 +142,7 @@ Python access in a fairly readable fashion <sup><a href="https://pypi.org/projec
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fredis-timeseries" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fredis-timeseries" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fredis-timeseries" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>Redis notes</h1></header>
@@ -168,13 +164,13 @@ Python access in a fairly readable fashion <sup><a href="https://pypi.org/projec
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fredis-timeseries" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fredis-timeseries" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fredis-timeseries" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-07T20:04:50">7th of Jan 2023</time></span>
 <span>Created <time datetime="2020-01-31T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >31st of Jan 2020</time> </span>
 </span>
 </p></div>
@@ -211,12 +207,12 @@ Python access in a fairly readable fashion <sup><a href="https://pypi.org/projec
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:38:24">2nd of Jan 2023, 11:38:24</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-08T21:05:06">8th of Jan 2023, 21:05:06</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-07T20:04:50">7th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

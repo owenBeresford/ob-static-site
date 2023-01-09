@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/cain-introduction" />
 <meta property="og:description" content="This CAINscript project was a special purpose language for making decisions about webpages.  This academic precii is to reach non-programming people." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:35:55" />
-<meta property="article:modified_time" content="29th of Dec 2022" />
+<meta property="article:published_time" content="9th of Jan 2023, 18:16:01" />
+<meta property="article:modified_time" content="9th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Introduction to CAIN.",
-	"article:published_time":"2nd of Jan 2023, 11:35:55", 
-    "article:modified_time":"29th of Dec 2022",
+	"article:published_time":"9th of Jan 2023, 18:16:01", 
+    "article:modified_time":"9th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -47,7 +47,7 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body">
+<body id="body" class="annoyingBody">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -61,7 +61,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="lotsOfWords">
 
 <h2 class="dontend" id="toc0"> Introduction and Background  <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
-<p>CAIN script is a special purpose language -- included in CAIN [see following paragraph] -- which should have a low entry cost.   It is designed for making decisions about webpages.   Most of the information and documentation for this language is available from (Beresford, 2004).   There are many computer languages mentioned in this document, many not in frequent use.   To provide more information, there is a list of language manuals available from Beresford (2004).</p>
+<p>CAIN script is a special purpose language ~ included in CAIN [see following paragraph] ~ which should have a low entry cost.   It is designed for making decisions about webpages.   Most of the information and documentation for this language is available from (Beresford, 2004).   There are many computer languages mentioned in this document, many not in frequent use.   To provide more information, there is a list of language manuals available from Beresford (2004).</p>
 
 <p>First a little background: The University of Portsmouth has an ongoing research project into web accessibility, and how to improve it.   The prototype system implementing the current ideas and experiments is called Computer Aided Information Navigation or CAIN.   This is described in (Lamas, Jerrams-Smith, and Heathcote, 2000), as “increasing the Web's value as a pedagogical tool”.   The paper describes CAINs conceptual extension of systems such as Dublin core.   As this work is ongoing, there is some currently unpublished PhDs authored by Good and Wong (these are planned to be available in 2005 and 2004 respectively).   CAIN script is a tool to support Good's PhD.</p>
 
@@ -86,7 +86,7 @@ TODO: magic tune selection against some index/DB -->
 <p>There are some unlisted objectives, added to make creation and debugging faster,</p>
 
 <ul class="ulbasic">
-    <li class="libasic">If the solution includes a language -- it should be easy to read;</li>
+    <li class="libasic">If the solution includes a language ~ it should be easy to read;</li>
     <li class="libasic">It should link to other languages easily;</li>
     <li class="libasic">Each special symbol should only have one meaning (there a wide range of awkward DWIMC (Anon, nd) errors caused by Perl having several meanings for some symbols);</li>
     <li class="libasic">Dependency on special symbols should be minimised, as non-programmers find memorising them expensive;</li>
@@ -97,7 +97,7 @@ TODO: magic tune selection against some index/DB -->
 
 <p>While it requires a number of programming skills and concepts, CAIN script should be easy for people who rarely program to use.   The syntax design is delineated by a conflict between 1) making everything explicitly defined, so users should know what they are doing, 2) making everything short and easy to type, so they can achieve their goals, rather than floundering in the scripting.   Real easy-to-use languages do not exist, especially if the cost of debugging is included.   Many less experienced people claim VB is easy to use until the first inexplicable error, just before the first real deadline (for example sophisticatediowan, 09/2003).   If the implementation language is assembly; in many cases, the length of the codebase is directly proportional to its runtime.   In higher level languages; this does not hold, but many people tend to assume it (Jayson, 2002, particularly in Perl, see Wall, Christensen, and Orwant, 2000).   Many language features have leaked into high level languages, which encourage shortcuts (such as the ternary operator '?:' in C).   These shortcuts make the resultant code hard to read and impossible for LUP.   Since this language has been designed for LUP, the shortcuts have been omitted.   Another example is it is quite difficult to invoke functions in logical tests, with CAIN script.  This is common in C, but frequently leads to omitted error handling.</p>
 
-<p>McIver and Conway (1996) describe the failure of normal programming languages for LUP.   To summarise: general programming languages, not being designed as teaching tools, make poor teaching tools.   There are a range of errors mostly restricted to LUP: misuse of types; inaccurate use of syntax; poor use of scoping (Wook Kim, Park, Eigenmann, nd), (Sajaniemi nd), (Pane and Myers, 1996) or (Cockburn and le Churcher, 1997).   These are merely the absence of learned behaviours for the programming languages, rather than cognitive failure.   This is eloquently described in (Chomsky, 1965), although the language has changed since this was printed.   Some more recent work in the same field (de Beaugrande, 1991) or (Pit-Corder, 1973) discusses the same problems.   People make the same type of error when learning a new human language (if it uses different rules to their own).   People have a high accuracy in making rare words plural (or equivalent operations) in their native language, as they have learned behaviours to do this (CDI, 2003).   This artificial language -- as computational performance is not a critical goal -- should make it difficult to make errors.</p>
+<p>McIver and Conway (1996) describe the failure of normal programming languages for LUP.   To summarise: general programming languages, not being designed as teaching tools, make poor teaching tools.   There are a range of errors mostly restricted to LUP: misuse of types; inaccurate use of syntax; poor use of scoping (Wook Kim, Park, Eigenmann, nd), (Sajaniemi nd), (Pane and Myers, 1996) or (Cockburn and le Churcher, 1997).   These are merely the absence of learned behaviours for the programming languages, rather than cognitive failure.   This is eloquently described in (Chomsky, 1965), although the language has changed since this was printed.   Some more recent work in the same field (de Beaugrande, 1991) or (Pit-Corder, 1973) discusses the same problems.   People make the same type of error when learning a new human language (if it uses different rules to their own).   People have a high accuracy in making rare words plural (or equivalent operations) in their native language, as they have learned behaviours to do this (CDI, 2003).   This artificial language ~ as computational performance is not a critical goal ~ should make it difficult to make errors.</p>
 
 <p>To partially contradict the previous paragraph, a highly explicit semantic structure can be beneficial.   A language where line structure is independent physical layout (as HTML is) is much safer to 'carry around'.   Many tools (particularly email clients and word processors) alter the physical layout, which means they cannot be used to transmit or conduct the fussy language.   Visual Basic and Javascript have both attempted to correlate the logical layout with the physical one.   Experience in debugging both of them indicates this looseness adds errors, as the system doesn't totally accept the physical layout.   Optionally both of them have a strict mode, which enforces logical layout notation.   An academic response to this idea of logical layout is unfortunately LISP or its younger child Scheme.  The source for both of these is hard coded s-expressions (not originally intended for human consumption, Wikipedia 2004), which in the author's opinion are too abstract and alien for usability.</p>
 
@@ -241,7 +241,7 @@ All references to “Good” are for the PhD student I was working with, and she
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcain-introduction" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcain-introduction" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcain-introduction" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>Introduction to CAIN.</h1></header>
@@ -263,13 +263,13 @@ All references to “Good” are for the PhD student I was working with, and she
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcain-introduction" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcain-introduction" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcain-introduction" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-29T10:13:52">29th of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-09T18:02:25">9th of Jan 2023</time></span>
 <span>Created <time datetime="2013-11-27T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 </span>
 </p></div>
@@ -309,12 +309,12 @@ All references to “Good” are for the PhD student I was working with, and she
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:35:55">2nd of Jan 2023, 11:35:55</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-29T10:13:52">29th of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-09T18:16:01">9th of Jan 2023, 18:16:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-09T18:02:25">9th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

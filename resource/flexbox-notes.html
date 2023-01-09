@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/flexbox-notes" />
 <meta property="og:description" content="Assessment of stuff relating to flexbox, as operational in B2B" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 16:09:01" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="5th of Jan 2023, 10:11:22" />
+<meta property="article:modified_time" content="3rd of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. Progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Flexbox notes",
-	"article:published_time":"2nd of Jan 2023, 16:09:01", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"5th of Jan 2023, 10:11:22", 
+    "article:modified_time":"3rd of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -54,7 +54,8 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="lotsOfWords">
-<p>At time of print, flexbox is not a new thing for CSS. You can get a large number of articles excitedly talking about it from three or four years ago.  I <em>now</em> ~ 2017 ~ rate it as stable technology, which should be <em>deployable without issue</em>.  It has enough support that you can use it to improve customers user-journeys, rather than awkwardly fail.</p>
+<p>At time of print, flexbox is not a new thing for CSS. You can get a large number of articles excitedly talking about it from three or four years ago.  I <em>now</em> ~ 2017 ~ rate it as stable technology, which should be <em>deployable without issue</em>.  It has enough support that you can use it to improve customers user-journeys, rather than awkwardly fail. <br />
+UPDATE: this is the first edition of flex CSS; many people use a more recent edition for newer projects.</p>
 
 
 <h2 class="dontend" id="toc0"> Sensible use <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
@@ -64,20 +65,20 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">Decent docs for Foundation framework <sup><a href="https://foundation.zurb.com/sites/docs/flex-grid.html" target="_blank">1</a></sup></li>
     <li class="libasic">Also good docs, for Bootstrap <sup><a href="https://bootstrapcreative.com/bootstrap-4-grid-explained-examples/" target="_blank">2</a></sup></li>
     <li class="libasic">flexigrid <sup><a href="https://www.flexible-grid.com/" target="_blank">3</a></sup> ~ single use library...</li>
-    <li class="libasic">Frow <sup><a href="http://frowcss.com/" target="_blank">4</a></sup> ~ and another</li>
+    <li class="libasic">Frow <sup><a href="https://frowcss.com/" target="_blank">4</a></sup> ~ and another</li>
     <li class="libasic">A toy <sup><a href="https://demo.agektmr.com/flexbox/" target="_blank">5</a></sup> to play with settings, and see what works on specific browsers. </li>
     <li class="libasic">and probably many more. This list is just so that my code sample at the end doesn't seem to support bad practice. </li>
 </ul>
 
 
-<h2 class="dontend" id="toc1"> Things to consider  <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc1"> Things to consider   <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li class="libasic">Has decent support for vertical alignments <sup><a href="http://css.world/flexbox-vertical-align/" target="_blank">6</a></sup> <sup><a href="https://stackoverflow.com/questions/25311541/how-to-vertically-align-text-inside-a-flexbox" target="_blank">7</a></sup>. The code samples on the second link is better, although less well presented, and probably has less browser support. This is worth whatever the transition cost is its own right.</li>
-    <li class="libasic">If you use enough variants, flexbox is completely supported by 94% of browsers <sup><a href="https://caniuse.com/#search=flexbox" target="_blank">8</a></sup>, and partially supported by most of the remaining 6%. This makes it more stable than all previous technologies and hacks for the same objective.   A context reference <sup><a href="https://en.wikipedia.org/wiki/Holy_grail_%28web_design%29" target="_blank">9</a></sup></li>
+    <li class="libasic">Has decent support for vertical alignments <sup><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">6</a></sup> <sup><a href="https://stackoverflow.com/questions/25311541/how-to-vertically-align-text-inside-a-flexbox" target="_blank">7</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container" target="_blank">8</a></sup>. The code samples on the second link is better, although less well presented, and probably has less browser support. This is worth whatever the transition cost is its own right.</li>
+    <li class="libasic">If you use enough variants, flexbox is completely supported by 94% of browsers <sup><a href="https://caniuse.com/#search=flexbox" target="_blank">9</a></sup>, and partially supported by most of the remaining 6%. This makes it more stable than all previous technologies and hacks for the same objective.   A context reference <sup><a href="https://en.wikipedia.org/wiki/Holy_grail_%28web_design%29" target="_blank">10</a></sup></li>
     <li class="libasic">This should be used with screen units (which are basically percentages... with adaption for changing orientation) and em.  Quite a few frameworks are using em, as it leads to more readable designs.</li>
-    <li class="libasic">When people on <sup><a href="https://www.tenforums.com/tutorials/5990-change-dpi-scaling-level-displays-windows-10-a.html" target="_blank">10</a></sup> <sup><a href="https://blogs.technet.microsoft.com/askcore/2015/12/08/display-scaling-in-windows-10/" target="_blank">11</a></sup> 'dows laptops make everything supersize, and so small amount of things per screen-full.  Flexbox will tend to work.</li>
-    <li class="libasic">Some notes say the shortform flexbox render faster <sup><a href="https://developers.google.com/web/updates/2013/10/Flexbox-layout-isn-t-slow?hl=en" target="_blank">12</a></sup>. I haven't tested this statement.  </li>
-    <li class="libasic">Some care needs to be invested, to have a page that packs well on desktop and mobile; read <sup><a href="https://dev.opera.com/articles/advanced-cross-browser-flexbox/" target="_blank">13</a></sup>.  As ever knowing your current audience and your desired audience is important prerequisite.  I normally do this by tactically setting display to block on a maximum width; but there are better solutions.  Whilst you can have 80% of your screen empty (i.e. a badly organised mobile layout on a desktop screen), its abit wasteful, and if the user wanted to look at empty space, the wall behind is easier. </li>
+    <li class="libasic">When people on <sup><a href="https://www.tenforums.com/tutorials/5990-change-dpi-scaling-level-displays-windows-10-a.html" target="_blank">11</a></sup> <sup><a href="https://blogs.technet.microsoft.com/askcore/2015/12/08/display-scaling-in-windows-10/" target="_blank">12</a></sup> 'dows laptops make everything supersize, and so small amount of things per screen-full.  Flexbox will tend to work.</li>
+    <li class="libasic">Some notes say the shortform flexbox render faster <sup><a href="https://developers.google.com/web/updates/2013/10/Flexbox-layout-isn-t-slow?hl=en" target="_blank">13</a></sup>. I haven't tested this statement.  </li>
+    <li class="libasic">Some care needs to be invested, to have a page that packs well on desktop and mobile; read <sup><a href="https://dev.opera.com/articles/advanced-cross-browser-flexbox/" target="_blank">14</a></sup>.  As ever knowing your current audience and your desired audience is important prerequisite.  I normally do this by tactically setting display to block on a maximum width; but there are better solutions.  Whilst you can have 80% of your screen empty (i.e. a badly organised mobile layout on a desktop screen), its abit wasteful, and if the user wanted to look at empty space, the wall behind is easier. </li>
     <li class="libasic"> Some of this is superceded by grid, check your usecase.</li>
 </ul>
 
@@ -158,7 +159,7 @@ I have pulled out keywords from the source, use these to efficiently search.</p>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research,uitools"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy,uitools"><a name="adjacent" href=""></a> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div><p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 <legend></legend>
@@ -182,7 +183,7 @@ I have pulled out keywords from the source, use these to efficiently search.</p>
 				</svg>
 			</a>
 			<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflexbox-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-			<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflexbox-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+			<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflexbox-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 			<dialog id="popup1" class="popup1">
 				<form method="dialog">
 					<p>your server: 
@@ -215,14 +216,14 @@ I have pulled out keywords from the source, use these to efficiently search.</p>
 </defs>
 							</svg>
 						</a>
-						<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflexbox-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflexbox-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflexbox-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 						&shy; Follow 
 					</span>
 					<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 					<span class="ultraSkinny"> 
-						<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
-						<span>Created <time datetime="2018-04-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Apr 2018</time> </span>
+						<span>Edited <time datetime="2023-01-03T21:59:51">3rd of Jan 2023</time></span>
+						<span>Created <time datetime="2017-04-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Apr 2017</time> </span>
 					</span>
 				</p>
 			</div>
@@ -261,12 +262,12 @@ I have pulled out keywords from the source, use these to efficiently search.</p>
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T16:09:01">2nd of Jan 2023, 16:09:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-05T10:11:22">5th of Jan 2023, 10:11:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-03T21:59:51">3rd of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

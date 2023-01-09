@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/font-exploration" />
 <meta property="og:description" content="Managed outcomes for fonts in a heterogeneous network." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:36:32" />
-<meta property="article:modified_time" content="29th of Dec 2022" />
+<meta property="article:published_time" content="5th of Jan 2023, 10:11:24" />
+<meta property="article:modified_time" content="4th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Font exploration",
-	"article:published_time":"2nd of Jan 2023, 11:36:32", 
-    "article:modified_time":"29th of Dec 2022",
+	"article:published_time":"5th of Jan 2023, 10:11:24", 
+    "article:modified_time":"4th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="lotsOfWords">
-<p>This is ploddy notes in one location to save time later.  To misquote the legal footer on <a href="http://www.blooberry.com/indexdot/css/propindex/font.htm" target="_blank">blooberry</a>, this isn't new or original material; but to the best of knowledge what is presented here is my wording.   <strong>EDIT 2020</strong>: I made a newer copy of this article, pls see <a class="" href="https://owenberesford.me.uk/resource/web-font-2020#">web-font-2020</a></p>
+<p>This is ploddy notes in one location to save time later.  To misquote the legal footer on <a href="http://www.blooberry.com/indexdot/css/propindex/font.htm" target="_blank">blooberry</a>, this isn't new or original material; but to the best of knowledge what is presented here is my wording.  NB: this article was current from about 2014; old versions of MSIE are not a business concern anymore.  <strong>EDIT 2020</strong>: I made a newer copy of this article, pls see <a class="" href="https://owenberesford.me.uk/resource/web-font-2020#">web-font-2020</a>.  It seems many of these font editing services have gone offline, possibly as there is less need for a big range of font formats.</p>
 
 <p>There are multiple font storage formats for web work :</p>
 
@@ -66,7 +66,7 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">.svg (Scalable Vector Graphics) supported by: Chrome 4.0+, Safari 3.2+ Opera 9+, Android 3.0+, iphone 3.1+, and blackberry 7+ </li>
 </ul>
 
-<p>There are many other targeting print media.  Annotations on browser support taken from  <sup><a href="http://www.w3schools.com/css/css3_fonts.asp" target="_blank">1</a></sup> <sup><a href="http://www.standardista.com/css3/font-face-browser-support/" target="_blank">2</a></sup> <sup><a href="https://caniuse.com/ttf" target="_blank">3</a></sup> <sup><a href="https://caniuse.com/woff" target="_blank">4</a></sup> <sup><a href="https://caniuse.com/svg-fonts" target="_blank">5</a></sup>.  If I get time, I will replace the names with logos for the browsers.</p>
+<p>There are many other targeting print media.  Annotations on browser support taken from  <sup><a href="https://www.w3schools.com/css/css3_fonts.asp" target="_blank">1</a></sup> <sup><a href="http://www.standardista.com/css3/font-face-browser-support/" target="_blank">2</a></sup> <sup><a href="https://caniuse.com/ttf" target="_blank">3</a></sup> <sup><a href="https://caniuse.com/woff" target="_blank">4</a></sup> <sup><a href="https://caniuse.com/svg-fonts" target="_blank">5</a></sup>.  If I get time, I will replace the names with logos for the browsers.</p>
 
 <p>Therefore a font-face command to support all browsers looks like:</p>
 
@@ -84,18 +84,18 @@ TODO: magic tune selection against some index/DB -->
     font-style: normal;
 }
 </pre>
-<p>When dealing with fonts, please ensure that you have a licence to use it.  Unlike CSS itself, a font is categorised as a graphic.   The fonts on my site are Ubuntu, which under opencommons2 and Open dyslexic which is MIT licence.  For details in why the fonts need to look like that, please <a href="http://www.paulirish.com/2009/bulletproof-font-face-implementation-syntax/" target="_blank">read more text</a></p>
+<p>When dealing with fonts, please ensure that you have a licence to use it.  Unlike CSS itself, a font is categorised as a graphic.   The fonts on my site are Ubuntu, which under opencommons2 and Open dyslexic which is MIT licence.  For details in why the fonts need to look like that, please <a href="https://www.paulirish.com/2009/bulletproof-font-face-implementation-syntax/" target="_blank">read more text</a> or <a href="https://www.iandevlin.com/blog/2009/12/webdev/adventures-with-font-face" target="_blank">here</a></p>
 
-<p>As you can see, the CSS is not trivial.  This output is sourced from <a href="http://www.fontsquirrel.com" target="_blank">fontsquirrel</a>.  I have used <a href="http://www.font2web.com/" target="_blank">font2web</a> to build the EOT format, which the fonts worked, but the service is usage constrained.  There is an alternative service, which produces fonts that MSIE8 doesn't like.  I tried <sup><a href="http://onlinefontconverter.com/font?" target="_blank">1</a></sup>, but this produced files as ACB format, rather than EOT.  The fontsquirrel files are also ACB.  I used <sup><a href="http://ttf2eot.sebastiankippe.com/" target="_blank">2</a></sup> as another alternative.  ACB files seem to work in MSIE10, but not MSIE8.  Care must be taken with line endings, as MSIE seems to work erratically when the above CSS is compressed.  I don't have the specific edgecases listed, but this did break my font selection.  The failure is listed in <sup><a href="https://wordpress.org/support/topic/minify-breaks-font-face-on-ie" target="_blank">3</a></sup> and on stackoverflow, but also they don't have the edgecases. This <a href="http://www.stevesouders.com/blog/2009/10/13/font-face-and-performance/" target="_blank">resource</a> seems useful (mostly that it gives a chain of events, rather than a bald “not wurkin'&quot;). This last paragraph is the most important section in this resource.</p>
+<p>As you can see, the CSS is not trivial.  This output is sourced from <a href="https://www.fontsquirrel.com" target="_blank">fontsquirrel</a>.  I have used <a href="https://www.font2web.com/" target="_blank">font2web</a> to build the EOT format, which the fonts worked, but the service is usage constrained.  There is an alternative service, which produces fonts that MSIE8 doesn't like.  I tried [DEAD SERVICE], but this produced files as ACB format, rather than EOT.  The fontsquirrel files are also ACB.  I used [DEAD SERVICE] as another alternative.  ACB files seem to work in MSIE10, but not MSIE8.  Care must be taken with line endings, as MSIE seems to work erratically when the above CSS is compressed.  I don't have the specific edgecases listed, but this did break my font selection.  The failure is listed in <sup><a href="https://wordpress.org/support/topic/minify-breaks-font-face-on-ie" target="_blank">1</a></sup> and on stackoverflow, but also they don't have the edgecases. This <a href="https://www.stevesouders.com/blog/2009/10/13/font-face-and-performance/" target="_blank">resource</a> seems useful (mostly that it gives a chain of events, rather than a bald “not wurkin'&quot;). This last paragraph is the most important section in this resource.</p>
 
-<p>There are opensource tools which one may download, fontforge specifically.</p>
+<p>There are opensource tools which one may download, fontforge specifically.  During 2018, I used fontforge, to edit fonts; including making the burger menu icon used here.</p>
 
 
 </div>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="images"><a name="adjacent" href=""></a> <p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"><a name="adjacent" href=""></a> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 <legend></legend>
@@ -125,7 +125,7 @@ TODO: magic tune selection against some index/DB -->
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffont-exploration" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffont-exploration" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffont-exploration" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>Font exploration</h1></header>
@@ -147,13 +147,13 @@ TODO: magic tune selection against some index/DB -->
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffont-exploration" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffont-exploration" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffont-exploration" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-29T10:34:57">29th of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-04T11:47:12">4th of Jan 2023</time></span>
 <span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 </span>
 </p></div>
@@ -187,12 +187,12 @@ TODO: magic tune selection against some index/DB -->
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:36:32">2nd of Jan 2023, 11:36:32</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-29T10:34:57">29th of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-05T10:11:24">5th of Jan 2023, 10:11:24</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-04T11:47:12">4th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

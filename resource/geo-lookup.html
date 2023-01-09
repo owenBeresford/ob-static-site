@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/geo-lookup" />
 <meta property="og:description" content="Some background resources for GIS data sources." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 16:09:03" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="5th of Jan 2023, 10:11:29" />
+<meta property="article:modified_time" content="4th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. Progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Geo lookup",
-	"article:published_time":"2nd of Jan 2023, 16:09:03", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"5th of Jan 2023, 10:11:29", 
+    "article:modified_time":"4th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -71,7 +71,7 @@ There are a range of possible outcomes when attempting to compute location.  Obv
 
 
 <h3 class="dontend" id="toc2"> Nominated vendor <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
-<p>Due to operational cost and supporting a US customer base, <a class="" href="https://owenberesford.me.uk/resource/visitors#">a previous project</a> MT used <a href="http://dev.maxmind.com/geoip/legacy/downloadable/" target="_blank">Maxminds</a>.  Since I wrote that code, <a href="https://github.com/maxmind" target="_blank">maxminds</a> have rebuilt everything to PHP5.4 and are using github.  I would advise looking at their newer services.  As some of my usage data was from known sources (we knew who was doing it, and where their office was), I tested the generated location data against  what we knew.  For business users, it was good quality data.  See references to DSLAM throughout this document, its not the lookup software thats the problem.  In Aus ~ where alot of this code was written ~ the nearest city is a good guess. Telephony is more complex here, and there are many more people.<br />
+<p>Due to operational cost and supporting a US customer base, <a class="" href="https://owenberesford.me.uk/resource/visitors#">a previous project</a> MT used <a href="https://dev.maxmind.com/geoip/geolocate-an-ip?lang=en" target="_blank">Maxminds</a>.  Since I wrote that code, <sup><a href="https://github.com/orgs/maxmind/repositories" target="_blank">1</a></sup> have rebuilt everything for a variety of languages and are using github.  I would advise looking at their newer services.  As some of my usage data was from known sources (we knew who was doing it, and where their office was), I tested the generated location data against  what we knew.  For business users, it was good quality data.  See references to DSLAM throughout this document, its not the lookup software thats the problem.  In Aus ~ where alot of this code was written ~ the nearest city is a good guess. Telephony is more complex here, and there are many more people.<br />
 If one needs to verify the mapping, put the generated [lat,long] into google maps.  Please note mapping systems take vertical axis first, due to historical technology.  Graphics systems take the horizontal axis first due to different historical technology.</p>
 
 
@@ -80,29 +80,29 @@ If one needs to verify the mapping, put the generated [lat,long] into google map
 
 
 <div class="pullout">
-<p>According to DSL tools my exchange is Kingston.  Any up-to-date lookup tools should map my IP to [51.41220,-0.29228].  This isn't the location of my PC, but this is the best this style of lookup can achieve.  This statement is complicated by the fact that my ISP keeps resetting the DSL, and so changing my IP.</p>
+<p>With 2012 technology: according to DSL tools my exchange is Kingston (correct at time).  Any up-to-date lookup tools should map my IP to [51.41220,-0.29228].  This isn't the location of my PC, but this is the best this style of lookup can achieve.  This statement is complicated by the fact that my ISP keeps resetting the DSL, and so changing my IP.<br />
+With 2023 technology, the <strong>JS feature in the browser</strong> is precise enough for shipping; but not military purposes.</p>
 
 
 </div>
 <ul class="ulbasic">
-    <li class="libasic"><strong><a href="http://www.geoplugin.net/" target="_blank">Geo Plugin</a> are a frontend for maxmind</strong>.  I'm not sure they are useful to reasonable scale services, due to the number of network connections involved. I infer they are implemented using the older static database, as the values they return don't match the current maxmind frontend.  They a provide a non-technical-person-friendly JS interface, which is a would be a good reason to use them.</li>
-    <li class="libasic"><strong><a href="http://www.hostip.info/" target="_blank">Host IP</a> is a community project</strong>, with links to commercial vendors.  At present they are unable to resolve my personal desktop IP. They quote fast response times, and do provide a sensible/ lean API for lookups.  As this is non commercial, they have a static downloadable database; and suggest daily refresh on this.  I would be interested in what their update policies where (i.e. what if the assignment of an IP changes, how long would the customer get out of date information?), before I started to depend on them</li>
-    <li class="libasic"><strong><a href="http://www.ip2location.com/" target="_blank">ip2location</a> is a rented service, with a freemuim offering</strong>.  They map my DSL to O2 in Bath. Due to commercial practice this could be true, but can't be true at the same time as maxminds response.  This is a static file.  The packing algorithm is less efficient than what maxmind uses, as this data is about ten times larger.</li>
-    <li class="libasic"><strong><a href="http://www.geobytes.com/IpLocator.htm" target="_blank">geobytes</a> charge a small amount per lookup</strong>. This site is branded for 1998. This says my DSL is in Manchester.</li>
-    <li class="libasic"><strong><a href="https://tools.digitalpoint.com/geo" target="_blank">digital point</a></strong> returns the same location as geoplugin.  I can't find an API on this site, so doesn't seem to meet requirements.</li>
-    <li class="libasic"><strong><a href="http://webtools.live2support.com/misc_locate_ip_address.php" target="_blank">live2support</a></strong>, has annoying adverts in the way, and supplies low granularity data.  Can't find API access on this either.</li>
-    <li class="libasic"><strong><a href="http://www.melissadata.com/lookups/iplocation.asp" target="_blank">melissa</a></strong> correctly gets my ISP; and my DSLAM is in Brighton.  Does have an API, but won't admit which language this is implemented in.  From the age on the branding, I doubt it would be useful.</li>
-    <li class="libasic"><strong><a href="http://www.webyield.net/domainquery.html" target="_blank">webyield</a></strong> thinks my DSLAM is Hemel Hempstead.   Doesn't seem to have an API access</li>
-    <li class="libasic"><strong><a href="http://www.iptolatlng.com/" target="_blank">IP to Lat Lng</a></strong> thinks my DSLAM is Halton again.  No API access, probably maxmind legacy database.</li>
-    <li class="libasic"><strong><a href="http://www.telize.com" target="_blank">Telize</a></strong> is again saying Halton, but that my timezone is for Barbados.  Looks very REST, but still legacy maxminds.</li>
+    <li class="libasic"><strong><a href="https://www.geoplugin.com/" target="_blank">Geo Plugin</a> UPDATED 2022: I do not know how this is built; but the data returned is 250mi/ 3degrees too far North wrong.  Also the IP4 data is wildly different from the IP6.</li>
+    <li class="libasic"></strong><a href="https://www.hostip.info/" target="_blank">Host IP</a> is a community project<strong>, with links to commercial vendors.  At present they are unable to resolve my personal desktop IP. They quote fast response times, and do provide a sensible/ lean API for lookups.  As this is non commercial, they have a static downloadable database; and suggest daily refresh on this.  I would be interested in what their update policies where (i.e. what if the assignment of an IP changes, how long would the customer get out of date information?), before I started to depend on them.  UPDATE 2023: everything written still holds.</li>
+    <li class="libasic"></strong><a href="https://www.ip2location.com/" target="_blank">ip2location</a> is a rented service, with a freemuim offering<strong>.  They map my DSL to Charing Cross. Due to commercial practice this could be true, but can't be true at the same time as maxminds response.  This is a static file.  The packing algorithm is less efficient than what maxmind uses, as this data is about ten times larger.</li>
+    <li class="libasic"></strong><a href="https://www.geobytes.com/IpLocator/" target="_blank">geobytes</a> charge a small amount per lookup<strong>.  This doesn't work for me, with either IP.   Many adverts intruding on website.</li>
+    <li class="libasic"></strong><a href="https://tools.digitalpoint.com/geo" target="_blank">digital point</a><strong> returns my location as Abbeywood (nearest 10KM).  I can't find an API on this site, so doesn't seem to meet requirements.</li>
+    <li class="libasic"></strong><a href="http://webtools.live2support.com/misc_locate_ip_address.php" target="_blank">live2support</a><strong>, has been bought out; no service found</li>
+    <li class="libasic"></strong><a href="https://www.melissa.com/v2/lookups/iplocation/ip/" target="_blank">melissa</a><strong> correctly gets my ISP; and my DSLAM is in Brighton.  Does have an API, but won't admit which language this is implemented in.  From the age on the branding, I doubt it would be useful.</li>
+    <li class="libasic"></strong><a href="https://www.webyield.net/ip/index.php" target="_blank">webyield</a><strong>  With IP4, it knows the long/lat but doesn't map his to a address. With IP6 it knows nothing.</li>
+    <li class="libasic"></strong><a href="https://www.telize.comi/geoip/" target="_blank">Telize</a>** is a REST API; but recently disabled demo mode, so I can't check its output.  </li>
 </ul>
 
-<p><strong> Lastly if you have a HTML5 browser, you can lookup this up: </strong></p>
+<p><strong> In a normal (HTML5) browser, you can lookup this up (takes 3s for me): </strong></p>
 
 
 <span id="location"> Nothing is set yet (Firefox/linux doesn't like this feature).</span>
 <div class="pullout">
-<p>It would be a clever idea to use the JS geo location to allow less required input on address forms.  However it doesn't look like the current generation of technology has enough reliability for this to work.</p>
+<p>It would be a clever idea to use the JS geo location to allow less required input on address forms.   And now this is reliable, its quite common.</p>
 
 
 </div>
@@ -134,7 +134,7 @@ If one needs to verify the mapping, put the generated [lat,long] into google map
 				</svg>
 			</a>
 			<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-			<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+			<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 			<dialog id="popup1" class="popup1">
 				<form method="dialog">
 					<p>your server: 
@@ -167,13 +167,13 @@ If one needs to verify the mapping, put the generated [lat,long] into google map
 </defs>
 							</svg>
 						</a>
-						<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 						&shy; Follow 
 					</span>
 					<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 					<span class="ultraSkinny"> 
-						<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+						<span>Edited <time datetime="2023-01-04T17:08:33">4th of Jan 2023</time></span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
 				</p>
@@ -213,12 +213,12 @@ If one needs to verify the mapping, put the generated [lat,long] into google map
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T16:09:03">2nd of Jan 2023, 16:09:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-05T10:11:29">5th of Jan 2023, 10:11:29</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-04T17:08:33">4th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

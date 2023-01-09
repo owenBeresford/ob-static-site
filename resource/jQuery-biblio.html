@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-biblio" />
 <meta property="og:description" content="Covering article for a usability feature, biblio extraction for mobile UI." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:37:03" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="8th of Jan 2023, 21:03:56" />
+<meta property="article:modified_time" content="5th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "jQuery-biblio",
-	"article:published_time":"2nd of Jan 2023, 11:37:03", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"8th of Jan 2023, 21:03:56", 
+    "article:modified_time":"5th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -47,7 +47,7 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body">
+<body id="body" class="annoyingBody">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -78,7 +78,7 @@ As this library is targeting links created by a wiki software; there is shortage
     <li class="libasic">I need to build a sensible solution to tagging my source with version numbers.  Obviously development is done inside a VCS, which holds all the granularity on version that you can need or want.  The common way to tag releases, is to include the plugin version is the filename.  I have solved this problem previously, but I'm not building RPM, NPM or similar.   At present I am hand building these filename, but this wouldn't scale very well.  As a second issue I'm not tagging the version in the meta data anywhere, so can't reference it.  </li>
     <li class="libasic">I have tested this with qunit not jasmine, as qunit is really small and light to setup.   I can include the qunit source in my src tree without much effect.  Secondly as a standalone plugin, I can't CI, as I have no target to CI into.</li>
     <li class="libasic">I note that when I integrated the plugin into my site; I suddenly started to behave like a designer.  I wrote a version, looked at it, and rewrote it till the layout “worked”.</li>
-    <li class="libasic">My usecase has paged data, as very long columns in text are hard to use.  Print media as books would put the references at the end of each page or chapter.  Journal print media at the end of the paper, but many journal articles are only a few pages.   I think its better narrative to put the references at the end of the content.   </li>
+    <li class="libasic">My use-case has paged data, as very long columns in text are hard to use.  Print media as books would put the references at the end of each page or chapter.  Journal print media at the end of the paper, but many journal articles are only a few pages.   I think its better narrative to put the references at the end of the content.   </li>
     <li class="libasic">Although I have edited the DOM via JS, this is actually the first time I have edited HTML headers or HTTP headers from JS.  I will move the high risk sections to the start of the second edition.</li>
 </ul>
 
@@ -113,12 +113,12 @@ As this library is targeting links created by a wiki software; there is shortage
 </ul>
 
 
-<h3 class="dontend" id="toc3"> Usability concerns / meta data <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> Usability concerns / meta data for the JS tool  <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">My prime usecase is wiki links, these are terse on meta data.</li>
+    <li class="libasic">My prime use-case is wiki links, these are terse on meta data.</li>
     <li class="libasic">Good UI/ UX / accessible sites have detail on each link.</li>
     <li class="libasic">I can optionally read Aria attributes off links when they are available. </li>
-    <li class="libasic">For my usecase, I will explore to see if it is possible to inject data into the wiki structure.</li>
+    <li class="libasic">For my use-case, I will explore to see if it is possible to inject data into the wiki structure.</li>
     <li class="libasic">A third option is write JS to pull the linked documents, and append the meta DESCRIPTION tag, where found.  This will need to work with CORS.  Most web browsers allow a maximum of 4 requests concurrently, and frequently 1 AJAX request %%.  HTTP2 will address this, but not all facilities support it.  This architecture is slow, and requires a net connection (I mostly use mobile sites on the train, so have spotty connection).  It may be easier to cache them as a second resource on the server.  <b>Empirical testing demonstrates more user friendliness with cached extensions.</b>  </li>
     <li class="libasic">As addendum to previous, if this is used, should provide visible notice that the link is being altered.</li>
 </ul>
@@ -177,7 +177,7 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 
 
 <h3 class="dontend" id="toc6"> Smoke Tested on: <a href="#toc6"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
-<p>In normal TDD fashion, I made real unit tests at the point I wrote the units. I iterated the UX side enough times with a range of data. Recently I had access machine with alot of different browsers installed on it, so I can state that this works on:</p>
+<p>In normal TDD fashion, I made real unit tests at the point I wrote the units. I iterated the UX side enough times with a range of data. Recently I had access machine with alot of different browsers installed on it, so I can state that this looks reasonable on:</p>
 
 <ul class="ulbasic">
     <li class="libasic">recent FF/linux</li>
@@ -226,7 +226,7 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>jQuery-biblio</h1></header>
@@ -248,13 +248,13 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-05T20:58:10">5th of Jan 2023</time></span>
 <span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 </span>
 </p></div>
@@ -269,7 +269,7 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 <li class="h4_odd"><a href="#toc0">Dev notes</a></li>
 <li><a href="#toc1">Requirements (on Mobile)</a></li>
 <li class="h4_odd"><a href="#toc2">Requirements (on desktop)</a></li>
-<li><a href="#toc3">Usability concerns / meta data</a></li>
+<li><a href="#toc3">Usability concerns / meta data for the JS tool</a></li>
 <li class="h4_odd"><a href="#toc4">API and interface notes</a></li>
 <li><a href="#toc5">Value for <i>extendViaDownload</i></a></li>
 <li class="h4_odd"><a href="#toc6">Smoke Tested on:</a></li>
@@ -295,12 +295,12 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:37:03">2nd of Jan 2023, 11:37:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-08T21:03:56">8th of Jan 2023, 21:03:56</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-05T20:58:10">5th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

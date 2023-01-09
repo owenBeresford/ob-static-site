@@ -2,7 +2,7 @@
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
-<title>punit ~ objects are business necessary, therefore tests should be objects.</title>
+<title>punit</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,20 +12,20 @@
 <meta name="Description" content="Case notes for my Perl unit test framework." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="punit ~ objects are business necessary, therefore tests should be objects.">
+<meta itemprop="name" content="punit">
 <meta itemprop="description" content="Case notes for my Perl unit test framework.">
 <!-- meta name="twitter:card" content="summary_large_image" -->
 <meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="punit ~ objects are business necessary, therefore tests should be objects.">
+<meta name="twitter:title" content="punit">
 <meta name="twitter:description" content="Case notes for my Perl unit test framework.">
 <meta name="twitter:creator" content="@channelOwen">
-<meta property="og:title" content="punit ~ objects are business necessary, therefore tests should be objects." />
+<meta property="og:title" content="punit" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/punit" />
 <meta property="og:description" content="Case notes for my Perl unit test framework." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:38:13" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="9th of Jan 2023, 18:18:04" />
+<meta property="article:modified_time" content="9th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -35,9 +35,9 @@ TODO: magic tune selection against some index/DB -->
   {
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
-    "name": "punit ~ objects are business necessary, therefore tests should be objects.",
-	"article:published_time":"2nd of Jan 2023, 11:38:13", 
-    "article:modified_time":"22nd of Dec 2022",
+    "name": "punit",
+	"article:published_time":"9th of Jan 2023, 18:18:04", 
+    "article:modified_time":"9th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -47,21 +47,21 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body">
+<body id="body" class="annoyingBody">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
     <article>
      <div class="blocker">
-<p>Source is available: <a class="button" title="A public GIT repo of this project." href="https://github.com/owenBeresford/punit"><i class="fa fa-github" aria-hidden="true"></i></a> or <strike class="button" >cpan</strike>.   The second half is mostly <a title="The first article, mostly discussion on implementation." href="https://owenberesford.me.uk/resource/punit-implementation">implementation</a>. </p>
+<p>Source is available: <a class="button" title="A public GIT repo of this project." href="https://github.com/owenBeresford/punit"><i class="fa fa-github" aria-hidden="true"></i></a> or <del class="button" >cpan</del>.   The second article is mostly <a title="The first article, mostly discussion on implementation." href="https://owenberesford.me.uk/resource/punit-implementation">implementation</a>. </p>
 <div class="lotsOfWords">
 <p>A well-designed unit test will give one confidence in ones unit, it reduces development time, it improves API design.   A unit test is a definite long term asset, as it allows later changes at low risk.  If you don't want to write in objects, this tool isn't going to help you.   For the whole of this document “skelgen” is a contraction of “skeleton-generator”, code that auto-magically builds a class outline and attempts to fillin function definitions where possible; likewise “codegen” is a condensed “code-generator”.</p>
 
 
-<h3 class="dontend" id="toc0"> Other Perl tools <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> Other Perl test tools <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <p>Perl does have a testing culture, although it isn't OO, or matching other languages.  Most modules in CPAN ship with some tests.  Why develop punit?   Most of the existing tools aren't focussed on objects, and they don't supply “effort saving” features.  Test coverage is best supported by reducing the time to create each test, down to decisions in terms of the solution-space.   I think it is a big win to not leave your decision space when making the API.</p>
 
-<p>There are the following, as a non-complete list (more available <sup><a href="http://qa.perl.org/test-modules.html" target="_blank">1</a></sup>):</p>
+<p>There are the following, as a non-complete list (more available <sup><a href="https://qa.perl.org/test-modules.html" target="_blank">1</a></sup>):</p>
 
 <ul class="ulbasic">
     <li class="libasic"><b>Test::Skeleton::Generator</b> ~ an alternative library with similar functionality to this project.   It is less attached to objects, which I think are necessary for code reuse; and therefore cheap development.  As I intend to add annotation support to my project, it was faster to start with a fresh codebase.  People are encouraged to have a quick look at this library in addition ~ if you aren't attached to objects either, this may suit better.</li>
@@ -74,7 +74,7 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic"><b>Test::MockObject</b> ~ I haven't used this, but reflection in Perl is quite easy. </li>
     <li class="libasic"><b>Test::Extreme</b> ~ this claims to be a “perlish xUnit” library.   Doesn't ship with any type of skelgen.</li>
     <li class="libasic"><b>Test::Builder</b> ~ not a code gen, despite the name.   Framework to manage TAP output and improve inter-operation between test libraries. </li>
-    <li class="libasic"><b>Test::Subs</b> ~ I went to a <a href="http://www.meetup.com/London-Perl-Mongers/events/227844261/" target="_blank">hackday</a>, this is one of the things that I take home with me.  Subs looks like a useful API, although I have already coded with Test::Assert.  This is a small piece of a solution. </li>
+    <li class="libasic"><b>Test::Subs</b> ~ I went to a <a href="https://www.meetup.com/London-Perl-Mongers/events/227844261/" target="_blank">hackday</a>, this is one of the things that I take home with me.  Subs looks like a useful API, although I have already coded with Test::Assert.  This is a small piece of a solution. </li>
 </ul>
 
 
@@ -115,7 +115,7 @@ The other languages that I use tend to be more forceful about using objects, and
 <h3 class="dontend" id="toc3"> Implementation discussion <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <p>My goal is to have results, more than write alot of code.   As such, I will import other libraries as it seems to assist my goals.  The presence of Moose and similar libraries will complicate the test framework.   Performance of the thing to build test-cases isn't seen as an important issue.  This tool shouldn't be run as apart of CI or regression testing, as 100% automation is not a practical goal. The remaining hand-code will need to be done.    <br />
 The mechanisms in Test::Common and Test::Assert fight each other, so those two cannot be used together.  I will test each of the classes in this project using existing simpler test tools (which I trust to have already been tested).<br />
-A minimal implementation would create the skeleton unit-tests, provide the assert type interface and provide the harness to execute the test case with.  In practical terms unit tests are run for populations of classes, and the harness manages execution of each.  A more useful implementation would import the grammar from jUnit/ phpunit-skelgen <sup><a href="http://blog.teamlazerbeez.com/2009/08/18/phpunit-annotations/" target="_blank">1</a></sup> <sup><a href="http://docs.tadiavo.com/phpunit/www.phpunit.de/pocket_guide/3.1/en/skeleton-generator.html" target="_blank">2</a></sup> [1].  This would allow the creation of tests in a more logical context (and its faster).</p>
+A minimal implementation would create the skeleton unit-tests, provide the assert type interface and provide the harness to execute the test case with.  In practical terms unit tests are run for populations of classes, and the harness manages execution of each.  A more useful implementation would import the grammar from jUnit/ phpunit-skelgen <sup><a href="https://phpunit.readthedocs.io/en/9.5/annotations.html" target="_blank">1</a></sup> <sup><a href="https://devdocs.io/phpunit~8/" target="_blank">2</a></sup> <sup><a href="https://www.softwaretestinghelp.com/junit-assertions/" target="_blank">3</a></sup>.  This would allow the creation of tests in a more logical context (and its faster).</p>
 
 <p>The requirement for ignoring private functions is common to test tools.   One can argue that there shouldn't be too many private functions, and certainly as they are implementation details, they should be free to change API.  In practical terms, I will probably make this a config item, to allow better inter-operation with different coding standards.  If there is a algorithmic way to automate the creation of setup() functions, I haven't seen it.  I will create code to create a default testee object, but the params feed to this will need to be edited by the operator. It would be very useful to auto-magically guess, but hard for test conditions.</p>
 
@@ -131,10 +131,6 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
 
 
 </div>
-<hr />
-<p>[1] I am unable to find docs for the @assert feature of jUnit.</p>
-
-
 </div>
     </article>
    </main>
@@ -145,7 +141,7 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
 <nav>
 <div id="tinyScreen" class="addReading">
 <header>
-<h1>punit ~ objects are business necessary, therefore tests should be objects.</h1>
+<h1>punit</h1>
 </header>
 <a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a> <a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
  Share: <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a> 
@@ -168,11 +164,11 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
-<div class="h4_title column"><header><h1>punit ~ objects are business necessary, therefore tests should be objects.</h1></header>
-
+<div class="h4_title column"><header><h1>punit</h1></header>
+<p>Objects are business necessary, therefore tests should be objects (rather than flat scripts).</p>
 
 <p id="shareGroup" class="addReading"> 
 	<span class="centerBlock">
@@ -190,13 +186,13 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-09T09:03:06">9th of Jan 2023</time></span>
 <span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 </span>
 </p></div>
@@ -208,7 +204,7 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
 <fieldset class="h4_menu column">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
 <menu><ul class="h4_lean">
-<li class="h4_odd"><a href="#toc0">Other Perl tools</a></li>
+<li class="h4_odd"><a href="#toc0">Other Perl test tools</a></li>
 <li><a href="#toc1">Perl vs Other OO languages</a></li>
 <li class="h4_odd"><a href="#toc2">Functional spec for punit</a></li>
 <li><a href="#toc3">Implementation discussion</a></li>
@@ -234,12 +230,12 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:38:13">2nd of Jan 2023, 11:38:13</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-09T18:18:04">9th of Jan 2023, 18:18:04</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-09T09:03:06">9th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

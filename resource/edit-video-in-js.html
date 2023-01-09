@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/edit-video-in-js" />
 <meta property="og:description" content="Analysis and discussion of requirements for video editing tools and of how much work is required to edit via JS.  The analysis also enumerates 13 tools that help you to make a video using JavaScript." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:36:20" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="8th of Jan 2023, 21:03:15" />
+<meta property="article:modified_time" content="5th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Editing video in JS",
-	"article:published_time":"2nd of Jan 2023, 11:36:20", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"8th of Jan 2023, 21:03:15", 
+    "article:modified_time":"5th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -47,7 +47,7 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body">
+<body id="body" class="annoyingBody">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -63,13 +63,13 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">Forbes did a review on market capacity for live streaming <sup><a href="https://www.fortunebusinessinsights.com/video-streaming-market-103057" target="_blank">8</a></sup> <sup><a href="https://www.statista.com/statistics/1200027/us-video-stream-download-consumption/" target="_blank">9</a></sup>, and they think it's worth a lot of money.  There is still a list of common video formats <sup><a href="https://www.videoproc.com/resource/best-video-format.htm" target="_blank">10</a></sup> <sup><a href="https://www.makeuseof.com/most-common-video-formats/" target="_blank">11</a></sup> <sup><a href="https://www.geeksforgeeks.org/common-video-format/" target="_blank">12</a></sup> <sup><a href="https://www.nucleustechnologies.com/blog/10-most-common-video-file-formats-for-2020/" target="_blank">13</a></sup> <sup><a href="https://recoverit.wondershare.com/video-repair/best-10-video-formats.html" target="_blank">14</a></sup>.  Support for many of these is good in browsers, the IEEE recommends Mp4 (i.e. mpeg4) and webm <sup><a href="https://www.computer.org/publications/tech-news/trends/8-best-video-file-formats-for-2020" target="_blank">15</a></sup>; Wix, the website hosting platform recommends Webm and HTML5 (??) <sup><a href="https://www.wix.com/blog/photography/video-formats" target="_blank">16</a></sup>.   </li>
     <li class="libasic">Mpeg is a bundle of formats <sup><a href="https://www.mpeg.org/standards/" target="_blank">17</a></sup>, designed to improve interoperability <sup><a href="https://en.wikipedia.org/wiki/MPEG-4" target="_blank">18</a></sup>. It includes many layers <sup><a href="https://www.webopedia.com/definitions/mpeg/" target="_blank">19</a></sup>; technically the common MP3 format, is “mpeg 4 part 3”.  Details on the MPEG encoding formats <sup><a href="https://en.wikipedia.org/wiki/MPEG-4_Part_14" target="_blank">20</a></sup> <sup><a href="https://en.wikipedia.org/wiki/MPEG_program_stream" target="_blank">21</a></sup> <sup><a href="https://www.rfc-editor.org/rfc/rfc3016.html" target="_blank">22</a></sup> <sup><a href="https://www.rfc-editor.org/rfc/rfc4337.html" target="_blank">23</a></sup>.  A visual-data video stream (e.g. not the audio) has three types of frame <sup><a href="https://www.cl.cam.ac.uk/~jac22/books/mm/book/node128.html" target="_blank">24</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Video_compression_picture_types" target="_blank">25</a></sup> <sup><a href="https://learnmediatech.com/i-p-b-frames-and-gops-mpeg-2/" target="_blank">26</a></sup>.  If a person was going to edit a MPEG stream, the simplest thing to do would be to edit the whole frames rather than the partial ones; with only compression that is internal to these whole frames.  But doing that it will invalidate the other relative / partial frames; so the entire stream will need recomputing.  Raw video data that is not compressed is gigabytes of data; if the screen-size is 1920 by 1080 pixels (numbers taken from <sup><a href="https://www.pixstacks.com/how-many-pixels-for-video" target="_blank">27</a></sup> ), this is 8MB per frame, and at 25frames per second is 11GB per minute, or 700GB an hour.  Recording sound would increase that volume.  25fps is what old TV uses, and is the slowest refresh rate where a typical human doesn't see a flicker. Most games nowadays or modern TVs etc have a higher refresh rate.   The alterations would need to be applied inside the compression, so on the decompressed data.   The raw video data is limiting the machines that could do the transformation, or the length and screen-size of the clip.</li>
     <li class="libasic">The format webM <sup><a href="https://en.wikipedia.org/wiki/WebM" target="_blank">28</a></sup> is a more recent creation, and mostly funded by Google llc.  It is defined in RFCs <sup><a href="https://datatracker.ietf.org/doc/rfc6386/" target="_blank">29</a></sup> <sup><a href="https://www.rfc-editor.org/rfc/rfc7741" target="_blank">30</a></sup> <sup><a href="https://www.rfc-editor.org/rfc/rfc6381" target="_blank">31</a></sup>, and technically is a subset of Matroska project.   More recent webm files use VP9 <sup><a href="https://en.wikipedia.org/wiki/VP9" target="_blank">32</a></sup>, the end of the reference includes how frames are compressed.   This media format also has between-frame referencing.  Here are details on the container webm uses <sup><a href="https://www.webmproject.org/docs/container/" target="_blank">33</a></sup></li>
-    <li class="libasic">If the desired video editing was just additive (like Whatapp selfie filters); it could be applied as a separate DOM element on top.  This second approach is limited for filters applied to moving things, as it would need to be dragged manually. The video stream has not been decoded.  Applying the filter would be extremely annoying on small mobile screen (compare finger size to screen size).   Adding a texture map to the top of the video stream would be easier if MPEG supported transparent pixels; however the common encodings don't <sup><a href="https://mpeg.chiariglione.org/standards/mpeg-4/video" target="_blank">34</a></sup> <sup><a href="https://www.quora.com/How-do-I-make-a-video-have-a-transparent-background?share=1" target="_blank">35</a></sup>.</li>
-    <li class="libasic">On a related concept there is “picture in picture” (PiP) support in most browsers <sup><a href="https://en.wikipedia.org/wiki/Picture-in-picture" target="_blank">36</a></sup>.  There is a support for the basic PiP in modern JS <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Picture-in-Picture_API" target="_blank">37</a></sup> <sup><a href="https://davidwalsh.name/javascript-pip" target="_blank">38</a></sup>.  PiP is not supported in Firefox or MSIE runtimes.   </li>
+    <li class="libasic">If the desired video editing was just additive (like Whaisapp selfie filters); it could be applied as a separate DOM element on top.  This second approach is limited for filters applied to moving things, as it would need to be dragged manually. The video stream has not been decoded.  Applying the filter would be extremely annoying on small mobile screen (compare finger size to screen size).   Adding a texture map to the top of the video stream would be easier if MPEG supported transparent pixels; however the common encodings don't <sup><a href="https://mpeg.chiariglione.org/standards/mpeg-4/video" target="_blank">34</a></sup> <sup><a href="https://www.quora.com/How-do-I-make-a-video-have-a-transparent-background?share=1" target="_blank">35</a></sup>.</li>
+    <li class="libasic">On a related concept there is “picture in picture” (PiP) support in most browsers <sup><a href="https://en.wikipedia.org/wiki/Picture-in-picture" target="_blank">36</a></sup>.  There is a support for the basic PiP in modern JS <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Picture-in-Picture_API" target="_blank">37</a></sup> <sup><a href="https://davidwalsh.name/javascript-pip" target="_blank">38</a></sup>.  PiP is not supported in Firefox or MSIE run-times.   </li>
 </ul>
 
 
-<h3 class="dontend" id="toc0"> How to make a video using JavaScript? <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
-<p>The following are the most highly rated tools at the point of print; however I haven't used any of these recommedations, as I haven't needed to edit video in JS</p>
+<h3 class="dontend" id="toc0"> How to make a video using JavaScript tools? <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<p>The following are the most highly rated tools at the point of print; however I haven't used any of these recommendations, as I haven't needed to edit video in JS</p>
 
 <ul class="ulbasic">
     <li class="libasic">A node library in npm is supplying tools to automatically make marketing videos for you, from source data and a config file <sup><a href="https://www.npmjs.com/package/json2video-sdk" target="_blank">39</a></sup>.  Computation is done on a remote server owned by the vendor. This is the <b>MOST REALISTIC CHOICE</b>.</li>
@@ -114,7 +114,7 @@ TODO: magic tune selection against some index/DB -->
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fedit-video-in-js" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fedit-video-in-js" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fedit-video-in-js" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>Editing video in JS</h1></header>
@@ -136,13 +136,13 @@ TODO: magic tune selection against some index/DB -->
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fedit-video-in-js" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fedit-video-in-js" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fedit-video-in-js" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-05T20:47:52">5th of Jan 2023</time></span>
 <span>Created <time datetime="2022-06-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Jun 2022</time> </span>
 </span>
 </p></div>
@@ -154,7 +154,7 @@ TODO: magic tune selection against some index/DB -->
 <fieldset class="h4_menu column">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
 <menu><ul class="h4_lean">
-<li class="h4_odd"><a href="#toc0">How to make a video using JavaScript?</a></li>
+<li class="h4_odd"><a href="#toc0">How to make a video using JavaScript tools?</a></li>
 </ul>
 </menu><br />
 
@@ -177,12 +177,12 @@ TODO: magic tune selection against some index/DB -->
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:36:20">2nd of Jan 2023, 11:36:20</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-08T21:03:15">8th of Jan 2023, 21:03:15</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-05T20:47:52">5th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

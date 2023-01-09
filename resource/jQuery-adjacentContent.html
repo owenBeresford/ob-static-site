@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-adjacentContent" />
 <meta property="og:description" content="Research for a feature on this website" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 11:37:02" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="8th of Jan 2023, 21:03:55" />
+<meta property="article:modified_time" content="5th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "jQuery-adjacentContent",
-	"article:published_time":"2nd of Jan 2023, 11:37:02", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"8th of Jan 2023, 21:03:55", 
+    "article:modified_time":"5th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -47,7 +47,7 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body">
+<body id="body" class="annoyingBody">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -57,9 +57,9 @@ TODO: magic tune selection against some index/DB -->
 
 <h3 class="dontend" id="toc0"> Intro <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <p>Its now 2020, and I quickly made another jquery plugin.  <em>“what, why?  Do I even internet?&quot;</em><br />
-I started this project in 2009, when jQuery was a reasonable abstraction layer; I didn't have much JS experience at the time, although I had been a professional developer for over five years.  Professionally I used jQuery between 2011 and 2013, maybe 2014.  In terms of deliver “reliable business solutions” for forms, or simple and mostly static websites, jQuery isn't bad.  I don't have much interest in replacing every JS thing on here with a newer more fashionable one.<br />
+I started this project in 2009, when jQuery was a reasonable abstraction layer; I didn't have much JS experience at the time, although I had been a professional developer for over five years.  Professionally I used jQuery between 2011 and 2013, maybe 2014.  In terms of deliver “reliable business solutions” for forms, or simple and mostly static websites, jQuery isn't bad.  I don't have much interest in replacing every JS tool on here with a newer more fashionable one.<br />
 Since 2014 most people are migrating away from a toolkit designed to suppress browser in-compatibilities.   If I was starting this set of webpages that feel like journal articles now;  I would look at AlpineJS <a href="https://github.com/alpinejs/alpine/" target="_blank">git</a>.  Note Alpine would require adding features such as a AJAJ/AJAX module separately. <br />
-The reason for this intro is “what type of JS support is useful for sites that behave like journal articles”.  To a lesser extent this question also applies to blogs.  In my opinion, there isn't much interaction or scripting needed.  This implies that adding Angular, or React, or Vue (which I used sequentially in my last three employment projects, with more complex objectives) are massively over engineered tools to be able to present text.   Please note my site has a readable font (has done since about 2012) as this assists the use-case of reading text.  For comparison, none of the paid projects in the same timespan, which are using bigger JS toolkits; had non-default fonts.</p>
+The reason for this intro is “what type of JS support is useful for sites that behave like journal articles”.  To a lesser extent this question also applies to blogs.  In my opinion, there isn't much interaction or scripting needed.  This implies that adding Angular, or React, or Vue (which I used sequentially in my last three employment projects, with more complex objectives) are massively over engineered tools to be able to present text.   Please note my site has a readable font (has done since about 2012) as this assists the use-case of reading text.  For comparison, none of the paid projects in the same timespan, which are using bigger Javascript tools; had non-default fonts.</p>
 
 
 <h3 class="dontend" id="toc1"> Objectives <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
@@ -74,13 +74,12 @@ The reason for this intro is “what type of JS support is useful for sites that
 <h3 class="dontend" id="toc2"> Discussion <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <p>It is reasonable to ask “why is this implemented in JS, rather than your serverside language?&quot;.  The answer is that I would like my current article format<a class="" href="">?</a> to work with static sites.  It is not practical to statically build “the next X articles on the same topic” as a pre-computed list on each article.   Or if I do do that; to be able to update it with new content.   Secondly, if you look at quite a few blog sites; they also use a separate “related content” API; partially for syndication.  If this has been published as a design pattern, I don't know what it is called.  <i>UPDATE:</i> having written that text and feature; it now occurs to me I can keep the separate file (my requirement), and use some sort of SSI technology (on this site, probably a iceline v2 file include) to do the merging.  This may be a tad faster to render; its probably not valuable to optimise that point.   I have wasted about 10min using a “normal process” ~ AJAJ ~ to get the data to the client.  The process I did build is more re-useable.</p>
 
-<p>As far as I observe, tag clouds are now <em>passé</em> (and have been for some time).  The related content, for example on <em>ars technica</em> e.g. <sup><a href="https://arstechnica.com/features/2020/08/bridgefy-the-app-promoted-for-mass-protests-is-a-privacy-disaster/" target="_blank">1</a></sup> seems to solve the same objective.  It is intentional to allow an article to appear in more than one group.  Likewise its not actually required that all articles in a group are owned by me.</p>
-
-<p>I am not sure whether it is worth adding a new git project for this; I suppose the least wasted effort solution is to add it to the jquery-ob project.  Obviously the new feature is very tightly integrated into the CMS.</p>
+<p>As far as I observe, tag clouds are now <em>passé</em> (and have been for some time).  The related content, for example on <em>ars technica</em> e.g. <sup><a href="https://arstechnica.com/features/2020/08/bridgefy-the-app-promoted-for-mass-protests-is-a-privacy-disaster/" target="_blank">1</a></sup> seems to solve the same objective.  It is intentional to allow an article to appear in more than one group.  Likewise its not actually required that all articles in a group are owned by me.<br />
+I am not sure whether it is worth adding a new git project for this; I suppose the least wasted effort solution is to add it to the jquery-ob project.  Obviously the new feature is very tightly integrated into the CMS.</p>
 
 <p><b>WARNING</b>: Making this feature meant I have reviewed nearly all of my content; I have improved English; I have added metadata, descriptions mostly; I have added contentGroup attribs.  This means the last edit date is now fairly pointless.  I have looked into the “file create date”; on my desktop, this is meaningless; as I have changed machine 3-4 times since 2009 when I started this website. I have looked at the “git creation date”; unfortunately I have changed software version control more than once too.  I could try to get the data out of google; but that would be a noticeable RnD project for me.  As such old articles are now listing march 2015 as the creation date, even though that under ages them by some distance.</p>
 
-<p>As most search engine bots support JS <sup><a href="https://www.hobo-web.co.uk/javascript-seo/" target="_blank">2</a></sup>  <sup><a href="https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157" target="_blank">3</a></sup> <sup><a href="https://webmasters.stackexchange.com/questions/82783/does-bing-execute-javascript-when-crawling-and-indexing-web-pages-like-google" target="_blank">4</a></sup>, there is little value in a static article index page.  If a historical tech approach is needed, I have a dynamic RSS list and a dynamic “site map” resource; which are both flat indexes; to be inclusive for older technology.  My home page is an index 'wearing a fancy hat'; I guess it needs to stay, to support users who actually type the URL in.  If you land on the site after a search; you are unlikely to see the home page at all.</p>
+<p>As most search engine bots support JS <sup><a href="https://www.hobo-web.co.uk/javascript-seo/" target="_blank">2</a></sup> <sup><a href="https://searchengineland.com/tested-googlebot-crawls-javascript-heres-learned-220157" target="_blank">3</a></sup> <sup><a href="https://webmasters.stackexchange.com/questions/82783/does-bing-execute-javascript-when-crawling-and-indexing-web-pages-like-google" target="_blank">4</a></sup>, there is little value in a static article index page.  If a historical tech approach is needed, I have a dynamic RSS list and a dynamic “site map” resource; which are both flat indexes; to be inclusive for older technology.  My home page is an index 'wearing a fancy hat'; I guess it needs to stay, to support users who actually type the URL in.  If you land on the site after a search; you are unlikely to see the home page at all.</p>
 
 <p>I intend to iterate the UI; to minimise space, and supply a lot of information efficiently.  It is minor-ly worth noting that the extra tool-tip (operated with CSS) to tell you about the links is fiddly; and will need careful testing.  I have iterated the English; clearly this is a group/directory structure, but I don't think 'group' needs to be an important term in the display text.<br />
 I see there are two groups of users who need the feature:</p>
@@ -94,8 +93,8 @@ I see there are two groups of users who need the feature:</p>
 
 <p>Testing on this feature is not very traditional. The meta data has a large impact on the usefulness and the readability of the feature.  The code committed to git has unit tests; but I am manually testing every single step; and adjusting the articles.  I observe a similar process in other meta data projects; which makes them expensive.</p>
 
-<p>Technically this feature is:</p>
 
+<h5 id="toc3"> Technically this new Javascript tool is:</h5>
 <ul class="ulbasic">
     <li class="libasic">time spent thinking about how to group the articles</li>
     <li class="libasic">a lot of time improving meta data in each article, as I am now using it more</li>
@@ -147,7 +146,7 @@ I see there are two groups of users who need the feature:</p>
 </dialog>
 
 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-adjacentContent" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-adjacentContent" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-adjacentContent" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 </div>
 <div id="bigScreen" class="row">
 <div class="h4_title column"><header><h1>jQuery-adjacentContent</h1></header>
@@ -169,13 +168,13 @@ I see there are two groups of users who need the feature:</p>
 </defs>
 </svg>
 </a>
-	<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-adjacentContent" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-adjacentContent" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-adjacentContent" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 &shy; Follow 
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+<span>Edited <time datetime="2023-01-05T20:51:52">5th of Jan 2023</time></span>
 <span>Created <time datetime="2020-08-29T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >29th of Aug 2020</time> </span>
 </span>
 </p></div>
@@ -212,12 +211,12 @@ I see there are two groups of users who need the feature:</p>
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T11:37:02">2nd of Jan 2023, 11:37:02</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-08T21:03:55">8th of Jan 2023, 21:03:55</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-05T20:51:52">5th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

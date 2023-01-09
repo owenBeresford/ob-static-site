@@ -2,30 +2,30 @@
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
-<title>JS Nation 'live' - 12 recent JS libraries from the JS conference 2021</title>
+<title>JS Nation 'live' - 12 recent JS libraries from the JS conference 2020</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Generator" content="iceline webkit 2.1" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="JS remote 2021 conference, with info on 12 new-to-me libraries; some notes where made" />
+<meta name="Description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes where made" />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2021">
-<meta itemprop="description" content="JS remote 2021 conference, with info on 12 new-to-me libraries; some notes where made">
+<meta itemprop="name" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2020">
+<meta itemprop="description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes where made">
 <!-- meta name="twitter:card" content="summary_large_image" -->
 <meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2021">
-<meta name="twitter:description" content="JS remote 2021 conference, with info on 12 new-to-me libraries; some notes where made">
+<meta name="twitter:title" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2020">
+<meta name="twitter:description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes where made">
 <meta name="twitter:creator" content="@channelOwen">
-<meta property="og:title" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2021" />
+<meta property="og:title" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2020" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-nation-live-notes" />
-<meta property="og:description" content="JS remote 2021 conference, with info on 12 new-to-me libraries; some notes where made" />
+<meta property="og:description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes where made" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 16:09:15" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="9th of Jan 2023, 18:17:16" />
+<meta property="article:modified_time" content="9th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. Progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -35,9 +35,9 @@ TODO: magic tune selection against some index/DB -->
   {
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
-    "name": "JS Nation 'live' - 12 recent JS libraries from the JS conference 2021",
-	"article:published_time":"2nd of Jan 2023, 16:09:15", 
-    "article:modified_time":"22nd of Dec 2022",
+    "name": "JS Nation 'live' - 12 recent JS libraries from the JS conference 2020",
+	"article:published_time":"9th of Jan 2023, 18:17:16", 
+    "article:modified_time":"9th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -47,13 +47,13 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body">
+<body id="body" class="annoyingBody">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
     <article>
      <div class="blocker h4grid">
-<h4 style="text-align:center;">This is a summary of the JS Nation conference from 2021 </h4>
+<h4 style="text-align:center;">Summary of JS tools covered: </h4>
 <p > 
 So it has many less references.  At the point you read this, please consult the products' current documentation located in a link under each entry, for recent updates.   This page lists 12 newer projects, then some lesser-known OSS projects. Click on each entry to get the notes.  To reduce the wall of text effect, I have put it in a HTML details / summary list.  If you are using a speech-reader, this should be fine as everything is present at the page load and inside semantic markup. 
 </p>
@@ -72,7 +72,7 @@ They claimed it was distributed architecture like MongoDB is; but more SQL flavo
 <details>
 <summary>Cypress </summary> 
 <p>Cypress is an in-browser test library for E2E web app testing.   I am not making use of it, as it cannot support MSIE or Safari; for the well-documented reasons for which I need a test tool to support tests in those browsers.  As a fairly normal test tool, it supports extensions; and the speaker kept resolving people's issues by mentioning another plugin.  Cypress does modify the stack of the tested code (to be able to see what's happening), so it can't really do performance testing. <br />
-Cypress can be used to test things like hovers, and hidden content.  It has a mature “retry test” <sup><a href="http://on.cypress.io/retry-ability" target="_blank">1</a></sup> capacity, to manage the widely observed fact that some tests will hit a small deadlock/bad sequencing and sometimes take a lot longer to execute than expected.  The presenter claimed in the video that it was possible to “create tests” by using the website as a user (I do not have a clue how automatic creation of assert() would work). <br />
+Cypress can be used to test things like hovers, and hidden content.  It has a mature “retry test” <sup><a href="https://docs.cypress.io/guides/core-concepts/retry-ability" target="_blank">1</a></sup> capacity, to manage the widely observed fact that some tests will hit a small deadlock/bad sequencing and sometimes take a lot longer to execute than expected.  The presenter claimed in the video that it was possible to “create tests” by using the website as a user (I do not have a clue how automatic creation of assert() would work). <br />
 Please read other docs, Cypress seems to have enough of them.</p>
 
 
@@ -89,7 +89,7 @@ He says I could link C SO files into a NodeJS process if I need to.   I think No
 <details>
 <summary>Announce of Other tools </summary>
 <ul class="ulbasic">
-    <li class="libasic">As food for thought: not a tool, but please read <sup><a href="http://acko.net/blog/apis-are-about-policy/" target="_blank">1</a></sup>. This line of reason is why i tried to get away from making REST API a few year ago, as that work seemed about to be automated away.</li>
+    <li class="libasic">As food for thought: not a tool, but please read <sup><a href="https://acko.net/blog/apis-are-about-policy/" target="_blank">1</a></sup>. This line of reason is why i tried to get away from making REST API a few year ago, as that work seemed about to be automated away.</li>
     <li class="libasic">Now have a CMS in NodeJS; called Sanity.io  This charges per user!</li>
     <li class="libasic">A middleware called Apollo, which is an implementation of GraphQL. Includes a feature like WSDL, for transaction description.</li>
     <li class="libasic">A View library called alpineJS, which is smaller than headless/no compiler vue</li>
@@ -189,11 +189,38 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 
 
 </details>
+<details>
+<summary>Collection of useful URLs</summary>
+<p>One of the organisers had extracted all the useful URLs from the lecture notes, and gave us a combined list, so the attendees can find stuff</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><a href="https://docs.google.com/document/d/10HrtNsaQH0MBTsRKJIQldEr9XMiTLWkEsJ0HYEIrmSU/edit#heading=h.d75mahce6h8m" target="_blank">FaunaDB setup tut</a></li>
+    <li class="libasic"><a href="https://github.com/fauna-brecht/professional-network-graphql" target="_blank">graphQL network</a> <a href="https://github.com/Urigo/graphql-mesh" target="_blank">graphQL-mesh </a></li>
+    <li class="libasic"><a href="https://acko.net/blog/apis-are-about-policy/" target="_blank">APIs are policy</a> <a href="https://www.cleveroad.com/blog/how-to-build-a-live-streaming-app/" target="_blank">How to Create a Live Streaming App</a></li>
+    <li class="libasic"><a href="https://blog.nrwl.io/misconceptions-about-monorepos-monorepo-monolith-df1250d4b03c" target="_blank">monorepo monolith</a></li>
+    <li class="libasic"><a href="https://pinafore.social/" target="_blank">Pinfore</a> <a href="https://github.com/nolanlawson/pinafore" target="_blank">Pinafore src</a></li>
+    <li class="libasic"><a href="https://svelte-community.netlify.app/codei" target="_blank">Svelte</a> <a href="https://madewithsvelte.com/" target="_blank">boast list for Svelte</a> <a href="https://svelte.dev/tutorial/component-events" target="_blank">component events</a> <a href="https://github.com/sveltejs/svelte-preprocess" target="_blank">svelte preprocessor</a> <sup><a href="https://docs.microsoft.com/en-us/learn/modules/publish-app-service-static-web-app-api/" target="_blank">1</a></sup></li>
+    <li class="libasic"><a href="https://remote.reactsummit.com/" target="_blank">React summit</a> <a href="https://github.com/bahmutov/cypress-react-unit-test#comparison" target="_blank">cypress &amp; react</a></li>
+    <li class="libasic"><a href="https://glebbahmutov.com/blog/open-source-visual-testing-of-components/" target="_blank">cypress</a> <a href="https://github.com/cypress-io/cypress/pull/4176" target="_blank">cypress-IO</a> <a href="https://www.cypress.io/blog/2020/05/22/where-does-the-test-spend-its-time/" target="_blank">cypress execution costs</a> <a href="https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__performance-metrics" target="_blank">cypress 1</a> <a href="https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__hover-hidden-elements" target="_blank">cypress 2</a> <a href="https://on.cypress.io/plugins" target="_blank">cypress plugins</a> <a href="https://docs.cypress.io/guides/core-concepts/retry-ability" target="_blank">retry ability </a></li>
+    <li class="libasic"><a href="https://github.com/mswjs/msw" target="_blank">Mock Service Worker</a></li>
+    <li class="libasic"><a href="https://github.com/bahmutov/test-apollo" target="_blank">test for Apollo</a> <a href="https://slides.com/bahmutov/i-see-what-is-going-on" target="_blank">'I see what is going on'</a> <a href="https://slides.com/bahmutov/i-see-what-is-going-on#/9/9" target="_blank">video of previous</a></li>
+    <li class="libasic"><a href="https://tsed.io" target="_blank"> ts.ED framework</a></li>
+    <li class="libasic"><a href="https://www.fastify.io/docs/latest/Middleware/" target="_blank">fastify middleware</a> <a href="https://github.com/mcollina/one-two-three-fastify" target="_blank">fastify setup</a></li>
+    <li class="libasic"><a href="https://github.com/mcollina/make-promises-safe" target="_blank">better promise safety</a> <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController" target="_blank">abort controller</a> <a href="https://www.npmjs.com/package/abort-controller" target="_blank">abort in NPM</a></li>
+    <li class="libasic"><a href="https://docs.nestjs.com/" target="_blank">nestjs</a></li>
+    <li class="libasic"><a href="https://npmjs.com/piscina" target="_blank">piscina</a></li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/node-addon-api" target="_blank">addon-api</a></li>
+    <li class="libasic"><a href="https://github.com/sokra/slides/blob/master/content/ModuleFederationWebpack5.md" target="_blank">federated webpack</a></li>
+    <li class="libasic"><a href="https://github.com/vuejs/composition-api" target="_blank">vue3 composition api</a> <a href="https://academy.esveo.com/en/blog/Yr" target="_blank">Vue 3 Composition API</a>  <a href="https://catalins.tech/" target="_blank">Catalins blog</a></li>
+    <li class="libasic"><a href="https://jepsen.io/" target="_blank">Jepsen</a></li>
+    <li class="libasic"><a href="https://clojurescript.org/" target="_blank">clojure</a> <a href="https://objectcomputing.com/resources/publications/sett/march-2009-clojure-functional-programming-for-the-jvm" target="_blank">Clojure nearly book</a></li>
+    <li class="libasic">Books: <a href="https://landing.google.com/sre/workbook/toc/" target="_blank">SRE book</a> <a href="https://use-the-index-luke.com/sql/preface" target="_blank">use the index, SQL</a> <a href="https://catb.org/esr/writings/unix-koans/" target="_blank">UNIX koans, ESR</a> <a href="https://github.com/norvig/paip-lisp/" target="_blank">Palp-lisp book</a> <a href="https://book.realworldhaskell.org/read/" target="_blank">Haskell book</a> <a href="https://github.com/getify/You-Dont-Know-JS" target="_blank">'getify, dun't know JS' books</a></li>
+</ul>
+
+
+</details>
+
 </div>
-
-<span class="centre">
-
-</span>
 <br />
 </div>
     </article>
@@ -204,7 +231,7 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 <legend></legend>
 	<nav>
 		<div id="tinyScreen" class="addReading">
-			<header> <h1>JS Nation 'live' - 12 recent JS libraries from the JS conference 2021</h1> </header>
+			<header> <h1>JS Nation 'live' - 12 recent JS libraries from the JS conference 2020</h1> </header>
 			<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 			<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
 			Share: 
@@ -222,7 +249,7 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 				</svg>
 			</a>
 			<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-			<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+			<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 			<dialog id="popup1" class="popup1">
 				<form method="dialog">
 					<p>your server: 
@@ -235,7 +262,7 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 
 		<div id="bigScreen" class="row">
 			<div class="h4_title column"> 
-				<header><h1>JS Nation 'live' - 12 recent JS libraries from the JS conference 2021</h1></header>
+				<header><h1>JS Nation 'live' - 12 recent JS libraries from the JS conference 2020</h1></header>
 				
 				
 				<p id="shareGroup" class="addReading"> 
@@ -255,13 +282,13 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 </defs>
 							</svg>
 						</a>
-						<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 						&shy; Follow 
 					</span>
 					<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 					<span class="ultraSkinny"> 
-						<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+						<span>Edited <time datetime="2023-01-09T16:36:23">9th of Jan 2023</time></span>
 						<span>Created <time datetime="2020-06-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Jun 2020</time> </span>
 					</span>
 				</p>
@@ -275,7 +302,7 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 			<fieldset class="h4_menu column">
 				<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
 					<menu><ul class="h4_lean">
-<li class="h4_odd"><a href="#toc0">This is a summary of the JS Nation conference from 2021</a></li>
+<li class="h4_odd"><a href="#toc0">Summary of JS tools covered:</a></li>
 </ul>
 </menu><br />
 
@@ -298,12 +325,12 @@ He stated, as this is just evaluating JS, it could access external objects</p>
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T16:09:15">2nd of Jan 2023, 16:09:15</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-09T18:17:16">9th of Jan 2023, 18:17:16</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-09T16:36:23">9th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
@@ -313,10 +340,12 @@ Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/li
 summary { font-size:130%; margin:1em; }
 details[open] {
 	width:40em; height: calc( 100% - 8vh ); position:fixed; z-index:2; top:8vh; left:calc( 50% - 20em ); 
-	right:calc( 50% - 20em ); background-color:white;
+	right:calc( 50% - 20em ); background-color:white; overflow-y:scroll;
 }
 details[open] summary::after { content:"X"; margin-left:2em; float:right; font-weight:bold; border:grey 1px solid; padding:0 1em ; } 
 details[open] summary:hover { background-color:#d7f2fa; } 
+details li a::after { content:" | "; color:#333; }
+details li a:last-child::after { content:""; }
 
 details[open] p, details[open] ul {
    margin:1em; margin-left:2em; overflow-y:scroll; background-color:white; }

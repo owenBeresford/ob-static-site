@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/gis-data" />
 <meta property="og:description" content="A collection of notes for GIS related solutions" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2nd of Jan 2023, 16:09:04" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="5th of Jan 2023, 10:11:30" />
+<meta property="article:modified_time" content="4th of Jan 2023" />
 <!-- the below track is just a generic cheese track, but the style fits. Progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "GIS data (pt1)",
-	"article:published_time":"2nd of Jan 2023, 16:09:04", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"5th of Jan 2023, 10:11:30", 
+    "article:modified_time":"4th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -89,14 +89,14 @@ var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 var d = R * c;
 </pre>
+<p><strong> references: </strong></p>
 
-<h3 class="dontend" id="toc3"> references <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic"><a href="http://www.movable-type.co.uk/scripts/latlong.html" target="_blank">read this guide</a>, for more information.</li>
+    <li class="libasic"><a href="https://www.movable-type.co.uk/scripts/latlong.html" target="_blank">read this guide</a>, for more information.</li>
 </ul>
 
 
-<h2 class="dontend" id="toc4"> Logarithmic map zoom levels to diameter  <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc3"> Logarithmic map zoom levels to diameter  <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
 <p>I don't think this zoom scale is actually Google IP, but a cartographer invention.  The scale is shared between all map systems that I have used.</p>
 
 <p>Use this to set the correct zoom to draw your data.</p>
@@ -122,16 +122,16 @@ function compute_zoom_from_renderSize(lat, pixels) {
 	return Math.log2( EARTH_CIRCUMFERENCE * Math.cos(lat) / pixels ) -MYSTIC_OFFSET;
 }
 </pre>
+<p><strong> references:</strong></p>
 
-<h3 class="dontend" id="toc5"> references <a href="#toc5"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic"><a href="http://math.harvard.edu/~ytzeng/worksheet/1121_sol.pdf" target="_blank">Stokes theorem</a> on some lecture notes hosted by MIT</li>
-    <li class="libasic"><a href="http://wiki.openstreetmap.org/wiki/Zoom_levels" target="_blank">Open streetmaps zoom levels definition</a></li>
-    <li class="libasic"><a href="http://gis.stackexchange.com/questions/7430/what-ratio-scales-do-google-maps-zoom-levels-correspond-to" target="_blank">Google maps zoom level definition</a></li>
+    <li class="libasic">Stokes theorem <sup><a href="https://abel.math.harvard.edu/archive/21a_spring_09/PDF/31.%20Stokes%27%20Theorem.pdf" target="_blank">1</a></sup> <sup><a href="https://legacy-www.math.harvard.edu/~knill/teaching/math22a2018/handouts/lecture32.pdf" target="_blank">2</a></sup></li>
+    <li class="libasic"><a href="https://wiki.openstreetmap.org/wiki/Zoom_levels" target="_blank">Open streetmaps zoom levels definition</a></li>
+    <li class="libasic"><a href="https://gis.stackexchange.com/questions/7430/what-ratio-scales-do-google-maps-zoom-levels-correspond-to" target="_blank">Google maps zoom level definition</a></li>
 </ul>
 
 
-<h2 class="dontend" id="toc6"> Range clipping co-ords <a href="#toc6"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc4"> Range clipping co-ords <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
 <p>If your data is known to be inside a geographical area, a quick test during development can increase your development velocity e.g. UK data should never have co-ords less than 40deg North.  As not all co-ord systems put the co-ords items in the same order, <em>this check is really useful</em>.</p>
 
 
@@ -204,7 +204,7 @@ function rectify_inversion(long, lat, box) {
 				</svg>
 			</a>
 			<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgis-data" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a>
-			<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgis-data" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
+			<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgis-data" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a>
 			<dialog id="popup1" class="popup1">
 				<form method="dialog">
 					<p>your server: 
@@ -237,13 +237,13 @@ function rectify_inversion(long, lat, box) {
 </defs>
 							</svg>
 						</a>
-						<a href="http://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgis-data" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgis-data" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgis-data" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 						&shy; Follow 
 					</span>
 					<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 					<span class="ultraSkinny"> 
-						<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time></span>
+						<span>Edited <time datetime="2023-01-04T17:42:28">4th of Jan 2023</time></span>
 						<span>Created <time datetime="2016-05-29T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >29th of May 2016</time> </span>
 					</span>
 				</p>
@@ -260,9 +260,8 @@ function rectify_inversion(long, lat, box) {
 <li class="h4_odd"><a href="#toc0">Notes on map projections</a></li>
 <li><a href="#toc1">Address lookup/ autocomplete</a></li>
 <li class="h4_odd"><a href="#toc2">Distance between two points on a sphere</a></li>
-<li><a href="#toc5">references</a></li>
-<li class="h4_odd"><a href="#toc4">Logarithmic map zoom levels to diameter</a></li>
-<li><a href="#toc6">Range clipping co-ords</a></li>
+<li><a href="#toc3">Logarithmic map zoom levels to diameter</a></li>
+<li class="h4_odd"><a href="#toc4">Range clipping co-ords</a></li>
 </ul>
 </menu><br />
 
@@ -285,12 +284,12 @@ function rectify_inversion(long, lat, box) {
  <div id="biblio"></div>
  <br class="blocker" />
  <footer>
-  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="http://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-<a href="http://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
+  <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
 <a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-02T16:09:04">2nd of Jan 2023, 16:09:04</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>. <br />
+</div> Page rendered <time datetime="2023-01-05T10:11:30">5th of Jan 2023, 10:11:30</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-04T17:42:28">4th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
