@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-async-io" />
 <meta property="og:description" content="Article outlining my solution not having generators in browsers JS" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="12th of Jan 2023, 3:23:45" />
-<meta property="article:modified_time" content="9th of Jan 2023" />
+<meta property="article:published_time" content="18th of Jan 2023, 9:03:29" />
+<meta property="article:modified_time" content="16th of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-async-io" />
 <!-- the below track is just a generic cheese track, but the style fits. Progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -37,8 +37,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Better JS Async IO",
-	"article:published_time":"12th of Jan 2023, 3:23:45", 
-    "article:modified_time":"9th of Jan 2023",
+	"article:published_time":"18th of Jan 2023, 9:03:29", 
+    "article:modified_time":"16th of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -56,7 +56,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="halferWords">
 <p>When I write new code in Node, I use Koa and generators, as it makes the code simpler, and faster to develop.  I do not have good support for generators in in-browser JS AFAIK, and have not seen them outside of Node libraries.  <b>UPDATE 2022:</b> Although I haven't seen them in FE code; they have been supported for a while <sup><a href="https://caniuse.com/?search=generator" target="_blank">1</a></sup><br />
-There are millions of articles on line to help people from the job title “lens grinder”/ “sales director” (or similar, random non-tech titles) to the title “evening code-fiddler”.  The articles are trying to make development look as simple as possible; they skip all the error handling, they skip performance analysis, they skip encapsulation and reuse.  They have been written last some point in the last decade (i.e. not necessarily current).  They all nest callbacks in an un-managable fashion.   For example <sup><a href="http://callbackhell.com/" target="_blank">2</a></sup> <sup><a href="https://stackabuse.com/avoiding-callback-hell-in-node-js/" target="_blank">3</a></sup> <sup><a href="https://stackoverflow.com/questions/20961919/node-js-async-how-to-avoid-callback-hell-with-async" target="_blank">4</a></sup> <sup><a href="https://www.slideshare.net/sh1mmer/how-to-stop-writing-spaghetti-code/38" target="_blank">5</a></sup> <sup><a href="https://blog.risingstack.com/node-js-async-best-practices-avoiding-callback-hell-node-js-at-scale/" target="_blank">6</a></sup> <sup><a href="https://techbullion.com/event-driven-programming-101-guide-to-applications-and-development/" target="_blank">7</a></sup> <sup><a href="https://shinesolutions.com/2011/08/26/asynchronous-code-design-with-node-js/" target="_blank">8</a></sup> <sup><a href="https://justinklemm.com/node-js-async-tutorial/" target="_blank">9</a></sup> <sup><a href="https://stackoverflow.com/questions/23709118/does-go-have-callback-concept/23709882#23709882" target="_blank">10</a></sup> <sup><a href="https://blog.risingstack.com/node-js-at-scale-understanding-node-js-event-loop/" target="_blank">11</a></sup></p>
+There are millions of articles on line to help people from the job title “lens grinder”/ “sales director” (or similar, random non-tech titles) to the title “evening code-fiddler”.  The articles are trying to make development look as simple as possible; they skip all the error handling, they skip performance analysis, they skip encapsulation and reuse.  They have been written last some point in the last decade (i.e. not necessarily current).  They all nest callbacks in an un-managable fashion.   For example <sup><a href="https://www.freecodecamp.org/news/how-to-deal-with-nested-callbacks-and-avoid-callback-hell-1bc8dc4a2012/" target="_blank">2</a></sup> <sup><a href="https://stackabuse.com/avoiding-callback-hell-in-node-js/" target="_blank">3</a></sup> <sup><a href="https://stackoverflow.com/questions/20961919/node-js-async-how-to-avoid-callback-hell-with-async" target="_blank">4</a></sup> <sup><a href="https://www.slideshare.net/sh1mmer/how-to-stop-writing-spaghetti-code/38" target="_blank">5</a></sup> <sup><a href="https://blog.risingstack.com/node-js-async-best-practices-avoiding-callback-hell-node-js-at-scale/" target="_blank">6</a></sup> <sup><a href="https://techbullion.com/event-driven-programming-101-guide-to-applications-and-development/" target="_blank">7</a></sup> <sup><a href="https://shinesolutions.com/2011/08/26/asynchronous-code-design-with-node-js/" target="_blank">8</a></sup> <sup><a href="https://justinklemm.com/node-js-async-tutorial/" target="_blank">9</a></sup> <sup><a href="https://stackoverflow.com/questions/23709118/does-go-have-callback-concept/23709882#23709882" target="_blank">10</a></sup> <sup><a href="https://blog.risingstack.com/node-js-at-scale-understanding-node-js-event-loop/" target="_blank">11</a></sup>.  There is a HTTP website called callbackhell.com; but I am trying to remove HTTP references from this site.</p>
 
 <p>The following is my preferred solution, I am getting sick of the above articles messes.  Secondly I wish to avoid global variables, which many JS examples litter all over the place.  There are many XMLHTTPRequest wrappers <sup><a href="https://github.com/cferdinandi/atomic" target="_blank">12</a></sup> <sup><a href="https://zeptojs.com/#$.ajax" target="_blank">13</a></sup> <sup><a href="https://github.com/calmm-js/karet.xhr" target="_blank">14</a></sup> <sup><a href="https://github.com/organic-scholar/http.js" target="_blank">15</a></sup> <sup><a href="https://github.com/natevw/fermata" target="_blank">16</a></sup> <sup><a href="https://github.com/MrOnlineCoder/sul.js" target="_blank">17</a></sup> <sup><a href="https://github.com/typicode/pegasus" target="_blank">18</a></sup> <sup><a href="https://github.com/ForbesLindesay/ajax" target="_blank">19</a></sup>, and this isn't the point of this article.  It is assumed that there is a library that exports Promises, and does all the REST verbs.  I generally try to write code that can run in a browser directly, as it makes wide browser support faster/cheaper.  This following code is optimised for a chain of API calls, where data needs to flow from one to the next. I am writing this down, purely for reference, and that I am practicing what I preach.</p>
 
@@ -260,7 +260,7 @@ I made a second version of this queueing class, where a single queue is shared a
 					</span>
 					<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 					<span class="ultraSkinny"> 
-						<span>Edited <time datetime="2023-01-09T12:27:33">9th of Jan 2023</time></span>
+						<span>Edited <time datetime="2023-01-16T16:39:12">16th of Jan 2023</time></span>
 						<span>Created <time datetime="2018-10-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Oct 2018</time> </span>
 					</span>
 				</p>
@@ -299,9 +299,9 @@ I made a second version of this queueing class, where a single queue is shared a
   <div class="h4_footer"> <div class="leftFooter"><a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
 <a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a></div>
 <div class="leftFooter"> 
-<a href="http://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-12T03:23:45">12th of Jan 2023, 3:23:45</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-09T12:27:33">9th of Jan 2023</time>. <br />
+</div> Page rendered <time datetime="2023-01-18T09:03:29">18th of Jan 2023, 9:03:29</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-16T16:39:12">16th of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
