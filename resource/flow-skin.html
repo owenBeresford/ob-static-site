@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/flow-skin" />
 <meta property="og:description" content="Discussion on building a third skin for my site.  This is designed around one of the infinite scroll themes, that you see on some news sites." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="18th of Jan 2023, 9:02:50" />
-<meta property="article:modified_time" content="3rd of Jan 2023" />
+<meta property="article:published_time" content="23rd of Jan 2023, 19:45:08" />
+<meta property="article:modified_time" content="23rd of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/flow-skin" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -37,8 +37,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Flow skin",
-	"article:published_time":"18th of Jan 2023, 9:02:50", 
-    "article:modified_time":"3rd of Jan 2023",
+	"article:published_time":"23rd of Jan 2023, 19:45:08", 
+    "article:modified_time":"23rd of Jan 2023",
     "article:section":"technology",
 
     "author": {
@@ -54,40 +54,41 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker">
-<p style="text-align:right;" ><a href="https://owenberesford.me.uk/resource/home" title="Site as done in pages, good for search engines." class="button">traditional pages</a> / <a href="https://owenberesford.me.uk/resource/flow" title="Site done in a single scroll." class="button" onclick="alert('This isn\'t installed yet...'); return false;">infinite scroll</a> </p>
+<p style="text-align:right;" ><a href="https://owenberesford.me.uk/resource/home" title="Site as done in pages, good for search engines." class="button">traditional pages</a> / <a href="https://owenberesford.me.uk/resource/flow" title="Site done in a single scroll, not authored." class="button"><del>infinite scroll</del></a> </p>
 
 <div class="lotsOfWords">
-<p>I present this skin as an optional alternative display.  The columnising code isn't used on mobile, so this should pose no problems to small screens, however the flow between articles may be better suited to tap interfaces.</p>
+<p>I present this skin as an optional alternative display in 2013.  The columnising code isn't used on mobile, so this should pose no problems to small screens, however the flow between articles may be better suited to touch interfaces.</p>
 
 
-<h2 class="dontend" id="toc0"> Behaviour description <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
-<p>This isn't a usecase, but a list in English of required behaviour.</p>
+<h4 class="dontend" id="toc0"> Behaviour description <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<p>This isn't a usejourney, but a list in English of required behaviour.</p>
 
 <ul class="ulbasic">
     <li class="libasic">Infinite scroll: Render a vertical strip of all the resources the user can see in a single list.  Examples <sup><a href="https://www.today.com/entertainment/kirsten-dunsts-death-star-gown-force-met-gala-2D79628770" target="_blank">1</a></sup> <sup><a href="https://designtaxi.com/news/421678/World-Design-Rankings-Refreshed-Where-Creativity-Shines-Brightest-Right-Now/" target="_blank">2</a></sup> <sup><a href="https://www.nbc.com/" target="_blank">3</a></sup> <sup><a href="https://uk.yahoo.com/" target="_blank">4</a></sup> and a big list <a href="https://www.awwwards.com/websites/infinite-scroll/" target="_blank">here</a></li>
-    <li class="libasic">Allow them to mouse gesture up and down to past or future resources.  This should add resources before they get to any extreme.  The equivalent for tap interfaces.  </li>
+    <li class="libasic">Allow them to mouse gesture up and down to past or future resources.  This should add resources before they get to any extreme co-ordinate.  Also the equivalent for touch interfaces.  </li>
     <li class="libasic">Work out some type of sort on the resources, so the previous sentence makes sense (as I update the resources, creation date will make more sense than last edit date).  </li>
-    <li class="libasic">Add a “jump next”, “jump previous” buttons every so often (mostly for longer resources).  </li>
     <li class="libasic">UPDATE 2020: I added a group structure, to associate articles; this would make the flow-skin more useful;</li>
+    <li class="libasic">Add a “jump next”, “jump previous” buttons every so often (mostly for longer resources).  </li>
 </ul>
 
 
-<h2 class="dontend" id="toc1"> Requirements <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h4 class="dontend" id="toc1"> Requirements <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">If its possible to add this feature via third party OSS code into iceline, use it. </li>
-    <li class="libasic">Generate a sort concept for the resources as a single set. </li>
+    <li class="libasic">Generate a sort concept for the resources as a single set, so there is deterministic “next article”. </li>
     <li class="libasic">The content is to be laid out in a long strip.  The content should be much longer than the viewport.</li>
     <li class="libasic">Resources are accessed by scrolling in either vertical direction.</li>
     <li class="libasic">The initial skin should load a few resources, and have the viewport on the middle of the co-ordinate space.</li>
     <li class="libasic">As the users moves the viewport towards an extreme of the coordinate space, add further resources, making the coordinate space bigger.</li>
+    <li class="libasic">After user is comfortably in the extra resource, delete the first one from the DOM.  It is probably OK to keep the currently downloaded articles in RAM as a Blob of String.</li>
     <li class="libasic">If the user “scrolls off the end” of the ordered resources, start adding them the other end and allow to keep scrolling.</li>
     <li class="libasic">The extra content resources should be injected by some type of AJAH type mechanism (not a page refresh).</li>
     <li class="libasic">The URL access point for the extra resources will need to not process the “frame” declaration.  It should return the content in the named file.  See render-source for a reference.</li>
-    <li class="libasic">The scroll effects will need to be tested on alot of mobiles.</li>
+    <li class="libasic">The scroll effects will need to be tested on alot of mobiles for usability and CSS tweaks.</li>
 </ul>
 
 
-<h2 class="dontend" id="toc2"> Discussion <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h4 class="dontend" id="toc2"> Discussion <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>Why is infinite scroll good?  In the examples listed in the top, it is beneficial as it avoids asset loading time on attached assets (normally adverts).  Infinite scrolling is simpler to steer for mobile.  This interface will need to be available, but not compulsory.  It must degrade usefully in a <i>noscript</i> situation.</p>
 
 <p>On my test machine, the resources are acquired from the server in about 200ms (ignoring the linked resources which would be loaded once).  This means it should be a reasonable speed.  I will need to test this access approach on phones.<br />
@@ -96,11 +97,16 @@ As this is based on the idea of serendipity, there is no direct access to each a
 
 <p>A long time ago, I wrote some HTML generation code, which auto-generated TOC, and formatted page headers.  The headers and the top of document had anchor labels, and each section included anchors to jump to relevant points in the document.  The longer pages using a scroll concept (aimed at mobile) are now bringing back this idea.</p>
 
-<p>When I created the template for the previous skin, I rearranged the content  to ensure everything was “on my screen”.  This one is business standard 1280x1024 ratio. The vertical access is more important than the horizontal, as there is more screen furniture on the vertical, and its numerically smaller.  Therefore I squashed everything vertically where possible.  For a vertical scroll this will need to be undone.</p>
+<p>When I created the template for the previous skin, I rearranged the content  to ensure everything was “on my screen”.  The design is RWD, but the principal of 'above the fold' still applies.   This one is business standard 1280x1024 ratio.   The vertical access is more important than the horizontal, as there is more screen furniture on the vertical, and its numerically smaller.   Therefore I squashed everything vertically where possible.  For a vertical scroll this will need to be undone.</p>
 
 <p>Infinite scroll has some usability issues (as described <sup><a href="https://xkcd.com/1309/" target="_blank">5</a></sup>), principally if you are a search engine <sup><a href="https://developers.google.com/search/blog/2014/02/infinite-scroll-search-friendly" target="_blank">6</a></sup> <sup><a href="https://www.zdnet.com/article/google-tries-to-save-the-web-from-the-curse-of-infinite-scrolling/" target="_blank">7</a></sup></p>
 
-<p>The columnisation will need to be suppressed in some fashion.  If the combined resource is re-columnised every-time more content is injected; it will run very slowly.</p>
+<p>The columnisation will need to be suppressed in some fashion.  If the combined resource is re-columnised every-time more content is injected; it will run very slowly.   The mobile screen size should do this automatically.</p>
+
+
+<h4 class="dontend" id="toc3"> Retrospective <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<p>Q: Does this article sound like junior developer wrote it.<br />
+A: IMO, probably yes. BUT as I was adding things like this at work; I was prototyping ideas on my personal site</p>
 
 
 </div>
@@ -165,7 +171,7 @@ As this is based on the idea of serendipity, there is no direct access to each a
 	</span>
 	<a href="https://twitter.com/@publishowen" class="button" rel="me" title="In theory my publications list, if you prefer tweets." ><i class="fa fa-twitter" aria-hidden="true" aria-label="Look at my published list of articles" ></i>@publishowen</a>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2023-01-03T21:48:15">3rd of Jan 2023</time></span>
+<span>Edited <time datetime="2023-01-23T15:26:38">23rd of Jan 2023</time></span>
 <span>Created <time datetime="2014-04-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 </span>
 </p></div>
@@ -180,6 +186,7 @@ As this is based on the idea of serendipity, there is no direct access to each a
 <li class="h4_odd"><a href="#toc0">Behaviour description</a></li>
 <li><a href="#toc1">Requirements</a></li>
 <li class="h4_odd"><a href="#toc2">Discussion</a></li>
+<li><a href="#toc3">Retrospective</a></li>
 </ul>
 </menu><br />
 
@@ -207,7 +214,7 @@ As this is based on the idea of serendipity, there is no direct access to each a
 <div class="leftFooter"> 
 <a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-01-18T09:02:50">18th of Jan 2023, 9:02:50</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-03T21:48:15">3rd of Jan 2023</time>. <br />
+</div> Page rendered <time datetime="2023-01-23T19:45:08">23rd of Jan 2023, 19:45:08</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-23T15:26:38">23rd of Jan 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
