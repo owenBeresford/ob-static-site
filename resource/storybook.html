@@ -24,8 +24,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/storybook" />
 <meta property="og:description" content="Research on Storybook: another frontend test tool that supports UX, UI, and component testing. Article describes 9 user cases and a list of 4 limitations" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="16th of Feb 2023, 22:53:29" />
-<meta property="article:modified_time" content="14th of Feb 2023" />
+<meta property="article:published_time" content="7th of Mar 2023, 22:28:32" />
+<meta property="article:modified_time" content="7th of Mar 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/storybook" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -37,8 +37,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Exploring Storybook JS",
-	"article:published_time":"16th of Feb 2023, 22:53:29", 
-    "article:modified_time":"14th of Feb 2023",
+	"article:published_time":"7th of Mar 2023, 22:28:32", 
+    "article:modified_time":"7th of Mar 2023",
     "article:section":"technology",
 
     "author": {
@@ -86,6 +86,24 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 </ul>
 
 <p>I do not have a big comparison process, or data-grid for test tools at present.  As a well run project, storybook has a brand sub-project <sup><a href="https://github.com/storybookjs/brand" target="_blank">34</a></sup></p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+
+<h4 class="dontend" id="toc3"> UPDATES (v6.5) <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">With <strong>Storybook 6.5</strong> all the newer approaches to specifying a test are declarative; this is good, as everything is guaranteed to be executed in the right order with declarative systems (so faster to build tests, that do not crash).   This is the best component test tool/ library I have been able to find; in terms of “verify component in isolation”.</li>
+    <li class="libasic">The common samples are frequently out-of-date, as the project was reorganised when it got more features.  For code that is correct at the start of 2023 with default settings in NPM, pls see <del>my sample project</del><ins>sample to be published soon</ins>.  An exhaustive breakdown in this article would have short shelf-life and dull to read or write.   </li>
+    <li class="libasic">Many things are now addons <sup><a href="https://stackoverflow.com/questions/55428337/storybook-actions-what-exactly-are-they-calling" target="_blank">1</a></sup>; or refactored into the specific environment.</li>
+    <li class="libasic">The 'build storybook' command is only really useful if you have alot of new code and want to see typos; the start command also compiles everything, and extends expected results to include any runtime errors in addition.  As a performance improvement, I edited the test search array <sup><a href="https://storybook.js.org/docs/react/configure/overview#configure-story-loading" target="_blank">2</a></sup> to only be directories that should have tests.</li>
+    <li class="libasic">Storybook seems to have problems with composite components.  When I run a particular component in normal node, mouse events update a State variable, React notices this and does a redraw; when I run the same code inside Storybook the state change does nothing.   The problem could be different version of React; secondly, it is hard to apply workrounds for Storybook, as <sup><a href="https://storybook.js.org/docs/react/faq#how-can-my-code-detect-if-it-is-running-in-storybook" target="_blank">3</a></sup> the builtin detection flag doesn't work.</li>
+    <li class="libasic">If you operate in a zero-warnings environment, please note: my sample code is written against React v18; and with Storybook, I'm getting <em>“you are using react17 render API”</em> warnings.  The source code that I created in the project directory doesn't use render API (see <em>createRoot</em>); so Storybook v6.5 is linked to React v17.</li>
+    <li class="libasic">Like a Vue SCF or a React TSX file, Storybook promotes a CSF <sup><a href="https://storybook.js.org/docs/react/api/csf" target="_blank">4</a></sup> <sup><a href="https://dev.to/lauracarballo/storybook-for-everyone-csf-vs-mdx-88b" target="_blank">5</a></sup>, which is exactly the same idea.  Storybook has <em>storiesOf</em>, but that is like <em>ReactDOM.render</em>; only use <em>SCF</em> or <em>storiesOf</em> approaches. </li>
+    <li class="libasic">For Storybook 6.5, the syntax for <em>CSF</em> seems to changed recently, or doesn't mesh with typescript well. There are many examples for <em>CSF</em> that do not compile with TS 4.7, follow <sup><a href="https://storybook.js.org/docs/react/writing-stories/introduction#how-to-write-stories" target="_blank">6</a></sup> with very fixed data as this compiles.  Very static data is normal for unit tests.   In addition, redundantly specifying the argTypes value <sup><a href="https://storybook.js.org/docs/react/api/argtypes" target="_blank">7</a></sup> leads to better test experience.</li>
+    <li class="libasic">Terminology: <strong>“interaction”</strong> =&gt; code to make mouse events (etc) so the code-under-test is exercised; <strong>“actions”</strong> =&gt; a fussy high-order function that injects log messages to events being processed by code-under-test; <strong>“controls”</strong> =&gt; where the code-under-test has exposed settings, adjust these controls;</li>
+</ul>
 
 
 </div>
@@ -148,7 +166,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstorybook" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 	</span>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2023-02-14T16:08:31">14th of Feb 2023</time></span>
+<span>Edited <time datetime="2023-03-07T11:19:24">7th of Mar 2023</time></span>
 <span>Created <time datetime="2022-12-29T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >29th of Dec 2022</time> </span>
 </span>
 </p></div>
@@ -165,6 +183,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 <li class="h4_odd"><a href="#toc0">Warp-speed Intro</a></li>
 <li><a href="#toc1">Features/ Use-cases</a></li>
 <li class="h4_odd"><a href="#toc2">Limitations</a></li>
+<li><a href="#toc3">UPDATES (v6.5)</a></li>
 </ul>
 </menu><br />
 
@@ -195,13 +214,15 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 <div class="leftFooter"> 
 <a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-02-16T22:53:29">16th of Feb 2023, 22:53:29</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-02-14T16:08:31">14th of Feb 2023</time>. <br />
+</div> Page rendered <time datetime="2023-03-07T22:28:32">7th of Mar 2023, 22:28:32</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-03-07T11:19:24">7th of Mar 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script defer src="/asset/ob1.min.js" ></script>
-
+<style>
+div.lotsOfWords:last-child { max-width: 52em; margin-left:auto; margin-right:auto; }
+</style>
 <!-- https://www.bentasker.co.uk/posts/documentation/general/adding-a-share-on-mastodon-button-to-a-website.html -->
 </body>
 </html>
