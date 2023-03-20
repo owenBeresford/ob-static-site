@@ -2,30 +2,30 @@
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
-<title>SVG part deux: Optimisation</title>
+<title>SVG Optimisation</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Generator" content="iceline webkit 2.1" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="Details on structure on SVG as I needed to edit some by hand." />
+<meta name="Description" content="Details on how to make SVG files smaller, either with a tool, or what steps to take manually." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="SVG part deux: Optimisation">
-<meta itemprop="description" content="Details on structure on SVG as I needed to edit some by hand.">
+<meta itemprop="name" content="SVG Optimisation">
+<meta itemprop="description" content="Details on how to make SVG files smaller, either with a tool, or what steps to take manually.">
 <!-- meta name="twitter:card" content="summary_large_image" -->
 <meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="SVG part deux: Optimisation">
-<meta name="twitter:description" content="Details on structure on SVG as I needed to edit some by hand.">
+<meta name="twitter:title" content="SVG Optimisation">
+<meta name="twitter:description" content="Details on how to make SVG files smaller, either with a tool, or what steps to take manually.">
 <meta name="twitter:creator" content="@channelOwen">
-<meta property="og:title" content="SVG part deux: Optimisation" />
+<meta property="og:title" content="SVG Optimisation" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/svg-optimisation" />
-<meta property="og:description" content="Details on structure on SVG as I needed to edit some by hand." />
+<meta property="og:description" content="Details on how to make SVG files smaller, either with a tool, or what steps to take manually." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="16th of Feb 2023, 22:53:32" />
-<meta property="article:modified_time" content="9th of Jan 2023" />
+<meta property="article:published_time" content="20th of Mar 2023, 17:50:08" />
+<meta property="article:modified_time" content="20th of Mar 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/svg-optimisation" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -36,9 +36,9 @@ TODO: magic tune selection against some index/DB -->
   {
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
-    "name": "SVG part deux: Optimisation",
-	"article:published_time":"16th of Feb 2023, 22:53:32", 
-    "article:modified_time":"9th of Jan 2023",
+    "name": "SVG Optimisation",
+	"article:published_time":"20th of Mar 2023, 17:50:08", 
+    "article:modified_time":"20th of Mar 2023",
     "article:section":"technology",
 
     "author": {
@@ -54,8 +54,15 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker">
-<div class="fewWords">
-<p>This is a second part article. I don't claim this is original or interesting material; mostly this article is for own reference.</p>
+<div class="halferWords">
+<p>This article is a secondary article, I suggest skimming the format notes for first time readers.  This is a short article and I don't claim this is original or interesting material; mostly <span style="font-style:italic;">this article is for my own reference</span>.
+<p class="buttonBar"> 
+
+<a href="/resource/svg-format-notes" class="button" title="SVG file format notes: its definition, structure, history; the colour spaces.  This is the initial article that covers how to make the file and the programs the files can be opened with. More advanced areas are discussed in separate articles.">SVG Format notes</a>
+<a href="/resource/svg-editors" class="button" title="A pulled out list of 16 SVG editors; ones that you install locally and online tools.  Updated 2023.">SVG Editors</a>
+<a disabled="disabled" href="#" class="button" title="You are here">SVG Optimisation</a>
+<a href="/resource/svg-animation" class="button" title="Description of animation options that SVG supports and how to create them. This includes 6 animation libraries along with 2 CSS animation techniques to animate SVG more easily">SVG Animation</a>
+</p>
 
 <p>My missing knowledge gap</p>
 
@@ -64,25 +71,39 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">Just like XML, things go horribly wrong if you have mismatched tags.</li>
     <li class="libasic">Add 'DOCTYPE' header by hand if needed.</li>
     <li class="libasic">You can inline SVG elements, attach to the document with an IMG element, or an OBJECT element.</li>
-    <li class="libasic">If you need to script the second two options, you need an extra documentElement lookup as its a separate document object.</li>
+    <li class="libasic">In 2017, if you needed to script the second two ways to embed the image, you needed an extra documentElement lookup as it was a separate document object.  In 2023, in particular using querySelector, you can directly access the elements inside the SVG as a single step.</li>
     <li class="libasic">when using viewBox, the numbers are size of the canvas that you have (in the SVG)</li>
 </ul>
 
 
-<h3 class="dontend" id="toc0"> SVG optimisation points <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
-<p>Points to reduce file size, so they load faster, and to make the file easier to rebrand in future.  There are similar articles <sup><a href="https://www.sarasoueidan.com/blog/svg-tips-for-designers/" target="_blank">1</a></sup> <sup><a href="https://css-tricks.com/understanding-and-manually-improving-svg-optimization/" target="_blank">2</a></sup> <sup><a href="https://stackoverflow.com/questions/45289809/svg-path-optimization" target="_blank">3</a></sup></p>
+<h4 class="dontend" id="toc0"> SVG optimisation tools <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<p>I haven't looked at these; I thought that some improvements could be had by running an optimiser.</p>
 
 <ul class="ulbasic">
+    <li class="libasic"><a href="https://svgoptimizer.com/" target="_blank">SVG optimizer</a></li>
+    <li class="libasic"><a href="https://svgomg.net/" target="_blank">SVG OMG</a></li>
+    <li class="libasic"><a href="https://iconly.io/tools/svg-cleaner" target="_blank">SVG cleaner</a></li>
+    <li class="libasic"><a href="https://vecta.io/nano" target="_blank">Vecta nano</a></li>
+    <li class="libasic"><a href="https://www.svgminify.com/" target="_blank">SVG minify</a></li>
+    <li class="libasic"><a href="https://svgconverter.com/svg-optimizer" target="_blank">SVG optim again</a></li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> Manual optimisation steps <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<p>Activities to reduce file size, so SVG images load faster, and to make the files easier to rebrand in future.  There are similar articles <sup><a href="https://www.sarasoueidan.com/blog/svg-tips-for-designers/" target="_blank">1</a></sup> <sup><a href="https://css-tricks.com/understanding-and-manually-improving-svg-optimization/" target="_blank">2</a></sup> <sup><a href="https://stackoverflow.com/questions/45289809/svg-path-optimization" target="_blank">3</a></sup> <sup><a href="https://graphicdesign.stackexchange.com/questions/132636/why-is-my-svg-file-so-big" target="_blank">4</a></sup>.   This article doesn't mention complex colour blends/ gradients, which can slow down apps on phones; mostly as I haven't needed to use blends that much.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">If you are using a SVG generated by converting from a different format, only use SVG converters that are smart  and applying Bézier curves.  There are some clip-art sites that use a poor re-renderer and the files are mahooosive and awkward. </li>
     <li class="libasic">Read the XML yourself, rather than spitting it at the webbrowser.</li>
     <li class="libasic">Remove items that you don't seem to need, or are tagged as display=none.</li>
-    <li class="libasic">Remove accidental  &lt;cntl- D&gt; elements, which are identical to the next node in the file.</li>
+    <li class="libasic">Remove accidental &lt;cntl- D&gt; elements, which are identical to the next node in the file.</li>
     <li class="libasic">Pull out style items into defs.style element, especially if the tools have duplicated style attributes 100s of times.</li>
     <li class="libasic">Create defs.$name objects and &lt;use $name&gt; to vastly reduce duplication of tags.</li>
-    <li class="libasic">CSS <a href="https://tutorials.jenkov.com/svg/svg-and-css.html#svg-css-properties" target="_blank">cheat sheet</a> <a href="https://www.w3.org/TR/SVG2/styling.html" target="_blank">spec</a> for SVG. </li>
+    <li class="libasic">CSS <a href="https://tutorials.jenkov.com/svg/svg-and-css.html#svg-css-properties" target="_blank">CSS cheat sheet</a> and <a href="https://www.w3.org/TR/SVG2/styling.html" target="_blank">style spec</a> for SVG. </li>
     <li class="libasic">When SVG is made by image editing tools, strip random tags/ attributes, <em>carefully</em>.</li>
     <li class="libasic">Trim unnecessary numerical precision. The numbers are in <b>pixels</b>, so can be integers.</li>
-    <li class="libasic">Multiple transforms can be applied in the same group tag, but also in the same attrib. The matrix transforms the best for this, but are harder for humans to edit.  As with many graphics pipeline tools, the order of the transforms is very important (test this to see).</li>
-    <li class="libasic">If hand editing, edit id attributes so they make sense to a human.  This isn't really an optimisation, except on your time.</li>
+    <li class="libasic">Multiple transforms can be applied in the same group tag, but also in the same attrib.  The matrix transforms the best for this, but are harder for humans to edit.   As with many graphics pipeline tools, the order of the transforms is very important (test this to see).</li>
+    <li class="libasic">If hand editing, edit ID attributes so that they make sense to a human.  This isn't really an optimisation, except on your time, when scripting events or animations.</li>
 </ul>
 
 
@@ -97,7 +118,7 @@ TODO: magic tune selection against some index/DB -->
 <nav>
 <div id="tinyScreen" >
 <header>
-<h1>SVG part deux: Optimisation</h1>
+<h1>SVG Optimisation</h1>
 </header>
 <div class="addReading">
 <a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
@@ -129,7 +150,7 @@ TODO: magic tune selection against some index/DB -->
 </dialog>
 </div>
 <div id="bigScreen" class="row">
-<div class="h4_title column"><header><h1>SVG part deux: Optimisation</h1></header>
+<div class="h4_title column"><header><h1>SVG Optimisation</h1></header>
 
 
 <p id="shareGroup" class="addReading"> 
@@ -146,7 +167,7 @@ TODO: magic tune selection against some index/DB -->
 	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-optimisation" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 	</span>
 <span class="ultraSkinny"> 
-<span>Edited <time datetime="2023-01-09T10:02:46">9th of Jan 2023</time></span>
+<span>Edited <time datetime="2023-03-20T17:43:53">20th of Mar 2023</time></span>
 <span>Created <time datetime="2017-11-25T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >25th of Nov 2017</time> </span>
 </span>
 </p></div>
@@ -160,7 +181,8 @@ TODO: magic tune selection against some index/DB -->
 <fieldset class="h4_menu column">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
 <menu><ul class="h4_lean">
-<li class="h4_odd"><a href="#toc0">SVG optimisation points</a></li>
+<li class="h4_odd"><a href="#toc0">SVG optimisation tools</a></li>
+<li><a href="#toc1">Manual optimisation steps</a></li>
 </ul>
 </menu><br />
 
@@ -191,7 +213,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="leftFooter"> 
 <a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-02-16T22:53:32">16th of Feb 2023, 22:53:32</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-09T10:02:46">9th of Jan 2023</time>. <br />
+</div> Page rendered <time datetime="2023-03-20T17:50:08">20th of Mar 2023, 17:50:08</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-03-20T17:43:53">20th of Mar 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
