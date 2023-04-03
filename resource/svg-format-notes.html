@@ -4,17 +4,15 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>SVG file format notes</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
-<meta name="Generator" content="iceline webkit 2.1" />
 <meta name="Author" content="Owen Beresford" />
 <meta name="Description" content="SVG file format notes: its definition, structure, history; the colour spaces.  This is the initial article that covers how to make the file and the programs the files can be opened with. More advanced areas are discussed in separate articles." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="SVG file format notes">
 <meta itemprop="description" content="SVG file format notes: its definition, structure, history; the colour spaces.  This is the initial article that covers how to make the file and the programs the files can be opened with. More advanced areas are discussed in separate articles.">
-<!-- meta name="twitter:card" content="summary_large_image" -->
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="SVG file format notes">
 <meta name="twitter:description" content="SVG file format notes: its definition, structure, history; the colour spaces.  This is the initial article that covers how to make the file and the programs the files can be opened with. More advanced areas are discussed in separate articles.">
@@ -24,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/svg-format-notes" />
 <meta property="og:description" content="SVG file format notes: its definition, structure, history; the colour spaces.  This is the initial article that covers how to make the file and the programs the files can be opened with. More advanced areas are discussed in separate articles." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Mar 2023, 17:50:07" />
-<meta property="article:modified_time" content="20th of Mar 2023" />
+<meta property="article:published_time" content="3rd of Apr 2023, 17:46:56" />
+<meta property="article:modified_time" content="21st of Mar 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/svg-format-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -37,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "SVG file format notes",
-	"article:published_time":"20th of Mar 2023, 17:50:07", 
-    "article:modified_time":"20th of Mar 2023",
+	"article:published_time":"3rd of Apr 2023, 17:46:56", 
+    "article:modified_time":"21st of Mar 2023",
     "article:section":"technology",
 
     "author": {
@@ -80,28 +78,30 @@ TODO: magic tune selection against some index/DB -->
 The notes on SVG animation have been moved to <a class="" href="https://owenberesford.me.uk/resource/svg-animation#">svg-animation</a>, as that is not editing.</p>
 
 <p>There are some articles of useful material published <sup><a href="https://css-tricks.com/gotchas-on-getting-svg-into-production/" target="_blank">11</a></sup> <sup><a href="https://css-tricks.com/gotchas-getting-inline-svg-production-part-ii/" target="_blank">12</a></sup> <sup><a href="https://una.im/weird-svg-issues/" target="_blank">13</a></sup>.  D Dailey is holding a collection of material <sup><a href="http://srufaculty.sru.edu/david.dailey/svg/" target="_blank">14</a></sup>, pulling out <sup><a href="http://srufaculty.sru.edu/david.dailey/svg/intro/PartF_C.html" target="_blank">15</a></sup>, last updated AFAIK in 2013, with similar material to this article.    There are some boundary case issues on older browsers, that by 2023 you shouldn't meet <sup><a href="https://gist.github.com/larrybotha/7881691" target="_blank">16</a></sup> <sup><a href="https://stackoverflow.com/questions/20551439/svg-scaling-issue-in-ie9" target="_blank">17</a></sup>; <del>if I write SVG stuff including historic MSIE, I need to inject many custom statements for MSIEs layout #leSigh.</del>   As SVG is XML, it is fairly low density data encoding; stand-alone files should always be wrapped in GZIP (google for references for your specific tech stack).  SVG spec is close enough to computer graphics to use plane and viewports <sup><a href="https://idevie.com/tutorials/svg-viewport-and-viewbox-for-complete-beginners" target="_blank">18</a></sup> <sup><a href="https://webdesign.tutsplus.com/tutorials/svg-viewport-and-viewbox-for-beginners--cms-30844" target="_blank">19</a></sup>, or more links that don't mention 'beginner' <sup><a href="https://modernweb.com/understanding-the-svg-viewbox-and-viewport/" target="_blank">20</a></sup> <sup><a href="https://vanseodesign.com/web-design/svg-viewport/" target="_blank">21</a></sup> <br />
-A while ago, there was a thing called SMIL ~ Synchronized Multimedia Integration Language <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/SVG_animation_with_SMIL" target="_blank">22</a></sup> <sup><a href="https://css-tricks.com/guide-svg-animations-smil/" target="_blank">23</a></sup> <sup><a href="https://www.corel.com/6763/psp_downloads/pub/SVGChpt08.pdf" target="_blank">24</a></sup>. Microsoft helpfully publish “how to SMIL on ms browsers” <sup><a href="https://msdn.microsoft.com/en-us/library/gg193979(v=vs.85).aspx" target="_blank">25</a></sup>  This still seems to exist <sup><a href="https://caniuse.com/?search=smil" target="_blank">26</a></sup>, but I haven't heard of it being used. It did get deprecated <sup><a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/5o0yiO440LM/m/YGEJBsjUAwAJ?pli=1" target="_blank">27</a></sup>, then undeprecated in Chrome</p>
+A while ago, there was a thing called SMIL ~ Synchronized Multimedia Integration Language <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/SVG_animation_with_SMIL" target="_blank">22</a></sup> <sup><a href="https://css-tricks.com/guide-svg-animations-smil/" target="_blank">23</a></sup> <sup><a href="https://www.corel.com/6763/psp_downloads/pub/SVGChpt08.pdf" target="_blank">24</a></sup>. Microsoft helpfully publish “how to SMIL on ms browsers” <sup><a href="https://msdn.microsoft.com/en-us/library/gg193979(v=vs.85).aspx" target="_blank">25</a></sup>  This still seems to exist <sup><a href="https://caniuse.com/?search=smil" target="_blank">26</a></sup>, but I haven't heard of it being used.  It did get deprecated <sup><a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/5o0yiO440LM/m/YGEJBsjUAwAJ?pli=1" target="_blank">27</a></sup>, then undeprecated in Chrome.  Notes from 2016 that look fairly thorough on the SMIL <sup><a href="https://graphicdesign.stackexchange.com/questions/68314/how-do-you-animate-svg-for-the-web" target="_blank">28</a></sup></p>
 
 
 <h4 class="dontend" id="toc2"> SVG structure <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>The following section is fitting SVG into the structures/ architecture of other graphics systems.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">SVG colours are encoded in sRGB <sup><a href="https://en.wikipedia.org/wiki/SRGB" target="_blank">28</a></sup> (relationship between these <sup><a href="https://www.w3.org/TR/SVG/color.html" target="_blank">29</a></sup>). sRGB is supposed by be “the simple solution, acting like a windows computer”.   </li>
-    <li class="libasic">SVG uses a similar but different CSS instructions, and has an Animate element <sup><a href="https://tutorials.jenkov.com/svg/svg-animation.html" target="_blank">30</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate" target="_blank">31</a></sup>.  SVG has quite good font support <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/SVG_fonts" target="_blank">32</a></sup>.  I have seen images of text stored as SVG quite a few times, so at least one popular image editor can export text to SVG (but not SVG fonts which are different).   </li>
-    <li class="libasic">It can be used as a 2D or 3D <sup><a href="https://www.creativebloq.com/netmag/how-go-beyond-basics-svg-filters-71412280" target="_blank">33</a></sup> <sup><a href="https://stackoverflow.com/questions/30476852/3d-transforms-on-svg-element" target="_blank">34</a></sup> <sup><a href="https://www.petercollingridge.co.uk/blog/3d-svg/3d-animation-svg/" target="_blank">35</a></sup> modelling system, SVG needs several co-ordinate notations. Summarising viciously, to use SVG, define polygons in a set of [I suppose document] co-ordinates <sup><a href="https://www.w3.org/TR/SVG/coords.html" target="_blank">36</a></sup>, apply any transforms <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform" target="_blank">37</a></sup> or clipping <sup><a href="https://www.oreilly.com/library/view/svg-essentials/0596002238/ch09.html" target="_blank">38</a></sup> for artistic direction; then apply to screen co-ordinates to be able to define pixels.   Here is a guide for people who have studied less maths <sup><a href="https://www.oreilly.com/library/view/svg-essentials/0596002238/apd.html" target="_blank">39</a></sup> <sup><a href="https://www.sarasoueidan.com/blog/svg-coordinate-systems/" target="_blank">40</a></sup> <sup><a href="https://www.opengl.org/discussion_boards/showthread.php/159739-Projection-of-a-3d-vector-on-a-plane" target="_blank">41</a></sup>.  The links to o'Reilly [publisher] book chapters previously where on it's blog and open.  I will swap the links to ones without a paywall.</li>
-    <li class="libasic">Poorly organised SVG generators will lead to excessive file size volumes. Solutions obvious to webdev are listed  in <a class="" href="https://owenberesford.me.uk/resource/svg-optimisation#">svg-optimisation</a> <sup><a href="https://stackoverflow.com/questions/7068425/minimizing-svg-file-size" target="_blank">42</a></sup> <sup><a href="https://www.w3.org/TR/SVG/minimize.html" target="_blank">43</a></sup>.  I reference <a href="https://github.com/scour-project/scour" target="_blank">git</a> as a focussed reference, or <a href="https://www.petercollingridge.co.uk/tools/svg-optimiser/" target="_blank">svg-optimiser</a>.</li>
-    <li class="libasic">SVG supports several different methods for representing curves, TinySVG (for mobile) supports Bézier and elliptical curves <sup><a href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" target="_blank">44</a></sup>, the SVG spec mentions quadratic and cubic Bézier curves <sup><a href="https://www.w3.org/TR/SVG/paths.html#PathDataCurveCommands" target="_blank">45</a></sup> in addition.</li>
-    <li class="libasic">As part of drawing for 3D, or just stacked polygons, the SVG spec has depth sorting. SVG2 <sup><a href="https://www.w3.org/TR/SVG2/render.html#ZIndexProperty" target="_blank">46</a></sup> is tightly related to CSS2 z-index. SVG1 <sup><a href="https://dev.w3.org/SVG/modules/renderorder/SVGRenderOrder.html" target="_blank">47</a></sup> defines many custom attributes which are not in CSS.</li>
-    <li class="libasic">As a rendering toolkit spec, rather than a image; SVG includes some lighting models <sup><a href="https://www.svgbasics.com/filters2.html" target="_blank">48</a></sup> phong <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting" target="_blank">49</a></sup> <sup><a href="https://css-tricks.com/look-svg-light-source-filters/" target="_blank">50</a></sup> <sup><a href="https://www.w3.org/TR/SVG/filters.html" target="_blank">51</a></sup></li>
-    <li class="libasic">An academic wrote a list of 'primitives' rendering features of SVG animation <sup><a href="http://srufaculty.sru.edu/david.dailey/svg/SVGAnimations.htm" target="_blank">52</a></sup> (http only), he also has a book from 2012 <sup><a href="https://www.amazon.co.uk/Building-Applications-David-Dailey-2012/dp/B00DIKUIW4" target="_blank">53</a></sup>.   The maximum number of polygons is quoted at around 1000 ~ 3000 <sup><a href="https://stackoverflow.com/questions/18701491/maximum-number-of-svg-elements-for-the-browser-in-a-map" target="_blank">54</a></sup>, which is really low for actual rendering engines. </li>
+    <li class="libasic">SVG colours are encoded in sRGB <sup><a href="https://en.wikipedia.org/wiki/SRGB" target="_blank">29</a></sup> (relationship between these <sup><a href="https://www.w3.org/TR/SVG/color.html" target="_blank">30</a></sup>). sRGB is supposed by be “the simple solution, acting like a windows computer”.   </li>
+    <li class="libasic">SVG uses a similar but different CSS instructions, and has an Animate element <sup><a href="https://tutorials.jenkov.com/svg/svg-animation.html" target="_blank">31</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate" target="_blank">32</a></sup>.  SVG has quite good font support <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/SVG_fonts" target="_blank">33</a></sup>.  I have seen images of text stored as SVG quite a few times, so at least one popular image editor can export text to SVG (but not SVG fonts which are different).   </li>
+    <li class="libasic">It can be used as a 2D or 3D <sup><a href="https://www.creativebloq.com/netmag/how-go-beyond-basics-svg-filters-71412280" target="_blank">34</a></sup> <sup><a href="https://stackoverflow.com/questions/30476852/3d-transforms-on-svg-element" target="_blank">35</a></sup> <sup><a href="https://www.petercollingridge.co.uk/blog/3d-svg/3d-animation-svg/" target="_blank">36</a></sup> modelling system, SVG needs several co-ordinate notations. Summarising viciously, to use SVG, define polygons in a set of [I suppose document] co-ordinates <sup><a href="https://www.w3.org/TR/SVG/coords.html" target="_blank">37</a></sup>, apply any transforms <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform" target="_blank">38</a></sup> or clipping <sup><a href="https://www.oreilly.com/library/view/svg-essentials/0596002238/ch09.html" target="_blank">39</a></sup> for artistic direction; then apply to screen co-ordinates to be able to define pixels.   Here is a guide for people who have studied less maths <sup><a href="https://www.oreilly.com/library/view/svg-essentials/0596002238/apd.html" target="_blank">40</a></sup> <sup><a href="https://www.sarasoueidan.com/blog/svg-coordinate-systems/" target="_blank">41</a></sup> <sup><a href="https://www.opengl.org/discussion_boards/showthread.php/159739-Projection-of-a-3d-vector-on-a-plane" target="_blank">42</a></sup>.  The links to o'Reilly [publisher] book chapters previously where on it's blog and open.  I will swap the links to ones without a paywall.</li>
+    <li class="libasic">Poorly organised SVG generators will lead to excessive file size volumes. Solutions obvious to webdev are listed  in <a class="" href="https://owenberesford.me.uk/resource/svg-optimisation#">svg-optimisation</a> <sup><a href="https://stackoverflow.com/questions/7068425/minimizing-svg-file-size" target="_blank">43</a></sup> <sup><a href="https://www.w3.org/TR/SVG/minimize.html" target="_blank">44</a></sup>.  I reference <a href="https://github.com/scour-project/scour" target="_blank">git</a> as a focussed reference, or <a href="https://www.petercollingridge.co.uk/tools/svg-optimiser/" target="_blank">svg-optimiser</a>.</li>
+    <li class="libasic">SVG supports several different methods for representing curves, TinySVG (for mobile) supports Bézier and elliptical curves <sup><a href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" target="_blank">45</a></sup>, the SVG spec mentions quadratic and cubic Bézier curves <sup><a href="https://www.w3.org/TR/SVG/paths.html#PathDataCurveCommands" target="_blank">46</a></sup> in addition.</li>
+    <li class="libasic">As part of drawing for 3D, or just stacked polygons, the SVG spec has depth sorting. SVG2 <sup><a href="https://www.w3.org/TR/SVG2/render.html#ZIndexProperty" target="_blank">47</a></sup> is tightly related to CSS2 z-index. SVG1 <sup><a href="https://dev.w3.org/SVG/modules/renderorder/SVGRenderOrder.html" target="_blank">48</a></sup> defines many custom attributes which are not in CSS.</li>
+    <li class="libasic">As a rendering toolkit spec, rather than a image; SVG includes some lighting models <sup><a href="https://www.svgbasics.com/filters2.html" target="_blank">49</a></sup> phong <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting" target="_blank">50</a></sup> <sup><a href="https://css-tricks.com/look-svg-light-source-filters/" target="_blank">51</a></sup> <sup><a href="https://www.w3.org/TR/SVG/filters.html" target="_blank">52</a></sup></li>
+    <li class="libasic">An academic wrote a list of 'primitives' rendering features of SVG animation <sup><a href="http://srufaculty.sru.edu/david.dailey/svg/SVGAnimations.htm" target="_blank">53</a></sup> (http only), he also has a book from 2012 <sup><a href="https://www.amazon.co.uk/Building-Applications-David-Dailey-2012/dp/B00DIKUIW4" target="_blank">54</a></sup>.   The maximum number of polygons is quoted at around 1000 ~ 3000 <sup><a href="https://stackoverflow.com/questions/18701491/maximum-number-of-svg-elements-for-the-browser-in-a-map" target="_blank">55</a></sup>, which is really low for actual rendering engines. </li>
 </ul>
 
 <p>IMPORTANT: That limit should be checked on phones.  In my personal experience, a sales guy added a high quality photo stored as a SVG to the login page on an app he was selling; it took <b>5s-10s</b> to load the login page on my work laptop at that point, as it was busy rendering the SVG.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">With current browsers, SVG respects <a class="" href="https://owenberesford.me.uk/resource/cors-headers#">CORS</a> limits same as other assets <sup><a href="https://github.com/jonathantneal/svg4everybody/issues/16" target="_blank">55</a></sup>.</li>
+    <li class="libasic">With current browsers, SVG respects <a class="" href="https://owenberesford.me.uk/resource/cors-headers#">CORS</a> limits same as other assets <sup><a href="https://github.com/jonathantneal/svg4everybody/issues/16" target="_blank">56</a></sup>.  </li>
 </ul>
+
+<p>SVG can be used for Favico, but this is not supported by Safari <sup><a href="https://caniuse.com/link-icon-svg" target="_blank">57</a></sup> <a class="" href="https://owenberesford.me.uk/resource/favicon-notes#">favicon-notes</a>.  In theory SVG animation could be used in Favico, but again Safari support is important to many businesses.</p>
 
 
 </div>
@@ -111,71 +111,46 @@ A while ago, there was a thing called SMIL ~ Synchronized Multimedia Integration
 	<div id="contentGroup" class="adjacentGroup" --data-group="images"><a name="adjacent" href=""></a> <p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
-<legend></legend>
-<nav>
-<div id="tinyScreen" >
-<header>
-<h1>SVG file format notes</h1>
-</header>
-<div class="addReading">
-<a class="button" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
-<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed. "><i class="fa fa-rss" aria-hidden="true" aria-label="Open the RSS for this site" ></i></a>
-<a class="button" id="shareMenuTrigger"> Share </a>
-</div>
-<div class="shareMenu" id="shareMenu">
-<menu>
-<ul>
-<li id="shareClose"> <i class="fa fa-cancel" aria-hidden="true"></i> </li>
-<li> <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-hidden="true" aria-label="Share this article on twitter."></i></a></li> 
-<li> <a href="#" class="button masto" title="Share to *your* mastodon server" >
-<svg width="80" height="80" viewBox="-20 -20 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M60.7539 14.3904C59.8143 7.40642 53.7273 1.90257 46.5117 0.836066C45.2943 0.655854 40.6819 0 29.9973 0H29.9175C19.2299 0 16.937 0.655854 15.7196 0.836066C8.70488 1.87302 2.29885 6.81852 0.744617 13.8852C-0.00294988 17.3654 -0.0827298 21.2237 0.0561464 24.7629C0.254119 29.8384 0.292531 34.905 0.753482 39.9598C1.07215 43.3175 1.62806 46.6484 2.41704 49.9276C3.89445 55.9839 9.87499 61.0239 15.7344 63.0801C22.0077 65.2244 28.7542 65.5804 35.2184 64.1082C35.9295 63.9428 36.6318 63.7508 37.3252 63.5321C38.8971 63.0329 40.738 62.4745 42.0913 61.4937C42.1099 61.4799 42.1251 61.4621 42.1358 61.4417C42.1466 61.4212 42.1526 61.3986 42.1534 61.3755V56.4773C42.153 56.4557 42.1479 56.4345 42.1383 56.4151C42.1287 56.3958 42.1149 56.3788 42.0979 56.3655C42.0809 56.3522 42.0611 56.3429 42.04 56.3382C42.019 56.3335 41.9971 56.3336 41.9761 56.3384C37.8345 57.3276 33.5905 57.8234 29.3324 57.8156C22.0045 57.8156 20.0336 54.3384 19.4693 52.8908C19.0156 51.6397 18.7275 50.3346 18.6124 49.0088C18.6112 48.9866 18.6153 48.9643 18.6243 48.9439C18.6333 48.9236 18.647 48.9056 18.6643 48.8915C18.6816 48.8774 18.7019 48.8675 18.7237 48.8628C18.7455 48.858 18.7681 48.8585 18.7897 48.8641C22.8622 49.8465 27.037 50.3423 31.2265 50.3412C32.234 50.3412 33.2387 50.3412 34.2463 50.3146C38.4598 50.1964 42.9009 49.9808 47.0465 49.1713C47.1499 49.1506 47.2534 49.1329 47.342 49.1063C53.881 47.8507 60.1038 43.9097 60.7362 33.9301C60.7598 33.5372 60.8189 29.8148 60.8189 29.4071C60.8218 28.0215 61.2651 19.5781 60.7539 14.3904Z" fill="#2ba6cb" />
-<path d="M50.3943 22.237V39.5876H43.5185V22.7481C43.5185 19.2029 42.0411 17.3949 39.036 17.3949C35.7325 17.3949 34.0778 19.5338 34.0778 23.7585V32.9759H27.2434V23.7585C27.2434 19.5338 25.5857 17.3949 22.2822 17.3949C19.2949 17.3949 17.8027 19.2029 17.8027 22.7481V39.5876H10.9298V22.237C10.9298 18.6918 11.835 15.8754 13.6453 13.7877C15.5128 11.7049 17.9623 10.6355 21.0028 10.6355C24.522 10.6355 27.1813 11.9885 28.9542 14.6917L30.665 17.5633L32.3788 14.6917C34.1517 11.9885 36.811 10.6355 40.3243 10.6355C43.3619 10.6355 45.8114 11.7049 47.6847 13.7877C49.4931 15.8734 50.3963 18.6899 50.3943 22.237Z" fill="white"/>
-</svg>
-</a></li>
-<li> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in" ><i class="fa fa-linkedin-square" aria-hidden="true" title="Share this article on linked-in" ></i></a></li>
-<li> <a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" target="_blank" title="Share this article on reddit." ><i class="fa fa-reddit-square" aria-hidden="true" aria-label="Share this article on reddit." ></i></a></li>
-</ul>
-</menu>
-</div>
-<dialog id="popup1" class="popup1">
-<form method="dialog">
-<p>Your server: <input id="mastodonserver" max-length="50" type="text" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" value="" placeholder="mastodon.social" />
-    <a class="button masto2" href="#" title="Share article to *your* mastodon server">Share now</a>
-	<a class="button trimmed" id="hideMasto1" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> </a>
-</form>
-</dialog>
-</div>
-<div id="bigScreen" class="row">
-<div class="h4_title column"><header><h1>SVG file format notes</h1></header>
+	<legend></legend>
+	<nav>
 
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>SVG file format notes</h1></header>
+			    	<p class="bigScreenOnly"> </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="button masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
 
-<p id="shareGroup" class="addReading"> 
-	<span class="centerBlock">
-	<a href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> Share: 
-	<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" title="Share this resource on your twitter account." target="_blank"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a> 
-<a href="#" class="button masto" title="Share to *your* mastodon server" >
-<svg width="20" height="20" viewBox="-20 -20 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M60.7539 14.3904C59.8143 7.40642 53.7273 1.90257 46.5117 0.836066C45.2943 0.655854 40.6819 0 29.9973 0H29.9175C19.2299 0 16.937 0.655854 15.7196 0.836066C8.70488 1.87302 2.29885 6.81852 0.744617 13.8852C-0.00294988 17.3654 -0.0827298 21.2237 0.0561464 24.7629C0.254119 29.8384 0.292531 34.905 0.753482 39.9598C1.07215 43.3175 1.62806 46.6484 2.41704 49.9276C3.89445 55.9839 9.87499 61.0239 15.7344 63.0801C22.0077 65.2244 28.7542 65.5804 35.2184 64.1082C35.9295 63.9428 36.6318 63.7508 37.3252 63.5321C38.8971 63.0329 40.738 62.4745 42.0913 61.4937C42.1099 61.4799 42.1251 61.4621 42.1358 61.4417C42.1466 61.4212 42.1526 61.3986 42.1534 61.3755V56.4773C42.153 56.4557 42.1479 56.4345 42.1383 56.4151C42.1287 56.3958 42.1149 56.3788 42.0979 56.3655C42.0809 56.3522 42.0611 56.3429 42.04 56.3382C42.019 56.3335 41.9971 56.3336 41.9761 56.3384C37.8345 57.3276 33.5905 57.8234 29.3324 57.8156C22.0045 57.8156 20.0336 54.3384 19.4693 52.8908C19.0156 51.6397 18.7275 50.3346 18.6124 49.0088C18.6112 48.9866 18.6153 48.9643 18.6243 48.9439C18.6333 48.9236 18.647 48.9056 18.6643 48.8915C18.6816 48.8774 18.7019 48.8675 18.7237 48.8628C18.7455 48.858 18.7681 48.8585 18.7897 48.8641C22.8622 49.8465 27.037 50.3423 31.2265 50.3412C32.234 50.3412 33.2387 50.3412 34.2463 50.3146C38.4598 50.1964 42.9009 49.9808 47.0465 49.1713C47.1499 49.1506 47.2534 49.1329 47.342 49.1063C53.881 47.8507 60.1038 43.9097 60.7362 33.9301C60.7598 33.5372 60.8189 29.8148 60.8189 29.4071C60.8218 28.0215 61.2651 19.5781 60.7539 14.3904Z" fill="#2ba6cb"/>
-<path d="M50.3943 22.237V39.5876H43.5185V22.7481C43.5185 19.2029 42.0411 17.3949 39.036 17.3949C35.7325 17.3949 34.0778 19.5338 34.0778 23.7585V32.9759H27.2434V23.7585C27.2434 19.5338 25.5857 17.3949 22.2822 17.3949C19.2949 17.3949 17.8027 19.2029 17.8027 22.7481V39.5876H10.9298V22.237C10.9298 18.6918 11.835 15.8754 13.6453 13.7877C15.5128 11.7049 17.9623 10.6355 21.0028 10.6355C24.522 10.6355 27.1813 11.9885 28.9542 14.6917L30.665 17.5633L32.3788 14.6917C34.1517 11.9885 36.811 10.6355 40.3243 10.6355C43.3619 10.6355 45.8114 11.7049 47.6847 13.7877C49.4931 15.8734 50.3963 18.6899 50.3943 22.237Z" fill="white"/>
-</svg>
-</a>
-	<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" target="_blank" title="Share this article on reddit" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
-	<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" aria-label="share to linked-in" target="_blank" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
-	</span>
-<span class="ultraSkinny"> 
-<span>Edited <time datetime="2023-03-20T17:43:30">20th of Mar 2023</time></span>
-<span>Created <time datetime="2017-07-02T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >2nd of Jul 2017</time> </span>
-</span>
-</p></div>
-<dialog id="popup2" class="popup1">
-<form method="dialog">
-<p>your server: <input id="mastodonserver2" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" type="text" value="" placeholder="mastodon.social" /> 
-   <a class="button masto2" href="#" title="Share article to *your* mastodon server">Share now</a>
-   <a class="button trimmed" id="hideMasto2" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> </a>
-</form>
-</dialog>
-<fieldset class="h4_menu column">
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-03-21T11:20:15">21st of Mar 2023</time>
+						</span>
+						<span>Created <time datetime="2017-07-02T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >2nd of Jul 2017</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-format-notes" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
 <menu><ul class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Concise intro (links mostly)</a></li>
@@ -185,7 +160,7 @@ A while ago, there was a thing called SMIL ~ Synchronized Multimedia Integration
 </menu><br />
 
 </fieldset>
-</div>
+	</div>
 <menu>
 <ul class="burgerMenu" >
 <li class="h4_odd">Additional features</li>
@@ -196,8 +171,9 @@ A while ago, there was a thing called SMIL ~ Synchronized Multimedia Integration
 <li class=""><a href="#adjacent">Similar articles</a></li>
 </ul>
 </menu>
-</nav>
+	</nav>
 </fieldset>
+		</div>
  </div>
  <br class="blocker" />
  <div id="biblio"></div>
@@ -205,19 +181,18 @@ A while ago, there was a thing called SMIL ~ Synchronized Multimedia Integration
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter">
-	<a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-	<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a>
+		<a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
+		<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a>
 	</div>
-<div class="leftFooter"> 
-<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
-My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-03-20T17:50:07">20th of Mar 2023, 17:50:07</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-03-20T17:43:30">20th of Mar 2023</time>. <br />
-
-Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-04-03T17:46:56">3rd of Apr 2023, 17:46:56</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-03-21T11:20:15">21st of Mar 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script defer src="/asset/ob1.min.js" ></script>
 
-<!-- https://www.bentasker.co.uk/posts/documentation/general/adding-a-share-on-mastodon-button-to-a-website.html -->
 </body>
 </html>
