@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>JS modules notes</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-modules-notes" />
 <meta property="og:description" content="Research into how to be able to use JS modules in the browsers." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="3rd of Apr 2023, 17:45:24" />
-<meta property="article:modified_time" content="9th of Jan 2023" />
+<meta property="article:published_time" content="17th of Apr 2023, 8:49:15" />
+<meta property="article:modified_time" content="15th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-modules-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS modules notes",
-	"article:published_time":"3rd of Apr 2023, 17:45:24", 
-    "article:modified_time":"9th of Jan 2023",
+	"article:published_time":"17th of Apr 2023, 8:49:15", 
+    "article:modified_time":"15th of Apr 2023",
     "article:section":"technology",
 
     "author": {
@@ -53,7 +53,8 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="halferWords">
-<p>“JS modules” seem to be the same as namespaces in other languages.  The feature is supported by the majority of webrowsers <sup><a href="https://caniuse.com/es6-module" target="_blank">1</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" target="_blank">2</a></sup> (obviously not MSIE).   With a fairly fake objective, modules are explained in <sup><a href="https://javascript.info/modules-intro" target="_blank">3</a></sup>.   This lists a number of gotchas: async loading; no global this; no bare modules; forced “use strict”.   Obviously modules are only loaded once; matching every other namespace scheme in other languages.</p>
+<p>“JS modules” seem to be the same as namespaces in other languages.  The feature is supported by the majority of webrowsers <sup><a href="https://caniuse.com/es6-module" target="_blank">1</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" target="_blank">2</a></sup> (obviously not MSIE).   With a fairly fake objective, modules are explained in <sup><a href="https://javascript.info/modules-intro" target="_blank">3</a></sup>.   This lists a number of gotchas: async loading; no global this; no bare modules; forced “use strict”.   Obviously modules are only loaded once; matching every other namespace scheme in other languages. <br />
+It might also be useful to read <a class="" href="https://owenberesford.me.uk/resource/js-classloader#">js-classloader</a> as discussion on how to manage the source code and headers.</p>
 
 <p>Modules are defined on a per JS file basis.   Basic loading strategies are listed  <sup><a href="https://v8.dev/features/modules" target="_blank">4</a></sup>; deployments need so manage <a class="" href="https://owenberesford.me.uk/resource/cors-headers#">CORS</a>.   If you have a non-minified code architecture; then modules will make your RAM usage better and your code more readable.   If you did do this then your performance will be terrible, as modern browsers have a maximum download concurrency of 2.  I had a test site, where I never bothered to compress and bundle the JS (page load speed 3-4s); when I bundled all the JS and CSS, the reduction in HTTP requests reduced page access time to less than a second (I improved fonts at the same time, so the change is moderated by that).  Using HTTP2 would reduce the slowdown; but bundling is still a necessary process, IMO.   According to <sup><a href="https://www.carlrippon.com/javascript-modules-in-2020/" target="_blank">5</a></sup> the browser will sort out module dependencies, so the order of things in HTML (and their download speed) is less critical to manage.   There is some admin work to serve modules according to <sup><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" target="_blank">6</a></sup>; it claims files need a different suffix (*.mjs) and the mime format will need to be setup for that suffix.  <br />
 Whilst pulling data for a different problem, I found a useful article <sup><a href="https://indepth.dev/posts/1318/a-note-on-vite-a-very-fast-dev-build-tool#bwhybundleddevelopment" target="_blank">7</a></sup>.</p>
@@ -81,12 +82,11 @@ For when I'm solving problems with Node, this article is fairly pointless.   Mod
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
 	<nav>
-
 		<div id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>JS modules notes</h1></header>
-			    	<p class="bigScreenOnly"> </p>
+			    	<p class="bigScreenOnly">   </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
@@ -101,7 +101,7 @@ For when I'm solving problems with Node, this article is fairly pointless.   Mod
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-01-09T12:35:40">9th of Jan 2023</time>
+						<span>Edited <time datetime="2023-04-15T15:58:31">15th of Apr 2023</time>
 						</span>
 						<span>Created <time datetime="2020-12-12T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >12th of Dec 2020</time> </span>
 					</span>
@@ -120,21 +120,19 @@ For when I'm solving problems with Node, this article is fairly pointless.   Mod
 
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
-<menu><ul class="h4_lean">
-</ul>
-</menu><br />
+<menu class="h4_lean">
+</menu>
+<br />
 
 </fieldset>
 	</div>
-<menu>
-<ul class="burgerMenu" >
+<menu class="burgerMenu" >
 <li class="h4_odd">Additional features</li>
 <li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="#adjacent">Similar articles</a></li>
-</ul>
 </menu>
 	</nav>
 </fieldset>
@@ -153,7 +151,7 @@ For when I'm solving problems with Node, this article is fairly pointless.   Mod
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-03T17:45:24">3rd of Apr 2023, 17:45:24</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-09T12:35:40">9th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-17T08:49:15">17th of Apr 2023, 8:49:15</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T15:58:31">15th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

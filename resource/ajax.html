@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>Ajax library</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ajax" />
 <meta property="og:description" content="If you need to use older technology, this 2007 library is a good piece of technology.  I discuss details on managing older JS processes..." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="3rd of Apr 2023, 17:44:00" />
-<meta property="article:modified_time" content="22nd of Dec 2022" />
+<meta property="article:published_time" content="17th of Apr 2023, 8:47:51" />
+<meta property="article:modified_time" content="9th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ajax" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Ajax library",
-	"article:published_time":"3rd of Apr 2023, 17:44:00", 
-    "article:modified_time":"22nd of Dec 2022",
+	"article:published_time":"17th of Apr 2023, 8:47:51", 
+    "article:modified_time":"9th of Apr 2023",
     "article:section":"technology",
 
     "author": {
@@ -53,14 +53,12 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="lotsOfWords">
-
-<h4 class="dontend" id="toc0"> WARNING: This is an article about JS from before 2008. <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>There are a few editions of this library floating round.  This copy is my own source from original materials. There is an edition I left at an employer, which included some work done inside company time, to improve integration with a form renderer I wrote as part of my dayjob.   Anyone has the test scripts that this was distributed with, please mail them to me (I lost alot of files in a hard disk failure).</p>
 
 <p><strong>Using a JS framework is recommended.</strong></p>
 
 
-<h3 class="dontend" id="toc1"> Goals <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> Goals <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <ul class="ulbasic">
     <li class="libasic">To harmonise between different web-browsers partial support;</li>
     <li class="libasic">To be usable inline of existing systems so need to support COOKIEs etc;</li>
@@ -71,7 +69,7 @@ TODO: magic tune selection against some index/DB -->
 </ul>
 
 
-<h3 class="dontend" id="toc2"> Use cases <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> Use cases <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <ul class="ulbasic">
     <li class="libasic">Be able to supply “auto complete entries” for input boxes;<ul class="ulbasic">
         <li class="libasic">This requires fast end2end processing, and a simple method to get the content onto user display, and the ability to abort, as the old auto-complete is replaced by more recent user typing.</li>
@@ -89,7 +87,7 @@ TODO: magic tune selection against some index/DB -->
 </ul>
 
 
-<h3 class="dontend" id="toc3"> Discussion. <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> Discussion. <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <p>There are plenty of articles on the web which entirely omit the <strong>concurrent requests</strong> requirement, so are operationally useless.  Secondly they omit the COOKIEs.  These examples demonstrate the requirement for the library.  I wanted the resultant library to be “lite weight”, in that it gave to access to AJAX, not tying you in to a developmental environment.  Javascript has enough features from LISP that setting up callbacks for the instance specific behaviour is trivial.</p>
 
 <p>As a flat statement the above goals are fairly trivial. However, quite a few browsers loose references , and so leak memory.  When the lost references include DOM objects, this quickly becomes a way lock up your machine.  The majority of my time was consumed on memory management and making the logging useful.  My final edition uses ids for each request, allowing the message stream for a single AJAX request to be distinguished from other HTTP requests.  Creating and destroying DOM objects is abit tricky to do cleanly (but necessary so you may use a single process and session for several hours without side-effect).</p>
@@ -97,7 +95,7 @@ TODO: magic tune selection against some index/DB -->
 <p>Due to the “part of the browser” approach of AJAX, this does conflict with tools such as firebug.  The logging should be turned off for operational use, but is critical for analysing behaviour on complex pages (where you have AJAX, the number of separate pages required drops quite significantly).  When integrated into the design process and assumptions, AJAX is a useful tool.  It does need to be a factor in the entire design though.   I recommend having two or more rendering modes for site content; your AJAX output - which doesn't need to be a complete HTML document, and a test mode, which provides legal/full pages.  The test mode is also useful for devices without good AJAX support such as the phones on sale at the time of writing the library.</p>
 
 
-<h3 class="dontend" id="toc4"> Known working for <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> Known working for <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 <p>To be a useful package, I would need to add more infrastructure and retest, not in the least if anyone has changed the default settings in the browser, it may behave differently.<br />
 There is a browser dependant maximum number of networking threads that you may open concurrently.  Any code may not exceed this.</p>
 
@@ -116,9 +114,9 @@ There is a browser dependant maximum number of networking threads that you may o
 
 <br /><br />
 
-<h3 class="dontend" id="toc5"> Library documentation <a href="#toc5"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc4"> Library documentation <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
 
-<h4 class="dontend" id="toc6"> API notes <a href="#toc6"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc5"> API notes <a href="#toc5"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p><strong>function get_res(url, callbacks, settings, headers)</strong></p>
 
 <ul class="ulbasic">
@@ -137,7 +135,7 @@ As above, only the post specifies the data to post.  This should be URL encoded 
 As get_res, but the 'freq' value is how often you want to poll.  This must be an integer, and is measured in seconds.</p>
 
 
-<h4 class="dontend" id="toc7"> Callbacks <a href="#toc7"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc6"> Callbacks <a href="#toc6"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>The callbacks argument is a hash array which may have the following values:</p>
 
 <ul class="ulbasic">
@@ -154,7 +152,7 @@ The values should be function objects.</p>
 Each callback is passed the AJAX object, and the settings array.</p>
 
 
-<h4 class="dontend" id="toc8"> Settings array <a href="#toc8"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc7"> Settings array <a href="#toc7"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>The settings array is a hash array, which may contain the following options:</p>
 
 <ul class="ulbasic">
@@ -198,7 +196,7 @@ Each callback is passed the AJAX object, and the settings array.</p>
 </div>
 <div class="fewWords">
 
-<h2 class="dontend" id="toc9"> Sample use <a href="#toc9"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc8"> Sample use <a href="#toc8"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
 <strong>Simple</strong><br />
 
 <pre class="codeblock"><code>
@@ -236,7 +234,7 @@ Each callback is passed the AJAX object, and the settings array.</p>
 
 </div>
 
-<h2 class="dontend" id="toc10"> Download <a href="#toc10"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc9"> Download <a href="#toc9"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
 <p>This is <a href="https://owenberesford.me.uk//asset/ajax-closure" target="_blank">available here</a>, under LGPL licence.  <br />
 I need to add the other implementation and the contextual libraries.</p>
 
@@ -252,12 +250,11 @@ This is only valuable as an asset, if you are unable to use a normal JS framewor
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
 	<nav>
-
 		<div id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Ajax library</h1></header>
-			    	<p class="bigScreenOnly"> </p>
+			    	<p class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
@@ -272,7 +269,7 @@ This is only valuable as an asset, if you are unable to use a normal JS framewor
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>
+						<span>Edited <time datetime="2023-04-09T13:05:32">9th of Apr 2023</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -291,32 +288,29 @@ This is only valuable as an asset, if you are unable to use a normal JS framewor
 
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
-<menu><ul class="h4_lean">
-<li class="h4_odd"><a href="#toc0">WARNING: This is an article about JS from before 2008.</a></li>
-<li><a href="#toc1">Goals</a></li>
-<li class="h4_odd"><a href="#toc2">Use cases</a></li>
-<li><a href="#toc3">Discussion.</a></li>
-<li class="h4_odd"><a href="#toc4">Known working for</a></li>
-<li><a href="#toc5">Library documentation</a></li>
-<li class="h4_odd"><a href="#toc6">API notes</a></li>
-<li><a href="#toc7">Callbacks</a></li>
-<li class="h4_odd"><a href="#toc8">Settings array</a></li>
-<li><a href="#toc9">Sample use</a></li>
-<li class="h4_odd"><a href="#toc10">Download</a></li>
-</ul>
-</menu><br />
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Goals</a></li>
+<li><a href="#toc1">Use cases</a></li>
+<li class="h4_odd"><a href="#toc2">Discussion.</a></li>
+<li><a href="#toc3">Known working for</a></li>
+<li class="h4_odd"><a href="#toc4">Library documentation</a></li>
+<li><a href="#toc5">API notes</a></li>
+<li class="h4_odd"><a href="#toc6">Callbacks</a></li>
+<li><a href="#toc7">Settings array</a></li>
+<li class="h4_odd"><a href="#toc8">Sample use</a></li>
+<li><a href="#toc9">Download</a></li>
+</menu>
+<br />
 
 </fieldset>
 	</div>
-<menu>
-<ul class="burgerMenu" >
+<menu class="burgerMenu" >
 <li class="h4_odd">Additional features</li>
 <li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="#adjacent">Similar articles</a></li>
-</ul>
 </menu>
 	</nav>
 </fieldset>
@@ -335,7 +329,7 @@ This is only valuable as an asset, if you are unable to use a normal JS framewor
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-03T17:44:00">3rd of Apr 2023, 17:44:00</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>.
+	<p> Page rendered <time datetime="2023-04-17T08:47:51">17th of Apr 2023, 8:47:51</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T13:05:32">9th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

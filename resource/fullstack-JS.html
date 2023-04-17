@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>My experience as fullstack JS developer</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/fullstack-JS" />
 <meta property="og:description" content="My professional fullstack JS developer experience. Specific technologies I used to make products with, and notes for JS based solutions ." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="3rd of Apr 2023, 17:44:42" />
-<meta property="article:modified_time" content="18th of Jan 2023" />
+<meta property="article:published_time" content="17th of Apr 2023, 8:48:33" />
+<meta property="article:modified_time" content="9th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/fullstack-JS" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "My experience as fullstack JS developer",
-	"article:published_time":"3rd of Apr 2023, 17:44:42", 
-    "article:modified_time":"18th of Jan 2023",
+	"article:published_time":"17th of Apr 2023, 8:48:33", 
+    "article:modified_time":"9th of Apr 2023",
     "article:section":"technology",
 
     "author": {
@@ -57,7 +57,7 @@ TODO: magic tune selection against some index/DB -->
 
 <ul class="ulbasic">
     <li class="libasic">All my code is “use strict”.  Due to writing in other languages before JS, I rarely hoist;</li>
-    <li class="libasic">I generally write JS to ES2020 level; previously I used older editions. As of this year I am joyously deleting all the es5shim import statements, as MSIE has been retired by Microsoft.  The current browser that needs the most compatibility support is Safari;</li>
+    <li class="libasic">I generally write JS to ES2020 level; previously I used older editions.   As of this year I am joyously deleting all the es5shim import statements, as MSIE has been retired by Microsoft.  The current browser that needs the most compatibility support is Safari;</li>
     <li class="libasic">I went to a JS conference in 2020, see <a class="" href="https://owenberesford.me.uk/resource/js-nation-live-notes#">notes</a>;</li>
     <li class="libasic">I have used Typescript at Swyvl, and for open source.  I think the type system in Golang is better; but I see the commercial value in using typescript for projects, in the browser or a server side API;</li>
     <li class="libasic">I have used Node commercially, starting in 2015.  For the first project, I updated the version of Node and I was extending the functionality, the first version was built with Mongoose and Express.  That project also used handlebars, and the JS templating library (bra/pug) <a href="https://koajs.com/" target="_blank">Koa</a> would be a better framework IMO; as generators lead to less nested callbacks, and secondly it has less of a maze of extensions;</li>
@@ -65,10 +65,10 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">I have used <b>React</b> to build three products (this took about three years, one was small), with v16, and v17 (across <a class="" href="https://owenberesford.me.uk/resource/UX-engineer#">UX-engineer</a> and <a class="" href="https://owenberesford.me.uk/resource/reactnative-developer#">reactnative-developer</a> ).  This consumed about three years (one was small), and I have built OSS with v18.  I spent 18 months using <b>Vue2</b> to make a product (also Hoptroff); and used Vue3 for recent OSS.  I worked for over a year on a product using <b>Angularjs</b> at <a class="" href="https://owenberesford.me.uk/resource/lead-engineer#">lead-engineer</a>;</li>
     <li class="libasic">I generally build PWA, and carefully monitor browser support for various features.   As most people would aggregate UX with client side work, I refer to some case studies <a class="" href="https://owenberesford.me.uk/resource/usability-casestudy-01#">UX</a> and <a class="" href="https://owenberesford.me.uk/resource/usability-casestudy-02#">more UX</a>, and <a class="" href="https://owenberesford.me.uk/resource/reactnative-developer#">third</a>.</li>
     <li class="libasic">I prefer to write in objects/modules, it makes testing much easier and cheaper.  I can write code towards OO or towards FP architectural styles.   Unless I am rushed, I extract Services from Components to make testing easier/ faster;</li>
-    <li class="libasic">I use a range of test tools. I have used <b>Jest</b>, and have strong experience with <b>Mocha/Chai</b>.   Historically I used <b><a href="https://qunitjs.com/" target="_blank">qunit</a></b>, for OSS as it is a really small dependency, but this wouldn't scale for CI style use.  I have used Cypress abit (Swyvl); and [in Jan 2023] am researching <b> <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> </b> as a UX test tool.  Before I was aware of Storybook, I made a simple <a class="" href="https://owenberesford.me.uk/resource/ux-verify#">ux-verify</a> library to plug into Mocha, Jest or Jasmine tests;</li>
+    <li class="libasic">I use a range of test tools. I currently target testing via <b>Jest</b>, and <b>Storybook</b>.  See <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> for more details.   Historically I used <b>Mocha/Chai</b> for example <a href="https://github.com/owenBeresford/es6-test-demo" target="_blank">a demo</a>, and <b><a href="https://qunitjs.com/" target="_blank">qunit</a></b>.  I have used Cypress abit (Swyvl).  Before I was aware of Storybook, I made a simple <a class="" href="https://owenberesford.me.uk/resource/ux-verify#">ux-verify</a> library to plug into Mocha, Jest or Jasmine tests;</li>
     <li class="libasic">My libraries tidily don't pollute the symbolspace anymore than is necessary.  With modern “modules” JS, I get a closure for free, and do not need to wrap my code in one anymore.  I know what the self executing function declarations are, but generally only use them in jQuery;</li>
     <li class="libasic">Focussing on reports, I really like datepickers; as it removes two days off any isolated platform development.  <strong>UPDATE:</strong> Unless I am doing something complex with date ranges, I am now using plain HTML5.  Previously when I needed to support MSIE, I normally used a JS date picker and a clock picker;</li>
-    <li class="libasic">As with most people, I have built SPA.  For current technology, I would be using a JS templating and content injection tools, for example React + Redux.</li>
+    <li class="libasic">As with most people, I have built SPA.  For current technology, I would be using a JS templating and content injection tools, for example React + Redux.   Making HTML on the server side in a non-JS language is typically faster executing.   </li>
     <li class="libasic">General consensus is that data manipulation should be on the server, so it can't be disabled;</li>
     <li class="libasic">I have worked in high volume services/sites, but the most scalable server languages aren't JS.  When I was extending Venue10's systems I added the service monitoring features, and service availability tweaks, to make it a more useful and regulated service.  At Hoptroff there was a devop; but I contributed scripts for his tooling, and database audit scripts, which made more impact.  At Swyvl, I improved uptime, improved performance, added tests, added monitoring to the Typescript based product.   </li>
     <li class="libasic">I have done some demo code with websockets, but as fundamentally its a TCP socket, this is no different to normal POSIX programming.  I have written alot of normal TCP and UDP based programming;</li>
@@ -98,12 +98,11 @@ TODO: magic tune selection against some index/DB -->
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
 	<nav>
-
 		<div id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>My experience as fullstack JS developer</h1></header>
-			    	<p class="bigScreenOnly"> </p>
+			    	<p class="bigScreenOnly">   </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
@@ -118,9 +117,9 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-01-18T11:18:11">18th of Jan 2023</time>
+						<span>Edited <time datetime="2023-04-09T15:13:48">9th of Apr 2023</time>
 						</span>
-						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+						<span>Created <time datetime="2022-04-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Apr 2022</time> </span>
 					</span>
 
 				</div>
@@ -137,21 +136,19 @@ TODO: magic tune selection against some index/DB -->
 
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
-<menu><ul class="h4_lean">
-</ul>
-</menu><br />
+<menu class="h4_lean">
+</menu>
+<br />
 
 </fieldset>
 	</div>
-<menu>
-<ul class="burgerMenu" >
+<menu class="burgerMenu" >
 <li class="h4_odd">Additional features</li>
 <li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="#adjacent">Similar articles</a></li>
-</ul>
 </menu>
 	</nav>
 </fieldset>
@@ -170,7 +167,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-03T17:44:42">3rd of Apr 2023, 17:44:42</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-18T11:18:11">18th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-17T08:48:33">17th of Apr 2023, 8:48:33</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T15:13:48">9th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

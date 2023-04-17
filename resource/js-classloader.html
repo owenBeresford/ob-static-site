@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>JS Autoloader/ classloader</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-classloader" />
 <meta property="og:description" content="An article on my findings for the next iteration with making my site load faster." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="3rd of Apr 2023, 17:45:21" />
-<meta property="article:modified_time" content="16th of Jan 2023" />
+<meta property="article:published_time" content="17th of Apr 2023, 8:49:12" />
+<meta property="article:modified_time" content="15th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-classloader" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS Autoloader/ classloader",
-	"article:published_time":"3rd of Apr 2023, 17:45:21", 
-    "article:modified_time":"16th of Jan 2023",
+	"article:published_time":"17th of Apr 2023, 8:49:12", 
+    "article:modified_time":"15th of Apr 2023",
     "article:section":"technology",
 
     "author": {
@@ -54,7 +54,8 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 <p>This article is called this <sup><a href="https://addyosmani.com/largescalejavascript/" target="_blank">1</a></sup>, as I use many OO languages, and do not consider an “include statement” a good way to manage dependency injection.  Simple JS notes also assert that code should be manually injected with a static locked version.<br />
-<em>This article is limited to client side JS.</em>  At point of writing this site has no good process loading JS.  There was originally a small number of JS libraries, and my personal shim to fix (now historical) browser faults.   I have been adding to the UX niceities, so the JS is getting heavier.   I want a better solution than statically linking JS classes in the main/root template.  I am writing an exploration (this text) ahead of any decisions or work.</p>
+<em>This article is limited to client side JS.</em>  At point of writing this site has no good process loading JS.  There was originally a small number of JS libraries, and my personal shim to fix (now historical) browser faults.   I have been adding to the UX niceties, so the JS is getting heavier.   I want a better solution than statically linking JS classes in the main/root template.  I am writing an exploration (this text) ahead of any decisions or work.<br />
+A few years later I wrote an article about methods to get source code to the client-side, see <a class="" href="https://owenberesford.me.uk/resource/js-modules-notes#">js-modules-notes</a></p>
 
 
 <h4 class="dontend" id="toc0"> Possible Architectures <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
@@ -74,6 +75,7 @@ TODO: magic tune selection against some index/DB -->
         <li class="libasic">Can be dynamically configured for each page, as the files are assembled in real time.</li>
     </ul></li>
     <li class="libasic">Dynamically server-side compiled buffers from separate source files (like C compilation).<ul class="ulbasic">
+        <li class="libasic"><b>UPDATE</b> this is called 'a minifier'/ minification; there are many choices.   WARN: it is possible to build JS that makes illegal code when minified.</li>
         <li class="libasic">Easy to edit the JS source in separate files.</li>
         <li class="libasic">The compiled form doesn't need white-space, or to be readable (variable name replacement).</li>
         <li class="libasic">Can include analysis tools to report likely failures.</li>
@@ -83,7 +85,8 @@ TODO: magic tune selection against some index/DB -->
         <li class="libasic">Due to heavier processing, may wish to build the buffer asynchronously.  </li>
     </ul></li>
     <li class="libasic">Client side library to manage download and lazy loading.<ul class="ulbasic">
-        <li class="libasic">Sensibly, this needs to be made with a callback system (i.e. after I have moduleX, run moduleX init function). This requires architecting from scratch.  This is the actual classloading option.</li>
+        <li class="libasic"><b>UPDATE</b> An example is <strong>Webpack</strong>, which was first released the year <strong>after</strong> I wrote this article.</li>
+        <li class="libasic">Sensibly, this needs to be made with a callback system (i.e. after I have moduleX, run moduleX init function). This requires architecting from scratch. <em> This is the actual classloading option.</em></li>
         <li class="libasic">Works better with many different pages as each JS library is only downloaded when requested, meaning the first page is displayed faster.</li>
         <li class="libasic">Does require an extra library on the client, but this doesn't need to be very large.</li>
         <li class="libasic">May make page seem slower, due to more complex model (browser parses HTML, downloads 1st JS lib, parses that, then downloads behaviour libs, then parses them)</li>
@@ -93,7 +96,7 @@ TODO: magic tune selection against some index/DB -->
 
 
 <h4 class="dontend" id="toc1"> Aside: AMD. <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
-<p>I am not the first person to think that “traditional web designers” leave something to be desired when it comes to code management.  AMD has been designed as a spec to push ideas to webrowsers, and implemented in JS as shims until the browsers are extended to included this idea.  AMD is short for 'Asynchronous module definition' <sup><a href="https://en.wikipedia.org/wiki/Asynchronous_module_definition" target="_blank">2</a></sup>.  The objective of AMD is an easier way to manage JS class loading, similar to what is used in Java, and more recent versions of Symfony2 (a project started by a Java developer).  There seems to be a project root at <sup><a href="https://github.com/amdjs" target="_blank">3</a></sup>, but I am unable to locate a RFC.  AMD is discussed in the following articles <sup><a href="https://www.devbridge.com/articles/understanding-amd-requirejs/" target="_blank">4</a></sup> <sup><a href="https://addyosmani.com/writing-modular-js/" target="_blank">5</a></sup> <sup><a href="https://www.safaribooksonline.com/library/view/learning-javascript-design/9781449334840/ch11s02.html" target="_blank">6</a></sup> <sup><a href="https://tomdale.net/2012/01/amd-is-not-the-answer/" target="_blank">7</a></sup> <sup><a href="https://requirejs.org/docs/whyamd.html" target="_blank">8</a></sup> <sup><a href="https://dojotoolkit.org/documentation/tutorials/1.10/modules/index.html" target="_blank">9</a></sup> <sup><a href="https://davidwalsh.name/curljs" target="_blank">10</a></sup> <sup><a href="https://blog.cjgammon.com/requirejs-better-organizing-dependencies/" target="_blank">11</a></sup>...(presented as links as I see no value in copying the content, and google inc agrees with me in this).</p>
+<p>I am not the first person to think that “traditional web designers” leave something to be desired when it comes to code management.  AMD has been designed as a spec to push ideas to webrowsers, and implemented in JS as shims until the browsers are extended to included this idea.  AMD is short for 'Asynchronous module definition' <sup><a href="https://en.wikipedia.org/wiki/Asynchronous_module_definition" target="_blank">2</a></sup>.  The objective of AMD is an easier way to manage JS class loading, similar to what is used in Java, and more recent versions of Symfony2 (a project started by a Java developer).  There seems to be a project root at <sup><a href="https://github.com/amdjs" target="_blank">3</a></sup>, but I am unable to locate a RFC.  AMD is discussed in the following articles <sup><a href="https://www.devbridge.com/articles/understanding-amd-requirejs/" target="_blank">4</a></sup> <sup><a href="https://addyosmani.com/writing-modular-js/" target="_blank">5</a></sup> <sup><a href="https://www.safaribooksonline.com/library/view/learning-javascript-design/9781449334840/ch11s02.html" target="_blank">6</a></sup> <sup><a href="https://tomdale.net/2012/01/amd-is-not-the-answer/" target="_blank">7</a></sup> <sup><a href="https://requirejs.org/docs/whyamd.html" target="_blank">8</a></sup> <sup><a href="https://davidwalsh.name/curljs" target="_blank">9</a></sup> <sup><a href="https://blog.cjgammon.com/requirejs-better-organizing-dependencies/" target="_blank">10</a></sup>...(presented as links as I see no value in copying the content, and google inc agrees with me in this).</p>
 
 
 </div>
@@ -104,23 +107,33 @@ TODO: magic tune selection against some index/DB -->
 <p>There is little value in writing a platform from scratch, <em>although I can do</em> see [1].  From a quick google search here are some options:</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><b> RequireJS </b> <sup><a href="https://requirejs.org/docs/api.html" target="_blank">1</a></sup>, a common JS framework for dependency injection.  This has integration with several JS tools such as Angular.</li>
-    <li class="libasic"><b>Steal </b> <sup><a href="https://stealjs.com/" target="_blank">2</a></sup> <a href="https://github.com/stealjs/steal" target="_blank">github</a> <a href="https://stealjs.com/docs/index.html" target="_blank">docs</a>.  This is reviewed as <sup><a href="https://lastzero.net/2012/10/how-to-use-the-stealjs-file-loader-as-a-stand-alone-tool/" target="_blank">3</a></sup>, its <a href="https://stackoverflow.com/questions/tagged/stealjs" target="_blank">stackexchange</a> seems to have sensible questions.  </li>
-    <li class="libasic"><b>Dojo toolkit</b> <sup><a href="https://dojotoolkit.org/community/roadmap/" target="_blank">4</a></sup> <a href="https://github.com/dojo/loader" target="_blank">github</a>  This project believes in docs in word files, I link the loader <sup><a href="https://docs.google.com/document/d/1-gbawq5nhi1GuYuVMoTJBFAzESaqgYKlS_aLzHzaAXs/edit?pref=2&amp;amp;pli=1#heading=h.mknz10lo6jxp" target="_blank">5</a></sup>.  This is distributed with the 'new BSD' licence.   An article advocating Dojo <sup><a href="https://code.tutsplus.com/tutorials/10-reasons-why-your-projects-should-use-the-dojo-toolkit--net-26072" target="_blank">6</a></sup> although it seems to have declined popularity <sup><a href="https://www.quora.com/Why-has-the-Dojo-toolkit-disappeared-off-peoples-radar" target="_blank">7</a></sup> (for the whole framework..)</li>
-    <li class="libasic"><b>curl.js</b> <sup><a href="https://github.com/cujojs/curl" target="_blank">8</a></sup>.  This is a good tool, but it seems the project is suspended, so its use should be considered with caution.</li>
-    <li class="libasic"><b> ScriptmanJS </b> I can see notes referencing this on AMD sites.  This site has an expired domain, I assume a dead project.  Google doesn't return the github project either.</li>
-    <li class="libasic">UPDATE: I need to look the tools listed in here <sup><a href="https://stackoverflow.com/questions/12893046/how-to-manage-client-side-javascript-dependencies" target="_blank">9</a></sup></li>
+    <li class="libasic"><b> Commonjs</b> standard. UPDATE 2019: Last year I started started including a project called CommonJS, to allow deps to load better.   If this was supposed to be used in node, its very browser friendly in architecture.  The project is in NPM <sup><a href="https://www.npmjs.com/package/common-js" target="_blank">1</a></sup> or <sup><a href="https://unpkg.com/common-js@latest" target="_blank">2</a></sup>, authored by Andrea Giammarchi aka <sup><a href="https://github.com/WebReflection/common-js" target="_blank">3</a></sup>.  This library is maintained.  There is more than one implementation for CommonJS, </li>
 </ul>
 
-<p>A while ago, there was a standards focussed group called CommonJS <sup><a href="https://www.commonjs.org/" target="_blank">10</a></sup> (didn't directly make any code).  This is focussed on <i>serverside JS</i>, and is mentioned here for completeness; and that if ignorant people are reading this “AMD like” subject, notes on what to ignore may save them time.<br />
-UPDATE 2019: Last year I started started including a project called CommonJS, to allow deps to load better.   If this was supposed to be used in node, its very browser friendly in architecture.  The project is in NPM <sup><a href="https://www.npmjs.com/package/common-js" target="_blank">11</a></sup> or <sup><a href="https://unpkg.com/common-js@latest" target="_blank">12</a></sup>, authored by Andrea Giammarchi aka <sup><a href="https://github.com/WebReflection/common-js" target="_blank">13</a></sup>.</p>
+<p>A while ago, there was a standards focussed group called CommonJS <sup><a href="https://www.commonjs.org/" target="_blank">4</a></sup> (didn't directly make any code).  This is focussed on <i>serverside JS</i>, and is mentioned here for completeness; and that if ignorant people are reading this “AMD like” subject, notes on what to ignore may save them time.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">an AMD solution, see above.  In 2023, AMD is still supported by many packing tools, so can be used as an output format for existing platforms.  </li>
+    <li class="libasic"><b> RequireJS </b> <sup><a href="https://requirejs.org/docs/api.html" target="_blank">5</a></sup>, a common JS framework for dependency injection.  This has integration with several JS tools such as Angular.</li>
+</ul>
+
+<p>Legacy solutions that I think should be avoided:</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><b>Steal </b> <sup><a href="https://stealjs.com/" target="_blank">6</a></sup> <a href="https://github.com/stealjs/steal" target="_blank">github</a> <a href="https://stealjs.com/docs/index.html" target="_blank">docs</a>.  This is reviewed as <sup><a href="https://lastzero.net/2012/10/how-to-use-the-stealjs-file-loader-as-a-stand-alone-tool/" target="_blank">7</a></sup>, its <a href="https://stackoverflow.com/questions/tagged/stealjs" target="_blank">stackexchange</a> seems to have sensible questions.  </li>
+    <li class="libasic"><b>Dojo toolkit</b> <sup><a href="https://dojotoolkit.org/community/roadmap/" target="_blank">8</a></sup> <a href="https://github.com/dojo/loader" target="_blank">github</a>  This project believes in docs in word files, I link the loader <sup><a href="https://docs.google.com/document/d/1-gbawq5nhi1GuYuVMoTJBFAzESaqgYKlS_aLzHzaAXs/edit?pref=2&amp;amp;pli=1#heading=h.mknz10lo6jxp" target="_blank">9</a></sup>.  This is distributed with the 'new BSD' licence.   An article advocating Dojo <sup><a href="https://code.tutsplus.com/tutorials/10-reasons-why-your-projects-should-use-the-dojo-toolkit--net-26072" target="_blank">10</a></sup> although it seems to have declined popularity <sup><a href="https://www.quora.com/Why-has-the-Dojo-toolkit-disappeared-off-peoples-radar" target="_blank">11</a></sup> (for the whole framework..)</li>
+    <li class="libasic"><b>curl.js</b> <sup><a href="https://github.com/cujojs/curl" target="_blank">12</a></sup>.  This is a good tool, but it seems the project is suspended, so its use should be considered with caution.</li>
+    <li class="libasic"><b> ScriptmanJS </b> I can see notes referencing this on AMD sites.  This site has an expired domain, I assume a dead project.  Google doesn't return the github project either.</li>
+    <li class="libasic">UPDATE: I need to look the tools listed in here <sup><a href="https://stackoverflow.com/questions/12893046/how-to-manage-client-side-javascript-dependencies" target="_blank">13</a></sup></li>
+</ul>
 
 
-<h2 class="dontend" id="toc3"> TODO <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h4 class="dontend" id="toc3"> TODO <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
 <p>My actual requirements is to fix the JS HTTP headers, and give the pages a per page module load list.  I don't like “manual include statements”, but this may be the most appropriate level of technology on this site.  I will make/ import a minimiser, as secondary target.  Don't think this is worth a github project for.<br />
-Obviously the least stupid solution is to use native require() support in the browser from a HTTP2 server. I am still waiting.</p>
+Obviously the least stupid solution is to use native require() support in the browser from a HTTP2 server. I am still waiting. <br />
+<b>UPDATE2022</b>: forced host upgrade in Q4 2022; I now have HTTP2 at no hassle.   NB: HTTP2 is no longer a hard thing to achieve; I have deployed it commercially.   Secondly, maybe I should look at swapping the many JSON meta files to ProtoBuf.   I think the headers are fixed since 2016; I have been using a minifier since a bit after I wrote the first version of this article.</p>
 
-<p>[ 1 ] I am writing a <a class="" href="https://owenberesford.me.uk/resource/punit#">Perl unit test</a> skeleton generator, as I am unable to find one.</p>
+<p>[ 1 ] I wrote <a class="" href="https://owenberesford.me.uk/resource/punit#">Perl unit test</a> skeleton generator, as I am unable to find one.</p>
 
 
 </div>
@@ -132,12 +145,11 @@ Obviously the least stupid solution is to use native require() support in the br
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
 	<nav>
-
 		<div id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>JS Autoloader/ classloader</h1></header>
-			    	<p class="bigScreenOnly"> </p>
+			    	<p class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
@@ -152,7 +164,7 @@ Obviously the least stupid solution is to use native require() support in the br
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-01-16T16:01:11">16th of Jan 2023</time>
+						<span>Edited <time datetime="2023-04-15T15:56:16">15th of Apr 2023</time>
 						</span>
 						<span>Created <time datetime="2015-12-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Dec 2015</time> </span>
 					</span>
@@ -171,25 +183,23 @@ Obviously the least stupid solution is to use native require() support in the br
 
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
-<menu><ul class="h4_lean">
+<menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Possible Architectures</a></li>
 <li><a href="#toc1">Aside: AMD.</a></li>
 <li class="h4_odd"><a href="#toc2">Possible solution for a good JS tool</a></li>
 <li><a href="#toc3">TODO</a></li>
-</ul>
-</menu><br />
+</menu>
+<br />
 
 </fieldset>
 	</div>
-<menu>
-<ul class="burgerMenu" >
+<menu class="burgerMenu" >
 <li class="h4_odd">Additional features</li>
 <li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="#adjacent">Similar articles</a></li>
-</ul>
 </menu>
 	</nav>
 </fieldset>
@@ -208,7 +218,7 @@ Obviously the least stupid solution is to use native require() support in the br
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-03T17:45:21">3rd of Apr 2023, 17:45:21</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-16T16:01:11">16th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-17T08:49:12">17th of Apr 2023, 8:49:12</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T15:56:16">15th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
