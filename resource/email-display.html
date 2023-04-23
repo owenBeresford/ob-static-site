@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/email-display" />
 <meta property="og:description" content="Several solutions to show users an email address without software being able to see it." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2023, 8:48:21" />
+<meta property="article:published_time" content="23rd of Apr 2023, 22:43:01" />
 <meta property="article:modified_time" content="9th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/email-display" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Safe rendering of your email address",
-	"article:published_time":"17th of Apr 2023, 8:48:21", 
+	"article:published_time":"23rd of Apr 2023, 22:43:01", 
     "article:modified_time":"9th of Apr 2023",
     "article:section":"technology",
 
@@ -61,7 +61,7 @@ TODO: magic tune selection against some index/DB -->
 <p>The frequent email that no-one wants or benefits from is spam.  There are robots that read websites retrieving email addresses <sup><a href="https://en.wikipedia.org/wiki/Email_address_harvesting" target="_blank">1</a></sup> <sup><a href="https://www.private.org.il/harvest.html" target="_blank">2</a></sup>, so unsolicited commercial emails may be bulk distributed i.e. spam, hopefully leading to sales for the spammer.  This article should be unnecessary as the majority of the world has anti-spam legislation.  However, if the product is less legal or comes from a less organised part of the world, this works less reliably.  Please read the references for a legal perspective <sup><a href="https://www.small-business-database-marketing.com/anti-spam-laws.html" target="_blank">3</a></sup> <sup><a href="https://www.lawdonut.co.uk/law/sales-and-marketing/marketing-and-advertising/your-email-marketing-and-anti-spam-law" target="_blank">4</a></sup> <sup><a href="https://www.theregister.com/2003/12/10/uk_antispam_law_goes_live/" target="_blank">5</a></sup>.  Further reading <sup><a href="https://www.reuters.com/article/uk-britain-spam-idUKL1510294820070315" target="_blank">6</a></sup></p>
 
 
-<h4 class="dontend" id="toc0"> Tech history. <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc0"> Tech history. <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <p>The above condition has been consistent for at least a decade, web authors have been using the following avoidance strategies :</p>
 
 <ol>
@@ -73,23 +73,23 @@ TODO: magic tune selection against some index/DB -->
 </ol>
 
 
-<h4 class="dontend" id="toc1"> Alternative strategies. <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc1"> Alternative strategies. <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <p>If one considers email addresses to be public information, like store locations and registered offices, then other activities to deal with any email that arrives are required.  Useful email services include anti-virus filters, and spam filtering is an extension of this concept.  Email matching various heuristics is likely to be automated commercial email, and can be ignored by the mail reader.<br />
 There are a variety of tools to do this.  Listing them is out of scope for article.</p>
 
 
-<h2 class="dontend" id="toc2"> A modest proposal. <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc2"> A modest proposal. <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
 <p>Email harvesters work by extracting sections of text that resemble email addresses. The above solutions work by allowing communication without an email address.  To the best of my knowledge (although I have done no research on this), no one is using CSS to break the pattern matching.  I have embedded the CSS in style elements, as the offsets will be specific to each site.  The generated HTML should be fairly google friendly, as google breaks up search input into separate words, and treats adjacent text as clustered, which this is.<br />
 If we write the following:</p>
 
 
-<h4 class="dontend" id="toc3"> Plain text :  <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc3"> Plain text :  <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 
 <pre class="codeblock"><code>
 Contact me at my.name@emailhost.tld</code></pre>
 
 
-<h4 class="dontend" id="toc4"> Re-ordered version (v1) : <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc4"> Re-ordered version (v1) : <a href="#toc4"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 
 <pre class="codeblock"><code>
 Contact me at  &lt;div id=“emailHolder1” class=“emailHolder”&gt;&lt;span style=“position:relative; left:100px;&quot;&gt;.tld&lt;/span&gt;
@@ -98,7 +98,7 @@ Contact me at  &lt;div id=“emailHolder1” class=“emailHolder”&gt;&lt;span
 &lt;span style=“position:relative; left:70px;&quot;&gt; emailhost&lt;/span&gt;&lt;/div&gt;</code></pre>
 
 
-<h4 class="dontend" id="toc5"> Re-ordered version (smarter, v2) : <a href="#toc5"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc5"> Re-ordered version (smarter, v2) : <a href="#toc5"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 
 <pre class="codeblock"><code>
 Contact me at &lt;ol id=“emailHolder2” class=“emailHolder”&gt;
@@ -150,7 +150,7 @@ UPDATE 2014: a solution I scrapped from <sup><a href="https://stackoverflow.com/
 
 <br />
 I also suggest you read <sup><a href="https://stackoverflow.com/a/41342264/2375161" target="_blank">8</a></sup>
-<h4 class="dontend" id="toc6"> Final solution <a href="#toc6"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc6"> Final solution <a href="#toc6"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <p>When I first thought about this, it seemed a simple idea.  Now I have made a solution, its trying to be clever without much gain.<br />
 The best solution that I am aware of is CSS generated content <sup><a href="https://www.w3.org/TR/CSS21/generate.html#content" target="_blank">9</a></sup> <sup><a href="https://caniuse.com/css-gencontent" target="_blank">10</a></sup>. The big UX problem is that you can't copy the email address.</p>
 
@@ -243,7 +243,7 @@ The best solution that I am aware of is CSS generated content <sup><a href="http
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-17T08:48:21">17th of Apr 2023, 8:48:21</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T14:39:30">9th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-23T22:43:01">23rd of Apr 2023, 22:43:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T14:39:30">9th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

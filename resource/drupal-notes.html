@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/drupal-notes" />
 <meta property="og:description" content="I have read up on Drupal 7, here are some notes." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2023, 8:48:19" />
+<meta property="article:published_time" content="23rd of Apr 2023, 22:42:59" />
 <meta property="article:modified_time" content="9th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/drupal-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Notes on Drupal 7.",
-	"article:published_time":"17th of Apr 2023, 8:48:19", 
+	"article:published_time":"23rd of Apr 2023, 22:42:59", 
     "article:modified_time":"9th of Apr 2023",
     "article:section":"technology",
 
@@ -54,19 +54,19 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 
-<h2 class="dontend" id="toc0"> Please note Drupal7 was end of life in August 2022. <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc0"> Please note Drupal7 was end of life in August 2022. <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
 <p>I wrote this in 2013/2014 when it was new, if you use Drupal, you should be using a better architected, better tested, more stable Drupal v8 or v9.   I am removing most of the content on this page; as the links are invalid</p>
 
 <p>There have been a number of iterations on Drupal.  My notes go back to Drupal6.  Drupal 7 added a few new features (please see <sup><a href="https://www.drupal.org/about/new-in-drupal-7" target="_blank">1</a></sup> ); and is the “current one”.  Drupal8 breaks backwards compatibility, but has finally joined the &gt;1980s by going OO and using namespaces.  Drupal8 also supports HTML5 and mobile.  Whilst I understand inertia on big projects, I find it hard to take lack of support for these things seriously.<br />
 There is a catalogue that lists Drupal sites <sup><a href="https://drupalsites.net/" target="_blank">2</a></sup>, this is useful for looking at features for Drupal.  A list of case studies <sup><a href="https://www.drupal.org/case-studies" target="_blank">3</a></sup>. <a href="https://www.drupalpartners.com/blog/a-very-merry-drupal-holiday-poem" target="_blank">Seasonal fluff</a> that showed up on my linkedin.</p>
 
 
-<h3 class="dontend" id="toc1"> Audience <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> Audience <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>Drupal is a CMF, mostly targeted at non-programmers who need to achieve skilled professional tasks (Content librarian is skilled language-based role, which pure technology conversations will tend to ignore.).  I have researched abit <sup><a href="https://www.garfieldtech.com/blog/drupal-priorities" target="_blank">4</a></sup> <sup><a href="https://www.disambiguity.com/designing-for-the-wrong-target-audience/" target="_blank">5</a></sup> <sup><a href="https://engineeredweb.com/blog/drupal-target-audiences/" target="_blank">6</a></sup>, Drupal caters for people who want to do “programming via the mouse” (I seek to avoid controversy, so am not using the standard term ).   These are the type of people who think that security is optional, and don't know enough to do high performance.  <br />
 As far as you don't want to write the entire CMS everytime you build anther site, that is quite sensible.  If the framework did security and scalability see <sup><a href="https://www.drupal.org/security/secure-configuration" target="_blank">7</a></sup> <sup><a href="https://www.drupal.org/project/pubdlcnt" target="_blank">8</a></sup> ~ which would also make sense ~ then the weakness of the website builders isn't a problem.</p>
 
 
-<h3 class="dontend" id="toc2"> Comparison to other CMS <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> Comparison to other CMS <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>There is a service to port your site between CMSs <sup><a href="https://www.cms2cms.com/" target="_blank">9</a></sup>, although I don't know anyone using it.</p>
 
 <p>Wordpress <sup><a href="https://en.wikipedia.org/wiki/WordPress" target="_blank">10</a></sup> is a more narrow CMS, mostly just for blogs.  There is a bigger range of tools attached to wordpress, and certainly compared to Drupal6 its easier to manage.  Wordpress is still seen as stronger for non-technical users.  In Drupal7 they added a large administration module, so that weakness is gone.  Drupal developers assert that as they can “snap modules together” Drupal is more flexible.<br />
@@ -75,19 +75,19 @@ In 2012 my Facebook was flooded with repeated adverts for <a href="https://www.w
 Another PHP CMS is <a href="https://en.wikipedia.org/wiki/Joomla" target="_blank">Joomla</a>. Blogger <sup><a href="https://en.wikipedia.org/wiki/Blogger_%28service%29" target="_blank">13</a></sup> is for blogs, and is written in Python.  It is a rentable service only, not an installed software.  Compared to Drupal; Blogger has good mobile support, both for editing and reading sites ~ including via SMS.  There are many further projects that I haven't mentioned.  There are surveys attempting to gauge the operational userbase for each <sup><a href="https://w3techs.com/technologies/overview/content_management" target="_blank">14</a></sup> <sup><a href="https://www.opensourcecms.com/cms-market-share/" target="_blank">15</a></sup> <sup><a href="https://despreneur.com/cms-trends-for-2014/" target="_blank">16</a></sup>.  The value derived from the common projects has been analysed for freelancer.com <sup><a href="https://phpmagazine.net/2015/01/exclusive-report-php-freelancing-a-30-growth-in-2014.html" target="_blank">17</a></sup>, although the author says he would like a better level of granularity.  Many of the people requesting a freelancer don't mention the platform, but may or may not have received a Wordpress site anyway.  These analysis all say that Wordpress is a dominant player, having about 60% of the CMS market.  I guess there are many more blog or simple brochure sites than anything more complex.   The first link states that over sixty percent of websites do not use a CMS.  To narrow the market to just e-shops, Magento is a dominant player <sup><a href="https://aheadworks.com/blog/magento-got-a-third-slice-of-pie" target="_blank">18</a></sup>.   The market trending articles state that the smaller projects are collapsing (presumably Wordpress gets another plugin each time).</p>
 
 
-<h3 class="dontend" id="toc3"> Drupal 7 features <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> Drupal 7 features <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>[content removed]</p>
 
 
-<h3 class="dontend" id="toc4"> Performance <a href="#toc4"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc4"> Performance <a href="#toc4"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>[content removed]</p>
 
 
-<h3 class="dontend" id="toc5"> Architecture <a href="#toc5"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc5"> Architecture <a href="#toc5"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>[content removed]</p>
 
 
-<h3 class="dontend" id="toc6"> Testing <a href="#toc6"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc6"> Testing <a href="#toc6"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>[content removed]</p>
 
 
@@ -176,7 +176,7 @@ Another PHP CMS is <a href="https://en.wikipedia.org/wiki/Joomla" target="_blank
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-17T08:48:19">17th of Apr 2023, 8:48:19</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T14:38:41">9th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-23T22:42:59">23rd of Apr 2023, 22:42:59</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T14:38:41">9th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

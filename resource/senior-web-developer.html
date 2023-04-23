@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/senior-web-developer" />
 <meta property="og:description" content="Another contract.." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2023, 8:50:27" />
+<meta property="article:published_time" content="23rd of Apr 2023, 22:45:07" />
 <meta property="article:modified_time" content="10th of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/senior-web-developer" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Senior Web developer",
-	"article:published_time":"17th of Apr 2023, 8:50:27", 
+	"article:published_time":"23rd of Apr 2023, 22:45:07", 
     "article:modified_time":"10th of Jan 2023",
     "article:section":"technology",
 
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 
-<h3 class="dontend" id="toc0"> Terse summary.  <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> Terse summary.  <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>TL;DR option, which is normally at the end.</p>
 
 <ul class="ulbasic">
@@ -70,13 +70,13 @@ TODO: magic tune selection against some index/DB -->
 </ul>
 
 
-<h3 class="dontend" id="toc1"> Context <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> Context <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>A publishing company called Seven are contracted to Sainsburys to administer a brochureware mini-site advertising products for Sainsburys collections under the brand personality of Gok Wan.  Seven need to release a new site every two months with the current range the Gok Wan clothes. <br />
 There was a standard brochureware toolkit that Seven where using, but this wasn't customised to that template on the brochureware, and was abit inflexible.  The Seven Digital are a Symfony2 shop.  Seven would like to make this process more efficient, so hired me to build them a narrow purpose CMS.  The CMS was for internal use, had no scalability requirements (although obviously the result sites must be scalable), or internationalisation.  The availability of the CMS as a service was very critical for about a week per a month when it was being used.  Administration could easily be performed the other three weeks.  Due to the constrained audience, being fast to solve problems was more important than being simple for casual users (They already had to do detail on the existing standard tools, and where in the publishing trade.).  Due to the nature of design, undo and revertability are important considerations.  The published websites need security, although this is quite simple, as there was little data submitted from users.  The CMS was entirely internal, and held good practice, but no effort for security.<br />
 This article is quite long.  As standard commercial practice, I left the plans and notes at the company; its their property and they may wish to extend the work later.</p>
 
 
-<h3 class="dontend" id="toc2"> Design <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> Design <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>The mini-sites that the CMS creates where expected to be four pages each.  To make things fast to edit, each page is composed of blocks (this is quite standard for this style system).  The settings on each block may be set, and the content.  Each block includes instructions to make it responsive etc.  With a standardised variable naming scheme, blocks types may be swapped; with comparatively little effort.  It was expected the designers/ users would like to make small cosmetic changes to the blocks (e.g. center the text here).  We called these 'tweaks' in the design meeting.  These would be created as JS or CSS, and injected into the page header.  An eventual goal would be to allow the creation of new blocks via saving a block with a stack of tweaks as a new thing.  This will lead to messy code, but allow a good level of design responsiveness.   <br />
 With discussion with the tool users, it was decided that the editions should be named (in the URLs) via a name, rather than a date or edition number.   The CMS as tool will simplify the name space of later editions of the mini-sites.  It allows editions to be published and unpublished as clean atomic operations.  The previous editions had been published to URLs on an adhoc basis.   <br />
 Each block will either contain images, text or both.  Obviously both of these must be set on a per use basis.  Each block has attributes (e.g. text could be red or black), which defined in advance, and may additionally be set.  The reason for defining these in advance, is for generation of UX so the user doesn't need to be fully fluent with CSS and JS.  For a content editor, basic knowledge is assumed, and likely to be acquired if absent.</p>
@@ -84,7 +84,7 @@ Each block will either contain images, text or both.  Obviously both of these mu
 <p>The earlier guess of a week to create the mini-sites is against delays for the images, the URLs, text from the client etc; then to iterate as people refined their views.</p>
 
 
-<h3 class="dontend" id="toc3"> Imported Technology <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> Imported Technology <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>Due to the constrained time scales, I attempted to use a wide variety of imported technology.  This is quite standard, and indeed the reason for using frameworks.  As front-end libraries need a multiple times more testing (each webrowser); I used libraries which have been tested to a known standard where possible.  Seven digital prefers the Foundation CSS framework where possible (rather than Bootstrap 3, which I previously used).  As a flexible professional, I adopted the local standards.  The portions of the platform that require user-input used the widely adopted and understood jQuery and jQuery-ui.   <br />
 Seven Digital use a more complex version of HTML5 than my default template.  I adopted their values, although I'm not sure this will do anything in real terms.  I do note that the more advanced features aren't compiled into tidy <sup><a href="https://www.html-tidy.org/" target="_blank">1</a></sup> yet, so pages now break validation.  Everything is according to the HTML5 spec <sup><a href="https://www.w3.org/TR/html51/" target="_blank">2</a></sup>, and the webrowsers report no problems.<br />
 Obviously I made best possible use of Symfony features.  I added a wide range input validation rules, for the custom text input.<br />
@@ -178,7 +178,7 @@ I find it faster to create the database as straight SQL, the pull this out via D
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-17T08:50:27">17th of Apr 2023, 8:50:27</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-10T14:02:49">10th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-23T22:45:07">23rd of Apr 2023, 22:45:07</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-10T14:02:49">10th of Jan 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

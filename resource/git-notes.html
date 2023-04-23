@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/git-notes" />
 <meta property="og:description" content="Advanced Git notes and Git workflow on how to use it to solve practical problems with it, with extensive performance tips list which are omitted from general sites." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2023, 8:48:39" />
+<meta property="article:published_time" content="23rd of Apr 2023, 22:43:19" />
 <meta property="article:modified_time" content="1st of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/git-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Git and workflow for GIT",
-	"article:published_time":"17th of Apr 2023, 8:48:39", 
+	"article:published_time":"23rd of Apr 2023, 22:43:19", 
     "article:modified_time":"1st of Apr 2023",
     "article:section":"technology",
 
@@ -59,13 +59,13 @@ TODO: magic tune selection against some index/DB -->
 </div>
 <div class="lotsOfWords">
 
-<h4 class="dontend" id="toc0"> Context <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc0"> Context <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <p>Source control is necessary for all long term projects, and again for parallel development projects.  There are a variety of tools to do this, but basically they add data integrity mechanisms  to text files (like SQL engines do).<br />
 <a href="https://git-scm.com/" target="_blank">Git</a> is a tool for massively concurrent software development.  It scales better than <a href="https://subversion.apache.org/" target="_blank">svn</a> (you may wish to read “the redbean <a href="https://svnbook.red-bean.com/" target="_blank">book</a>”), as it's structured differesntly.  It runs a bit faster for some operations.  It is du jour, and originally created by <a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank">Linus Torvalds</a>.  It is massively better than <a href="https://cvs.nongnu.org/" target="_blank">CVS</a> or <a href="https://www.gnu.org/software/rcs/" target="_blank">RCS</a> in my opinion.  This is due to the more complicated design model, which matches current large projects.  There is another DRCS called <a href="https://www.mercurial-scm.org/" target="_blank">Mercurial</a>, which I have yet to use.  This is better documented in <a href="https://www.shroffpublishers.com/books/9788184047479/" target="_blank">this book</a>.  Diligence will make me list other operating systems, Microsoft have a CANCELLED <a href="https://learn.microsoft.com/en-us/previous-versions/ms181038%40v=vs.80%41" target="_blank">VSS</a> product, although the <a href="https://en.wikipedia.org/wiki/Microsoft_Visual_SourceSafe" target="_blank">wiki article</a> is interesting.  This looks like a better multi-developer tool <a href="https://www.sourcegear.com/vault/documentation/SG_VaultPro_DS.pdf" target="_blank">source-vault</a>.  Alternatively, <a href="https://ignitetech.com/softwarelibrary/fogbugz" target="_blank">this</a> is a frontend for traditional CLI interfaces.<br />
 For a more detailed look on the options, see this <a href="https://en.wikipedia.org/wiki/Comparison_of_revision_control_software" target="_blank">massive list</a>.   Discussions on tools are useful <sup><a href="https://stackoverflow.com/questions/4716071/best-source-control-development-tool-for-windows-net" target="_blank">1</a></sup>, <sup><a href="https://stackoverflow.com/questions/49601/is-there-a-barebones-windows-version-control-system-thats-suitable-for-only-one" target="_blank">2</a></sup>.</p>
 
 
-<h3 class="dontend" id="toc1"> External reading <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> External reading <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>There are a lot of “introduction to GIT” articles on the web.  It seems pointless to duplicate anyone else's work.  Please read some of the following :</p>
 
 <ul class="ulbasic">
@@ -81,7 +81,7 @@ For a more detailed look on the options, see this <a href="https://en.wikipedia.
 </ul>
 
 
-<h4 class="dontend" id="toc2"> Installation <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc2"> Installation <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <p>For normal operating systems, I would recommend using your package manager, same as normal.   If you use MS Windows, GIT may be acquired from <a href="http://git-scm.com/downloads" target="_blank">git-scm</a> or a <a href="http://msysgit.github.io/" target="_blank">windows specific build</a>.  Apple Mac should be able to use normal tools, or otherwise it is <a href="http://git-scm.com/downloads" target="_blank">available</a>.  If you are developing from a phone, it looks like it's necessary to use the <a href="https://github.com/git/git" target="_blank">web interface</a>.</p>
 
 <p>To publicly host your GIT backed projects one may use:</p>
@@ -94,7 +94,7 @@ For a more detailed look on the options, see this <a href="https://en.wikipedia.
 </ul>
 
 
-<h3 class="dontend" id="toc3"> Implementation <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> Implementation <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>Methods for useful features that are omitted from the above articles.</p>
 
 Basic Note: Create a new branch with older data (like a symlink)<br />
@@ -315,7 +315,7 @@ This page will be updated.  I am using GIT everyday, but mostly routine.</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-17T08:48:39">17th of Apr 2023, 8:48:39</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-01T23:13:40">1st of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-23T22:43:19">23rd of Apr 2023, 22:43:19</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-01T23:13:40">1st of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

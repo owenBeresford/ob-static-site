@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/pdf-rendering" />
 <meta property="og:description" content="Technical Requirements and reference notes for rendering PDFs on a LAMP webserver." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2023, 8:49:45" />
+<meta property="article:published_time" content="23rd of Apr 2023, 22:44:25" />
 <meta property="article:modified_time" content="15th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/pdf-rendering" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "PDF generation (via PHP)",
-	"article:published_time":"17th of Apr 2023, 8:49:45", 
+	"article:published_time":"23rd of Apr 2023, 22:44:25", 
     "article:modified_time":"15th of Apr 2023",
     "article:section":"technology",
 
@@ -58,7 +58,7 @@ TODO: magic tune selection against some index/DB -->
 <p>Whilst it is not PDF rendering, PDFs can be displayed inside pages with most browsers, via the Object tag <sup><a href="http://joliclic.free.fr/html/object-tag/en/object-application.html#pdf" target="_blank">1</a></sup>.  This has a good level of support in older browsers.  When making PDFs care needs to be applied about resources, as missing resources will cause problems.</p>
 
 
-<h3 class="dontend" id="toc0"> Technical Requirements <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> Technical Requirements <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>There are three different technical requirement profiles inside this general article.  To list:</p>
 
 <ul class="ulbasic">
@@ -86,7 +86,7 @@ TODO: magic tune selection against some index/DB -->
 </ul>
 
 
-<h3 class="dontend" id="toc1"> Review on published libraries <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> Review on published libraries <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>There are several different implementations to make PDFs purely inside PHP.  Then there are several options written in other languages.  Your server environment will determine which you can use.   We want headless rendering, for server environments; as the user won't be looking at it on the server (this for example eliminates the Adobe plugin for ms winword).   As PDF rendering is quite a large problem, I can see busy projects using several different renderers.</p>
 
 <p>The ancestor tool is <i>ghostscript</i> (and tool suite).  It was originally to assist printing on Unix.  The wiki <sup><a href="https://en.wikipedia.org/wiki/Ghostscript" target="_blank">2</a></sup> supplies details, and states that <i>ps2pdf</i> is just a wrapper.  This tool is big, thorough, written in C; and uses alot of RAM.   It runs on an impressive range of operating systems, so most useful for older businesses.  Its use requires font management, or it can't render anything.  I have used it in the past.</p>
@@ -99,7 +99,7 @@ In PHP, there is mPDF, tcPDF, fPDF, DOMPDF, pdflib, and Zend_Pdf.  I have used m
 <p>There is a project called html2ps (to be used with ps2pdf). Reading the literature states <sup><a href="https://smileybits.blogspot.co.uk/2010/07/using-html2ps.html" target="_blank">16</a></sup> that this tool doesn't read CSS, so I would avoid.  I think I used another library to convert the HTML.  As another library in the odd category, FreePDF is recommended <sup><a href="https://github.com/Setasign/FPDF" target="_blank">17</a></sup> for large volumes.  It is based on cursors, and can't use HTML.</p>
 
 
-<h3 class="dontend" id="toc2"> Review on existing services that make PDFs <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> Review on existing services that make PDFs <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>There is a service based on Node <sup><a href="https://github.com/galkahana/hummusrenderrer/wiki/PDF-Rendering-Service" target="_blank">18</a></sup> ~ this is a github project but is also available as a REST API.  As far as you may need to edit the HTML to work better with the renderer, there are docs <sup><a href="https://pdfhummus.com/How-To" target="_blank">19</a></sup>.</p>
 
 <p>An expensive option is PrinceXML.  If all open source solutions fail, try <sup><a href="https://www.princexml.com/" target="_blank">20</a></sup>.  This is priced out of most peoples capacity, and the open source options are much better than when this product was initially sold.</p>
@@ -114,7 +114,7 @@ This option <sup><a href="https://pediapress.com/" target="_blank">21</a></sup> 
 <p>Another is <sup><a href="https://www.html-to-pdf.net/free-online-pdf-converter.aspx" target="_blank">29</a></sup></p>
 
 
-<h3 class="dontend" id="toc3"> Performance <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> Performance <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>In practical terms, no resource should be slower than two seconds, or users may abort or re-request.  There are a couple of solutions to making PDFs, each has different execution costs.  The required number of parallel requests is important, when building the architecture.   The process for making a PDF is mostly CPU bound.  I haven't memory profiled any of the renderers.  Given recent hardware, an otherwise low-load machine should be able to make several PDFs concurrently.  On previous projects, the biggest issue that I had was variable numbers of pages in the data sources.  Obviously more pages, implies a slower render.  Many of the earlier systems would mail you the PDF as soon as it was available (which if this a 50 page document would be a bit long to wait).  If this is an important business function ~ i.e. high use ~ it could be made into a parallel feature, probably going via a queue software.  These days I would look for a rentable micro-service.  When I looked previously, these didn't exist ~ but this was before AWS.   Defraying the spiking processing requirements across multiple businesses is sensible, to have workload isolation it would be smart to be in a different time-zone to most of the other customers of the service.</p>
 
 
@@ -200,7 +200,7 @@ This option <sup><a href="https://pediapress.com/" target="_blank">21</a></sup> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-17T08:49:45">17th of Apr 2023, 8:49:45</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T22:02:36">15th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-23T22:44:25">23rd of Apr 2023, 22:44:25</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T22:02:36">15th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

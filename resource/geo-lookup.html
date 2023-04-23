@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/geo-lookup" />
 <meta property="og:description" content="Some background resources for GIS data sources." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2023, 8:48:37" />
+<meta property="article:published_time" content="23rd of Apr 2023, 22:43:17" />
 <meta property="article:modified_time" content="9th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/geo-lookup" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Geo lookup",
-	"article:published_time":"17th of Apr 2023, 8:48:37", 
+	"article:published_time":"23rd of Apr 2023, 22:43:17", 
     "article:modified_time":"9th of Apr 2023",
     "article:section":"technology",
 
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 
-<h3 class="dontend" id="toc0"> Problem <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> Problem <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>It is quite common to want to be able to translate an IP to a location.  To avoid complications with country demarcations, and charsets; it is also common to put this into a [long,lat].  [lat,long] works well with maps.<br />
 There are a range of possible outcomes when attempting to compute location.  Obviously LAN IPs have no location. Some IPs aren't registered in mainstream blocks handed to ISPs; so don't show up in records.  Alternatively there may be some “hide me” service, as there is with phone numbers.  On random real usage, mostly from the US, this amounted to about 3% of requests.  There are some IPs which seem to be been logged to ships, oil-rigs or satellites, as they where in the middle of the ocean (this occurred frequently enough that serious use would require a filter).  Obviously care must be taken with rounding numbers, not in the least between language systems.  For <a class="" href="https://owenberesford.me.uk/resource/visitors#">my use</a>, I rounded everything to 5DP, as I'm not confident in the data below that resolution. I was attempting to demark geo-usage, not individual people.  It should be noted for plain DSL for endusers, the IP is likely to resolve to the DSLAM, as that is where the edge of the internets IP network is (and thus ones public IP).  For example my current personal PC resolves to Skys equipment in WD17, North London.  I was having much better data from business users, who had their own high-use equipment.</p>
 
@@ -63,18 +63,18 @@ There are a range of possible outcomes when attempting to compute location.  Obv
 <p><strong>EDIT</strong> Everything in this article I state about DSL is too old if the target person is using FTTC.  With FTTC the DSL supplier knows exactly the 'cabinet' you are using is, so places you down to the nearest 10m or so. FTTC is also a faster DSL service.</p>
 
 
-<h3 class="dontend" id="toc1"> Discussion <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> Discussion <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>There are two general architectures to this concern; firstly get a big database of lookups installed on your server; secondly poll a third party server for each needed lookup.  The first is needed for high performance solutions, but the second is better if the IPs will change mapping frequently.  Assuming it is possible to update the database every-so often, an installed database is a manageable position.</p>
 
 <p>On the work I do, high performance is generally more important (in my scenario, during peaks, it would need to process &gt;5000 requests per minute).  This required that the lookup would take &lt;200ms, or its not possible to process the raw data.  These figures are conservative, but this was one service in an entire platform, and couldn't monopolise resources.  It should be noted that many of the location databases are mostly focussed on a single country, due to boundaries I mentioned previously.  For a global service, I would probably advise using several mapping services.</p>
 
 
-<h3 class="dontend" id="toc2"> Nominated vendor <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> Nominated vendor <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>Due to operational cost and supporting a US customer base, <a class="" href="https://owenberesford.me.uk/resource/visitors#">a previous project</a> MT used <a href="https://dev.maxmind.com/geoip/geolocate-an-ip?lang=en" target="_blank">Maxminds</a>.  Since I wrote that code, <sup><a href="https://github.com/orgs/maxmind/repositories" target="_blank">1</a></sup> have rebuilt everything for a variety of languages and are using github.  I would advise looking at their newer services.  As some of my usage data was from known sources (we knew who was doing it, and where their office was), I tested the generated location data against  what we knew.  For business users, it was good quality data.  See references to DSLAM throughout this document, its not the lookup software thats the problem.  In Aus ~ where alot of this code was written ~ the nearest city is a good guess. Telephony is more complex here, and there are many more people.<br />
 If one needs to verify the mapping, put the generated [lat,long] into google maps.  Please note mapping systems take vertical axis first, due to historical technology.  Graphics systems take the horizontal axis first due to different historical technology.</p>
 
 
-<h3 class="dontend" id="toc3"> Other vendors reviewed <a href="#toc3"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> Other vendors reviewed <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
 <p>If I do another system against this technology, I will update this article with more testing and current data.  Please read the caveats expressed in the first paragraph.  Please read the inline results, commercial practice makes this type of analysis imprecise.</p>
 
 
@@ -187,7 +187,7 @@ With 2023 technology, the <strong>JS feature in the browser</strong> is precise 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-17T08:48:37">17th of Apr 2023, 8:48:37</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T15:46:37">9th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-23T22:43:17">23rd of Apr 2023, 22:43:17</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T15:46:37">9th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

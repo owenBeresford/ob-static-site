@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/reactive-architecture" />
 <meta property="og:description" content="Notes for a library I may write at some point." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2023, 8:50:13" />
+<meta property="article:published_time" content="23rd of Apr 2023, 22:44:52" />
 <meta property="article:modified_time" content="7th of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/reactive-architecture" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Reactive Architecture",
-	"article:published_time":"17th of Apr 2023, 8:50:13", 
+	"article:published_time":"23rd of Apr 2023, 22:44:52", 
     "article:modified_time":"7th of Jan 2023",
     "article:section":"technology",
 
@@ -58,7 +58,7 @@ This describes an architecture (not pattern) that they called reactive <sup><a h
 The first Wiki states that Reactive is fine with OO, for example OO languages with reactive architecture libraries <a href="https://doc.red-lang.org/en/reactivity.html" target="_blank">red</a> lang, <a href="https://github.com/Reactive-Extensions/RxCpp" target="_blank">C++</a> and <a href="https://github.com/ReactiveX/RxJava" target="_blank">java</a>.  Many people use it with functional programming, and made a new acronym ~ FRP <sup><a href="https://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank">13</a></sup>.</p>
 
 
-<h2 class="dontend" id="toc0"> Implementations <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc0"> Implementations <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
 <p>As ever I reference a language that people are more likely to pay me for <sup><a href="https://medium.com/async-php/event-loops-84978080389c" target="_blank">14</a></sup>, which states there a variety of options for reactive systems. Many of these options need PHP extensions to run efficiently.  There is an extension specifically for eventing <sup><a href="https://www.php.net/manual/en/intro.event.php" target="_blank">15</a></sup> <sup><a href="https://libevent.org/" target="_blank">16</a></sup>.  Threading in PHP isn't really mature, there is an optional extension that links <a href="https://secure.php.net/manual/en/book.pthreads.php" target="_blank">pthread</a> to the main interpreter.  Alternatively PHP has a stable extension called <a href="https://secure.php.net/manual/en/refs.fileprocess.process.php" target="_blank">cntl</a>, which has POSIX C API like <a href="https://secure.php.net/manual/en/function.pcntl-fork.php" target="_blank">fork</a>(), <a href="https://secure.php.net/manual/en/function.pcntl-signal.php" target="_blank">signal</a>(); I have little server-side experience on ms-windows, but I suspect that these do not work on there.  A quick google yielded a list of projects for the frameworks <sup><a href="https://github.com/reactphp/event-loop" target="_blank">17</a></sup> <sup><a href="https://amphp.org/amp/" target="_blank">18</a></sup> <sup><a href="https://github.com/async-interop/event-loop" target="_blank">19</a></sup>.  This last project is deprecated, although reading the project index is encouraged <sup><a href="https://github.com/icicleio/icicle" target="_blank">20</a></sup>.<br />
 Java example, outlining a list of reactive Java frameworks, supplies some code samples <sup><a href="https://medium.com/capital-one-developers/building-microservices-a-reactive-framework-comparison-fb49d8f3c8f4" target="_blank">21</a></sup>.   Here is a “study project” in Java; the analysis is worth reading <sup><a href="https://github.com/dnvriend/reactive-frameworks" target="_blank">22</a></sup>.  Another discussion on Java <sup><a href="https://stackoverflow.com/questions/33671578/comparison-of-java-reactive-frameworks" target="_blank">23</a></sup>.<br />
 For Node, the underlying language has alot of work on async, events and callbacks.  I note that MSFT are publishing Reactive Node libraries <sup><a href="https://github.com/Reactive-Extensions/RxJS" target="_blank">24</a></sup>.  Finding out “actual reactive Node frameworks” is hard, as Node doesn't really separate performance things clearly, and is always asynchronous.  <br />
@@ -66,7 +66,7 @@ UPDATE: My current boss is very keen on <sup><a href="https://reactivex.io/langu
 UPDATE 2022: This may be interesting for TS people <sup><a href="https://github.com/gcanti/fp-ts" target="_blank">26</a></sup></p>
 
 
-<h2 class="dontend" id="toc1"> Plan <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h2>
+<h2 class="dontend" id="toc1"> Plan <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
 <p>I personally react badly to hype.  If you can build a system with all these (reactive) characteristics, you have high performance engineering, regardless of buzzword compliance.  Similarly if you can fit a Ferrari engine into a cheap fiat, it will drive fast; regardless of the logos.  I think that if you abstract the synchroneous I/O to a thing like Kafka (so avoid the core features of PHP), you could also make a fast platform.  My <strong>sole reason</strong> for doing this in PHP, is when someone asks me to solve a problem with a really poor implementation; I would have a smarter solution to hand.</p>
 
 <p>How can I make code responsive?<br />
@@ -226,7 +226,7 @@ interface EventLoopInterface
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-17T08:50:13">17th of Apr 2023, 8:50:13</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-07T21:53:49">7th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-23T22:44:52">23rd of Apr 2023, 22:44:52</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-07T21:53:49">7th of Jan 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

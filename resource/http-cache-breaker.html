@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/http-cache-breaker" />
 <meta property="og:description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2023, 8:48:57" />
+<meta property="article:published_time" content="23rd of Apr 2023, 22:43:36" />
 <meta property="article:modified_time" content="7th of Feb 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/http-cache-breaker" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "HTTP cache breaker",
-	"article:published_time":"17th of Apr 2023, 8:48:57", 
+	"article:published_time":"23rd of Apr 2023, 22:43:36", 
     "article:modified_time":"7th of Feb 2023",
     "article:section":"technology",
 
@@ -61,7 +61,7 @@ I am focussing here on static assets which do not need parameter data to specify
 <p>When I am making apps, I normally need to run an API to get a relatively static set of data; I put this data in the localStorage, so later DOM refreshes will be quicker to get to a useful state.  As the cache process is entirely managed by decisions in JS, I can perform whatever cache invalidation behaviour I want or need to.  <b>This process is particularly important if you have a many-tab UI design.</b>   I try to not use JS level cache management for JS assets as this increases the time it takes for the app to be useable.   If I was building an app that needed an “ultra-lean download budget”; I would use that, as the execution time would be less urgent than the download volume.</p>
 
 
-<h4 class="dontend" id="toc0"> Cache building <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc0"> Cache building <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <p>This section is widely understood and used; you are probably using it <sup><a href="https://medium.com/@codebyamir/a-web-developers-guide-to-browser-caching-cc41f3b73e7c" target="_blank">3</a></sup>, with diagrams <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching" target="_blank">4</a></sup>.</p>
 
 <ul class="ulbasic">
@@ -74,7 +74,7 @@ I am focussing here on static assets which do not need parameter data to specify
 </ul>
 
 
-<h4 class="dontend" id="toc1"> Flush caching <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc1"> Flush caching <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <p>These options assume data is already present, see as a context <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#deleting_stored_responses" target="_blank">25</a></sup></p>
 
 <ul class="ulbasic">
@@ -103,7 +103,7 @@ I propose an “modify app” button that does the following:</p>
 </ul>
 
 
-<h4 class="dontend" id="toc2"> TL;DR solution for 2023 <a href="#toc2"> <sup><i class="fa fa-link invert" ></i></sup> </a></h4>
+<h4 class="dontend" id="toc2"> TL;DR solution for 2023 <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <p>List of caching headers added to requests, for resources that have a planned update cycle. <br />
     <br />
 Cache-Control   “max-age=<ins>&lt;number of seconds at expected update rate&gt;</ins>, public”<br />
@@ -198,7 +198,7 @@ ETag            &lt;hash value&gt;</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-17T08:48:57">17th of Apr 2023, 8:48:57</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-02-07T23:06:33">7th of Feb 2023</time>.
+	<p> Page rendered <time datetime="2023-04-23T22:43:36">23rd of Apr 2023, 22:43:36</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-02-07T23:06:33">7th of Feb 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
