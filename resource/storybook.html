@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/storybook" />
 <meta property="og:description" content="Research on Storybook: another frontend test tool that supports UX, UI, and component testing. Article describes 9 user cases and a list of 4 limitations" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:45:19" />
-<meta property="article:modified_time" content="23rd of Apr 2023" />
+<meta property="article:published_time" content="24th of Apr 2023, 16:37:36" />
+<meta property="article:modified_time" content="24th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/storybook" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Exploring Storybook JS",
-	"article:published_time":"23rd of Apr 2023, 22:45:19", 
-    "article:modified_time":"23rd of Apr 2023",
+	"article:published_time":"24th of Apr 2023, 16:37:36", 
+    "article:modified_time":"24th of Apr 2023",
     "article:section":"technology",
 
     "author": {
@@ -90,7 +90,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 <hr />
 <div class="lotsOfWords">
 
-<h4 class="dontend" id="toc3"> UPDATES (v6.5) <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc3"> UPDATES (v6.5 as more stable) <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">With <strong>Storybook 6.5</strong> all the newer approaches to specifying a test are declarative; this is good, as everything is guaranteed to be executed in the right order with declarative systems (so faster to build tests, that do not crash).   This is the best component test tool/ library I have been able to find; in terms of “verify component in isolation”.</li>
     <li class="libasic">The common samples are frequently out-of-date, as the project was reorganised when it got more features.  For code that is correct at the start of 2023 with default settings in NPM, pls see <a href="https://github.com/owenBeresford/CatProfileDemo" target="_blank">my sample project</a>.  An exhaustive breakdown in this article would have short shelf-life and dull to read or write.   </li>
@@ -101,8 +101,8 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
     <li class="libasic">Like a Vue SCF or a React TSX file, Storybook promotes a CSF <sup><a href="https://storybook.js.org/docs/react/api/csf" target="_blank">4</a></sup> <sup><a href="https://dev.to/lauracarballo/storybook-for-everyone-csf-vs-mdx-88b" target="_blank">5</a></sup>, which is exactly the same idea.  Storybook has <em>storiesOf</em>, but that is like <em>ReactDOM.render</em>; only use <em>SCF</em> or <em>storiesOf</em> approaches. </li>
     <li class="libasic">For Storybook 6.5, the syntax for <em>CSF</em> seems to changed recently, or doesn't mesh with typescript well. There are many examples for <em>CSF</em> that do not compile with TS 4.7, follow <sup><a href="https://storybook.js.org/docs/react/writing-stories/introduction#how-to-write-stories" target="_blank">6</a></sup> with very fixed data as this compiles.  Very static data is normal for unit tests.   In addition, redundantly specifying the argTypes value <sup><a href="https://storybook.js.org/docs/react/api/argtypes" target="_blank">7</a></sup> leads to better test experience.</li>
     <li class="libasic">Terminology: <strong>“interaction”</strong> =&gt; code to make mouse events (etc) so the code-under-test is exercised; <strong>“actions”</strong> =&gt; a fussy high-order function that injects log messages to events being processed by code-under-test; <strong>“controls”</strong> =&gt; where the code-under-test has exposed settings, adjust these controls ;</li>
-    <li class="libasic"><strong> WARNING AGAIN:  Storybook is changing control process between v6.5 and v7.1.  If you use Node14, install storybook 6.5.X; and admin via <i>start-storybook, build-storybook</i> scripts.  If you use Node18, you can install storybook 7.X, but the admin is now <i>“sb”</i>, and in April 2023 this lacks a run tests param. </strong> There was a point when <i>sb</i> supported <i>dev</i> and <i>build</i> param, but they removed this <sup><a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#story-type-change-to-storyfn-and-the-new-story-type-now-refers-to-storyobj" target="_blank">8</a></sup> <sup><a href="https://github.com/storybookjs/storybook/issues/18923" target="_blank">9</a></sup>.</li>
-    <li class="libasic">For some sample code, I just installed storybook, and it came up with v7.   This crashes saying it needs webpack &gt;5.0.0; but as I was also using webpack 5.0.1 that bit of code is badly labelled, or badly defined.   To work round the issue I forced v6.5 as above.</li>
+    <li class="libasic"><strong> WARNING AGAIN:  Storybook is changing control process between v6.5 and v7.1.  If you use Node14, install storybook 6.5.X; and admin via <i>start-storybook, build-storybook</i> scripts <sup><a href="https://storybook.js.org/docs/6.5/react/api/cli-options" target="_blank">8</a></sup>.  If you use Node18, you are advised to install storybook 7.X, but the admin is now <i>“sb”</i> and <i>storybook</i> <sup><a href="https://storybook.js.org/docs/react/api/cli-options" target="_blank">9</a></sup>, and in April 2023 this lacks a run tests param. </strong> There was a point when <i>sb</i> supported <i>dev</i> and <i>build</i> param, but they removed this <sup><a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#story-type-change-to-storyfn-and-the-new-story-type-now-refers-to-storyobj" target="_blank">10</a></sup> <sup><a href="https://github.com/storybookjs/storybook/issues/18923" target="_blank">11</a></sup>.   I tried a range of plugins to find where the obvious user journeys had been moved to, but got nothing useful, on both interpreters.</li>
+    <li class="libasic">For some sample code, I just installed storybook, and it came up with v7.   This crashes saying it needs webpack &gt;5.0.0; but as I was also using webpack 5.0.1 that error detection code is badly labelled, or badly defined.   To work round the issue I forced v6.5 as above.</li>
 </ul>
 
 
@@ -134,7 +134,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-04-23T11:58:27">23rd of Apr 2023</time>
+						<span>Edited <time datetime="2023-04-24T16:32:52">24th of Apr 2023</time>
 						</span>
 						<span>Created <time datetime="2022-12-29T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >29th of Dec 2022</time> </span>
 					</span>
@@ -157,7 +157,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 <li class="h4_odd"><a href="#toc0">Warp-speed Intro</a></li>
 <li><a href="#toc1">Features/ Use-cases</a></li>
 <li class="h4_odd"><a href="#toc2">Limitations</a></li>
-<li><a href="#toc3">UPDATES (v6.5)</a></li>
+<li><a href="#toc3">UPDATES (v6.5 as more stable)</a></li>
 </menu>
 <br />
 
@@ -188,13 +188,13 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:45:19">23rd of Apr 2023, 22:45:19</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-23T11:58:27">23rd of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-24T16:37:36">24th of Apr 2023, 16:37:36</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-24T16:32:52">24th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script defer src="/asset/ob1.min.js" ></script>
 <style>
-div.lotsOfWords:last-child { max-width: 52em; margin-left:auto; margin-right:auto; }
+div.lotsOfWords:last-child { max-width: 80em; margin-left:auto; margin-right:auto; }
 </style>
 </body>
 </html>
