@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>Window Resize</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-wresize" />
 <meta property="og:description" content="A simple jQuery module to make resize events useful." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:43:50" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:04:28" />
 <meta property="article:modified_time" content="25th of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-wresize" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Window Resize",
-	"article:published_time":"23rd of Apr 2023, 22:43:50", 
+	"article:published_time":"26th of Apr 2023, 13:04:28", 
     "article:modified_time":"25th of Jan 2023",
     "article:section":"technology",
 
@@ -55,12 +55,12 @@ TODO: magic tune selection against some index/DB -->
 <p style="text-align:right;" ><a href="https://github.com/owenBeresford/jquery-wresize" title="public location of the jQuery-resize source." class="button"><i class="fa fa-github" aria-hidden="true"></i></a> </p>
 <div class="lotsOfWords">
 
-<h3 class="dontend" id="toc0"> Intro <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>I need a <a href="https://github.com/owenBeresford/jquery-wresize" target="_blank">plugin</a> to manage window resize events on my site, so I wrote one. The text is columnised, but needs to have the correct columnisation to the current screen size.  The columnise plugin I <a class="" href="https://owenberesford.me.uk/resource/jQuery-columnise#">imported</a> and extended doesn't do this natively very well.  This is mostly a desktop concern (as apposed to mobile).<br />
 This is a very simple problem, there are some other implementations, but none seem to fit my coding style.  I seem to have added a lot more control flags than other implementations; but what I did is just normal OO.   <b>UPDATE 2022</b>; There is now an (not even new) API, this is functionally obsolete <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API" target="_blank">1</a></sup></p>
 
 
-<h3 class="dontend" id="toc1"> My objectives <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > My objectives <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li class="libasic">Create a jQuery plugin</li>
     <li class="libasic">Ensure that the object issues I have in some of jQuery are not present.</li>
@@ -71,17 +71,17 @@ This is a very simple problem, there are some other implementations, but none se
 </ul>
 
 
-<h3 class="dontend" id="toc2"> References <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > References <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>There are a number of template files online for writing jQuery modules.  I read these, but my source is mostly from scratch <sup><a href="https://knowhowcommunity.org/how-to-create-jquery-plugin/" target="_blank">2</a></sup> <sup><a href="https://github.com/jquery-boilerplate/jquery-boilerplate/wiki/Another-extending-jQuery-boilerplate" target="_blank">3</a></sup> <sup><a href="https://css-tricks.com/snippets/jquery/jquery-plugin-template/" target="_blank">4</a></sup> <sup><a href="https://stackoverflow.com/questions/2562315/developing-a-jquery-plugin-that-returns-a-given-object-instead-of-jquery-object" target="_blank">5</a></sup> <sup><a href="https://www.designveloper.com/blog/create-basic-plugin-jquery/" target="_blank">6</a></sup></p>
 
 
-<h3 class="dontend" id="toc3"> Discussion. <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Discussion. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>After one day, I have written some code, and have a sample that demos it working.  The code is currently <a href="https://github.com/owenBeresford/jquery-wresize" target="_blank">uploaded</a>.  This is created as a jQuery plugin as there is jQuery code in my site already, and I would like to keep to a small number of frameworks.  <br />
 The code mostly only makes sense applied to resize() events, although you can tell it to run on other events.  One doesn't stack click() or close() events, for example.<br />
 As this is written in JS, I am using closures, and functions defined inside functions.  My actual design is broadly the same as if I had implemented this in Perl or PHP.  JS's awkward definition of 'this' is noted, but these days the language supplies <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind" target="_blank">primitives</a> to work round this.  Secondly, I am using prototype based objects rather than literal objects to attempt to make it more readable (I normally use literal objects).</p>
 
 
-<h3 class="dontend" id="toc4"> Testing. <a href="#toc4"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Testing. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Obviously this needs to work in all browsers, and obviously this needs not to leak RAM.  The second clause is likely to be simple for this plugin, as its just timing code.  I haven't noticed any leaks in the columniser script which is algorithmically more likely to have them.<br />
 My initial test script s no more available on this website, but is in the git repo.   After I wrote first copy of this resource, I added the library to my site. I then tested the library on all the browsers I had access to.  I ran this on MSIE11, FF27, Opera12, Safari mobile, Chrome mobile, and Chrome33.</p>
 
@@ -94,7 +94,7 @@ My initial test script s no more available on this website, but is in the git re
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"><a name="adjacent" href=""></a> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -154,7 +154,7 @@ My initial test script s no more available on this website, but is in the git re
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -173,7 +173,7 @@ My initial test script s no more available on this website, but is in the git re
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:43:50">23rd of Apr 2023, 22:43:50</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-25T09:45:54">25th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:04:28">26th of Apr 2023, 13:04:28</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-25T09:45:54">25th of Jan 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

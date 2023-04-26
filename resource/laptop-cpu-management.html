@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>Laptop CPU management</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/laptop-cpu-management" />
 <meta property="og:description" content="Seven orthogonal and technical steps to suspend unneeded performance and features on laptops; to make them quieter and make the battery charge last longer." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:44:01" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:04:40" />
 <meta property="article:modified_time" content="8th of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/laptop-cpu-management" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Laptop CPU management",
-	"article:published_time":"23rd of Apr 2023, 22:44:01", 
+	"article:published_time":"26th of Apr 2023, 13:04:40", 
     "article:modified_time":"8th of Jan 2023",
     "article:section":"technology",
 
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 
-<h3 class="dontend" id="toc0"> Context and research <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context and research <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>It is more ecological to use second hand laptops; if they meet your performance requirements.   I run Linux which seems to use less power and do less computation when low consumer input is happening (I assume win32 could be optimised).  I relatively recently bought a ex-gaming laptop as it has 32GB RAM; I think it has a server CPU chip which emits a tonne of heat, and so the fans are very noisy.   When I am using this for typing config files, or reading email; I really see no benefit from 12 vCPUs, 11 are idle, but hot.  If I am loading webpages with standard commercial JS continuously, it looks like 10 vCPUs are always idle.  Occasionally when I need to run figma and VScode and Zoom full-screen, on my personal hardware; I will be using many of these vCPUs and ignore the noise.<br />
 With 32GB RAM, I can run <i>swapoff</i>; and unless I am running win32 in a VM; and not touch the real disk for some time.  I can run both a local reasonable-scale DB instance and a JS renderer with reasonable performance (with no swap).  I can run more than 1 VM locally.<br />
 NOTICE: This device is a 'Toshiba' lineage; where your device is different, you will need to change this keyword.</p>
@@ -68,7 +68,7 @@ Intensive software may be overly busy (frequently non-interactive daemons doing 
 Modern hardware includes features to set the clock-speed of the CPU <sup><a href="https://askubuntu.com/questions/635426/how-can-i-easily-control-cpu-speed-on-ubuntu" target="_blank">15</a></sup> and RAM refresh cycles; and the Linux kernel provide access to this.  As far as I can tell, the above <b>GUI supply exactly the same controls</b>, just in a more friendly/ less knowledge required fashion.</p>
 
 
-<h3 class="dontend" id="toc1"> Setup <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Setup <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This bit only applies to Ubuntu and Debian; other operating systems will have slightly different package names.<br />
 This are low risk steps; but <strong>only use non-mainline kernels if necessary</strong>.  For productions machines where uptime of &gt;99.9 % time is needed; do not use hardware where the mainline kernel doesn't support it properly.</p>
 
@@ -86,7 +86,7 @@ apt install acpi;
 apt install linux-tools-common linux-tools-5.15.0-39-generic linux-tools-generic;
 </pre>
 
-<h3 class="dontend" id="toc2"> Observations <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Observations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>I did this from Ubuntu 22.04; it but should work on any Linux with a similar Kernel version; I do not know about <i>/proc</i> structures on Arch, BSD, Mach, NeXTstep, or Solaris etc.   TBF, I have only had brief encounters with these other operating systems since 2002; Linux has eaten most of the server market, even enterprise contracts are drifting towards less cost and Linux.<br />
 <strong>Every step in this section should not damage your hardware or your ability to use it.</strong></p>
 
@@ -113,7 +113,7 @@ perf record -g -a sleep 10; perf report
 ls /sys/devices/system/cpu/
 </pre>
 
-<h3 class="dontend" id="toc3"> Steps to improve battery life and reduce noise <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Steps to improve battery life and reduce noise <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p><strong>WARNING: On some hardware and kernel combinations this does not work as expected.</strong>  Previously observed fail conditions are 1) vCPUs disabled but drawing full power <sup><a href="https://unix.stackexchange.com/questions/439463/disabling-re-enabling-cores-via-kernel-in-threadripper-epyc-systems" target="_blank">1</a></sup> [XXX], and 2) vCPUs not returning to live state after a cold start [XXX], effectively bricking the hardware.  Documentation of possibilities is not a statement of support or reliability.</p>
 
 <ul class="ulbasic">
@@ -150,7 +150,7 @@ echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -210,7 +210,7 @@ echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -229,7 +229,7 @@ echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:44:01">23rd of Apr 2023, 22:44:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-08T17:06:46">8th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:04:40">26th of Apr 2023, 13:04:40</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-08T17:06:46">8th of Jan 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

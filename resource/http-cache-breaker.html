@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>HTTP cache breaker</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/http-cache-breaker" />
 <meta property="og:description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:43:36" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:04:15" />
 <meta property="article:modified_time" content="7th of Feb 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/http-cache-breaker" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "HTTP cache breaker",
-	"article:published_time":"23rd of Apr 2023, 22:43:36", 
+	"article:published_time":"26th of Apr 2023, 13:04:15", 
     "article:modified_time":"7th of Feb 2023",
     "article:section":"technology",
 
@@ -61,7 +61,7 @@ I am focussing here on static assets which do not need parameter data to specify
 <p>When I am making apps, I normally need to run an API to get a relatively static set of data; I put this data in the localStorage, so later DOM refreshes will be quicker to get to a useful state.  As the cache process is entirely managed by decisions in JS, I can perform whatever cache invalidation behaviour I want or need to.  <b>This process is particularly important if you have a many-tab UI design.</b>   I try to not use JS level cache management for JS assets as this increases the time it takes for the app to be useable.   If I was building an app that needed an “ultra-lean download budget”; I would use that, as the execution time would be less urgent than the download volume.</p>
 
 
-<h4 class="dontend" id="toc0"> Cache building <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Cache building <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>This section is widely understood and used; you are probably using it <sup><a href="https://medium.com/@codebyamir/a-web-developers-guide-to-browser-caching-cc41f3b73e7c" target="_blank">3</a></sup>, with diagrams <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching" target="_blank">4</a></sup>.</p>
 
 <ul class="ulbasic">
@@ -74,7 +74,7 @@ I am focussing here on static assets which do not need parameter data to specify
 </ul>
 
 
-<h4 class="dontend" id="toc1"> Flush caching <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Flush caching <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>These options assume data is already present, see as a context <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#deleting_stored_responses" target="_blank">25</a></sup></p>
 
 <ul class="ulbasic">
@@ -103,7 +103,7 @@ I propose an “modify app” button that does the following:</p>
 </ul>
 
 
-<h4 class="dontend" id="toc2"> TL;DR solution for 2023 <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > TL;DR solution for 2023 <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>List of caching headers added to requests, for resources that have a planned update cycle. <br />
     <br />
 Cache-Control   “max-age=<ins>&lt;number of seconds at expected update rate&gt;</ins>, public”<br />
@@ -121,7 +121,7 @@ ETag            &lt;hash value&gt;</p>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research,engineering"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,engineering"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -179,7 +179,7 @@ ETag            &lt;hash value&gt;</p>
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -198,7 +198,7 @@ ETag            &lt;hash value&gt;</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:43:36">23rd of Apr 2023, 22:43:36</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-02-07T23:06:33">7th of Feb 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:04:15">26th of Apr 2023, 13:04:15</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-02-07T23:06:33">7th of Feb 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>Testing DB coupled structures</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/aggregate-testing" />
 <meta property="og:description" content="Yes, the DB is essential, and its also frail. Keep it running... I focus in this article on: DB stability, DB performance, DB scalability and complicated queries" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:42:30" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:03:08" />
 <meta property="article:modified_time" content="5th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/aggregate-testing" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Testing DB coupled structures",
-	"article:published_time":"23rd of Apr 2023, 22:42:30", 
+	"article:published_time":"26th of Apr 2023, 13:03:08", 
     "article:modified_time":"5th of Apr 2023",
     "article:section":"technology",
 
@@ -57,7 +57,7 @@ TODO: magic tune selection against some index/DB -->
 What I wrote above is true, BUT, what if you need to test throughput, or feature stability, or data scalability?  The unit tests won't help.  In a current project, the most common source of failure of data not getting into the DB (outside of my control), the second most common source of failure is the DB integration breaking, due to an internal buffer running out of allowed RAM, cluster replication delay, or the entire thing just taking too long and being aborted, or commercial people wanting a different sort, etc etc.  In pre-alpha, we had to iterate data-types several times, as had number overflow, and excessive volumes.  All these issues would not be covered the unit-tests.</p>
 
 
-<h3 class="dontend" id="toc0"> Research goals <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Research goals <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li class="libasic">How can I exec a DB as a unit-test?</li>
     <li class="libasic">How can I define metrics that define success?</li>
@@ -70,7 +70,7 @@ For Postgres based products, I like the look of pgTap (see notes in the solution
 For Oracle based projects, there is PL/unit <sup><a href="http://plunit.com/pl_unit_assertions.htm" target="_blank">12</a></sup>, as a more corporate project <sup><a href="https://docs.oracle.com/cd/E15846_01/doc.21/e15222/unit_testing.htm#RPTUG45000" target="_blank">13</a></sup>, it has different paperwork.  This supports executing storeproc <sup><a href="http://plunit.com/tdd_tutorial_2.htm" target="_blank">14</a></sup>.</p>
 
 
-<h3 class="dontend" id="toc1"> Metrics <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Metrics <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>The database needs to have a known quality of performance for the following metrics:</p>
 
 <ul class="ulbasic">
@@ -87,7 +87,7 @@ For Oracle based projects, there is PL/unit <sup><a href="http://plunit.com/pl_u
 </ul>
 
 
-<h3 class="dontend" id="toc2"> Test tools <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Test tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>The last point neatly segues into my third objective. To be able to run test repeatedly, and from a known starting point; I need to have management of datastore state. This is hard with most databases, when you have more than one connection; the lack of flexibility on that is to allow larger volumes of data in the data store.  However <a href="https://dbunit.org/" target="_blank">DBunit</a> would be a useful tool for a Java shop, and supports quite a few RDBMS <sup><a href="http://dbunit.wikidot.com/supportedrdbms" target="_blank">15</a></sup> (I assume via JDBC). It stores data in XML, so large scale alterations are probably quite slow.  It is quite well documented <sup><a href="https://dbunit.org/faq.html" target="_blank">16</a></sup>.  It is unfortunate that this is a jUnit extension, for all the people who aren't paid for Java.  DBunit only supports standard SQL types, taken from JDBC, so it is less flexible than desired.  There is a DbUnit.NET for unfortunate people stuck with .net 2 (a MSFT framework from 2005).  There is an alternative <a href="http://jdbdt.org/" target="_blank">JDBDT</a>, which seems to have more test features.  It is also quite well documented, and can save test data as XML; but the demo code is really not focused on the “maintain db state” objective. <br />
 UPDATE 2023: DBT <sup><a href="https://www.getdbt.com/" target="_blank">17</a></sup> <sup><a href="https://www.getdbt.com/product/what-is-dbt/" target="_blank">18</a></sup>  ~ database test? ~ looks like a useful service, although its features overlap with my normal SOP (git + CI/CD configs, confluence/ wiki, source in IDE).  I think it is targeted at 'IT data teams', rather than developers.  Mentioning this platform, as it has good snapshot/ DB state support.  I haven't checked if this is more than a large transaction; but they do have a cloud version <sup><a href="https://www.getdbt.com/blog/introducing-dbt-cloud/" target="_blank">19</a></sup> if the transaction is larger than your local servers can cope with.<br />
   <br />
@@ -106,7 +106,7 @@ UPDATE 2023: DBT <sup><a href="https://www.getdbt.com/" target="_blank">17</a></
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="testing"><a name="adjacent" href=""></a> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing"> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -164,7 +164,7 @@ UPDATE 2023: DBT <sup><a href="https://www.getdbt.com/" target="_blank">17</a></
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -183,7 +183,7 @@ UPDATE 2023: DBT <sup><a href="https://www.getdbt.com/" target="_blank">17</a></
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:42:30">23rd of Apr 2023, 22:42:30</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-05T18:55:13">5th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:03:08">26th of Apr 2023, 13:03:08</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-05T18:55:13">5th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

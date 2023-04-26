@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>MongoDB indexes</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/mongodb-indexes" />
 <meta property="og:description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:44:11" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:04:49" />
 <meta property="article:modified_time" content="23rd of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/mongodb-indexes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "MongoDB indexes",
-	"article:published_time":"23rd of Apr 2023, 22:44:11", 
+	"article:published_time":"26th of Apr 2023, 13:04:49", 
     "article:modified_time":"23rd of Jan 2023",
     "article:section":"technology",
 
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="halferWords">
 
-<h4 class="dontend" id="toc0"> Context  <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>With most databases, to have correct indexes is essential for reasonable performance.  There are more complications when you move to a multi-host model which is common in larger MongoDB installations.  If you have an RDBMS and you have replication, it is simpler as there is ACID consistency <sup><a href="https://en.wikipedia.org/wiki/ACID" target="_blank">1</a></sup>.  NoSQL architectures offer no such securities, to better support datasets that require an address space/ key space <sup><a href="https://en.wikipedia.org/wiki/Keyspace_%28distributed_data_store%29" target="_blank">2</a></sup> larger than any actual computer has.</p>
 
 <p>The MongoDB v5 shell supports: <i>createIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/createIndexes/" target="_blank">3</a></sup> and <i>dropIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/dropIndexes/" target="_blank">4</a></sup>.  Note this version removes <i>ensureIndex()</i>.   Either of these commands can be run on the DB or the collection levels.  It is strongly not advisable to run either of these commands whilst the DB is in operational service, as changing indexes will lock the DB for while.   With practical observation, if a collection has less than a million documents and is completely hosted on a single server; the outage is a few seconds.  Compare this to your required uptime metrics.  Indexes created and used by Mongo do not normally use a auto-increment algorithm (like Postgres or MySQL uses), as sharded systems wouldn't know the largest previous value.  The official notes for auto-increment <sup><a href="https://www.mongodb.com/basics/mongodb-auto-increment" target="_blank">5</a></sup>.</p>
@@ -67,7 +67,7 @@ As a defensive coding warning; it is advisable to add sanity checking for manipu
 The best optimisation is more RAM, a faster disk, or sometimes adjusting how the data is written to the disk is a good idea, but far too specific for a webpage; this is true of all databases.  All the indexes that I have seen details for are a standard B* tree, just like modern filesystems.   Anything involving selection against timestamps, or ranges of timestamps benefits from an <em>sort() -ed</em> index <sup><a href="https://www.mongodb.com/docs/manual/tutorial/optimize-query-performance-with-indexes-and-projections/" target="_blank">16</a></sup>.  I have used ISODate() attributes previously, so I had access to the Date methods; in BSON, Dates are stored as a number, with a type of 'Date'.   In some situations, <em>hint()</em> will manually optimise a <em>find()</em> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/method/cursor.hint/#mongodb-method-cursor.hint" target="_blank">17</a></sup> where there are multiple index options that could be used.  In some situations, you may want a <em>tailable cursor</em> <sup><a href="https://www.mongodb.com/docs/v5.0/core/tailable-cursors/" target="_blank">18</a></sup>, rather than a Resultset; these happen when you run find() on a Capped collection; and have search terms that return a population of results.   For any complex operations, and definitely for aggregates, knowledge of how to use '$' and '.' is essential <sup><a href="https://www.mongodb.com/docs/v5.0/core/dot-dollar-considerations/" target="_blank">19</a></sup>.  Some generic performance tricks <sup><a href="https://www.mongodb.com/basics/best-practices" target="_blank">20</a></sup>; but firstly use <em>explain()</em> to see if the data volumes and indexes can be optimised for a given business need <sup><a href="https://www.mongodb.com/docs/manual/reference/command/explain/" target="_blank">21</a></sup>.</p>
 
 
-<h4 class="dontend" id="toc1"> Flavours of index  <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Flavours of index  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>MongoDB v5 supports the following types of index:</p>
 
 <ul class="ulbasic">
@@ -90,7 +90,7 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"><a name="adjacent" href=""></a> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -147,7 +147,7 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -166,7 +166,7 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:44:11">23rd of Apr 2023, 22:44:11</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-23T11:25:14">23rd of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:04:49">26th of Apr 2023, 13:04:49</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-23T11:25:14">23rd of Jan 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

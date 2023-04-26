@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>SVG animation</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/svg-animation" />
 <meta property="og:description" content="Description of animation options that SVG supports and how to create them. This includes 6 animation libraries along with 2 CSS animation techniques to animate SVG more easily" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:45:21" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:05:59" />
 <meta property="article:modified_time" content="21st of Mar 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/svg-animation" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "SVG animation",
-	"article:published_time":"23rd of Apr 2023, 22:45:21", 
+	"article:published_time":"26th of Apr 2023, 13:05:59", 
     "article:modified_time":"21st of Mar 2023",
     "article:section":"technology",
 
@@ -67,13 +67,13 @@ TODO: magic tune selection against some index/DB -->
 I have never tried to do animation in SVG without another language involved: I didn't know it existed, as its not in the drawing packages.   But the SVG spec includes Animate tag <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate" target="_blank">5</a></sup>, AnimateMotion<a class="" href="https://www.google.co.uk/search?q=AnimateMotion">?</a> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion" target="_blank">6</a></sup> and AnimateTransform<a class="" href="https://www.google.co.uk/search?q=AnimateTransform">?</a> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform" target="_blank">7</a></sup>, and more <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimationElement" target="_blank">8</a></sup>.   A simple step through example for SVG animation <sup><a href="https://www.tiny.cloud/blog/guide-svg-animation/" target="_blank">9</a></sup>, or a test example <sup><a href="https://stackoverflow.com/a/68966293" target="_blank">10</a></sup>, which could be used for testing.  I <b>strongly advise</b> careful testing before deployment to production; as details on what is widely supported are not well documented.</p>
 
 
-<h4 class="dontend" id="toc0"> Animation via CSS <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Animation via CSS <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>Obviously SVG can be animated with CSS3 <sup><a href="https://css-tricks.com/animating-svg-css/" target="_blank">11</a></sup> <sup><a href="https://css-tricks.com/smil-is-dead-long-live-smil-a-guide-to-alternatives-to-smil-features/" target="_blank">12</a></sup>.  Please note that modern CSS includes Trig calculations <sup><a href="https://web.dev/css-trig-functions/" target="_blank">13</a></sup> <sup><a href="https://tympanus.net/codrops/2021/06/01/trigonometry-in-css-and-javascript-introduction-to-trigonometry/" target="_blank">14</a></sup>, combined with calc <sup><a href="https://css-tricks.com/a-complete-guide-to-calc-in-css/" target="_blank">15</a></sup> and CSS variables implies the requirement for webGL, or access to OpenGL is diminished.  CSS is supposed to be a declarative language, although that last sentence is procedural approach.<br />
 CSS supports 'animation' as a verb <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations" target="_blank">16</a></sup>; and practically CSS class names would need to be applied by manually editing the SVG file, but that should be easy for the average developer.  It is more practical to use an animation framework to ensure consistency across different devices.  There are many animation micro-frameworks/ libraries/ CSS-code generators, there are many listed <sup><a href="https://speckyboy.com/css-animation/" target="_blank">17</a></sup> from 2021.  No project in NPM tries to claim that combination of keywords <sup><a href="https://www.npmjs.com/search?q=svg%20animation" target="_blank">18</a></sup>, but they do for JS animation.  The best match seems to be <sup><a href="https://www.npmjs.com/package/popmotion" target="_blank">19</a></sup>.<br />
 The following are additional notes on animation in SVG <sup><a href="http://tutorials.jenkov.com/svg/svg-animation.html" target="_blank">20</a></sup> <sup><a href="https://en.wikipedia.org/wiki/SVG_animation" target="_blank">21</a></sup> <sup><a href="https://css-tricks.com/animating-svg-css/" target="_blank">22</a></sup> <sup><a href="https://blog.adobe.com/en/publish/2015/06/05/the-state-of-svg-animation" target="_blank">23</a></sup> <sup><a href="https://www.creativebloq.com/how-to/add-animation-to-svg-with-css" target="_blank">24</a></sup>.</p>
 
 
-<h4 class="dontend" id="toc1"> 6 animation libraries via JS <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > 6 animation libraries via JS <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>There are many resources on animation via JS/TS.  As an imperative programming language it is fairly simple to apply changes across time, a low bar to entry.</p>
 
 <ul class="ulbasic">
@@ -92,7 +92,7 @@ The following are additional notes on animation in SVG <sup><a href="http://tuto
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="images"><a name="adjacent" href=""></a> <p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="images"> <p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -149,7 +149,7 @@ The following are additional notes on animation in SVG <sup><a href="http://tuto
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -168,7 +168,7 @@ The following are additional notes on animation in SVG <sup><a href="http://tuto
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:45:21">23rd of Apr 2023, 22:45:21</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-03-21T10:42:35">21st of Mar 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:05:59">26th of Apr 2023, 13:05:59</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-03-21T10:42:35">21st of Mar 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

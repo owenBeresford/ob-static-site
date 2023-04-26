@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>RPM spec notes</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/rpm-spec-notes" />
 <meta property="og:description" content="RPMs frequently need to be able to to do scripting; restrict versions etc. Notes on howto" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:45:00" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:05:37" />
 <meta property="article:modified_time" content="7th of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/rpm-spec-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "RPM spec notes",
-	"article:published_time":"23rd of Apr 2023, 22:45:00", 
+	"article:published_time":"26th of Apr 2023, 13:05:37", 
     "article:modified_time":"7th of Jan 2023",
     "article:section":"technology",
 
@@ -56,12 +56,12 @@ TODO: magic tune selection against some index/DB -->
 <p>This is a fairly boring research as I need it at work.  I would like to have a single RPM, which reports correct dependences for each O/S its run on.  The code that I creating is the same code, which is why only one RPM seems correct.   A theoretical answer is to specify the required file (e.g. gcc); rather than what package it is shipped in; but I am unable to achieve this today.  I am constrained to base everything on RH family servers, as they have the best OS support contract for many enterprises.</p>
 
 
-<h2 class="dontend" id="toc0"> High speed intro: RPMs, spec files, grammar  <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > High speed intro: RPMs, spec files, grammar  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>RPMs are built from raw files that go in the RPM; and a <i>spec file</i> <sup><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/rpm_packaging_guide/packaging-software#rpm-macros_rpm-packages" target="_blank">1</a></sup>  which is the same idea as a written recipe.  Most of the complex behaviour is copying the content of the spec file.  The spec defines a number of state change code-blocks <sup><a href="https://tldp.org/HOWTO/RPM-HOWTO/build.html" target="_blank">2</a></sup> <sup><a href="https://rpm-packaging-guide.github.io/" target="_blank">3</a></sup> <sup><a href="https://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/Packagers_Guide/sect-Packagers_Guide-Creating_a_Basic_Spec_File.html" target="_blank">4</a></sup> (e.g. to build the code, to erase the package etc).  Redhat call these “directives”. <br />
 These blocks are effectively <i>sh</i> scripts <sup><a href="https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-build-starting-build.html" target="_blank">5</a></sup>; but cannot be used to manage dependencies as the rest of package system couldn't see this.  The block names start with a '%' char; if you use a text editor with the relevant syntax highlighting; this saves time.  As a normal shell script, there are variables and branching; RPM defines things like %RPM_BUILD_ROOT <sup><a href="https://www.redhat.com/archives/rpm-list/2002-December/msg00105.html" target="_blank">6</a></sup>.   Some real spec files <sup><a href="https://gist.github.com/ruario/f0183807a9f708067475" target="_blank">7</a></sup> , to use as an example.   The RPM header allow the definition of %patch blocks; but assuming European DSL, this seems like a fairly pointless feature (patch files saw most use under historical low-bandwidth <i>usenet</i>, but are quite fiddly).</p>
 
 
-<h2 class="dontend" id="toc1"> Managing OS version in spec files <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Managing OS version in spec files <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>The RPM system supports several layers of macros <sup><a href="https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-macros.html" target="_blank">8</a></sup> (or maybe its same same structure but accessed in different methods).  Like the old fashioned init.d scripts, any value can contain %{name}  blobs, which are like PHP/Perl/bash string interpolation.  Secondly to this the blobs can be pulled in from the CLI env of <i>rpmbuild</i>, or from each other <sup><a href="https://stackoverflow.com/questions/7071053/where-in-spec-file-do-i-add-os-so-resulting-rpm-contains-os-and-arch" target="_blank">9</a></sup>.<br />
 For my specific use case I need to know what operating system, and version of operating system the current RPM is being deployed to.  I can create branches outside of the <i>sh</i> scripts, using RPM macros <sup><a href="https://rpm.org/user_doc/macros.html" target="_blank">10</a></sup>, which include a <i>%if</i> structure <sup><a href="https://jfearn.fedorapeople.org/en-US/RPM/4/html/RPM_Guide/ch22s02s02.html" target="_blank">11</a></sup> and <i>%{error:...}</i>.   RPM support <i>lua</i>, via %{lua:...} <sup><a href="https://rpm.org/user_doc/macros.html" target="_blank">12</a></sup>, and have some variables that look a lot like traditional <i>make</i> , e.g. %_bindir <sup><a href="https://rpm.org/user_doc/macros.html" target="_blank">13</a></sup> <sup><a href="https://uneex.ru/static/MaximumRPMBook/max-rpm-html/i18574.html" target="_blank">14</a></sup>.   <br />
 I can look at the “prime OS package”, in quite a few RH operating systems.   This is exposed in a variable e.g. “redhat-release-server-6Server” <sup><a href="https://stackoverflow.com/questions/13370063/rpm-spec-to-require-specific-rhel-release" target="_blank">15</a></sup>.  To use this, I can check the existence of variables; this solution is not concise as each different variant would need to be held separately.   A better reference <sup><a href="https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto" target="_blank">16</a></sup>; lists all the variable names.  In 2011, it was claimed that there was complex clause support in the RPM system <sup><a href="https://backreference.org/2011/09/17/some-tips-on-rpm-conditional-macros/" target="_blank">17</a></sup> (pls read article, the samples are too long to quote here).<br />
@@ -70,7 +70,7 @@ It is possible to probe the file-system, using bash <sup><a href="https://stacko
 <p>This isn't the focal point of this text; but its sometimes useful to know whether an RPM process is an upgrade, an install, or a remove operation.  I thought there was different macros for those state changes; but as plan B; one can tell due to an extra variable <sup><a href="https://www.golinuxhub.com/2018/05/how-to-execute-script-at-pre-post-preun-postun-spec-file-rpm/" target="_blank">20</a></sup>.</p>
 
 
-<h2 class="dontend" id="toc2"> Manage version on other tool  <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Manage version on other tool  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>A dependency may change due to a third tool (e.g., if Apache is present do X, if NginX is present do Y).  Some people solve this problem by building two separate RPMs; but this can be confusing to business clients (who are buying a solution not a lifestyle).   <i>Meta packages</i> are a way that this is managed with “core platform things”, e.g. “install libC” will map to: if 32bit kernel use libC_386; if 64bit kernel use libC_amd64.   <br />
 Obviously the previous sentences mentioning bash and lua maybe applied here.</p>
 
@@ -79,7 +79,7 @@ Obviously the previous sentences mentioning bash and lua maybe applied here.</p>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -137,7 +137,7 @@ Obviously the previous sentences mentioning bash and lua maybe applied here.</p>
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -156,7 +156,7 @@ Obviously the previous sentences mentioning bash and lua maybe applied here.</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:45:00">23rd of Apr 2023, 22:45:00</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-07T17:32:11">7th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:05:37">26th of Apr 2023, 13:05:37</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-07T17:32:11">7th of Jan 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

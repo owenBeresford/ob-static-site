@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>Hash table notes</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/hashtables" />
 <meta property="og:description" content="Some notes about hashtables, why and how" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:43:30" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:04:08" />
 <meta property="article:modified_time" content="14th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/hashtables" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Hash table notes",
-	"article:published_time":"23rd of Apr 2023, 22:43:30", 
+	"article:published_time":"26th of Apr 2023, 13:04:08", 
     "article:modified_time":"14th of Apr 2023",
     "article:section":"technology",
 
@@ -56,7 +56,7 @@ TODO: magic tune selection against some index/DB -->
 <p>This is an article for a meeting.  I am primarily putting this up to be able to display the images.  This is necessary, as to draw a tidy diagram with readable handwriting will take longer than I am supposed to spend during the contact time.</p>
 
 
-<h3 class="dontend" id="toc0"> What are hash tables? <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > What are hash tables? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Hash_table_5_0_1_1_1_1_0_SP.svg/1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" alt="1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" /></p>
 
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Hash_table_5_0_1_1_1_1_0_SP.svg/1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" alt="1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" /><br />
@@ -81,14 +81,14 @@ First variant: O( X + Y ) degrading to O( X + nY )</p>
 </ul>
 
 
-<h3 class="dontend" id="toc1"> Historical requirements <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Historical requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>When hashes where being designed as an algorithm, computers where much slower.  Secondly storage media on large amounts of data was considerably slower than it is currently.   Tricks to avoid any type of sequential search where considered valuable.  The algorithm was designed <sup><a href="https://www.perl.com/pub/2002/10/01/hashes.html" target="_blank">1</a></sup> in the early 1950s, before computers reliably had harddisks.<br />
 The basic idea of “do a extra step of computation” which would be a fixed cost, to void any other lookup overheads was appealing. There are a lot of possible algorithms to make a hash, some are outlined <sup><a href="http://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf" target="_blank">2</a></sup>.</p>
 
 <p>These days, expensive machines could just use a flat address space of 2^32 (signed) offsets, and an array.  Which is faster and simpler to compute.</p>
 
 
-<h3 class="dontend" id="toc2"> References <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > References <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>I pulled up some references as I only have 10m to talk about this.  These articles are longer and more detailed.</p>
 
 <ul class="ulbasic">
@@ -103,7 +103,7 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 </ul>
 
 
-<h3 class="dontend" id="toc3"> Some common implementations <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Some common implementations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li class="libasic">Python has dictionaries, see <a href="https://github.com/python/cpython/blob/main/Objects/dictobject.c" target="_blank">src</a></li>
     <li class="libasic">Perl has hashes, see a relevant file inside <a href="https://github.com/Perl/perl5" target="_blank">src</a> couldn't find a readable source inside reasonable time.</li>
@@ -116,7 +116,7 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"><a name="adjacent" href=""></a> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -176,7 +176,7 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -195,7 +195,7 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:43:30">23rd of Apr 2023, 22:43:30</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-14T22:24:32">14th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:04:08">26th of Apr 2023, 13:04:08</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-14T22:24:32">14th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

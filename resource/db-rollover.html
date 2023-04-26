@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>DB rollover</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/db-rollover" />
 <meta property="og:description" content="A short set of options for high availability writes" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:42:55" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:03:32" />
 <meta property="article:modified_time" content="17th of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/db-rollover" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "DB rollover",
-	"article:published_time":"23rd of Apr 2023, 22:42:55", 
+	"article:published_time":"26th of Apr 2023, 13:03:32", 
     "article:modified_time":"17th of Jan 2023",
     "article:section":"technology",
 
@@ -54,13 +54,13 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="fewWords">
 
-<h2 class="dontend" id="toc0"> High availability for writes <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > High availability for writes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>Situation: there is a compliance table which continuously logs data.  Your business needs to run at all times; so your audit must also.  What can one do for more than 99 percent availability?  How can you keep keep tables small and snappy?</p>
 
 <p><i> <b>NB:</b> Most people have a distinct preference for either SQL/ noSQL.  I have no axe to grind, I choose the strongest solution to the current situation. </i>.  This article presents both options in a disinterested fashion.</p>
 
 
-<h3 class="dontend" id="toc1"> Architectures focussed on RDMS <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Architectures focussed on RDMS <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ol>
     <li>A) Shard data on one of the variables (e.g. Monthly table names); but use a view to hide this.  Works better with some RDBMS than others.</li>
     <li>B) Above sharding, but write multiplexing code.  I have implemented this, but couldn't with an ORM.   When your shard is a predictable hash, this is easy.</li>
@@ -71,7 +71,7 @@ TODO: magic tune selection against some index/DB -->
 </ol>
 
 
-<h3 class="dontend" id="toc2"> Other architectures <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Other architectures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This list is shorter, but the solutions are <i>more useful</i>.</p>
 
 <ol>
@@ -86,7 +86,7 @@ TODO: magic tune selection against some index/DB -->
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"><a name="adjacent" href=""></a> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -144,7 +144,7 @@ TODO: magic tune selection against some index/DB -->
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -163,7 +163,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:42:55">23rd of Apr 2023, 22:42:55</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-17T10:16:48">17th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:03:32">26th of Apr 2023, 13:03:32</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-17T10:16:48">17th of Jan 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

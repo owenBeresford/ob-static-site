@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>Redis notes~ standard and timeseries</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/redis-timeseries" />
 <meta property="og:description" content="Notes about Redis timeseries feature of Redis" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:44:56" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:05:34" />
 <meta property="article:modified_time" content="15th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/redis-timeseries" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Redis notes~ standard and timeseries",
-	"article:published_time":"23rd of Apr 2023, 22:44:56", 
+	"article:published_time":"26th of Apr 2023, 13:05:34", 
     "article:modified_time":"15th of Apr 2023",
     "article:section":"technology",
 
@@ -56,7 +56,7 @@ TODO: magic tune selection against some index/DB -->
 <p>This resource is a) data logged about Redis <sup><a href="https://en.wikipedia.org/wiki/Redis" target="_blank">1</a></sup>, previously my contact was a <a class="" href="https://owenberesford.me.uk/resource/random-notes#">meetup</a> b) notes on a module “timeseries” <a href="https://github.com/RedisTimeSeries" target="_blank">git</a> c) some practical details from a demo install I built at Hoptroff.</p>
 
 
-<h2 class="dontend" id="toc0"> Basic Redis features <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Basic Redis features <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
     <li class="libasic">Data storage with namespaces <sup><a href="https://stackoverflow.com/questions/51776115/storing-large-amount-of-data-in-redis-nosql-or-relational-db?rq=1" target="_blank">2</a></sup></li>
     <li class="libasic">As everything is in RAM, its FAST! <sup><a href="https://www.slideshare.net/dvirsky/introduction-to-redis-version-2/3" target="_blank">3</a></sup> <sup><a href="https://stackoverflow.com/a/18455118" target="_blank">4</a></sup></li>
@@ -73,12 +73,12 @@ TODO: magic tune selection against some index/DB -->
 </ul>
 
 
-<h2 class="dontend" id="toc1"> Some use cases <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Some use cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>This section is basically pulling in marketing, so please read: <sup><a href="https://redislabs.com/redis-enterprise/use-cases/caching/" target="_blank">31</a></sup> <sup><a href="http://oldblog.antirez.com/post/take-advantage-of-redis-adding-it-to-your-stack.html" target="_blank">32</a></sup> <sup><a href="https://stackoverflow.com/a/8190205" target="_blank">33</a></sup> <sup><a href="https://www.objectrocket.com/blog/how-to/top-5-redis-use-cases/" target="_blank">34</a></sup>.<br />
 As a note for MBAs, <sup><a href="https://thenewstack.io/why-the-redis-ecosystem-is-flourishing/" target="_blank">35</a></sup> <sup><a href="https://www.quora.com/What-is-the-market-share-of-each-database-e-g-MongoDB" target="_blank">36</a></sup> Redis is a narrow target platform, and only suitable for some situations; but in those situations it is widely liked.  The Wiki page lists some old stats <sup><a href="https://en.wikipedia.org/wiki/Redis#Popularity" target="_blank">37</a></sup>, but I think these are too old for a main reference.   I have a link, just for flavour, from the CTO of a Redis retailer <sup><a href="https://www.quora.com/What-is-the-best-way-to-store-time-series-data-in-Redis/answer/Guy-Korland" target="_blank">38</a></sup></p>
 
 
-<h2 class="dontend" id="toc2"> Timeseries variant <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Timeseries variant <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>From here forwards, I abbreviate “Redis TimeSeries” to RTS.  Many of the systems I have built in the last 5 years involve “X against time” plots. Having a timeseries specific DB would reduce the amount of logic we need to implement these, so shortening timescales.  Although not an area of attention on this article, the “timeseries best solution” discussed is to use a Btree, like file systems <sup><a href="https://stackoverflow.com/questions/9971713/best-of-breed-indexing-data-structures-for-extremely-large-time-series" target="_blank">39</a></sup>. <br />
 Some marketing for the RTS <a href="https://github.com/RedisTimeSeries" target="_blank">git</a> variant <sup><a href="https://files.meetup.com/19025268/Redis-Labs-Using-Redis-as-a-Time-Series-Database-1215.pdf" target="_blank">40</a></sup> <sup><a href="https://redislabs.com/blog/unlocking-timeseries-data-redis/" target="_blank">41</a></sup> <sup><a href="https://www.infoq.com/news/2019/07/redis-time-series-module/" target="_blank">42</a></sup> <sup><a href="https://redislabs.com/redis-enterprise/redis-time-series/" target="_blank">43</a></sup>.  <br />
 It is worth doing this research, as RTS has a specific time type, which incorporates many useful attributes for data logging <sup><a href="https://github.com/antirez/redis-timeseries/blob/master/README" target="_blank">44</a></sup>.  It is hard to find references about the index.   I suspect @antirez was thinking of physics simulations <sup><a href="https://www.gamedev.net/forums/topic/673798-what-is-a-timestep/" target="_blank">45</a></sup>, when he labelled timestep.  Do not confuse with TIME <sup><a href="https://redis.io/commands/time" target="_blank">46</a></sup>, which is just the Redis version of SYSDATE() <sup><a href="https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions172.htm" target="_blank">47</a></sup> or CURRENT_TIMESTAMP <sup><a href="https://www.postgresql.org/docs/8.1/functions-datetime.html#FUNCTIONS-DATETIME-CURRENT" target="_blank">48</a></sup>.   <br />
@@ -111,7 +111,7 @@ I don't think the EXPIREAT command is specfic to RTS, but for continuous accumul
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -169,7 +169,7 @@ I don't think the EXPIREAT command is specfic to RTS, but for continuous accumul
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -188,7 +188,7 @@ I don't think the EXPIREAT command is specfic to RTS, but for continuous accumul
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:44:56">23rd of Apr 2023, 22:44:56</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T21:15:28">15th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:05:34">26th of Apr 2023, 13:05:34</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T21:15:28">15th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

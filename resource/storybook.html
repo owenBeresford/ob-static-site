@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>Exploring Storybook JS</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/storybook" />
 <meta property="og:description" content="Research on Storybook: another frontend test tool that supports UX, UI, and component testing. Article describes 9 user cases and a list of 4 limitations" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="24th of Apr 2023, 16:37:36" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:05:57" />
 <meta property="article:modified_time" content="24th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/storybook" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Exploring Storybook JS",
-	"article:published_time":"24th of Apr 2023, 16:37:36", 
+	"article:published_time":"26th of Apr 2023, 13:05:57", 
     "article:modified_time":"24th of Apr 2023",
     "article:section":"technology",
 
@@ -54,12 +54,12 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 
-<h4 class="dontend" id="toc0"> Warp-speed Intro <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Warp-speed Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>Storybook is a JS testing tool; designed to test UI and UX <sup><a href="https://dev.to/dailydevtips1/storybook-examples-3l78" target="_blank">1</a></sup>.  It has good integration to a range of common toolkits <sup><a href="https://github.com/storybookjs/storybook#supported-frameworks" target="_blank">2</a></sup> including React, Reactnative and Svelte (to be able to write tests for products made with that toolkit).  Its features are extended with addons <sup><a href="https://github.com/storybookjs/storybook#addons" target="_blank">3</a></sup>. The preceding couple of sentences could be written about most recent JS test tools.  Its headline feature is for component testing; and its goals are outlined <sup><a href="https://storybook.js.org/docs/react/why-storybook" target="_blank">4</a></sup>.  A minor last point, the config data is stored in files inside a <em>.storybook</em> directory <sup><a href="https://storybook.js.org/docs/react/configure/overview" target="_blank">5</a></sup>.  The source code is easy to find <sup><a href="https://github.com/storybookjs/storybook" target="_blank">6</a></sup> and npmjs, sample project <sup><a href="https://github.com/jaewoong2/Storybook-example" target="_blank">7</a></sup>.  The FAQ is quite long for a FAQ <sup><a href="https://storybook.js.org/docs/react/faq" target="_blank">8</a></sup>. <br />
 HTML tags are capitalised for readability in English prose; I don't do this in HTML5 documents.</p>
 
 
-<h4 class="dontend" id="toc1"> Features/ Use-cases <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Features/ Use-cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">As a feature to capture user journeys to be able to test them, Storybook has a builtin documentation format ~ MDX <sup><a href="https://storybook.js.org/docs/react/api/mdx" target="_blank">9</a></sup>.  Test written including MDX blobs will be annotated with your text in the test harness, remembering that Storybook does have a manual test option.  This is a literate programming idea.  However the docs show the MDX documentation is discarded by the compiler, which is a shame, and different to Cucumber tests <sup><a href="https://www.javatpoint.com/cucumber-testing" target="_blank">10</a></sup> <sup><a href="https://www.indeed.com/career-advice/career-development/cucumber-testing" target="_blank">11</a></sup>.  To work with webpack, MDX scripts should have an extra suffix of '.mdx'; and could be used for pure documentation, if github pages are not available.   </li>
     <li class="libasic">If you have a really big platform, or a suite of products that need the same design/ look-and-feel; speed of development can be improved by using a design system, so all software component have the same design and styling.  Storybook can be used as a design system <sup><a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/introduction/" target="_blank">12</a></sup> <sup><a href="https://www.lambdatest.com/blog/storybook-testing/" target="_blank">13</a></sup> ~ just like Figma etc ~ but has the advantage that you can run scripts against the designs, as Storybook is still a test harness.  </li>
@@ -74,7 +74,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 </ul>
 
 
-<h3 class="dontend" id="toc2"> Limitations <a href="#toc2"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Limitations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li class="libasic">Some of the examples use a GUI tester to look at data used for graphing.  There are much easier and faster ways to look at raw column data in a numerical format; with Mocha or Jest.  I would be much more impressed if the docs showed a before and after snapshots against GIS data; or GIS search results to bounding box limits in a map/ graphical fashion.</li>
     <li class="libasic">A feature I'd like to exist: from given Stylesheet(s), a colour swatch list with a DIVs using these classes and this mouse or touch event(s); what does it look like?  Being able to extract all this branding into a single real-time document would save a few hours copying and pasting data around.  I would call this Component test for the Stylesheet(s).  The documenting swatches would need to be generated for each browser; with most attension on “awkward browsers” that have the least standard renderer.</li>
@@ -90,7 +90,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 <hr />
 <div class="lotsOfWords">
 
-<h4 class="dontend" id="toc3"> UPDATES (v6.5 as more stable) <a href="#toc3"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h4>
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > UPDATES (v6.5 as more stable) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">With <strong>Storybook 6.5</strong> all the newer approaches to specifying a test are declarative; this is good, as everything is guaranteed to be executed in the right order with declarative systems (so faster to build tests, that do not crash).   This is the best component test tool/ library I have been able to find; in terms of “verify component in isolation”.</li>
     <li class="libasic">The common samples are frequently out-of-date, as the project was reorganised when it got more features.  For code that is correct at the start of 2023 with default settings in NPM, pls see <a href="https://github.com/owenBeresford/CatProfileDemo" target="_blank">my sample project</a>.  An exhaustive breakdown in this article would have short shelf-life and dull to read or write.   </li>
@@ -110,7 +110,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="testing"><a name="adjacent" href=""></a> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing"> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -169,7 +169,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -188,7 +188,7 @@ HTML tags are capitalised for readability in English prose; I don't do this in H
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-24T16:37:36">24th of Apr 2023, 16:37:36</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-24T16:32:52">24th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:05:57">26th of Apr 2023, 13:05:57</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-24T16:32:52">24th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

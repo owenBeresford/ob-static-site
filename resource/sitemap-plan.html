@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>RSS and sitemap XML</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/sitemap-plan" />
 <meta property="og:description" content="Simple XML generated via this framework, and some information on XML listing formats." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="3rd of Apr 2023, 19:19:53" />
+<meta property="article:published_time" content="26th of Apr 2023, 10:09:21" />
 <meta property="article:modified_time" content="3rd of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/sitemap-plan" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "RSS and sitemap XML",
-	"article:published_time":"3rd of Apr 2023, 19:19:53", 
+	"article:published_time":"26th of Apr 2023, 10:09:21", 
     "article:modified_time":"3rd of Apr 2023",
     "article:section":"technology",
 
@@ -56,7 +56,7 @@ TODO: magic tune selection against some index/DB -->
 <p>I pulled the RSS spec up <sup><a href="https://validator.w3.org/feed/docs/rss2.html" target="_blank">1</a></sup> (this has a reference implementation) and wrote code to emit this text. The output XML is as follows, please use the view source in the footer if you are interested.  For the real one, I will use the RSS date format, rather than the sites more readable date format.</p>
 
 
-<h3 class="dontend" id="toc0"> Reference RSS feed <a href="#toc0"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> Reference RSS feed <a href="#toc0" aria-label="Jump to paragraph." aria-hidden="true" title="Jump to this paragraph" > <sup><i class="fa fa-link invert" aria-hidden="true" ></i></sup> </a></h3>
 <p>This generated text is valid XML, but fails the RSS requirement of “new files since last publication”.  I guess I could edit this to only return articles added in the last week (or some other time period).  As soon as I deployed this I realised I am updating the files timestamps at least once a week.  I ought to start using a more complicated publication tool to avoid this. EDIT 2015: I changed publication process, this problem is no more.   It feels really quaint to hand build XML, rather than rasterising it through a library.</p>
 
 
@@ -72,13 +72,19 @@ TODO: magic tune selection against some index/DB -->
 &lt;link&gt;https://owenberesford.me.uk&lt;/link&gt;
 &lt;description&gt;um, I don't know what to put in here, I'm writing a tech demo, not prose.&lt;/description&gt;
 &lt;language&gt;en-uk&lt;/language&gt;
-&lt;pubDate&gt;2023-04-03T19:19:53+01:00&lt;/pubDate&gt;
-&lt;lastBuildDate&gt;2023-04-03T19:19:53+01:00&lt;/lastBuildDate&gt;
+&lt;pubDate&gt;2023-04-26T10:09:21+01:00&lt;/pubDate&gt;
+&lt;lastBuildDate&gt;2023-04-26T10:09:21+01:00&lt;/lastBuildDate&gt;
+&lt;item&gt;
+&lt;title&gt;HTML5 img / picture element&lt;/title&gt;
+&lt;description&gt;A simple HTML demo.&lt;/description&gt;
+&lt;pubDate&gt;2023-04-15T12:04:16+01:00&lt;/pubDate&gt;
+&lt;guid isPermaLink=&quot;true&quot;&gt;https://owenberesford.me.uk/resource/html5-img&lt;/guid&gt;
+&lt;/item&gt;
 &lt;item&gt;
 &lt;title&gt;Should NOT be visible ~ JSON output.&lt;/title&gt;
 &lt;description&gt;Template file for generating JSON responses.&lt;/description&gt;
-&lt;pubDate&gt;2023-01-23T21:17:00+00:00&lt;/pubDate&gt;
-&lt;guid isPermaLink=&quot;true&quot;&gt;https://owenberesford.me.uk/resource/migration-plan-references&lt;/guid&gt;
+&lt;pubDate&gt;2023-01-23T21:18:22+00:00&lt;/pubDate&gt;
+&lt;guid isPermaLink=&quot;true&quot;&gt;https://owenberesford.me.uk/resource/professional-development-references&lt;/guid&gt;
 &lt;/item&gt;
 
 &lt;/channel&gt;
@@ -87,7 +93,7 @@ TODO: magic tune selection against some index/DB -->
 </pre>
 
 
-<h3 class="dontend" id="toc1"> Reference sitemap <a href="#toc1"> <sup><i class="fa fa-link invert" ></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> Reference sitemap <a href="#toc1" aria-label="Jump to paragraph." aria-hidden="true" title="Jump to this paragraph" > <sup><i class="fa fa-link invert" aria-hidden="true" ></i></sup> </a></h3>
 <p>For a sitemap, a different protocol is probably more use <sup><a href="https://www.sitemaps.org/" target="_blank">1</a></sup>.  This is the same XML that it looks like the rest of the planet is using (I checked my employers site, a couple of tech publishers, and google).  My <a href="https://formatteronline.com/xml" target="_blank">current XML validator</a> <sup><a href="https://ciodenfanme1976.netlify.app/online-xml-viewer.html" target="_blank">2</a></sup> says this is invalid.  I assert that this XML error isn't causing anyone problems, or at least one of those companies would have addressed the issue.</p>
 
 
@@ -97,13 +103,18 @@ TODO: magic tune selection against some index/DB -->
 		xmlns:mobile=&quot;https://www.google.com/schemas/sitemap-mobile/1.0&quot;&gt;
    &lt;url&gt;
       &lt;loc&gt;owenberesford.me.uk/&lt;/loc&gt;
-      &lt;lastmod&gt;2023-04-01T20:03:22+01:00&lt;/lastmod&gt;
+      &lt;lastmod&gt;2023-04-26T10:02:30+01:00&lt;/lastmod&gt;
       &lt;changefreq&gt;weekly&lt;/changefreq&gt;
       &lt;priority&gt;0.8&lt;/priority&gt;
    &lt;/url&gt;
    &lt;url&gt;
-      &lt;loc&gt;https://owenberesford.me.uk/resource/migration-plan-references&lt;/loc&gt;
-      &lt;lastmod&gt;2023-01-23T21:17:00+00:00&lt;/lastmod&gt;
+      &lt;loc&gt;https://owenberesford.me.uk/resource/html5-img&lt;/loc&gt;
+      &lt;lastmod&gt;2023-04-15T12:04:16+01:00&lt;/lastmod&gt;
+      &lt;changefreq&gt;monthly&lt;/changefreq&gt;
+   &lt;/url&gt;
+   &lt;url&gt;
+      &lt;loc&gt;https://owenberesford.me.uk/resource/professional-development-references&lt;/loc&gt;
+      &lt;lastmod&gt;2023-01-23T21:18:22+00:00&lt;/lastmod&gt;
       &lt;changefreq&gt;monthly&lt;/changefreq&gt;
    &lt;/url&gt;
 
@@ -121,7 +132,7 @@ TODO: magic tune selection against some index/DB -->
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>RSS and sitemap XML</h1></header>
-			    	<p class="bigScreenOnly"> </p>
+			    	<p class="bigScreenOnly">   </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
@@ -155,23 +166,21 @@ TODO: magic tune selection against some index/DB -->
 
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
-<menu><ul class="h4_lean">
+<menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Reference RSS feed</a></li>
 <li><a href="#toc1">Reference sitemap</a></li>
-</ul>
-</menu><br />
+</menu>
+<br />
 
 </fieldset>
 	</div>
-<menu>
-<ul class="burgerMenu" >
+<menu class="burgerMenu" >
 <li class="h4_odd">Additional features</li>
 <li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
-</ul>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -190,7 +199,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-03T19:19:53">3rd of Apr 2023, 19:19:53</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-03T19:19:44">3rd of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T10:09:21">26th of Apr 2023, 10:09:21</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-03T19:19:44">3rd of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

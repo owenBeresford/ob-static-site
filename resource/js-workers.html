@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>JS: WebWorkers, ServiceWorkers, SharedWorkers</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-workers" />
 <meta property="og:description" content="Notes on the JS async worker threads." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Apr 2023, 22:43:58" />
+<meta property="article:published_time" content="26th of Apr 2023, 13:04:36" />
 <meta property="article:modified_time" content="8th of Jan 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-workers" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS: WebWorkers, ServiceWorkers, SharedWorkers",
-	"article:published_time":"23rd of Apr 2023, 22:43:58", 
+	"article:published_time":"26th of Apr 2023, 13:04:36", 
     "article:modified_time":"8th of Jan 2023",
     "article:section":"technology",
 
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 
-<h2 class="dontend" id="toc0"> Intro <a href="#toc0"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>Amongst every JS person who has <em>some</em> experience, the single threaded nature of JS is seen as a limitation; although in parallel this simplification avoids alot of hard to fix errors.  Some people like using JS enough to do audio with it <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet" target="_blank">1</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" target="_blank">2</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext" target="_blank">3</a></sup> <sup><a href="https://developers.google.com/web/updates/2017/12/audio-worklet" target="_blank">4</a></sup>.   This seems like the wrong solution, as JS executes slowly; but in any case I have little experience in making audio via software that I wrote.   Sound is rarely used, and when used rarely improves UX in information systems, in my experience.  I will ignore this set of options in the rest of this article.</p>
 
 <p>The internet being what it is, has created a plethora of options to support concurrent threads in JS:</p>
@@ -75,7 +75,7 @@ As noted above the communication is done via postMessage, and fortunately testin
 <hr />
 <div class="lotsOfWords">
 
-<h2 class="dontend" id="toc1"> JS Architecture <a href="#toc1"> <sup><i class="fa fa-link invert" aria-hidden="true" aria-label="Jump to paragraph." ></i></sup> </a></h2>
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > JS Architecture <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>The value of this article is in analysis, not listing links to documentation.  Ideas that should be considered when writing a medium to large project with large amounts of behaviour implemented in JS::</p>
 
 <ul class="ulbasic">
@@ -100,7 +100,7 @@ As noted above the communication is done via postMessage, and fortunately testin
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research"><a name="adjacent" href=""></a> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -157,7 +157,7 @@ As noted above the communication is done via postMessage, and fortunately testin
 <li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 <li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#adjacent">Similar articles</a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
 </menu>
 	</nav>
 </fieldset>
@@ -176,7 +176,7 @@ As noted above the communication is done via postMessage, and fortunately testin
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-23T22:43:58">23rd of Apr 2023, 22:43:58</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-08T16:45:18">8th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T13:04:36">26th of Apr 2023, 13:04:36</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-08T16:45:18">8th of Jan 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
