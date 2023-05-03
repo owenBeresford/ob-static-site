@@ -2,28 +2,28 @@
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
-<title>Notes on Logging</title>
+<title>Logging observability: when to use it; when to remove it</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1 " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="Article about logging; why to add it; why to remove it" />
+<meta name="Description" content="Analysis on logging operational visibility: why to add it and why to remove it" />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="Notes on Logging">
-<meta itemprop="description" content="Article about logging; why to add it; why to remove it">
+<meta itemprop="name" content="Logging observability: when to use it; when to remove it">
+<meta itemprop="description" content="Analysis on logging operational visibility: why to add it and why to remove it">
 <meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="Notes on Logging">
-<meta name="twitter:description" content="Article about logging; why to add it; why to remove it">
+<meta name="twitter:title" content="Logging observability: when to use it; when to remove it">
+<meta name="twitter:description" content="Analysis on logging operational visibility: why to add it and why to remove it">
 <meta name="twitter:creator" content="@channelOwen">
-<meta property="og:title" content="Notes on Logging" />
+<meta property="og:title" content="Logging observability: when to use it; when to remove it" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/logging" />
-<meta property="og:description" content="Article about logging; why to add it; why to remove it" />
+<meta property="og:description" content="Analysis on logging operational visibility: why to add it and why to remove it" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Apr 2023, 13:04:46" />
-<meta property="article:modified_time" content="15th of Apr 2023" />
+<meta property="article:published_time" content="26th of Apr 2023, 22:13:30" />
+<meta property="article:modified_time" content="26th of Apr 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/logging" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -34,9 +34,9 @@ TODO: magic tune selection against some index/DB -->
   {
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
-    "name": "Notes on Logging",
-	"article:published_time":"26th of Apr 2023, 13:04:46", 
-    "article:modified_time":"15th of Apr 2023",
+    "name": "Logging observability: when to use it; when to remove it",
+	"article:published_time":"26th of Apr 2023, 22:13:30", 
+    "article:modified_time":"26th of Apr 2023",
     "article:section":"technology",
 
     "author": {
@@ -57,24 +57,24 @@ TODO: magic tune selection against some index/DB -->
 <h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Why add logging? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>Most importantly for some activities, logging is a legal requirement, or an accounting or business requirement.  In these cases it will be in the requirements.</p>
 
-<p>Unless you are leaning over the shoulder of every user of your software, you do not know what they are doing.  Logging is another way to see.  Profiles of your users are sometimes a valuable corporate asset (e.g. selling advertising space when you know you have a lot of users).  Assuming the development team is responsible for service availability, knowledge of and quick response to any problems is highly useful.<br />
-During testing, knowledge of point of failure before segfaults is really useful.  Yes, these do happen in higher-level “no pointers” languages.  Secondly on larger systems a regular log markers can inform about execution time and bottle necks.  These should be disabled in production.</p>
+<p>Unless you are leaning over the shoulder of every user of your software, you do not know what they are doing.  Logging is another way to see their actions.  Profiles of your users are sometimes a valuable corporate asset (e.g. selling advertising space when you know you have a lot of users).  Assuming the development team is responsible for service availability; knowledge of and quick response to any problems is highly useful.<br />
+During testing, knowledge of point of failure before segfaults is really useful.  Yes, these do happen in higher-level “no pointers” languages.  Secondly, on larger systems a regular log markers can inform about execution time and bottle necks.  These should be disabled in production.</p>
 
 
 <h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Why suppress / hide logging ? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>The automated reporting of minor lint type notices is of little value, at runtime.  For development builds this is useful, but no later in a products lifespan. <br />
 Likewise logging on any scalable server code needs to be lean and buffered to avoid locking to the server with disk writes. Logging to a DB can scale up this ability, and is much easier to search/report against.<br />
-Writing stateless software reduces the need for logging, and provides a list of other benefits.  Stateless logging is fundamentally useless in retrospective review, e.g. a message of “Order placed” is stateless; but “Order for 4 royal-blue armchairs, delivery date 12/12/2016” is stateful.  Stateless logging can be useful for the developer is watching a test build directly; but this is better done in unit tests, so again is not a solution.  Thirdly logging is needed most when the code is poorly structured.  Reasonable code structure reduces the need for this, as well as many other benefits.<br />
-As a general statement, if the logging output is a lot of data and no information; it is not meeting requirements or being a solution.  In this case its useless.</p>
+Writing stateless software reduces the need for logging, and provides a list of other benefits.  Stateless logging is fundamentally useless in retrospective review, e.g. a message of “Order placed” is stateless; but “Order for 4 royal-blue armchairs, delivery date 12/12/2016” is stateful.  Stateless logging can be useful for the developer watching a test build directly; but this is better done in unit tests, so again is not a solution.  Thirdly logging is needed most when the code is poorly structured.  Reasonable code structure reduces the need for it, as well as many other benefits.<br />
+As a general statement, if the logging output is a lot of data and no information; then it is not meeting comms requirements or being a solution.  In this case it's useless.</p>
 
 
 <h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > How to add logging <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>You are likely to be using a framework, it is likely to have a log facility.  As such you don't need to create this technical feature.  Learn how to manage this, and ensure it is disabled on production. <br />
-Where logging is an objective, obviously create it.  A normal pattern for transaction systems is log each state change for the transactions.  This is normally described as an Event log. This is normally held in a transaction data-store, as part of business documentation/ process (and isn't a technical item).</p>
+Where logging is an objective, obviously create the logging.  A normal pattern for transaction systems is to log each state change for the transactions.  This is normally described as an Event log. This is normally held in a transaction data-store, as part of business documentation/ process (and isn't a technical item).</p>
 
-<p>As your code should be reasonably structured, so a few bits of logging are all that is needed for the happy path.   All exception cases that require a human interaction must be documented (in the log), or the resolve cannot be applied.  Exception cases that represent a data-point in a larger scenario should be logged (e.g. on the last working day of the month the entire e-commerce reports slow SQL warnings, being induced by the billing audits also being performed and blocking systems).<br />
-Logging as a low level process, is fairly low business utility.  This type of logging should be created in a fashion that is cheap to apply (e.g. a text macro in your IDE), with things like code-location being generated automatically (for example in PHP the <u>METHOD</u> and <u>LINE</u> macros are quite useful).  It is quite useful if it can be globally turned on/off (a test against load time defined constant for example). <br />
-Logging as a record of user actions, including timing and user id is a valuable business asset.  This can be done to a reasonable granularity with google analytics on open-web accessible systems.</p>
+<p>As your code should be reasonably structured, so a few bits of logging are all that is needed for the happy path.   All exception cases that require a human interaction must be documented (in the log), or the resolve cannot be applied.  Exception cases that represent a data-point in a larger scenario should be logged (e.g. on the last working day of the month the entire e-commerce reports slow SQL warnings, being induced by the billing cycle audits also being performed and blocking systems).<br />
+Logging as a low level process is fairly low business utility.  This type of logging should be created in a fashion that is cheap to apply (e.g. a text macro in your IDE), with things like code-location being generated automatically (for example in PHP the _ _ METHOD _ _ and _ _ LINE _ _ macros are quite useful).  It is quite useful if it can be globally turned on/off (a test against load time defined constant for example). <br />
+Logging as a record of user actions, including timing and user id, is a valuable business asset.  This can be done to a reasonable granularity with google analytics on open-web accessible systems.</p>
 
 <p>This text doesn't contain references, but as a piece of reasoning, does it need them?</p>
 
@@ -91,7 +91,7 @@ Logging as a record of user actions, including timing and user id is a valuable 
 		<div id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
-					<header><h1>Notes on Logging</h1></header>
+					<header><h1>Logging observability: when to use it; when to remove it</h1></header>
 			    	<p class="bigScreenOnly">   </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
@@ -107,7 +107,7 @@ Logging as a record of user actions, including timing and user id is a valuable 
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-04-15T16:54:37">15th of Apr 2023</time>
+						<span>Edited <time datetime="2023-04-26T17:58:39">26th of Apr 2023</time>
 						</span>
 						<span>Created <time datetime="2016-12-29T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >29th of Dec 2016</time> </span>
 					</span>
@@ -160,7 +160,7 @@ Logging as a record of user actions, including timing and user id is a valuable 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-26T13:04:46">26th of Apr 2023, 13:04:46</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T16:54:37">15th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-04-26T22:13:30">26th of Apr 2023, 22:13:30</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-26T17:58:39">26th of Apr 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
