@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/JS-test-frameworks" />
 <meta property="og:description" content="Research into what JS tools and unit-test suites are available" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Apr 2023, 13:04:35" />
-<meta property="article:modified_time" content="8th of Apr 2023" />
+<meta property="article:published_time" content="3rd of May 2023, 19:49:21" />
+<meta property="article:modified_time" content="1st of May 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/JS-test-frameworks" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS unit-test frameworks",
-	"article:published_time":"26th of Apr 2023, 13:04:35", 
-    "article:modified_time":"8th of Apr 2023",
+	"article:published_time":"3rd of May 2023, 19:49:21", 
+    "article:modified_time":"1st of May 2023",
     "article:section":"technology",
 
     "author": {
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 <p>If you want to write unit tests on JS classes, sensibly, you need a test framework.  Unit testing quite alot of client-side JS code is hard, as it is quite involved with the DOM or webrowser.   I present a range of options. Please remember <i> 'does it feel intuitive' </i> isn't something that can be put in a unit test.  I am not presenting my own code here, as the current range of tools seem adequate (I have made a few tools previously, but those projects are firmly one of several companies IP.  The publically available tools should be better looked after and have more investment, so represent a better solution.). <br />
-<b>I repeat to be clear, this article is about unit testing JS modules and Components, not behaviour testing webpages.</b>  The I am paid for is generally complex enough that one needs to test each one, to reduce later stage costs.  I will write an article on BDD and behaviour testing<a class="" href="">?</a>.</p>
+<b>I repeat to be clear, this article is about unit testing JS modules and Components, not behaviour testing webpages.</b>  The I am paid for is generally complex enough that one needs to test each one, to reduce later stage costs.  I will write an article on <a class="" href="https://owenberesford.me.uk/resource/js-behaviour-tests#">BDD and behaviour testing</a>.</p>
 
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Metrics I am using for comparing test frameworks: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
@@ -71,16 +71,16 @@ TODO: magic tune selection against some index/DB -->
 
 
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > JS test tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
-<p>UPDATE 2023: I assume everyone has done this step a few years ago; but for normal unit testing in JS, when I am using my normal edition (ES2020), I am deprecating Mocha and Jasmine.  I loose too much time trying to fight old module formats and the JS modules that the local production code is written with.   As MSIE is deprecated by MSFT, I can use class keyword if I wish.   Jest allows my to create tests at a lower level of drama.  I have good use of <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> for component testing, again as modules; for the same reasons.</p>
+<p>UPDATE 2023: I assume everyone has done this step a few years ago; but for normal unit testing in JS, when I am using my normal edition (ES2020), I am deprecating Mocha and Jasmine.  I loose too much time trying to fight old module formats and the JS modules that the local production code is written with.   As MSIE is deprecated by MSFT, I can use class keyword if I wish.   Jest allows my to create tests at a lower level of drama.  <del>I have good use of <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> for component testing, again as modules; for the same reasons. </del></p>
 
 <p>Writing easy-to-test JS is more complex than other languages, and reliable unit-tests are therefore harder.  Closures and Async code mean its harder to see outcomes of a method call.  As some people do crypto in JS, unit testing is essential.  For BDD and behaviour testing<a class="" href="">?</a> please read the more relevant article. According to <sup><a href="https://nodesource.com/blog/seven-convenient-ci-cd-tools-for-your-node-js-projects/" target="_blank">9</a></sup> the best CI projects for JS modules are Travis and Jenkins.  Most unit test tools can run an entire suit of tests from one config file, and so can be triggered like this.  As a different idea, there are commit hooks to your version control.</p>
 
 <ul class="ulbasic">
     <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a>, I wrote a separate article on this.<ul class="ulbasic">
         <li class="libasic">Strengths: Good JS module support; includes webpack “for free”; is a <em>visual tester</em>, but can be used for BDD and unit testing components; can be used to test CSS and CSS interactions; It has many plugins.</li>
-        <li class="libasic">Liabilities: It is its own little world; puts random files all over your repo; quite alot of review is still *manual*. Not aware of many module for TAP.  </li>
+        <li class="libasic">Liabilities: It is its own little world; puts random files all over your repo; quite alot of review is still *manual*. Not aware of many module for TAP.  <i>The recent version doesn't work for me, I will update this. </i></li>
     </ul></li>
-    <li class="libasic">Facebook inc use <b>Jest</b> <a href="https://facebook.github.io/jest/" target="_blank">git</a> as a test tool (install via npm/ yarn).  It can be used for BDD or TDD.  UPDATE 2021, I have now used Jest, Jest can be run as a CLI tool or in the browser.   If you have written complex Jest test, it supports a debugger on the test <sup><a href="https://jestjs.io/docs/troubleshooting#tests-are-failing-and-you-dont-know-why" target="_blank">10</a></sup>; however this is a bad <i>code smell</i>.    <ul class="ulbasic">
+    <li class="libasic">Facebook use <b>Jest</b> <a href="https://facebook.github.io/jest/" target="_blank">git</a> as a test tool (install via npm/ yarn).  It can be used for BDD or TDD.  UPDATE 2021, I have now used Jest, Jest can be run as a CLI tool or in the browser.   If you have written complex Jest test, it supports a debugger on the test <sup><a href="https://jestjs.io/docs/troubleshooting#tests-are-failing-and-you-dont-know-why" target="_blank">10</a></sup>; however this is a bad <i>code smell</i>.    <ul class="ulbasic">
         <li class="libasic">Strengths: It can be setup to imitate Mocha/ Jasmine for zero-cost rollout <sup><a href="https://jestjs.io/docs/migration-guide" target="_blank">11</a></sup>.  It has a bigger range of primitives than Mocha.  As it is <i>du jour</i>, it has many plugins/ CI integration extensions (see npm).  It has better integration with Typescript than Mocha.  This package <a href="https://www.npmjs.com/package/jest-runner-tap" target="_blank">jest-runner-tap</a> gives you TAP output, but not on the jest tests.   It can test function results, or side effects (i.e. DOM state).  Compared to older tools, it valuably supports modules.</li>
         <li class="libasic">Weaknesses: It takes me longer to setup and get it to not crash; other peoples thoughts <sup><a href="https://medium.com/@joenjenga/its-jest-common-problem-faced-using-jest-9905e96db8a" target="_blank">12</a></sup>.  Not specific to this tool, but Promises need to be managed for tests to pass <sup><a href="https://jestjs.io/docs/troubleshooting#unresolved-promises" target="_blank">13</a></sup>.  UPDATE: when starting with less legacy imports, you get a better experience.</li>
     </ul></li>
@@ -90,19 +90,15 @@ TODO: magic tune selection against some index/DB -->
     </ul></li>
     <li class="libasic"><b>Qunit</b> ~ <a class="" href="https://owenberesford.me.uk/resource/qunit-demo#">demo code</a> <sup><a href="https://api.qunitjs.com/" target="_blank">21</a></sup> ~ A small and light unit tester, for JS only (i.e. it can't test CSS or HTML).  I use this for my published jquery modules. <ul class="ulbasic">
         <li class="libasic">Strengths: Simple and concise API. As it is just 2 files, it is light in the project repo.  If you are demoing that a JS unit is correct, without concern for a large test suite, it is very nimble.  Good for tests that need to be run a part of the DOM (i.e. you want to see that a particular DOM element is set to a value). Can be combined with <a href="https://github.com/jquery/testswarm" target="_blank">swarm project</a> to run on all webrowsers at once.  Can be made to output TAP, via <a href="https://github.com/twada/qunit-tap" target="_blank">qunit-tap</a>.   Can test function results, or side effects (i.e. DOM state).</li>
-        <li class="libasic">Weaknesses: This needs to be run in a webrowser. It will output DOM manipulations, as test results.  As such it is less use for integration with a CI/CD tool, like Jenkins. No test ability to test CSS or HTML. </li>
+        <li class="libasic">Weaknesses: This needs to be run in a webrowser. It will output DOM manipulations, as test results.  As such it is less use for integration with a CI/CD tool, like Jenkins. No test ability to test CSS or HTML.  Doesn't support modern code loading process (modules, or ES2020 or higher)</li>
     </ul></li>
-    <li class="libasic"><b>Behat/mink/sahi stack</b> ~ this is same idea as Selenium. I associate it with Symfony, and Behat is written in PHP. Behat implements the same Domain language as Cucumber. The stack can wrap Selenium2 as a second tech implementation. <a href="https://twitter.com/everzet" target="_blank">Everzet</a> has published some introductory docs for mink <sup><a href="https://media.readthedocs.org/pdf/mink/latest/mink.pdf" target="_blank">22</a></sup>.  These state that one may run JS from inside a PHP test.  The examples that are supplied aren't very useful, but would be easily reproducible.   As this is also a full browser, you can do more complex testing.  Mink is an abstraction layer, to allow more testing tools to be used; Sahi <sup><a href="https://en.wikipedia.org/wiki/Sahi_%28software%29" target="_blank">23</a></sup> is a Java &amp; JS page automator, like Selenium1.  Sahi acts as an active HTTP proxy. <ul class="ulbasic">
-        <li class="libasic">Strengths: With respect to testing JS, unit tests can test everything that appears in a browser. Like Selenium, test conditions can be applied against HTML, CSS <sup><a href="https://stackoverflow.com/questions/40804157/how-to-assert-page-tab-window-title-in-behat-mink" target="_blank">24</a></sup> and JS state <sup><a href="https://sahipro.com/features/" target="_blank">25</a></sup>. </li>
-        <li class="libasic">Weaknesses: If you are one of those people that dislike PHP, its PHP.  The API for JS is less clean, as your basic test is in PHP.  As the test is not native to JS, the event or async stuff is messy.   I can't find a integration between Behat (the test schedular tool) and any TAP.  This is lots of different bits of technology, so tests are more likely to break than a simpler architecture (four languages when using Sahi, PHP for Behat &amp; Mink, Java and JS for Sahi, and C++/C and JS for the browser).</li>
-    </ul></li>
-    <li class="libasic"><b>Mocha/phantomjs stack</b>, has a full headless-browser browser implemented in JS <a href="https://github.com/ariya/phantomjs" target="_blank">git</a>. Mocha is another BDD spec tool <sup><a href="https://mochajs.org/" target="_blank">26</a></sup>, written in JS.   Moncha is pretty much the same as every other spec tool, see <sup><a href="https://www.redotheweb.com/2013/01/15/functional-testing-for-nodejs-using-mocha-and-zombie-js.html" target="_blank">27</a></sup>, as example.  There is phantomjs <a href="https://phantomjs.org/documentation/" target="_blank">documentation</a>.  As a webrowser, phantomjs isn't a test tool; there are extensions <a href="https://github.com/metafeather/phantomjs-yuitest" target="_blank">git</a> <a href="https://github.com/jamesgpearce/confess" target="_blank">git</a> <sup><a href="https://yslow.org/ruleset-matrix/" target="_blank">28</a></sup> .  Phantomjs does have evaluate(), which is functionally eval().   Twitter use Phantomjs with Qunit <sup><a href="https://scotch.io/tutorials/what-is-phantomjs-and-how-is-it-used" target="_blank">29</a></sup> as a another decision making API.  <ul class="ulbasic">
-        <li class="libasic">Strengths: Mocha supports TAP <sup><a href="https://www.lambdatest.com/automation-testing-advisor/javascript/mocha-TAP" target="_blank">30</a></sup>.  Phantomjs has close match to Chrome, Safari and a few minor browsers, as it links webkit.  As a node project, Mocha links to common CI tools eg <sup><a href="https://codeforgeek.com/2016/04/continuous-integration-deployment-jenkins-node-js/" target="_blank">31</a></sup>.  For a pure JS unit (no DOM, not much DI), it would be faster to omit phantom i.e. <sup><a href="https://coderwall.com/p/qaebwq/running-mocha-tests-without-a-browser-not-even-phantomjs" target="_blank">32</a></sup> </li>
-        <li class="libasic">Weakness: Unfortunately, this is old webkit, in the fake-browser. Some people (in particular, the Protractor team <sup><a href="https://stackoverflow.com/questions/29425612/what-are-the-pros-and-cons-in-using-phantomjs-natively-instead-of-chrome-through" target="_blank">33</a></sup> ) discourage use of Phantomjs.</li>
+    <li class="libasic"><b>Mocha/phantomjs stack</b>, has a full headless-browser browser implemented in JS <a href="https://github.com/ariya/phantomjs" target="_blank">git</a>. Mocha is another BDD spec tool <sup><a href="https://mochajs.org/" target="_blank">22</a></sup>, written in JS.   Mocha is pretty much the same as every other spec tool, see <sup><a href="https://www.redotheweb.com/2013/01/15/functional-testing-for-nodejs-using-mocha-and-zombie-js.html" target="_blank">23</a></sup>, as example.  There is phantomjs <a href="https://phantomjs.org/documentation/" target="_blank">documentation</a>.  As a webrowser, phantomjs isn't a test tool; there are extensions <a href="https://github.com/metafeather/phantomjs-yuitest" target="_blank">git</a> <a href="https://github.com/jamesgpearce/confess" target="_blank">git</a> <sup><a href="https://yslow.org/ruleset-matrix/" target="_blank">24</a></sup> .  Phantomjs does have evaluate(), which is functionally eval().   Twitter use Phantomjs with Qunit <sup><a href="https://scotch.io/tutorials/what-is-phantomjs-and-how-is-it-used" target="_blank">25</a></sup> as a another decision making API.  <ul class="ulbasic">
+        <li class="libasic">Strengths: Mocha supports TAP <sup><a href="https://www.lambdatest.com/automation-testing-advisor/javascript/mocha-TAP" target="_blank">26</a></sup>.  Phantomjs has close match to Chrome, Safari and a few minor browsers, as it links webkit.  As a node project, Mocha links to common CI tools eg <sup><a href="https://codeforgeek.com/2016/04/continuous-integration-deployment-jenkins-node-js/" target="_blank">27</a></sup>.  For a pure JS unit (no DOM, not much DI), it would be faster to omit phantom i.e. <sup><a href="https://coderwall.com/p/qaebwq/running-mocha-tests-without-a-browser-not-even-phantomjs" target="_blank">28</a></sup> </li>
+        <li class="libasic">Weakness: Unfortunately, this is old webkit, in the fake-browser. Some people (in particular, the Protractor team <sup><a href="https://stackoverflow.com/questions/29425612/what-are-the-pros-and-cons-in-using-phantomjs-natively-instead-of-chrome-through" target="_blank">29</a></sup> ) discourage use of Phantomjs.</li>
     </ul></li>
 </ul>
 
-<p><b>EDIT:</b> I got sent <a href="https://gojko.net/2018/02/25/javascript-testing-tools.html" target="_blank">this article</a> via twitter.  Second comparison on JS testing by a guy trying to test Wordpress properly <sup><a href="https://watirmelon.blog/2015/12/08/comparison-of-javascript-browser-automation-and-test-specification-libraries/" target="_blank">34</a></sup></p>
+<p><b>EDIT:</b> I got sent <a href="https://gojko.net/2018/02/25/javascript-testing-tools.html" target="_blank">this article</a> via twitter.  Second comparison on JS testing by a guy trying to test Wordpress properly <sup><a href="https://watirmelon.blog/2015/12/08/comparison-of-javascript-browser-automation-and-test-specification-libraries/" target="_blank">30</a></sup></p>
 
 
 </div>
@@ -118,7 +114,7 @@ TODO: magic tune selection against some index/DB -->
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>JS unit-test frameworks</h1></header>
-			    	<p class="bigScreenOnly">   </p>
+			    	<p role="status" class="bigScreenOnly">   </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
@@ -133,7 +129,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-04-08T17:09:56">8th of Apr 2023</time>
+						<span>Edited <time datetime="2023-05-01T17:42:32">1st of May 2023</time>
 						</span>
 						<span>Created <time datetime="2023-01-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Jan 2023</time> </span>
 					</span>
@@ -177,15 +173,11 @@ TODO: magic tune selection against some index/DB -->
  <br class="blocker" />
  <footer>
   <div class="h4_footer"> 
-	<div class="leftFooter">
-		<a aria-label="Validate CSS" href="https://jigsaw.w3.org/css-validator/check/referer"><img src="/asset/validCSS.png" alt="Valid CSS!" /></a> 
-		<a href="https://validator.w3.org/check?uri=referer" aria-label="Validate HTML"><img src="/asset/valid-xhtml10.png" alt="Valid XHTML 1.0 Transitional, unfortunately no HTML5 available" /></a>
-	</div>
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-04-26T13:04:35">26th of Apr 2023, 13:04:35</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-08T17:09:56">8th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-05-03T19:49:21">3rd of May 2023, 19:49:21</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-01T17:42:32">1st of May 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>The importance of Accessibility Testing</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="The importance of Accessibility Testing">
+<meta itemprop="description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="The importance of Accessibility Testing">
+<meta name="twitter:description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="The importance of Accessibility Testing" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/accessibility-testing" />
+<meta property="og:description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="3rd of May 2023, 19:47:52" />
+<meta property="article:modified_time" content="2nd of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/accessibility-testing" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "The importance of Accessibility Testing",
+	"article:published_time":"3rd of May 2023, 19:47:52", 
+    "article:modified_time":"2nd of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>This is a specific article about testing for accessibility.  Please see other articles on this site for other aspects of testing, easily accessed via <a class="" href="https://owenberesford.me.uk/resource/testing-epic#">testing-epic</a>.   In my experience, directors are less interested in funding the work-time to do accessibility testing unless they are targeting sales to a broad end-user market (literally, they do not think there will be any outcomes from that time and money spent).   Personally, I think it is a hygiene factor that should be automated as much as possible.  Thus the following tools...<br />
+<i>Note ~ unlike other types of testing, lack of accessibility can have legal impacts. </i></p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Technical definition <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+A very common blog tactic is to define many words.  In this case “what should accessibility tests cover” is critical for compliance, and seems to be “implement the WCAG specs”, there are several releases to this.   There are three amounts of strictness for compliance: “A”, “AA” and “AAA” <sup><a href="https://www.w3.org/WAI/WCAG2AAA-Conformance" target="_blank">1</a></sup>, I assume the A is short for accessibility.  Requirements for these levels are discussed in <sup><a href="https://www.allaccessible.org/wcag-level-a-aa-and-aaa-whats-the-difference/" target="_blank">2</a></sup> <sup><a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank">3</a></sup>.<br />
+Matching the rest of W3C publications, they have numbered edition labels, <a href="https://www.w3.org/TR/WCAG20/" target="_blank">WCAG 2.0</a> released 2008, <a href="https://www.w3.org/TR/WCAG21/" target="_blank">WCAG 2.1</a> released 2018 and a draft WCAG 2.2 published Sept 2022.  Newer versions are more relevant to modern problems, I'm entirely ignoring WCAG1, but I think everyone else does also.   The WCAG defines four design principals, to show their document is complete.  A website should be: perceivable, operable, understandable, and robust [US english, but it works]; which roughly maps to each of the functional activities that a human needs to do to read something inside a data system.   The US government uses a slight simplification <sup><a href="https://accessibility.18f.gov/checklist/" target="_blank">4</a></sup>.   To read more about specific fonts, please read <a class="" href="https://owenberesford.me.uk/resource/readable-fonts#">readable-fonts</a>.<br />
+ <p>Boring sidebar: I added a HTML strictness tag to my boring website in 2010, as I was trying to show that I was using HTML correctly.  I think semantic HTML is a valuable non-functional objective, as it makes it easier to use the HTML for any other work.   Wordpress doesn't make this claim, we are different dev teams.   Between Q4 2022 and Q2 2023 I redeveloped up-to site template v4; I have verified and updated all accessibility compliance for today, I need to update the compliance tag.  I am now thinking I should remove the HTML correctness and WCAG tag from the non-index pages as its not globally relevant.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > What are the EU legal requirements? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>After June 2022, EU states must enshrine European Accessibility Act aka “EAA”, which covers access to services be it Cashpoints, taxis, sports on your phone or a random e-comnmerce website/ app.  Quoting <sup><a href="https://www.forbes.com/sites/forbesbusinesscouncil/2022/05/11/the-european-accessibility-act-everything-you-need-to-know/" target="_blank">5</a></sup> “The EAA was derived from the UN Convention on the Rights of Persons with Disabilities (UNCRPD).&quot;, the UNCRPD can be accessed as <sup><a href="https://ec.europa.eu/social/main.jsp?catId=1138&amp;amp;langId=en" target="_blank">6</a></sup>.   The full text for EAA can be accessed via <sup><a href="https://ec.europa.eu/social/main.jsp?catId=1202" target="_blank">7</a></sup> and replaces the older Web Accessibility Directive aka WAD <sup><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016L2102&amp;amp;from=EN" target="_blank">8</a></sup>.   There is an official cover page <sup><a href="https://digital-strategy.ec.europa.eu/en/policies/web-accessibility" target="_blank">9</a></sup> with access to translations and summaries.   Similar cover page for WAD <sup><a href="https://digital-strategy.ec.europa.eu/en/policies/web-accessibility-directive-standards-and-harmonisation" target="_blank">10</a></sup>.   The EU states this may incur a transition cost, but it is beneficial as: you have a broader market including 135 million disabled or old people in the EU which is about 30%; the single standard makes cross EU state trade easier and faster; in future lower operational costs.  Wiki claim EAA is in effect from 2019 <sup><a href="https://en.wikipedia.org/wiki/European_Accessibility_Act" target="_blank">11</a></sup>, but it is a large scale process to apply to the whole of Europe.   Another acronym is European Harmonized Accessibility Standards aka EHAS <sup><a href="https://accessibility.civicactions.com/guide/glossary" target="_blank">12</a></sup> <sup><a href="https://en.wikipedia.org/wiki/EN_301_549" target="_blank">13</a></sup> but this seems to be officialese for supporting WCAG.    <br />
+From the perspective of webapps, supporting Web Content Accessibility Guidelines aka WCAG spec <sup><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank">14</a></sup> <sup><a href="https://www.w3.org/TR/WCAG21/" target="_blank">15</a></sup> is a strong step to being correct for EEA.   The second link is a detailed breakdown of suggested behaviours.   As EEA is still being rolled out across EU states, and being defined in practical terms, the best practice is still being defined.   It is nice when W3C can agree with EU governance. Some more targeted notes are <a href="https://media-and-learning.eu/type/featured-articles/what-you-really-need-to-know-about-eu-accessibility-legislation/" target="_blank">EU vs US</a>, <a href="https://www.w3.org/WAI/older-users/" target="_blank">targeting older users</a> and <a href="https://www.w3.org/WAI/tips/designing/" target="_blank">accessible design</a>.<br />
+Note ~ the EAA has a carve-out for tiny organisations of less than €2M/Y or less than 10 staff; so can ignore EAA if needed.</p>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > What are the UK legal requirements in 2023?  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>I'm expecting there will be a cascade of changes as a side effect of the politicians not needing to follow the EU.  <br />
+In the UK, the legal requirements are the UK Equality Act aka UEA <sup><a href="https://www.accessibilitychecker.org/guides/uk-equality-act/" target="_blank">16</a></sup> <sup><a href="https://www.gov.uk/government/news/new-disability-action-plan-confirmed-for-2023-as-minister-meets-paralympians-and-opens-pioneering-lab-at-olympic-park" target="_blank">17</a></sup>.  Concurrently the Equality Act 2010 <sup><a href="https://www.citizensadvice.org.uk/law-and-courts/discrimination/check-what-type-of-discrimination-youve-experienced/duty-to-make-reasonable-adjustments-for-disabled-people/" target="_blank">18</a></sup> or the Disability Discrimination Act (DDA) <sup><a href="https://codemantra.com/digital-accessibility-laws-uk/" target="_blank">19</a></sup> is quoted as still being in-effect.  Some guidance rather than laws is published as <sup><a href="https://userway.org/blog/uk-accessibility-laws/" target="_blank">20</a></sup> <sup><a href="https://www.gov.uk/service-manual/helping-people-to-use-your-service/making-your-service-accessible-an-introduction" target="_blank">21</a></sup> <sup><a href="https://www.gov.uk/guidance/publishing-accessible-documents" target="_blank">22</a></sup><br />
+Similar to the EAA, the UEA maps WCAG guidance.  I would guess that the same benefits apply to the UK implementation of WCAG, although the number of disabled / elderly would be smaller.  I see a quote of 20% with at least 1 limitation in several places (in previous links).   <br />
+There are many documents on creating accessible content inside the gov.uk structure, for example <sup><a href="https://accessibility.blog.gov.uk/2023/01/06/a-new-accessibility-strategy-for-the-gov-uk-design-system/" target="_blank">23</a></sup> <sup><a href="https://www.gov.uk/guidance/accessibility-requirements-for-public-sector-websites-and-apps" target="_blank">24</a></sup> but that is off topic.</p>
+
+
+</div>
+<br /> <hr /><br />
+<div class="lotsOfWords">
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Practical solutions for testing accessibility  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>It is not practical to make an accessibility QA service for yourself.  The following rentable services exist:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Primary suggestions:</li>
+    <li class="libasic"><a href="https://pagespeed.web.dev" target="_blank">Pagespeed</a> ~ a free page checker from google; it runs in “mostly real-time” (i.e. each page report takes 15-20s).  It supports a good range of WCAG, but I'm not sure if it is 100% of it.   If you use Analytics, it will merge in the results.  It will show you a screen-grab of what each device looks like (from a chrome headless instance).  This is the option I currently use.  Quite a few features from this tool are available in Chrome as the “lighthouse” tab locally; and according to <sup><a href="https://moz.com/blog/how-to-automate-pagespeed-insights-for-multiple-urls-using-google-sheets" target="_blank">1</a></sup> there is a version that can be run on all URLs in your site at the same time.  A benefit of server based test tools that are not running on your local webserver, is that site performance can be measured; this is something that Pagespeed does well.</li>
+    <li class="libasic">aXe acquired from <a href="https://github.com/dequelabs/axe-core" target="_blank">git</a> or <a href="https://www.npmjs.com/package/axe-core" target="_blank">npm</a> can be linked into standard unit tests.  There is a paid service that performs all the manual vetting available from <a href="https://www.deque.com/axe/" target="_blank">Deque</a> in addition.   If you had linked this to your test infra, the results would be very convenient.   They say they need a custom test URL, which duplicates the normal page, and links the additional aXe library.  For render-once sites like blogs, 1 test harness would cover the entire page; but for SPA with locally generated content aXe will need to be triggered after every “human input event” as the DOM will have been changed.  They state they have some capacity for JSDOM, running from NodeJS, but its not as reliable.</li>
+    <li class="libasic"><a href="https://www.qualitylogic.com/testing-solutions/wcag-compliance-testing-certification/" target="_blank">QualityLogic</a> ~ a rentable service operated by visually impaired software engineers.   If they do revisions rather than just testing, they will need a while per client.  They do not quote a price in a place I can find.  This is a very US centric.</li>
+    <li class="libasic"><a href="https://softwaretesthelp.com/Visit-QASource" target="_blank">QASource</a> ~ rentable service, uses some manual testing, but mostly ML and AL to test.  They directly claim that every client is different, and so cannot give general quotes. This is a very US centric.</li>
+    <li class="libasic">Less targeted tools:</li>
+    <li class="libasic"><a href="https://wave.webaim.org/extension/" target="_blank">WAVE</a> ~ a client side only testing browser plugin, run by webAIM.    Running since 2001 from the Utah state University; much of this tools marketing is targeting older web trends.  Note as a browser plugin this can be run inside firewalls or security hobbles, so it is worth remembering as a backup test tool.   <strong>UPDATE</strong> I tried installing this, it does give reports, but it is very hard to work our which HTML element it is complaining about.  Also it doesn't read the whole of the CSS, so some of the objections are are wrong.   Thirdly, it doesn't assume that people with limited vision could have adapted their entire machine to have a larger font-size <sup><a href="https://www.makeuseof.com/how-to-increase-font-size-in-browser/" target="_blank">2</a></sup> <sup><a href="https://www.thewindowsclub.com/change-the-default-font-in-your-browser" target="_blank">3</a></sup>; so every site has to do it for them separately (my font-sizes are <strong>relative</strong>, so if you have limited focusing ability you are still supported).   Fourthly, it reports elements which are <i>display:none</i> as being small/ poorly coloured.</li>
+    <li class="libasic"><a href="https://www.freedomscientific.com/Products/Blindness/JAWS" target="_blank">JAWS</a> ~ this is an established text to speech tool that sits on-top of webpages, or ms Word etc; also supports Braille.  They currently have a  video talking about 20year history, I know this, as I met them doing my second degree.   This should be used for 1 user journey “supporting blind people, who are using common blind-support tooling” as it is the most widely used website reader AFAIK.</li>
+    <li class="libasic"><a href="https://chrome.google.com/webstore/detail/siteimprove-accessibility/efcfolpjihicnikpmhnmphjhhpiclljc" target="_blank">SiteImprove</a> ~ a service that crawls every 5days.  SiteImprove is a member of w3c.   I cannot find any pricing.  Platform also supports <i>Deutsche</i>. </li>
+    <li class="libasic"><a href="https://www.powermapper.com/products/sortsite/" target="_blank">SortSite</a> ~ this is a site test tool, not an accessibility tester, but it does check WCAG v2 and v2.1.   It has a whole site UI, so if you make each page separately this would save staff time to test, but the smallest licence is 100USD <sup><a href="https://www.powermapper.com/buy/all/sortsite/" target="_blank">4</a></sup>.</li>
+    <li class="libasic">The W3C hosts a very long list of accessibility checkers <sup><a href="https://www.w3.org/WAI/ER/tools/" target="_blank">5</a></sup> including ones that are quite old.  I think many of these are rules systems, and no fees; but do not have a practical means to check.   If you use a Linux, you probably have <a href="https://manpages.ubuntu.com/manpages/jammy/man1/tidy.1.html" target="_blank">tidy</a>, which is a convenient <em>HTML validator</em>, and supports WCAG checks.  As a HTML validator, it doesn't look at CSS so this is only useful for some situations.</li>
+    <li class="libasic">Boring sidebar: On my personal site, my PageSpeed scores are all over 95%; this should be achievable on most sites/platforms/apps.   The updates didn't cost very much, and can be done as a rolling process on each completed feature.  It is the law.  The UK government recommends making an accessibility statement <sup><a href="https://www.gov.uk/guidance/make-your-website-or-app-accessible-and-publish-an-accessibility-statement" target="_blank">6</a></sup>.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research, testing"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>The importance of Accessibility Testing</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="button masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-02T16:20:23">2nd of May 2023</time>
+						</span>
+						<span>Created <time datetime="2023-04-27T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >27th of Apr 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Technical definition</a></li>
+<li><a href="#toc1">What are the EU legal requirements?</a></li>
+<li class="h4_odd"><a href="#toc2">What are the UK legal requirements in 2023?</a></li>
+<li><a href="#toc3">Practical solutions for testing accessibility</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i style="font-size:200%; margin-bottom:0px;" class="fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-03T19:47:52">3rd of May 2023, 19:47:52</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-02T16:20:23">2nd of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
