@@ -18,6 +18,7 @@ Header always set Strict-Transport-Security "max-age=31536000; preload" env=HTTP
 RewriteCond %{HTTPS} 			off
 RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk [nc]
 rewritecond %{REQUEST_URI}		(.*)
+Header append Vary x-iceline
 <IfModule mod_headers.c>
 Header add X-ICELINE "remove www, add https $1"
 </IfModule>
@@ -170,6 +171,14 @@ RewriteRule (.*)				$1.html
 	RewriteCond "%{REQUEST_FILENAME}.xml" -f
 	RewriteRule (.*)				$1.xml
 
+</If>
+<If "%{REQUEST_URI} =~ /sitemap-plan/">
+Header set Content-Type 'text/html; encoding= utf8'
+Header set Cache-Control 'max-age=86400'
+Header add X-ICELINE "add HTML"
+RewriteCond %{REQUEST_URI}      ^/resource/
+RewriteCond "%{REQUEST_FILENAME}.html" -f
+RewriteRule (.*)				$1.html
 </If>
 <If "%{REQUEST_URI} =~ /sitemap/">
 	Header unset Content-Type 
