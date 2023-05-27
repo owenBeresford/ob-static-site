@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 9]>      <html lang="en-GB" class="ie9 noJS" itemscope itemtype="http://schema.org/Article"> <![endif]-->
-<!--[if gte IE 9]><!--> <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article"> <!--<![endif]-->
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article"> 
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>IT and process</title>
@@ -23,14 +22,13 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/home" />
 <meta property="og:description" content="Assorted articles and processes on the current state of software engineering. Please click through to articles..." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="12th of May 2023, 22:39:10" />
-<meta property="article:modified_time" content="7th of May 2023" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:51" />
+<meta property="article:modified_time" content="26th of May 2023" />
 <!-- meta property="article:tag" content="Article Tag" /  -->
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <link rel="canonical" href="https://owenberesford.me.uk/" />
 <link rel="stylesheet" href="/asset/ob1.min.css" />
-
-< style rel="stylesheet" >
+<style rel="stylesheet">
 .tab-title { white-space:nowrap; }
 
 @media screen and (min-resolution: 150dpi) {
@@ -59,7 +57,7 @@ div.fullWidth { width: 65%; }
 @media screen and (min-resolution: 150dpi) {
    .after_menu.articleContent, .h4_page.wholeArticle { min-width: 100%; }
    .halferWords {  width: 100vw; }
-	.home.column, .chunkArticles.column {  flex: 1 100 0px; }
+	.home.column, .chunkArticles.column { flex: 1 100 0px; }
 	dialog#popup1 a.trimmed i { padding:0.3em; margin:0px; }
 	div.fullWidth { width: 100%; }
 	#siteChartLink { margin-left:0;  }
@@ -71,7 +69,7 @@ summary.button { background-color:#007193; }
 */
 </style>
 </head>
-<body id="body" class="annoyingBody">
+<body id="body" class="annoyingBody homeContainer">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -119,9 +117,11 @@ When I don't have large projects going on, I am adding more content (and when I 
     <li class="libasic">If I had spent one more day on site infrastructure in 2013, this would have been a JAMstack site since then. UPDATE: my webhost was bought; so I have done this.</li>
     <li class="libasic">In the end of 2022, I updated many references to be HTTPS.</li>
     <li class="libasic">In 2012 I made the site mobile capable (template v3); but I wasn't expecting anyone to use it from a phone.  I put text in columns for readability, like newspapers.  I added “page chunks” to the articles so users didn't need to scroll up and down all the time (template v4).   I added an RSS, and a site-map in that update as the content had increased.   Then 2022, I updated the HTML to a more modern version, with better accessibility (template v6).</li>
-    <li class="libasic">I am replacing the 2010 and 2012 era CSS with a modular CSS design; again so I can improve adaptability to different peoples preferences and machines.</li>
+    <li class="libasic">I am replacing the 2010 and 2012 era CSS with a BEM CSS design; again so I can improve adaptability to different peoples preferences and machines.  My palette is now 9 colours, rather than erm, about 50.   I will tidyup the font declarations next.</li>
+    <li class="libasic">I have dropped my “manual mouse hover” code (JS used for triggering adjacent elements), as CSS v4 is now widely enough supported. </li>
+    <li class="libasic">In order to be semantic, I have standardised that code samples are wrapped in &quot;&lt;CODE lang=“XXX”&gt;&lt;PRE class=“code &quot; lang=“XXX”&gt;&quot; blocks.  The HTML spec says that PRE isn't for programming languages, but using pre makes it much more readable.</li>
     <li class="libasic">I am tagging older articles with a warning in the strap-line area.  I would like to add an URL map (the Apache feature) to pull in likely misspellings, and to make everything lower case</li>
-    <li class="libasic">After 2012, many of the articles are where I needed to be a local expert in X in a hurry.  I am trying to be planned and organised about adding more content.   I have deleted 20% of my content that I do not think is useful today.</li>
+    <li class="libasic">After 2012, many of the articles are where I needed to be a local expert in XYZ in a hurry.  I am trying to be planned and organised about adding more content.   I have deleted 20% of my content that I do not think is useful today.</li>
 </ul>
 
 
@@ -218,13 +218,13 @@ When I don't have large projects going on, I am adding more content (and when I 
 						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
 						<span class="bigScreenOnly">Share: </span>
 						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhome" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
-						<a href="#" id="mastoTrigger" class="button masto bigScreenOnly" title="Share to *your* mastodon server" ><i aria-label="Share to *your* mastodon server." class="fa fa-mastodon" aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" ><i aria-label="Share to *your* mastodon server." class="fa fa-mastodon" aria-hidden="true"></i></a>
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhome" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhome" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-07T18:04:06">7th of May 2023</time></span>
+						<span>Edited <time datetime="2023-05-26T15:56:30">26th of May 2023</time></span>
 						<span>Created <time datetime="2015-03-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
 
@@ -251,7 +251,7 @@ When I don't have large projects going on, I am adding more content (and when I 
 <div class="leftFooter"> 
 <a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-05-12T22:39:10">12th of May 2023, 22:39:10</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-07T18:04:06">7th of May 2023</time>. <br />
+</div> Page rendered <time datetime="2023-05-27T10:10:51">27th of May 2023, 10:10:51</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-26T15:56:30">26th of May 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>

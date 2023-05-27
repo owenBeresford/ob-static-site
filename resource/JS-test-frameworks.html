@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/JS-test-frameworks" />
 <meta property="og:description" content="Research into what JS tools and unit-test suites are available" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="12th of May 2023, 22:39:36" />
-<meta property="article:modified_time" content="1st of May 2023" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:17" />
+<meta property="article:modified_time" content="22nd of May 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/JS-test-frameworks" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS unit-test frameworks",
-	"article:published_time":"12th of May 2023, 22:39:36", 
-    "article:modified_time":"1st of May 2023",
+	"article:published_time":"27th of May 2023, 10:11:17", 
+    "article:modified_time":"22nd of May 2023",
     "article:section":"technology",
 
     "author": {
@@ -53,7 +53,7 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="lotsOfWords">
-<p>If you want to write unit tests on JS classes, sensibly, you need a test framework.  Unit testing quite alot of client-side JS code is hard, as it is quite involved with the DOM or webrowser.   I present a range of options. Please remember <i> 'does it feel intuitive' </i> isn't something that can be put in a unit test.  I am not presenting my own code here, as the current range of tools seem adequate (I have made a few tools previously, but those projects are firmly one of several companies IP.  The publically available tools should be better looked after and have more investment, so represent a better solution.). <br />
+<p>If you want to write unit tests on JS classes, sensibly, you need a test framework.  Unit testing quite a lot of client-side JS code is hard, as it is quite involved with the DOM or webrowser.   I present a range of options. Please remember <i> 'does it feel intuitive' </i> isn't something that can be put in a unit test.  I am not presenting my own code here, as the current range of tools seem adequate (I have made a few tools previously, but those projects are firmly one of several companies IP.  The publicly available tools should be better looked after and have more investment, so represent a better solution.). <br />
 <b>I repeat to be clear, this article is about unit testing JS modules and Components, not behaviour testing webpages.</b>  The I am paid for is generally complex enough that one needs to test each one, to reduce later stage costs.  I will write an article on <a class="" href="https://owenberesford.me.uk/resource/js-behaviour-tests#">BDD and behaviour testing</a>.</p>
 
 
@@ -71,9 +71,9 @@ TODO: magic tune selection against some index/DB -->
 
 
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > JS test tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
-<p>UPDATE 2023: I assume everyone has done this step a few years ago; but for normal unit testing in JS, when I am using my normal edition (ES2020), I am deprecating Mocha and Jasmine.  I loose too much time trying to fight old module formats and the JS modules that the local production code is written with.   As MSIE is deprecated by MSFT, I can use class keyword if I wish.   Jest allows my to create tests at a lower level of drama.  <del>I have good use of <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> for component testing, again as modules; for the same reasons. </del></p>
+<p>UPDATE 2023: I assume everyone has also done this step a few years ago; but for normal unit testing in JS, when I am using my normal edition (ES2020), I am deprecating Mocha and Jasmine.  I loose too much time trying to fight old module formats and the JS modules that the local production code is written with.   As MSIE is deprecated by MSFT, I can use class keyword if I wish.   Jest allows my to create tests at a lower level of drama.  <del>I have good use of storybook for component testing, again as modules; for the same reasons. </del>See <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> for recent updates on it.</p>
 
-<p>Writing easy-to-test JS is more complex than other languages, and reliable unit-tests are therefore harder.  Closures and Async code mean its harder to see outcomes of a method call.  As some people do crypto in JS, unit testing is essential.  For BDD and behaviour testing<a class="" href="">?</a> please read the more relevant article. According to <sup><a href="https://nodesource.com/blog/seven-convenient-ci-cd-tools-for-your-node-js-projects/" target="_blank">9</a></sup> the best CI projects for JS modules are Travis and Jenkins.  Most unit test tools can run an entire suit of tests from one config file, and so can be triggered like this.  As a different idea, there are commit hooks to your version control.</p>
+<p>Writing easy-to-test JS is more complex than other languages, and reliable unit-tests are therefore harder.  Closures and Async code mean its harder to see outcomes of a method call.  As some people do crypto in JS, unit testing is essential.  For <a class="" href="https://owenberesford.me.uk/resource/js-behaviour-tests#">BDD and behaviour testing</a> please read the more relevant article. According to <sup><a href="https://nodesource.com/blog/seven-convenient-ci-cd-tools-for-your-node-js-projects/" target="_blank">9</a></sup> the best CI projects for JS modules are Travis and Jenkins.  Most unit test tools can run an entire suit of tests from one config file, and so can be triggered like this.  As a different idea, there are commit hooks to your version control.</p>
 
 <ul class="ulbasic">
     <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a>, I wrote a separate article on this.<ul class="ulbasic">
@@ -123,13 +123,13 @@ TODO: magic tune selection against some index/DB -->
 						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
 						<span class="bigScreenOnly">Share: </span>
 						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FJS-test-frameworks" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
-						<a href="#" id="mastoTrigger" class="button masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FJS-test-frameworks" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FJS-test-frameworks" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-01T17:42:32">1st of May 2023</time>
+						<span>Edited <time datetime="2023-05-22T15:18:14">22nd of May 2023</time>
 						</span>
 						<span>Created <time datetime="2023-01-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Jan 2023</time> </span>
 					</span>
@@ -141,8 +141,8 @@ TODO: magic tune selection against some index/DB -->
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FJS-test-frameworks" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share now</a>
-					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> </a>
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
 				</form>
 			</dialog>
 
@@ -177,7 +177,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-05-12T22:39:36">12th of May 2023, 22:39:36</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-01T17:42:32">1st of May 2023</time>.
+	<p> Page rendered <time datetime="2023-05-27T10:11:17">27th of May 2023, 10:11:17</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-22T15:18:14">22nd of May 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
