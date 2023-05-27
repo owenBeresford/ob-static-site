@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Ajax library</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="If you need to use older technology, this 2007 library is a good piece of technology.  I discuss details on managing older JS processes..." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Ajax library">
+<meta itemprop="description" content="If you need to use older technology, this 2007 library is a good piece of technology.  I discuss details on managing older JS processes...">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Ajax library">
+<meta name="twitter:description" content="If you need to use older technology, this 2007 library is a good piece of technology.  I discuss details on managing older JS processes...">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Ajax library" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ajax" />
+<meta property="og:description" content="If you need to use older technology, this 2007 library is a good piece of technology.  I discuss details on managing older JS processes..." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:09:50" />
+<meta property="article:modified_time" content="24th of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/ajax" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Ajax library",
+	"article:published_time":"27th of May 2023, 10:09:50", 
+    "article:modified_time":"24th of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>There are a few editions of this library floating round.  This copy is my own source from original materials. There is an edition I left at an employer, which included some work done inside company time, to improve integration with a form renderer I wrote as part of my dayjob.   Anyone has the test scripts that this was distributed with, please mail them to me (I lost alot of files in a hard disk failure).</p>
+
+<p><strong>Using a JS framework is recommended.</strong></p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Goals <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">To harmonise between different web-browsers partial support;</li>
+    <li class="libasic">To be usable inline of existing systems so need to support COOKIEs etc;</li>
+    <li class="libasic">To provide a simple API;</li>
+    <li class="libasic">To provide logging and error handling, so the above simple case was thorough and reliable;</li>
+    <li class="libasic">Most importantly, support multiple requests concurrently; </li>
+    <li class="libasic">Have sensible activities for text AJAX and XML AJAX, these are different cases;</li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Use cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">Be able to supply “auto complete entries” for input boxes;<ul class="ulbasic">
+        <li class="libasic">This requires fast end2end processing, and a simple method to get the content onto user display, and the ability to abort, as the old auto-complete is replaced by more recent user typing.</li>
+    </ul></li>
+    <li class="libasic">Be able to supply PAF lookup values for address capture;<ul class="ulbasic">
+        <li class="libasic">This is much cleaner if you can inject data into forms transparently.</li>
+    </ul></li>
+    <li class="libasic">Be able to asynchronously download binaries for galleries;<ul class="ulbasic">
+        <li class="libasic">Requires concurrent access, and a scheme to cache binary objects when they have go to the client.</li>
+    </ul></li>
+    <li class="libasic">Be able to automatically poll URLs to build Javascript chat clients;<ul class="ulbasic">
+        <li class="libasic">Requires polling.</li>
+    </ul></li>
+    <li class="libasic">Fetching salts, so passwords may be encrypted on the client, and only handled in encrypted form.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Discussion. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There are plenty of articles on the web which entirely omit the <strong>concurrent requests</strong> requirement, so are operationally useless.  Secondly they omit the COOKIEs.  These examples demonstrate the requirement for the library.  I wanted the resultant library to be “lite weight”, in that it gave to access to AJAX, not tying you in to a developmental environment.  Javascript has enough features from LISP that setting up callbacks for the instance specific behaviour is trivial.</p>
+
+<p>As a flat statement the above goals are fairly trivial. However, quite a few browsers loose references , and so leak memory.  When the lost references include DOM objects, this quickly becomes a way lock up your machine.  The majority of my time was consumed on memory management and making the logging useful.  My final edition uses ids for each request, allowing the message stream for a single AJAX request to be distinguished from other HTTP requests.  Creating and destroying DOM objects is abit tricky to do cleanly (but necessary so you may use a single process and session for several hours without side-effect).</p>
+
+<p>Due to the “part of the browser” approach of AJAX, this does conflict with tools such as firebug.  The logging should be turned off for operational use, but is critical for analysing behaviour on complex pages (where you have AJAX, the number of separate pages required drops quite significantly).  When integrated into the design process and assumptions, AJAX is a useful tool.  It does need to be a factor in the entire design though.   I recommend having two or more rendering modes for site content; your AJAX output - which doesn't need to be a complete HTML document, and a test mode, which provides legal/full pages.  The test mode is also useful for devices without good AJAX support such as the phones on sale at the time of writing the library.</p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Known working for <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>To be a useful package, I would need to add more infrastructure and retest, not in the least if anyone has changed the default settings in the browser, it may behave differently.<br />
+There is a browser dependant maximum number of networking threads that you may open concurrently.  Any code may not exceed this.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">msie 6 and up<ul class="ulbasic">
+        <li class="libasic">not tested on msie 9 or 10, as those <em>weren't available at the time</em>.</li>
+    </ul></li>
+    <li class="libasic">opera 6 and up<ul class="ulbasic">
+        <li class="libasic">not tested on  opera 10 or 11, as those <em>weren't available at the time</em>.</li>
+    </ul></li>
+    <li class="libasic">firefox 1.5 and up</li>
+    <li class="libasic">NOT TESTED on chameleon and safari</li>
+    <li class="libasic">Was written before Chrome was released, <em>need to test</em>.</li>
+</ul>
+
+
+<br /><br />
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Library documentation <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+
+<h4 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > API notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p><strong>function get_res(url, callbacks, settings, headers)</strong></p>
+
+<ul class="ulbasic">
+    <li class="libasic">The url is the URL you wish to GET</li>
+    <li class="libasic">The callbacks are list of event you wish to listen to (see callbacks).  This will default, when omitted.</li>
+    <li class="libasic">The settings are a load of config options for this request (see settings).  This will default, when omitted.</li>
+    <li class="libasic">The headers are any custom headers you want for the request.  These are listed as a array hash, name=&gt; value, where the name is as it appears in the HTTP RFC.</li>
+</ul>
+
+<p>If you specify callbacks, the function will operate asynchronously, and return immediately.  As noted, omitting the callbacks means it applies the default set, which are good for my purposes.  If you specify an empty callbacks array, it will operate synchronously, and return the downloaded data, as a string.</p>
+
+<p><strong>function post_res(url, post, callbacks, settings, headers)</strong><br />
+As above, only the post specifies the data to post.  This should be URL encoded into a single string, as I couldn't predict what format you would start with.  I'll add utility functions to do the grunt work, to the core library, on first usage.</p>
+
+<p><strong>function poll_res(url, freq, callbacks, settings, headers)</strong><br />
+As get_res, but the 'freq' value is how often you want to poll.  This must be an integer, and is measured in seconds.</p>
+
+
+<h4 class="dontend" id="toc6"> <a href="#toc6" title="Jump to this section." > Callbacks <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>The callbacks argument is a hash array which may have the following values:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">'ontimeout'</li>
+    <li class="libasic">'onconnected'</li>
+    <li class="libasic">'onreceived'</li>
+    <li class="libasic">'oncomplete'</li>
+</ul>
+
+<p>I may add an 'onerror' callback in later versions.<br />
+The values should be function objects.</p>
+
+<p>If the callbacks option is omitted, a default range of values, from the settings array will be will be used.<br />
+Each callback is passed the AJAX object, and the settings array.</p>
+
+
+<h4 class="dontend" id="toc7"> <a href="#toc7" title="Jump to this section." > Settings array <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>The settings array is a hash array, which may contain the following options:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">callbacks<ul class="ulbasic">
+        <li class="libasic">a second source for callbacks.</li>
+    </ul></li>
+    <li class="libasic">dont-suppress-cache<ul class="ulbasic">
+        <li class="libasic">By default the library adds a random param to the end of the URL, to make reduce likely-hood of cache hits.  This disables this option.</li>
+    </ul></li>
+    <li class="libasic">method<ul class="ulbasic">
+        <li class="libasic">HTTP method, i.e. GET or POST (or possibly the other values, but I can't see how to use them in AJAX)</li>
+    </ul></li>
+    <li class="libasic">timeout<ul class="ulbasic">
+        <li class="libasic">The client side time out, how long to wait for responses, measured in seconds</li>
+    </ul></li>
+    <li class="libasic">chunkid</li>
+    <li class="libasic">Used in my default event handlers, which DOM element gains the downloaded content.</li>
+</ul>
+
+<p>The system creates the following:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">id<ul class="ulbasic">
+        <li class="libasic">the id of the AJAX object.</li>
+    </ul></li>
+    <li class="libasic">url<ul class="ulbasic">
+        <li class="libasic">cache of the param you passed, used in logging.</li>
+    </ul></li>
+    <li class="libasic">dead<ul class="ulbasic">
+        <li class="libasic">This is a flag, for logging completion of being killed.  This prevents any further events from being triggered.</li>
+    </ul></li>
+    <li class="libasic">abortHandle<ul class="ulbasic">
+        <li class="libasic">A reference to the timer resource handle, so you can cancel the timer.</li>
+        <li class="libasic">The system auto cancels on request completion.</li>
+    </ul></li>
+</ul>
+
+<p>A default set of options is created in create_settings function.  It is recommended that this function is overridden to match site wide preferences.  The settings can override for instance specific usage.</p>
+
+
+</div>
+<div class="fewWords">
+
+<h2 class="dontend" id="toc8"> <a href="#toc8" title="Jump to this section." > Sample use <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<strong>Simple</strong><br />
+
+<pre class="codeblock"><code>
+...
+    var yy=new Array();
+    get_res('./ajaxb.php', yy);
+...</code></pre>
+
+<strong>Pedantic</strong><br />
+
+<pre class="codeblock"><code>
+...
+    var url=“http://mysite.com/lib/image-generator.php”;
+    callbacks=new Array();
+    callbacks['ontimeout']=function(ajax, settings) { ... };
+    callbacks['oncomplete']=function(ajax, settings) { ... };
+    headers=list2array('Accept','image/jpeg,image/png', 'Connection', 'close');
+    settings=list2array('timeout', 30, 'method', 'GET', 'colour-gradient1', '#222', 'colour-gradient2', '#ddd');
+    get_res(url, callbacks, settings, headers);
+...</code></pre>
+
+<strong>Repetitive</strong><br />
+
+<pre class="codeblock"><code>
+...
+    var url=“http://mysite.com/lib/news-ticker.php”;
+    var freq = 20;
+    callbacks=new Array();
+    callbacks['ontimeout']=function(ajax, settings) { ... };
+    callbacks['oncomplete']=function(ajax, settings) { ... };
+    settings=list2array('timeout', 30, 'method', 'GET');
+    poll_res(url, freq, callbacks, settings);
+...</code></pre>
+
+
+</div>
+
+<h2 class="dontend" id="toc9"> <a href="#toc9" title="Jump to this section." > Download <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p><del>This is available here, under LGPL licence.</del><ins>Source has been removed, as its not really compatible with modern JS over a decade later.</ins>  <br />
+I need to add the other implementation and the contextual libraries.</p>
+
+<p>I pulled the library from an old website, but the test cases wheren't installed on that.  If any has them, please forward them to me...<br />
+This is only valuable as an asset, if you are unable to use a normal JS framework.</p>
+
+
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Ajax library</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fajax" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fajax" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fajax" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-24T09:42:10">24th of May 2023</time>
+						</span>
+						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fajax" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Goals</a></li>
+<li><a href="#toc1">Use cases</a></li>
+<li class="h4_odd"><a href="#toc2">Discussion.</a></li>
+<li><a href="#toc3">Known working for</a></li>
+<li class="h4_odd"><a href="#toc4">Library documentation</a></li>
+<li><a href="#toc5">API notes</a></li>
+<li class="h4_odd"><a href="#toc6">Callbacks</a></li>
+<li><a href="#toc7">Settings array</a></li>
+<li class="h4_odd"><a href="#toc8">Sample use</a></li>
+<li><a href="#toc9">Download</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:09:50">27th of May 2023, 10:09:50</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-24T09:42:10">24th of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

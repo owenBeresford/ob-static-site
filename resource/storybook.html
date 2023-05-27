@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Exploring Storybook JS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Research on Storybook: another frontend test tool that supports UX, UI, and component testing. Article describes 9 user cases and a list of 4 limitations" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Exploring Storybook JS">
+<meta itemprop="description" content="Research on Storybook: another frontend test tool that supports UX, UI, and component testing. Article describes 9 user cases and a list of 4 limitations">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Exploring Storybook JS">
+<meta name="twitter:description" content="Research on Storybook: another frontend test tool that supports UX, UI, and component testing. Article describes 9 user cases and a list of 4 limitations">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Exploring Storybook JS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/storybook" />
+<meta property="og:description" content="Research on Storybook: another frontend test tool that supports UX, UI, and component testing. Article describes 9 user cases and a list of 4 limitations" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:39" />
+<meta property="article:modified_time" content="13th of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/storybook" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Exploring Storybook JS",
+	"article:published_time":"27th of May 2023, 10:12:39", 
+    "article:modified_time":"13th of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker storybookContainer">
+<div class="lotsOfWords">
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Warp-speed Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>Storybook is a JS testing tool; designed to test UI and UX <sup><a href="https://dev.to/dailydevtips1/storybook-examples-3l78" target="_blank">1</a></sup>.  It has good integration to a range of common toolkits <sup><a href="https://github.com/storybookjs/storybook#supported-frameworks" target="_blank">2</a></sup> including React, Reactnative and Svelte (to be able to write tests for products made with that toolkit).  Its features are extended with addons <sup><a href="https://github.com/storybookjs/storybook#addons" target="_blank">3</a></sup>. The preceding couple of sentences could be written about most recent JS test tools.  Its headline feature is for component testing; and its goals are outlined <sup><a href="https://storybook.js.org/docs/react/why-storybook" target="_blank">4</a></sup>.  A minor last point, the config data is stored in files inside a <em>.storybook</em> directory <sup><a href="https://storybook.js.org/docs/react/configure/overview" target="_blank">5</a></sup>.  The source code is easy to find <sup><a href="https://github.com/storybookjs/storybook" target="_blank">6</a></sup> and npmjs, sample project <sup><a href="https://github.com/jaewoong2/Storybook-example" target="_blank">7</a></sup>.  The FAQ is quite long for a FAQ <sup><a href="https://storybook.js.org/docs/react/faq" target="_blank">8</a></sup>. <br />
+HTML tags are capitalised for readability in English prose; I don't do this in HTML5 documents.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Features/ Use-cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">As a feature to capture user journeys to be able to test them, Storybook has a builtin documentation format ~ MDX <sup><a href="https://storybook.js.org/docs/react/api/mdx" target="_blank">9</a></sup>.  Test written including MDX blobs will be annotated with your text in the test harness, remembering that Storybook does have a manual test option.  This is a literate programming idea.  However the docs show the MDX documentation is discarded by the compiler, which is a shame, and different to Cucumber tests <sup><a href="https://www.javatpoint.com/cucumber-testing" target="_blank">10</a></sup> <sup><a href="https://www.indeed.com/career-advice/career-development/cucumber-testing" target="_blank">11</a></sup>.  To work with webpack, MDX scripts should have an extra suffix of '.mdx'; and could be used for pure documentation, if github pages are not available.   </li>
+    <li class="libasic">If you have a really big platform, or a suite of products that need the same design/ look-and-feel; speed of development can be improved by using a design system, so all software component have the same design and styling.  Storybook can be used as a design system <sup><a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/introduction/" target="_blank">12</a></sup> <sup><a href="https://www.lambdatest.com/blog/storybook-testing/" target="_blank">13</a></sup> ~ just like Figma etc ~ but has the advantage that you can run scripts against the designs, as Storybook is still a test harness.  </li>
+    <li class="libasic"><del>The documentation talks about “visual TDD” <sup><a href="https://storybook.js.org/docs/react/writing-tests/visual-testing" target="_blank">14</a></sup> <sup><a href="https://www.gatsbyjs.com/docs/how-to/testing/visual-testing-with-storybook/" target="_blank">15</a></sup>, but the page demonstrates manual testing.  I can see this being useful if you have a lot of interns, but its not very productive when all staff have some experience.  My personal work-flow does review changes before I hit commit, this reduces typos being uploaded/committed; BUT I don't consume other staff time for this.</del> </li>
+    <li class="libasic">In some business situations, snapshot testing is useful <sup><a href="https://storybook.js.org/tutorials/visual-testing-handbook/react/en/introduction/" target="_blank">16</a></sup>.  I think snapshot testing has the wrong emphasise, as even a simple language like HTML+ CSS can have the same outcome by several different solutions.  Useful tests show <b>what the client asked for</b> has been delivered; snapshot tests don't do this.   </li>
+    <li class="libasic">With a standard addon called “a11y” aka accessibility <sup><a href="https://storybook.js.org/docs/react/writing-tests/accessibility-testing" target="_blank">17</a></sup> <sup><a href="https://storybook.js.org/blog/automate-accessibility-tests-with-storybook/" target="_blank">18</a></sup>;  many of the WCAG suggestions can be validated <sup><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank">19</a></sup>.  This would be <em>much</em> more convenient than uploaded generated HTML made by a frontend toolkit.  This is an extra feature compared to most testing-libraries.</li>
+    <li class="libasic">There is a standard addon called “interaction” <sup><a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing" target="_blank">20</a></sup> which can be used to create mouse events, or text inputs; then check the results are expected.  This supports normal test run mode, and single step mode for debugging your GUI unit tests.  This features uses testing-library <sup><a href="https://www.npmjs.com/package/@testing-library/user-event" target="_blank">21</a></sup>, and is broadly similar to other JS UI test tools.   Another standard addon is viewport <sup><a href="https://storybook.js.org/docs/react/essentials/viewport" target="_blank">22</a></sup>, which provides programmatic access to different screen sizes.  Viewport uses an IFRAME, the docs say.  As an open-source tool, there is a local install option, with CLI <sup><a href="https://storybook.js.org/docs/react/api/cli-options" target="_blank">23</a></sup> <sup><a href="https://storybook.js.org/docs/react/configure/overview" target="_blank">24</a></sup> </li>
+    <li class="libasic">Storybook does have some capacity to import a pre-written unit-test <sup><a href="https://storybook.js.org/docs/react/writing-tests/importing-stories-in-tests" target="_blank">25</a></sup>.  Tests can be run from the CLI <sup><a href="https://storybook.js.org/docs/react/api/cli-options" target="_blank">26</a></sup>, for the non “stare and compare” tests.   It is listed that config is managed by a file but I hope ALL the settings are set via this file.  This is important so the tests live in the version control system, just like the code.</li>
+    <li class="libasic">There are other tools that sell the fact that they integrate with Storybook as a feature e.g. <sup><a href="https://applitools.com/blog/how-to-add-applitools-eyes-storybook/" target="_blank">27</a></sup>.</li>
+    <li class="libasic">Last, but not least, if you use Svelte, this is a good setup tester, as it integrates <sup><a href="https://storybook.js.org/blog/storybook-for-svelte/" target="_blank">28</a></sup>.</li>
+    <li class="libasic">Look at <a href="https://www.chromatic.com/" target="_blank">Chromatic</a> which is the other 50% of the test tool apparently.  This is the tool that adds the <em>every browser</em> aspect to the test suite; and I strongly suspect is paid <sup><a href="https://www.chromatic.com/pricing" target="_blank">29</a></sup>.  </li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Limitations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">Some of the examples use a GUI tester to look at data used for graphing.  There are much easier and faster ways to look at raw column data in a numerical format; with Mocha or Jest.  I would be much more impressed if the docs showed a before and after snapshots against GIS data; or GIS search results to bounding box limits in a map/ graphical fashion.</li>
+    <li class="libasic">A feature I'd like to exist: from given Stylesheet(s), a colour swatch list with a DIVs using these classes and this mouse or touch event(s); what does it look like?  Being able to extract all this branding into a single real-time document would save a few hours copying and pasting data around.  I would call this Component test for the Stylesheet(s).  The documenting swatches would need to be generated for each browser; with most attension on “awkward browsers” that have the least standard renderer.</li>
+    <li class="libasic">I will update this line, especially I can get a solution: <u>It would be really cool if Storybook came with Webpack debugging/ problem resolving feature.</u> <sup><a href="https://www.npmjs.com/package/@storybook/builder-webpack5" target="_blank">30</a></sup></li>
+    <li class="libasic">Performance against other test tools <sup><a href="https://raygun.com/blog/javascript-unit-testing-frameworks/" target="_blank">31</a></sup> <sup><a href="https://www.testim.io/blog/best-unit-testing-framework-for-javascript/" target="_blank">32</a></sup> <sup><a href="https://medium.com/welldone-software/an-overview-of-javascript-testing-7ce7298b9870" target="_blank">33</a></sup>.</li>
+    <li class="libasic"><strong>WARN:</strong> As of today, storybook forces version 7 on npm; this may fight other tools.  This could be worked round with a separate sub-project for tests.</li>
+</ul>
+
+<p>I do not have a big comparison process, or data-grid for test tools at present.  As a well run project, storybook has a brand sub-project <sup><a href="https://github.com/storybookjs/brand" target="_blank">34</a></sup></p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > UPDATES (v6.5 as more stable) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">With <strong>Storybook 6.5</strong> all the newer approaches to specifying a test are declarative; this is good, as everything is guaranteed to be executed in the right order with declarative systems (so faster to build tests, that do not crash).   This is the best component test tool/ library I have been able to find; in terms of “verify component in isolation”.</li>
+    <li class="libasic">The common samples are frequently out-of-date, as the project was reorganised when it got more features.  For code that is correct at the start of 2023 with default settings in NPM, pls see <a href="https://github.com/owenBeresford/CatProfileDemo" target="_blank">my sample project</a>.  An exhaustive breakdown in this article would have short shelf-life and dull to read or write.   </li>
+    <li class="libasic">Many things are now addons <sup><a href="https://stackoverflow.com/questions/55428337/storybook-actions-what-exactly-are-they-calling" target="_blank">1</a></sup>; or refactored into the specific environment.</li>
+    <li class="libasic">The 'build storybook' command is only really useful if you have alot of new code and want to see typos; the start command also compiles everything, and extends expected results to include any runtime errors in addition.  As a performance improvement, I edited the test search array <sup><a href="https://storybook.js.org/docs/react/configure/overview#configure-story-loading" target="_blank">2</a></sup> to only be directories that should have tests.</li>
+    <li class="libasic">Storybook seems to have problems with composite components.  When I run a particular component in normal node, mouse events update a State variable, React notices this and does a redraw; when I run the same code inside Storybook the state change does nothing.   The problem could be different version of React; secondly, it is hard to apply workrounds for Storybook, as <sup><a href="https://storybook.js.org/docs/react/faq#how-can-my-code-detect-if-it-is-running-in-storybook" target="_blank">3</a></sup> the builtin detection flag doesn't work.</li>
+    <li class="libasic">If you operate in a zero-warnings environment, please note: my sample code is written against React v18; and with Storybook, I'm getting <em>“you are using react17 render API”</em> warnings.  The source code that I created in the project directory doesn't use render API (see <em>createRoot</em>); so Storybook v6.5 is linked to React v17.</li>
+    <li class="libasic">Like a Vue SCF or a React TSX file, Storybook promotes a CSF <sup><a href="https://storybook.js.org/docs/react/api/csf" target="_blank">4</a></sup> <sup><a href="https://dev.to/lauracarballo/storybook-for-everyone-csf-vs-mdx-88b" target="_blank">5</a></sup>, which is exactly the same idea.  Storybook has <em>storiesOf</em>, but that is like <em>ReactDOM.render</em>; only use <em>SCF</em> or <em>storiesOf</em> approaches. </li>
+    <li class="libasic">For Storybook 6.5, the syntax for <em>CSF</em> seems to changed recently, or doesn't mesh with typescript well. There are many examples for <em>CSF</em> that do not compile with TS 4.7, follow <sup><a href="https://storybook.js.org/docs/react/writing-stories/introduction#how-to-write-stories" target="_blank">6</a></sup> with very fixed data as this compiles.  Very static data is normal for unit tests.   In addition, redundantly specifying the argTypes value <sup><a href="https://storybook.js.org/docs/react/api/argtypes" target="_blank">7</a></sup> leads to better test experience.</li>
+    <li class="libasic">Terminology: <strong>“interaction”</strong> =&gt; code to make mouse events (etc) so the code-under-test is exercised; <strong>“actions”</strong> =&gt; a fussy high-order function that injects log messages to events being processed by code-under-test; <strong>“controls”</strong> =&gt; where the code-under-test has exposed settings, adjust these controls ;</li>
+    <li class="libasic"><strong> WARNING AGAIN:  Storybook is changing control process between v6.5 and v7.1.  If you use Node14, install storybook 6.5.X; and admin via <i>start-storybook, build-storybook</i> scripts <sup><a href="https://storybook.js.org/docs/6.5/react/api/cli-options" target="_blank">8</a></sup>.  If you use Node18, you are advised to install storybook 7.X, but the admin is now <i>“sb”</i> and <i>storybook</i> <sup><a href="https://storybook.js.org/docs/react/api/cli-options" target="_blank">9</a></sup>, and in April 2023 this lacks a run tests param. </strong> There was a point when <i>sb</i> supported <i>dev</i> and <i>build</i> param, but they removed this <sup><a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#story-type-change-to-storyfn-and-the-new-story-type-now-refers-to-storyobj" target="_blank">10</a></sup> <sup><a href="https://github.com/storybookjs/storybook/issues/18923" target="_blank">11</a></sup>.   I tried a range of plugins to find where the obvious user journeys had been moved to, but got nothing useful, on both interpreters.</li>
+    <li class="libasic">For some sample code, I just installed storybook, and it came up with v7.   This crashes saying it needs webpack &gt;5.0.0; but as I was also using webpack 5.0.1 that error detection code is badly labelled, or badly defined.   To work round the issue I forced v6.5 as above.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing"> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Exploring Storybook JS</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstorybook" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstorybook" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstorybook" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-13T07:44:04">13th of May 2023</time>
+						</span>
+						<span>Created <time datetime="2022-12-29T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >29th of Dec 2022</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstorybook" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Warp-speed Intro</a></li>
+<li><a href="#toc1">Features/ Use-cases</a></li>
+<li class="h4_odd"><a href="#toc2">Limitations</a></li>
+<li><a href="#toc3">UPDATES (v6.5 as more stable)</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:39">27th of May 2023, 10:12:39</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-13T07:44:04">13th of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

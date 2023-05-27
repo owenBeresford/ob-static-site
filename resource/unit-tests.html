@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Unit tests</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="On low level testing." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Unit tests">
+<meta itemprop="description" content="On low level testing.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Unit tests">
+<meta name="twitter:description" content="On low level testing.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Unit tests" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/unit-tests" />
+<meta property="og:description" content="On low level testing." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:58" />
+<meta property="article:modified_time" content="10th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/unit-tests" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Unit tests",
+	"article:published_time":"27th of May 2023, 10:12:58", 
+    "article:modified_time":"10th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>I am mostly writing this article as I gave a <a class="" href="https://owenberesford.me.uk/resource/phphants-2015-feb#">talk on testing</a>, at <a href="https://www.meetup.com/meetup-group-phphants/" target="_blank">PHPhants</a>. I made a blind guess that being too technical wouldn't work, and I was correct.  This is the more technical version, just focussing on the low abstraction testing.</p>
+
+<p>The first thing to test is obviously the requirements.  This isn't a unit-test, so omitted from this article, but please try the BDD article ~ when I have written it.  This article is describing a list of 'whys', but written from my view point, to be more readable.</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Unit-test tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>In good PHP codebases, you are likely to be using DI, as its easier to manage a project.  It makes testing a lot easier, as you can inject static stubs.  For current practice (i.e. using <a href="https://packagist.org/packages/pimple/pimple" target="_blank">Pimple</a> and <a href="https://getcomposer.org/" target="_blank">composer</a>), I make <i>some tests</i> (but not all) using the DI and the config file (e.g. <a href="https://symfony.com/doc/current/book/service_container.html" target="_blank">services.yml in Symfony</a>) which allows you to <i>test the config file</i>.  To repeat, for most tests, having isolated unit tests encourages stability and test speed.</p>
+
+<p>There are measures about isolation <sup><a href="https://nabla-containers.github.io/2018/08/03/metrics/" target="_blank">1</a></sup>, or talking about why <sup><a href="https://circleci.com/blog/benefits-of-testing-in-isolation/#" target="_blank">2</a></sup>, and use of frameworks.  If you are writing inside a good OO framework, you will find it hard to be completely isolated.  Assuming the framework is well maintained, using small bits of the framework should a manageable risk.  Generally you want to avoid using non-maintained frameworks.  For expanding projects, there should be an expanding test population.  This means you are likely to be duplicating things in your tests.  Refactoring at this point is valuable, for general code hygiene.  This follows normal code practice.   <br />
+If your objects emit primitives (e.g. ints, strings in some languages but not in others), it is easier to test. This is considered poor OO by many OO people <sup><a href="https://softwareengineering.stackexchange.com/questions/194739/why-do-some-of-object-oriented-languages-let-programmer-use-primitive-types" target="_blank">3</a></sup> <sup><a href="https://stackoverflow.com/questions/5199359/why-do-people-still-use-primitive-types-in-java" target="_blank">4</a></sup> <sup><a href="https://stackoverflow.com/questions/2509025/when-to-use-primitive-and-when-reference-types-in-java" target="_blank">5</a></sup>.  There are reasons for both positions.  Ensuring that types are objects is easier to manage in PHP, due to limitations in the interpreter <sup><a href="https://php.net/manual/en/language.oop5.typehinting.php" target="_blank">6</a></sup>.  It is easier to extend functionality when using objects than primitives.  <b>EDIT:</b> Obviously the use of PHP7+ allows more type hinting capacity, and return type hinting; and is encouraged.</p>
+
+<p>Short OO code uses exceptions, as it reduces the code volume needed.  People from a C background don't like them (its a <i>lngjmp</i>, dressed up to look pretty in a high level language <sup><a href="https://stackoverflow.com/questions/70035175/building-exceptions-in-c-using-setjmp-and-longjmp" target="_blank">7</a></sup> <sup><a href="https://joshpeterson.github.io/the-cost-of-setjump-longjump-exceptions" target="_blank">8</a></sup> <sup><a href="http://www.di.unipi.it/~nids/docs/longjump_try_trow_catch.html" target="_blank">9</a></sup> (http only), and keeping the extra stack data offends them).  I like Exceptions, I think they are the best feature added in PHP5.  As this isn't about C, we are already paying for exceptions ~ the stack frame references ~ so use them.   I am paid for solutions, rather than saying <i>“hangon, I'm still typing the error handling code...&quot;</i>.   Exceptions should be tested in unit tests.  It is important to test that you get the semantically correct exception.  Likewise the units should be written to encode this data.   As far as Exceptions are a <i>lngjmp</i>, you can code simpler, so there will be less bugs.  Again, a good idea.   Exceptions can be integrated into your error response logic, if for example each Exception in a web platform included the name of the correct error template.</p>
+
+<p>I think the best balance on technology is to have dense tests, that is to have a high number of assertions per method.   It is obviously good practice to only have one unit (e.g. a method call) per test, but this made need may several assertions.   If you have a function that returns an array, you should check that the call result is an array, it has content, and hopefully the content is as expected. If the call has any exceptions that is at last one more. The array content step may not be possible, but in total that is at least three assertions.  A very factored code base will be describable with less assertions per method, as the methods will be doing less each.   But will need more methods and more unit test object for each.  This trend leads to functional programming.  The amount of factoring depends on available time budget, and complexity of the problem space.  My first approach to working out what methods are necessary is to do traditional object and responsibility mappings.  Method calls should be seen as messages to the object.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > TDD notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>Practically, if you want to TDD, the most important feature of low-level unit tests is that they are fast.  You are supposed to run these quite often, and waiting for more than 30s will kill this idea.  You can run unit tests whilst still writing the code, as long as you manage writing files correctly.  This is still more cognitively difficult, unless you are writing slowly.  There are a number of other people who have done talks or written on this subject.  I mention <a href="https://twitter.com/everset" target="_blank">@everset</a>, due to the work he did on Behat (try <a href="https://github.com/Behat/Behat" target="_blank">git</a>, I can't find the presentation notes from Feb 2015 that he did on high speed tests, but where the tests not being parallel).   Unit-tests should be simple code, with a high level of isolation to make them more reliable.  Isolation in terms of other libraries, for example, the ORM.  It is good to hardcode things in unit tests <sup><a href="https://symfony.com/doc/2.8/best_practices/tests.html" target="_blank">10</a></sup> <sup><a href="https://developer.salesforce.com/page/How_to_Write_Good_Unit_Tests" target="_blank">11</a></sup> <sup><a href="https://softwareengineering.stackexchange.com/questions/126652/should-unit-test-expected-results-be-hardcoded" target="_blank">12</a></sup>, as this makes them smaller and faster.  Avoiding code duplication is valuable, as it makes them faster to refactor.   Those statements are deduceable, and engineering; so I haven't found a reference.</p>
+
+<p>When I'm writing code properly, I use alot of optional configuration.  This means the code is easier to reuse.  It should be optional with a sensible default (via the config class, preferably). Reading the config file should tell you everything the class does ~ as the config is editable, it should be annotated/documented.  The logical state space should be tested for the object.  This will need to be injected from the Config.  This can normally be assembled quickly, as Config classes either Mock or can be given test data to load (a fixture).  This is fast to test.  Some people prefer to keep the code simpler by just generating many minimal objects (and no config).  This means that everyone using the code has to be a developer.   The person using the code writes Factory that chooses to import the desired library class.  If you are doing <a href="https://en.wikipedia.org/wiki/Design_by_contract" target="_blank">design-by-contract style development</a> this means you need to write many tests to demonstrate that the contract is complied to.</p>
+
+<p>Some developers use lots of Mock objects.  There are a couple of different PHP Mock libraries.  For example <sup><a href="https://docs.mockery.io/en/latest/" target="_blank">13</a></sup> <sup><a href="https://github.com/sebastianbergmann/phpunit-mock-objects" target="_blank">14</a></sup> <sup><a href="https://bestofphp.com/repo/mlively-Phake-php-testing" target="_blank">15</a></sup>.  With newer versions of PHP, Mocks will generate a child class of the Mocked class; so <i>should</i> work with all the type hinting on params.  There are a couple of things to think about when choosing a Mock library.   The developers time it take to build the Mock object; and the execution time, if you want to run these tests really frequently (remember Mock Factories returning Mock Services, and therefore Mock Entities is a long chain of fake code).  For quite a lot of the code that I write, the class that I would be mocking is a system class from the platform/ framework.  I am not sure the value in mocking these; as they already exist, and are asserted to be correct.</p>
+
+<p>Business level people are more interested in API tests than unit tests. They see the value in these tests more.  Some platforms for doing these are <sup><a href="https://docs.saucelabs.com/reference/rest-api/" target="_blank">16</a></sup>, <sup><a href="https://jsonapi.org/implementations/" target="_blank">17</a></sup>, <sup><a href="https://codeception.com/" target="_blank">18</a></sup>.  API tests can be combined with BDD.  API tests are minimal code coverage, but if the problem space is really simple, this may be sufficient.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing"> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Unit tests</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Funit-tests" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Funit-tests" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Funit-tests" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-10T11:30:07">10th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2015-04-11T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >11th of Apr 2015</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Funit-tests" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Unit-test tools</a></li>
+<li><a href="#toc1">TDD notes</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:58">27th of May 2023, 10:12:58</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-10T11:30:07">10th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

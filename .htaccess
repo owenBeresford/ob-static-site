@@ -1,23 +1,46 @@
 
-ErrorDocument  500  /resource/500
-ErrorDocument  403  /resource/403
-ErrorDocument  404  /resource/404
-DirectoryIndex index.html
+ErrorDocument  500  /resource/500.html
+ErrorDocument  403  /resource/403.html
+ErrorDocument  404  /resource/404.html
+DirectoryIndex /resource/home.html
 
 #  `index.htm`  is  ignored 
 Options  -Indexes  +FollowSymLinks -Multiviews
 IndexIgnore  */.ht*  *~  *#  */HEADER*  */README*  */_vti* 
 RewriteEngine  on 
 RewriteBase /
+<IfModule mod_headers.c>
+<If "%{HTTP_HOST} !~ /^www/">
+Header always set Strict-Transport-Security "max-age=31536000; preload" env=HTTPS
+</If>
+</IfModule>
 
-rewritecond %{SERVER_PROTOCOL}  HTTP
-RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
+RewriteCond %{HTTPS} 			off
+RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk [nc]
 rewritecond %{REQUEST_URI}		(.*)
-rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
+Header append Vary x-iceline
+<IfModule mod_headers.c>
+Header add X-ICELINE "remove www, add https $1"
+</IfModule>
+rewriterule ^(.*)               https://owenberesford.me.uk%{REQUEST_URI} [L,R=301]
 
-RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk
+RewriteCond %{HTTPS} 			on
+RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk [nc]
 rewritecond %{REQUEST_URI}		(.*)
-rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
+<IfModule mod_headers.c>
+Header add X-ICELINE "remove www $1"
+</IfModule>
+rewriterule ^(.*)               https://owenberesford.me.uk%{REQUEST_URI} [L,R=301]
+
+# https://linuxize.com/post/redirect-http-to-https-in-apache/
+# the server_protocol variable doesnt seem to work with http2
+# rewritecond %{SERVER_PROTOCOL}  HTTP
+RewriteCond %{HTTPS} 			off
+rewritecond %{REQUEST_URI}		(.*)
+<IfModule mod_headers.c>
+Header add X-ICELINE "add https $1"
+</IfModule>
+rewriterule ^(.*)               https://owenberesford.me.uk%{REQUEST_URI} [L,R=301]
 
 rewritecond %{SERVER_PROTOCOL}  HTTP
 rewritecond %{REQUEST_URI}		(.*)
@@ -32,122 +55,145 @@ rewritecond %{REQUEST_URI}      /site/  [OR]
 rewritecond %{REQUEST_URI}      /lib/  [OR]
 rewritecond %{REQUEST_URI}      /res-test/ [OR] 
 rewritecond %{REQUEST_URI}      /.git/ [OR]
-rewritecond %{REQUEST_URI}      /.gitignore
-rewritecond %{REQUEST_URI}     /test/
+
+rewritecond %{REQUEST_URI}      /.gitignore [OR]
+rewritecond %{REQUEST_URI}      /test/
 rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
 
-RewriteCond %{REQUEST_URI}      ^[/]*$
-RewriteRule .*				    /resource/home	[QSA,L]
+<IfModule mod_headers.c>
+<If "%{REQUEST_URI} =~ /^$/">
+	<IfModule mod_headers.c>
+	Header add X-ICELINE "fix empty URL "
+	</IfModule>
+	RewriteRule (.*)			/resource/home.html   [L,R=301,QSA]
+</If>
+<If "%{REQUEST_URI} =~ m#.*/$#">
+	<IfModule mod_headers.c>
+	Header add X-ICELINE "fix empty URL2 "
+	</IfModule>
+	rewritecond %{REQUEST_URI}		(.*)
+	RewriteRule (.*)			/resource/home.html  [L,R=301,QSA]
+</If>
+</IfModule>
 
 RewriteCond %{REQUEST_URI}      ^/resource/shopping-list-hack
-RewriteRule .*					/resource/shopping-list
+RewriteRule .*					/resource/shopping-list.html
 
 RewriteCond %{REQUEST_URI}      ^/resource/fullstack-developer
-RewriteRule .*					/resource/UX-engineer
+RewriteRule .*					/resource/UX-engineer.html
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-martech
-RewriteRule .*					/resource/group-XXX?first=group-martech
+RewriteRule .*					/resource/group-XXX.html?first=group-martech
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-engineering
-RewriteRule .*					/resource/group-XXX?first=group-engineering
+RewriteRule .*					/resource/group-XXX.html?first=group-engineering
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/resource/group-XXX?first=group-research
+RewriteRule .*					/resource/group-XXX.html?first=group-research
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-uitools
-RewriteRule .*					/resource/group-XXX?first=group-uitools
+RewriteRule .*					/resource/group-XXX.html?first=group-uitools
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-worklog
-RewriteRule .*					/resource/group-XXX?first=group-worklog
+RewriteRule .*					/resource/group-XXX.html?first=group-worklog
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-legacy
-RewriteRule .*					/resource/group-XXX?first=group-legacy
+RewriteRule .*					/resource/group-XXX.html?first=group-legacy
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-architecture
-RewriteRule .*					/resource/group-XXX?first=group-architecture
+RewriteRule .*					/resource/group-XXX.html?first=group-architecture
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-english
-RewriteRule .*					/resource/group-XXX?first=group-english
+RewriteRule .*					/resource/group-XXX.html?first=group-english
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-images
-RewriteRule .*					/resource/group-XXX?first=group-images
+RewriteRule .*					/resource/group-XXX.html?first=group-images
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/resource/group-XXX?first=group-research
+RewriteRule .*					/resource/group-XXX.html?first=group-research
 
 RewriteCond %{REQUEST_URI}      ^/resource/group-testing
-RewriteRule .*					/resource/group-XXX?first=group-testing
+RewriteRule .*					/resource/group-XXX.html?first=group-testing
+
+RewriteCond %{REQUEST_URI}      ^/resource/cloud-hosting-2017
+RewriteRule .*					/resource/cloud-hosting.html
+ 
+RewriteCond %{REQUEST_URI}      ^/resource/story-book
+RewriteRule .*					/resource/storybook.html
+
+RewriteCond %{REQUEST_URI}      ^/resource/svg-notes
+RewriteRule .*					/resource/svg-format-notes.html
 
 
 # there is something different about the regex's on the live box.
 # I seem to need both variants to gt i to work on the live server.
-#RewriteCond %{REQUEST_URI}      ^/jdi 
-#RewriteCond %{REQUEST_URI}	 	!^/jdi/jdi.php [NC]
-#RewriteCond %{REQUEST_FILENAME}	!-f
-#RewriteCond %{REQUEST_URI}	 	!^/jdi/asset/ 
-#RewriteCond %{REQUEST_URI}      !^/mdb/
-#RewriteCond %{THE_REQUEST}		^[A-Z]+[\ \t]+/jdi/([^?#]*)\ HTTP\/.*$
-#RewriteRule .*		            /jdi/jdi.php?resource=%1	[L]
-#
-#RewriteCond %{REQUEST_URI}      ^/mdb/
-#RewriteCond %{THE_REQUEST}		^[A-Z]+[\ \t]+/mdb/([^?#]*)\ HTTP\/.*$
-#RewriteRule .*		            /mdb/public/index.php?%1	[L]
-
-#RewriteCond %{REQUEST_URI}      ^/jdi 
-#RewriteCond %{REQUEST_URI}	 	!^/jdi/jdi.php [NC]
-#RewriteCond %{REQUEST_FILENAME}	!-f
-#RewriteCond %{REQUEST_URI}	 	!^/jdi/asset/ 
-#RewriteCond %{REQUEST_URI}      !^/mdb/
-#RewriteCond %{THE_REQUEST}		^[A-Z]+[\ \t]+/jdi/([^?#]*)([#\?](.+))?\ HTTP\/.*$
-#RewriteRule .*		            /jdi/jdi.php?resource=%1&%3	[L]
-
-#RewriteCond %{REQUEST_URI}      ^/sf2 
-#RewriteCond %{REQUEST_URI}	 	!^/sf2/web/app.php [NC]
-#RewriteCond %{REQUEST_URI}      !^/mdb/
-#RewriteCond %{REQUEST_FILENAME}	!-f
-#RewriteCond %{THE_REQUEST}		^[A-Z]+[\ \t]+/sf2/([^?#]*)\ HTTP\/.*$
-#RewriteRule .*		            /sf2/web/app.php/%1	[L]
 
 <IfModule mod_headers.c>
-<Files "*.woff">
-Header add Access-Control-Allow-Origin 154.59.155.12
-Header add Access-Control-Allow-Origin 176.32.230.19
-</Files>
-<Files "*.woff2">
-Header add Access-Control-Allow-Origin 154.59.155.12
-Header add Access-Control-Allow-Origin 176.32.230.19
-</Files>
-</IfModule>
 <FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2)$">
-<IfModule mod_headers.c>
-Header unset pragma
+Header add Access-Control-Allow-Origin 91.238.161.174
+Header add Access-Control-Allow-Origin 176.32.230.19
+Header add Access-Control-Allow-Origin 90.193.48.206
 Header unset cache-control 
 
 Header set Cache-Control "max-age=2592000, public"
-Header set Pragma public
 Header set X-timing-data "%t %D"
-</IfModule>
 </FilesMatch>
+</IfModule>
 
 <IfModule mod_headers.c>
-<If "%{REQUEST_URI} =~ /references/">
+<If "%{REQUEST_URI} =~ /-references/">
 	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
+	Header add X-ICELINE "add ref JSON "
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.json" -f
+	RewriteRule (.*)				$1.json
+
 </If>
-<If "%{REQUEST_URI} !~ /-references/">
-Header set Content-Type 'text/html; encoding=utf8'
+<If "%{REQUEST_URI} !~ /(-references|-meta|rss|sitemap|min\.js|min\.css|\.png|\.woff|\.woff2|\.jpeg)/">
+Header set Content-Type 'text/html; encoding= utf8'
 Header set Cache-Control 'max-age=86400'
+Header add X-ICELINE "add HTML"
+RewriteCond %{REQUEST_URI}      ^/resource/
+RewriteCond "%{REQUEST_FILENAME}.html" -f
+RewriteRule (.*)				$1.html
 </If>
 
 <If "%{REQUEST_URI} =~ /-meta/">
 	Header unset Content-Type 
 	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
+	Header add X-ICELINE "add JSON"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.json" -f
+	RewriteRule (.*)				$1.json
 </If>
 <If "%{REQUEST_URI} =~ /rss$/">
 	Header unset Content-Type 
 	Header set Content-Type 'application/rss+xml'
 	Header set Cache-Control 'max-age=86400'
+	Header add X-ICELINE "add XML/rss"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.xml" -f
+	RewriteRule (.*)				$1.xml
+
+</If>
+<If "%{REQUEST_URI} =~ /sitemap-plan/">
+Header set Content-Type 'text/html; encoding= utf8'
+Header set Cache-Control 'max-age=86400'
+Header add X-ICELINE "add HTML"
+RewriteCond %{REQUEST_URI}      ^/resource/
+RewriteCond "%{REQUEST_FILENAME}.html" -f
+RewriteRule (.*)				$1.html
+</If>
+<If "%{REQUEST_URI} =~ /sitemap/">
+	Header unset Content-Type 
+	Header set Content-Type 'application/xml; encoding=utf8'
+	Header set Cache-Control 'max-age=86400'
+	Header add X-ICELINE "add XML"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.xml" -f
+	RewriteRule (.*)				$1.xml
 </If>
 
 <If "%{REQUEST_URI} =~ /min\.css/">
@@ -173,6 +219,16 @@ Header set Cache-Control 'max-age=86400'
 	Header set Content-Type 'image/png'
 	Header set Cache-Control 'max-age=2592000'
 </If>
+<If "%{REQUEST_URI} =~ /\.svg$/">
+	Header unset Content-Type 
+	Header set Content-Type 'image/svg+xml'
+	Header set Cache-Control 'max-age=2592000'
+</If>
+<If "%{REQUEST_URI} =~ /\.webp$/">
+	Header unset Content-Type 
+	Header set Content-Type 'image/webp'
+	Header set Cache-Control 'max-age=2592000'
+</If>
 
 <If "%{REQUEST_URI} =~ /\.woff$/">
 	Header unset Content-Type 
@@ -194,40 +250,62 @@ Header set Cache-Control 'max-age=86400'
 
 </IfModule>
 
-#<IfModule mod_deflate.c>
-#  SetOutputFilter DEFLATE
-#  Header append Content-Encoding gzip
-#  Header append Vary Accept-Encoding
-#  AddOutputFilterByType DEFLATE text/html;encoding=utf8
-#  AddOutputFilterByType DEFLATE text/html; encoding=utf8
-#  AddOutputFilterByType DEFLATE text/html
-#  AddOutputFilterByType DEFLATE application/javascript
-#  AddOutputFilterByType DEFLATE text/javascript;charset=UTF-8
-#  AddOutputFilterByType DEFLATE text/javascript  
-#  AddOutputFilterByType DEFLATE application/json
-#  AddOutputFilterByType DEFLATE application/rss+xml
-#  AddOutputFilterByType DEFLATE application/x-font
-#  AddOutputFilterByType DEFLATE application/x-font-opentype
-#  AddOutputFilterByType DEFLATE application/x-font-otf
-#  AddOutputFilterByType DEFLATE application/x-font-truetype
-#  AddOutputFilterByType DEFLATE application/x-font-ttf
-#  AddOutputFilterByType DEFLATE application/x-javascript
-#  AddOutputFilterByType DEFLATE application/xhtml+xml
-#  AddOutputFilterByType DEFLATE application/xml
-#  AddOutputFilterByType DEFLATE font/opentype
-#  AddOutputFilterByType DEFLATE font/otf
-#  AddOutputFilterByType DEFLATE font/ttf
-#  AddOutputFilterByType DEFLATE image/svg+xml
-#  AddOutputFilterByType DEFLATE image/x-icon
-#  AddOutputFilterByType DEFLATE text/css
-#  AddOutputFilterByType DEFLATE text/css;charset=UTF-8
-#  AddOutputFilterByType DEFLATE text/html
-#  AddOutputFilterByType DEFLATE text/javascript
-#  AddOutputFilterByType DEFLATE text/xml
-#  AddOutputFilterByType DEFLATE font/woff2
-#  AddOutputFilterByType DEFLATE font/woff
-#</IfModule>
-#
+<IfModule mod_deflate.c>
+  SetOutputFilter DEFLATE
+  Header append Vary Accept-Encoding
+  AddOutputFilterByType DEFLATE text/html;encoding=utf8
+  AddOutputFilterByType DEFLATE text/html; encoding=utf8
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE text/javascript;charset=UTF-8
+  AddOutputFilterByType DEFLATE text/javascript  
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/css;charset=UTF-8
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE font/woff2
+  AddOutputFilterByType DEFLATE font/woff
+  AddOutputFilterByType DEFLATE image/webp
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/png
+  AddOutputFilterByType DEFLATE image/jpeg
+
+</IfModule>
+
+# 
+<IfModule mod_expires.c>
+  ExpiresActive On
+  Header add X-ICELINE "can haz expires "
+ ExpiresByType text/html "access plus 1 week"
+ ExpiresByType application/json "access plus 1 week"
+ ExpiresByType application/xml "access plus 1 week"
+ ExpiresByType application/rss+xml "access plus 1 week"
+ 
+ ExpiresByType test/css "access plus 1 week"
+ ExpiresByType text/javascript "access plus 1 week"
+  
+ ExpiresByType image/gif "modification plus 1 month"
+ ExpiresByType image/webp "modification plus 1 month"
+ ExpiresByType image/png "modification plus 1 month"
+ ExpiresByType image/jpeg "modification plus 1 month"
+ ExpiresByType image/svg+xml "modification plus 1 month"
+ 
+</IfModule>
+ 
 # vi: ts=4
 # vim: ts=4 sw=4 fdm=marker syn=apache
 

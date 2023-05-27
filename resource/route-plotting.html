@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>GIS route plotting</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="About a library to manage customer access to geographical distributed available stock." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="GIS route plotting">
+<meta itemprop="description" content="About a library to manage customer access to geographical distributed available stock.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="GIS route plotting">
+<meta name="twitter:description" content="About a library to manage customer access to geographical distributed available stock.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="GIS route plotting" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/route-plotting" />
+<meta property="og:description" content="About a library to manage customer access to geographical distributed available stock." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:19" />
+<meta property="article:modified_time" content="7th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/route-plotting" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "GIS route plotting",
+	"article:published_time":"27th of May 2023, 10:12:19", 
+    "article:modified_time":"7th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p><b>I wrote this in 2013; but the maths will not have changed</b></p>
+
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Business problem <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>An organisation of resellers scattered in urban areas scattered across the continent.  Or in some cases across several continents.  Your main products are high value low volume objects, normally only purchased in planned scenarios, frequently with financial packages.  As customers don't make this type of purchase often (once every few years, sometimes once  decade), so they normally want to look at the SKU before purchase and think about it.   <br />
+Due to the relative durability of your main product, and its high initial sales figure, there is a strong second hand market.  Buyers definitely want to physically look at the “pre-owned” market due to the more variable goods.</p>
+
+<p><b>As such the business problem to solve is a locator service, allowing potential customers visibility of SKU across the continent.</b>  Without a tool to match stock to customers, customers will buy from a competitor.  The locator service was presented as a HTML web service, as it was targeted for end users.  The primary organisation holds stock levels and location of each of the stock item (“you” in this article).</p>
+
+
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Outline of requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>Under this scenario you need a process to match your buyer to the nearest occurrence of what they would like to purchase.  As you are representing the entire chain, there is no favouritism between each franchise unit (otherwise the entire definition of closest starts to get contested).</p>
+
+<p>Behavioural requirements :</p>
+
+<ol>
+    <li>From the users stated location, be able to list sellers and their location (and stock).</li>
+    <li>Comprehend a realistic range of users methods about their location (postcode, town, potentially [long,lat]).</li>
+    <li>When the user also sets a maximum radius, filter the results by this figure.</li>
+    <li>When the user also supplies what SKU they want (broad category, or specific models), filter results to this.</li>
+    <li>Support a fairly standard range of sort options (price, distance, age, model name, significant attributes) </li>
+</ol>
+
+<p>Non functional requirements :</p>
+
+<ol>
+    <li>Respond inside a reasonable time-frame, so the user doesn't experience lag.</li>
+    <li>Be intelligent about location (as example there are at least six towns or cities called “Christchurch”, which one did the user mean?).</li>
+    <li>Be intelligent about national boundaries (airfreight for large volume SKU is expensive).</li>
+</ol>
+
+
+<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Discussion <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+There are several mapping and route plotting service providers.  The biggest are Google inc and Bing (part of Microsoft inc).  The architecturally simplest means to build this would be run the routing services from the web-host.  This structure would mean less trips between the client and server (so theoretically faster results).  The way these are built requires code downloaded to the web-client.  Its not possible to run these services on a server-side copy of Node.js.   <br />
+The mapping data vendors can convert the users stated location to a [long,lat].  From a set of co-ordinates it is possible to compute distance to the stock and dealers.  This isn't a trivial computation for figures in excess of fifty miles, as the planet isn't a sphere, its an ellipsoid.  The following equation is the cartographers normalised solution. <br />
+
+<pre class="codeblock"><code>
+var R = 6371; // km
+var dLat = (lat2-lat1).toRad();
+var dLon = (lon2-lon1).toRad();
+var lat1 = lat1.toRad();
+var lat2 = lat2.toRad(); 
+var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+var d = R * c;</code></pre>
+
+<br />
+ Please <a href="https://www.movable-type.co.uk/scripts/latlong.html" target="_blank">read</a>, for more information <br />
+It is not sensible to push the entire stock catalogues to the client.  Its commercially naive, and may be an infeasibly large amount of data.  The filtering to useful SKU therefore needs to be done on the server.<p>The second option to computing results therefore requires the client to do communication with the GIS vendor; append location to a request for stock levels from the server.   This does have small advantage that if the GIS client-side libraries need to ask for further data or permissions from the user; they have the ability to do so.  The request for the stock cannot be cached, as stock will obviously be sold, and different users are in different locations.   Until the user changes the description of their location, the results of the first geo-lookup may be cached.   As corporate intellectual property, there was a requirement to be flexible with deployment.  That is, different installations of this library, will require different communication process, and branding.</p>
+
+<p>As this resource is written as a retrospective, I will state what I built:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">JS: An OO wrapper library for networking.  This was a political requirement to interoperate with existing code.  The calling structure was the same for the business logic layers.  This was based on asynchronous callbacks.</li>
+    <li class="libasic">JS: A simple JS test harness, to allow rapid creation of many tests, and execute them.  This was mostly custom code, as I needed to run mock requests on the server side.  Each test was defined as a callback, and an input array.</li>
+    <li class="libasic">JS: An integration with Bing maps as a place name description to [long,lat] converter.  Bing maps have quite good guessing from what you entered, but this needs to be configured.  </li>
+    <li class="libasic">JS: Code to request available stock from your servers (requests include the ability to set anything in the behavioural requirements).</li>
+    <li class="libasic">Perl: Server side code to poll the database for current stock, but filter it against the maximum radius when this is supplied.  Existing system used JSON as a response language.</li>
+    <li class="libasic">Perl: TAP test suite for the above.</li>
+    <li class="libasic">PHP: Use of previous locator rasteriser and HTML shell to display the results.  The shell will be identical to <strong>cjd dealer AUS site</strong> (URL changed in the last decade, can't find the current one).</li>
+    <li class="libasic">JS: The JS needed to be re-deployable into various platforms, so was a decoupled OO structure.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog,legacy"> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div><p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>GIS route plotting</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Froute-plotting" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Froute-plotting" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Froute-plotting" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-07T17:42:28">7th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Froute-plotting" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Business problem</a></li>
+<li><a href="#toc1">Outline of requirements</a></li>
+<li class="h4_odd"><a href="#toc2">Discussion</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:19">27th of May 2023, 10:12:19</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-07T17:42:28">7th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

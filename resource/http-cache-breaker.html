@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>HTTP cache breaker</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="HTTP cache breaker">
+<meta itemprop="description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="HTTP cache breaker">
+<meta name="twitter:description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="HTTP cache breaker" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/http-cache-breaker" />
+<meta property="og:description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:55" />
+<meta property="article:modified_time" content="7th of Feb 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/http-cache-breaker" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "HTTP cache breaker",
+	"article:published_time":"27th of May 2023, 10:10:55", 
+    "article:modified_time":"7th of Feb 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>As a dev, <em>sometimes</em>, I want to cache assets; and, <em>sometimes</em>, I don't.  This article is “useful ideas” with related data from a single URL.  Reason for me needing this article, is to deprecate random facts I picked up between 2000-2015 period, that are now deprecated.   This article is focused on the product creation, more than technical errata.<br />
+I am focussing here on static assets which do not need parameter data to specify.  For example your compressed JS bundle, which intentionally doesn't include legacy browser plugins.  For the below lists, assume the user has just loaded an initial <em>index.html</em>; and is downloading additional data to get their app into a useful state.   This text is for understanding, possibly debugging; I would advise using a normal framework which should supply these headers 'out of the box' at no effort.  As an alternative sources for background reading <sup><a href="https://www.slideshare.net/fabpot/caching-on-the-edge" target="_blank">1</a></sup> <sup><a href="https://simonhearne.com/2022/caching-header-best-practices/" target="_blank">2</a></sup>.</p>
+
+<p>In previous products, I have dynamically created the URL used for the assets; so each release on each asset had a unique URL (changing the directory name).  This reduces need to [manual activity] flush the browser cache <i>by users</i>; except for incomplete testing builds.  My local machine didn't have all the browsers installed locally, so I need to do layout/ visually focussed testing on a range of machines, and manually flush caches for that.   On VM or cloud instances used as a client for lots of testing, it is advisable to flush the caches every month or so; to free up disk space.</p>
+
+<p>When I am making apps, I normally need to run an API to get a relatively static set of data; I put this data in the localStorage, so later DOM refreshes will be quicker to get to a useful state.  As the cache process is entirely managed by decisions in JS, I can perform whatever cache invalidation behaviour I want or need to.  <b>This process is particularly important if you have a many-tab UI design.</b>   I try to not use JS level cache management for JS assets as this increases the time it takes for the app to be useable.   If I was building an app that needed an “ultra-lean download budget”; I would use that, as the execution time would be less urgent than the download volume.</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Cache building <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>This section is widely understood and used; you are probably using it <sup><a href="https://medium.com/@codebyamir/a-web-developers-guide-to-browser-caching-cc41f3b73e7c" target="_blank">3</a></sup>, with diagrams <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching" target="_blank">4</a></sup>.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">HTTP header, Cache-Control <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control" target="_blank">5</a></sup> <sup><a href="https://www.keycdn.com/blog/http-cache-headers" target="_blank">6</a></sup> with 'positive values'.  Note, it is possible to store this header in HTML if needed; but doing that breaks encapsulation, and only applies to HTML, and seems to be deprecated <sup><a href="https://html.spec.whatwg.org/multipage/semantics.html#pragma-directives" target="_blank">7</a></sup>.  This header has quite a few options, useful diagram <sup><a href="https://web.dev/http-cache/#flowchart" target="_blank">8</a></sup>. </li>
+    <li class="libasic">If assets where acquired from a CDN, there are often proprietary CDN cache headers.  Some work has started to manage these <sup><a href="https://httpwg.org/specs/rfc9213.html" target="_blank">9</a></sup>.  Cloudflare is the biggest static cache company, and has some custom headers <sup><a href="https://developers.cloudflare.com/fundamentals/get-started/reference/http-request-headers/" target="_blank">10</a></sup></li>
+    <li class="libasic">This article is mostly ignoring HTTP proxy caching.  Google runs a service called AMP that they claim is a geo-localisation, JAMstack framework, and HTTP proxy service <sup><a href="https://amp.dev/documentation/guides-and-tutorials/websites/learn/amp-caches-and-cors/how_amp_pages_are_cached" target="_blank">11</a></sup> <sup><a href="https://developers.google.com/amp/cache" target="_blank">12</a></sup>.  Adoption of AMP is generally matched by correctly using meta data, and better HTML <sup><a href="https://areknawo.com/google-amp-in-2020-better-but-still-not-good/" target="_blank">13</a></sup> <sup><a href="https://www.link-assistant.com/news/is-amp-relevant-in-2020.html" target="_blank">14</a></sup>, so the client site works better in search engines.  In theory sites served via this should be much faster, however numbers generated by external devops people state that the only marginal gains <sup><a href="https://kinsta.com/blog/disable-google-amp/" target="_blank">15</a></sup> <sup><a href="https://www.gainchanger.com/google-amp-sucks/" target="_blank">16</a></sup> <sup><a href="https://www.searchenginewatch.com/2016/07/06/is-google-amp-a-ranking-signal/" target="_blank">17</a></sup>; and the only significant gains found for badly written and badly organised wordpress sites on shared hosting <sup><a href="https://wordpress.org/plugins/amp/" target="_blank">18</a></sup>.  Varnish <sup><a href="https://varnish-cache.org/docs/7.2/users-guide/" target="_blank">19</a></sup> is an older inline static proxy service, to reduce load on busy servers.</li>
+    <li class="libasic">HTTP header Vary <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary" target="_blank">20</a></sup> with diagrams <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#vary" target="_blank">21</a></sup> should be used to ensure that the correct thing is cached, when headers will change what payload is returned for this URL.  This header is very important if the cached assets are inside a security layer / session.</li>
+    <li class="libasic">Similarly to last point, HTTP header ETag <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag" target="_blank">22</a></sup> allows a means of knowing the contents of an URL haven't changed.  This is short for “Entity tag”, but written as etag <sup><a href="https://medium.com/pixelpoint/best-practices-for-cache-control-settings-for-your-website-ff262b38c5a2" target="_blank">23</a></sup>.  URLs with an Etag will get a If-None-Match <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match" target="_blank">24</a></sup> header on later requests.   NB: This header is more difficult to build manually. </li>
+    <li class="libasic">A smart config is to not add the caching headers on your test instance(s); but set 'no-cache'; so every page request is likely to use the newest copy of the assets.   This step is even more important when testing on phones, as there are no keyboard shortcuts for a phone.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Flush caching <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>These options assume data is already present, see as a context <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#deleting_stored_responses" target="_blank">25</a></sup></p>
+
+<ul class="ulbasic">
+    <li class="libasic">HTTP header, Expires <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires" target="_blank">26</a></sup> <sup><a href="https://www.keycdn.com/blog/http-cache-headers" target="_blank">27</a></sup>, if there is a routine sprint+deploy duration, setting the expires date to just after the next sprint is an idea.  This works less well if you are doing CI/CD, where ETags work better.</li>
+    <li class="libasic">HTTP header, Cache-Control <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control" target="_blank">28</a></sup> <sup><a href="https://www.keycdn.com/blog/http-cache-headers" target="_blank">29</a></sup> with 'negative values' i.e. “no-cache, must-revalidate”.   Note: a value of 'max-age=0' is deprecated as a HTTP1.0 feature <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#force_revalidation" target="_blank">30</a></sup>.  For some test platforms, setting a value of 'private' is wise.  </li>
+    <li class="libasic">HTTP header, Last-Modified <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified" target="_blank">31</a></sup> is an instruction to keep the response until X time has past.  This will trigger a If-Modified-Since header in the next request for this URL. Example, if you have weekly platform updates, set this header to the milestone release date.   </li>
+    <li class="libasic">HTTP header Clear-Site-Data: cache <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data" target="_blank">32</a></sup>, noting <sup><a href="https://groups.google.com/a/mozilla.org/g/dev-platform/c/I939w1yrTp4" target="_blank">33</a></sup>.   </li>
+</ul>
+
+<p><strong>Scenario:</strong> there is a web-app that has used Webworkers and CacheStorage <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage" target="_blank">34</a></sup> to copy data into the local device (probably a phone).  How should this local cache be flushed for an update?  Note dev environments are sometimes easier to manage without minification; and so shouldn't expect performance.<br />
+I propose an “modify app” button that does the following:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">On first impression (i.e. no cache and no cookies), button should read “install app”; </li>
+    <li class="libasic">If the server heartbeat API includes “upgrade-available” variable; enable the button as “upgrade app”;</li>
+    <li class="libasic">If the user has purged their local caches, enable the button as “refresh app”;<ul class="ulbasic">
+        <li class="libasic">If they want to get rid of the app why would they be still using it?</li>
+        <li class="libasic">If the user has entirely deleted all stored state, it is not possible to determine if it's first impression or not</li>
+    </ul></li>
+    <li class="libasic">On click for update, access CacheStorage object, exec delete() call <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete" target="_blank">35</a></sup> on the static asset list, ??which is defined??; </li>
+    <li class="libasic">Run location.reload(true) OR run webworkers;<ul class="ulbasic">
+        <li class="libasic">If install is synchronous, it is guaranteed to have known code state; but slower</li>
+    </ul></li>
+    <li class="libasic">...profit !!1...</li>
+    <li class="libasic">Always have a delete app function; but I think that should be outside the app</li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > TL;DR solution for 2023 <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>List of caching headers added to requests, for resources that have a planned update cycle. <br />
+    <br />
+Cache-Control   “max-age=<ins>&lt;number of seconds at expected update rate&gt;</ins>, public”<br />
+ETag            &lt;hash value&gt; <br />
+Last-Modified   <ins>&lt;date in ISO format, probably the last deployment date&gt;</ins><br />
+Expires         <ins>&lt;date in ISO format, at the next deployment date&gt;</ins></p>
+
+<p>After the product is completed, so no sprints</p>
+
+<p>Cache-Control   “max-age=<ins>&lt;some sensible cache duration&gt;</ins>, public”<br />
+ETag            &lt;hash value&gt;</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,engineering"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>HTTP cache breaker</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhttp-cache-breaker" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhttp-cache-breaker" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhttp-cache-breaker" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-02-07T23:06:33">7th of Feb 2023</time>
+						</span>
+						<span>Created <time datetime="2023-02-02T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >2nd of Feb 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhttp-cache-breaker" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Cache building</a></li>
+<li><a href="#toc1">Flush caching</a></li>
+<li class="h4_odd"><a href="#toc2">TL;DR solution for 2023</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:55">27th of May 2023, 10:10:55</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-02-07T23:06:33">7th of Feb 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

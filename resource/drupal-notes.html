@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Notes on Drupal 7.</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="I have read up on Drupal 7, here are some notes." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Notes on Drupal 7.">
+<meta itemprop="description" content="I have read up on Drupal 7, here are some notes.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Notes on Drupal 7.">
+<meta name="twitter:description" content="I have read up on Drupal 7, here are some notes.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Notes on Drupal 7." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/drupal-notes" />
+<meta property="og:description" content="I have read up on Drupal 7, here are some notes." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:18" />
+<meta property="article:modified_time" content="9th of Apr 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/drupal-notes" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Notes on Drupal 7.",
+	"article:published_time":"27th of May 2023, 10:10:18", 
+    "article:modified_time":"9th of Apr 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Please note Drupal7 was end of life in August 2022. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>I wrote this in 2013/2014 when it was new, if you use Drupal, you should be using a better architected, better tested, more stable Drupal v8 or v9.   I am removing most of the content on this page; as the links are invalid</p>
+
+<p>There have been a number of iterations on Drupal.  My notes go back to Drupal6.  Drupal 7 added a few new features (please see <sup><a href="https://www.drupal.org/about/new-in-drupal-7" target="_blank">1</a></sup> ); and is the “current one”.  Drupal8 breaks backwards compatibility, but has finally joined the &gt;1980s by going OO and using namespaces.  Drupal8 also supports HTML5 and mobile.  Whilst I understand inertia on big projects, I find it hard to take lack of support for these things seriously.<br />
+There is a catalogue that lists Drupal sites <sup><a href="https://drupalsites.net/" target="_blank">2</a></sup>, this is useful for looking at features for Drupal.  A list of case studies <sup><a href="https://www.drupal.org/case-studies" target="_blank">3</a></sup>. <a href="https://www.drupalpartners.com/blog/a-very-merry-drupal-holiday-poem" target="_blank">Seasonal fluff</a> that showed up on my linkedin.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Audience <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Drupal is a CMF, mostly targeted at non-programmers who need to achieve skilled professional tasks (Content librarian is skilled language-based role, which pure technology conversations will tend to ignore.).  I have researched abit <sup><a href="https://www.garfieldtech.com/blog/drupal-priorities" target="_blank">4</a></sup> <sup><a href="https://www.disambiguity.com/designing-for-the-wrong-target-audience/" target="_blank">5</a></sup> <sup><a href="https://engineeredweb.com/blog/drupal-target-audiences/" target="_blank">6</a></sup>, Drupal caters for people who want to do “programming via the mouse” (I seek to avoid controversy, so am not using the standard term ).   These are the type of people who think that security is optional, and don't know enough to do high performance.  <br />
+As far as you don't want to write the entire CMS everytime you build anther site, that is quite sensible.  If the framework did security and scalability see <sup><a href="https://www.drupal.org/security/secure-configuration" target="_blank">7</a></sup> <sup><a href="https://www.drupal.org/project/pubdlcnt" target="_blank">8</a></sup> ~ which would also make sense ~ then the weakness of the website builders isn't a problem.</p>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Comparison to other CMS <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There is a service to port your site between CMSs <sup><a href="https://www.cms2cms.com/" target="_blank">9</a></sup>, although I don't know anyone using it.</p>
+
+<p>Wordpress <sup><a href="https://en.wikipedia.org/wiki/WordPress" target="_blank">10</a></sup> is a more narrow CMS, mostly just for blogs.  There is a bigger range of tools attached to wordpress, and certainly compared to Drupal6 its easier to manage.  Wordpress is still seen as stronger for non-technical users.  In Drupal7 they added a large administration module, so that weakness is gone.  Drupal developers assert that as they can “snap modules together” Drupal is more flexible.<br />
+Historically another CMS was Movable type <sup><a href="https://en.wikipedia.org/wiki/Movable_Type" target="_blank">11</a></sup>.  This is written in Perl, and invented backtracks.  It seems to have been mostly replaced with Wordpress.   If you need to host an eCommerce site, an option is Magento <sup><a href="https://en.wikipedia.org/wiki/Magento" target="_blank">12</a></sup>.  This is derived from ZF1 code, but has many eCommerce features.  If you need a tool to do things like inventory management in addition to “shop” features; this is an established tool.  <br />
+In 2012 my Facebook was flooded with repeated adverts for <a href="https://www.wix.com/html5webbuilder/910-x-c-g" target="_blank">Wix</a>.  I'm not sure if they should be classified as a web hosting service, or as a CMS.  They allow websites to be created by the less-technical, within the Wix framework.  There are many other services, offering the same concept. As an artist or designer, I avoid them; conversely they are targeting people who like powerpoint.<br />
+Another PHP CMS is <a href="https://en.wikipedia.org/wiki/Joomla" target="_blank">Joomla</a>. Blogger <sup><a href="https://en.wikipedia.org/wiki/Blogger_%28service%29" target="_blank">13</a></sup> is for blogs, and is written in Python.  It is a rentable service only, not an installed software.  Compared to Drupal; Blogger has good mobile support, both for editing and reading sites ~ including via SMS.  There are many further projects that I haven't mentioned.  There are surveys attempting to gauge the operational userbase for each <sup><a href="https://w3techs.com/technologies/overview/content_management" target="_blank">14</a></sup> <sup><a href="https://www.opensourcecms.com/cms-market-share/" target="_blank">15</a></sup> <sup><a href="https://despreneur.com/cms-trends-for-2014/" target="_blank">16</a></sup>.  The value derived from the common projects has been analysed for freelancer.com <sup><a href="https://phpmagazine.net/2015/01/exclusive-report-php-freelancing-a-30-growth-in-2014.html" target="_blank">17</a></sup>, although the author says he would like a better level of granularity.  Many of the people requesting a freelancer don't mention the platform, but may or may not have received a Wordpress site anyway.  These analysis all say that Wordpress is a dominant player, having about 60% of the CMS market.  I guess there are many more blog or simple brochure sites than anything more complex.   The first link states that over sixty percent of websites do not use a CMS.  To narrow the market to just e-shops, Magento is a dominant player <sup><a href="https://aheadworks.com/blog/magento-got-a-third-slice-of-pie" target="_blank">18</a></sup>.   The market trending articles state that the smaller projects are collapsing (presumably Wordpress gets another plugin each time).</p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Drupal 7 features <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>[content removed]</p>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Performance <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>[content removed]</p>
+
+
+<h3 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > Architecture <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>[content removed]</p>
+
+
+<h3 class="dontend" id="toc6"> <a href="#toc6" title="Jump to this section." > Testing <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>[content removed]</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Notes on Drupal 7.</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdrupal-notes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdrupal-notes" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdrupal-notes" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-04-09T14:38:41">9th of Apr 2023</time>
+						</span>
+						<span>Created <time datetime="2022-08-16T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >16th of Aug 2022</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdrupal-notes" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Please note Drupal7 was end of life in August 2022.</a></li>
+<li><a href="#toc1">Audience</a></li>
+<li class="h4_odd"><a href="#toc2">Comparison to other CMS</a></li>
+<li><a href="#toc3">Drupal 7 features</a></li>
+<li class="h4_odd"><a href="#toc4">Performance</a></li>
+<li><a href="#toc5">Architecture</a></li>
+<li class="h4_odd"><a href="#toc6">Testing</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:18">27th of May 2023, 10:10:18</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T14:38:41">9th of Apr 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

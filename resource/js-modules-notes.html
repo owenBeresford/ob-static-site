@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>JS modules notes</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Research into how to be able to use JS modules in the browsers." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="JS modules notes">
+<meta itemprop="description" content="Research into how to be able to use JS modules in the browsers.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="JS modules notes">
+<meta name="twitter:description" content="Research into how to be able to use JS modules in the browsers.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="JS modules notes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/js-modules-notes" />
+<meta property="og:description" content="Research into how to be able to use JS modules in the browsers." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:15" />
+<meta property="article:modified_time" content="18th of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/js-modules-notes" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "JS modules notes",
+	"article:published_time":"27th of May 2023, 10:11:15", 
+    "article:modified_time":"18th of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>“JS modules” seem to be the same as namespaces in other languages.  The feature is supported by the majority of webrowsers <sup><a href="https://caniuse.com/es6-module" target="_blank">1</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" target="_blank">2</a></sup> (obviously not MSIE).   With a fairly fake objective, modules are explained in <sup><a href="https://javascript.info/modules-intro" target="_blank">3</a></sup>.   This lists a number of gotchas: async loading; no global this; no bare modules; forced “use strict”.   Obviously modules are only loaded once; matching every other namespace scheme in other languages. <br />
+It might also be useful to read <a class="" href="https://owenberesford.me.uk/resource/js-classloader#">js-classloader</a> as discussion on how to manage the source code and headers.</p>
+
+<p>Modules are defined on a per JS file basis.   Basic loading strategies are listed  <sup><a href="https://v8.dev/features/modules" target="_blank">4</a></sup>; deployments need so manage <a class="" href="https://owenberesford.me.uk/resource/cors-headers#">CORS</a>.   If you have a non-minified code architecture; then modules will make your RAM usage better and your code more readable.   If you did do this then your performance will be terrible, as modern browsers have a maximum download concurrency of 2.  I had a test site, where I never bothered to compress and bundle the JS (page load speed 3-4s); when I bundled all the JS and CSS, the reduction in HTTP requests reduced page access time to less than a second (I improved fonts at the same time, so the change is moderated by that).  Using HTTP2 would reduce the slowdown; but bundling is still a necessary process, IMO.   According to <sup><a href="https://www.carlrippon.com/javascript-modules-in-2020/" target="_blank">5</a></sup> the browser will sort out module dependencies, so the order of things in HTML (and their download speed) is less critical to manage.   There is some admin work to serve modules according to <sup><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules" target="_blank">6</a></sup>; it claims files need a different suffix (*.mjs) and the mime format will need to be setup for that suffix.  <br />
+Whilst pulling data for a different problem, I found a useful article <sup><a href="https://indepth.dev/posts/1318/a-note-on-vite-a-very-fast-dev-build-tool#bwhybundleddevelopment" target="_blank">7</a></sup>.</p>
+
+<p>The simplest way to do module to add the module attribute in the script tag.  For code fall-backs (mostly old Opera, a few rarities that don't get updates and all of MSIE), traditional solutions are outlined <sup><a href="https://www.javascriptinstitute.org/javascript-tutorial/modules-in-javascript/" target="_blank">8</a></sup> <sup><a href="https://coryrylan.com/blog/javascript-module-pattern-basics" target="_blank">9</a></sup>.  A full application using modules from the first day would probably also use the import statement <sup><a href="https://caniuse.com/?search=import" target="_blank">10</a></sup>.  This is basically the same as every other language.  If you are person who likes online courses; try <sup><a href="https://www.codecademy.com/learn/introduction-to-javascript/modules/intermediate-javascript-modules" target="_blank">11</a></sup>.   There is some technology to assist with packing, for example <sup><a href="https://cmsdk.com/node-js/node-js-minify-and-concatenate-to-single-file-from-modular-code-structure.html" target="_blank">12</a></sup> <sup><a href="https://medium.com/devux/minifying-your-css-js-html-files-using-gulp-2113d7fcbd16" target="_blank">13</a></sup> (webpack, rollup, in theory even gulp).<br />
+For when I'm solving problems with Node, this article is fairly pointless.   Modules are widespread and useful.  I mention namespaces at the start, as in Node there is a strong focus on this.</p>
+
+<p>The important decision when supporting this tech tree, is whether the 2 HTTP concurrent transactions per domain is important to you or your clients.  Stable scenarios IMO:</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><b>OPT A</b>   [Devils advocate] write everything in HTML.  C code is always faster than JS.  A HTML download is likely to be much  smaller, so faster than any JS framework + app combo.  Technically all the clever code (i.e. the C binary) is already at the client side, and loads alot faster than JS does.</li>
+    <li class="libasic"><b>OPT B</b>   A daemon using libuv (most common version is NodeJS), with HTTP2, serving many singular classes, which are each compressed.  If you have a stable TCP connection and consistent low latency; this should get <em>some</em> app features to “interaction status” in less time than any other JS approach.  Asserting we have a “many small packets fast” network, GraphQL offers less benefits.   I do not think NginX uses libUV <sup><a href="https://kinsta.com/knowledgebase/what-is-nginx/" target="_blank">14</a></sup>; but has a similar approach and delivers similar performance.   As far as I know; with 5G, this approach is best.   Adding Common.js <sup><a href="https://github.com/WebReflection/common-js" target="_blank">15</a></sup> by webreflection extends support for browsers which do not have require().</li>
+    <li class="libasic"><b>OPT C</b>   A HTTP 1.1+ server, emitting a few JS bundles; which cover entire features in a single download.  If you are using 3g, or a poor reception 4g; this approach is soo much faster.  Remember “instant wireless DSL” dongles are technically a 4G connection.  Dropped TCP sessions, or SSL sequencing confusion will lead to HTTP2 benefits being absent.  When a 4G connection is present a few MB of JS can be downloaded; if the connection drops 3s later, the browser can still take the app feature to “interaction state”.  Operationally this architecture should be combined with graphQL <sup><a href="https://graphql.org/learn/" target="_blank">16</a></sup> to further bundle network requests.  Although I wrote that HTTP2 won't help in some networking situations; HTTP1.1 pipelining is a halfway step that can also be used (this saves DNS and TCP setup costs, but not the HTTP negotiation).</li>
+    <li class="libasic"><b>OPT D</b> Hypothetical: Have a HTTP 1.1+ server, and a websocket server. Serve HTML and images via the webserver; stream JS classes via the websocket server.  I can design this, but I have never seen an implementation; there would need to be some magic to take a streamed JS blob and execute it without using eval().  A simple but probably slow method would be to inject a script tag.  A casual web search does not lead to an Object() version of Function(); I do not know how to create “in memory” objects [prefix to exclude flat strings] without using JSON or DOM injection.  From parsed “in memory” tree structures, objects can be composed easily see Object.create() <sup><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create" target="_blank">17</a></sup>.   For reference desktop gmap <sup><a href="https://www.google.com/maps/" target="_blank">18</a></sup> uses websockets.   The reason for mentioning this option is that websockets avoid any concurrent download limit; at the expense of writing more code.</li>
+    <li class="libasic"><b>OPT E</b> <b>UPDATE</b> As option D, but use <a class="" href="https://owenberesford.me.uk/resource/js-workers#">Webworkers</a> rather than websockets.  This works best with properly architected code, but does allow nice classes like a different language was used.  AFAIK, all the benefits of HTTP, but avoid downloads limit.   A code demo site called <a href="https://codesandbox.io/" target="_blank">code sand box</a> uses this approach, with non-minimised files, and it loads very slowly.  Obviously its possible to use websockets and web-workers; as a further optimisation.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="uitools,engineering"> <p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div><p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>JS modules notes</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-modules-notes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-modules-notes" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-modules-notes" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-18T20:25:17">18th of May 2023</time>
+						</span>
+						<span>Created <time datetime="2020-12-12T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >12th of Dec 2020</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-modules-notes" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:15">27th of May 2023, 10:11:15</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-18T20:25:17">18th of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

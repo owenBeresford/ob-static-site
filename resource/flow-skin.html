@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Flow skin</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Discussion on building a third skin for my site.  This is designed around one of the infinite scroll themes, that you see on some news sites." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Flow skin">
+<meta itemprop="description" content="Discussion on building a third skin for my site.  This is designed around one of the infinite scroll themes, that you see on some news sites.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Flow skin">
+<meta name="twitter:description" content="Discussion on building a third skin for my site.  This is designed around one of the infinite scroll themes, that you see on some news sites.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Flow skin" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/flow-skin" />
+<meta property="og:description" content="Discussion on building a third skin for my site.  This is designed around one of the infinite scroll themes, that you see on some news sites." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:29" />
+<meta property="article:modified_time" content="18th of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/flow-skin" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Flow skin",
+	"article:published_time":"27th of May 2023, 10:10:29", 
+    "article:modified_time":"18th of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p style="text-align:right;" ><a href="https://owenberesford.me.uk/resource/home" title="Site as done in pages, good for search engines." class="button">traditional pages</a> / <a href="https://owenberesford.me.uk/resource/flow" title="Site done in a single scroll, not authored." class="button"><del>infinite scroll</del></a> </p>
+
+<div class="lotsOfWords">
+<p>I present this skin as an optional alternative display in 2013.  The columnising code isn't used on mobile, so this should pose no problems to small screens, however the flow between articles may be better suited to touch interfaces.</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Behaviour description <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>This isn't a user-journey, but a list in English of required behaviour.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Infinite scroll: Render a vertical strip of all the resources the user can see in a single list.  Examples <sup><a href="https://www.today.com/entertainment/kirsten-dunsts-death-star-gown-force-met-gala-2D79628770" target="_blank">1</a></sup> <sup><a href="https://designtaxi.com/news/421678/World-Design-Rankings-Refreshed-Where-Creativity-Shines-Brightest-Right-Now/" target="_blank">2</a></sup> <sup><a href="https://www.nbc.com/" target="_blank">3</a></sup> <sup><a href="https://uk.yahoo.com/" target="_blank">4</a></sup> and a big list <a href="https://www.awwwards.com/websites/infinite-scroll/" target="_blank">here</a></li>
+    <li class="libasic">Allow them to mouse gesture up and down to past or future resources.  This should add resources before they get to any extreme co-ordinate.  Also the equivalent for touch interfaces.  </li>
+    <li class="libasic">Work out some type of sort on the resources, so the previous sentence makes sense (as I update the resources, creation date will make more sense than last edit date).  </li>
+    <li class="libasic">UPDATE 2020: I added a group structure, to associate articles; this would make the flow-skin more useful;</li>
+    <li class="libasic">Add a “jump next”, “jump previous” buttons every so often (mostly for longer resources).  </li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">If its possible to add this feature via third party OSS code into iceline, use it. </li>
+    <li class="libasic">Generate a sort concept for the resources as a single set, so there is deterministic “next article”. </li>
+    <li class="libasic">The content is to be laid out in a long strip.  The content should be much longer than the viewport.</li>
+    <li class="libasic">Resources are accessed by scrolling in either vertical direction.</li>
+    <li class="libasic">The initial skin should load a few resources, and have the viewport on the middle of the co-ordinate space.</li>
+    <li class="libasic">As the users moves the viewport towards an extreme of the coordinate space, add further resources, making the coordinate space bigger.</li>
+    <li class="libasic">After user is comfortably in the extra resource, delete the first one from the DOM.  It is probably OK to keep the currently downloaded articles in RAM as a Blob of String.</li>
+    <li class="libasic">If the user “scrolls off the end” of the ordered resources, start adding them the other end and allow to keep scrolling.</li>
+    <li class="libasic">The extra content resources should be injected by some type of AJAH type mechanism (not a page refresh).</li>
+    <li class="libasic">The URL access point for the extra resources will need to not process the “frame” declaration.  It should return the content in the named file.  See render-source for a reference.</li>
+    <li class="libasic">The scroll effects will need to be tested on alot of mobiles for usability and CSS tweaks.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Discussion <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>Why is infinite scroll good?  In the examples listed in the top, it is beneficial as it avoids asset loading time on attached assets (normally adverts).  Infinite scrolling is simpler to steer for mobile.  This interface will need to be available, but not compulsory.  It must degrade usefully in a <i>noscript</i> situation.</p>
+
+<p>On my test machine, the resources are acquired from the server in about 200ms (ignoring the linked resources which would be loaded once).  This means it should be a reasonable speed.  I will need to test this access approach on phones.<br />
+The scrolling should be vertical as matches the normal window furniture, and as our writing is left to right, this works better graphically.  On a algorithm basis, it could be in either direction.  Scrolling in games is free in either direction.<br />
+As this is based on the idea of serendipity, there is no direct access to each article with this interface.  To enable users to see what they are reading better, I will need to add a tag to each of the resources.</p>
+
+<p>A long time ago, I wrote some HTML generation code, which auto-generated TOC, and formatted page headers.  The headers and the top of document had anchor labels, and each section included anchors to jump to relevant points in the document.  The longer pages using a scroll concept (aimed at mobile) are now bringing back this idea.</p>
+
+<p>When I created the template for the previous skin, I rearranged the content  to ensure everything was “on my screen”.  The design is RWD, but the principal of 'above the fold' still applies.   This one is business standard 1280x1024 ratio.   The vertical access is more important than the horizontal, as there is more screen furniture on the vertical, and its numerically smaller.   Therefore I squashed everything vertically where possible.  For a vertical scroll this will need to be undone.</p>
+
+<p>Infinite scroll has some usability issues (as described <sup><a href="https://xkcd.com/1309/" target="_blank">5</a></sup>), principally if you are a search engine <sup><a href="https://developers.google.com/search/blog/2014/02/infinite-scroll-search-friendly" target="_blank">6</a></sup> <sup><a href="https://www.zdnet.com/article/google-tries-to-save-the-web-from-the-curse-of-infinite-scrolling/" target="_blank">7</a></sup></p>
+
+<p>The columnisation will need to be suppressed in some fashion.  If the combined resource is re-columnised every-time more content is injected; it will run very slowly.   The mobile screen size should do this automatically.</p>
+
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Retrospective <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>Q: Does this article sound like junior developer wrote it.<br />
+A: IMO, probably yes. BUT as I was adding things like this at work; I was prototyping ideas on my personal site</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Flow skin</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflow-skin" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflow-skin" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflow-skin" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-18T20:14:31">18th of May 2023</time>
+						</span>
+						<span>Created <time datetime="2014-04-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fflow-skin" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Behaviour description</a></li>
+<li><a href="#toc1">Requirements</a></li>
+<li class="h4_odd"><a href="#toc2">Discussion</a></li>
+<li><a href="#toc3">Retrospective</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:29">27th of May 2023, 10:10:29</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-18T20:14:31">18th of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

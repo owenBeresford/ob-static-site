@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>CORS headers</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="An intro for a simple requirement in current webstuff." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="CORS headers">
+<meta itemprop="description" content="An intro for a simple requirement in current webstuff.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="CORS headers">
+<meta name="twitter:description" content="An intro for a simple requirement in current webstuff.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="CORS headers" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/cors-headers" />
+<meta property="og:description" content="An intro for a simple requirement in current webstuff." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:06" />
+<meta property="article:modified_time" content="3rd of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/cors-headers" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "CORS headers",
+	"article:published_time":"27th of May 2023, 10:10:06", 
+    "article:modified_time":"3rd of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>This is a very basic article, as I haven't published any public articles in quite some time.   This is a really simple theory.   CORS is a lock added to recent browsers to stop badly written or malicious code from breaking servers, and to preserve IP rights.   With older browsers, one may upload a comment to a popular news site; which has embedded JS, the JS is to request to view a resource on a fourth site repeatedly.  A million people view their favourite news, incidentally view the comment.  The fourth server is flooded with all the requests, and will have problems keeping up (i.e. DDOS, <sup><a href="https://www.webopedia.com/definitions/ddos-attack/" target="_blank">1</a></sup>). <br />
+The CORS <sup><a href="https://fetch.spec.whatwg.org/#http-cors-protocol" target="_blank">2</a></sup> <sup><a href="https://tools.ietf.org/html/rfc6454" target="_blank">3</a></sup> process uses an OPTIONS HTTP <sup><a href="https://www.rfc-editor.org/rfc/rfc9110.html#name-options" target="_blank">4</a></sup> request first, to determine if an AJAX request may occur.   Systems need to support the OPTIONS, this more of an issue for REST systems <sup><a href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">5</a></sup> which may require more work to add this.  The OPTIONS response looks like a HEAD response <sup><a href="https://zacstewart.com/2012/04/14/http-options-method.html" target="_blank">6</a></sup>.  CORS headers are just more HTTP headers <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank">8</a></sup> <sup><a href="https://www.websitebuilderpoint.net/what-is-cors-in-web-development/" target="_blank">9</a></sup>.   The AJAX requests should announce what service they are calling from by using a Origin header <sup><a href="https://tools.ietf.org/html/rfc6454#page-6" target="_blank">10</a></sup>.<br />
+In practice the OPTIONS request needs to be implemented fast and light.  The above scenario would still leave the fourth party server processing millions of OPTIONS headers.<br />
+UPDATE, more recently browsers are constraining what headers one may set from JS.  The browsers are implementing the following RFC <sup><a href="https://fetch.spec.whatwg.org/#forbidden-header-name" target="_blank">11</a></sup>. Things relating to cookies can be set via cookie <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie" target="_blank">12</a></sup>. I normally use a wrapper object <sup><a href="https://www.npmjs.com/package/cookie_js" target="_blank">13</a></sup> to do all the date manipulation etc.  <br />
+I started a section marked 'Protocol' to be more articulate, but after I put my references in, this seemed excessive.  Many of the above links are RFCs.</p>
+
+
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Debug <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>From my perspective, (generally platform architect, developer and performance adjuster), CORS is another hygiene factor, like using correct line endings.  It is trivial.   It is done once at the start of the project, and isn't time consuming unlike making sites UI feel simple/easy from the users perspective. <br />
+To manage CORS practically, run your browser in a web dev mode that reports all errors (e.g. in Firefox, use firebug).  Use all the features of your site.  When there are CORS warnings, you have either got the headers wrong, or they are absent.   There may be more specialised tools, but I haven't needed them yet.  Assuming an average site, the time cost is getting all the third party services setup correctly.</p>
+
+<p>If you need to test anything in detail (i.e. a range of Origin headers), I have been using cURL.  It is trivial to integrate PHP module cURL into a PHPunit or similar tool to have the entire thing as a proper unit-test.   Any fully configurable HTTP client would also work.  When I talk about these, with external people I have been sending NetExport logs (a firebug extension/plugin <sup><a href="https://getfirebug.com/wiki/index.php/Firebug_Extensions#NetExport" target="_blank">14</a></sup>), as its easier to show non-programming support-desk people than a unit-test.</p>
+
+
+<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Recipes for goal focussed people <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>To create the headers:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">in Symfony2 <sup><a href="https://stackoverflow.com/questions/29975384/symfony2-allow-access-control-allow-origin-with-google-charts" target="_blank">15</a></sup></li>
+    <li class="libasic">in Node <sup><a href="https://enable-cors.org/server_expressjs.html" target="_blank">16</a></sup></li>
+    <li class="libasic">in Apache <sup><a href="https://stackoverflow.com/questions/14467673/enable-cors-in-htaccess" target="_blank">17</a></sup></li>
+    <li class="libasic">in ZF2</li>
+    <li class="libasic">in Perl</li>
+    <li class="libasic">in Wordpress</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,martech"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in martech </p><div id="groupmartech" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=martech" title="This article lists all items in martech group.">All of <br />martech </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>CORS headers</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-03T11:36:50">3rd of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2015-08-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Aug 2015</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcors-headers" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">Debug</a></li>
+<li class="h4_odd"><a href="#toc2">Recipes for goal focussed people</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:06">27th of May 2023, 10:10:06</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-03T11:36:50">3rd of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

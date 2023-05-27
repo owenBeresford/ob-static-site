@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>JS: WebWorkers, ServiceWorkers, SharedWorkers</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Notes on the JS async worker threads." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="JS: WebWorkers, ServiceWorkers, SharedWorkers">
+<meta itemprop="description" content="Notes on the JS async worker threads.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="JS: WebWorkers, ServiceWorkers, SharedWorkers">
+<meta name="twitter:description" content="Notes on the JS async worker threads.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="JS: WebWorkers, ServiceWorkers, SharedWorkers" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/js-workers" />
+<meta property="og:description" content="Notes on the JS async worker threads." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:18" />
+<meta property="article:modified_time" content="8th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/js-workers" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "JS: WebWorkers, ServiceWorkers, SharedWorkers",
+	"article:published_time":"27th of May 2023, 10:11:18", 
+    "article:modified_time":"8th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>Amongst every JS person who has <em>some</em> experience, the single threaded nature of JS is seen as a limitation; although in parallel this simplification avoids alot of hard to fix errors.  Some people like using JS enough to do audio with it <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet" target="_blank">1</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" target="_blank">2</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/AudioContext" target="_blank">3</a></sup> <sup><a href="https://developers.google.com/web/updates/2017/12/audio-worklet" target="_blank">4</a></sup>.   This seems like the wrong solution, as JS executes slowly; but in any case I have little experience in making audio via software that I wrote.   Sound is rarely used, and when used rarely improves UX in information systems, in my experience.  I will ignore this set of options in the rest of this article.</p>
+
+<p>The internet being what it is, has created a plethora of options to support concurrent threads in JS:</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><i>ServiceWorkers</i> are widely supported, except the usual suspects <sup><a href="https://caniuse.com/#feat=serviceworkers" target="_blank">5</a></sup>.  They are limited from accessing the DOM <sup><a href="https://developers.google.com/web/fundamentals/primers/service-workers/" target="_blank">6</a></sup>, and are intended for proxying, caching, pre-caching, transcoding, transport manipulation type responsibilities e.g. <sup><a href="https://medium.com/applantic/4-creative-service-worker-use-cases-58953a1e85ac" target="_blank">7</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API#Other_use_case_ideas" target="_blank">8</a></sup>.  Quite a lot of this work historically would have been on the server.  People who like specs should read <sup><a href="https://w3c.github.io/ServiceWorker/" target="_blank">9</a></sup> (many words..).</li>
+    <li class="libasic"><i>WebWorkers</i> are the mostly widely supported technology mentioned in this article <sup><a href="https://caniuse.com/#search=webworkers" target="_blank">10</a></sup>.  As a mostly graphics centred person; Webworkers are more useful, as they can modify Canvas when they are not part of the DOM, and talk with remote API <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#Web_Workers_API" target="_blank">11</a></sup>.  Someone is building a shopping list of use-cases for WebWorkers <sup><a href="https://github.com/deebloo/things-you-can-do-in-a-web-worker" target="_blank">12</a></sup></li>
+    <li class="libasic"><i>SharedWorker</i> are basically Webworkers, but with additional [c-level] process to allow them to be shared between tabs, of the same origin host <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker" target="_blank">13</a></sup>.  They are poorly supported by the browser range, but by a good percentage of the user population <sup><a href="https://caniuse.com/#feat=sharedworkers" target="_blank">14</a></sup>.  Its spec is <sup><a href="https://html.spec.whatwg.org/multipage/workers.html#sharedworker" target="_blank">15</a></sup>. Everything that applies to WebWorkers also applies to SharedWorkers, but you can build complex structures with less Workers when you share them.  If your solution has no iframes, frames or parallel tabs ~ like a blog; SharedWorkers offer little benefit.</li>
+    <li class="libasic"><i>Worklets</i> are another possible API, which is basically a JS thread. They are marked as experimental <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Worklet" target="_blank">16</a></sup>, and at time of writing pretty much only in Chrome <sup><a href="https://caniuse.com/#search=worklet" target="_blank">17</a></sup>.  With wide support they would be really useful for poly-filling all the CSS that MSIE doesn't support, as they are designed to interact with the rendering pipeline on the page <sup><a href="https://bitsofco.de/web-workers-vs-service-workers-vs-worklets/" target="_blank">18</a></sup>.</li>
+</ul>
+
+<p>The “happy path” usage is very comparable to many networking and eventing libraries in JS.  In aggregate, the process for all these libraries briefly is: 1) create the Worker, 2) postMessage the Worker your event, 3) addEventListener(“message” the response, and apply it to the DOM. This is documented in many blogs <sup><a href="https://davidwalsh.name/window-postmessage" target="_blank">19</a></sup> <sup><a href="https://javascript.info/cross-window-communication" target="_blank">20</a></sup> <sup><a href="https://robertnyman.com/html5/postMessage/postMessage.html" target="_blank">21</a></sup> (and more).  Simple code structures destroy the worker after each work unit; however it seems smarter create/ destroy inline with the surrounding DOM, as it will have lower execution costs. Each Worker type technically a separate OS-level process thread <sup><a href="https://www.html5rocks.com/en/tutorials/workers/basics/" target="_blank">22</a></sup>, and has a separate memory space (this is normal in other languages).  According to <sup><a href="https://javascript.info/cross-window-communication" target="_blank">23</a></sup> (updated 10th August 2019) onmessage lacks some features, and so I'm avoiding it.<br />
+In terms of execution time, a Worker will have the same execution time, as the main thread.  If you want to use the main thread for user activities (i.e. normal things), reducing the other work that this is doing is clearly good for event responsiveness.  Most devices these days have more than one CPU core <sup><a href="https://www.lifewire.com/multiple-core-processors-832453" target="_blank">24</a></sup> (notably aside from low end phones), which means your app now seems faster.  In some situations you may wish to avoid the additional file that having a Worker requires. There are workrounds <sup><a href="https://stackoverflow.com/questions/5408406/web-workers-without-a-separate-javascript-file?rq=1" target="_blank">25</a></sup> (I can imagine this is mostly interesting to serverless people).  Although the scope the work regulates how many workers are desirable, a naïve guess would be not not exceed the number of CPU cores present.  A worked example <sup><a href="https://stackoverflow.com/questions/13574158/number-of-web-workers-limit" target="_blank">26</a></sup> <sup><a href="https://stackoverflow.com/questions/9339892/does-a-firefox-workers-limit-exist" target="_blank">27</a></sup> states the best frequency is 8 (this will be dependant on the machine hosting it).   <br />
+As noted above the communication is done via postMessage, and fortunately testing has been published <sup><a href="https://hacks.mozilla.org/2015/07/how-fast-are-web-workers/" target="_blank">28</a></sup> <sup><a href="https://dassur.ma/things/is-postmessage-slow/" target="_blank">29</a></sup>.   Examples of canvas code <sup><a href="https://stackoverflow.com/questions/8170431/using-web-workers-for-drawing-using-native-canvas-functions" target="_blank">30</a></sup>.</p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > JS Architecture <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>The value of this article is in analysis, not listing links to documentation.  Ideas that should be considered when writing a medium to large project with large amounts of behaviour implemented in JS::</p>
+
+<ul class="ulbasic">
+    <li class="libasic">A guy who did quite alot of testing <sup><a href="https://twitter.com/dassurma" target="_blank">1</a></sup> says any UI events need to take less than 16ms to not be noticeable by users <sup><a href="https://dassur.ma/things/120fps/" target="_blank">2</a></sup>, in terms a frame buffer refresh.  This duration generally excludes anything over the network (so user tracking tools that are fairly-synchronous, such as Crown user-profiling are annoyingly slow).</li>
+    <li class="libasic">[Untested] It looks like postMessage to the same process is faster to exec than Vue Events, Angular's $watch, angular-notify, or React state changes.  This would be broadcast to all the registered classes in the same process; but you wouldn't have to wait to the $nextUpdate to execute.  Testing is required to see if this works at traffic volume.</li>
+    <li class="libasic">Using multiple threads should discourage the use of global objects (as the thing you want will be in the other thread).</li>
+    <li class="libasic">Pulling SocketService type activities out of the DOM manipulation code will lead to cleaner and more readable code (even if you only have one thread of execution, this is still strongly recommended, as it makes testing easier).  If you have a client side Model fed by postMessage() responses, this makes integrating to View/Rasteriser pipelines easy/clear.</li>
+    <li class="libasic">With regards to networking, the biggest benefit of using a Worker is on communication with slow synchronous API (see many middle-wares with heavy encryption suites such as Websphere, XML platforms <sup><a href="https://sourceforge.net/projects/xmlmiddleware/" target="_blank">3</a></sup> or anything SOAP <sup><a href="https://www.npmjs.com/package/soap" target="_blank">4</a></sup> ), as the GUI isn't blocked by them.  </li>
+    <li class="libasic">A SocketService can be wrapped/encapsulated to form a Queue; like a simple version of Kafka/ZeroMQ/RabbitMQ.  People who like GraphQL will think this is important (can only bundle requests when you know what all the requests are). </li>
+    <li class="libasic">It is mentioned in most articles about Workers, that Assets can be downloaded out of the way; and spooned to users as they scroll.  This should lead to a smoother scroll; although will be fiddly to organise round web-browser features doing the same thing.</li>
+    <li class="libasic">I like the idea of having an identity service thread, for federalised identification with a dedicated micro-service.  This would be alot of CORs management; but is clean <a href="https://en.wikipedia.org/wiki/Single_sign-on" target="_blank">SingleSignon</a>. In the separate thread, Session refresh requests can be issued to keep the Session current. </li>
+    <li class="libasic">Referencing <sup><a href="https://serviceworke.rs/cache-from-zip_worker_doc.html" target="_blank">5</a></sup>, the fact you could do decompression/unzipping in JS doesn't mean that you should.  Any web-browser has these features (in C/C++), and will run it much faster.  </li>
+    <li class="libasic">With threads, there is the ability to send messages outside of your execution thread.  The ability to catch any exceptions in the main JS thread and archive them on a logging service is quite useful <sup><a href="https://stackoverflow.com/questions/11257330/error-logging-for-javascript-on-client-side" target="_blank">6</a></sup> <sup><a href="https://blog.logrocket.com/real-time-processing-web-workers/" target="_blank">7</a></sup> <sup><a href="https://www.loggly.com/blog/best-practices-for-client-side-logging-and-error-handling-in-react/" target="_blank">8</a></sup> <sup><a href="https://logdna.com/blog/client-side-logging-with-logdna/" target="_blank">9</a></sup> <sup><a href="https://usersnap.com/blog/client-side-javascript-error-logging/" target="_blank">10</a></sup> <sup><a href="https://www.scalyr.com/blog/get-started-quickly-javascript-logging/" target="_blank">11</a></sup> <sup><a href="https://jsnlog.com/" target="_blank">12</a></sup> <sup><a href="https://stackify.com/javascript-logging-basic-tips/" target="_blank">13</a></sup> (and many others).  Sending the data to a shared agent on a remote server has the massive gain that you can over see a 1000+ clients easily; at the loss that the operating context of a message is [likely to be] lost.</li>
+    <li class="libasic">In terms of computation, a JSON API response could be converted to a string holding an SVG blob <sup><a href="https://stackoverflow.com/questions/17455436/is-there-a-way-to-convert-json-to-an-svg-object" target="_blank">14</a></sup> <sup><a href="https://www.npmjs.com/package/svgson" target="_blank">15</a></sup> <sup><a href="https://www.raymondcamden.com/2013/02/05/Playing-with-SVG-and-JavaScript" target="_blank">16</a></sup> in a Worker thread; not blocking user activities. Locally-rendered SVGs would be setup to user preferences (high contrast etc) at less effort.  This step to build graphs normally costs about 200ms, on my work laptop (i.e. create several thousand DOM nodes in a isolated document object).  </li>
+    <li class="libasic">Alternatively, an OffscreenCanvs can be built, then shipped back to the UI thread, for similar results.  In a previous project, which used Canvas to make graphs; the execution time, on the same laptop as slightly higher (I think due to the shading/ fill options I was using).</li>
+    <li class="libasic">Some use cases may render to HTML tables, but that is less interesting.   </li>
+    <li class="libasic">For apps like spreadsheets (with many inputs towards a large singular outcome); the use of threads allows more stable and less conspicuous server synchronisation.  State changes are buffered and periodically uploaded, when there is a good connection; but the UI isn't affected.  LocalStorage <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">17</a></sup> can be used as a temporary cache if necessary.   According to <sup><a href="https://github.com/JoeBradley/IndexDb/tree/master/IndexDb" target="_blank">18</a></sup>, the in browser indexed storage indexDB can be managed via a thread.  I haven't seen any volume of data in indexDB, so I'm not sure this is useful.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>JS: WebWorkers, ServiceWorkers, SharedWorkers</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-workers" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-workers" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-workers" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-08T16:45:18">8th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2019-09-18T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >18th of Sep 2019</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-workers" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">JS Architecture</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:18">27th of May 2023, 10:11:18</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-08T16:45:18">8th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Image tooltips</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Text description for computers and how to generate them, also called caption and alt text depending on technique and audience.  These text descriptions are very useful for text to speach tools." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Image tooltips">
+<meta itemprop="description" content="Text description for computers and how to generate them, also called caption and alt text depending on technique and audience.  These text descriptions are very useful for text to speach tools.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Image tooltips">
+<meta name="twitter:description" content="Text description for computers and how to generate them, also called caption and alt text depending on technique and audience.  These text descriptions are very useful for text to speach tools.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Image tooltips" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/image-tooltips" />
+<meta property="og:description" content="Text description for computers and how to generate them, also called caption and alt text depending on technique and audience.  These text descriptions are very useful for text to speach tools." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:59" />
+<meta property="article:modified_time" content="21st of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/image-tooltips" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Image tooltips",
+	"article:published_time":"27th of May 2023, 10:10:59", 
+    "article:modified_time":"21st of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>This is a short article, and very targeted.  There are many people who are less good with technical writing than there are website and apps.  The best guide I have been able to find is:</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Basic HTML5 support <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">I try to have a policy that a image that is content (likely a diagram, or company logo) is present in the DOM, as I want screen readers and printers to see it.   If an image is similar to “bald man #4 holding a cup, smiling broadly over shoulder”, then it should be done via the CSS and absent in the print.css or 3g-mobile.css </li>
+    <li class="libasic">the ancient IMG tag supports “alt” and “title” labelling.  Title is used for a tooltip.</li>
+    <li class="libasic">the PICTURE tag <em>de facto</em> supports title (not according to the spec <sup><a href="https://html.spec.whatwg.org/#the-picture-element" target="_blank">1</a></sup> but common browsers support having it), but requires an IMG present <sup><a href="https://stackoverflow.com/questions/63518351/picture-element-title-attribute" target="_blank">2</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture" target="_blank">3</a></sup></li>
+    <li class="libasic">the OBJECT tag doesn't support title itself, but can be wrapped.</li>
+    <li class="libasic">the FIGCAPTION roughly speaking is a title element <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption" target="_blank">4</a></sup>.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Notes for tooltips <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>I think websites in US English reserve 'tooltip' for inline help and image description; and not alt-text.  General guides for tooltips are (notes taken from my experience and <sup><a href="https://userpilot.com/blog/tooltip-best-practices/" target="_blank">5</a></sup> <sup><a href="https://www.smashingmagazine.com/2021/02/designing-tooltips-mobile-user-interfaces/" target="_blank">6</a></sup> <sup><a href="https://userguiding.com/blog/tooltip-examples-best-practices/" target="_blank">7</a></sup> ):</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Clear but short text so it can be quickly scanned, but not break context/ immersion.  Timing on when to display and when to hide messages is important to user experience; and unfortunately often different to each user (reference myself watching people use my interfaces); tying the visibility to mouse events gives users control to suit their needs; and doesn't work on mobile.</li>
+    <li class="libasic">Highlight happy-path user journeys and goals, especially for new accounts/ installs.</li>
+    <li class="libasic">Have very targeted text, ideally changed to match current software state (e.g. the first time you hit “save” on a platform, it has different text to later times you click it, and the first time for a new file, it's different to routine saves, for example).</li>
+    <li class="libasic">Do not obstruct user progress, and the UI should show user progress.  I think this is generic UI design rather than about tooltips.</li>
+    <li class="libasic">UPDATE: I have been told that excess use of Emoji in image descriptions leads to poor user experience with screen readers, as screen readers understand them to be letters in a different alphabet.  If it reads out a phrase that explains the letter that would be particularly poor experience, with repeated emoji.  </li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Imported notes for captions <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>This list was written by a transcription author Catlin LeFey <sup><a href="https://fosstodon.org/@Cat_LeFey@pagan.plus/109575183984103290" target="_blank">8</a></sup>, I can't map to a linkedin account; but it seems he has experience doing this work.  I think he is referring to FIGCAPTION descriptions, is lightly edited for punctuation, but direct quote:</p>
+
+<ol>
+    <li>Any words are better than nothing.</li>
+    <li>You don't need to say it's “a picture of…&quot; screen readers will already say it's an image.<ol>
+        <li>The reason not to start with the words “image” or “picture” specifically is because the screen reader will announce it with those words, so it will sound like “image image of a cat.&quot; Not a big deal, just sounds a little odd. Instead, I suggest starting with the format (photograph, portrait, chart, Facebook screenshot, text, all of these are good!)</li>
+    </ol></li>
+    <li>Start with the framing or format (i.e. close up, landscape, meme, text).</li>
+    <li>Think about the reason you're posting the pic and describe that first, add background details if you have time.</li>
+    <li>Pretend you're talking to someone on the phone and want to tell them about this cool thing you're looking at.</li>
+    <li>Transcribe any and all text in the image, even if it's the only thing you do.</li>
+    <li>If you've described the image in your post, you don't need to copy and paste it again in the caption. But again, don't leave it blank, just put something like “as described.&quot;</li>
+    <li>You can add small subjective notes, but don't give too much interpretation of the image in your own opinion.</li>
+    <li>Caption jokes are fun, as long as they still describe the image objectively.</li>
+    <li>Use punctuation, and capitalize words properly. A lot of us have interacted with this tech when calling customer service or talking to <em>Siri</em>, so keep in mind that you're writing for a computer to read, and it needs all the help it can get.<ol>
+        <li>When a screen reader comes across a comma or period, it takes a little pause, to mimic natural speech. So just put commas and periods where you would naturally pause when speaking. And if you, like, use too many, it's better than not using enough. Capitalize after a period, then use caps sparingly. Capitals are read out letter by letter, so ask yourself if that's how you want them read.</li>
+        <li>Probably A. Definitely not B. This is tough because every screen reader handles punctuation differently. Most will just pause at any and all punctuation without saying the symbol out loud. So “this,&quot; *this,* and ,this, are all going to be read the same way, with a slight pause before and after. It's not ideal, but it's the only way to show that kind of emphasis.</li>
+    </ol></li>
+</ol>
+
+<p>It would help if there were a standardized way to describe things. For whatever purpose.</p>
+
+<p>The problem with writing for a general audience and talking to a specific person is that these are very different skills.   <br />
+I've found that while I'm OK at describing cats and uncluttered pictures WITHOUT people in them, that I can do it. <br />
+But as soon as it comes to a GIF, or a meme I am unfamiliar with, or a modified picture  that I can't do it</p>
+
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Other Caption <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>As a design principal “Give all users access to the same information” <sup><a href="https://www.stylemanual.gov.au/content-types/images/alt-text-captions-and-titles-images" target="_blank">9</a></sup>, and recommends setting an alt text of &quot;&quot; on decorative images i.e. “bald man #38, décolleté, with coffee + smile”; so various tools will ignore the image. It is important that functional icons (e.g. a buy button) have a alt description, as you want everyone regardless of technology preferences to be able to implement that user journey.  According to <sup><a href="https://www.csun.edu/universal-design-center/best-practices-accessible-images" target="_blank">10</a></sup>, using FIGURE and FIGCAPTION is a good idea; as it makes the placement of the image clear in your data.  It suggests that  alt and titles texts are between 8-80 chars long; but if a longer description is needed to be clear, then definitely use a FIGCAPTION.  There are advanced captioning options in the HTML specs <sup><a href="https://www.w3.org/WAI/tutorials/tables/caption-summary/" target="_blank">11</a></sup> (see end), to allow multiple elements inside a caption; and tag different activities to each element.  CAPTION is a tag option for tables and supports the same basic objectives as FIGCAPTION <sup><a href="https://html.com/tags/caption/" target="_blank">12</a></sup>.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="images"> <p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Image tooltips</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-tooltips" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-tooltips" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-tooltips" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-21T08:59:22">21st of May 2023</time>
+						</span>
+						<span>Created <time datetime="2023-01-14T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >14th of Jan 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-tooltips" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Basic HTML5 support</a></li>
+<li><a href="#toc1">Notes for tooltips</a></li>
+<li class="h4_odd"><a href="#toc2">Imported notes for captions</a></li>
+<li><a href="#toc3">Other Caption</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:59">27th of May 2023, 10:10:59</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-21T08:59:22">21st of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

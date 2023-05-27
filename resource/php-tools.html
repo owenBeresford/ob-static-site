@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>PHP Tool chain</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="This is a shopping list to save time.  PHP dev only" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="PHP Tool chain">
+<meta itemprop="description" content="This is a shopping list to save time.  PHP dev only">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="PHP Tool chain">
+<meta name="twitter:description" content="This is a shopping list to save time.  PHP dev only">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="PHP Tool chain" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/php-tools" />
+<meta property="og:description" content="This is a shopping list to save time.  PHP dev only" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:55" />
+<meta property="article:modified_time" content="8th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/php-tools" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "PHP Tool chain",
+	"article:published_time":"27th of May 2023, 10:11:55", 
+    "article:modified_time":"8th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > This article is from march 2014, please treat links with caution. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>As Composer is more mature, I am trying to drop Pear entirely.</p>
+
+<p>In my last contract this took too long to setup, so I am writing myself a cheat sheet.  Yes I <i>expect the URLs to get out-of-date quite fast</i>.<br />
+If I compress this down to a set of GIT URLs and a composer file, I can start work on the speed of the network connection.  If I can bundle this, even when tools aren't needed, there is no delays when time scales start to matter.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Standard operating system: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">Your interpreter: <ul class="ulbasic">
+        <li class="libasic"><a href="https://www.php.net/manual/en/install.windows.php" target="_blank">ms</a> </li>
+        <li class="libasic"><a href="https://www.php.net/manual/en/install.macosx.php" target="_blank">mac</a> </li>
+        <li class="libasic"> linux: use normal procedure</li>
+        <li class="libasic">don't forget all the language extensions (previously resolved via macports)</li>
+    </ul></li>
+    <li class="libasic"><a href="https://getcomposer.org/download/" target="_blank">composer</a></li>
+    <li class="libasic">if absent <a href="https://git-scm.com/book/en/Getting-Started-Installing-Git" target="_blank">GIT</a> or <a href="https://git-scm.com/downloads" target="_blank">GIT</a></li>
+    <li class="libasic">or if necessary <a href="https://subversion.apache.org/packages.html" target="_blank">SVN</a> </li>
+    <li class="libasic"><a href="https://www.vim.org/" target="_blank">vim</a> ~ I tend to script large scale changes in this, as its faster.  I also use `ed`, when faster processing is needed.<ul class="ulbasic">
+        <li class="libasic"><a href="https://code.google.com/p/macvim/downloads/list" target="_blank">macvim</a></li>
+    </ul></li>
+    <li class="libasic">Recently, use VS code from MSFT <a href="https://code.visualstudio.com/docs/setup/mac" target="_blank">for mac</a> <a href="https://code.visualstudio.com/docs/setup/linux" target="_blank">for linux</a>; otherwise the next three lines are older IDEs</li>
+    <li class="libasic"><a href="https://www.eclipse.org/downloads/" target="_blank">eclipse</a> with <a href="https://phpeclipse.updatestar.com/en" target="_blank">phpelclipse</a></li>
+    <li class="libasic"><a href="https://netbeans.apache.org/download/index.html" target="_blank">netbeans</a> with <a href="https://plugins.netbeans.apache.org/" target="_blank">plugins</a> ~ <a href="https://fatesc-com.ngontinh24.com/article/using-git-in-apache-netbeans" target="_blank">git</a></li>
+    <li class="libasic"><a href="https://www.sublimetext.com/4" target="_blank">sublime</a> with <a href="https://wasil.org/sublime-text-3-perfect-php-development-set-up" target="_blank">plugins</a></li>
+    <li class="libasic"></li>
+    <li class="libasic">if MAC <a href="https://www.iterm2.com/#/section/downloads" target="_blank">term2</a></li>
+    <li class="libasic">if MAC <a href="https://mathiasbynens.be/notes/shell-script-mac-apps" target="_blank">create apps</a></li>
+    <li class="libasic">if MAC <a href="https://developer.apple.com/xcode/downloads/" target="_blank">xcode</a></li>
+    <li class="libasic">if MAC <a href="https://www.macports.org/install.php" target="_blank">macports</a></li>
+    <li class="libasic">if MAC <a href="https://brew.sh/" target="_blank">homebrew</a></li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Webrowsers <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">you can do this section easily, I didn't type the links.</li>
+    <li class="libasic">UPDATE early 2022, MSIE is no more.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > vim plugins <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic"><a href="https://www.vim.org/scripts/script.php?script_id=39" target="_blank">matchit</a></li>
+    <li class="libasic"><a href="https://github.com/owenBeresford/oab1-conf/blob/master/.vim/plugin/php-doc.vim" target="_blank">phpdoc</a> this is the older version that I extended, for my purposes an PHP7. The newer version in the vimscript repo may be more useful to some people</li>
+    <li class="libasic"><a href="https://www.vim.org/scripts/script.php?script_id=1697" target="_blank">surround</a></li>
+    <li class="libasic">TOhtml  $VIMRUNTIME/syntax/2html.vim</li>
+    <li class="libasic">. . . .  add more here</li>
+</ul>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Standard PHP tools: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">phpunit: <ul class="ulbasic">
+        <li class="libasic">see composer</li>
+        <li class="libasic">linux: use normal or pear</li>
+        <li class="libasic">mac: read around, use pear</li>
+        <li class="libasic">ms: install linux start again</li>
+    </ul></li>
+    <li class="libasic">phpdoc<ul class="ulbasic">
+        <li class="libasic"><i>pear channel-discover pear.phpdoc.org; pear install phpdoc/phpDocumentor</i></li>
+        <li class="libasic">see composer</li>
+    </ul></li>
+    <li class="libasic">phpunit<ul class="ulbasic">
+        <li class="libasic"><i>pear install phpunit/PHPUnit</i></li>
+        <li class="libasic">see composer</li>
+    </ul></li>
+    <li class="libasic">add the skel-gen<ul class="ulbasic">
+        <li class="libasic"><i>pear install phpunit/PHPUnit_SkeletonGenerator</i></li>
+        <li class="libasic"><i>wget <a class="cleanimage" href="https://phar.phpunit.de/phpunit-skelgen.phar" target="_blank">https://phar.phpunit.de/phpunit-skelgen.phar</a></i></li>
+    </ul></li>
+    <li class="libasic">phpcs<ul class="ulbasic">
+        <li class="libasic">see composer</li>
+        <li class="libasic"><i>pear install PHP_CodeSniffer</i></li>
+    </ul></li>
+    <li class="libasic">phploc<ul class="ulbasic">
+        <li class="libasic">see composer</li>
+        <li class="libasic"><i>wget <a class="cleanimage" href="https://phar.phpunit.de/phploc.phar" target="_blank">https://phar.phpunit.de/phploc.phar</a></i></li>
+    </ul></li>
+    <li class="libasic">PHP depend<ul class="ulbasic">
+        <li class="libasic">composer  “pdepend/pdepend” : &quot;@stable”</li>
+    </ul></li>
+</ul>
+
+
+<h3 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > Document and manage: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic"><a href="https://www.mediawiki.org/wiki/Download" target="_blank">media wiki</a></li>
+    <li class="libasic"><a href="https://twiki.org/" target="_blank">twiki</a></li>
+    <li class="libasic"><a href="https://flyspray.org/" target="_blank">flyspray </a> <a href="https://github.com/Flyspray/flyspray" target="_blank">git</a></li>
+    <li class="libasic"><a href="https://www.atlassian.com/software/jira/download" target="_blank">jira</a></li>
+    <li class="libasic"><a href="https://jenkins.io/" target="_blank">jenkins</a></li>
+</ul>
+
+
+<h3 class="dontend" id="toc6"> <a href="#toc6" title="Jump to this section." > Combined composer (for PHP things) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+
+<pre>
+{
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "2.*",
+        "phpunit/phpunit": "3.7.*",
+	    "phploc/phploc": "*",
+ 		"phpunit/phpunit-skeleton-generator": "*"
+ 	    "squizlabs/php_codesniffer": "1.*",
+
+        "php": "&gt;=5.3.3",
+        "cboden/Ratchet": "0.3.*", /* not sure about this one...*/
+        "doctrine/doctrine-bundle": "1.2.*",
+        "braincrafted/bootstrap-bundle": "~2.0@alpha",
+        "symfony/symfony": "2.3.*",
+        "doctrine/orm": "&gt;=2.2.3,&lt;2.4-dev",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "twig/extensions": "1.0.*",
+        "symfony/assetic-bundle": "2.3.*",
+        "symfony/swiftmailer-bundle": "2.3.*",
+        "symfony/monolog-bundle": "2.3.*",
+        "sensio/distribution-bundle": "2.3.*",
+        "sensio/framework-extra-bundle": "2.3.*",
+        "sensio/generator-bundle": "2.3.*",
+        "incenteev/composer-parameter-handler": "~2.0"
+
+    },
+	"require":{
+        "php": "&gt;=5.3.3",
+        "cboden/Ratchet": "0.3.*", /* not sure about this one... */
+        "doctrine/doctrine-bundle": "1.2.*",
+        "braincrafted/bootstrap-bundle": "~2.0@alpha",
+        "symfony/symfony": "2.3.*",
+        "doctrine/orm": "&gt;=2.2.3,&lt;2.4-dev",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "twig/extensions": "1.0.*",
+        "symfony/assetic-bundle": "2.3.*",
+        "symfony/swiftmailer-bundle": "2.3.*",
+        "symfony/monolog-bundle": "2.3.*",
+        "sensio/distribution-bundle": "2.3.*",
+        "sensio/framework-extra-bundle": "2.3.*",
+        "sensio/generator-bundle": "2.3.*",
+        "incenteev/composer-parameter-handler": "~2.0"
+
+	}
+}
+
+# if you use BDD, add these
+
+		"mockery/mockery": "0.9.*@dev",
+		 "behat/behat": "2.*@stable",
+		 "behat/mink": "1.*@stable",
+		 "behat/mink-extension": "*",
+		 "behat/mink-goutte-driver": "*",
+		 "behat/mink-selenium2-driver": "*",
+		"behat/symfony2-extension":"*",
+</pre>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>PHP Tool chain</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-tools" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-tools" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-tools" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-08T09:51:26">8th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-tools" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">This article is from march 2014, please treat links with caution.</a></li>
+<li><a href="#toc1">Standard operating system:</a></li>
+<li class="h4_odd"><a href="#toc2">Webrowsers</a></li>
+<li><a href="#toc3">vim plugins</a></li>
+<li class="h4_odd"><a href="#toc4">Standard PHP tools:</a></li>
+<li><a href="#toc5">Document and manage:</a></li>
+<li class="h4_odd"><a href="#toc6">Combined composer (for PHP things)</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:55">27th of May 2023, 10:11:55</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-08T09:51:26">8th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

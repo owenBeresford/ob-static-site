@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>newer VOIP platforms</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Brief analysis on VOIP platforms; for my domestic use" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="newer VOIP platforms">
+<meta itemprop="description" content="Brief analysis on VOIP platforms; for my domestic use">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="newer VOIP platforms">
+<meta name="twitter:description" content="Brief analysis on VOIP platforms; for my domestic use">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="newer VOIP platforms" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/update-voip" />
+<meta property="og:description" content="Brief analysis on VOIP platforms; for my domestic use" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:59" />
+<meta property="article:modified_time" content="15th of Apr 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/update-voip" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "newer VOIP platforms",
+	"article:published_time":"27th of May 2023, 10:12:59", 
+    "article:modified_time":"15th of Apr 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>Historically we use Skype for internal messages at <i>chez moi</i>.  The rate of undelivered messages is MUCH higher than it used to be, so we are looking for a replacement.  Skype was bought by MSFT a long time ago; and they only care about the Skype business accounts (which from a business perspective makes sense).  I have read that MSFT will close its Skype servers at some point (from general news site, not a official MSFT plan, so I'm not bothering with a reference), as they would prefer people to use MSFT teams.<br />
+<em>Assumed previous reading</em>, is an architecture level view of SIP + VOIP, P2P networking, encryption architectures.</p>
+
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Software selection metrics <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">Run on ubuntu, android, and supports win32</li>
+    <li class="libasic">Support some type of messaging</li>
+    <li class="libasic">Support SIP/VOIP</li>
+    <li class="libasic">Doesn't eat all battery power, especially when not in active use</li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Nice to haves <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">Prefer P2P architecture, but that is not compulsory</li>
+    <li class="libasic">Message edit capacity</li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Candidates <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>Not a candidate, but here is a huge list of VOIP software at <sup><a href="https://en.wikipedia.org/wiki/Comparison_of_VoIP_software" target="_blank">1</a></sup>.</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><b>Blink project</b> <sup><a href="https://icanblink.com" target="_blank">2</a></sup> under GNU GPL3 licence.  The <sup><a href="https://en.wikipedia.org/wiki/Blink_%28SIP_client%29" target="_blank">3</a></sup> project has support for SIP, VOIP, IM, MSRP, VNC and XCAP.  It claims to have OTR and ZRTP security protocols.  The more commercial side is called blink voice <sup><a href="https://blinkvoice.com/" target="_blank">4</a></sup> <sup><a href="https://www.blinkvoiceblog.com/" target="_blank">5</a></sup>. QT version supports linux, win32; and macs with the older py3/cocoa build.  Improved install instructions are at the end on this page; standard  install instructions are <sup><a href="https://docs-new.sipthor.net/w/debian_package_repositories/" target="_blank">6</a></sup>. Doesn't mention message editing at <sup><a href="https://icanblink.com/features/" target="_blank">7</a></sup> </li>
+    <li class="libasic"><b>linphone project</b> <sup><a href="https://www.linphone.org/" target="_blank">8</a></sup> available under GNU GPLv3, <a href="https://gitlab.linphone.org/BC/public/linphone-sdk.git" target="_blank">git</a>. The wiki <sup><a href="https://en.wikipedia.org/wiki/Linphone" target="_blank">9</a></sup> says it supports SIP, SIMPLE, RTP/RTCP, and security wise SRTP ZRTP. The wiki doesn't mention messaging, but <sup><a href="https://www.linphone.org/products" target="_blank">10</a></sup> does. There is a summary architecture diagram at <sup><a href="https://www.linphone.org/technical-corner/liblinphone" target="_blank">11</a></sup>.  Install instructions for ubuntu are  <sup><a href="https://packages.ubuntu.com/xenial/armhf/liblinphone5/download" target="_blank">12</a></sup> <sup><a href="https://askubuntu.com/questions/770298/how-can-a-current-version-of-linphone-be-installed" target="_blank">13</a></sup></li>
+    <li class="libasic"><b>empathy</b> <sup><a href="https://github.com/GNOME/empathy" target="_blank">14</a></sup> licence GNU GPL, started life as a chat client but also now supports VOIP.  As what was previously a core piece of Ubuntu software, Empathy is very easy to install (package name is empathy).  Pls note empathy project owners say that encryption is outside of scope for them.  Secondly, the original group dev gnome group are not doing active development.</li>
+    <li class="libasic"><b>teamspeak</b> <sup><a href="https://new.teamspeak.com/" target="_blank">15</a></sup> is closed source, with a freemuimum category.  The install process is manky <sup><a href="https://www.vultr.com/docs/how-to-install-teamspeak-3-server-on-ubuntu-16-04-64-bit" target="_blank">16</a></sup> newer=better <sup><a href="https://ubuntuhandbook.org/index.php/2019/02/install-teamspeak-client-flatpak-ubuntu-18-04-higher/" target="_blank">17</a></sup>. There are *run files available <sup><a href="https://www.teamspeak.com/en/downloads/" target="_blank">18</a></sup> </li>
+</ul>
+
+
+<h2 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > UPDATES 2022 <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>I wrote that at the start of the lockdown, Zoom hadn't gotten this far yet etc etc.  In 2022, for my many remote meetings I use one of (this section doesn't mention protocols at all; and is necessary to be current, but is really dull):</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><b> Zoom</b> <sup><a href="https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux" target="_blank">19</a></sup> <sup><a href="https://zoom.us/download?os=linux" target="_blank">20</a></sup> and it also available via <i>apt</i>, has a chat client, but I don't use it much.  Has reasonable video quality and connection stability. Meetings are made via the website <sup><a href="https://zoom.us/" target="_blank">21</a></sup>.  You need to manage meeting length, or use a paid account; but controlling meeting length is good practice anyway.  [This is a commercial product.]</li>
+    <li class="libasic"><b> slack </b> (via chrome <sup><a href="https://slack.com/intl/en-gb/" target="_blank">22</a></sup>, as its lighter than the electron app).  I was using this chat client a lot at Hoptroff.  It also has voice and video streaming <sup><a href="https://slack.com/intl/en-gb/features" target="_blank">23</a></sup>.  The electron app has lockups, chrome doesn't.    [This is a commercial product with a reasonable freemium.]</li>
+    <li class="libasic"><b>microsoft teams</b>, yes on linux, has good quality outputs. I think “teams-for-linux” rather than “teams-insider”.  Logging in is a overweight monstrosity, as it wants to do everything via outlook.  I haven't had a situation to use the chat client very much, as the sales and BD teams weren't chatting.  It wants to update about once per week, some notes say there is an electron version and a native version; where the native version has more updates <sup><a href="https://docs.microsoft.com/en-us/answers/questions/3033/installing-microsoft-teams-in-linux.html" target="_blank">24</a></sup>.   Installed via adding a new apt server; or a direct download from microsoft website <sup><a href="https://snapcraft.io/install/teams-for-linux/ubuntu" target="_blank">25</a></sup> <sup><a href="https://www.ubuntupit.com/how-to-install-and-configure-microsoft-teams-on-linux-system/" target="_blank">26</a></sup> <sup><a href="https://www.makeuseof.com/microsoft-teams-linux/" target="_blank">27</a></sup>.    [This is a commercial product, and needs a paid account to use.]</li>
+    <li class="libasic"><b> signal</b> (installed to desktop and phone via respective app shops).  Good phone integration.  Desktop version doesn't cope with dropped networks perfectly; and to support to data privacy flushes messages when this happens.  Has many icon packs.  I was using this in 2020...  I think this is opensource, I haven't paid anything to use it (but they have many servers...)</li>
+    <li class="libasic"><b> viber </b> (on phone, install via app shop) my other half uses this to talk with relatives in “the old country”.  Has many icon packs.  [This is a commercial telephony product with the same structure as Skype]</li>
+    <li class="libasic"><b> telegram </b> (on phone, install via app shop) I use this sometimes.  Not used VOIP here, but I was using this in 2020...</li>
+    <li class="libasic"><b> whatsapp </b> (on phone, or ubuntu via hacks <sup><a href="https://askubuntu.com/questions/684415/install-whatsapp-webapp-on-ubuntu" target="_blank">28</a></sup> ).  The link provides a list of solutions in varying levels of maturity or hackiness.  This app is owned by Facebook <sup><a href="https://en.wikipedia.org/wiki/WhatsApp" target="_blank">29</a></sup>.  I have used it.</li>
+</ul>
+
+
+</div>
+<br />
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth" >
+					<header><h1>newer VOIP platforms</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fupdate-voip" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fupdate-voip" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fupdate-voip" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-04-15T19:39:29">15th of Apr 2023</time>
+						</span>
+						<span>Created <time datetime="2020-04-10T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >10th of Apr 2020</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fupdate-voip" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Software selection metrics</a></li>
+<li><a href="#toc1">Nice to haves</a></li>
+<li class="h4_odd"><a href="#toc2">Candidates</a></li>
+<li><a href="#toc3">UPDATES 2022</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:59">27th of May 2023, 10:12:59</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T19:39:29">15th of Apr 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

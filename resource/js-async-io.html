@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Better JS Async IO</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Article outlining my solution not having generators in browsers JS" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Better JS Async IO">
+<meta itemprop="description" content="Article outlining my solution not having generators in browsers JS">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Better JS Async IO">
+<meta name="twitter:description" content="Article outlining my solution not having generators in browsers JS">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Better JS Async IO" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/js-async-io" />
+<meta property="og:description" content="Article outlining my solution not having generators in browsers JS" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:10" />
+<meta property="article:modified_time" content="7th of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/js-async-io" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Better JS Async IO",
+	"article:published_time":"27th of May 2023, 10:11:10", 
+    "article:modified_time":"7th of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords asyncIOContainer">
+<p>When I write new code in Node, I use Koa and generators, as it makes the code simpler, and faster to develop.  I do not have good support for generators in in-browser JS AFAIK, and have not seen them outside of Node libraries.  <b>UPDATE 2022:</b> Although I haven't seen them in FE code; they have been supported for a while <sup><a href="https://caniuse.com/?search=generator" target="_blank">1</a></sup><br />
+There are millions of articles on line to help people from the job title “lens grinder”/ “sales director” (or similar, random non-tech titles) to the title “evening code-fiddler”.  The articles are trying to make development look as simple as possible; they skip all the error handling, they skip performance analysis, they skip encapsulation and reuse.  They have been written last some point in the last decade (i.e. not necessarily current).  They all nest callbacks in an un-managable fashion.   For example <sup><a href="https://www.freecodecamp.org/news/how-to-deal-with-nested-callbacks-and-avoid-callback-hell-1bc8dc4a2012/" target="_blank">2</a></sup> <sup><a href="https://stackabuse.com/avoiding-callback-hell-in-node-js/" target="_blank">3</a></sup> <sup><a href="https://stackoverflow.com/questions/20961919/node-js-async-how-to-avoid-callback-hell-with-async" target="_blank">4</a></sup> <sup><a href="https://www.slideshare.net/sh1mmer/how-to-stop-writing-spaghetti-code/38" target="_blank">5</a></sup> <sup><a href="https://blog.risingstack.com/node-js-async-best-practices-avoiding-callback-hell-node-js-at-scale/" target="_blank">6</a></sup> <sup><a href="https://techbullion.com/event-driven-programming-101-guide-to-applications-and-development/" target="_blank">7</a></sup> <sup><a href="https://shinesolutions.com/2011/08/26/asynchronous-code-design-with-node-js/" target="_blank">8</a></sup> <sup><a href="https://justinklemm.com/node-js-async-tutorial/" target="_blank">9</a></sup> <sup><a href="https://stackoverflow.com/questions/23709118/does-go-have-callback-concept/23709882#23709882" target="_blank">10</a></sup> <sup><a href="https://blog.risingstack.com/node-js-at-scale-understanding-node-js-event-loop/" target="_blank">11</a></sup>.  There is a HTTP website called callbackhell.com; but I am trying to remove HTTP references from this site.</p>
+
+<p>The following is my preferred solution, I am getting sick of the above articles messes.  Secondly I wish to avoid global variables, which many JS examples litter all over the place.  There are many XMLHTTPRequest wrappers <sup><a href="https://github.com/cferdinandi/atomic" target="_blank">12</a></sup> <sup><a href="https://zeptojs.com/#$.ajax" target="_blank">13</a></sup> <sup><a href="https://github.com/calmm-js/karet.xhr" target="_blank">14</a></sup> <sup><a href="https://github.com/organic-scholar/http.js" target="_blank">15</a></sup> <sup><a href="https://github.com/natevw/fermata" target="_blank">16</a></sup> <sup><a href="https://github.com/MrOnlineCoder/sul.js" target="_blank">17</a></sup> <sup><a href="https://github.com/typicode/pegasus" target="_blank">18</a></sup> <sup><a href="https://github.com/ForbesLindesay/ajax" target="_blank">19</a></sup>, and this isn't the point of this article.  It is assumed that there is a library that exports Promises, and does all the REST verbs.  I generally try to write code that can run in a browser directly, as it makes wide browser support faster/cheaper.  This following code is optimised for a chain of API calls, where data needs to flow from one to the next. I am writing this down, purely for reference, and that I am practicing what I preach.</p>
+
+
+<pre class="code" lang="javascript">
+// The basic unit in this is a set of functions put into a object. These should 
+// be viewed as structs, not classes, as it is poor OO.
+// The point of doing this is to associate a response to a request, but not nest 
+// them.
+// Outline reference 
+let api1= {
+	reqt:function(env) {
+		// ...
+	},
+	resp:function(response) {
+		// ...
+	},
+	error:function(response) {
+		// ....
+	}
+};
+// Please note the error handler is always present.
+// As a sequence, running the reqt function should start a AJAJ call, chaining 
+// the resp and error Promises/callbacks to the relevant places in the networking 
+// library.
+
+// I create a AJAJ call stack using the following API:
+// Function names chosen to match Array class API on purpose.
+const AJAJStack={
+	create:function() {
+		this.stack=[];
+		return this;
+	},
+	// for normal stacking, this is easier to read
+	push:function(api) {
+		this.stack.push(api);
+	},
+	// for in-flight edits, this is more useful
+	unshift:function(api) {
+		this.stack.unshift(api);
+	},
+	shift:function() {
+		return this.stack.shift();
+	},
+	reduce:function(env, tick, delay) {	
+		let _self=this;
+		if(delay) {
+			let cur=this.stack.shift();
+			cur.reqt(env);
+		}
+		for(let i=0; i&lt;this.stack.length; i++) {
+			window.setTimeout(function() { 
+				let cur=_self.stack.shift(); 
+				cur.reqt(env);
+			}, tick*(i+1));
+		}
+	}
+};
+
+// I assert I have a networking library, e.g. Axios, Vue-resource, Angular.$http,
+// jQuery.ajax etc. The variable is called ajaj in the following, as I haven't 
+// used XML in years.
+// I reference env several times. The above classes are to be used in a third 
+// service class. The service class has any necessary consts (see URLS), a 
+// reference to ajaj object, and a reference to the stack object. If you need 
+// to do things like "try X() up to five times, before failing", the counter for 
+// previousFailures is stored in the Service.  Env is a reference to the Service. 
+// I use DI, it makes testing much faster.
+// Example:
+const SearchAPIService ={
+	create:function(stack, ajaj, tick) {
+		this.stack=stack;
+		this.ajaj=ajaj;
+		this.tick=tick;
+		return this;
+	},
+	search:function(next, param) {
+		let myReferenceId=null;
+		let previousFailures=0;
+
+		let api1= {
+			reqt:function(env) {
+				// ...
+				// use param
+				// triggers resp and error
+			},
+			resp:function(response) {
+				// ...
+				// writes to myReferenceId
+			},
+			error:function(response) {
+				// ....
+				// deletes next step....
+			}
+		};
+		let api2= {
+			reqt:function(env) {
+				// ...
+				// uses myReferenceId and use param
+				// triggers resp and error
+			},
+			resp:function(response) {
+				// ...
+				// if get results.count === 0, re-queues self with stack.unshift
+				// unless previousFailures &gt;5, in which case delete stack items
+				// if have results, call next(results)
+			},
+			error:function(response) {
+				// ....
+			}
+		};
+
+		this.stack.push(api1);
+		this.stack.push(api2);
+		this.stack.reduce(this, this.tick);
+	} 
+
+}
+// all the variables are constrained to the search function, making it fairly 
+// stateless
+</pre>
+
+<h5 id="toc0"> Why use this rather than a Promise?</h5>
+<p>This structure is to interact with async REST API without making messy unreadable code.  This has features in common with Promises; except this this is tidy callbacks to deal with responses, and has better support for chains of async events than Promises.  Promises do not have a section for response processing.  I have been told that Promises shouldn't be used in vast numbers, as they use some CPU time whilst waiting for the resolve call (problem probably limited to games, and rich real-time data visualisation tools).   This API does nothing whilst waiting.   NB: You could use Promises to build this structure....</p>
+
+<p>This is fairly real error handling, and the code is <strong>readable, and async</strong>. All of the domain logic is isolated into the structs, and as this uses DI, it can be easily tested.  Networking and timing code is a hard combination to test reliably.  The structs could be held outside of the function, but I think its clearer with respect the local variables doing it as such.  <br />
+If your usecase is literally a(), b(), c() API calls; then set the tick to be really large; and trigger the next struct from inside the previous one.<br />
+If your usecase is a(), allow user action, b(), allow action, c(); then setting the tick to a few seconds, and don't trigger anything; is more sensible.</p>
+
+
+<h5 id="toc1"> Conclusion of this simplifying JS tool</h5>
+<p>After 3months, I used this all the way up to UAT.   I added a serial() method to AJAJStack, which is very similar to Node Async.serial(), just calling each registered function in sequence.  The above code was designed to get data into a tab, or to get fresh data in response to user input.  For this it works fine; I only wrote the library as the target API was async.  <br />
+Then I had to do some re-architecting (for reasons that have nothing to do with this small couple of classes).   The new REST API structure scaled better, but this above library doesn't work very well when each SPA page is making 50+ calls, in bunches especially if the retry logic is hit.  Any blip in WIFI, forces security tokens to become scrambled abruptly reduces performance; and the only escape is to reload the whole page. <br />
+I made a second version of this queueing class, where a single queue is shared across the entire page.  This means all networking requests can be aborted in one API point (without page reload); the most urgent item can be done first; the security tokens don't get scrambled.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="uitools,legacy"> <p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div><p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth" >
+					<header><h1>Better JS Async IO</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-async-io" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-async-io" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-async-io" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-07T18:04:06">7th of May 2023</time>
+						</span>
+						<span>Created <time datetime="2018-10-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Oct 2018</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-async-io" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:10">27th of May 2023, 10:11:10</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-07T18:04:06">7th of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
+<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
+<!-- style>.halferWords ol {text-align: left; list-style-type:decimal; } </style -->
+</body>
+</html>

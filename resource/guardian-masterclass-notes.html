@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Guardian Masterclass: data visualisation</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Notes I took from the two day remote mini-conference on data visualisation." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Guardian Masterclass: data visualisation">
+<meta itemprop="description" content="Notes I took from the two day remote mini-conference on data visualisation.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Guardian Masterclass: data visualisation">
+<meta name="twitter:description" content="Notes I took from the two day remote mini-conference on data visualisation.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Guardian Masterclass: data visualisation" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/guardian-masterclass-notes" />
+<meta property="og:description" content="Notes I took from the two day remote mini-conference on data visualisation." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:47" />
+<meta property="article:modified_time" content="14th of Apr 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/guardian-masterclass-notes" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Guardian Masterclass: data visualisation",
+	"article:published_time":"27th of May 2023, 10:10:47", 
+    "article:modified_time":"14th of Apr 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There are multiple guardian masterclasses, on a variety of things that the newspaper thinks it is important.   This is for the conference 2021, the lectures will be different every year.   I am not clear on the distinction between a “masterclass” and a “lecture”; before covid19 I went to about 1 lecture per month on a given technical domain where I had less experience.  Many of these lectures were focussed on a particular product; but as long as this is understood at the start, so what? (talking about features of X; not marketing success of X, nor growth of X, nor sales contract of X).   The conference that I attended was on data visualisation; as that is currently approximately sixty percent of my responsibilities at work.   Disclaimer: my then employer funded my attendance (but not the write up).<br />
+As a note on different professions, journalists do not start out with a fixed objective on some data; they start with a need to make story.  As a second angle, an actual marketing campaign has more flexibility on delivery of artefacts than I do; but must make the product seem useful/ cheap/ relevant/ sexy to potential customers.   Therefore these are different solution spaces to mine. <br />
+As a high level/ abstract discussion on process, a path through data may be very large scale, per nation, across a century; or a very small scale, a person, a single sport event.  Journalists find most compelling results with small scale as humans relate to it better.   Demographic trends are more important information though; for example: last year there was six million slow painful deaths from X disease, mostly people who drove a lot, or lived near busy main roads.   The critical boundary is not observable on small scale data. <br />
+Please note my website aims to be an engineering text; an objective list of boring details about how to achieve technical solutions.   I have trimmed or minimised any content from the conference that doesn't meet this focus.  This text covers things that I claim to have a fairly detailed understanding of; even when supported by little formal study.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > TL;DR: 5 new data visualisation tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">The following tools were new to me and have been pulled out as have been relevant to my role at the time; many on this list are commercial SaaS, and so would have been outside my searches for solutions. Since that role, I have used Figma.</li>
+    <li class="libasic"><a href="https://xeno.graphics" target="_blank">Xeno</a>, </li>
+    <li class="libasic"><a href="https://rawgraphs.io" target="_blank">raw</a>,</li>
+    <li class="libasic"><a href="https://www.datawrapper.de" target="_blank">datawrapper</a>,</li>
+    <li class="libasic"><a href="https://app.flourish.studio" target="_blank">flourish</a>, </li>
+    <li class="libasic"><a href="https://www.figma.com/" target="_blank">figma</a>,</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Collation of information and processes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>The lectures mentioned the concept of colour and data visualisation.  Personally, I say colour is hard; colour changes with culture, with socialisation, with age, with mood, with lighting conditions, with attitude, with gender (as a subset of culture), with output device (see mac based designer to pc based user in particular).  Reference, my life and trying to get people to understand my thoughts without writing long paragraphs. Read notes by <a href="https://medium.com/@Elijah_Meeks/viz-palette-for-data-visualization-color-8e678d996077" target="_blank">E Meeks</a>. <br />
+The lectures quoted <a href="https://en.wikipedia.org/wiki/Jacques_Bertin" target="_blank">J Bertin</a>, a french cartographer who published a book called “Sémiologie graphique”, which was influential.  They did not talk long about different graph types, which makes sense, as “advanced graphing” would leave you with a small audience.   They do mention that most people use histograms wrongly (most marketing people either forget or ignore that the area of the bar is part of the definition of the graph, and is consistent when the graph is drawn correctly), which is unfortunate.   <br />
+The topic of “designer responsibilities” was raised, for communication, for clarity, for avoiding biases.  Pls see end of the further reading list.<br />
+There was a definition for “intersectional” <sup><a href="https://en.wikipedia.org/wiki/Intersectionality" target="_blank">1</a></sup>, aka poly-variable analysis. Not what I was expecting, but useful material.   The reason this is used by women in the US is that there are many stats recorded in the USA, which only reference ~25% of the population (adult, white, men, CIS, over a certain wealth band). <br />
+As an internal process, you need to clearly define preferred user journey; add signposting/ signals to encourage people to follow this.  Mentioned <a href="https://en.wikipedia.org/wiki/Peter_Morville" target="_blank">P Morville</a> as an early practitioner, and the UX honeycomb.   Referencing work by <a href="https://en.wikipedia.org/wiki/Daniel_Kahneman" target="_blank">D Kahneman</a>, people will remember emotional states about a thing longer than any of the details.<br />
+One of the lecturers mostly worked as a UX contractor; and states: Paper sketches are a useful process, as no-one will be attached to them. Do quick iterations to explore options, at the cost of minutes.  For big projects she likes personas, to try to avoid people working inside the project from forgetting the user.   NDAs make user testing hard.   The lecturer likes grid layouts.</p>
+
+<p>In my work; my focus on “tell a story” is limited by regulation, or accounts process; and it is not expected that there will be many casual consumers.   In my role, my value improvements are that the client spent less time or money to achieve the same result; so saved money/time; that a new client was able to engage is better management strategies, due to better access to information; or that my superior software made an integration of multiple datasets possible (and so one of the previous points). To put it in a wider context, data visualisation being important because “Data is the new oil” is a catechism for some companies.  My work, my profession is busy building better tools for extraction and delivery of this new oil.</p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Appendix A: 21 data visualisation tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>As an engineer on contract, I do not look at things “for inspiration” (aside from the requirements list).   People more strongly aligned to arts culture may wish to look at data visualisation techniques used in the following:</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><a href="https://projects.propublica.org/graphics/workers-compensation-benefits-by-limb" target="_blank">Worker’s comp project</a></li>
+    <li class="libasic"><a href="https://www.themarshallproject.org/2018/03/30/the-myth-of-the-criminal-immigrant" target="_blank">Myth of the Criminal Immigrant</a></li>
+    <li class="libasic"><a href="https://graphics.wsj.com/infectious-diseases-and-vaccines/" target="_blank">Battling Infectious Diseases</a></li>
+    <li class="libasic">Flowing Data <a href="https://flowingdata.com/2012/08/06/fox-news-continues-charting-excellence/" target="_blank">fox news continues charting excellence</a></li>
+    <li class="libasic"><a href="https://english.elpais.com/society/2020-10-28/a-room-a-bar-and-a-class-how-the-coronavirus-is-spread-through-the-air.html?ssm=TW_CC" target="_blank">El Pais: Coronavirus</a></li>
+    <li class="libasic"><a href="https://www.theguardian.com/us-news/ng-interactive/2015/oct/19/homan-square-chicago-police-detainees" target="_blank">Guardian: Homan Square</a></li>
+    <li class="libasic"><a href="https://www.bloomberg.com/graphics/2018-tampon-cost/" target="_blank">Tampon Tax</a></li>
+    <li class="libasic"><a href="https://mimionuoha.com/the-library-of-missing-datasets" target="_blank">Library of Missing Datasets</a></li>
+    <li class="libasic"><a href="https://www.ajl.org" target="_blank">Algorithmic Justice League</a></li>
+    <li class="libasic"><a href="https://medium.com/@giorgialupi/bruises-the-data-we-dont-see-1fdec00d0036" target="_blank">Bruises</a> ~ the data we don't see</li>
+    <li class="libasic"><a href="https://antievictionmap.com" target="_blank">Anti-eviction</a> project</li>
+    <li class="libasic">The <a href="https://evictionlab.org" target="_blank">Eviction Lab</a></li>
+    <li class="libasic"><a href="https://guns.periscopic.com" target="_blank">Periscopic: Guns</a></li>
+    <li class="libasic"><a href="https://medium.com/data-zetu/data-dispatch-when-data-youth-and-art-collide-c56e0b96064" target="_blank">Data Zetu</a> when data, youth and art collide</li>
+    <li class="libasic"><a href="https://umaine.edu/canam/publications/coming-home-map/" target="_blank">Coming Home</a></li>
+    <li class="libasic"><a href="https://www.nytimes.com/interactive/2015/05/28/upshot/you-draw-it-how-family-income-affects-childrens-college-chances.html" target="_blank">You Draw it</a></li>
+    <li class="libasic"><a href="https://www.instagram.com/p/CG2a0rqFJZj/" target="_blank">Mona Chalabi</a></li>
+    <li class="libasic"><a href="https://www.washingtonpost.com/graphics/2019/politics/mueller-report-illustrated/chapter-one/" target="_blank">Mueller Report</a></li>
+    <li class="libasic"><a href="https://graphics.reuters.com/INDIA-RIVER/010081TW39P/index.html" target="_blank">River Ganges</a></li>
+    <li class="libasic"><a href="https://www.nytimes.com/interactive/2016/11/16/us/politics/the-two-americas-of-2016.html" target="_blank">Two Americas</a></li>
+    <li class="libasic">TV <a href="https://www.netflix.com/gb/title/81328723" target="_blank">Coded Bias</a></li>
+</ul>
+
+<p>NB: <i>I am not making a political statement with the choice of data samples</i>; I think the Guardian was following its normal portfolio.</p>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Appendix B: further reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>These are sites/texts recommended in the lectures, but not covered in them.</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><a href="https://kanarinka.com" target="_blank">K Anarinka</a>'s blog</li>
+    <li class="libasic"><a href="https://lklein.com" target="_blank">L Klein</a>'s blog</li>
+    <li class="libasic"><a href="https://flowingdata.com" target="_blank">Nathan Yau</a>'s blog</li>
+    <li class="libasic"><a href="https://medium.com/@Elijah_Meeks/viz-palette-for-data-visualization-color-8e678d996077" target="_blank">E Meeks</a> discussion for viz pallete</li>
+    <li class="libasic">Book, J Bertin 2013 &quot;<a href="https://www.amazon.co.uk/S%C3%A9miologie-graphique-diagrammes-r%C3%A9seaux-cartes/dp/2713224179/ref=sr_1_1?dchild=1&amp;amp;keywords=Semiologie+Graphique+bertin&amp;amp;qid=1625497671&amp;amp;sr=8-1" target="_blank">Semiologie Graphique</a>&quot; ~ this was first printed in the 1970s</li>
+    <li class="libasic">Book, M. O. Ward; G Grinstein 2010 &quot;<a href="https://www.amazon.co.uk/Interactive-Data-Visualization-Foundations-Applications/dp/1568814739/ref=cm_cr_arp_d_pl_foot_top?ie=UTF8" target="_blank">Interactive Data Visualization: Foundations, Techniques, and Applications</a>&quot;</li>
+    <li class="libasic"><a href="https://intertwingled.org/user-experience-honeycomb/" target="_blank">User experience honeycomb</a> </li>
+    <li class="libasic"><a href="https://uxdesign.cc/optimizing-the-ux-honeycomb-1d10cfb38097" target="_blank">Optimizing the ux honeycomb</a></li>
+    <li class="libasic"><a href="https://www.usability.gov/what-and-why/user-experience.html" target="_blank">user experience</a></li>
+    <li class="libasic">Book: D Kahneman 2012 &quot;<a href="https://www.amazon.co.uk/Thinking-Fast-Slow-Daniel-Kahneman/dp/0141033576" target="_blank">Thinking Fast and Slow</a>&quot; ~ this is not the first print</li>
+    <li class="libasic">see also article with same name on<a href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow" target="_blank">wiki</a></li>
+    <li class="libasic"><a href="https://lisacharlotterost.de/" target="_blank">Lisa Rost</a>'s blog ~ author runs datawrapper.de</li>
+    <li class="libasic"><a href="https://guides.library.newschool.edu/c.php?g=870479&amp;amp;p=6892408" target="_blank">list of infographic making tools</a>  </li>
+    <li class="libasic">Book: B Shebab, H Nawar 2020 &quot;<a href="https://www.amazon.co.uk/History-Arab-Graphic-Design-ebook/dp/B098KFL6HM/ref=sr_1_1?dchild=1&amp;amp;keywords=a+history+of+arab+graphic+design&amp;amp;qid=1625761067&amp;amp;s=books&amp;amp;sr=1-1" target="_blank">A history of Arab Graphic Design</a>&quot; American University of Cairo Press </li>
+</ul>
+
+<p>My suggestions, which are not part of the conference; but very relevant</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Book: Huff D [1991] “How to lie with statistics” Penguin. </li>
+    <li class="libasic">Book: Dondis D. A. [1974] “A Primer of Visual literacy” MIT press ~ communication theory book mostly, useful for how to represent things.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Guardian Masterclass: data visualisation</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fguardian-masterclass-notes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fguardian-masterclass-notes" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fguardian-masterclass-notes" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-04-14T22:01:28">14th of Apr 2023</time>
+						</span>
+						<span>Created <time datetime="2021-07-04T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >4th of Jul 2021</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fguardian-masterclass-notes" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">TL;DR: 5 new data visualisation tools</a></li>
+<li class="h4_odd"><a href="#toc2">Collation of information and processes</a></li>
+<li><a href="#toc3">Appendix A: 21 data visualisation tools</a></li>
+<li class="h4_odd"><a href="#toc4">Appendix B: further reading</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:47">27th of May 2023, 10:10:47</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-14T22:01:28">14th of Apr 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

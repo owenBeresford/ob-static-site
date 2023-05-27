@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>JS Nation 'live' - 12 recent JS libraries from the JS conference 2020</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes where made" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2020">
+<meta itemprop="description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes where made">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2020">
+<meta name="twitter:description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes where made">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="JS Nation 'live' - 12 recent JS libraries from the JS conference 2020" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/js-nation-live-notes" />
+<meta property="og:description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes where made" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:16" />
+<meta property="article:modified_time" content="25th of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/js-nation-live-notes" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "JS Nation 'live' - 12 recent JS libraries from the JS conference 2020",
+	"article:published_time":"27th of May 2023, 10:11:16", 
+    "article:modified_time":"25th of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker h4grid jsNationContainer">
+<h4 style="text-align:center;">Summary of JS tools covered: </h4>
+<p > 
+So it has many less references.  At the point you read this, please consult the products' current documentation located in a link under each entry, for recent updates.   This page lists 12 newer projects, then some lesser-known OSS projects. Click on each entry to get the notes.  To reduce the wall of text effect, I have put it in a HTML details / summary list.  If you are using a speech-reader, this should be fine as everything is present at the page load and inside semantic markup. 
+</p>
+<div class="aCol">
+<details>
+<summary>Guest lecture on FaunaDB with GraphQL </summary> 
+<p>The FaunaDB service has the same user stories as Heroko with MongoDB and a DB front end, or Magento, or WooCommerce. <br />
+It is a commodified tool kit; but this is another “no code solution that you manage by writing code” (FaunaDB API, or graphQL normally).  I assume it's not written in JS; it's not adding more features than normal DB, aside from having the management platform as a required dependency.  <br />
+Unlike Magento v1 <sup><a href="https://en.wikipedia.org/wiki/Magento" target="_blank">1</a></sup>, they claim to be good with technology: are using a slow release cycle to supply good/reliable results.  This is a service that you rent, not install locally; which is how they make money.   They state at present that there are no enforced capacity limits.   Although it is tidy with operations, they charge per read; so its entirely unsuited for an externalised map/reduce subsystem.<br />
+The GUI uses “resolver” as a keyword to register a storproc (basically).<br />
+It uses “credential” just like MongoDB does, and as the same permissions model that SQL does.  It supports “security triggers”, or events to be processed on a security event.<br />
+They claimed it was distributed architecture like MongoDB is; but more SQL flavoured in interaction (although 'talk via API' isn't SQL.  It had docs which are branded/structured like Stripe docs.</p>
+
+
+</details>
+<details>
+<summary>Cypress </summary> 
+<p>Cypress is an in-browser test library for E2E web app testing.   I am not making use of it, as it cannot support MSIE or Safari; for the well-documented reasons for which I need a test tool to support tests in those browsers.  As a fairly normal test tool, it supports extensions; and the speaker kept resolving people's issues by mentioning another plugin.  Cypress does modify the stack of the tested code (to be able to see what's happening), so it can't really do performance testing. <br />
+Cypress can be used to test things like hovers, and hidden content.  It has a mature “retry test” <sup><a href="https://docs.cypress.io/guides/core-concepts/retry-ability" target="_blank">1</a></sup> capacity, to manage the widely observed fact that some tests will hit a small deadlock/bad sequencing and sometimes take a lot longer to execute than expected.  The presenter claimed in the video that it was possible to “create tests” by using the website as a user (I do not have a clue how automatic creation of assert() would work). <br />
+Please read other docs, Cypress seems to have enough of them.</p>
+
+
+</details>
+<details>
+<summary>Fastify </summary>
+<p>I missed this presentation, due to UX issues.  This is like a fast version of Express, with a managed number of middlewares.  I do not value really fast middleware; as the slowdown is nearly always the DB (for the type of apps that I write, DB query time is about 80% of E2E execution time ).</p>
+
+<p>I started to ask the presenter questions at the end during Q&amp;A, as he seemed to be a software engineer, rather than a sales guy.  I try not to lead-in questions with my prejudices, as I want to get the other person's opinion; however he seemed to correlate with my understanding.  Promises are important to help make code readable; that is all they deliver.  As I have written enough code in JS, I don't walk into “callback hell” (I didn't the first time I used CB in JS either, 'cus JS isn't my first programming language).<br />
+He says I could link C SO files into a NodeJS process if I need to.   I think NodeJS has gotten closer to a normal scripting language.</p>
+
+
+</details>
+<details>
+<summary>Announce of Other tools </summary>
+<ul class="ulbasic">
+    <li class="libasic">As food for thought: not a tool, but please read <sup><a href="https://acko.net/blog/apis-are-about-policy/" target="_blank">1</a></sup>. This line of reason is why i tried to get away from making REST API a few year ago, as that work seemed about to be automated away.</li>
+    <li class="libasic">Now have a CMS in NodeJS; called Sanity.io  This charges per user!</li>
+    <li class="libasic">A middleware called Apollo, which is an implementation of GraphQL. Includes a feature like WSDL, for transaction description.</li>
+    <li class="libasic">A View library called alpineJS, which is smaller than headless/no compiler vue</li>
+    <li class="libasic">A self-named algorithm visualiser [US locale]</li>
+    <li class="libasic">There was a sponsor presentation from datadog; which I skipped, as I already know how to use data dog (it's not hard).</li>
+    <li class="libasic">There was a sponsor presentation from Frontity; which I skipped. </li>
+    <li class="libasic">There was a review on several recent JS games, which aren't important to my mostly B2B notes.</li>
+    <li class="libasic">Azure was a sponsor, but I am not win32 enabled dev.</li>
+</ul>
+
+
+</details>
+<details>
+<summary>MUX </summary> 
+<p>The following doc describes this library quite well <sup><a href="https://www.dropbox.com/s/6n5ldb2ancxj5ts/JS%20Nation%20-%20Build%20your%20own%20live%20streaming%20platform.pdf?dl=0" target="_blank">1</a></sup>.  NB: Mux are a sponsor.</p>
+
+
+</details>
+<details>
+<summary>Guest lecture on JS architecture </summary>
+<p>Presenter defined 'architecture' in the context of quite a few companies under cash flow pressure due to Covid19 disruption.  Described how job roles (with reduced headcount) were merging to stop companies folding.  To maintain cash flow companies could also deliver more things to buy, as a another solution.<br />
+The lecturer proposed using Monorepos to increase velocity to deliver faster.  In the context of JS, all operations run faster when there is only 1 node_modules directory (this statement doesn't apply to other languages/platforms).   Outlined two tools “Lerna” and “NX”, which were opensource are getting more features which make them more useful.  Being able to treat code repos in the same organisation structure as business units is worth some value.  This seemed it would be a better solution in the future, as setting up tooling isn't a business objective, but a process.<br />
+He also advertised GraphQL, but supplied a much better 'why use GraphQL?' than the common advert on twitter which was 'a REST API can only talk to 1 DB table, we are sooo much better than that'.  The presenter used GraphQL as a REST framework, with Caching and Message DeDup (good features); stating that this could be put infront of current REST API making FE devs lives faster/easier.  As Caching would be per client, I'm not sure how much value it provides compared to Varnish.  GraphQL 'auto-coding'/boilerplate is based on Types.  They stated major sales benefit as same library to link mobile apps and NodeJS based micro-services (or see above DBs middlewares).</p>
+
+
+</details>
+</div>
+
+<div class="aCol">
+<details>
+<summary> Notes on Unicode in JS</summary>
+<p>I haven't had time to look at this previously in any coordinated fashion.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">A Unicode is technically a big set of abstract letters/ glyths</li>
+    <li class="libasic">A code point is a specific implementation inside the Unicode</li>
+    <li class="libasic">There are planes inside Unicode - subsets, for admin reasons</li>
+    <li class="libasic">The first Unicode only had 7000 points</li>
+    <li class="libasic">JS is abit broken with Unicode</li>
+    <li class="libasic">A wonky JS string hasn't glued the chars together properly; and so has a unexpected value in length</li>
+    <li class="libasic">A JS string can be decomposed into raw chars with split(&quot;&quot;) </li>
+    <li class="libasic">A wonky JS string can be glued together with normalise()</li>
+    <li class="libasic">There are zeroWidthJoiner chars which do the joining</li>
+    <li class="libasic">The colour-range of emoji is done with Fitzpatrick uv-light dermatology scale <sup><a href="https://en.wikipedia.org/wiki/Fitzpatrick_scale" target="_blank">1</a></sup></li>
+    <li class="libasic"><a href="https://mathiasbynens.be/notes" target="_blank">Mathias Bynens</a> is a good blog to read</li>
+    <li class="libasic">Guess utf-8 is 8 bits for plane def </li>
+    <li class="libasic"><a href="https://emojipedia.org/" target="_blank">Reference</a></li>
+    <li class="libasic">There is a plane for bolder text, italic text, and some further ones, see <a href="https://capitalizemytitle.com/bold-text-generator/" target="_blank">this useful tool</a></li>
+</ul>
+
+
+</details>
+<details>
+<summary>Announce Vue3 </summary>
+<p>Here, the presenter announced new features in Vue3, which was currently in Beta (so of no value to people making commercial code). They stated they were not currently deprecated any older API, even though they think there are some wonky ones.  <br />
+The presenter described Mixins...(also documented elsewhere); and some normal things about software engineering.  Then described Slots (also documented elsewhere), but notes slots are slower.<br />
+Thirdly, added a new feature Object composition (which I was already using, but without framework support).  They added a new feature ref(), which explicitly builds Perl-like reference to an object (like setState but more generic).  Ref() can be nested, but need to be careful with pointer pointers.<br />
+She couldn't announce a release date for Vue3 not being beta (unfortunately); she stated that css-in-components needed to be used judiciously, as when you are using a CSS framework how much CSS do you write?</p>
+
+
+</details>
+<details>
+<summary>Project tracking notes on TS </summary>
+<p>This talk was presented by a MSFT employee.  He was mostly talking about policy and vision.  Apparently Vue3 is built using TS.  Microsoft are strong backers for TS as a) PR for MSFT; b) TS assists MSFT do large projects.  TS is changing use of expression features.<br />
+He mentioned that TS39 were a group of people (not all are MSFT employees) and they controlled the path of JS-the-language.  TS isn't that committee; but do feed them ideas.  He stated that although MSFT had a tradition of making compilers, and trying to control markets; this didn't work NOW for JS.  There were several other JS runtimes (flow, heggle, closure script); closed source compilers are now a very hard proposition (e.g. look at Deno)<br />
+He mentioned jsdocs as a standard (like javadoc, but for JS); which is managed by Nathan Sanders. I use Javadoc in JS, but hadn't looked if there was a JS specific standard.</p>
+
+
+</details>
+<details>
+<summary>Releases for Angular </summary>
+<p>Started with breakdown of hierarchy in Angular.   The presenter announced Angular v10rc is released, I assume written in TS; spoke about warning on type-warnings.<br />
+There is a scale of predictable code vs flexible code; Angular has moved across the range of options.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">features of static types (predictable): clean IDE support, easier to optimise, as everything is defined easier code visualisation</li>
+    <li class="libasic">features of dynamic types (flexible): lazy loading code (frequently faster exec), fast restart as no recompile</li>
+</ul>
+
+<p>Sample range: idris (biggest types), haskell, rust, c#, java, typescript, go, ruby, javascript (biggest flexibility) <br />
+ ng1 very loose, ng2 very strict, ng4 abit less strict, ng10 choice of strict<br />
+New version has: es5 support flag, common js flag, strict typescript, zero overhead i18n.  If there is dynamic generation of static content; try using jamstack <sup><a href="https://jamstack.org/" target="_blank">1</a></sup> and scully <sup><a href="https://indepth.dev/scully-the-first-static-site-generator-for-angular/" target="_blank">2</a></sup> <sup><a href="https://github.com/scullyio/scully" target="_blank">3</a></sup> to move the computation to compile/ deploy time.</p>
+
+
+</details>
+<details>
+<summary>Poser </summary>
+<p>This was presented at the end; as an errata. The developer/ presenter had made a tool to extract “joints” from MPG4 video of people (with ML I assume).  She was modelling with 17 joints per human, in a kind of [pure maths term] graph. She then was matching the joint graph against an earlier  joint graph and video; made by a professional dancer.<br />
+She expressed some problems normalising data (i.e. if the captured on the phone was from a child, obviously the arms and legs are different sizes to adults; and depth from camera). This was in interesting project, but not the kind of work I would be using in the future.</p>
+
+
+</details>
+<details>
+<summary>Alpine </summary>
+<p>This is like angular, but less bureaucracy. <br />
+The presenter did a walk through of the nouns he supports; but this content is available as <sup><a href="https://github.com/alpinejs/alpine/" target="_blank">1</a></sup>; so there isn't any reason to retype it.<br />
+He stated, as this is just evaluating JS, it could access external objects</p>
+
+
+</details>
+<details>
+<summary>Collection of useful URLs</summary>
+<p>One of the organisers had extracted all the useful URLs from the lecture notes, and gave us a combined list, so the attendees can find stuff</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><a href="https://docs.google.com/document/d/10HrtNsaQH0MBTsRKJIQldEr9XMiTLWkEsJ0HYEIrmSU/edit#heading=h.d75mahce6h8m" target="_blank">FaunaDB setup tut</a></li>
+    <li class="libasic"><a href="https://github.com/fauna-brecht/professional-network-graphql" target="_blank">graphQL network</a> <a href="https://github.com/Urigo/graphql-mesh" target="_blank">graphQL-mesh </a></li>
+    <li class="libasic"><a href="https://acko.net/blog/apis-are-about-policy/" target="_blank">APIs are policy</a> <a href="https://www.cleveroad.com/blog/how-to-build-a-live-streaming-app/" target="_blank">How to Create a Live Streaming App</a></li>
+    <li class="libasic"><a href="https://blog.nrwl.io/misconceptions-about-monorepos-monorepo-monolith-df1250d4b03c" target="_blank">monorepo monolith</a></li>
+    <li class="libasic"><a href="https://pinafore.social/" target="_blank">Pinfore</a> <a href="https://github.com/nolanlawson/pinafore" target="_blank">Pinafore src</a></li>
+    <li class="libasic"><a href="https://svelte-community.netlify.app/codei" target="_blank">Svelte</a> <a href="https://madewithsvelte.com/" target="_blank">boast list for Svelte</a> <a href="https://svelte.dev/tutorial/component-events" target="_blank">component events</a> <a href="https://github.com/sveltejs/svelte-preprocess" target="_blank">svelte preprocessor</a> <sup><a href="https://docs.microsoft.com/en-us/learn/modules/publish-app-service-static-web-app-api/" target="_blank">1</a></sup></li>
+    <li class="libasic"><a href="https://remote.reactsummit.com/" target="_blank">React summit</a> <a href="https://github.com/bahmutov/cypress-react-unit-test#comparison" target="_blank">cypress &amp; react</a></li>
+    <li class="libasic"><a href="https://glebbahmutov.com/blog/open-source-visual-testing-of-components/" target="_blank">cypress</a> <a href="https://github.com/cypress-io/cypress/pull/4176" target="_blank">cypress-IO</a> <a href="https://www.cypress.io/blog/2020/05/22/where-does-the-test-spend-its-time/" target="_blank">cypress execution costs</a> <a href="https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__performance-metrics" target="_blank">cypress 1</a> <a href="https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/testing-dom__hover-hidden-elements" target="_blank">cypress 2</a> <a href="https://on.cypress.io/plugins" target="_blank">cypress plugins</a> <a href="https://docs.cypress.io/guides/core-concepts/retry-ability" target="_blank">retry ability </a></li>
+    <li class="libasic"><a href="https://github.com/mswjs/msw" target="_blank">Mock Service Worker</a></li>
+    <li class="libasic"><a href="https://github.com/bahmutov/test-apollo" target="_blank">test for Apollo</a> <a href="https://slides.com/bahmutov/i-see-what-is-going-on" target="_blank">'I see what is going on'</a> <a href="https://slides.com/bahmutov/i-see-what-is-going-on#/9/9" target="_blank">video of previous</a></li>
+    <li class="libasic"><a href="https://tsed.io" target="_blank"> ts.ED framework</a></li>
+    <li class="libasic"><a href="https://www.fastify.io/docs/latest/Middleware/" target="_blank">fastify middleware</a> <a href="https://github.com/mcollina/one-two-three-fastify" target="_blank">fastify setup</a></li>
+    <li class="libasic"><a href="https://github.com/mcollina/make-promises-safe" target="_blank">better promise safety</a> <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController" target="_blank">abort controller</a> <a href="https://www.npmjs.com/package/abort-controller" target="_blank">abort in NPM</a></li>
+    <li class="libasic"><a href="https://docs.nestjs.com/" target="_blank">nestjs</a></li>
+    <li class="libasic"><a href="https://npmjs.com/piscina" target="_blank">piscina</a></li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/node-addon-api" target="_blank">addon-api</a></li>
+    <li class="libasic"><a href="https://github.com/sokra/slides/blob/master/content/ModuleFederationWebpack5.md" target="_blank">federated webpack</a></li>
+    <li class="libasic"><a href="https://github.com/vuejs/composition-api" target="_blank">vue3 composition api</a> <a href="https://academy.esveo.com/en/blog/Yr" target="_blank">Vue 3 Composition API</a>  <a href="https://catalins.tech/" target="_blank">Catalins blog</a></li>
+    <li class="libasic"><a href="https://jepsen.io/" target="_blank">Jepsen</a></li>
+    <li class="libasic"><a href="https://clojurescript.org/" target="_blank">clojure</a> <a href="https://objectcomputing.com/resources/publications/sett/march-2009-clojure-functional-programming-for-the-jvm" target="_blank">Clojure nearly book</a></li>
+    <li class="libasic">Books: <a href="https://landing.google.com/sre/workbook/toc/" target="_blank">SRE book</a> <a href="https://use-the-index-luke.com/sql/preface" target="_blank">use the index, SQL</a> <a href="https://catb.org/esr/writings/unix-koans/" target="_blank">UNIX koans, ESR</a> <a href="https://github.com/norvig/paip-lisp/" target="_blank">Palp-lisp book</a> <a href="https://book.realworldhaskell.org/read/" target="_blank">Haskell book</a> <a href="https://github.com/getify/You-Dont-Know-JS" target="_blank">'getify, dun't know JS' books</a></li>
+</ul>
+
+
+</details>
+
+</div>
+<br />
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,uitools,worklog"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div><p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth" >
+					<header><h1>JS Nation 'live' - 12 recent JS libraries from the JS conference 2020</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-25T21:17:15">25th of May 2023</time>
+						</span>
+						<span>Created <time datetime="2020-06-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Jun 2020</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fjs-nation-live-notes" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Summary of JS tools covered:</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:16">27th of May 2023, 10:11:16</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-25T21:17:15">25th of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

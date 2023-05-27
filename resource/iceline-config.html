@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Technical documentation for iceline</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Configuration for iceline." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Technical documentation for iceline">
+<meta itemprop="description" content="Configuration for iceline.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Technical documentation for iceline">
+<meta name="twitter:description" content="Configuration for iceline.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Technical documentation for iceline" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/iceline-config" />
+<meta property="og:description" content="Configuration for iceline." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:58" />
+<meta property="article:modified_time" content="22nd of Dec 2022" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/iceline-config" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Technical documentation for iceline",
+	"article:published_time":"27th of May 2023, 10:10:58", 
+    "article:modified_time":"22nd of Dec 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<div class="pullout">
+NOTE: this project is deprecated.
+</div>
+
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Configuration files <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>This resource applies to both editions of the platform.<br />
+When this file gets bigger I will split it into system and site settings.  Items marked system are dangerous in ignorance.</p>
+
+<p>As a list of items names:</p>
+
+<ol>
+    <li>master_browser_barrier ~ <a href="https://owenberesford.me.uk/resource/iceline-config#master" target="_blank">details</a> ~ This is a list of validation details for values that are allowed in the GET or POST requests.  The <a href="https://owenberesford.me.uk/resource/iceline-config#validation" target="_blank">validation options</a> are a small declarative language. Each noun is a rule to be applied to the data.  SYSTEM</li>
+    <li>master_alias_list    ~ A list of aliases so duplicate form items can have shared configuration (e.g. firstName and lastName having the same validation).  If you add forms to your site, you need to add items to this list, or the master_browser_barrier. </li>
+    <li>site_settings    ~ A <a href="https://owenberesford.me.uk/resource/iceline-config#site" target="_blank">list of items</a> to control the renderers and site settings.</li>
+    <li>renderers ~ A list of renderer classes, this is a SYSTEM setting, only touch if you know what you are doing.</li>
+    <li>mode_selector    ~ A list of resource classes, only touch when you are SYSTEM.  The order of this will affect the performance of the site.</li>
+</ol>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Master list of items  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+This list is just reproduced for reference.<br />
+
+<pre class="codeblock"><code>
+    'uid'      =&gt; array('type'=&gt;'int', 'optional'=&gt;1, ),
+    'lg'      =&gt; array('min-length'=&gt;2, 'max-length'=&gt;5, 'trim'=&gt;1, 'optional'=&gt;1,),
+    'eng'      =&gt; array('type'=&gt;'int', 'optional'=&gt;1, ),
+    'resource'=&gt; array('min-length'=&gt;2, 'max-length'=&gt;100, 'trim'=&gt;1, ),
+    'asset'      =&gt; array('min-length'=&gt;2, 'max-length'=&gt;100, 'trim'=&gt;1, ),
+     'hsh'      =&gt; array('min-length'=&gt;32, 'max-length'=&gt;32, 'trim'=&gt;1, 'optional'=&gt;1, ), # on dataflame
+    'md'      =&gt; array('type'=&gt;'int', 'optional'=&gt;1, ),
+    'db'      =&gt; array('type'=&gt;'int', 'optional'=&gt;1, ),
+    'view'      =&gt;array('trim'=&gt;1, ),
+    'humanname'=&gt;array('trim'=&gt;1, 'min-length'=&gt;2, 'max-length'=&gt;100, ),
+    
+    'action'  =&gt; array('trim'=&gt;1, 'enum'=&gt;array('new', 'update')),
+    'name'    =&gt;array('trim'=&gt;1, 'min-length'=&gt;2, 'max-length'=&gt;100,),
+    'size'    =&gt;array('trim'=&gt;1, 'min-length'=&gt;2, 'max-length'=&gt;100, 'optional'=&gt;1),
+    'date_UK' =&gt;array('trim'=&gt;1, 'min-length'=&gt;6, 'max-length'=&gt;10, 'regex'=&gt;'^[0-9]{1,2}[-\/][0-9]{1,2}[-\/][0-9]{2,4}$'),
+    'time_UK' =&gt;array('trim'=&gt;1, 'min-length'=&gt;6, 'max-length'=&gt;10, 'regex'=&gt;'^[0-9]{1,2}:[0-9]{1,2}:[0-9]*$|^[0-9]{1,2}:[0-9]{1,2}AM$|^[0-9]{1,2}:[0-9]{1,2}$'),
+    'indexItems'=&gt; array('type'=&gt;'int', ),
+    'some_text'=&gt;array('trim'=&gt;1, 'min-length'=&gt;2,),</code></pre>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Validation  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Currently supported validation rules values in this platform.</p>
+
+<ol>
+    <li>regex ~ the value is a regex, that will be applied to the data.</li>
+    <li>type --&gt; one of: boolean, int, float; to force type conversion from a string. Or JSON (written as lowercase), to allow auto conversion of JSON inputs to PHP array.</li>
+    <li>enum --&gt; as above only for literal values, like a DB.</li>
+    <li>optional ~ don't abort if absent.</li>
+    <li>reject-resource ~ on rejection, redirect to here.  This is spec'ed, but NOT IMPL.</li>
+    <li>reject-message  ~ on rejection, announce this error message.  This is spec'ed, but NOT IMPL.</li>
+    <li>min-length ~ require strings to be at least that number of chars.</li>
+    <li>max-length ~ require strings to be at most that number of chars.</li>
+    <li>trim ~ remove whitespace chars from the extremes of the item.</li>
+    <li>upper</li>
+    <li>lower ~ as it says on the tin...</li>
+</ol>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Config values  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This is a hash, in the data structures.  This means items may occur in any order.</p>
+
+<p>Items to be edited, per site</p>
+
+<ul class="ulbasic">
+    <li class="libasic">site_language (default 'en_UK') ~ which resource set to use, if the web-client doesn't specify.  Use requires the chosen language is present in the res directory, as one of the options. </li>
+    <li class="libasic">current_timezone (default 'Europe/London') ~ hopefully obvious.</li>
+    <li class="libasic">network_protocol (default    'http') ~ 'http' or 'https'.</li>
+    <li class="libasic">site_name ~ A string, will get added to various headers. Brandable</li>
+    <li class="libasic">page_author ~ Default value for the page author, used in HTML headers.</li>
+    <li class="libasic">cookie_domain    ~ '', where the cookies apply to.</li>
+    <li class="libasic">cookie_lifetime ~ (default 20*60) How long should a session last (seconds)? After this point, the EU will need to log in again. </li>
+    <li class="libasic">escape_urls (default 1) ~ the use of ASCII to entity conversion in embedded URLs, as an outbound filter. This makes the result HTML compliant to w3c spec.  Could cause errors in some awkward cases, so it is possible to turn it off.</li>
+    <li class="libasic">markup_ascii_quotes (default 1) ~ convert all double quotes in wiki text to relevant smart quotes.  Could cause errors in some awkward cases, so it is possible to turn it off.</li>
+    <li class="libasic">emit_log ~ Report the name of the current log file as a HTTP header 'X-transaction-reference'.  Only useful if you can copy files off the server.</li>
+    <li class="libasic">404-text ~ text used in the HTTP header message. Brandable.</li>
+    <li class="libasic">system_alert ~ add an optional alert message to the top of all web pages (this item is the text to display).  Brandable.</li>
+    <li class="libasic">revision ~ a piece of text to prepend to resources with the status=INCOMPLETE flag set.  Brandable.</li>
+    <li class="libasic">max_post_wait ~ the maximum time a csrf key is valid for.  After this point, the response will be rejected, for protect-csrf enabled forms.  Measured in seconds.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." >Software settings <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">page_charset (default    'utf-8') ~ Hopefully obvious.</li>
+    <li class="libasic">rendering_engine (default 2) ~ Which one to use, see renderers.</li>
+    <li class="libasic">session_name ~ Name of session in cookies etc. </li>
+    <li class="libasic">platform_name ~ A version string, used in reporting.</li>
+    <li class="libasic">platform_edition ~ '2.0.0', do not adjust, this is a string with Linux style double dot.  Used to load the correct resource files.</li>
+    <li class="libasic">log_verbosity ~ (default 8), controls the number of log messages written, see head of lib/Log for the options.  It is annoying that I can't use symbolic values, but this file is parsed before they are defined.</li>
+    <li class="libasic">log_targets ~ (default 2) Please read lib/Log, it is annoying that I can't use my nice constants, but they are not compiled yet.</li>
+    <li class="libasic">log_cache_size ~ (default 1024), How many messages to cache, before the buffer is flushed.  </li>
+    <li class="libasic">error_template ~ (default 'report-error') What template to use for reporting errors.</li>
+    <li class="libasic">safe_engine ~ (default 1), What is trusted to work, if options didn't.</li>
+    <li class="libasic">page_sections_header (default 'Table of Contents'), text for the header.</li>
+    <li class="libasic">resource_dir ~ (default '/resource/') Used in URLs.</li>
+    <li class="libasic">external_dir ~ (default '/external/') Used in URLs.</li>
+    <li class="libasic">asset_name ~ (default '/asset/') Used in URLs</li>
+    <li class="libasic">wiki_render_format ~ (default 'Xhtml') item to configure the output language.</li>
+    <li class="libasic">log_time_format ~ (default 'jS \o\f M, G:i:s'), what dates should look like in log files, see <a href="https://uk.php.net/manual/en/function.date.php" target="_blank">manual</a> for the details.</li>
+    <li class="libasic">human_date ~ (default 'jS \o\f M, G:i:s'), what the date should look like, in HTML.  See above link for reference.</li>
+    <li class="libasic">rss_date ~ A slightly different format needed to build RSS files with.  Don't edit this one, unless RSS changes.</li>
+    <li class="libasic">session_dir ~ where session files are put.</li>
+    <li class="libasic">log_dir ~ where logs are put.</li>
+    <li class="libasic">site_baseurl ~ the URL of this site.</li>
+    <li class="libasic">permit_syslog_leakage (default 0), should log message be allowed to leak to the HTML, if the normal account doesn't work. Probably want this off for live use.</li>
+    <li class="libasic">post_should_wiki (default 0), should post responses be feed through a wiki interpreter?</li>
+    <li class="libasic">show_all_errors ~ append *any and all* PHP errors to the clients warnings section.  Turn ON for testing, but OFF for production.  Most valuable for people edit the iceline itself.</li>
+    <li class="libasic">extra_markers ~ Chunks that need to be merged into the f2 frames.  This is an array of names.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Technical documentation for iceline</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ficeline-config" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ficeline-config" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ficeline-config" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>
+						</span>
+						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ficeline-config" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Configuration files</a></li>
+<li><a href="#toc1">Master list of items</a></li>
+<li class="h4_odd"><a href="#toc2">Validation</a></li>
+<li><a href="#toc3">Config values</a></li>
+<li class="h4_odd"><a href="#toc4">Software settings</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:58">27th of May 2023, 10:10:58</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

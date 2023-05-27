@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Splunk analysis</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Features and common use-cases for Splunk software as time-series renderer" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Splunk analysis">
+<meta itemprop="description" content="Features and common use-cases for Splunk software as time-series renderer">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Splunk analysis">
+<meta name="twitter:description" content="Features and common use-cases for Splunk software as time-series renderer">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Splunk analysis" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/splunk" />
+<meta property="og:description" content="Features and common use-cases for Splunk software as time-series renderer" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:37" />
+<meta property="article:modified_time" content="22nd of Dec 2022" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/splunk" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Splunk analysis",
+	"article:published_time":"27th of May 2023, 10:12:37", 
+    "article:modified_time":"22nd of Dec 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+<p>Splunk is a middleware platform; mostly written in Python2.  It is a closed source project owned by the Splunk inc US company.  They make grand claims on BI and operations processing; but in my experience its a rules processor on a large scale log reader and similar sources.   <br />
+Splunk has linked a vast number of open source libraries, and uses them inconsistently.</p>
+
+<p>With TSE <sup><a href="https://hoptroff.com/" target="_blank">1</a></sup>, Splunk achieves the following for time-series:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">simple easy to manage graphs, which look nice.  These are RWD, as SVG</li>
+    <li class="libasic">graphs of the three main metrics of MiFID II, and a raw clock data plot.</li>
+    <li class="libasic">auto data refresh</li>
+    <li class="libasic">security managed by Splunk itself</li>
+    <li class="libasic">easy to use compliance reports</li>
+    <li class="libasic">support for multiple estates of TSE (a shared Splunk node reduces operational costs)</li>
+    <li class="libasic">Disclosure: I work for this company and wrote this code</li>
+</ul>
+
+<p>With respect to time-series graphs, by-its-self Splunk is:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Notice I have approaching two years heavy use of Splunk; as a developer, not a user. This article can be less abstract as a consequence.  </li>
+    <li class="libasic">When pulling up links, I found this book online <sup><a href="https://newoutlook.it/download/book/splunk/advanced-splunk.pdf" target="_blank">2</a></sup> <strong>NOTE:</strong> I do not know the legality of the copy of the book; it is just a public search-engine result, and a deeplink.   </li>
+    <li class="libasic">Splunk is a daemon service; and also includes a webportal.   It is possible to have several different configurations (aggregator, forwarder, olddata storage etc).   A few years ago Splunk did everything with XML.  Newer versions are now using ini and CSV formats; as it is faster to parse.  The REST API talks XML by default, but can be setup to emit JSON.</li>
+    <li class="libasic">There is a mobile app <sup><a href="https://docs.splunk.com/Documentation/Alerts/2.11.0/ReleaseNotes/WhatsNew" target="_blank">3</a></sup>   <a href="https://apps.apple.com/us/app/splunk-mobile/id1420299852" target="_blank">iphone</a> <a href="https://play.google.com/store/apps/details?id=com.splunk.android.alerts&amp;amp;hl=en_GB&amp;amp;gl=US" target="_blank">android</a>. </li>
+    <li class="libasic">Splunk has many CMS features, it has a backup tool.   As mixed users are expected, they integrate OAuth. </li>
+    <li class="libasic">Splunk natively doesn't support any RDBMS; however the Splunk shop does have DBconnect <sup><a href="https://docs.splunk.com/Documentation/DBX/3.4.1/DeployDBX/HowSplunkDBConnectworks" target="_blank">4</a></sup> <sup><a href="https://splunkbase.splunk.com/app/2686/" target="_blank">5</a></sup>.  Looking for this returned a second book link <sup><a href="https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781788835237/1/ch01lvl1sec18/getting-data-from-databases-using-db-connect" target="_blank">6</a></sup>. </li>
+    <li class="libasic">[NOTE] Splunk supports a range of graph types <sup><a href="https://docs.splunk.com/Documentation/SCS/current/Viz/Decideonavisualizationtype" target="_blank">7</a></sup> <sup><a href="https://docs.splunk.com/Documentation/Splunk/8.1.1/Viz/Visualizationreference" target="_blank">8</a></sup>.</li>
+    <li class="libasic">Splunk user interface supports a range of languages <sup><a href="https://community.splunk.com/t5/Archive/Is-there-already-a-French-translation-for-Splunk-available/m-p/107152" target="_blank">9</a></sup> (see link for list).  Or <sup><a href="https://docs.splunk.com/Documentation/ITSI/4.7.1/Translated/Translateddocumentation" target="_blank">10</a></sup></li>
+    <li class="libasic">Splunk supports GIS <sup><a href="https://www.splunk.com/en_us/blog/tips-and-tricks/mapping-with-splunk.html" target="_blank">11</a></sup>; and links to ArcGIS <sup><a href="https://tray.io/connectors/arcgis-splunk-integrations" target="_blank">12</a></sup> <sup><a href="https://gcs.yourdatasmarter.com/splunk-and-arcgis/" target="_blank">13</a></sup>.</li>
+    <li class="libasic">When Splunk completes migration to python3 it will have good unicode support.</li>
+    <li class="libasic">[NOTE] Splunk provides a narrow scope scripting language; which has many maths primitives <sup><a href="https://docs.splunk.com/Documentation/SCS/current/SearchReference/MathematicalFunctions#See_also" target="_blank">14</a></sup> and data manipulation primitives <sup><a href="https://docs.splunk.com/Documentation/SCS/current/SearchReference/OverviewDatasetFunctions" target="_blank">15</a></sup>.  </li>
+    <li class="libasic">[NOTE] Splunk has “timechart” feature <sup><a href="https://docs.splunk.com/Documentation/Splunk/8.1.1/SearchReference/Timechart" target="_blank">16</a></sup> <sup><a href="https://www.splunk.com/en_us/blog/tips-and-tricks/two-time-series-one-chart-part-two.html" target="_blank">17</a></sup> for time series.</li>
+    <li class="libasic">Splunk has many index options <sup><a href="https://docs.splunk.com/Documentation/Splunk/8.1.1/Data/WhatSplunkcanmonitor" target="_blank">18</a></sup> <sup><a href="https://www.tutorialspoint.com/splunk/splunk_managing_indexes.htm" target="_blank">19</a></sup>, and will index any data that you give it.</li>
+    <li class="libasic">Splunk supports projections <sup><a href="https://docs.splunk.com/Documentation/SplunkCloud/8.1.2011/SearchReference/Predict" target="_blank">20</a></sup> <sup><a href="https://community.splunk.com/t5/Splunk-Search/Predict-show-past-events-and-future-predictions/m-p/356489" target="_blank">21</a></sup> <sup><a href="https://community.splunk.com/t5/Archive/How-to-predict-for-future-when-you-have-the-model-fitted/m-p/329192" target="_blank">22</a></sup> but calls them predictions.</li>
+    <li class="libasic">[NOTE] The charts can be edited <sup><a href="https://docs.splunk.com/Documentation/Splunk/8.1.1/Viz/ChartDisplayissues" target="_blank">23</a></sup> <sup><a href="https://dev.splunk.com/enterprise/docs/developapps/visualizedata/displaydataview/howtocreatecustomtablerow/" target="_blank">24</a></sup> <sup><a href="https://docs.splunk.com/Documentation/Splunk/8.0.6/Search/Aboutpredictiveanalytics" target="_blank">25</a></sup></li>
+    <li class="libasic">Axis on charts can be edited with <sup><a href="https://community.splunk.com/t5/Splunk-Search/How-to-change-the-time-to-X-axis-in-a-time-chart-table/m-p/214935" target="_blank">26</a></sup> <sup><a href="https://community.splunk.com/t5/Splunk-Search/How-do-I-change-the-label-of-the-x-axis-on-a-chart/m-p/352241" target="_blank">27</a></sup> <sup><a href="https://community.splunk.com/t5/Splunk-Search/how-to-correct-modify-x-axis/m-p/331653" target="_blank">28</a></sup></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Splunk analysis</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsplunk" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsplunk" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsplunk" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>
+						</span>
+						<span>Created <time datetime="2020-12-29T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >29th of Dec 2020</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsplunk" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:37">27th of May 2023, 10:12:37</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

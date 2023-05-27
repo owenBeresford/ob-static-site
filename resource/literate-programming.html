@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Literate programming</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Historical definition and meaning of literate programming. What does the strapline to this site actually mean? Practical implementation and practice of literate programming." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Literate programming">
+<meta itemprop="description" content="Historical definition and meaning of literate programming. What does the strapline to this site actually mean? Practical implementation and practice of literate programming.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Literate programming">
+<meta name="twitter:description" content="Historical definition and meaning of literate programming. What does the strapline to this site actually mean? Practical implementation and practice of literate programming.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Literate programming" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/literate-programming" />
+<meta property="og:description" content="Historical definition and meaning of literate programming. What does the strapline to this site actually mean? Practical implementation and practice of literate programming." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:27" />
+<meta property="article:modified_time" content="26th of Apr 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/literate-programming" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Literate programming",
+	"article:published_time":"27th of May 2023, 10:11:27", 
+    "article:modified_time":"26th of Apr 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>I meant to write article in the last big set of publications, but I exceeded my time, and it dropped off the end of my queue.  The strapline on my site is “Literate programming: 170,000 words and rising”, am I using this correctly?</p>
+
+<p>At the start of this website project, my objectives where 1) get experience in PHP5, 2) organise my older work into a structure so I could talk about it easier 3) write some new code, so I could delete older very-rushed code 4) get practice writing long texts, as I was poor at this when I was 20.  My initial objective was write twice or thrice as many lines in English as lines in code.  To be in a position where I used references, like my degrees are a successful learning experience.  Most of my budget has been in the content.  The strap-line was sarcastic jibe that I would be literate at the end of the project if I wasn't at the start.  Literate in the sense of writing, rather than reading.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Definition: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Literate programming was invented by Prof D Knuth <sup><a href="https://en.wikipedia.org/wiki/Literate_programming" target="_blank">1</a></sup> ~ born 1939.  The paradigm was to reduce errors by writing the entire solution as a narrative in English (or other natural language).  Tools extracted the structured text and published it to a viewing format (normally TEX or HTML), and the source code, then compiled it.   The structure of the code was to be built out of the phrases in the text.  The order of items should be set to “psychologically correct order”, which is important if you are using Pascal like D Knuth was.  The same source lists proper tools for literate programming.<br />
+A more readable summary is <sup><a href="https://www.worthe-it.co.za/blog/2018-05-28-literate-programming.html" target="_blank">2</a></sup> <sup><a href="https://blog.esciencecenter.nl/literate-programming-in-science-1669094541a7" target="_blank">3</a></sup>, with much better examples.  There is some analysis on outcomes for literate programming <sup><a href="https://tug.org/TUGboat/tb13-3/childs.pdf" target="_blank">4</a></sup>.  It describes that thinking in English would improve the quality of the source, but lacks actual study results.  Further work by another academic <sup><a href="https://web.stanford.edu/group/cslipublications/cslipublications/site/0937073806.shtml" target="_blank">5</a></sup> <sup><a href="http://www.rigwit.co.uk/papers/literate.html" target="_blank">6</a></sup>, but no study results.  There seems to be a website <sup><a href="http://www.literateprogramming.com/" target="_blank">7</a></sup> purely listing references to literate programming.  Quite a few of the XML Schema I have handled are quite similar to literate programming.  This fact is observed <sup><a href="http://xml.coverpages.org/relaxng-is20021212.pdf" target="_blank">8</a></sup> by other people.  There are still tools being produced for literate programming <sup><a href="https://github.com/cdosborn/lit" target="_blank">9</a></sup> <sup><a href="https://github.com/fsprojects/FSharp.Formatting" target="_blank">10</a></sup>, and it seems to have a following in the R language (example <sup><a href="https://bookdown.org/kochiuyu/Technical-Analysis-with-R/sweave-r-code-in-latex.html" target="_blank">11</a></sup> <sup><a href="https://github.com/SciViews/svSweave" target="_blank">12</a></sup> ). It should be remembered that Prof Knuth didn't have access to “the web” that current users do, as it hadn't been invented yet.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > My literate programming practice: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Just listing relevant details...</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Put things into objects ~ it is easier to talk or write about a functionality or feature, when it is decomposed into Nouns.</li>
+    <li class="libasic">Create the interfaces/ API for the whole platform before writing any code ~ this is just to ensure consistency.  As I am designing the entire thing it will read better.  Thinking about information flow, rather than implementation details will often lead to less code being needed.  Secondly, where the same action seems to be needed repeatedly, I can refactor ahead of any actual cost.</li>
+    <li class="libasic">Where I am uncertain about the implementation, I document my entire proposal as short statements in Engineering English.  This is pseudo-code, but only needed for new technologies.  As new technologies involve lots of reading, this helps me focus the research. These statements are to be left in the code, as a class doc header; and updated as the code changes.   What is atypical to me will be atypical to other developers.  I add my references after these instructions.</li>
+    <li class="libasic">Use tools to API document the unit.  This is extended for the other tools, such as PHPunit, FOS REST etc.   API docs should list all exception or error states; so other developers will know that they may occur.</li>
+    <li class="libasic">When writing the code, and when I need to do something that is stupid; I document why it is necessary.  If the reason becomes invalid, I know I can correct my practice.  This process normally only takes 30s per stupid choice, I don't have “high levels of stupid” in my code.</li>
+    <li class="libasic">Everything that is visible should be named to be self-explanatory.  If its not visible it should have a short lifespan.  Obvious, isn't the same as written out long-windedly.  Avoid un-cited cultural references.</li>
+    <li class="libasic">When my code is well factored, each method is fairly short, this means that API docs normally cover everything that is needed.   Needing to add alot of docs inside a function means you can't test easily, which is bad for its own reasons.  Knuth wrote the code sections as macros, I use methods.</li>
+    <li class="libasic">Use task trackers intelligently.  Ensue binary formats that you can't diff.</li>
+    <li class="libasic">Store things like SQL installation scripts with the source in the VCS.  This means that each version of a feature has the correct and matching environment.  This fights silo-coding, which is probably a good idea.</li>
+    <li class="libasic">Tools like SASS and Minify are useful, but don't check the results into the VCS.  In high performance places, I have minify tools for the PHP, and frameworks like Symfony often compile the source.  To reference Knuth, “tangle”.</li>
+    <li class="libasic">For my open source items, I log my thoughts and details as I go in a wiki page, similar to what you are reading.</li>
+</ul>
+
+<p>It is probably more accurate to say “semi-literate programming”.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="english,research"> <p>Some similar articles in english </p><div id="groupenglish" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=english" title="This article lists all items in english group.">All of <br />english </a></span> </div><p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Literate programming</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fliterate-programming" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fliterate-programming" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fliterate-programming" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-04-26T17:36:35">26th of Apr 2023</time>
+						</span>
+						<span>Created <time datetime="2015-03-10T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fliterate-programming" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Definition:</a></li>
+<li><a href="#toc1">My literate programming practice:</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:27">27th of May 2023, 10:11:27</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-26T17:36:35">26th of Apr 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

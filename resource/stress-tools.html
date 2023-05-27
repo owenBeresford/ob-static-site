@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>REST test tools</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Article with information about current stress test tools" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="REST test tools">
+<meta itemprop="description" content="Article with information about current stress test tools">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="REST test tools">
+<meta name="twitter:description" content="Article with information about current stress test tools">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="REST test tools" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/stress-tools" />
+<meta property="og:description" content="Article with information about current stress test tools" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:41" />
+<meta property="article:modified_time" content="24th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/stress-tools" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "REST test tools",
+	"article:published_time":"27th of May 2023, 10:12:41", 
+    "article:modified_time":"24th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>This is background research into current saturation test tools that work over HTTP. This domain is suited to E2E testing, but generally excludes any client side stuff, as the client doesn't need to scale that much.  For test purposes, I would setup the tool on the same host as the webserver, so results on different test scenarios are more reliably comparable.<br />
+I'm writing this, as today I wrote another test runner to be able to send API requests in bulk; and think this is misplaced effort.</p>
+
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Requirements for the tools: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">can talk HTTPS</li>
+    <li class="libasic">can authenticate self at start of script (via a login request; or HTTP auth, if essential)</li>
+    <li class="libasic">will understand full range of HTTP response codes</li>
+    <li class="libasic">can send each HTTP verb [1]</li>
+    <li class="libasic">provides control on request population</li>
+    <li class="libasic">provides summaries of results</li>
+    <li class="libasic">ideally has basic support for JSON and XML parsing, to be able to understand inline error codes from API that aren't REST [2]</li>
+    <li class="libasic">can be linked into a CI</li>
+    <li class="libasic">can do floods of requests, not singular ones</li>
+</ul>
+
+
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > List <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">General articles on stress tools <sup><a href="https://dzone.com/articles/12-great-web-service-testing-tools" target="_blank">1</a></sup> <sup><a href="https://www.quora.com/What-is-the-best-platform-tools-for-testing-a-REST-API" target="_blank">2</a></sup>    </li>
+    <li class="libasic"> </li>
+    <li class="libasic"><strong><a href="https://packagecontrol.io/packages/Requester" target="_blank">Requester</a></strong>, env: sublime text editor/Python. <ul class="ulbasic">
+        <li class="libasic">see comprehensive notes <sup><a href="https://www.quora.com/What-is-the-best-platform-tools-for-testing-a-REST-API" target="_blank">3</a></sup> <sup><a href="https://kylebebak.github.io/Requester/" target="_blank">4</a></sup></li>
+        <li class="libasic"><a href="https://github.com/braindamageinc/SublimeHttpRequester" target="_blank">supports HTTPS</a> ✔ <a href="https://kylebebak.github.io/Requester/#sessions" target="_blank">authentication</a> ✔ <a href="https://kylebebak.github.io/Requester/#test-runner" target="_blank">status codes</a> ✔ <a href="https://github.com/kylebebak/Requester/blob/master/docs/_content/body.md" target="_blank">http verbs</a> ✔ summaries, CI integration and JSON parsing can be done via Python, but not by automagic.  Can export tests to flat Python scripts.</li>
+        <li class="libasic"></li>
+    </ul></li>
+    <li class="libasic"><strong><a href="https://www.getpostman.com/products" target="_blank">Postman</a></strong>, env: some cloud server + your Chrome instance<ul class="ulbasic">
+        <li class="libasic">mature documentation at <sup><a href="https://www.getpostman.com/docs/v6/" target="_blank">5</a></sup></li>
+        <li class="libasic">targeting CI, its a payfer ware <sup><a href="https://www.getpostman.com/pricing" target="_blank">6</a></sup></li>
+        <li class="libasic"><a href="https://blog.postman.com/using-self-signed-certificates-with-postman/" target="_blank">supports HTTPS</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/authorization" target="_blank">supports authentication</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/responses" target="_blank">status codes and response parsing</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/requests" target="_blank">http verbs</a> (find in page for Method) ✔ <a href="https://www.getpostman.com/docs/v6/postman/collections/managing_collections" target="_blank">populations</a> ✔ <a href="https://blog.jongallant.com/2017/04/postman-newman-vsts-continuous-integration/" target="_blank">CI integration</a> ✔ </li>
+    </ul></li>
+    <li class="libasic"><strong><a href="https://www.soapui.org/" target="_blank">SoapUI</a></strong>, env: Java/Maven. <ul class="ulbasic">
+        <li class="libasic">some docs <a href="https://en.wikipedia.org/wiki/SoapUI" target="_blank">wiki</a> <sup><a href="https://support.smartbear.com/readyapi/docs/soapui/index.html" target="_blank">7</a></sup> which are auto-generated, and hard to read.</li>
+        <li class="libasic">is a payfer ware, although I'm not sure on value to you, the customer</li>
+        <li class="libasic"><a href="https://support.smartbear.com/readyapi/docs/soapui/steps/index.html" target="_blank">supports HTTPS</a> ✔ <a href="https://stackoverflow.com/questions/23296792/using-soapui-to-test-login-function-of-rest-application" target="_blank">supports authentication</a> ✔ <a href="https://www.soapui.org/docs/functional-testing/validating-messages/getting-started-with-assertions.html" target="_blank">status codes</a> ✔ <a href="https://stackoverflow.com/questions/33800164/soapui-property-transfer-from-json-response-single-response-without-any-value" target="_blank">response parsing</a> ✔ <a href="https://www.soapui.org/learn/api/rest-request-method-verbs.html" target="_blank">http verbs</a> ✔ <a href="https://stackoverflow.com/questions/2673369/can-i-use-soapui-for-concurrency-testing?rq=1" target="_blank">populations</a> ✔ <a href="https://stackoverflow.com/questions/6648244/how-to-integrate-soapui-with-jenkins" target="_blank">CI integration</a> ✔ </li>
+    </ul></li>
+    <li class="libasic"><strong><a href="https://www.inflectra.com/Rapise/Highlights.aspx" target="_blank">Rapise</a></strong> env: java <ul class="ulbasic">
+        <li class="libasic">This looses marks for being win32 only but written in Java</li>
+        <li class="libasic">This seems to be an interactive HTTP client, with JS, but without media support.  Like a HTTP-REPL.</li>
+        <li class="libasic">This looks like a strong contender with Selenium.</li>
+        <li class="libasic"><a href="https://www.inflectra.com/Documents/Rapise%20Web%20Service%20Testing%20Tutorials.pdf" target="_blank">manual</a></li>
+        <li class="libasic">supports authentication ~ roughly, but the docs only mention BASIC auth status codes ~ roughly the manual only mentions HTTP200 ✔ <a href="https://www.inflectra.com/Rapise/Highlights/Test-Validation.aspx" target="_blank">response parsing</a> ✔  http verbs ~ roughly, the manual only mentions GET and POST <a href="https://www.inflectra.com/Rapise/Highlights/SpiraTest-Integration.aspx" target="_blank">populations</a> ✔ <a href="https://www.inflectra.com/support/knowledgebase/kb300.aspx" target="_blank">CI integration</a> ✔ (roughly, they want to hype their own scheduler tools)</li>
+    </ul></li>
+    <li class="libasic"><strong><a href="https://gatling.io/" target="_blank">Gatling</a></strong> env: scala<ul class="ulbasic">
+        <li class="libasic">docs <sup><a href="https://gatling.io/documentation/" target="_blank">8</a></sup> <sup><a href="https://gatling.io/blog/" target="_blank">9</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Gatling_%28software%29" target="_blank">10</a></sup></li>
+        <li class="libasic">The docs show writing a full couple of classes as a test; same volume of work as adding a static page to a Symfony website.  Any thing you can do with a programming language, may be included in a test.  This isn't really a tool, but does have good high request volume support.</li>
+    </ul></li>
+    <li class="libasic"><strong><a href="https://www.parasoft.com/products/soatest" target="_blank">SOAtest</a></strong> env: .Net <ul class="ulbasic">
+        <li class="libasic">docs <sup><a href="https://docs.parasoft.com/display/SOA9103/Testing+RESTful+Services+1" target="_blank">11</a></sup> <sup><a href="https://docs.parasoft.com/display/SOA9105/SOAtest+Smart+API+Test+Generator" target="_blank">12</a></sup> <sup><a href="https://en.wikipedia.org/wiki/SOAtest" target="_blank">13</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Parasoft" target="_blank">14</a></sup> manual on scribd <sup><a href="https://www.scribd.com/doc/249718308/Tutorial-Parasoft" target="_blank">15</a></sup> </li>
+        <li class="libasic">This tool is quite focussed on XML, not REST.</li>
+        <li class="libasic">They are waving the word “licence” around a lot.</li>
+        <li class="libasic"><a href="https://docs.parasoft.com/display/SOAVIRT9103/Configuring+for+Services+Deployed+Over+HTTPS" target="_blank">supports HTTPS</a> ✔ <a href="https://docs.parasoft.com/display/SOAVIRT9103/Authentication%2C+Encryption%2C+and+Access+Control" target="_blank">supports authentication</a> ~ read the link, they are focussed on XML RPC certs, not user accounts. Response parsing is not in the manual at all, <a href="https://www.scribd.com/doc/249718308/Tutorial-Parasoft" target="_blank">although</a>.  No mention of http verbs <a href="https://docs.parasoft.com/display/SOA9103/Automated+Testing+as+a+Nightly+Process" target="_blank">populations</a> ✔ <a href="https://stackoverflow.com/questions/26674229/how-to-integrate-parasoft-soatest-with-jenkins" target="_blank">CI integration</a> ✔ </li>
+    </ul></li>
+    <li class="libasic"><strong><a href="https://vrest.io/" target="_blank">vREST</a></strong> env: Node<ul class="ulbasic">
+        <li class="libasic">payfer wares <sup><a href="https://vrest.io/pricing" target="_blank">16</a></sup>, docs <sup><a href="https://docs.optimizory.com/display/vrest/vREST+Documentation+Home" target="_blank">17</a></sup> <sup><a href="https://www.linkedin.com/pulse/automate-your-rest-api-testing-using-vrest-dheeraj-kumar-aggarwal/" target="_blank">18</a></sup></li>
+        <li class="libasic">supports HTTPS, I assert yes, if its written in Node, but its not listed anywhere. <a href="https://docs.optimizory.com/display/vrest/Cookie+Based+Authentication" target="_blank">supports authentication</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Response+Validation" target="_blank">status codes and response parsing</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Writing+your+first+test+case" target="_blank">http verbs</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Executing+test+cases" target="_blank">populations</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Jenkins+Server" target="_blank">CI integration</a> ✔ </li>
+    </ul></li>
+    <li class="libasic"><strong><a href="https://jmeter.apache.org/" target="_blank">JMeter</a></strong> env: I suspect C<ul class="ulbasic">
+        <li class="libasic">docs <sup><a href="https://jmeter.apache.org/usermanual/component_reference.html" target="_blank">19</a></sup>  </li>
+        <li class="libasic"><a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request" target="_blank">supports HTTPS</a> ✔ <a href="https://stackoverflow.com/questions/1389464/session-cookie-management-in-apache-jmeter" target="_blank">supports authentication</a> (this is more together, it includes links to their docs) ✔ <a href="https://stackoverflow.com/questions/10145555/assert-returned-status-code-http-400-as-a-success" target="_blank">status codes</a> ✔ <a href="https://www.testingexcellence.com/parse-json-response-using-jmeters-json-extractor/" target="_blank">response parsing</a> ✔ <a href="https://jmeter.apache.org/usermanual/build-web-test-plan.html#logging_in" target="_blank">http verbs</a> ✔ <a href="https://jmeter.apache.org/usermanual/test_plan.html" target="_blank">populations</a> ✔ <a href="https://www.blazemeter.com/blog/continuous-integration-101-how-run-jmeter-jenkins" target="_blank">CI integration</a> ✔ </li>
+    </ul></li>
+</ul>
+
+<p>[1] I am being careful with GUI on this point.  If I am using cURL, I can type a short string for the verb, and may use anything.  In a GUI, I will be pressing a button, and there may only be “GET” or “POST” as options.</p>
+
+<p>[2] Not my work obviously. Adding “does this match the documentation” tests to third party API is never a bad thing.  It doesn't take long with correct tooling, and will save much more time debugging integrations.  Most of the vendors I'm talking to after 2013 have a REST API not a random RPC API or web-scraping.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing"> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>REST test tools</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstress-tools" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstress-tools" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstress-tools" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-24T08:21:36">24th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2018-10-14T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >14th of Oct 2018</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fstress-tools" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Requirements for the tools:</a></li>
+<li><a href="#toc1">List</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:41">27th of May 2023, 10:12:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-24T08:21:36">24th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

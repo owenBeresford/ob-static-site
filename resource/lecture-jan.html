@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Lecture 2</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="I advise you skip this article" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Lecture 2">
+<meta itemprop="description" content="I advise you skip this article">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Lecture 2">
+<meta name="twitter:description" content="I advise you skip this article">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Lecture 2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/lecture-jan" />
+<meta property="og:description" content="I advise you skip this article" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:25" />
+<meta property="article:modified_time" content="18th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/lecture-jan" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Lecture 2",
+	"article:published_time":"27th of May 2023, 10:11:25", 
+    "article:modified_time":"18th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+<p>Working document only, only value in this resource are the words.  <br />
+I will add Q-codes to this display, so people can access links on their phone.<br />
+This is is quite wordy on purpose, the released ones wont be so much.</p>
+
+<hr />
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro to test culture <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>“Move fast and break stuff” <sup><a href="https://mashable.com/2014/04/30/facebooks-new-mantra-move-fast-with-stability/" target="_blank">1</a></sup> <br />
+This doesn't apply to all sectors e.g. your bank account. <sup><a href="https://buttondown.email/kentcdodds/archive/a82969b4-6e67-4f58-9a85-fed5eb85fbd3" target="_blank">2</a></sup></p>
+
+<hr />
+<p>Pragmatism:<br />
+“survive, adapt, take over” š<br />
+“embrace and extend” <sup><a href="https://wiki.c2.com/?EmbraceAndExtend" target="_blank">3</a></sup><br />
+“Make It Work, Make It Right, Make It Fast” <sup><a href="https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast" target="_blank">4</a></sup></p>
+
+<p>š <sub>this quote is no longer online. It was in 2008, I need a quote dictionary</sub></p>
+
+<hr />
+<p>Recent software failures:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Australian Bank ATM upgrade breaks <sup><a href="https://www.itnews.com.au/news/suncorp-system-upgrade-causes-cash-to-disappear-451950" target="_blank">5</a></sup> <sup><a href="https://www.abc.net.au/news/2017-02-19/suncorp-bank-issue-sees-money-go-missing-bank-accounts/8284262" target="_blank">6</a></sup></li>
+    <li class="libasic">Bitcoin creation software is crashing <sup><a href="https://www.ccn.com/caused-bitcoin-unlimited-node-crash/" target="_blank">7</a></sup> <sup><a href="https://www.trustnodes.com/2017/03/22/bitcoin-unlimited-nodes-crash-recover-bitcoins-price-falls" target="_blank">8</a></sup></li>
+    <li class="libasic">Swiss banking system fails with publishing statements <sup><a href="https://www.faz.net/aktuell/wirtschaft/software-fehler-der-deutschen-bank-im-online-banking-14274351.html" target="_blank">9</a></sup> <sup><a href="https://www.haz.de/Nachrichten/Wirtschaft/Deutschland-Welt/Software-Fehler-Deutsche-Bank-schockt-Kunden-mit-Doppel-Buchung" target="_blank">10</a></sup> [sorry de_DE]</li>
+</ul>
+
+<p>Really expensive failures:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">US Market maker experienced trading algorithm failure and loses $440M in 44min <sup><a href="https://www.bloomberg.com/news/articles/2012-08-02/knight-shows-how-to-lose-440-million-in-30-minutes" target="_blank">11</a></sup> <sup><a href="https://www.theregister.co.uk/2012/08/03/bad_algorithm_lost_440_million_dollars/" target="_blank">12</a></sup></li>
+    <li class="libasic">Bit coin exchange in Japan loses 7% of all bitcoins (roughly $500M) <sup><a href="https://en.wikipedia.org/wiki/Mt._Gox#Bankruptcy%3B_stolen_bitcoin_%282014%E2%80%93ongoing%29" target="_blank">13</a></sup> <sup><a href="https://www.theregister.co.uk/2014/03/31/staff_tried_to_warn_bitcoin_ceo_of_risks_reports/" target="_blank">14</a></sup> <sup><a href="https://cointelegraph.com/news/the-mess-that-was-mt-gox-four-years-on" target="_blank">15</a></sup></li>
+    <li class="libasic">UK Bank breaks customer systems for months <sup><a href="https://www.ft.com/content/3c07025c-8139-11e8-bc55-50daf11b720d" target="_blank">16</a></sup> [paywall] <sup><a href="https://www.computerworlduk.com/galleries/infrastructure/top-software-failures-recent-history-3599618/" target="_blank">17</a></sup> <sup><a href="https://www.computerworlduk.com/it-management/ibm-points-insufficient-testing-as-root-cause-tsb-migration-disaster-3679499/" target="_blank">18</a></sup> </li>
+    <li class="libasic">US chip manufacturer FPU failure ($450M tidyup in late 90s) <sup><a href="https://en.wikipedia.org/wiki/Pentium_FDIV_bug" target="_blank">19</a></sup> <sup><a href="https://www.techradar.com/news/computing-components/processors/pentium-fdiv-the-processor-bug-that-shook-the-world-1270773" target="_blank">20</a></sup> <sup><a href="https://ethics.csc.ncsu.edu/risks/reliability/pentium/study.php" target="_blank">21</a></sup> </li>
+    <li class="libasic">2022, CTX goes very wrong on multiple vectors, many assets vanish <sup><a href="https://web3isgoinggreat.com/?id=ftx-claims-it-was-hacked" target="_blank">22</a></sup>.  My non-investment-banker perspective doesn't feel like now is the tyime to hold assets in Crypto, organised crime has much better access than I <sup><a href="https://newsletter.mollywhite.net/p/in-2022-web3-went-just-great" target="_blank">23</a></sup>.    </li>
+</ul>
+
+<p>Not a single project, but a summary thing <sup><a href="https://www.prweb.com/releases/2013/1/prweb10298185.htm" target="_blank">24</a></sup></p>
+
+<hr />
+<p>Case study ~ an example of changing requirements:<br />
+In the mid-nighties, there was alot of news articles about “the Y2K<a class="" href="https://www.google.co.uk/search?q=Y2K">?</a> bug”.  News articles liked talking about everything electronic dying.</p>
+
+<p>As I was still in school, so didn't do anything for this.  Alot of short contracts where issued, and alot of billing/accountancy code had to be updated <sup><a href="https://www.cs.swarthmore.edu/~eroberts/cs91/projects/y2k/Y2K_Errors.html" target="_blank">25</a></sup> <sup><a href="https://stackoverflow.com/questions/4201427/why-did-the-y2k-bug-exist" target="_blank">26</a></sup> <sup><a href="https://stackoverflow.com/questions/2007252/what-is-causing-the-2010-bugs?rq=1" target="_blank">27</a></sup> <a href="https://en.wikipedia.org/wiki/Year_2000_problem" target="_blank">wiki</a></p>
+
+<hr />
+
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Business Motive <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ol>
+    <li>What do business want?<ul class="ulbasic">
+        <li class="libasic">Quickly and cheaply and high quality </li>
+    </ul></li>
+    <li>What can they get?<ul class="ulbasic">
+        <li class="libasic">Hopefully any two of the above</li>
+        <li class="libasic">Some times only one.</li>
+    </ul></li>
+</ol>
+
+<hr />
+
+<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Profiling of business people <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>Disclaimer: The following is not a joke, its a warning that talking like software engineer wont help <br />
+All the business books I have read write out everything three times.<br />
+All the business books I have read write out everything three times.<br />
+All the business books I have read write out everything three times.</p>
+
+<p>. . . and define ROI <sup><a href="https://en.wikipedia.org/wiki/Return_on_investment" target="_blank">28</a></sup> like its hard to understand.   And  use many more abbreviations than computer science does.</p>
+
+<hr />
+
+<h2 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Definition of test success <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>To deliver 80% of required features, at less than 80% of budget, with 99% availability.  <br />
+Then use the 20% for the things they didn't mention at the start.</p>
+
+<hr />
+<p>quote Scrum: Deliver value <sup><a href="https://www.gilb.com/p/ValueFirst" target="_blank">29</a></sup> <sup><a href="https://www.infoq.com/news/2015/11/delivering-value-agile-teams" target="_blank">30</a></sup>.</p>
+
+<hr />
+<p>So . . . time to negotiate? <br />
+“there ain't no such thing as a free lunch” <sup><a href="https://quoteinvestigator.com/2016/08/27/free-lunch/" target="_blank">31</a></sup> <sup><a href="https://en.wikipedia.org/wiki/There_ain%27t_no_such_thing_as_a_free_lunch" target="_blank">32</a></sup></p>
+
+<ul class="ulbasic">
+    <li class="libasic">Assuming a normal e-commerce scenario, the business will care most about the most used and most visible user journeys.</li>
+    <li class="libasic">Assuming financial services, the business will care the most just before an audit. </li>
+    <li class="libasic">If you do something like blackfriday sales, it is business critical to have stress testing done before this event.</li>
+    <li class="libasic">Assuming I am me, the highest value section is the DB. I can fix anything else fairly quickly; I can replace anything else at fairly low risk.</li>
+</ul>
+
+<hr />
+<p>We cannot treat software features like hostages.</p>
+
+<p>Get PM/AM type people to seriously look at the risk profiles.</p>
+
+<p>Graph of bug discovery point... <br />
+<img src="https://owenberesford.me.uk/asset/graph.png" width="580" height="320" alt="graph.png" /></p>
+
+<hr />
+<p>People have invented the term 'technical debt' <sup><a href="https://en.wikipedia.org/wiki/Technical_debt" target="_blank">33</a></sup> <sup><a href="https://www.agilealliance.org/introduction-to-the-technical-debt-concept/" target="_blank">34</a></sup> <sup><a href="https://www.atlassian.com/agile/software-development/technical-debt" target="_blank">35</a></sup>.</p>
+
+<p>BUT businesses manage fine with lots of debt.</p>
+
+<p>Try 'technical late filing'.<br />
+Since I typed that, a different guy ~ @daveliddament <sup><a href="https://www.linkedin.com/in/daveliddament/?originalSubdomain=uk" target="_blank">36</a></sup> <sup><a href="https://github.com/DaveLiddament?tab=repositories" target="_blank">37</a></sup> ~ had “evolvability defect”, which is also better</p>
+
+<hr />
+<p>Geek: noun, a person who will take responsibility of technical systems in exchange for money.</p>
+
+<hr />
+<p>I do not have budget for 100% test coverage. I never have had. <br />
+I am not MoD.   I do not get a £6K/Y training per head ¥. <br />
+I do not have room for failure.</p>
+
+<p>¥ <sub>quoting my mother who was paid some of that MoD money as a lecturer doing evening classes.</sub></p>
+
+<hr />
+
+<h2 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Implementation <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>ranty ranty, so here are some suggestions...</p>
+
+<hr />
+<p>This list is example of what not to read out :-)</p>
+
+<p>Public work:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">PHP unit-test [phpunit] <a href="https://github.com/owenBeresford/phpunit-skelgen" target="_blank">skelgen</a> <sup><a href="https://owenberesford.me.uk/resource/phpunit-skelgen" target="_blank">38</a></sup></li>
+    <li class="libasic">Perl unit-test <a href="https://github.com/owenBeresford/punit" target="_blank">Punit</a> <sup><a href="https://owenberesford.me.uk/resource/punit" target="_blank">39</a></sup></li>
+    <li class="libasic">JS unit-test <sup><a href="https://owenberesford.me.uk/resource/JS-test-frameworks" target="_blank">40</a></sup></li>
+    <li class="libasic"><a href="https://github.com/owenBeresford/oab1-conf/blob/master/bin/textExtract.js" target="_blank">Human text extractor</a>, to feed into your spell checker </li>
+    <li class="libasic"><a href="https://owenberesford.me.uk/resource/testing-epic" target="_blank">process notes</a> and resource links </li>
+</ul>
+
+<p>Closed/ corporate work:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">mis-xml-test [2007] ~ quick framework to allow bulk testing on XML API features</li>
+    <li class="libasic">maaad-test [2008] ~ high volume RADIUS packet generator, full protocol</li>
+    <li class="libasic">radlog-hack [2008] ~ tool to analyse RADIUS client failures, to improve services, auto-mails</li>
+    <li class="libasic">querylog-hack [2006] ~ tool to extract DB warnings &amp; convert to statement handles</li>
+    <li class="libasic">mis-symbol-test [2005, 2009] ~ a daily used but simple tool that reported symbol definition failures.  Second edition also implemented DC symbols reporting</li>
+    <li class="libasic">mswhw-test [2010] ~ bits of a tool to test each class of my template renderer</li>
+    <li class="libasic">iceline-test [2009] ~ my test data set for my ancient CMS. Not actually commercial, but not distributed.</li>
+    <li class="libasic">mt-gis-test [2012] ~ tool to test integration to a couple of mapping JS API</li>
+    <li class="libasic">mt-template [2012] ~ simple tool for testing JS rendering (API response to HTML compare)</li>
+    <li class="libasic">mt-net-hack [2012] ~ tool to test JS client API performance, and confirm all error states are dealt with</li>
+    <li class="libasic">fx-testdb [2015] ~ tool to extract a sample from prod db, for testing &amp; anonymise</li>
+    <li class="libasic">v10-venue-test [2016] ~ tool to test dataset integrity/consistency</li>
+    <li class="libasic">v10-test [2016] ~ API test tool wrapping phpunit</li>
+    <li class="libasic">hll-manual-test [2017] ~ collection of unit-tests that test not-my-code things (e.g. db latency), to be run manually</li>
+</ul>
+
+<hr />
+<p>Heuristics, analysis is valuable for fast or complex projects</p>
+
+<ul class="ulbasic">
+    <li class="libasic">understand objectives before writing anything §</li>
+    <li class="libasic">if a post-it notes meets supplied objectives, submit a post-it note; and go on holiday (this is cheap and fast, and stable)</li>
+    <li class="libasic">label things correctly and clearly (i.e. setters must have Cyclomatic complexity / CC <sup><a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank">41</a></sup> <sup><a href="https://www.cqse.eu/en/blog/mccabe-cyclomatic-complexity/" target="_blank">42</a></sup> <sup><a href="https://www.cqse.eu/en/blog/mccabe-cyclomatic-complexity/" target="_blank">43</a></sup> of 1)</li>
+    <li class="libasic">write tests to these objectives. These tests save you time thinking, thinking is harder than writing tests.</li>
+    <li class="libasic">engage on management of process, to hold onto funds for deliverables</li>
+    <li class="libasic">all points must cope with things moving. <ul class="ulbasic">
+        <li class="libasic">text + git &gt; docbook + git &gt; msword + dropbox &gt; email &gt; msword + email </li>
+    </ul></li>
+    <li class="libasic">use spellcheck, see Drupal <sup><a href="https://www.linux-magazine.com/content/download/62802/486114/file/Drupal.pdf" target="_blank">44</a></sup></li>
+    <li class="libasic">yadadadadada</li>
+</ul>
+
+<p>§ <sub>the faster you need to move, the more percentage of budget on understanding, as you have less room for error</sub></p>
+
+<hr />
+<p>Heuristics, control your solution generation</p>
+
+<ul class="ulbasic">
+    <li class="libasic">use types constraints wherever possible (see php 7.4 <a href="https://wiki.php.net/rfc/typed_properties_v2" target="_blank">rfc</a> )</li>
+    <li class="libasic">do not write tests on methods with a CC of 1 </li>
+    <li class="libasic">in terms of testing, collection.forEach() &gt; for loops &gt; nested if statements</li>
+    <li class="libasic">statelessness <sup><a href="https://en.wikipedia.org/wiki/Service_statelessness_principle" target="_blank">45</a></sup> reduces the amount of tests needed, but cannot be globally applied </li>
+    <li class="libasic">DI <sup><a href="https://en.wikipedia.org/wiki/Dependency_injection" target="_blank">46</a></sup> is very valuable</li>
+    <li class="libasic">avoid long method definitions</li>
+    <li class="libasic">avoid too many clauses per line</li>
+    <li class="libasic">yadadadadada</li>
+</ul>
+
+<hr />
+<p>Heuristics: achieve more confidence per test.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">There are code analysis tools that can report how many unit tests cover a particular function e.g. <sup><a href="https://github.com/exakat/php-static-analysis-tools" target="_blank">47</a></sup> <sup><a href="https://getpsalm.org/" target="_blank">48</a></sup></li>
+    <li class="libasic">en_UK spellcheck on code Œ will sometimes save alot of useless unit tests </li>
+    <li class="libasic">Adding timers to E2E<a class="" href="https://www.google.co.uk/search?q=E2E">?</a> tests is easy, and an objective metric that is important for UX <sup><a href="https://msdn.microsoft.com/en-us/library/ms404705.aspx" target="_blank">49</a></sup> <sup><a href="https://blog.httpwatch.com/2008/05/14/using-httpwatch-to-measure-page-load-times-for-new-and-existing-users/" target="_blank">50</a></sup> </li>
+    <li class="libasic">Real but anonymised data is important (example names <sup><a href="https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/" target="_blank">51</a></sup> ) </li>
+    <li class="libasic">In terms of UI tests, try simulating a German user, a Thai user, a Singapore user or a Pacific island user</li>
+    <li class="libasic">yadadadada</li>
+</ul>
+
+<p>Œ <sub> mis-spelled use statements can really confuse you, fortunately IDEs help</sub></p>
+
+<hr />
+
+<h2 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > Closeup <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>Heuristics: how many times can I use that word before you think I am just a cheap AI?</p>
+
+<hr />
+<p>Any questions...</p>
+
+<p>NB: I cannot concisely answer questions about how to test AI.</p>
+
+<hr />
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="english"> <p>Some similar articles in english </p><div id="groupenglish" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=english" title="This article lists all items in english group.">All of <br />english </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Lecture 2</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Flecture-jan" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Flecture-jan" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Flecture-jan" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-18T09:41:18">18th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2018-10-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Oct 2018</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Flecture-jan" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro to test culture</a></li>
+<li><a href="#toc1">Business Motive</a></li>
+<li class="h4_odd"><a href="#toc2">Profiling of business people</a></li>
+<li><a href="#toc3">Definition of test success</a></li>
+<li class="h4_odd"><a href="#toc4">Implementation</a></li>
+<li><a href="#toc5">Closeup</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:25">27th of May 2023, 10:11:25</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-18T09:41:18">18th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

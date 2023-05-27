@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Geo lookup</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Some background resources for GIS data sources." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Geo lookup">
+<meta itemprop="description" content="Some background resources for GIS data sources.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Geo lookup">
+<meta name="twitter:description" content="Some background resources for GIS data sources.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Geo lookup" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/geo-lookup" />
+<meta property="og:description" content="Some background resources for GIS data sources." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:35" />
+<meta property="article:modified_time" content="9th of Apr 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/geo-lookup" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Geo lookup",
+	"article:published_time":"27th of May 2023, 10:10:35", 
+    "article:modified_time":"9th of Apr 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Problem <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>It is quite common to want to be able to translate an IP to a location.  To avoid complications with country demarcations, and charsets; it is also common to put this into a [long,lat].  [lat,long] works well with maps.<br />
+There are a range of possible outcomes when attempting to compute location.  Obviously LAN IPs have no location. Some IPs aren't registered in mainstream blocks handed to ISPs; so don't show up in records.  Alternatively there may be some “hide me” service, as there is with phone numbers.  On random real usage, mostly from the US, this amounted to about 3% of requests.  There are some IPs which seem to be been logged to ships, oil-rigs or satellites, as they where in the middle of the ocean (this occurred frequently enough that serious use would require a filter).  Obviously care must be taken with rounding numbers, not in the least between language systems.  For <a class="" href="https://owenberesford.me.uk/resource/visitors#">my use</a>, I rounded everything to 5DP, as I'm not confident in the data below that resolution. I was attempting to demark geo-usage, not individual people.  It should be noted for plain DSL for endusers, the IP is likely to resolve to the DSLAM, as that is where the edge of the internets IP network is (and thus ones public IP).  For example my current personal PC resolves to Skys equipment in WD17, North London.  I was having much better data from business users, who had their own high-use equipment.</p>
+
+<p>Please note Mobile IP is a different set of technology, reporting tools built for the DSL or dialup markets won't work.  Due to the higher levels of tech infrastructure, better quality data is available, but not generally publicly.  The reporting will tell you that your phone is in your current country (the mobile operator is doing all the rest of the traffic routing).  This is not covered in this article.</p>
+
+<p><strong>EDIT</strong> Everything in this article I state about DSL is too old if the target person is using FTTC.  With FTTC the DSL supplier knows exactly the 'cabinet' you are using is, so places you down to the nearest 10m or so. FTTC is also a faster DSL service.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Discussion <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There are two general architectures to this concern; firstly get a big database of lookups installed on your server; secondly poll a third party server for each needed lookup.  The first is needed for high performance solutions, but the second is better if the IPs will change mapping frequently.  Assuming it is possible to update the database every-so often, an installed database is a manageable position.</p>
+
+<p>On the work I do, high performance is generally more important (in my scenario, during peaks, it would need to process &gt;5000 requests per minute).  This required that the lookup would take &lt;200ms, or its not possible to process the raw data.  These figures are conservative, but this was one service in an entire platform, and couldn't monopolise resources.  It should be noted that many of the location databases are mostly focussed on a single country, due to boundaries I mentioned previously.  For a global service, I would probably advise using several mapping services.</p>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Nominated vendor <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Due to operational cost and supporting a US customer base, <a class="" href="https://owenberesford.me.uk/resource/visitors#">a previous project</a> MT used <a href="https://dev.maxmind.com/geoip/geolocate-an-ip?lang=en" target="_blank">Maxminds</a>.  Since I wrote that code, <sup><a href="https://github.com/orgs/maxmind/repositories" target="_blank">1</a></sup> have rebuilt everything for a variety of languages and are using github.  I would advise looking at their newer services.  As some of my usage data was from known sources (we knew who was doing it, and where their office was), I tested the generated location data against  what we knew.  For business users, it was good quality data.  See references to DSLAM throughout this document, its not the lookup software thats the problem.  In Aus ~ where alot of this code was written ~ the nearest city is a good guess. Telephony is more complex here, and there are many more people.<br />
+If one needs to verify the mapping, put the generated [lat,long] into google maps.  Please note mapping systems take vertical axis first, due to historical technology.  Graphics systems take the horizontal axis first due to different historical technology.</p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Other vendors reviewed <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>If I do another system against this technology, I will update this article with more testing and current data.  Please read the caveats expressed in the first paragraph.  Please read the inline results, commercial practice makes this type of analysis imprecise.</p>
+
+
+<div class="pullout">
+<p>With 2012 technology: according to DSL tools my exchange is Kingston (correct at time).  Any up-to-date lookup tools should map my IP to [51.41220,-0.29228].  This isn't the location of my PC, but this is the best this style of lookup can achieve.  This statement is complicated by the fact that my ISP keeps resetting the DSL, and so changing my IP.<br />
+With 2023 technology, the <strong>JS feature in the browser</strong> is precise enough for shipping; but not military purposes.</p>
+
+
+</div>
+<ul class="ulbasic">
+    <li class="libasic"><strong><a href="https://www.geoplugin.com/" target="_blank">Geo Plugin</a> UPDATED 2022</strong>: I do not know how this is built; but the data returned is 250mi/ 3degrees too far North wrong.  Also the IP4 data is wildly different from the IP6.</li>
+    <li class="libasic"><strong><a href="https://www.hostip.info/" target="_blank">Host IP</a> is a community project</strong>, with links to commercial vendors.  At present they are unable to resolve my personal desktop IP. They quote fast response times, and do provide a sensible/ lean API for lookups.  As this is non commercial, they have a static downloadable database; and suggest daily refresh on this.  I would be interested in what their update policies where (i.e. what if the assignment of an IP changes, how long would the customer get out of date information?), before I started to depend on them.  UPDATE 2023: everything written still holds.</li>
+    <li class="libasic"><strong><a href="https://www.ip2location.com/" target="_blank">ip2location</a> is a rented service, with a freemuim offering</strong>.  They map my DSL to Charing Cross. Due to commercial practice this could be true, but can't be true at the same time as maxminds response.  This is a static file.  The packing algorithm is less efficient than what maxmind uses, as this data is about ten times larger.</li>
+    <li class="libasic"><strong><a href="https://www.geobytes.com/IpLocator/" target="_blank">geobytes</a> charge a small amount per lookup</strong>.  This doesn't work for me, with either IP.   Many adverts intruding on website.</li>
+    <li class="libasic"><strong><a href="https://tools.digitalpoint.com/geo" target="_blank">digital point</a></strong> returns my location as Abbeywood (nearest 10KM).  I can't find an API on this site, so doesn't seem to meet requirements.</li>
+    <li class="libasic"><strong><a href="http://webtools.live2support.com/misc_locate_ip_address.php" target="_blank">live2support</a></strong>, has been bought out; no service found</li>
+    <li class="libasic"><strong><a href="https://www.melissa.com/v2/lookups/iplocation/ip/" target="_blank">melissa</a></strong> correctly gets my ISP; and my DSLAM is in Brighton.  Does have an API, but won't admit which language this is implemented in.  From the age on the branding, I doubt it would be useful.</li>
+    <li class="libasic"><strong><a href="https://www.webyield.net/ip/index.php" target="_blank">webyield</a></strong>  With IP4, it knows the long/lat but doesn't map his to a address. With IP6 it knows nothing.</li>
+    <li class="libasic"><strong><a href="https://www.telize.comi/geoip/" target="_blank">Telize</a></strong> is a REST API; but recently disabled demo mode, so I can't check its output.  </li>
+</ul>
+
+<p>To access what your browser thinks your location is, try <a class="" href="https://owenberesford.me.uk/resource/geolocation-demo#">geolocation-demo</a>.  Note this demo needs to be installed on a HTTPS server with modern browsers.</p>
+
+
+<div class="pullout">
+<p>It would be a clever idea to use the JS geo location to allow less required input on address forms.   And now this is reliable, its quite common.</p>
+
+
+</div>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth" >
+					<header><h1>Geo lookup</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-04-09T15:46:37">9th of Apr 2023</time>
+						</span>
+						<span>Created <time datetime="2022-09-13T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >13th of Sep 2022</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgeo-lookup" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Problem</a></li>
+<li><a href="#toc1">Discussion</a></li>
+<li class="h4_odd"><a href="#toc2">Nominated vendor</a></li>
+<li><a href="#toc3">Other vendors reviewed</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:35">27th of May 2023, 10:10:35</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T15:46:37">9th of Apr 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

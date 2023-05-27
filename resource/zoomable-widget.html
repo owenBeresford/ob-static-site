@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Zoomable Widget</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A proposal and sketches for solutions, on a widget that I cannot find in NPMjs. A few suggestions for a widget to display images, and allow a zoomed-in version." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Zoomable Widget">
+<meta itemprop="description" content="A proposal and sketches for solutions, on a widget that I cannot find in NPMjs. A few suggestions for a widget to display images, and allow a zoomed-in version.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Zoomable Widget">
+<meta name="twitter:description" content="A proposal and sketches for solutions, on a widget that I cannot find in NPMjs. A few suggestions for a widget to display images, and allow a zoomed-in version.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Zoomable Widget" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/zoomable-widget" />
+<meta property="og:description" content="A proposal and sketches for solutions, on a widget that I cannot find in NPMjs. A few suggestions for a widget to display images, and allow a zoomed-in version." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:13:17" />
+<meta property="article:modified_time" content="24th of Dec 2022" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/zoomable-widget" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Zoomable Widget",
+	"article:published_time":"27th of May 2023, 10:13:17", 
+    "article:modified_time":"24th of Dec 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>This is a minor article; which I should complete in a day.  My last three articles where technology I didn't previously have time to readup on, and the articles took ages to complete.</p>
+
+<p>It is a common feature in e-commerce to have an image display of your sales goods; but also have a widget to show a zoomed in image.  <br />
+Article not focused on mobile but technology should work in either hardware platform.   A close up version of a sales-good's image is probably needed for mobile UI, if it is a tangible item; as a well proportioned image is likely to make it harder to see the details.</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Interactions to access zoomed data <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>The zoom technology could be accessed by one of the following access methods (i.e. interactions I propose are supported):</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Hover cursor over image (best for large screen/ WIMP device)</li>
+    <li class="libasic">Tap image (best for small screen haptic device)</li>
+    <li class="libasic">Swipe off other images, and have auto-packer increase size the remaining one(s)</li>
+    <li class="libasic">Scroll when cursor is on image</li>
+    <li class="libasic">Stretch/ pinch image</li>
+    <li class="libasic">Select a value in a select-box (i.e. like zoom in office applications)</li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > How to zoom in a webpage/ webapp?  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>I workout several methods to have a zoom and clip of an image.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Simple CSS for image static scaling: object-fit <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit" target="_blank">1</a></sup>, object-position <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/object-position" target="_blank">2</a></sup>. This is really useful for browsers where it works <sup><a href="https://caniuse.com/?search=object-fit" target="_blank">3</a></sup>, and should be used for all RWD / PWA designs <sup><a href="https://www.digitalocean.com/community/tutorials/css-cropping-images-object-fit" target="_blank">4</a></sup>.  But this is not a popup/ is not reactive to user input.</li>
+    <li class="libasic">CSS transform:scale <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/scale" target="_blank">5</a></sup> <sup><a href="https://css-tricks.com/almanac/properties/s/scale/" target="_blank">6</a></sup> older browsers have this feature as zoom <sup><a href="https://www.positioniseverything.net/css-zoom" target="_blank">7</a></sup> <sup><a href="https://css-tricks.com/almanac/properties/z/zoom/" target="_blank">8</a></sup>, but that is deprecated, just like MSIE that started that CSS item.  This should probably be combined with overflow-x/ overflow-y <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x" target="_blank">9</a></sup> to avoid too many scrollbars.</li>
+    <li class="libasic">If using a desktop/ laptop, &lt;cntl + mouse-scroll&gt; will normally zoom.  With many mobile apps pinch will zoom.   Both these are operating system features, but I use them a lot.</li>
+    <li class="libasic">“blitting” or Sprite mapping is an old pre-internet technique for pulling a currently wanted texture from a big texture file; and applying it to what is currently on screen <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path" target="_blank">10</a></sup>.   I have been shying away from doing this is JS/CSS, as I didn't see any libraries, and I didn't want to hand calculate all the maths, <sup><a href="https://css-tricks.com/using-css-clip-path-create-interactive-effects/" target="_blank">11</a></sup> <sup><a href="https://cssfordesigners.com/articles/clip-path-scaling" target="_blank">12</a></sup> has some ideas to avoid manual typing.  Support is less sharp for this feature <sup><a href="https://caniuse.com/?search=css-clip-path" target="_blank">13</a></sup> (looking at colour of support rather than volume).</li>
+    <li class="libasic">A low tech/ inefficient use of bandwidth width, but very stable and very reliable trick is to shoot all you images in very high resolution; and just set the “normal size” image to have fixed pixel sizes; the browser will scale the image <sup><a href="https://www.w3docs.com/snippets/css/how-to-auto-resize-an-image-to-fit-an-html-container.html" target="_blank">14</a></sup>.  Then the popup can use the same image at real size.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Cheat solutions <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">Use a PICTURE element, and an array of images <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture" target="_blank">15</a></sup> <sup><a href="https://owenberesford.me.uk/resource/html5-img" target="_blank">16</a></sup>.  Set a display criteria; and the browser will just render the best one.</li>
+    <li class="libasic">Images of sales goods are normally photos, so some type of JPEG.  If your data started as a SVG (say you need to display a image of the London tube map); you have a wide level of control <sup><a href="https://en.wikipedia.org/wiki/SVG" target="_blank">17</a></sup>.  SVG is a scalar image format, and includes the co-ordinate space limits in its outermost tag.  These can be set, via JS, to give a zoom.  Remember when zooming SVG that line thicknesses do not magically scale with the image, and will need to be incremented.   When pulling data for the article, I found Svidget <sup><a href="https://www.npmjs.com/package/svidget" target="_blank">18</a></sup> <a href="https://github.com/joeax/svidget" target="_blank">git</a>, docs site has expired cert, so I'm not linking  to it.  See also <sup><a href="https://code.tutsplus.com/tutorials/turn-your-static-svg-drawings-into-interactive-widgets-and-infographics-with-vuejs--cms-32728" target="_blank">19</a></sup></li>
+</ul>
+
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > A Sketch of a useful component: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>A widget that accepts pinch/ stretch interactions, scroll interactions, an image URL, an optional style object and a range of params/ param struct.   The listed interactions change the zoom level on the image; if a level uses more more pixels that the builtin Container can accommodate, the image will be clipped. <br />
+The amount of zoom could be set by a CSS variable; unfortunately, set change the CSS var at runtime; JS is still needed <sup><a href="https://davidwalsh.name/css-variables-javascript" target="_blank">20</a></sup> <sup><a href="https://www.designcise.com/web/tutorial/how-to-update-a-css-variable-using-javascript" target="_blank">21</a></sup><br />
+There are a variety of things in NPM that are similar, but nothing that is what I want <a href="https://www.npmjs.com/search?q=zoom%3Dimages&amp;amp;csrftoken=FrEqal8JAxjKk4gHtKJgTzRuZH3sR2MNLckCiBmY1kA" target="_blank">NPM search results</a></p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Zoomable Widget</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fzoomable-widget" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fzoomable-widget" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fzoomable-widget" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2022-12-24T10:40:25">24th of Dec 2022</time>
+						</span>
+						<span>Created <time datetime="2022-12-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >15th of Dec 2022</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fzoomable-widget" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Interactions to access zoomed data</a></li>
+<li><a href="#toc1">How to zoom in a webpage/ webapp?</a></li>
+<li class="h4_odd"><a href="#toc2">Cheat solutions</a></li>
+<li><a href="#toc3">A Sketch of a useful component:</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:13:17">27th of May 2023, 10:13:17</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-24T10:40:25">24th of Dec 2022</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

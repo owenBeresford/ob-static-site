@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>MongoDB indexes</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="MongoDB indexes">
+<meta itemprop="description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="MongoDB indexes">
+<meta name="twitter:description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="MongoDB indexes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/mongodb-indexes" />
+<meta property="og:description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:31" />
+<meta property="article:modified_time" content="23rd of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/mongodb-indexes" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "MongoDB indexes",
+	"article:published_time":"27th of May 2023, 10:11:31", 
+    "article:modified_time":"23rd of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>With most databases, to have correct indexes is essential for reasonable performance.  There are more complications when you move to a multi-host model which is common in larger MongoDB installations.  If you have an RDBMS and you have replication, it is simpler as there is ACID consistency <sup><a href="https://en.wikipedia.org/wiki/ACID" target="_blank">1</a></sup>.  NoSQL architectures offer no such securities, to better support datasets that require an address space/ key space <sup><a href="https://en.wikipedia.org/wiki/Keyspace_%28distributed_data_store%29" target="_blank">2</a></sup> larger than any actual computer has.</p>
+
+<p>The MongoDB v5 shell supports: <i>createIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/createIndexes/" target="_blank">3</a></sup> and <i>dropIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/dropIndexes/" target="_blank">4</a></sup>.  Note this version removes <i>ensureIndex()</i>.   Either of these commands can be run on the DB or the collection levels.  It is strongly not advisable to run either of these commands whilst the DB is in operational service, as changing indexes will lock the DB for while.   With practical observation, if a collection has less than a million documents and is completely hosted on a single server; the outage is a few seconds.  Compare this to your required uptime metrics.  Indexes created and used by Mongo do not normally use a auto-increment algorithm (like Postgres or MySQL uses), as sharded systems wouldn't know the largest previous value.  The official notes for auto-increment <sup><a href="https://www.mongodb.com/basics/mongodb-auto-increment" target="_blank">5</a></sup>.</p>
+
+<p>This document exists as I was told (in MongoDB v3 period) that Mongo added indexes automatically.  There is an attached tool called <i>Atlas</i> <sup><a href="https://www.mongodb.com/docs/atlas/performance-advisor/" target="_blank">6</a></sup> which includes a <strong>performance analyser</strong> feature <sup><a href="https://www.mongodb.com/blog/post/optimizing-mongodb-deployment-performance-advisor" target="_blank">7</a></sup>.  This is a good idea; but cannot replace normal performance tests or benchmarking on your API, as the slowdown may not be in the DB.  Controlling index creation must be left as a human operator's decision; to work out if adding another index would lead to more benefit, or a overall reduction in performance requires general-purpose intelligence; which humans have not invented yet.  There are numerous examples of positive feedback loops leading to system failure <sup><a href="https://www.advisorperspectives.com/commentaries/2016/01/11/complex-systems-feedback-loops-and-the-bubble-crash-cycle" target="_blank">8</a></sup> <sup><a href="https://medium.com/@hamo2025/how-a-software-bug-made-knight-capital-lose-500m-in-a-day-almost-go-bankrupt-c527d195ae83" target="_blank">9</a></sup> <sup><a href="https://www.forbes.com/sites/christophersteiner/2012/08/02/knight-capitals-algorithmic-fiasco-wont-be-the-last-of-its-kind/" target="_blank">10</a></sup>.  I prefer to put a layer of “query execution time logging” on the outside of the Mongo driver in the client language; as Object hydration is quite expensive ~ in CPU time ~  needs to be managed.  Having both layers of logging (DB side query logging and app API query logging), when they can be disabled, is useful for isolating problems.   There are some notes on indexes <sup><a href="https://www.mongodb.com/blog/post/performance-best-practices-indexing" target="_blank">11</a></sup> <sup><a href="https://www.mongodb.com/docs/v5.0/applications/indexes/" target="_blank">12</a></sup>.  There is a tool called autopilot which is not relevant to this problem.   If you are using Spring framework in Java, it can add indexes <sup><a href="https://github.com/spring-projects/spring-boot/issues/28478" target="_blank">13</a></sup>.   If you are using FastAPI in Python, there is an extension that will create indexes <sup><a href="https://github.com/identixone/fastapi_contrib" target="_blank">14</a></sup> <a href="https://fastapi-contrib.readthedocs.io/en/latest/usage.html" target="_blank">docs</a> (assume install via pip).</p>
+
+<p>For good user search against a company dataset, a “manual input index” is probably required.  That is, it should be lower-cased, the accents removed, stop words like “the” removed, or maybe duplicated entries and maybe the words stemmed.  If I am using PG I can get most of this data munging done automatically; in a BASE system, I need to write it on the insertion code.  The data normalisation makes results more relevant, and it executes faster.<br />
+As a defensive coding warning; it is advisable to add sanity checking for manipulations of 2d points; as one of the manual steps may have inverted the data.  See <sup><a href="https://owenberesford.me.uk/resource//gis-data#toc4" target="_blank">15</a></sup>   <br />
+  <br />
+The best optimisation is more RAM, a faster disk, or sometimes adjusting how the data is written to the disk is a good idea, but far too specific for a webpage; this is true of all databases.  All the indexes that I have seen details for are a standard B* tree, just like modern filesystems.   Anything involving selection against timestamps, or ranges of timestamps benefits from an <em>sort() -ed</em> index <sup><a href="https://www.mongodb.com/docs/manual/tutorial/optimize-query-performance-with-indexes-and-projections/" target="_blank">16</a></sup>.  I have used ISODate() attributes previously, so I had access to the Date methods; in BSON, Dates are stored as a number, with a type of 'Date'.   In some situations, <em>hint()</em> will manually optimise a <em>find()</em> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/method/cursor.hint/#mongodb-method-cursor.hint" target="_blank">17</a></sup> where there are multiple index options that could be used.  In some situations, you may want a <em>tailable cursor</em> <sup><a href="https://www.mongodb.com/docs/v5.0/core/tailable-cursors/" target="_blank">18</a></sup>, rather than a Resultset; these happen when you run find() on a Capped collection; and have search terms that return a population of results.   For any complex operations, and definitely for aggregates, knowledge of how to use '$' and '.' is essential <sup><a href="https://www.mongodb.com/docs/v5.0/core/dot-dollar-considerations/" target="_blank">19</a></sup>.  Some generic performance tricks <sup><a href="https://www.mongodb.com/basics/best-practices" target="_blank">20</a></sup>; but firstly use <em>explain()</em> to see if the data volumes and indexes can be optimised for a given business need <sup><a href="https://www.mongodb.com/docs/manual/reference/command/explain/" target="_blank">21</a></sup>.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Flavours of index  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>MongoDB v5 supports the following types of index:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Default index, _id ~ a PK, </li>
+    <li class="libasic">Text <sup><a href="https://www.mongodb.com/docs/v5.0/indexes/#text-search-indexes" target="_blank">22</a></sup>; Wildcard <sup><a href="https://www.mongodb.com/docs/v5.0/core/index-wildcard/" target="_blank">23</a></sup></li>
+    <li class="libasic">2D sphere <sup><a href="https://www.mongodb.com/docs/v5.0/core/2dsphere/" target="_blank">24</a></sup> (proper GEO); plain 2D <sup><a href="https://www.mongodb.com/docs/v5.0/core/2d/" target="_blank">25</a></sup> </li>
+    <li class="libasic">Geospatial <sup><a href="https://www.mongodb.com/docs/v5.0/indexes/#geospatial-index" target="_blank">26</a></sup> (simpler/ faster); GEO haystack <sup><a href="https://www.mongodb.com/docs/v5.0/core/geohaystack/#geohaystack-indexes" target="_blank">27</a></sup> [DEPRECATED]</li>
+    <li class="libasic">Structural options for indexes<ul class="ulbasic">
+        <li class="libasic">Multi key <sup><a href="https://www.mongodb.com/docs/v5.0/core/index-multikey/" target="_blank">28</a></sup></li>
+        <li class="libasic">Hashed <sup><a href="https://www.mongodb.com/docs/v5.0/indexes/#hashed-indexes" target="_blank">29</a></sup></li>
+        <li class="libasic">Unique <sup><a href="https://www.mongodb.com/docs/v5.0/indexes/#unique-indexes" target="_blank">30</a></sup></li>
+        <li class="libasic">Sparse <sup><a href="https://www.mongodb.com/docs/v5.0/indexes/#sparse-indexes" target="_blank">31</a></sup></li>
+        <li class="libasic">TTL <sup><a href="https://www.mongodb.com/docs/v5.0/indexes/#ttl-indexes" target="_blank">32</a></sup></li>
+        <li class="libasic">Hidden <sup><a href="https://www.mongodb.com/docs/v5.0/indexes/#hidden-indexes" target="_blank">33</a></sup></li>
+    </ul></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>MongoDB indexes</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongodb-indexes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongodb-indexes" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongodb-indexes" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-23T11:25:14">23rd of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2023-01-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Jan 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmongodb-indexes" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Context</a></li>
+<li><a href="#toc1">Flavours of index</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:31">27th of May 2023, 10:11:31</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-23T11:25:14">23rd of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

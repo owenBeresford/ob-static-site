@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Creating a large scale MongoDB</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Analysis: how does MongoDB perform with large scale data? Limits and data modeling on practical upper data-volume for MongoDB with normal hardware. MongoDB is also compared with other data systems." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Creating a large scale MongoDB">
+<meta itemprop="description" content="Analysis: how does MongoDB perform with large scale data? Limits and data modeling on practical upper data-volume for MongoDB with normal hardware. MongoDB is also compared with other data systems.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Creating a large scale MongoDB">
+<meta name="twitter:description" content="Analysis: how does MongoDB perform with large scale data? Limits and data modeling on practical upper data-volume for MongoDB with normal hardware. MongoDB is also compared with other data systems.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Creating a large scale MongoDB" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/scaling-mongo" />
+<meta property="og:description" content="Analysis: how does MongoDB perform with large scale data? Limits and data modeling on practical upper data-volume for MongoDB with normal hardware. MongoDB is also compared with other data systems." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:22" />
+<meta property="article:modified_time" content="20th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/scaling-mongo" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Creating a large scale MongoDB",
+	"article:published_time":"27th of May 2023, 10:12:22", 
+    "article:modified_time":"20th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>First please know that: The results of adding too many rows to the database is that it runs slower, not that anything explodes.  The business website/app could run abit slow for a few days until a new server is installed, if necessary.  There are eventually hard limits to row counts, but by the time a company is that big, it has a lot of income, and can buy/ rent many things.  Whilst 3rd party articles are useful as they cover many hours work; their use is diminished by the age of the article.</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Platform Limits <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>This article is written about MongoDB; and replaces an older article on MongoDB from 2015.  Please review the MongoDB release log <sup><a href="https://www.mongodb.com/docs/manual/release-notes/" target="_blank">1</a></sup>.  Unfortunately, when writing complex code with MongoDB  (or other DB), sometimes it is necessary to use a version of the DB from the Vendor, rather than your package manager to get new features.  What matters for large datasets to be used in continuous concurrent access, is multi-dimensional.  We need to be able to</p>
+
+<ul class="ulbasic">
+    <li class="libasic">store the data, </li>
+    <li class="libasic">access it quickly,</li>
+    <li class="libasic">and concurrently.</li>
+</ul>
+
+<p>The recent versions of Mongo have no maximum size per collection as a software limit <sup><a href="https://www.mongodb.com/docs/manual/reference/limits/#mongodb-limit-Maximum-Number-of-Documents-in-a-Capped-Collection" target="_blank">2</a></sup>.   If you are using a capped collection, the limit will be what you set.   The max size per document / row is still 16MB; I guess the min size of the document is 8bytes; needed to store the auto-generated '_id' int.  Larger data blobs can be stored/ accessed via GridFS <sup><a href="https://www.mongodb.com/docs/manual/core/gridfs/" target="_blank">3</a></sup>.   WiredTiger <sup><a href="https://www.mongodb.com/docs/manual/core/wiredtiger/" target="_blank">4</a></sup> compresses data when written to disk, and is the only option for MongoDB &gt; 4.2 <sup><a href="https://www.mongodb.com/docs/manual/core/storage-engines/" target="_blank">5</a></sup>; the WiredTiger engine adds row level locking.  The docs do not publish expected compression rates as it's complex and varies on the data.   The volume of data in each document is affected by what you put in the document (NoSQL, no fixed structure), see next section.   There may be a max of 50 nodes in a cluster; and a max of 7 used for voting which one is the Primary <sup><a href="https://www.mongodb.com/docs/manual/core/replica-set-elections/#non-voting-members" target="_blank">6</a></sup>; but that wasn't relevant to the business situation.</p>
+
+<p>For comparison, on 2008 server hardware, MySQLi 4 innodb is getting abit slow, for about 80%/20% mixed read/writes, on a population of a million rows.  In peak time the average query time spikes to 200ms, due to lock stacking.  My situation was continual activity with 50 DB clients concurrently (i.e. up to 50 queries may happen at any point, with an average case of about 30ms, spiking to 200ms).  My then boss and I iterated indexes; but couldn't eliminate the worse case.  Newer hardware (after 2018) would reduce that delay, specifically SSD, but these where network heavy rack boxes, not cheap laptops.  The word innodb is important, as this supports row level locking.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Data modeling <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>We don't need to hold the entire dataset in RAM, but I am simplifying the technology, as this is purely to get a clearer vision on data volumes.  Text strings in the JS used for Mongo are UTF8 by default.  I have simplified the storage cost of the wchar to 2bytes.  Most of the data under current observation is in ASCII, but an UTF8 char may be 4bytes long.  This is a simple model, and I only spent a few hours on it.  <b>Model 1</b> If we <i>model</i> a document (one item in the above collection) having about a 100 data points, and up to 255 wchar per point; this means each document has raw RAM cost of about 50KB.  To make the document work as a item in the collection, model 50% increase for indexes etc.  It would be prudent to model a further 50% for everything the operating systems needs to do (network IO for example).  This simple guess means realistic upper bound is 10 documents per MB of RAM.  To store that massive collection would cost 419,430 GB of RAM.  There is no motherboard on the planet that can hold that much RAM.  A less verbose item, with an average wchar length of 20 would cost 4K per item.  That means 256 items per MB of RAM.  To store the maximum collection size would cost 16,384GB of RAM.  20chars would be enough to store an <i>average</i> venue name, an <i>average</i> persons name, an <i>average</i> email address (each item in the collection could be different, but the mean-average would be about that).</p>
+
+<p>With real data, using the same numbers, a 2.5 * 10^6 collection would take 10GB of RAM.  As an average spread of data will be also recording numbers (fixed at 8bytes), and some bools (either 8bytes as its actually a number or 1byte if its a separate type), the documents per MB figure is probably too small (so 4times it, leading to 10 * 10^6 item collection).  This is a simple model, <b>everything should be measured</b> and can be via Object.bsonSize <sup><a href="https://database.guide/mongodb-object-bsonsize/" target="_blank">7</a></sup> and colStats <sup><a href="https://www.mongodb.com/docs/manual/reference/command/collStats/" target="_blank">8</a></sup>.</p>
+
+<p>It should be noted that the venue density is unlikely to climb above one per 200 people, as venues have to have customers, and most people in the UK don't eat out everyday.  I think that 1 per 400 is a more realistic ratio. <i>This paragraph is my opinion</i>, but isn't the focus of the model.  Therefore the UK dataset isn't likely to hold more than 3.5*10^5 restaurants; and a further 3.5*10^5 cafes or pubs in total.</p>
+
+<p>To start a new model <b>model 2</b>, it is necessary for the entire index to be held in RAM <sup><a href="https://www.mongodb.com/community/forums/t/what-happens-when-indexes-dont-fit-in-ram/16002" target="_blank">9</a></sup> <sup><a href="https://medium.com/mongodb-performance-tuning/effective-mongodb-indexing-part-2-c3f4a804018d" target="_blank">10</a></sup> <sup><a href="https://stackoverflow.com/a/6825047/2375161" target="_blank">11</a></sup>, or performance is terrible.  For any existing data, we may poll Mongo via <i>db.collection.totalIndexSize()</i> <sup><a href="https://docs.mongodb.org/manual/tutorial/ensure-indexes-fit-ram/" target="_blank">12</a></sup>, or <i>db.collection.stats().indexSizes</i> <sup><a href="https://stackoverflow.com/questions/7851563/how-do-you-get-the-size-of-an-individual-index-in-mongodb" target="_blank">13</a></sup> for more details.  For new indexes, there are models already <sup><a href="https://stackoverflow.com/questions/8607637/are-there-any-tools-to-estimate-index-size-in-mongodb" target="_blank">14</a></sup>.  To reproduce here <i>“2 * [ n * ( 18 bytes overhead + avg size of indexed field + 5 or so bytes of conversion fudge factor ) ]&quot;</i> (the same reference states that this is likely to be a factor of two too large, I think that analysis is dependant on the input data.  This means one needs to measure everything again.).  To quote that back, comes to about 400MB for an average text field index.</p>
+
+<p>These models don't mention how-to access the data.</p>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Comparison with other data systems <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>There is a fairly thorough report <sup><a href="https://devm.io/databases/evaluating-nosql-performance-which-database-is-right-for-your-data-107481" target="_blank">15</a></sup> on scaling mixed read and writes for several databases.  This is volume of operations, not volume of data.  Every NoSQL platform was faster than the above MySQL, but this is newer hardware. Skim down the article and look at the graphs, MongoDB is in purple.  To express this from a user perspective, at the point we have 13,000 people browsing concurrently (i.e. per minute), we need more AWS boxes, or average page render will be in multiple seconds.  For a standard AWS contract, would <em>definitely need more network bandwidth.</em>  This report is still the older version of MongoDB than current.  A discussion of software architecture for SQL/ NoSQL, and how it affects scaling on software <sup><a href="https://softwareengineering.stackexchange.com/questions/194340/why-are-nosql-databases-more-scalable-than-sql#comment897437_194408" target="_blank">16</a></sup>: the main reason that BASE software scales better is that it has less consistency features, which was a major selling point of SQL.  Horizontal scaling is much easier with consistency requirements, see eventual consistency, for example in Cassandra DB <sup><a href="https://codecoda.com/en/blog/entry/an-introduction-to-eventual-consistency" target="_blank">17</a></sup> <sup><a href="https://www.baeldung.com/cassandra-consistency-levels" target="_blank">18</a></sup> <sup><a href="https://blog.scottlogic.com/2017/10/06/cassandra-eventual-consistency.html" target="_blank">19</a></sup>.  Google's BigTable is designed for very large indexes, as suits their business requirements <sup><a href="https://cloud.google.com/blog/topics/developers-practitioners/how-big-cloud-bigtable" target="_blank">20</a></sup> <sup><a href="https://cloud.google.com/bigtable/docs/scaling" target="_blank">21</a></sup>. <br />
+To supply opinions for “how to architect a billion item collection”, please read official docs <sup><a href="https://www.mongodb.com/docs/manual/reference/limits/" target="_blank">22</a></sup> or <sup><a href="https://stackoverflow.com/questions/11320907/mongodb-billions-of-documents-in-a-collection" target="_blank">23</a></sup>, with more technical details as <sup><a href="https://blog.zawodny.com/2011/03/06/mongodb-pre-splitting-for-faster-data-loading-and-importing/" target="_blank">24</a></sup>.   This was by the guy running Graigs list servers.<br />
+MongoDB has better sharding capacity than earlier databases. I reference the official MongoDB docs <sup><a href="https://www.mongodb.com/docs/manual/sharding/" target="_blank">25</a></sup>.  This is how to use larger datasets than will realistically fit inside a single box.  Sharded datasets have management complexities some of which is discussed in <sup><a href="https://stackoverflow.com/questions/6575643/mongodb-sharding-how-does-it-rebalance-when-adding-new-nodes" target="_blank">26</a></sup>.  MySQL uses the term “replication”, MongoDB has “replica sets”, documented <sup><a href="https://www.mongodb.com/docs/manual/replication/" target="_blank">27</a></sup>.   <br />
+There is a standardised tool ~ Yahoo Cloud Serving Benchmark (YCSB) <a href="https://github.com/brianfrankcooper/YCSB" target="_blank">git</a> <sup><a href="https://www.slideshare.net/kevinhan/yahoo-cloud-serving-benchmark" target="_blank">28</a></sup> ~ which can be installed if you need a more detailed survey. The project was started in 2010, but is still under active development.  This is has been reviewed <sup><a href="https://www.cs.duke.edu/courses/fall13/compsci590.4/838-CloudPapers/ycsb.pdf" target="_blank">29</a></sup> quite thoroughly.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,engineering"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Creating a large scale MongoDB</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fscaling-mongo" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fscaling-mongo" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fscaling-mongo" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-20T19:22:38">20th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2023-01-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Jan 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fscaling-mongo" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Platform Limits</a></li>
+<li><a href="#toc1">Data modeling</a></li>
+<li class="h4_odd"><a href="#toc2">Comparison with other data systems</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:22">27th of May 2023, 10:12:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-20T19:22:38">20th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

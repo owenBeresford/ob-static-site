@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>PDF generation (via PHP)</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Technical Requirements and reference notes for rendering PDFs on a LAMP webserver." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="PDF generation (via PHP)">
+<meta itemprop="description" content="Technical Requirements and reference notes for rendering PDFs on a LAMP webserver.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="PDF generation (via PHP)">
+<meta name="twitter:description" content="Technical Requirements and reference notes for rendering PDFs on a LAMP webserver.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="PDF generation (via PHP)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/pdf-rendering" />
+<meta property="og:description" content="Technical Requirements and reference notes for rendering PDFs on a LAMP webserver." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:45" />
+<meta property="article:modified_time" content="15th of Apr 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/pdf-rendering" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "PDF generation (via PHP)",
+	"article:published_time":"27th of May 2023, 10:11:45", 
+    "article:modified_time":"15th of Apr 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>It is a fairly common business requirement to need to render an invoice, a ticket or a receipt in a read-only format which the users may save and print.  This can be done in HTML but that is not read-only, and this isn't very print optimised.  PDF is better than MS Word or other similar tools with a smaller supported media range, as PDF supports mobile better and works better on the expanding markets of Mac OSX and Linux.  In terms of the earlier versions of MS Word, an internet optimised PDF was smaller so downloaded faster.  This article is targeted at PHP/ LAMP stack; I will add extra text for external scripts, so other languages and platforms may benefit from the article.  This is another boring summary article, to save my time later.</p>
+
+<p>Whilst it is not PDF rendering, PDFs can be displayed inside pages with most browsers, via the Object tag <sup><a href="http://joliclic.free.fr/html/object-tag/en/object-application.html#pdf" target="_blank">1</a></sup>.  This has a good level of support in older browsers.  When making PDFs care needs to be applied about resources, as missing resources will cause problems.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Technical Requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There are three different technical requirement profiles inside this general article.  To list:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Make “print grade” digital goods.<ul class="ulbasic">
+        <li class="libasic">Ensure all source data images are high quality (abort the render on absence).</li>
+        <li class="libasic">Ensure all fonts can be bound into the PDF.</li>
+        <li class="libasic">Be able to render all the characters in the source data (trademarks, copyrights, names).</li>
+        <li class="libasic">Ensure the Apple inc default paper size is corrected to A4.  Maybe target other document sizes (e.g. posters).</li>
+        <li class="libasic">Be able to present a test render to the user on screen, to verify the layout (the designer may not have been working to A4).</li>
+        <li class="libasic">Covert colours to the print colour spaces (normally CYMK).</li>
+        <li class="libasic">Render all the artifacts to at least <i>600 DPI</i>.</li>
+        <li class="libasic">Execution time isn't a top priority.</li>
+        <li class="libasic">Normally will require level of control for object placement, inside the result PDF. </li>
+    </ul></li>
+    <li class="libasic">Make read-only transaction documents, to be used outside of the business website.<ul class="ulbasic">
+        <li class="libasic">Speed of render is critical, due to work volume.</li>
+        <li class="libasic">Create all necessary keywords, indexes and metadata.</li>
+        <li class="libasic">Ensure tabular data is correctly presented.</li>
+        <li class="libasic">Be able to render all the characters in the source data (trademarks, copyrights, names).</li>
+    </ul></li>
+    <li class="libasic">a Data Dump ~ this is likely to be rare, as there are more relevant formats<ul class="ulbasic">
+        <li class="libasic">High volume of data per document.</li>
+        <li class="libasic">Resource management on the renderer is critical.</li>
+    </ul></li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Review on published libraries <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There are several different implementations to make PDFs purely inside PHP.  Then there are several options written in other languages.  Your server environment will determine which you can use.   We want headless rendering, for server environments; as the user won't be looking at it on the server (this for example eliminates the Adobe plugin for ms winword).   As PDF rendering is quite a large problem, I can see busy projects using several different renderers.</p>
+
+<p>The ancestor tool is <i>ghostscript</i> (and tool suite).  It was originally to assist printing on Unix.  The wiki <sup><a href="https://en.wikipedia.org/wiki/Ghostscript" target="_blank">2</a></sup> supplies details, and states that <i>ps2pdf</i> is just a wrapper.  This tool is big, thorough, written in C; and uses alot of RAM.   It runs on an impressive range of operating systems, so most useful for older businesses.  Its use requires font management, or it can't render anything.  I have used it in the past.</p>
+
+<p>If you need to render complex layouts (not necessarily starting with HTML), Apache FOP <sup><a href="https://xmlgraphics.apache.org/fop/" target="_blank">3</a></sup> is a good candidate.  It is written in Java and is evolving <sup><a href="https://stackoverflow.com/questions/6905481/updating-to-the-newest-fop-api" target="_blank">4</a></sup> ~ i.e. API changes ~ care to use the newer versions is useful.  Unfortunately this project doesn't do floated objects layouts <sup><a href="https://en.wikipedia.org/wiki/Formatting_Objects_Processor" target="_blank">5</a></sup> ~ this is also a problem for some of the PHP processors.  Unless you have Java installed on your host, try <sup><a href="https://www.pdfnow.app/" target="_blank">6</a></sup>, if your data matches the strengths of this tool.</p>
+
+<p><br />
+In PHP, there is mPDF, tcPDF, fPDF, DOMPDF, pdflib, and Zend_Pdf.  I have used mPDF.  fPDF is old and not maintained. There are comparisons between pcPDF and mPDF <sup><a href="https://stackoverflow.com/questions/1648715/best-pdf-generator-in-php-mpdf-or-fpdf" target="_blank">7</a></sup>.  The same reference states that Zend_PDF isn't useful for PNG with transparency but is strict/ compliant on UTF-8.  A note in <sup><a href="https://stackoverflow.com/questions/1648715/best-pdf-generator-in-php-mpdf-or-fpdf" target="_blank">8</a></sup> states that mPDF supports normal CSS like curves, see <a href="https://mpdf.github.io/real-life-examples/overview.htmli" target="_blank">examples</a> ~ this makes it better than many MSIE.   mPDF talks about fonts and typography for non-European languages <sup><a href="https://mpdf.github.io/fonts-languages/fonts-in-mpdf-7-x.html" target="_blank">9</a></sup>, it also must support font specific CSS3 and UTF-8 to be able to render this.  The actual features are documented on the main website <sup><a href="https://mpdf.github.io/about-mpdf/features.html" target="_blank">10</a></sup>, API docs for the library <sup><a href="https://mpdf.github.io/getting-started/html-or-php.html" target="_blank">11</a></sup>.  Practical use of mPDF is discussed <sup><a href="https://www.ampzone.com/blog/using-css-style-using-mpdf" target="_blank">12</a></sup>, the author rewrote the HTML to work better with floats.  Another resource says mPDF <sup><a href="https://stackoverflow.com/questions/8612727/mpdf-library-and-float-image" target="_blank">13</a></sup> needs to know the target width of elements to be able to compute float (this limit may be resolved, as the reference is old).  TcPDF is reviewed <sup><a href="https://radakovicstevan.wordpress.com/2011/07/07/php-pdf-generators-compare-review/" target="_blank">14</a></sup> as not working well with current HTML (i.e. DIV doesn't work, but TABLEs are).  The same article mentions mPDF supporting PDF templates, which can save time if you aren't a web-designer.  The mPDF project is quite well documented, for example <sup><a href="https://mpdf.github.io/html-support/html-tags.html" target="_blank">15</a></sup> is a list of supported HTML tags.</p>
+
+<p>There is a project called html2ps (to be used with ps2pdf). Reading the literature states <sup><a href="https://smileybits.blogspot.co.uk/2010/07/using-html2ps.html" target="_blank">16</a></sup> that this tool doesn't read CSS, so I would avoid.  I think I used another library to convert the HTML.  As another library in the odd category, FreePDF is recommended <sup><a href="https://github.com/Setasign/FPDF" target="_blank">17</a></sup> for large volumes.  It is based on cursors, and can't use HTML.</p>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Review on existing services that make PDFs <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There is a service based on Node <sup><a href="https://github.com/galkahana/hummusrenderrer/wiki/PDF-Rendering-Service" target="_blank">18</a></sup> ~ this is a github project but is also available as a REST API.  As far as you may need to edit the HTML to work better with the renderer, there are docs <sup><a href="https://pdfhummus.com/How-To" target="_blank">19</a></sup>.</p>
+
+<p>An expensive option is PrinceXML.  If all open source solutions fail, try <sup><a href="https://www.princexml.com/" target="_blank">20</a></sup>.  This is priced out of most peoples capacity, and the open source options are much better than when this product was initially sold.</p>
+
+This option <sup><a href="https://pediapress.com/" target="_blank">21</a></sup> is mostly focussed on Wiki, although should work for other document sources.  I don't know what range of HTML and CSS they support.<br />
+ <p>A MSFT focussed solution is <sup><a href="https://jsreport.net/blog/rendering-pdf-reports-in-azure-mobile-services" target="_blank">22</a></sup> available.  They use sweat equity <sup><a href="https://jsreport.net/buy" target="_blank">23</a></sup> to have a good software service.</p>
+
+<p>A .NET service called Aspose.pdf has good documentation <sup><a href="https://apireference.aspose.cloud/" target="_blank">24</a></sup>, and is branded up for “cloud”.  The pricing tool is quite complex <sup><a href="https://purchase.aspose.com/pricing" target="_blank">25</a></sup>.  I think branding “cloud” is very vacuous, but the API seems coherent and well managed.</p>
+
+<p>A PHP based solution is <sup><a href="https://www.htm2pdf.co.uk/" target="_blank">26</a></sup>, pricing <sup><a href="https://www.htm2pdf.co.uk/plans-and-pricing/" target="_blank">27</a></sup>, features <sup><a href="https://www.htm2pdf.co.uk/html-to-pdf-api/" target="_blank">28</a></sup>.</p>
+
+<p>Another is <sup><a href="https://www.html-to-pdf.net/free-online-pdf-converter.aspx" target="_blank">29</a></sup></p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Performance <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>In practical terms, no resource should be slower than two seconds, or users may abort or re-request.  There are a couple of solutions to making PDFs, each has different execution costs.  The required number of parallel requests is important, when building the architecture.   The process for making a PDF is mostly CPU bound.  I haven't memory profiled any of the renderers.  Given recent hardware, an otherwise low-load machine should be able to make several PDFs concurrently.  On previous projects, the biggest issue that I had was variable numbers of pages in the data sources.  Obviously more pages, implies a slower render.  Many of the earlier systems would mail you the PDF as soon as it was available (which if this a 50 page document would be a bit long to wait).  If this is an important business function ~ i.e. high use ~ it could be made into a parallel feature, probably going via a queue software.  These days I would look for a rentable micro-service.  When I looked previously, these didn't exist ~ but this was before AWS.   Defraying the spiking processing requirements across multiple businesses is sensible, to have workload isolation it would be smart to be in a different time-zone to most of the other customers of the service.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>PDF generation (via PHP)</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpdf-rendering" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpdf-rendering" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpdf-rendering" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-04-15T22:02:36">15th of Apr 2023</time>
+						</span>
+						<span>Created <time datetime="2015-04-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Apr 2015</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpdf-rendering" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Technical Requirements</a></li>
+<li><a href="#toc1">Review on published libraries</a></li>
+<li class="h4_odd"><a href="#toc2">Review on existing services that make PDFs</a></li>
+<li><a href="#toc3">Performance</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:45">27th of May 2023, 10:11:45</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T22:02:36">15th of Apr 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

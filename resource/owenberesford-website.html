@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Notes on Owen Beresford site</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Description of this site.  The process of creating a site isn't normally described on the site, but here it seems relevant.." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Notes on Owen Beresford site">
+<meta itemprop="description" content="Description of this site.  The process of creating a site isn't normally described on the site, but here it seems relevant..">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Notes on Owen Beresford site">
+<meta name="twitter:description" content="Description of this site.  The process of creating a site isn't normally described on the site, but here it seems relevant..">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Notes on Owen Beresford site" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/owenberesford-website" />
+<meta property="og:description" content="Description of this site.  The process of creating a site isn't normally described on the site, but here it seems relevant.." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:43" />
+<meta property="article:modified_time" content="5th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/owenberesford-website" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Notes on Owen Beresford site",
+	"article:published_time":"27th of May 2023, 10:11:43", 
+    "article:modified_time":"5th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Goals of site <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">What I would like readers to gain from this is ::<ul class="ulbasic">
+        <li class="libasic">Potential Employers to be able to see my software writing ability.</li>
+        <li class="libasic">The idle and curious to learn about project management and software architectures.</li>
+        <li class="libasic">Where relevant, access to various HTML widgets I have built and discarded.  From the basis of this as a platform, these widgets are content rather than features.</li>
+    </ul></li>
+    <li class="libasic">What I want from this is ::<ul class="ulbasic">
+        <li class="libasic">The ability to remove irrelevant projects + details from my CV for specific jobs.  A dynamic website is fundamentally a better platform for demonstrating such things than a static CV.  </li>
+        <li class="libasic">A show case + more experience in PHP5.  <b>EDIT: now PHP7</b></li>
+        <li class="libasic">A modular platform for various different rendering formats, AJAX and jQuery for example.</li>
+        <li class="libasic">Testing ground for doing UTF-8 and poly-lingual texts properly.  This is the internet.  I used not to favour multi-byte char systems on the basis nearly everything I wrote wasn't human readable, or was to be read by mono-lingual English people.  Today the entire platform (internal logging through to JS error messages) supports UTF-8, and being able to use typographical glyths is nice.  I am in the process of adding extra languages for the entire site.  </li>
+    </ul></li>
+</ul>
+
+
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Design structures and concepts <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>All the code and effort in this site which you can't see, and is quite difficult to see; is what I am most proud of.  This can easily be used as a base for future websites, secondarily to the fact I intend to re-skin it.   This can be ported to any web host which supports PHP5 and my other dependences, with minimal effort (would need to build a directory structure and redo a config file.).  This can be said of many sites, but I have put some of the features you may not normally need into this platform, in the name of thematic clarity.  You are currently reading via the minimal HTML4 skin, which has no JS and virtually no styling.  When I have finished adding basic features like page footers, I will fork a more dynamic skin.<br />
+2013: The reach skin is built, but I'm now improving this with usability features.</p>
+
+<p>When building this, my first requirement was a stable modular platform, and to offload some words from my over-crowded CV.  I now have the extendible rendering platform I have wanted since I started doing HTML in 2000 for my first dissertation.</p>
+
+<p>The platform as a project is documented<a class="" href="">?</a>, the resource you are reading is focused on business rather than technology.  As a quick comparison between my site and similar sites, read <a href="http://www.teckstack.com/understand-css-positions/" target="_blank">this</a>.  The designers skin is more complicated, and has lower information density.</p>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > User-friendly URLs <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>URLs are how people access websites, they get sent in emails, texts, read out over the phone.   Quite a few URLs are really unfriendly, in practical terms, you have to click “next” inside the website to be able to view the resource.  Most websites are not private media, but public displays, and so should be made to be shared.  I think complex URLs are poor SEO - if they are too complex the search engine is likely to record them wrongly - and it is definitely poor experience when referencing the site.  <br />
+URLs should be human readable - made out of words - to clarify can you say the URL out loud?  Human language is big enough for anything humans can express.<br />
+To follow on this idea, it is not the end-users concern or problem how you built the site.  They are aware that most URLS end 'HTML' or 'HTM', but what does that mean?  Why does the Microsoft site always end 'ASP' not 'PHP' like news sites?  Car designers mostly hide irrelevant information, so should web designers.</p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Separation of content and presentation. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>I do not know anyone who argues that there is greater efficiency in merging these two.  As is standard, I have flat unadorned data storage and separate rendering tools.  In this case, I may swap the renderers to make things look different.</p>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Standards Compliance. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Standards allow different people, tools, organisations to communicate.  The standard of English for example.  Public standards are good for systems, as they encourage commitment from a large number of people, and are frequently moderated by a large consensus.  <br />
+Everything I write is tested with <a href="https://tidy.sourceforge.net/" target="_blank">tidy</a>, or the <a href="https://validator.w3.org/" target="_blank">w3c standards tools</a>.</p>
+
+
+<h3 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > Tiny URL support. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>In 2002, someone started a webservice called <a href="http://tinyurl.com/" target="_blank">tiny-url</a>, to encode users longer URLs as a shorter redirect request.  The short form may be distributed without needing to worry about reformatting.   There have been other services since then, but this remains a useful feature for managing URLs.</p>
+
+<p>I have created a similar feature for my longer references.   This site name is a fairly descriptive URL, so a little long for tiny-URLs, but supports the feature.   This feature is easy to create via mod_rewrite.</p>
+
+
+<h2 class="dontend" id="toc6"> <a href="#toc6" title="Jump to this section." > Technologies used in this site <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ol>
+    <li>PHP5<ol>
+        <li>Why? I have plenty of experience in OO PHP4, which is clumsy; I am attempting to provide evidence for a broader skill-set.</li>
+        <li><a href="https://uk2.php.net/downloads.php" target="_blank">Primary source here</a></li>
+        <li>Language spec and design : <a href="https://php.net/manual/en/langref.php" target="_blank">although there is no proper spec, this is the manual</a> <a href="https://en.wikipedia.org/wiki/PHP" target="_blank">or this discussion</a></li>
+    </ol></li>
+    <li>LAMP<ol>
+        <li>Why? In the authors opinion, this is a stupid question. Linux is a cheap high performance, highly configurable server platform. Apache is a cheap high performance, highly configurable web server and MySQL is a cheap high performance dB.  What other options are there?</li>
+        <li>Download via your normal administration or <a href="http://httpd.apache.org/download.cgi" target="_blank">primary source here</a></li>
+        <li>Update 2013: aside from nginx obviously...</li>
+    </ol></li>
+    <li>minimal skin in HTML4<ol>
+        <li>Why? Will almost run on your coffee machine, its pandemic.  I wanted a default that would just work.   On completion of initial work will probably never be used outside of debugging.</li>
+        <li><a href="http://www.w3.org/TR/html401/" target="_blank">Primary source</a></li>
+    </ol></li>
+    <li>Template engines<ol>
+        <li>There isn't enough time to hand type HTML.  Not my time, not your time, not that kids time.  Certainly not including branding. It is common in software engineering to measure complexity, and every-time software gets too complex, add a layer of abstraction.</li>
+        <li>See following sections as they get added.</li>
+    </ol></li>
+    <li>Wiki, Pear Text_Wiki<ol>
+        <li>This is an open source Wiki library, which my host has installed.  Please note this isn't a page hosting environment, this is a rendering library.  The basic page system built on top of this is plain and reliable.</li>
+        <li><a href="https://pear.php.net/package/Text_Wiki/redirected" target="_blank">Primary source here</a></li>
+    </ol></li>
+    <li>mod_rewrite<ol>
+        <li>Whilst this does have a performance cost, I still think this is an important feature for ease of use.  There are currently two features using this module <a href="https://owenberesford.me.uk/resource/owenberesford-website#friendly_urls" target="_blank">friendly URLs</a> and <a href="https://owenberesford.me.uk/resource/owenberesford-website#tiny_url" target="_blank">Tiny URL</a>.</li>
+        <li><a href="http://httpd.apache.org/docs/2.0/mod/mod_rewrite.html" target="_blank">Language usage</a></li>
+        <li>Download via your normal administration or <a href="http://httpd.apache.org/download.cgi" target="_blank">seperately</a></li>
+    </ol></li>
+    <li>w3c validators<ol>
+        <li>Not actually part of this site, but to demonstrate I value accessibility and standards.</li>
+        <li><a href="https://jigsaw.w3.org/css-validator/" target="_blank">The w3c CSS site</a> <a href="https://validator.w3.org/" target="_blank">The w3c xHTML site</a></li>
+    </ol></li>
+    <li>SMTP support<ol>
+        <li>This is not a webmail client, this is library support for sending “contact me” emails.  Its a feature, not a central asset.</li>
+        <li>Librarified access for the in-page handlers, configured from common site-config.</li>
+        <li>2013: In the recent extensions I added switftmailer</li>
+    </ol></li>
+    <li>Intelligent use of JS, jQuery etc;<ol>
+        <li>Fairly industry standard.  I wish to have the JS as attached libraries, not essential features.  The platform should run without any JS;</li>
+    </ol></li>
+    <li>Search<ol>
+        <li>I will import a search class/bundle.  Search is best managed by decent search facilities like Google, so this will be referencing external items;</li>
+    </ol></li>
+    <li>Front end tweaks/hints ~ not part of iceline.  A collection of extra features to make the resultant site easier to use. </li>
+    <li>... moar!!!! ...</li>
+</ol>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+
+<h2 class="dontend" id="toc7"> <a href="#toc7" title="Jump to this section." > Planned features <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>I would not feel happy about other parties having copies of this source in its current incomplete form.  Where I have no <em>current use</em> of a planned feature, I have saved time and not implemented it;</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Add more attractive renderers, please see <a class="" href="https://owenberesford.me.uk/resource/reach-skin#">reach-skin</a> ;</li>
+    <li class="libasic">Add more content;</li>
+    <li class="libasic">Ensure file_mime is kept up to date;</li>
+    <li class="libasic">The above three are permanent for this website;</li>
+    <li class="libasic">DONE Fill-in empty keyword slots in the content (see <a class="" href="https://owenberesford.me.uk/resource/tag-cloud#"> the tag-cloud for discusion on this</a> );</li>
+    <li class="libasic">Consider re-factoring PageResource, current goals/ responsibilities are abit muddled;</li>
+    <li class="libasic">Add more of my planning notes (with better English) to this site;</li>
+    <li class="libasic">DONE Add support for further resource types, i.e. JSON responses, XML/RSS responses; </li>
+    <li class="libasic">Implement authenticate as soon as there is need for it;</li>
+    <li class="libasic">Extend minimal_html4-&gt;get_validate to have behaviour dependant on current state;</li>
+    <li class="libasic">Re-factor minimal_html4-&gt;do_get with respect to branching on $request['md'];</li>
+    <li class="libasic">Prohibit possible message loop in Log-&gt;debug (when possible);</li>
+    <li class="libasic">ValidationFilter-&gt;register_formats should be a merge not a blanket overwrite of formats;</li>
+    <li class="libasic">When you are logged in, apply “your” interface choices;</li>
+    <li class="libasic">Rebuild and complete the use of CSS in this interface, document all CSS classes;</li>
+    <li class="libasic">Only use 'db' in the request for certain user profiles;</li>
+    <li class="libasic">Consider if anything needs to happen for BinaryResource-&gt;exec_validate();</li>
+    <li class="libasic">See if render can be made an object;</li>
+    <li class="libasic">DONE Contact me mail form (requires the mail object, a page with a form, complete POST handling);</li>
+    <li class="libasic">50% DONE Think about the licensing page again;</li>
+    <li class="libasic">DONE When necessary, implement the “nextpage state machine”. for POSTS;</li>
+    <li class="libasic">Create debug GUI widgets;</li>
+    <li class="libasic">HTML5, NOTAFAULT Find out exactly what those error messages mean in “xhtml strict” mode in w3c tools;</li>
+    <li class="libasic">Think about authoring the content texts for another language.  Code support is present;</li>
+    <li class="libasic">Add format specific file returns for NonexecutableBinary, to allow selection of media formats (i.e. return the best/most recent media option the webclient says it supports by reading the HTTP headers in the GET request);</li>
+    <li class="libasic">Expand and complete the documentation;</li>
+    <li class="libasic">Identification;</li>
+    <li class="libasic">As soon as there is authentication, move some of the things on my local machine to here;</li>
+</ul>
+
+
+<h2 class="dontend" id="toc8"> <a href="#toc8" title="Jump to this section." > Test cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>To make things cleaner, I have moved this section to the code documentation<a class="" href="">?</a>.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Notes on Owen Beresford site</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fowenberesford-website" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fowenberesford-website" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fowenberesford-website" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-05T09:09:47">5th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fowenberesford-website" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Goals of site</a></li>
+<li><a href="#toc1">Design structures and concepts</a></li>
+<li class="h4_odd"><a href="#toc2">User-friendly URLs</a></li>
+<li><a href="#toc3">Separation of content and presentation.</a></li>
+<li class="h4_odd"><a href="#toc4">Standards Compliance.</a></li>
+<li><a href="#toc5">Tiny URL support.</a></li>
+<li class="h4_odd"><a href="#toc6">Technologies used in this site</a></li>
+<li><a href="#toc7">Planned features</a></li>
+<li class="h4_odd"><a href="#toc8">Test cases</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:43">27th of May 2023, 10:11:43</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-05T09:09:47">5th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

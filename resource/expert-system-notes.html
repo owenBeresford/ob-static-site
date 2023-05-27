@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Expert Systems Notes</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Some background data on machine decision making" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Expert Systems Notes">
+<meta itemprop="description" content="Some background data on machine decision making">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Expert Systems Notes">
+<meta name="twitter:description" content="Some background data on machine decision making">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Expert Systems Notes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/expert-system-notes" />
+<meta property="og:description" content="Some background data on machine decision making" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:22" />
+<meta property="article:modified_time" content="4th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/expert-system-notes" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Expert Systems Notes",
+	"article:published_time":"27th of May 2023, 10:10:22", 
+    "article:modified_time":"4th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>A previous contract asked for a plan for a extra project; where I wasn't involved.  This doesn't really contain anything confidential, in that I'm suggesting “build X”;  but I'm not involved.</p>
+
+<p><br />
+NPM has many libraries <sup><a href="https://www.npmjs.com/browse/keyword/ai" target="_blank">1</a></sup> for AI.<br />
+Pls isolate this into a module etc so it has a clear interface; we will be rewriting/extending this quite a lot.  Kind of obvious.<br />
+This feature doesn't need to be the fastest code; but can Node fork() (yes <sup><a href="https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options" target="_blank">2</a></sup> ), to avoid blocking the 1 thread HTTP/S server. <b>UPDATE 2020:</b> Also one can link other languages into a Node interpreter, see <a class="" href="https://owenberesford.me.uk/resource/nodejs-linking#">nodejs-linking</a>.</p>
+
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Goal: SC requested step1 version <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">Static set of heuristics</li>
+    <li class="libasic">Have the 'weights', to apply in each metric; adjustable ideally by the user (likely to be something like 1.1).</li>
+    <li class="libasic">Take a base figure “basic cost of a table for a cover” from the venue as a starting number.</li>
+    <li class="libasic">Not all metrics will apply to a given time/table; work out the active ones.</li>
+    <li class="libasic">Combine all relevant weights (of these metrics) with a multiply.</li>
+    <li class="libasic">Multiply onto the base figure.</li>
+    <li class="libasic">Feed back figure to venue owner.</li>
+</ul>
+
+
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Goal: Step2, make the code workout new metrics <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">This is the valuable bit.</li>
+    <li class="libasic">US people like to use the word “deep”.  AFAIA this means pure/ abstract.  The famous google 'deep learning' is a tweak on neural nets.</li>
+    <li class="libasic">Unless we can get a large volume of reference data; we cannot use a neural net.</li>
+    <li class="libasic">I have made several expert systems.  These are sufficiently well-known that I can put cost estimates on. </li>
+</ul>
+
+
+<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > References <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">Some work on decision trees <sup><a href="https://en.wikipedia.org/wiki/Decision_tree_learning" target="_blank">3</a></sup> <sup><a href="https://www.csun.edu/~twang/595DM/Slides/Week4.pdf" target="_blank">4</a></sup> <sup><a href="https://arxiv.org/pdf/1301.7384.pdf" target="_blank">5</a></sup></li>
+    <li class="libasic">A Node neural net lib <sup><a href="https://caza.la/synaptic/" target="_blank">6</a></sup><ul class="ulbasic">
+        <li class="libasic">As noted above, this approach will only work if a body of data for training can be assembled</li>
+    </ul></li>
+    <li class="libasic">Expert systems <sup><a href="https://en.wikipedia.org/wiki/Expert_system" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Rule-based_system" target="_blank">8</a></sup><ul class="ulbasic">
+        <li class="libasic">Only look at algorthms on here <sup><a href="https://www.researchgate.net/publication/292780022_Rule-Based_Expert_Systems" target="_blank">9</a></sup> <sup><a href="https://link.springer.com/chapter/10.1007/978-3-642-21004-4_7" target="_blank">10</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Drools" target="_blank">11</a></sup></li>
+        <li class="libasic">An expert system API (NodeJS binding to an established expert system) <sup><a href="https://github.com/atrniv/node-clips" target="_blank">12</a></sup> Docs <sup><a href="https://www.clipsrules.net/documentation/v640/bpg640.pdf" target="_blank">13</a></sup> from <sup><a href="https://www.clipsrules.net/" target="_blank">14</a></sup></li>
+        <li class="libasic">Most of the following are built with Rete algorithm <sup><a href="https://en.wikipedia.org/wiki/Rete_algorithm" target="_blank">15</a></sup></li>
+        <li class="libasic">NodeJS lib, check status, or a fork <sup><a href="https://github.com/C2FO/nools" target="_blank">16</a></sup></li>
+        <li class="libasic">C project, with NodeJS (and other langs) bindings <sup><a href="https://github.com/jruizgit/rules" target="_blank">17</a></sup>, newer than last</li>
+        <li class="libasic">Doesn't mention anything to do with its architecture <sup><a href="https://www.npmjs.com/package/node-rules" target="_blank">18</a></sup> </li>
+    </ul></li>
+</ul>
+
+
+<h2 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Appendix A: Initial list of metrics (SC to extend) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">current bookings for that day</li>
+    <li class="libasic">day of week</li>
+    <li class="libasic">time of day</li>
+    <li class="libasic">time of year (peak in summer)</li>
+    <li class="libasic">nearness to holidays/festivals (list in a DB table?)</li>
+    <li class="libasic">Cultural match to the event (i.e. Chinese venue at Chinese new year is more expensive)</li>
+    <li class="libasic">Nearness to “an event”, this will need to be scraped, sample data sources <sup><a href="https://www.visitengland.com/things-to-do/events" target="_blank">19</a></sup> <sup><a href="http://www.bbc.co.uk/sport/34453641" target="_blank">20</a></sup> <sup><a href="http://www.cognique.co.uk/blog/key-marketing-dates-for-2016/" target="_blank">21</a></sup>.  Pretending we are rich, we can buy data from a company to do the aggregation for us (easier).  Otherwise, the next years event calendar will need to be imported</li>
+    <li class="libasic">weather estimate (maybe drop this one)</li>
+    <li class="libasic">size of booking (compared to venue) maybe up/ maybe down, but affects price</li>
+    <li class="libasic">previous bookings (not sure if up or down here either)</li>
+    <li class="libasic">lead time to desired date (long lead time, small increment; short lead time, bigger)</li>
+    <li class="libasic">Noticeable multiply factor depending expected alcohol consumption (an alcohol bill will literally double raw cost)...</li>
+    <li class="libasic">User demographics: SC says male == expensive, 30-40 == expensive, </li>
+    <li class="libasic">Response from SC: It's important that the algorithm feeds into the CMS that the restaurant is using and knows the restaurant location - i.e. london vs Melbourne and how the external market conditions affect pricing... this translates to a day by day visual - i.e. Yellow is not a strong day in the calendar for a price hike - dark red would show a customer tolerance to pay more... e.g. 14 February --- dark red.</li>
+</ul>
+
+
+<h2 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Appendix B: reference impl notes  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">define a rule as an object holding a weight (a float), a name (a string) and a JS function, which takes a booking object &amp; returns true or false</li>
+    <li class="libasic">define a venue as a set of tables, (in addition to current attributes)</li>
+    <li class="libasic">a table is a js object with name, a size, a description, and a base cost</li>
+    <li class="libasic">revise a booking to mention the table</li>
+    <li class="libasic">use an impl of Rete to apply each rule to the base price </li>
+    <li class="libasic">The rules processor will need all the data we have about the consumer; and all the event data</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Expert Systems Notes</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-04T10:09:59">4th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2016-11-23T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >23rd of Nov 2016</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fexpert-system-notes" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Goal: SC requested step1 version</a></li>
+<li><a href="#toc1">Goal: Step2, make the code workout new metrics</a></li>
+<li class="h4_odd"><a href="#toc2">References</a></li>
+<li><a href="#toc3">Appendix A: Initial list of metrics (SC to extend)</a></li>
+<li class="h4_odd"><a href="#toc4">Appendix B: reference impl notes</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:22">27th of May 2023, 10:10:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-04T10:09:59">4th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>DB Visualisers</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Discussion on DB visualisers. List of 11 tools available on the market since 2012." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="DB Visualisers">
+<meta itemprop="description" content="Discussion on DB visualisers. List of 11 tools available on the market since 2012.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="DB Visualisers">
+<meta name="twitter:description" content="Discussion on DB visualisers. List of 11 tools available on the market since 2012.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="DB Visualisers" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/db-visualisers" />
+<meta property="og:description" content="Discussion on DB visualisers. List of 11 tools available on the market since 2012." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:14" />
+<meta property="article:modified_time" content="9th of Apr 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/db-visualisers" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "DB Visualisers",
+	"article:published_time":"27th of May 2023, 10:10:14", 
+    "article:modified_time":"9th of Apr 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p><em>Alternative title data plotters.</em>  I ~ in 2012/3 ~ needed a schema visualisation tool for databases at work (article has been updated, so it is still published).  The main DB is established, and has lots of concurrent use.  I would like a tool to convert an SQL schema to a picture; without needing a human to draw it.  There are many tools that are just outputs for a human; it seems that that tool market thinks everyone wants to draw diagrams by hand.  When it was current, TogetherJ was a useful tool.</p>
+
+<p>The most common tool for the search term “db visualiser” is <a href="https://dbvis.com/" target="_blank">dbvisualiser</a>.  This isn't what I'm after, in that you can only see one table at once.  The output is similar to <a href="https://sql-workbench.eu/" target="_blank">sql-workbench</a> which is what the DBA uses.  The CMS team tend towards <a href="https://en.wikipedia.org/wiki/Oracle_SQL_Developer" target="_blank">SQL developer</a> <sup><a href="https://www.osalt.com/sql-developer" target="_blank">1</a></sup>, which I find slow to solve problems with.   If this tool has diagramming or rasterisation features I haven't found them.  <b>UPDATE 2023:</b> Whilst looking for something, I see this chart of tools that can build a diagram from a schema <sup><a href="https://en.wikipedia.org/wiki/Comparison_of_database_administration_tools#Features_-_visual_design_and_reverse_engineering" target="_blank">2</a></sup></p>
+
+<p>As my 2013 employer is using storeproc, I fed this tool <a href="https://www.allroundautomations.com/products/pl-sql-developer/" target="_blank">plsql-dev</a> back to them, it seems like Eclipse, only for DB.  As a comparative tool <a href="https://www.networkworld.com/article/2234089/sqlcat---awesome-resource-.html" target="_blank">sqlcat</a>, which is run by microsoft; and after 2015 has been cancelled.  Sql-cat seems to publish helpful information <sup><a href="https://download.microsoft.com/download/D/2/0/D20E1C5F-72EA-4505-9F26-FEF9550EFD44/SSIS%20Hybrid%20and%20Azure.docx" target="_blank">3</a></sup> <sup><a href="https://download.microsoft.com/download/D/2/0/D20E1C5F-72EA-4505-9F26-FEF9550EFD44/SSIS%20Operational%20and%20Tuning%20Guide.docx" target="_blank">4</a></sup> ~ <i>warning these are docx files, rather than pages.</i></p>
+
+<p><a href="https://sqlfairy.sourceforge.net/" target="_blank">SQLFairy</a> is described as <a href="https://nsaunders.wordpress.com/2009/01/11/easy-visualisation-of-database-schemas-using-sqlfairy/" target="_blank">SQLFairy</a>.  It requires to be fed a schema file, and produces a static image.  Structures shouldn't change that often, so this isn't a concern.</p>
+
+<p><b>Update 2016:</b>  I was sent this link <a href="https://www.pulpo18.com/#features" target="_blank">pulpo</a>, its freemium service.  As its not OSS, please read the terms before committing to anything, but the initial spec look quite useful.</p>
+
+<p><b>UPDATE 2020:</b> <a href="https://twitter.com/@shadowcat_mst" target="_blank">@shadowcat_mst</a> has published another tool and was talking about it.  This is in Perl; the cover notes state DB-&gt;DB transform and DB-&gt;graphic transform <a href="https://github.com/dbsrgits/sql-translator/" target="_blank">git</a> <a href="https://metacpan.org/release/MSTROUT/SQL-Translator-1.61-TRIAL0" target="_blank">CPAN</a>.</p>
+
+<p><b>UPDATE 2022:</b> I am updating all the HTTP links on this site.  Previously I had a link to an article with many tools; but that site is gone.  I find <a href="https://dbeaver.io/" target="_blank">dbeaver</a> but I think that is a SQL client rather than a SQL visualiser.   <a href="https://drawsql.app/" target="_blank">DrawSQL</a> <sup><a href="https://www.saasworthy.com/product/drawsql-app" target="_blank">5</a></sup> <sup><a href="https://www.producthunt.com/products/drawsql/reviews" target="_blank">6</a></sup> is a commercial tool that supports import of SQL and export of visualisations.  It is described on <sup><a href="https://www.holistics.io/blog/top-5-free-database-diagram-design-tools/" target="_blank">7</a></sup>.  A second option is <a href="https://www.smartdraw.com/entity-relationship-diagram/database-diagram-tool.htm" target="_blank">SmartDraw</a> <sup><a href="https://www.techradar.com/reviews/smartdraw" target="_blank">8</a></sup> <sup><a href="https://uk.pcmag.com/productivity-2/19976/smartdraw-cloud" target="_blank">9</a></sup>, this ingests a CSV export of the schema; and diagrams it.</p>
+
+<p>There was a tool run by Ausberg Universität called “Mondrian”. This seems to have been bought by Pentaho, a business unit of Hitachi. Current link to <a href="https://mondrian.pentaho.com/documentation/installation.php" target="_blank">Legacy docs</a> for the first tool; but they state use <a href="http://sourceforge.net/project/showfiles.php?group_id=140317&amp;amp;package_id=160028" target="_blank">Pentaho</a> instead.   This looks like a useful tool, but not relevant.   It's complex data visualiser, but doesn't seem relevant to DB schema.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>DB Visualisers</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-visualisers" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-visualisers" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-visualisers" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-04-09T14:28:30">9th of Apr 2023</time>
+						</span>
+						<span>Created <time datetime="2022-08-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Aug 2022</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdb-visualisers" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:14">27th of May 2023, 10:10:14</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-09T14:28:30">9th of Apr 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

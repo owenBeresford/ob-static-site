@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Some JS build tools.</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Tidied up tech notes, pls just use JS modules + HTTP2" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Some JS build tools.">
+<meta itemprop="description" content="Tidied up tech notes, pls just use JS modules + HTTP2">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Some JS build tools.">
+<meta name="twitter:description" content="Tidied up tech notes, pls just use JS modules + HTTP2">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Some JS build tools." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/some-js-build-tools" />
+<meta property="og:description" content="Tidied up tech notes, pls just use JS modules + HTTP2" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:36" />
+<meta property="article:modified_time" content="22nd of Dec 2022" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/some-js-build-tools" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Some JS build tools.",
+	"article:published_time":"27th of May 2023, 10:12:36", 
+    "article:modified_time":"22nd of Dec 2022",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="fewWords">
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > These configs are to use Vue3 and typescript; that is why its complex and manual <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>This is a dull article to save me time during a sprint.  Please refer to the article creation date; it will be useless after a year.  Merging your separate JS libraries into a bigger blob reduces the impact of the overheads of a HTTP transaction.  Most webrowsers will only allow streaming of two assets at a time per domain.  Merging all CSS and JS into fewer bigger blobs stops this from being a bottleneck.   Sometimes people are running compiling tools to change from the version of JS that they want to write (code aesthetics) in to a maximum compatibility version.<br />
+Pls see <a class="" href="https://owenberesford.me.uk/resource/js-modules-notes#">js-modules-notes</a> and <a class="" href="https://owenberesford.me.uk/resource/js-classloader#">js-classloader</a> for older work in this space.  I have been waiting for several years for JS module support <sup><a href="https://caniuse.com/?search=modules" target="_blank">1</a></sup> to climb, as it is a better way to solve the problem.  Modules mean we go back to <b>not having global variables</b> again.  If a feature has been decomposed into many JS files, its a good idea to merge them before transmission to the client side.<br />
+The most widely used transpiler/ bundler is still <i>babeljs</i> with webpack <sup><a href="https://stackshare.io/babel" target="_blank">2</a></sup> <sup><a href="https://www.wappalyzer.com/technologies/miscellaneous/babel" target="_blank">3</a></sup> <a href="https://babeljs.io/docs/en/" target="_blank">docs</a>. The newest version is 7.18 released on May 19, 2022 <sup><a href="https://babeljs.io/blog/2022/05/19/7.18.0" target="_blank">4</a></sup>.   This is popular, but I don't like the config file very much; they look like <sup><a href="https://babeljs.io/docs/en/config-files" target="_blank">5</a></sup> <sup><a href="https://babeljs.io/docs/en/configuration" target="_blank">6</a></sup>.<br />
+<pre class="code" lang="js">
+module.exports = {
+  presets: [
+    '@vue/cli-plugin-babel/preset',
+  ],
+};
+</pre></p>
+
+<p>As I am now using typescript, I am now using at least one tsconfig file in each project.  The documentation for this mentions 3-4 different file names (tsconfig.js, .tsconfigrc.js tsconfig.json, tsconfig.build.json and so on).  The documentation is <sup><a href="https://www.typescriptlang.org/tsconfig" target="_blank">7</a></sup> <sup><a href="https://nextjs.org/learn/excel/typescript/create-tsconfig" target="_blank">8</a></sup>.  The standard tool for typescript claims responsibility for type checking, generating meta data files and sometimes generating JS from the TS; not bundling.  <br />
+<pre class="code" lang="json">
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "experimentalDecorators": true,
+	"strictPropertyInitialization":false,
+	"emitDecoratorMetadata": true,
+    "allowJs": true,
+	"isolatedModules": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "sourceMap": true,
+	"skipLibCheck": true,
+    "baseUrl": ".",
+    "types": [ "src/types/vue3-touch-events.d.ts" ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+	},
+  "exclude": [
+    "node_modules"
+  ]
+}
+</pre></p>
+
+<p>The best tool for linting JS and TS that I have found was eslint; as it supplies alot of information.  This is managed by in-source-comments that start &quot;// eslint” <sup><a href="https://eslint.org/docs/rules/" target="_blank">9</a></sup> and by a config file called &quot;.eslintrc.json” <sup><a href="https://eslint.org/docs/user-guide/getting-started" target="_blank">10</a></sup> <sup><a href="https://es.eslint.org/docs/user-guide/configuring/configuration-files/" target="_blank">11</a></sup>.   I like that the eslint tool doesn't get in your way most of the time, and does offer a &quot;--fix” option for things it cares about that no human should (i.e. are you using double or single quotes for string delimiting, or whether your IDE has expanded tabs or not).<br />
+<pre class="code" lang="json">
+{
+  "root":true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint/eslint-plugin", "eslint-plugin-vue"],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:vue/vue3-essential"],
+  "rules":{ "strict":1 }
+}
+</pre></p>
+
+<p>If you look at building failures in <a class="" href="https://owenberesford.me.uk/resource/shopping-list#">shopping-list</a>, I have had to iterate tooling frequently.  I have achieved partial success with rollupjs.  This has a plain JS file for a config, but mostly you add more plugins to get behaviour <sup><a href="https://devhints.io/rollup" target="_blank">12</a></sup> <sup><a href="https://rollupjs.org/guide/en/" target="_blank">13</a></sup> <sup><a href="https://blog.openreplay.com/the-ultimate-guide-to-getting-started-with-the-rollup-js-javascript-bundler" target="_blank">14</a></sup>.<br />
+<pre class="code" lang="js">
+import vue from 'rollup-plugin-vue';
+import typescript from 'rollup-plugin-typescript2';
+import replace from '@rollup/plugin-replace';
+// import nodeResolve from '@rollup/plugin-node-resolve';
+var fs = require('fs');
+
+function presetSCF(nom, format) {
+	let nom2='./build/components/'+nom+'.vue';
+	if(! fs.existsSync( nom2 ) ) {
+		nom2='./build/'+nom+'.vue';
+	}
+
+	const tt={
+  input: nom2,
+  treeshake: true,
+  output: 	{
+    intro: '//    INTERMEDIATE FILE, PLEASE DO NOT EDIT THIS.  \n//   Edit the original typescript files.\n//  Author: Owen Beresford, $mailaddress \n//   Licence: AGPL-3 https://www.gnu.org/licenses/agpl-3.0.en.html\n', 
+    format: format,
+    name: 'test',
+    file: nom2.includes('components')?'./build/components/'+nom+'.js':'./build/'+nom+'.js',
+ 	 },
+  plugins: [  
+	typescript({
+		check: false,
+      module: 'esnext',
+		 }),
+    vue({ css: false }),
+  ],
+  external: [ 'vue', 'vue-router', "reflect-metadata", "ts-json-object", "vector2d", "vue3-touch-events", "vuex", "AList", "ListService", "LocalCopy", "URLs", "FAKE1_Factory", "Localisation", "InstallWorker", "MotionStream", "util"  ],
+		};
+
+	return tt;	
+}
+
+function presetTS(nom, format) {
+	let nom2='/services/'+nom;
+	if(! fs.existsSync( "./src"+nom2+".ts" ) ) {
+		nom2='/'+nom;
+	}
+
+  const tt={
+  input: "./build"+nom2+".ts",
+  treeshake: true,
+  output: 	{
+    intro: '//    INTERMEDIATE FILE, PLEASE DO NOT EDIT THIS.  \n//   Edit the original typescript files.\n//  Author: Owen Beresford, $mailaddress \n//   Licence: AGPL-3 https://www.gnu.org/licenses/agpl-3.0.en.html\n', 
+    format: format,
+    name: 'test',
+    file: './build'+nom2+'.js',
+	 plugins: [ 
+
+			], 
+ 	 },
+  plugins: [  
+ 	replace({
+		values:{
+//      'process.env.NODE_ENV': JSON.stringify('production'),
+//      __buildDate__: () => JSON.stringify(new Date()),
+     'V2D.Vector':'Vector', 
+	 "import \* as V2D from .*;": "import * as V2D from 'vector2d/src/Vector';",
+	 ".vue'": "'",
+			},
+		preventAssignment:true,
+    }), 
+	typescript({
+		check: false,
+        module: 'esnext',
+		 }),
+
+  ],
+  external: [  ],
+		};
+
+	return tt;	
+}
+
+function presetTS2(nom, format) {
+	let nom2='/services/'+nom;
+	if(! fs.existsSync( "./src"+nom2+".ts" ) ) {
+		nom2='/'+nom;
+	}
+
+  const tt={
+  input: "./build"+nom2+".ts",
+  treeshake: true,
+  output: 	{
+    intro: '//    INTERMEDIATE FILE, PLEASE DO NOT EDIT THIS.  \n//   Edit the original typescript files.\n//  Author: Owen Beresford, $mailaddress \n//   Licence: AGPL-3 https://www.gnu.org/licenses/agpl-3.0.en.html\n', 
+    format: format,
+    name: 'test',
+    file: './build'+nom2+'.js',
+	 plugins: [ 
+
+			], 
+ 	 },
+  plugins: [  
+ 	replace({
+		values:{
+//      'process.env.NODE_ENV': JSON.stringify('production'),
+//      __buildDate__: () => JSON.stringify(new Date()),
+     'V2D.Vector':'Vector', 
+	 "import \* as V2D from .*;": "import * as V2D from 'vector2d/src/Vector';",
+	 ".vue'": "'",
+			},
+		preventAssignment:true,
+    }), 
+//	nodeResolve({ 
+//		browser:true,
+//		extensions:['.mjs', '.js', '.ts' ], 
+//		moduleDirectories: ['node_modules', 'build' ],
+//				}),	
+	typescript({
+		check: false,
+        module: 'esnext',
+		 }),
+
+  ],
+  external: [  ],
+		};
+
+	return tt;	
+}
+
+export default [
+	presetSCF('EnterInput', 'es'),
+	presetSCF('InterstitialView', 'es'),
+	presetSCF('ListOfLists', 'es'),
+	presetSCF('ThisList', 'es'),
+	presetSCF('UnknownRoute', 'es'),
+	presetSCF('TabBar', 'es'),
+	presetSCF('App', 'es'),
+
+	presetTS('Localisation', 'es'),
+	presetTS('AList', 'es'),
+	presetTS('Store', 'es'),
+	presetTS('ListService', 'es'),
+	presetTS('LocalCopy', 'es'),
+	presetTS('URLs', 'es'),
+	presetTS('MotionStream', 'es'),
+	presetTS('FAKE1_Factory', 'es'),
+	presetTS('util', 'es'),
+	presetTS2('workers/InstallWorker', 'es'),
+	presetTS2('components/Routing', 'es'),
+	presetTS2('main', 'es'),
+
+];
+
+// and several more
+</pre></p>
+
+<p>I tried and failed to get Vite <sup><a href="https://vitejs.dev/guide/features.html" target="_blank">15</a></sup> <sup><a href="https://vitejs.dev/" target="_blank">16</a></sup> (not vitebot, which is like selenium) to build front end code.  Vite is very fast as it is correctly using JS modules.  It is controlled via a config <sup><a href="https://vitejs.dev/config/" target="_blank">17</a></sup> <sup><a href="https://vitejs.dev/guide/build.html" target="_blank">18</a></sup> that looks like this:<br />
+<pre class="code" lang="js">
+import { defineConfig } from 'vite';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+	plugins: [ ],
+	root: '~/shopping/client-src/public',
+	server: {
+      hmr: false
+	},
+//	optimizeDeps: { 
+//		include: [ "./build/*js", './build/components/*js', './build/services/*js']	
+//	}
+});
+</pre></p>
+
+<p>I haven't listed tools that I couldn't get to work; as I assume I would get the same fault in future.  If I to need to pull those names, they are listed in the project article.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth" >
+					<header><h1>Some JS build tools.</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsome-js-build-tools" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsome-js-build-tools" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsome-js-build-tools" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>
+						</span>
+						<span>Created <time datetime="2022-05-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of May 2022</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsome-js-build-tools" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">These configs are to use Vue3 and typescript; that is why its complex and manual</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:36">27th of May 2023, 10:12:36</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2022-12-22T22:50:10">22nd of Dec 2022</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
+<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
+</body>
+</html>

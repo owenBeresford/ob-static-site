@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Search failures</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="How to isolate and repel customers via your search feature; so your company cannot achieve sales." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Search failures">
+<meta itemprop="description" content="How to isolate and repel customers via your search feature; so your company cannot achieve sales.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Search failures">
+<meta name="twitter:description" content="How to isolate and repel customers via your search feature; so your company cannot achieve sales.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Search failures" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/search-failures" />
+<meta property="og:description" content="How to isolate and repel customers via your search feature; so your company cannot achieve sales." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:23" />
+<meta property="article:modified_time" content="15th of Apr 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/search-failures" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Search failures",
+	"article:published_time":"27th of May 2023, 10:12:23", 
+    "article:modified_time":"15th of Apr 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>I am a software engineer, who has noticeable experience in improving UX and utility of web-based systems.  If I thought this text had any ground breaking ideas, I wouldn't be publishing them on a website, I would be generating a source bundle, then a product and trying to sell the new startup.   This list describes behaviour of search features, and it applies regardless of your implementation technology (eg public website, a mobile app or corporate LAN tooling).</p>
+
+<p>This is a simple list of activities/ interactions/ results that developers can do to isolate and repel consumers; so they cannot buy your products.</p>
+
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > How to fail at search <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">Expect consumers to put space characters in, and particular places, and not too many of them. UK postcodes are common failures in this point.</li>
+    <li class="libasic">More annoying is when different channels to your organisation have different rules for the same interaction.  For example gmap desktop doesn't mind UK postcodes with no space in the middle; gmap android app will silently drop the second section of the postcode, so report a huge area as a positive match.  Obviously the interaction with the most precision will be via the small handset.</li>
+    <li class="libasic">If you have a particular domain for a particular locale; add the code support for that locale. For example the Maltese gmap should understand Maltese postcodes. Otherwise why publish the domain?</li>
+    <li class="libasic">Expect consumers to use a particular case (again postcodes).  Yes I saw this on a live site.</li>
+    <li class="libasic">Expect users to enter a specific UTF-8 pip to match whatever the [other nationality] sales person put in the DB.  Compare “Salvié’s Cucina” with “Salvie`s Cucina”.  Better displayed as <a class="" href="https://owenberesford.me.uk/resource/search-text-sample#">search-text-sample</a>.</li>
+    <li class="libasic">Expect consumers to learn a graph of product definition rules, and so be able to enter a query language based on them. An anonymous example, is a restaurant marketing company that expected consumers to filter venues based on their own attire when selecting where to eat.</li>
+    <li class="libasic">Give consumers a range of different text boxes that each take a different type of id code; and expect consumers to carefully select the input to type into.  Compare Abe books to Amazon [books] for UX.</li>
+    <li class="libasic">A good way to get rid of sales is to use annoyingly short pagination, and cram the pages with many adverts, slowing loading time (many examples).  When people view via a phone, most people are happy with scroll; but can't when the adverts make everything freeze, or redraw.</li>
+    <li class="libasic">When entering a phone number, obviously the consumer should be responsible for all the prefixes, and entering all of them, in a precise notation.   With a well structured data store, this is not needed; and some data could be guessed with GeoIP.</li>
+    <li class="libasic">Statefullness with Angular/React/Vue is all very cool; but make sure it doesn't break and forget the local state. </li>
+    <li class="libasic">Paid placement is a good way to increase your revenue; however you also need to respond with what the user asked for.</li>
+    <li class="libasic">Guessing things with GeoIP is nice; but if you guess wrong, the consumer needs to be able to correct it.</li>
+    <li class="libasic">Have a really poor relevancy algorithm, or maybe none. Therefore the search results are in a random order to consumers desires, like alphabetical.</li>
+    <li class="libasic">Make each version of refined search exclusive (i.e. can search by location OR by date but not date and location)</li>
+    <li class="libasic">For anything involving time, do not allow any way to separate past events from future events (there aren't many user-stories that confabulate “I went to” and “I would like to go to”). One of the Tate websites does this.</li>
+    <li class="libasic">Build a search that is slow (longer than 1s), particularly for small datasets.</li>
+    <li class="libasic">I don't know about most peoples biases, but when “popular items” show in search results, I ignore them, as they aren't what I wanted.</li>
+    <li class="libasic">In my opinion, don't emphasise the row count, the collection/table size, or the execution time in the UI. Its not relevant.</li>
+</ul>
+
+<p>My current MD says that 70% of AI (or what seems to be low level automated decision making) is just cleaning and normalising your input data.  Most of these fail cases intersect with this idea.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="uitools,english"> <p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div><p>Some similar articles in english </p><div id="groupenglish" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=english" title="This article lists all items in english group.">All of <br />english </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Search failures</h1></header>
+			    	<p role="status" class="bigScreenOnly">  How to fail at internet search </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsearch-failures" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsearch-failures" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsearch-failures" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-04-15T20:18:31">15th of Apr 2023</time>
+						</span>
+						<span>Created <time datetime="2017-10-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Oct 2017</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsearch-failures" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">How to fail at search</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:23">27th of May 2023, 10:12:23</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-04-15T20:18:31">15th of Apr 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Adaptive palette</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="XXXX" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Adaptive palette">
+<meta itemprop="description" content="XXXX">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Adaptive palette">
+<meta name="twitter:description" content="XXXX">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Adaptive palette" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/adaptive-palette" />
+<meta property="og:description" content="XXXX" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:09:47" />
+<meta property="article:modified_time" content="27th of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/adaptive-palette" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Adaptive palette",
+	"article:published_time":"27th of May 2023, 10:09:47", 
+    "article:modified_time":"27th of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>I did a crawl on the internet/ npmjs, I cannot find a CSS framework that advertises adaptive colours.  I thought it a good idea to replace the style sheet as its old and accumulated code; the newer code is smaller.  If I add more usability features (e.g. dark-mode), the smaller style sheet will be necessary.  This palette is actually the first CSS palette I have made, I normally use the premix colours in the framework, or extract values from the style-guide.  However the adaption features ares a hobbyists over-engineered solution; if you tell your browser that you a prefer an extreme on <i>prefers-contrast</i>, the palette will match it.   It would be cool if there was a thing for “I'm in an oversaturated environment”, and put the brightness up; but I do not have access to that data programmatically.</p>
+
+<p>Please see <a class="" href="https://owenberesford.me.uk/resource/accessible-css#">accessible-css</a> for more notes on colour adaption.   This code is written with RGBA colours.   There are other colour spaces available, but this has best support in browsers and external tooling.</p>
+
+
+
+<p>It would be very hard for me to build the old palette swatch
+<ul>
+<li>Standard contrast:</li>
+<li class="box fg_hi1 bg_low1 button" title="colour=fg_hi1, background=bg_low1">text 1</li>
+<li class="box fg_hi1 bg_low2 button" title="colour=fg_hi1, background=bg_low2">text 2</li>
+<li class="box fg_hi1 bg_low3 button" title="colour=fg_hi1, background=bg_low3">text 3</li>
+<li class="box fg_hi1 bg_low4 button" title="colour=fg_hi1, background=bg_low4">text 4</li>
+<li class="box fg_hi1 bg_low5 button" title="colour=fg_hi1, background=bg_low5">text 5</li>
+<li class="box fg_hi2 bg_low1 button" title="colour=fg_hi2, background=bg_low1">text 6</li>
+<li class="box fg_low1 bg_hi1 button" title="colour=fg_low1, background=bg_hi1">text 7</li>
+</ul>
+<ul>
+<li>More contrast:</li>
+<li class="box fg_hi1 bg_low1 button test_intense" title="colour=fg_hi1, background=bg_low1">text 1</li>
+<li class="box fg_hi1 bg_low2 button test_intense" title="colour=fg_hi1, background=bg_low2">text 2</li>
+<li class="box fg_hi1 bg_low3 button test_intense" title="colour=fg_hi1, background=bg_low3">text 3</li>
+<li class="box fg_hi1 bg_low4 button test_intense" title="colour=fg_hi1, background=bg_low4">text 4</li>
+<li class="box fg_hi1 bg_low5 button test_intense" title="colour=fg_hi1, background=bg_low5">text 5</li>
+<li class="box fg_hi2 bg_low1 button test_intense" title="colour=fg_hi2, background=bg_low1">text 6</li>
+<li class="box fg_low1 bg_hi1 button test_intense" title="colour=fg_low1, background=bg_hi1">text 7</li>
+</ul>
+<ul>
+<li>Less contrast:</li>
+<li class="box fg_hi1 bg_low1 button test_muted" title="colour=fg_hi1, background=bg_low1">text 1</li>
+<li class="box fg_hi1 bg_low2 button test_muted" title="colour=fg_hi1, background=bg_low2">text 2</li>
+<li class="box fg_hi1 bg_low3 button test_muted" title="colour=fg_hi1, background=bg_low3">text 3</li>
+<li class="box fg_hi1 bg_low4 button test_muted" title="colour=fg_hi1, background=bg_low4">text 4</li>
+<li class="box fg_hi1 bg_low5 button test_muted" title="colour=fg_hi1, background=bg_low5">text 5</li>
+<li class="box fg_hi2 bg_low1 button test_muted" title="colour=fg_hi2, background=bg_low1">text 6</li>
+<li class="box fg_low1 bg_hi1 button test_muted" title="colour=fg_low1, background=bg_hi1">text 7</li>
+</ul>
+
+<div class="fg_low1 bg_hi1 button">
+	<div class="fg_hi1 bg_low5 button">
+		nested text
+	</div>
+</div>
+<br />
+<div class="fg_low1 bg_hi1 metaContainer">
+	<div class="fg_hi1 bg_low5 ">
+		<div class="fg_hi1 bg_low4 ">
+			smart cascade settings text2
+		</div>
+		smart cascade text
+	</div>
+</div>
+<br />
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog, uitools"> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div><p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Adaptive palette</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fadaptive-palette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fadaptive-palette" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fadaptive-palette" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-27T10:07:13">27th of May 2023</time>
+						</span>
+						<span>Created <time datetime="2023-05-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of May 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fadaptive-palette" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:09:47">27th of May 2023, 10:09:47</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-27T10:07:13">27th of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+<!-- the stylesheet is merged here,  as I added 'joining code' -->
+<style>
+/* Colours can be changed annotation type at https://rgbacolorpicker.com/rgba-to-hex  */
+body { --fgcontrast: 0.95; --bgcontrast:0.95; --fgr: 37; --fgg: 37; --fgb: 37; --bgr: 255; --bgg: 255; --bgb: 250; }
+
+@media screen and (prefers-contrast : more) {
+  html { --fgcontrast: 0.85; --bgcontrast:1.1; }
+}
+
+@media screen and (prefers-contrast : less) {
+  html { --fgcontrast: 1; --bgcontrast:0.8; }
+  @-moz-document url-prefix() {
+  	html { --fgcontrast: 1; --bgcontrast:0.65; }
+  }
+}
+
+.test_intense { --fgcontrast: 0.85; --bgcontrast:1.1; }
+.test_muted {  --fgcontrast: 1; --bgcontrast:0.8;  }
+/* currently unneeded control flag 
+.dark    { --bgcontrast: 0.75; }
+.darker  { --bgcontrast: 0.50; }
+.darkest { --bgcontrast: 0.25; }
+*/
+
+/* define 7 bg colours, 3 fg colours / re-define these colours for dark-mode / possible attention-seeking-mode also / need to have 1 low and 1 high colour per element */
+.fg_hi1 { --fgr: 37; --fgg: 37; --fgb: 37; } /*     deep grey */
+
+.fg_hi2 { --fgr: 0; --fgg: 82; --fgb: 137; } /*     deep blue */
+
+.fg_low1 { --fgr: 245; --fgg: 245; --fgb: 245; } /* pale grey */
+
+.bg_low1 { --bgr: 255; --bgg: 255; --bgb: 240; } /* pale yellow */
+
+.bg_low2 { --bgr: 240; --bgg: 255; --bgb: 255; } /* very pale blue */
+
+.bg_low3 { --bgr: 215; --bgg: 242; --bgb: 250; } /* pale blue */
+
+.bg_low4 { --bgr: 204; --bgg: 255; --bgb: 153; } /* grass green */
+
+.bg_low5 { --bgr: 204; --bgg: 204; --bgb: 255; } /* pale purple */
+
+.bg_low6 { --bgr:255; --bgg:171; --bgb:80; } /*     roughly egg yolk */
+
+.bg_hi1 { --bgr: 0; --bgg: 73; --bgb: 135; } /*     deep blue, below navy */
+
+@media screen and (prefers-contrast : more) {
+	.fg_low1 { --fgr: 253; --fgg: 253; --fgb: 253; } /* pale grey */
+	.bg_hi1 { --bgr: 0; --bgg: 63; --bgb: 115; } /* deep blue, below navy */
+}
+.fg_low1.test_intense { --fgr: 253; --fgg: 253; --fgb: 253; --fgcontrast:1 }
+.bg_hi1.test_intense  { --bgr: 0; --bgg: 63; --bgb: 115; }
+
+.button {
+  color: rgba(
+                  calc(var(--fgr) * var(--fgcontrast)), 
+                  calc(var(--fgg) * var(--fgcontrast)), 
+                  calc(var(--fgb) * var(--fgcontrast)),
+					1.0
+                );
+  background-color: rgba(
+                  calc(var(--bgr) * var(--bgcontrast)), 
+                  calc(var(--bgg) * var(--bgcontrast)), 
+                  calc(var(--bgb) * var(--bgcontrast)),
+					1.0
+                );
+
+/* imported from foundation for this demo. */
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 1rem 0;
+  font-family: inherit;
+  padding: .85em 1em;
+  -webkit-appearance: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: background-color .25s ease-out,color .25s ease-out;
+  font-size: .9rem;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+
+}
+
+
+</style>
+</body>
+</html>

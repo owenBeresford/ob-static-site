@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Columnise</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="On getting numbers to flow cleanly in lists, with columns.." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Columnise">
+<meta itemprop="description" content="On getting numbers to flow cleanly in lists, with columns..">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Columnise">
+<meta name="twitter:description" content="On getting numbers to flow cleanly in lists, with columns..">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Columnise" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-columnise" />
+<meta property="og:description" content="On getting numbers to flow cleanly in lists, with columns.." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:11:03" />
+<meta property="article:modified_time" content="11th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-columnise" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Columnise",
+	"article:published_time":"27th of May 2023, 10:11:03", 
+    "article:modified_time":"11th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p style="text-align:right;" ><a href="https://github.com/adamwulf/Columnizer-jQuery-Plugin" title="public location of the jQuery-colmniser source." class="button"><i class="fa fa-github" aria-hidden="true"></i></a> (<a href="https://github.com/owenberesford/Columnizer-jQuery-Plugin" title="public location of my fork of jQuery-columniser source." class="button">my fork</a> ) </p>
+
+<div class="lotsOfWords">
+<p>I think it misplaced attention to talk exactly what I did to build this site, I have been employed to do this for several years.  Read the source if you are interested, otherwise skip. <br />
+This particular thing however is a pain and expensive.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > A long tale.. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>A.K.A. discussion on the requirements</p>
+
+<p>Columnisation is a trick from newspapers, it makes it faster/simpler to read dense text.  As a layout, I think it is more attractive than just the flat paragraphs.  Columnisation ought to be done on the client, the columns need to be set to match the current client configuration.  If the browser resizes, we don't want another trip to the server, ideally.  To make the columns more readable, I have split the content up into screen-size blocks, so there should be less need to scroll.  All the text is currently maximum contrast (black to white), and user can choose the most readable font ~ for them.  I looked at adding the pagination on the client side, but this would prove quite expensive.  As a discussion on <a href="https://stackoverflow.com/questions/15501706/font-sizes-for-responsive-design" target="_blank">outcomes</a> and desired goals, this is quite informative.  The columnisation takes up a noticeable period on some phones. Adding more computation will aggravate the issue.<br />
+As the requirements for columnisation are quite common, I did a google search before I wrote any code.  This site is implemented using a jQuery <a href="https://adamwulf.me/columnizer-jquery-plugin/" target="_blank">module</a> by A Wulf.  This module has been published for some time, but has a list of open issues in github.  It is mostly stable.  A Wulf thinks it is necessary to render the text to find out how large it is, rather than counting characters.  My initial plans where less generic (if we assert a row of text takes so many pixels height, we just count the lines and multiply), but configurable.  As a generic, A Wulf's solution is clearly technically superior.  My approach leads to good user experience, as load times are short.  I used A Wulf's solution, as it is already tested.</p>
+
+<p>After deployment, I note that A Wulf's code doesn't like splitting tables. Appendix 1 is a range of text samples, demoing failure and success.  The point of failure seems to be individual elements without much text, but large screen space, in the end of the column.  My content doesn't have many tables, so I can work round this (and I am already splitting the content on the server, for the pagination).  <em>I will create a more systematic solution in due course.</em></p>
+
+<p>This paragraph is about the site, and nothing for the iceline CMS.  The next little UX failure is the numbering.  I do have quite a few lists.  On the initial columnisation, these get confusing as the numbers keep restarting at 1.  I have implemented an extension for the columniser, once using the “start” attribute, and once using CSS counters.  My site is HTML5, so “start” is compliant.  Other people may not have this option, so the CSS based solution also exists.  If you use the second option, you will need to adjust the CSS to match your site.  This bit is time expensive.  As the CSS counters aren't real elements, they don't automatically get the standard HTML sizing.  One needs to manually create it. As these aren't real elements, your normal design tools probably won't work.  Please reference the <a href="https://owenberesford.me.uk/resource//asset/counters.css" target="_blank">specific style sheet</a>.  This style sheet would need to be extended to match your localised branding</p>
+
+<p>Having resolved that, one notices that the indenting on split lists is correct but confusing. That is, if a column splits a sublist; the new list will have all the numbers in same screen area.  I think it needs the numbers there to explain the massive left indent, but these need to be clearer. To make this work better, I added CSS to inject elipsis on the split element.Under testing, I added anther condition for correctly numbering lists inside lists, or the code pulls from the last list, not the last list on the same nesting.</p>
+
+<p>Having done that, I took the CSS for closing elipsis out, and wrote it as JS.  The CSS depended on A Wulfs library adding a “split” class to the last elements, which it doesn't.  This is now in the renumbering functions.<br />
+The 'start' attribute doesn't have effect on 'UL' lists in Opera and Chrome, which is reasonable.  This does have a effect in Firefox.</p>
+
+<p>As a stated requirement was supporting older versions of MSIE, the code masks the absence of CSS 'column' declaration in that browser.   This is not an issue in more recent times.   <br />
+I may do performance optimisation on this code later, if the page render time on a phone becomes noticeable.  On a PC, I don't notice it.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>For the current column, the first list should start at a count so that:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">“zeroth” columns ~ just after a page break, are left untouched;</li>
+    <li class="libasic">When there are non-lists after the last list in the previous column, don't touch;</li>
+    <li class="libasic">With the count from the last list in the previous column;<ul class="ulbasic">
+        <li class="libasic">If above list wraps into three columns, also include the count from i-2 column;</li>
+    </ul></li>
+    <li class="libasic">If the first list in the current column, contains a sublist, and that sublist is also split, that sublist should be renumbered;</li>
+    <li class="libasic">Do each list type separately, it makes the logic more testable;</li>
+</ul>
+
+<p>Iterate over all the columns..</p>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > jQuery API for this JS tool <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>A Wulfs original module now supports with the following additions:</p>
+
+<p>In the constructor, the options param may include:</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><i>elipsisText</i> ~ the text that gets added to the end of lists, on split items to make it obvious its split.  You should set this match whatever you use in the CSS.</li>
+    <li class="libasic"><i>setColumnStart</i> ~ a lambda function that controls what happens when doing a renumber.</li>
+</ul>
+
+<p>The function will be called with 2 parameters:<br />
+      * <i>$list</i> ~ the element being numbered (in the expected case, its the <i>OL</i> element)<br />
+      * <i>$int</i> ~ the value it should be set to.<br />
+    If <i>setColumnStart</i> isn't set, a HTML attribute “start” is added, as <i>$int</i>.<br />
+    If the computation for <i>$int</i> comes to 0, this function isn't called.</p>
+
+<p><b>.renumberByJS</b> (<i>$searchTag, $colno, $targetId, $targetClass</i>)  where</p>
+
+<ul class="ulbasic">
+    <li class="libasic">$searchTag ~ the tag you wish to renumber. This feature is to apply to mixed documents, not all elements want numbering.</li>
+    <li class="libasic">$colno ~ how many columns the text was split into (this is hidden by a wrapper function in my site).  This affects which columns get renumbered.</li>
+    <li class="libasic">$targetId ~ optional, what blocks to renumber.  One of these two must be supplied.</li>
+    <li class="libasic">$targetClass ~ optional, what blocks to renumber.</li>
+</ul>
+
+<p>The computation of <i>$int</i> is done via counting child elements, so this should work regardless of what the <i>$searchTag</i> element is.</p>
+
+<p>Hint: If you use the MS platform for development, and are debugging this module (passing the <i>debug</i> flag), you would of course load the JS tools first (press &lt;f12&gt;).</p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Testing. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>I had to build this iteratively, as I didn't have a good understanding of the goals at the start.   One can't TDD “does it look okay” ~ your testcases would always be out of date.   As I am currently operating without a testlab, my release process is clumsier than I would like.  Likewise, when the platform most likely to give errors is one you can't install selenium or behat onto, having test-cases doesn't prove success or failure. Thirdly, as not all the visual affects exist in the DOM, most test libraries can't state success or failure.</p>
+
+<p>This must work cleanly on MSIE8, and MSIE9; due to the business focus of this site.</p>
+
+<p>Despite all the above complications, I achieve success.  In the past development would have need to be performed like this, for everything; as tools hadn't been created.  The renumbering code started very simple.  Then I fixed a lot of edge cases, and its not so simple any more.  It passes the test-cases <a class="" href="https://owenberesford.me.uk/resource/columniser-process#">columniser-process</a>, and is <a href="https://github.com/adamwulf/Columnizer-jQuery-Plugin" target="_blank">available</a>.  The development is discussed in the second article on <a class="" href="https://owenberesford.me.uk/resource/columniser-process#">this</a></p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Columnise</h1></header>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-columnise" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-columnise" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-columnise" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-11T21:30:49">11th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-columnise" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">A long tale..</a></li>
+<li><a href="#toc1">Requirements</a></li>
+<li class="h4_odd"><a href="#toc2">jQuery API for this JS tool</a></li>
+<li><a href="#toc3">Testing.</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:11:03">27th of May 2023, 10:11:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-11T21:30:49">11th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

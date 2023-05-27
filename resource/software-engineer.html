@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Software engineer.</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A role building features inside Perl/ Catalyst.  Created a generic search tool to support the CX team.   Employer was scaling out, as recently added to stock indexes." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Software engineer.">
+<meta itemprop="description" content="A role building features inside Perl/ Catalyst.  Created a generic search tool to support the CX team.   Employer was scaling out, as recently added to stock indexes.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Software engineer.">
+<meta name="twitter:description" content="A role building features inside Perl/ Catalyst.  Created a generic search tool to support the CX team.   Employer was scaling out, as recently added to stock indexes.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Software engineer." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/software-engineer" />
+<meta property="og:description" content="A role building features inside Perl/ Catalyst.  Created a generic search tool to support the CX team.   Employer was scaling out, as recently added to stock indexes." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:12:35" />
+<meta property="article:modified_time" content="9th of Jan 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/software-engineer" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Software engineer.",
+	"article:published_time":"27th of May 2023, 10:12:35", 
+    "article:modified_time":"9th of Jan 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>I was retained to assist building systems in Perl for a fintech company who have recently been added to the stock market.  In Feb 2014 FairFX started a recruitment drive (ahead of IPO), completed the paperwork requirements relating to listing in the UK in June, for the public sale on the 5th of August.  Their stock symbol is <a href="https://markets.businessinsider.com/stocks/fairfx_group-stock?op=1" target="_blank">LON:FFX</a> <sup><a href="https://www.etfdailynews.com/2022/12/25/fairfx-group-lonffx-shares-up-1-2/" target="_blank">1</a></sup>. I started working here on the 18th.</p>
+
+<p>My work is inside an NDA, but the company tells me that is the financially focussed stuff that this really applies to.  The company uses standard tools/libraries where pragmatic, in line with common sense.   I will observe, that unless a successive company is in the same market place; the common tools and practices are all that others are interested in.  Perl is a language used in many financial companies in London.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Artifact: UI development <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>For this work, I built a large project.  My initial brief was to build some search tools to support their CX staff (a login is required to demo this).  Perl uses <a href="https://en.wikipedia.org/wiki/Test_Anything_Protocol" target="_blank">TAP</a> for testing, with only weak correlation to objects.  I have skirted this issue at MT, but found it faster to API test from the JS side.  Unit test technology in Perl is less sophisticated than other languages, so I built an MVP unit test framework inside two or three days.   I <del>will publish</del><ins>have published</ins> a clean build <del>in future</del> as OSS  <a class="" href="https://owenberesford.me.uk/resource/punit#">this is called punit</a>.<br />
+This was my first use of Foundation, and font-awesome; as those are standard tools for that company.   I wrote the HTML5 correctly; and had a nice list widget for search results.  I built auto-complete interaction on the search input, as optimising fast user interaction was a big value for staff answering customer calls.<br />
+I outlined plans and technical feasibility to be able to maximise use of meta data and database technology.  Practical testing from my available datasets reported that better use of indices would not make any difference in the user's view.  My time was better spent doing the rest of the development process (which I did).  Postgres has a number of <a href="https://www.postgresql.org/docs/9.3/contrib.html" target="_blank">plugins</a> to allow additional features; and some nice tools for building indexes.  One may build an index on a <a href="https://www.postgresql.org/docs/current/fuzzystrmatch.html" target="_blank">metaphone</a> of a users name, and build selects of this index.  I could implement these algorithms myself, but the postgres code integrates well with the data; and is already tested.   <br />
+ The majority of the time went to a second objective.  To be able to test possible DB structural changes, I needed a test database, containing a volume of data.  This is a common business requirement, but most developers don't need a volume of data to know if their code is viable.   In the UK, the <a href="https://www.gov.uk/data-protection/the-data-protection-act" target="_blank">DPA</a> limits what companies may do; secondly financial companies need to honour <a href="https://en.wikipedia.org/wiki/Payment_Card_Industry_Data_Security_Standard" target="_blank">PCI</a>, and <a href="https://www.gov.uk/topic/business-tax/money-laundering-regulations" target="_blank">AML</a> regulations.   I built a tool to create test databases that complies to these requirements.   Please note, none of the customers data left it's secure storage on the live servers.  <br />
+I extracted the schema using standard tools, but none of the DBA tools that I noticed allow partial extraction in a fashion that complies to PCI.   It is quite expensive to build each of the RDBMS features again.  The data was partially selected, partially generated, and inserted locally.  The table indexes applied after this, as the primary keys have been copied from another DB, rather than computed from the local settings.  The sequences need to be repaired, so later rows may be added.  I create a user account with correct privileges on the new test DB.</p>
+
+<p>As I was doing TDD, I changed the implementation of my classes several times, without side effect. The API didn't change, and this is where the unit tests ran.  On completion of project budget I presented good quality code, and I think a useful asset to the company.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Learning. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>I was talking with people about a perm role in Perl, in March.  I started this role after not having used Perl in nine months; and I had lost alot of syntax.  Not that I use many typing assist features, but there aren't any for Perl, as its syntax is too complicated.   I was initially quite slow, compounded by being ignorant about FairFX systems.   After the first few weeks, I was <i>operating at normal rates</i>.<br />
+I now know more about Postgres, specifically SQL relating managing/updating Schema.  I think this is a better featured DB than MySQL, although Maria etc would have more features than MySQL.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"> <p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Software engineer.</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-engineer" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-engineer" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-engineer" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-01-09T11:22:00">9th of Jan 2023</time>
+						</span>
+						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-engineer" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Artifact: UI development</a></li>
+<li><a href="#toc1">Learning.</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:12:35">27th of May 2023, 10:12:35</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-01-09T11:22:00">9th of Jan 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

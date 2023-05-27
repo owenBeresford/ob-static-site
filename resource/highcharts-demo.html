@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Highcharts graphing library demo</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="An evaluation and analysis for highcharts graphing library." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Highcharts graphing library demo">
+<meta itemprop="description" content="An evaluation and analysis for highcharts graphing library.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Highcharts graphing library demo">
+<meta name="twitter:description" content="An evaluation and analysis for highcharts graphing library.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Highcharts graphing library demo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/highcharts-demo" />
+<meta property="og:description" content="An evaluation and analysis for highcharts graphing library." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of May 2023, 10:10:50" />
+<meta property="article:modified_time" content="2nd of May 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/highcharts-demo" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Highcharts graphing library demo",
+	"article:published_time":"27th of May 2023, 10:10:50", 
+    "article:modified_time":"2nd of May 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>This is a highcharts demo <sup><a href="https://www.highcharts.com/docs/index" target="_blank">1</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Highcharts" target="_blank">2</a></sup>, as this seems a popular graph library.   Highcharts is another library that builds SVG graphs, so they are fairly easy to style and encourage to be responsive.   I made a test page similar to this at Hoptroff for several graphing libraries, but that is company source.   The first render of this graph only took a short while; I am focussing on branding things not on the data; which is why I used data from the library documentation.  <br />
+As I have quickly built this demo, and I don't think this code was hard or impressive.   I don't perceive risk in starting a role that uses this graph library rather than the one I used at Hoptroff.  <br />
+As a second feature on the demo; as far as I can see all the animation effects are just applying the data that you already have onto the screen <sup><a href="https://www.highcharts.com/blog/tutorials/animated-charts-with-highcharts/" target="_blank">3</a></sup> <sup><a href="https://www.highcharts.com/blog/products/highcharts/animated-charts/" target="_blank">4</a></sup> <sup><a href="https://worthalook.home.blog/2019/09/13/heartbeat-highcharts-animation-example/" target="_blank">5</a></sup>.  Therefore in order to do useful updates the traditional solution using setIntervail(), or another event stream will be needed.   This now has colour blend support, Highcharts integrates the LinearGradient tag <sup><a href="https://www.highcharts.com/docs/chart-design-and-style/colors" target="_blank">6</a></sup>.  The visible text on the graph isn't copied and pasted from a German language website; I typed the new labels directly, and ran a spell check.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Highcharts is mostly just a graphing library in JS, so will score low on my standardised feature comparison list (see <a class="" href="https://owenberesford.me.uk/resource/data-visualisation-epic#">data-visualisation-epic</a> ).  There are many articles using python as a data-source for highcharts; I cannot see anything that lets you build highcharts graphs from the python interpreter.  Highcharts is fairly mature and currently supports <sup><a href="https://api.highcharts.com/highcharts/plotOptions" target="_blank">7</a></sup>:<ul class="ulbasic">
+        <li class="libasic">arcdiagram, area, arearange, areaspline, areasplinerange, bar, bellcurve, boxplot, bubble, bullet, column, columnpyramid, columnrange, cylinder, dependencywheel, dumbbell, errorbar, funnel, funnel3d, gauge, heatmap, histogram, item, line, lollipop, networkgraph, organization, packedbubble, pareto, pie, polygon, pyramid, pyramid3d, sankey, scatter, scatter3d, series, solidgauge, spline, streamgraph, sunburst, tilemap, timeline, treemap, variablepie, variwide, vector, venn, waterfall, windbarb, wordcloud, xrang</li>
+        <li class="libasic">use of graphing libraries will lead to knowledge on what the abbreviations mean; for other readers, these terms are defined in the preceding link.</li>
+    </ul></li>
+    <li class="libasic">Highcharts has a middleware (like grafana) <sup><a href="https://www.highcharts.com/blog/tutorials/highcharts-cloud-for-diy-interactive-charts/" target="_blank">8</a></sup> , but its expected data source is Excel.  Look at the diagram on here <sup><a href="https://www.highcharts.com/blog/tutorials/use-highcharts-cloud-api/" target="_blank">9</a></sup> if unclear about architecture.  UPDATE: in 2020 they renamed the API to <a href="https://www.highcharts.com/blog/everviz/" target="_blank">Everviz</a>.   I have searched online, I have not seen a reason as to why use the API; I guess if your output is presented on a small phone, creating the graphs on static/ fixed power supply is better experience.  It would be cheaper to use Node on your own server; then render and save the graphs as static assets.  All my work involving graphs has been dynamic data, or least fairly-short shelf-life data; so managing caching on the static assets would be important.  </li>
+    <li class="libasic">Highcharts supports time-series graphs, as demonstrated in <sup><a href="https://www.highcharts.com/demo/line-time-series" target="_blank">10</a></sup>.  It also has a long list of other rendering output formats (left menu on same link) example, non-GIS heatmap <sup><a href="https://www.highcharts.com/demo/heatmap-canvas" target="_blank">11</a></sup> honeycomb plot <sup><a href="https://www.highcharts.com/demo/honeycomb-usa" target="_blank">12</a></sup>.   The zoom feature is easier to use than other graphing libraries; unless you want data at different granularities per zoom (first link shows this).</li>
+    <li class="libasic">As a graphing library, Highcharts only supports graphs; but can be used with any DB if you create some middleware.  Highcharts has plugin support, and a list of user created plugins <sup><a href="https://www.highcharts.com/blog/add-ons/" target="_blank">13</a></sup>.</li>
+    <li class="libasic">As is typical, Highcharts supports style overloads via extra CSS <sup><a href="https://www.highcharts.com/demo/styled-mode-column" target="_blank">14</a></sup>,  When used with other software (e.g. the middleware, or Odoo <sup><a href="https://www.cybrosys.com/blog/create-dashboard-using-highchart-js" target="_blank">15</a></sup> ) Highcharts can create dashboards; the tools blog has a PNG of a dashboard but no blurb, so I don't think this a feature that they emphasise.  </li>
+    <li class="libasic">Highcharts doesn't export alerts; but you could access the render cycle, and create your own <sup><a href="https://api.highcharts.com/highcharts/chart.events.render" target="_blank">16</a></sup> or do this in the data sourcing API, which is better data architecture.   Highcharts doesn't have monitoring features, but can be used for monitoring.   Various people have created utilities, however I haven't seen any specific maths libraries for Highcharts; example <sup><a href="https://github.com/highcharts/highcharts-utils" target="_blank">17</a></sup> <sup><a href="https://github.com/highcharts/highcharts/blob/master/ts/Core/Utilities.ts" target="_blank">18</a></sup>.  Highcharts has mapping output format <sup><a href="https://www.highcharts.com/demo/maps" target="_blank">19</a></sup>, but isn't a GIS.  Likewise it has no NLP or data projection (i.e. future data)</li>
+</ul>
+
+<p><b>Pls watch for more than 5s </b>   Maybe I should add a count-down timer.</p>
+
+
+</div>
+<br />
+<figcaption id="fig1">Most basic chart from docs, but rebranded/ reskinned.</figcaption>
+<figure id="graph1" class="graphBox" >
+</figure>
+I may add more demos to this later, hence numbering.
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="martech, worklog"> <p>Some similar articles in martech </p><div id="groupmartech" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=martech" title="This article lists all items in martech group.">All of <br />martech </a></span> </div><p>Some similar articles in worklog </p><div id="groupworklog" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=worklog" title="This article lists all items in worklog group.">All of <br />worklog </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth" >
+					<header><h1>Highcharts graphing library demo</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a class="button smallScreenOnly" id="shareMenuTrigger"> Share </a>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhighcharts-demo" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhighcharts-demo" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhighcharts-demo" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-05-02T09:29:31">2nd of May 2023</time>
+						</span>
+						<span>Created <time datetime="2022-07-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Jul 2022</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhighcharts-demo" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<a id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</a>
+					<a class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </a>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><a id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </a></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-05-27T10:10:50">27th of May 2023, 10:10:50</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-05-02T09:29:31">2nd of May 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script>
+var CHART;
+
+function injectContent2() {
+	let data1={
+                name: 'Gottwald',
+                data: [15, 9, 66, 32, 0],
+				colour:"#e66465",
+		},
+	 data2={
+                name: 'Leni',
+                data: [67, 19, 40, 56, 12],
+				colour:"#abffd1",
+			};
+	CHART.series[0].setData(data1.data);
+	CHART.series[1].setData(data2.data);
+// https://stackoverflow.com/questions/49281667/highchart-updating-plotoptions
+// https://www.highcharts.com/docs/chart-design-and-style/colors
+
+	CHART.series[0].update({
+		name:data1.name,  
+		color: {
+    		linearGradient: { x1: 0, x2: 1, y1: 0, y2: 1 },
+   			stops: [
+        		[0, '#003399'],
+        		[1, '#ABFFD1']
+   			 ]
+		}
+	});
+	CHART.series[1].update({  
+		name:data2.name,  
+		color: {
+    		linearGradient: { x1: 1, x2: 0, y1: 1, y2:0 },
+   			stops: [
+        		[0, '#aa3399'],
+        		[1, '#ABFFD1']
+   			 ]
+		}
+	});
+	CHART.render();
+}
+
+function injectContent() {
+// I ought to pull the UI strings out into a separate hash
+	const DATA=[
+			{
+                name: 'Jane',
+                data: [1, 0, 4]
+            }, {
+                name: 'Johanne',
+                data: [5, 7, 3]
+            }
+		];
+
+   CHART = Highcharts.chart('graph1', {
+            chart: {
+                type: 'column'
+            },
+			plotOptions: {
+        		column: { 
+        	//		colorByPoint: true,
+					}
+				},
+
+			styledMode: true,
+            title: { text: 'Obstverzehr' },
+			subtitle: { text: 'Source of numbers: https://www.highcharts.com/docs/index ' },
+            xAxis: {
+                categories: ['Apfelen', 'Banane', 'Orangen', 'Birnen', 'Clementinen' ],
+				title: { }
+            },
+            yAxis: {
+				title: { text: 'Obst gegessen' }
+
+                    },
+            series: DATA
+        });
+		setTimeout( injectContent2, 5000 );
+}
+
+document.addEventListener('DOMContentLoaded', injectContent);
+
+// This is according to the docs; and doesnt work
+// https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/chart/colors/
+// https://api.highcharts.com/highcharts/colors
+//	Highcharts.setOptions({ colors: ["#e66465", "#ebf8e1"]  });
+
+// Strongly discouraged tech option, but will work to avoid limits in library
+// Doesn't work on any attribute that changes, like colour
+//	document.querySelector('.highcharts-container g.highcharts-legend.highcharts-no-tooltip g').classList.add('displace');
+
+// Also another approach not to use; the mouse hover events erase the colour settings, as they are not affecting the graph package state
+//	document.querySelectorAll('.highcharts-point.highcharts-color-0').forEach((val, i) => { val.setAttribute('fill', data1.colour ); } );
+
+// The below isn't inside the SVG2 spec, so doesn't work as SVG2 uses a LinearGradient tag rather than CSS 
+//	CHART.series[0].color="linear-gradient(#e66465, #9198e5);";
+// 	CHART.series[1].color="linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);";
+
+</script>
+<style> /* change to use CSS counters */
+#fig1::before { content:'#1 '; font-size:400%; font-weight:bold; color:rgba(67, 67, 72, 0.4); border-bottom:10px rgba(67, 67, 72, 0.3 ) solid; padding-bottom:4px; }  
+.displace { transform: translate( 200px, -350px ); }
+.highcharts-container g.highcharts-legend.highcharts-no-tooltip > g { transform: translate( 200px, -350px ); }
+
+.graphBox { margin-top:1em; margin-bottom:2em; min-width:600px; max-width:90%; margin-left:auto; margin-right:auto; } 
+figcaption { margin-left:1em; border-bottom:2px  rgba(67, 67, 72, 0.3 ) solid; max-width:50%; white-space:nowrap; min-width:20em; }
+
+@media screen and (min-resolution: 150dpi) {
+	.graphBox { display:block; clear:both; min-width:auto; max-width:auto; width:calc( 100% - 20px ); margin-left:10px; margin-right:10px; } 
+}
+</style>
+</body>
+</html>
