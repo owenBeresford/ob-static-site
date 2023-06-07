@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Diverse Emoji / Emoticon</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Another maquette" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Diverse Emoji / Emoticon">
+<meta itemprop="description" content="Another maquette">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Diverse Emoji / Emoticon">
+<meta name="twitter:description" content="Another maquette">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Diverse Emoji / Emoticon" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/Diverse Emoji / Emoticon" />
+<meta property="og:description" content="Another maquette" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="7th of Jun 2023, 9:52:13" />
+<meta property="article:modified_time" content="7th of Jun 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/Diverse Emoji / Emoticon" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Diverse Emoji / Emoticon",
+	"article:published_time":"7th of Jun 2023, 9:52:13", 
+    "article:modified_time":"7th of Jun 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker advancedEmojiContainer ">
+<div class="halferWords">
+<a href="#emojiMixer" class="button" title="Jump straight to the Emoji mixer">Skip to Emoji mixer</a>
+<p>There are loads of <i>programming</i> notes about being able to merge UTF-8 Emoji, to more complex shapes.  I like this feature of UTF-8.  However, I am unable to find a <i>simple GUI</i> for merging the UTF-8 together to be able to see what the results are. Thus, please see below.  This maquette can be used from a big-screen to explore what faces can be built, even if you actually want the emoji on your phone.</p>
+
+<p>I found a rough similar thing in npmjs <a href="https://www.npmjs.com/package/emoji-mart" target="_blank">emoji-mart</a>.   There are several packages that render small images, rather than emoji.  Unless they are afraid on lack of standards between devices, I do not see why they use this strategy.  If you want to use more rare emoji in a text message, a HTML IMG tag isn't very useful.</p>
+
+<p>The basic range of emoji (ie smilies) <sup><a href="https://emojipedia.org/people/" target="_blank">1</a></sup>, or with emotion added <sup><a href="https://emojiguide.org/smileys-and-emotion" target="_blank">2</a></sup>.   The emoji lists on the unicode sites are streaming API, these are about 35MB web-pages each.   Fast loading asset to see number of available glyths <sup><a href="https://unicode.org/emoji/charts/emoji-counts.html" target="_blank">3</a></sup>, mentioned so you know how long to wait for the following links.  Two lists for emoji, in a different grid layout <sup><a href="https://unicode.org/emoji/charts/full-emoji-list.html" target="_blank">4</a></sup> <sup><a href="https://unicode.org/emoji/charts/emoji-list.html" target="_blank">5</a></sup>. The specific data for skin tones <sup><a href="https://unicode.org/emoji/charts/full-emoji-modifiers.html" target="_blank">6</a></sup>.</p>
+
+<p><i>I mention <a href="https://apps.apple.com/us/app/idiversicons-1st-diverse-emoji/id947572946" target="_blank">iDiversicons</a> <sup><a href="https://www.idiversicons.com/" target="_blank">7</a></sup>, as Wired says <sup><a href="https://www.wired.com/story/why-the-emoji-skin-tone-you-choose-matters/" target="_blank">8</a></sup> this was the first technology to deliver non-Simpsons-colour emoji.</i><br />
+I am more interested in clear symbols, that it being pixel perfect identical on each platform. The emoji do change styles quite a lot between devices.   Its a shame that the faces are a single standard, without regional/ locale variation.</p>
+
+<p>General support for diverse emoji on Android (i.e. not a chat platform's stickers) is stable <sup><a href="https://www.androidauthority.com/android-emoji-745065/" target="_blank">9</a></sup> <sup><a href="https://www.androidauthority.com/how-to-create-a-custom-emoji-on-an-android-1649486/" target="_blank">10</a></sup>.   Basically use Android &gt; 4.4 (released 2014 <sup><a href="https://en.wikipedia.org/wiki/Android_version_history" target="_blank">11</a></sup>, so easy).   <br />
+General support for diverse emoji on iPhone <sup><a href="https://support.apple.com/en-gb/HT202332" target="_blank">12</a></sup> <sup><a href="https://www.imore.com/how-use-new-diverse-emoji-keyboard-iphone-and-ipad" target="_blank">13</a></sup> or iPad <sup><a href="https://www.techjunkie.com/change-skin-tone-emoji-iphone-ipad-mac/" target="_blank">14</a></sup>.   As part of the stronger design motif, the emoji are catalogued here <sup><a href="https://emojipedia.org/apple/" target="_blank">15</a></sup></p>
+
+
+<div class="pullout">
+<p>I did some experimentation.   I would like this maquette to work with basic fonts, as this widget is just to enhance discoverability of symbols.  Not all symbols can be mixed, which is why the fourth list is very long.  <br />
+WARNING: My phone with Android 11 doesn't allow anyone to be employed at all (the emojis seem to be different symbols, as the roles are available via the menus).</p>
+
+
+</div>
+<p>TODO:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">make select on mobile not interfere with swipe</li>
+    <li class="libasic">maybe add list of known working faces</li>
+</ul>
+
+
+<br />
+<div id="emojiMixer">
+<label for="basicFaces">Chose a face to decorate:
+
+<div id="basicFaces" class="slider bigSmiles">
+<span>Add content here</span>
+</div>
+</label>
+<label for="modifiers1" >
+Optionally change appearance:
+<div id="modifiers1" class="slider bigSmiles">
+<span>Add content here</span>
+</div>
+</label>
+<label for="modifiers2" >
+Optionally choose profession: 
+<div id="modifiers2" class="slider bigSmiles">
+<span>Add content here</span>
+</div>
+</label>
+<label for="modifiers3" >
+Optionally add another modifier: 
+<div id="modifiers3" class="slider bigSmiles">
+<span>Add content here</span>
+</div>
+</label>
+
+<br />
+<div>
+<span id="createEmoji" class="button" 
+	title="Merge selected characters to make the combined UTF-8 char">
+	Generate emoji</span> 
+<span id="resetBtn" class="button" 
+	title="clear all selections">
+	Reset</span> 
+<span id="sum" class="results bigSmiles"
+	>  </span>
+<span id="andCopy" class="button" disabled="disabled"
+	title="If your browser settings allow it, this button will put current character into the clipboard">
+	copy</span>
+
+</div>
+</div>
+<br />
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="uitools"> <p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Diverse Emoji / Emoticon</h1></header>
+			    	<p role="status" class="bigScreenOnly">  This is only mentioning UTF-8 emoji, so is similar on all platforms </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FDiverse Emoji / Emoticon" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FDiverse Emoji / Emoticon" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FDiverse Emoji / Emoticon" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-06-07T09:51:42">7th of Jun 2023</time>
+						</span>
+						<span>Created <time datetime="2023-06-01T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of Jun 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FDiverse Emoji / Emoticon" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-06-07T09:52:13">7th of Jun 2023, 9:52:13</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-07T09:51:42">7th of Jun 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+<style>
+.advancedEmojiContainer { font-family:serif; } 
+.advancedEmojiContainer .slider { white-space:nowrap; display:block; overflow-x:scroll; scroll-behavior: smooth; border:1px black solid;  }
+.advancedEmojiContainer .slider span { scroll-snap-align: start; }
+.advancedEmojiContainer .results { border:1px black solid; margin: 0.2em 1em; }
+.advancedEmojiContainer .bigSmiles { font-size:170%; padding:0.3em 0.6em; } 
+.advancedEmojiContainer span.results.bigSmiles { font-size:250%; }
+.advancedEmojiContainer .active { background-color:#008000;  }
+
+@media screen and (min-resolution: 150dpi) {
+	.advancedEmojiContainer .slider { width:100vw; }
+	.advancedEmojiContainer .bigSmiles { font-size:150%; } 
+	.advancedEmojiContainer span.results.bigSmiles { font-size:300%; padding:0.3em 0.6em;  }
+	
+}
+</style>
+<script>
+const FACES=[
+  "👶",
+  "🧒",
+  "👦",
+  "👧",
+  "🧑",
+  "👱",
+  "👨",
+  "🧔",
+  "🧓",
+  "👴",
+  "👵",
+   "🚶",
+  "🧍",
+  "🧎",
+  "🏃",
+  "🧘",
+  "💃",
+  "🕺",
+  "🕴️",
+  "👯",
+"🧜",
+"🙍",
+  "👩",
+  "🙎",
+  "🙅",
+  "🙆",
+  "💁",
+  "🙋",
+  "🧏",
+  "🙇",
+  "🤦",
+  "🤷",
+  "🧑",
+  "👨",
+  "👩",
+  "👮",
+  "🕵️",
+  "💂",
+  "🥷",
+  "👷",
+
+];
+
+const TONES=[
+  String.fromCodePoint(0x1F3FB),
+   String.fromCodePoint(0x1F3FC),	
+   String.fromCodePoint(0x1F3FD),	
+   String.fromCodePoint(0x1F3FE),
+  String.fromCodePoint(0x1F3FF),
+  "🦰",
+  "🦱",
+  "🦳",
+  "🦲",
+  "♀️",
+  "♂️",
+
+];
+
+const JOBS=[
+  "⚕️",
+  "🎓",
+  "⚖️",
+  "🌾",
+  "🏭",
+  "🔧",
+  "🔬",
+  "💻",
+  "🏫",
+  "🍳",
+  "🎓",
+  "🎨",
+  "🚒",
+  "🚀",
+  "🎄",
+  "✈️",
+  "🎤",
+  "🥼",
+  "🦺",
+  "👔",
+];
+
+const EXTRAS=[
+  "🧠",
+  "🫀",
+  "🫁",
+  "🦷",
+  "🦴",
+  "👀",
+  "👁️",
+  "👅",
+  "👄",
+  "🫦",
+  "😈",
+  "👿",
+  "💀",
+  "☠️",
+  "💩",
+  "🤡",
+  "👹",
+  "👺",
+  "👻",
+  "👽",
+  "👾",
+  "🤖",
+  "😀",
+  "😃",
+  "😄",
+  "😁",
+  "😆",
+  "😅",
+  "🤣",
+  "😂",
+  "🙂",
+  "🙃",
+  "🫠",
+  "😉",
+  "😊",
+  "😇",
+  "🥰",
+  "😍",
+  "🤩",
+  "😘",
+  "😗",
+  "☺️",
+  "😚",
+  "😙",
+  "🥲",
+  "😋",
+  "😛",
+  "😜",
+  "🤪",
+  "😝",
+  "🤑",
+  "🤗",
+  "🤭",
+  "🫢",
+  "🫣",
+  "🤫",
+  "🤔",
+  "🫡",
+  "🤐",
+  "🤨",
+  "😐",
+  "😑",
+  "😶",
+  "🫥",
+  "😏",
+  "😒",
+  "🙄",
+  "😬",
+  "🤥",
+  "😌",
+  "😔",
+  "😪",
+  "🤤",
+  "😴",
+  "😷",
+  "🤒",
+  "🤕",
+  "🤢",
+  "🤮",
+  "🤧",
+  "🥵",
+  "🥶",
+  "🥴",
+  "😵",
+  "🤯",
+  "🤠",
+  "🥳",
+  "🥸",
+  "😎",
+  "🤓",
+  "🧐",
+  "😕",
+  "🫤",
+  "😟",
+  "🙁",
+  "☹️",
+  "😮",
+  "😯",
+  "😲",
+  "😳",
+  "🥺",
+  "🥹",
+  "😦",
+  "😧",
+  "😨",
+  "😰",
+  "😥",
+  "😢",
+  "😭",
+  "😱",
+  "😖",
+  "😣",
+  "😞",
+  "😓",
+  "😩",
+  "😫",
+  "🥱",
+  "😤",
+  "😡",
+  "😠",
+  "🤬",
+  "😺",
+  "😸",
+  "😹",
+  "😻",
+  "😼",
+  "😽",
+  "🙀",
+  "😿",
+  "😾",
+  "💋",
+  "🍼",
+  "🗣️",
+  "👤",
+  "👥",
+  "🫂",
+  "👣",
+  "🧳",
+  "🌂",
+  "☂️",
+  "🎃",
+  "🧵",
+  "🧶",
+  "👓",
+  "🕶️",
+  "🥽",
+  "👕",
+  "👖",
+  "🧣",
+  "🧤",
+  "🧥",
+  "🧦",
+  "👗",
+  "👘",
+  "🥻",
+  "🩱",
+  "🩲",
+  "🩳",
+  "👙",
+  "👚",
+  "👛",
+  "👜",
+  "👝",
+  "🎒",
+  "🩴",
+  "👞",
+  "👟",
+  "🥾",
+  "🥿",
+  "👠",
+  "👡",
+  "🩰",
+  "👢",
+  "👑",
+  "👒",
+  "🎩",
+  "🧢",
+  "🪖",
+  "⛑️",
+  "💄",
+  "💍",
+  "🩸",
+  "💼",
+  "💨",
+  "👋",
+  "🤚",
+  "🖐️",
+  "✋",
+  "🖖",
+  "🫱",,
+  "🫲",,
+  "🫳",,
+  "🫴",,
+  "👌",
+  "🤌",
+  "🤏",
+  "✌️",
+  "🤞",
+  "🫰",,
+  "🤟",
+  "🤘",
+  "🤙",
+  "👈",
+  "👉",
+  "👆",
+  "🖕",
+  "👇",
+  "☝️",
+  "🫵",,
+  "👍",
+  "👎",
+  "✊",
+  "👊",
+  "🤛",
+  "🤜",
+  "👏",
+  "🙌",
+  "🫶",
+  "👐",
+  "🤲",
+  "🤝",
+  "🙏",
+  "✍️",
+  "💅",
+  "🤳",
+  "💪",
+  "🦾",
+  "🦿",
+  "🦵",
+  "🦶",
+  "👂",
+  "🦻",
+  "👃",
+  "💫",
+  "🫅",
+  "🤴",
+  "👸",
+  "👳",
+  "👲",
+  "🧕",
+  "🤵",
+  "👰",
+  "🤰",
+  "🫃",
+  "🫄",
+  "🤱",
+  "👼",
+  "🎅",
+  "🤶",
+  "🦸",
+  "🦹",
+  "🧙",
+  "🧚",
+  "🧛",
+  "🧝",
+  "🧞",
+  "🧟",
+  "🧌",
+  "💆",
+  "💇",
+  "🦯",
+  "🦼",
+  "🦽",
+  "🧖",
+  "👭",
+  "👫",
+  "👬",
+  "💏",
+  "🧑‍🤝‍🧑",
+  "👩‍❤️‍💋‍👨",
+  "👨‍❤️‍💋‍👨",
+  "👩‍❤️‍💋‍👩",
+  "💑",
+  "👩‍❤️‍👨",
+  "👨‍❤️‍👨",
+  "👩‍❤️‍👩",
+  "👪",
+  "👨‍👩‍👦",
+  "👨‍👩‍👧",
+  "👨‍👩‍👧‍👦",
+  "👨‍👩‍👦‍👦",
+  "👨‍👩‍👧‍👧",
+  "👨‍👨‍👦",
+  "👨‍👨‍👧",
+  "👨‍👨‍👧‍👦",
+  "👨‍👨‍👦‍👦",
+  "👨‍👨‍👧‍👧",
+  "👩‍👩‍👦",
+  "👩‍👩‍👧",
+  "👩‍👩‍👧‍👦",
+  "👩‍👩‍👦‍👦",
+  "👩‍👩‍👧‍👧",
+  "👨‍👦",
+  "👨‍👦‍👦",
+  "👨‍👧",
+  "👨‍👧‍👦",
+  "👨‍👧‍👧",
+  "👩‍👦",
+  "👩‍👦‍👦",
+  "👩‍👧",
+  "👩‍👧‍👦",
+  "👩‍👧‍👧"
+];
+let stack=[];
+const BLOCK1='#basicFaces';
+const BLOCK2='#modifiers1';
+const BLOCK3='#modifiers2';
+const BLOCK4='#modifiers3';
+const BTN1='#createEmoji';
+const BTN2='#resetBtn';
+const BTN3='#andCopy';
+const EACH_CHAR='#emojiMixer span.bigSmiles';
+const RESULT='#sum';
+
+const STEP=computeStep(BLOCK1);
+
+if(typeof isMobile !== 'function') {
+	var isMobile=function() {
+		try{ document.createEvent("TouchEvent"); return true; }
+		catch(e){ return false; }
+	};
+}
+
+function ready(callback) {
+    if (document.readyState!='loading') { callback();}
+    else if (document.addEventListener) { document.addEventListener('DOMContentLoaded', callback); }
+    else document.attachEvent('onreadystatechange', function(){
+        if (document.readyState=='complete') { callback(); }
+    });
+}
+
+function applyList(id, list) {
+	const TT=document.querySelector(id);
+	document.querySelector(id+' span').remove();
+	for(let ii in list ) {
+		let tt=document.createElement( "span") 
+		tt.setAttribute("class", "bigSmiles");		 
+		tt.append( list[ii] );
+		TT.append(tt);
+	}
+}
+
+function applyWheel(id, step, event) {
+	const item = document.querySelector(id);
+	item.addEventListener(event, function (e) {
+		e.preventDefault();
+		if (e.deltaY > 0) { item.scrollLeft += step; }
+		else { item.scrollLeft -= step; }
+		return false;
+	});
+}
+
+function computeStep(id) {
+	return document.querySelector(id).getBoundingClientRect().width;
+}
+
+function addZWS(ar) {
+	let buf=[];
+	for (let ii in ar ) {
+		buf.push( ar[ii] );
+		buf.push( "&zwj;" );
+	}
+	buf.pop();
+	return buf.join("");
+}
+
+function deSelect() {
+	stack=[];
+	Array.from( 
+		document.querySelectorAll( EACH_CHAR+".active" )
+			 ).map( 
+		(ele)=> { ele.classList.remove("active");  }
+			 );
+
+}
+
+// https://stackoverflow.com/questions/52042029/insert-emoji-with-zero-width-joiner-using-javascript
+function merge(e) {
+	console.log("MERGE Called");
+	e.preventDefault();
+	if(stack.length===0) {
+		console.warn("no data in stack (click on a face first)");
+		return false
+	}
+
+	let dd=document.querySelector( RESULT);
+	dd.innerHTML=addZWS(stack);	
+	deSelect();
+	
+	dd=document.querySelector( BTN3);
+	if( navigator.clipboard && navigator.clipboard.writeText ) {
+		dd.removeAttribute("disabled");
+	}
+	return false;
+}
+
+function reset(e) {
+	console.log("reset Called");
+	e.preventDefault();
+	let dd=document.querySelector( RESULT);
+	dd.innerText=" ";
+
+	deSelect();
+	dd=document.querySelector( BTN3);
+	dd.setAttribute("disabled", "disabled");
+	return false;	
+}
+
+// https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+function copyFunc(e) {
+	console.log("copy Called");
+	let tt=document.querySelector(RESULT);
+	navigator.clipboard.copyText(tt.innerText);
+}
+
+function select(e) {
+	e.preventDefault();
+	if(e.target.innerText) {
+		if( e.target.classList.contains("active")) {
+			e.target.classList.remove("active");
+			stack.splice( stack.indexOf( e.target.innerText ), 1 );
+		} else {
+			e.target.classList.add("active");
+			stack.push( e.target.innerText );
+		}
+	} else {
+		throw new Error("Why does '"+e.id+"' have no text?");
+	}
+	return false;	
+}
+
+
+// this is rendered on the client side, as this is a JAMstack site
+function populate() {
+	let copyable=true;
+	if(! navigator.clipboard || !navigator.clipboard.writeText ) {
+		copyable=false;
+		window.alert("You have no access to copy/paste in the browser.\nUpgrade this error message.");
+	}
+
+	applyList(BLOCK1, FACES);
+	applyList(BLOCK2, TONES);
+	applyList(BLOCK3, JOBS);
+	applyList(BLOCK4, EXTRAS);
+
+	if(isMobile()) {
+	//	applyWheel(BLOCK1, STEP, "swipe");
+	//	applyWheel(BLOCK2, STEP, "swipe");
+	//	applyWheel(BLOCK3, STEP, "swipe");
+
+		const tmp=Array.from( document.querySelectorAll( EACH_CHAR ));
+		tmp.map((ele) => { 
+			if(ele.classList.contains("results") ) { return; }  
+			ele.addEventListener("touchstart", select ); 
+		});
+	
+		if(copyable) {
+			const tmp= document.querySelector( BTN3 );
+			tmp.addEventListener("touchstart", copyFunc );
+		}
+
+	} else {
+		applyWheel(BLOCK1, STEP, "wheel");
+		applyWheel(BLOCK2, STEP, "wheel");
+		applyWheel(BLOCK3, STEP, "wheel");
+		applyWheel(BLOCK4, STEP, "wheel");
+
+		const tmp=Array.from(document.querySelectorAll( EACH_CHAR ));
+		tmp.map((ele) => { 
+			if(ele.classList.contains("results") ) { return; }  
+			ele.addEventListener("click", select );
+		});
+
+		if(copyable) {
+			const tmp= document.querySelector( BTN3 );
+			tmp.addEventListener("click", copyFunc );
+		}
+	}
+
+	{
+	const item = document.querySelector(BTN1);
+	item.addEventListener("click", merge);
+	item.addEventListener("touchstart", merge);
+	}
+	{
+	const item = document.querySelector(BTN2);
+	item.addEventListener("click", reset);
+	item.addEventListener("touchstart", reset);
+	}
+}
+
+ready(populate);
+</script>
+</body>
+</html>
