@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/Search text sample" />
 <meta property="og:description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language isn't the same as the typists." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Jun 2023, 8:58:01" />
-<meta property="article:modified_time" content="27th of May 2023" />
+<meta property="article:published_time" content="11th of Jun 2023, 19:11:13" />
+<meta property="article:modified_time" content="11th of Jun 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/Search text sample" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Search text sample",
-	"article:published_time":"7th of Jun 2023, 8:58:01", 
-    "article:modified_time":"27th of May 2023",
+	"article:published_time":"11th of Jun 2023, 19:11:13", 
+    "article:modified_time":"11th of Jun 2023",
     "article:section":"technology",
 
     "author": {
@@ -53,7 +53,7 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="halferWords">
-<p>This is a very quick article I built to show a non-tech manager.  Data is this good for display isn't the same as data that is good for user-input derived searching.</p>
+<p>This is a very quick article I built to show a non-tech manager.  Data is this good for display isn't the same as data that is good for user-input derived searching.   This is made-up data, I think it unlikely that a road in Oslo would be labelled in correct french, “frenchish” but written in the Norwegian alphabet is more likely.</p>
 
 
 <table>
@@ -62,13 +62,21 @@ TODO: magic tune selection against some index/DB -->
 <td style="font-size:200%;">Salvi<span style="color:red;">é’</span>s Cucina, Rue de la fran<span style="color:red">ç</span>ais, 3522, Gr<span style="color:red;">ü</span>nerl<span style="color:red;">ø</span>kka.</td>
 </tr>
 <tr>
-<td>What a en_UK person would type:</td>
+<td>Easy to type version:</td>
 <td style="font-size:200%;">salvie's cucina, rue de la francias, 3522, grunerlokka. </td>
-
+</tr>
+<tr>
+<td>Better search cache:</td>
+<td style="font-size:200%;">["salvies", "cucina", "francias" ] </td>
 </tr>
 </table>
-<p>This is why it a good idea to brutalise fields that get used as search indexes down to ASCII, so people can *quickly* type a nearly correct string, *and get what* they wanted.   This will supply a minor performance gain as simpler comparisons; And in most data systems by expecting that people type in lower case, and storing the data in same context.<br />
-I would think about stripping the single quotes and maybe the pluralisation also.</p>
+<p>I think the full UTF-8 version is prettier and more accurate. <br />
+<b>Secondly</b>; this is why it a good idea to brutalise fields that get used as search indexes down to ASCII, so people can easily type a nearly correct string, <b>and get what they wanted</b>.  In terms of UI interactions, do not know what process to follow for a pictographic language in search.  Yes pictographic languages will not have prefix/ suffix, but how does partial match work? <br />
+<b>Thirdly</b>; the last index should have stop words removed, the words stemmed and all the punctuation stripped.  The stemming process doesn't make as much sense for address-data as general search queries.  Note the type has change here, so partial matches are faster.  With the tokenised data, it is easier to search for venues in this area; looking at “that restaurant on London road”, there are <i>many</i> roads called that in the southern half of England.   Those terms should match that particular venue, but should be tagged against other cucina venues.  I would probably filter town names from the search word cache, as its not precise enough.   I don't think users would laboriously enter a complete venue postal address into their phone app.<br />
+<b>Fourthly</b>; on good systems, the place name to long /lat mapping should be bidirectional, and quick. This is a separate feature to the above item, but probably same input interaction.  It is common to allow entry of a location as an alternative to current GPS data; this is to allow users to ask the GIS system about where they <i>will be</i> or <i>where</i>, rather than only limiting to are currently.<br />
+<b>Fifthly</b>: For a large-scale system, it may be a good idea to duplicate the search cache according to regional pronunciation or common misspellings, as a speech to text benefit; and secondly people typing quickly may type wrong.</p>
+
+<p>Much of the UI niceities code that I write <i>looks</i> simple from the outside, but is big and complex as I am miming how humans think.  Also similar to human thought, if I have spare CPUs, making the above several different strategies operate concurrently is a nicer experience.</p>
 
 
 </div>
@@ -99,7 +107,7 @@ I would think about stripping the single quotes and maybe the pluralisation also
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-27T13:34:10">27th of May 2023</time>
+						<span>Edited <time datetime="2023-06-11T13:36:37">11th of Jun 2023</time>
 						</span>
 						<span>Created <time datetime="2015-03-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -145,7 +153,7 @@ I would think about stripping the single quotes and maybe the pluralisation also
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-06-07T08:58:01">7th of Jun 2023, 8:58:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-05-27T13:34:10">27th of May 2023</time>.
+	<p> Page rendered <time datetime="2023-06-11T19:11:13">11th of Jun 2023, 19:11:13</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-11T13:36:37">11th of Jun 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
