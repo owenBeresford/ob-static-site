@@ -8,23 +8,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language isn't the same as the typists." />
+<meta name="Description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language inputted isn't the same language as the typists." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="Search text sample">
-<meta itemprop="description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language isn't the same as the typists.">
+<meta itemprop="description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language inputted isn't the same language as the typists.">
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="Search text sample">
-<meta name="twitter:description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language isn't the same as the typists.">
+<meta name="twitter:description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language inputted isn't the same language as the typists.">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="Search text sample" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://owenberesford.me.uk/resource/Search text sample" />
-<meta property="og:description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language isn't the same as the typists." />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/Optimising user input with search features" />
+<meta property="og:description" content="A text sample to show the difference between simple typing and correct pronunciation; especially when the language inputted isn't the same language as the typists." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Jun 2023, 8:58:01" />
-<meta property="article:modified_time" content="27th of May 2023" />
-<link rel="canonical" href="https://owenberesford.me.uk/resource/Search text sample" />
+<meta property="article:published_time" content="14th of Jun 2023, 18:16:48" />
+<meta property="article:modified_time" content="14th of Jun 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/Optimising user input with search features" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Search text sample",
-	"article:published_time":"7th of Jun 2023, 8:58:01", 
-    "article:modified_time":"27th of May 2023",
+	"article:published_time":"14th of Jun 2023, 18:16:48", 
+    "article:modified_time":"14th of Jun 2023",
     "article:section":"technology",
 
     "author": {
@@ -53,7 +53,7 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="halferWords">
-<p>This is a very quick article I built to show a non-tech manager.  Data is this good for display isn't the same as data that is good for user-input derived searching.</p>
+<p>This is a very quick article I built to show a non-tech manager.  Data that is good for display isn't the same as data that is good for user-input derived searching.   This is made-up data, I think it's unlikely that a road in Oslo would be labelled in correct french, “frenchish” but is more likely to be written in the Norwegian alphabet.</p>
 
 
 <table>
@@ -62,13 +62,21 @@ TODO: magic tune selection against some index/DB -->
 <td style="font-size:200%;">Salvi<span style="color:red;">é’</span>s Cucina, Rue de la fran<span style="color:red">ç</span>ais, 3522, Gr<span style="color:red;">ü</span>nerl<span style="color:red;">ø</span>kka.</td>
 </tr>
 <tr>
-<td>What a en_UK person would type:</td>
+<td>Easy to type version:</td>
 <td style="font-size:200%;">salvie's cucina, rue de la francias, 3522, grunerlokka. </td>
-
+</tr>
+<tr>
+<td>Better search cache:</td>
+<td style="font-size:200%;">["salvies", "cucina", "francias" ] </td>
 </tr>
 </table>
-<p>This is why it a good idea to brutalise fields that get used as search indexes down to ASCII, so people can *quickly* type a nearly correct string, *and get what* they wanted.   This will supply a minor performance gain as simpler comparisons; And in most data systems by expecting that people type in lower case, and storing the data in same context.<br />
-I would think about stripping the single quotes and maybe the pluralisation also.</p>
+<p>I think the full UTF-8 version is prettier and more accurate. <br />
+<b>Firstly</b>; this is why it's a good idea to brutalise fields that get used as search indexes down to ASCII, so people can easily type a nearly correct string, <b>and get what they wanted</b>.  In terms of UI interactions, I do not know what process to follow for a pictographic language in search.  Yes, pictographic languages will not have prefix/ suffix, but how does partial match work? <br />
+<b>Secondly</b>; the last index should have stop words removed, the words stemmed and all the punctuation stripped.  The stemming process doesn't make as much sense for address-data as general search queries.  Note the type has changed here, so partial matches are faster.  With the tokenised data, it is easier to search for venues in this area; looking at “that restaurant on London road”, there are <i>many</i> roads called that in the southern half of England.   Those terms should match that particular venue, but should be tagged against other cucina venues.  I would probably filter town names from the search word cache, as it's not precise enough.   I don't think users would laboriously enter a complete venue postal address into their phone app.<br />
+<b>Thirdly</b>; on good systems, the place name to long /lat mapping should be bidirectional, and quick.   This is a separate feature to the above item, but probably same input interaction.  It is common to allow entry of a location as an alternative to current GPS data; this is to allow users to ask the GIS system about where they <i>will be</i> or <i>where</i>, rather than only limiting to where they are currently.<br />
+<b>Fourthly</b>: For a large-scale system, it may be a good idea to duplicate the search cache according to regional pronunciation or common misspellings, as a speech to text benefit; and secondly people typing quickly may mistype.</p>
+
+<p>Much of the UI niceties code that I write <i>looks</i> simple from the outside, but is big and complex as I am miming how humans think.  Also similar to human thought, if I have spare CPUs, making the above several different strategies operate concurrently is a nicer experience.</p>
 
 
 </div>
@@ -83,7 +91,7 @@ I would think about stripping the single quotes and maybe the pluralisation also
 		<div id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
-					<header><h1>Search text sample</h1></header>
+					<header><h1>Optimising user input with search features</h1></header>
 			    	<p role="status" class="bigScreenOnly">   </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
@@ -92,16 +100,16 @@ I would think about stripping the single quotes and maybe the pluralisation also
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
 						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
 						<span class="bigScreenOnly">Share: </span>
-						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FSearch text sample" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FOptimising user input with search features" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
 						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
-						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FSearch text sample" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
-						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FSearch text sample" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FOptimising user input with search features" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FOptimising user input with search features" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-27T13:34:10">27th of May 2023</time>
+						<span>Edited <time datetime="2023-06-14T18:16:02">14th of Jun 2023</time>
 						</span>
-						<span>Created <time datetime="2015-03-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+						<span>Created <time datetime="2023-06-01T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of Jun 2023</time> </span>
 					</span>
 
 				</div>
@@ -109,7 +117,7 @@ I would think about stripping the single quotes and maybe the pluralisation also
 			<dialog id="popup" class="popup1 bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FSearch text sample" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FOptimising user input with search features" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -145,7 +153,7 @@ I would think about stripping the single quotes and maybe the pluralisation also
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-06-07T08:58:01">7th of Jun 2023, 8:58:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-05-27T13:34:10">27th of May 2023</time>.
+	<p> Page rendered <time datetime="2023-06-14T18:16:48">14th of Jun 2023, 18:16:48</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-14T18:16:02">14th of Jun 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
