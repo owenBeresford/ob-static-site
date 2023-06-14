@@ -19,12 +19,12 @@
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="Reactive Architecture" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://owenberesford.me.uk/resource/Reactive Architecture" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/reactive-architecture" />
 <meta property="og:description" content="Notes for a library I may write at some point." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Jun 2023, 8:57:50" />
-<meta property="article:modified_time" content="7th of Jan 2023" />
-<link rel="canonical" href="https://owenberesford.me.uk/resource/Reactive Architecture" />
+<meta property="article:published_time" content="14th of Jun 2023, 19:57:39" />
+<meta property="article:modified_time" content="12th of Jun 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/reactive-architecture" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Reactive Architecture",
-	"article:published_time":"7th of Jun 2023, 8:57:50", 
-    "article:modified_time":"7th of Jan 2023",
+	"article:published_time":"14th of Jun 2023, 19:57:39", 
+    "article:modified_time":"12th of Jun 2023",
     "article:section":"technology",
 
     "author": {
@@ -54,16 +54,16 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 <p><b>This article is not about React.js</b> (or Vue.js, or other rendering libraries).  I read random professional articles online.  There was another Node guy trying to claim he invented sliced bread, or rather “exciting new ThinBread (tm), so much easier than all those bread bricks”. <br />
-This describes an architecture (not pattern) that they called reactive <sup><a href="https://en.wikipedia.org/wiki/Reactive_programming" target="_blank">1</a></sup> <sup><a href="https://www.infoq.com/presentations/reactive-programming-evolution" target="_blank">2</a></sup> <sup><a href="https://blog.redelastic.com/what-is-reactive-programming-bc9fa7f4a7fc" target="_blank">3</a></sup>, the article referenced the first link. At least one artist is involved reactive development, as they have a manifesto <sup><a href="https://www.reactivemanifesto.org/" target="_blank">4</a></sup>, to summarise to the point of triteness a reactive system is one that is Responsive, Resilient, Elastic, and Message Driven.  The “enterprise” Java culture seems to be buying the idea of Reactive architectures <sup><a href="https://www.lightbend.com/blog/architect-reactive-design-patterns" target="_blank">5</a></sup> <sup><a href="https://www.theserverside.com/podcast/Are-reactive-systems-the-future-of-software-architecture" target="_blank">6</a></sup> <sup><a href="https://dzone.com/articles/what-are-reactive-streams-in-java" target="_blank">7</a></sup> <sup><a href="https://academy.realm.io/posts/gotocph-mattias-kappler-reactive-architecture-android/" target="_blank">8</a></sup>. The last link is SoundClouds architecture.   It seems to be a common Haskell structure <sup><a href="https://wiki.haskell.org/Reactive" target="_blank">9</a></sup> <sup><a href="https://wiki.haskell.org/Reactive/Tutorial/A_FPS_display" target="_blank">10</a></sup> <sup><a href="https://hackage.haskell.org/package/reactive-banana" target="_blank">11</a></sup>, for a while <sup><a href="https://stackoverflow.com/questions/6675683/haskell-frp-reactive-parsec" target="_blank">12</a></sup>, that links work from 2011. <br />
-The first Wiki states that Reactive is fine with OO, for example OO languages with reactive architecture libraries <a href="https://doc.red-lang.org/en/reactivity.html" target="_blank">red</a> lang, <a href="https://github.com/Reactive-Extensions/RxCpp" target="_blank">C++</a> and <a href="https://github.com/ReactiveX/RxJava" target="_blank">java</a>.  Many people use it with functional programming, and made a new acronym ~ FRP <sup><a href="https://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank">13</a></sup>.</p>
+This describes an architecture (not pattern) that they called reactive <sup><a href="https://en.wikipedia.org/wiki/Reactive_programming" target="_blank">1</a></sup> <sup><a href="https://www.infoq.com/presentations/reactive-programming-evolution" target="_blank">2</a></sup> <sup><a href="https://blog.redelastic.com/what-is-reactive-programming-bc9fa7f4a7fc" target="_blank">3</a></sup>, the article referenced the first link. At least one artist is involved reactive development, as they have a manifesto <sup><a href="https://www.reactivemanifesto.org/" target="_blank">4</a></sup>, to summarise to the point of triteness a reactive system is one that is Responsive, Resilient, Elastic, and Message Driven.  The “enterprise” Java culture seems to be buying the idea of Reactive architectures <sup><a href="https://www.lightbend.com/blog/architect-reactive-design-patterns" target="_blank">5</a></sup> <sup><a href="https://www.theserverside.com/podcast/Are-reactive-systems-the-future-of-software-architecture" target="_blank">6</a></sup> <sup><a href="https://dzone.com/articles/what-are-reactive-streams-in-java" target="_blank">7</a></sup> <sup><a href="https://academy.realm.io/posts/gotocph-mattias-kappler-reactive-architecture-android/" target="_blank">8</a></sup>. The last link is SoundClouds architecture.   It seems to be a common Haskell structure <sup><a href="https://wiki.haskell.org/Reactive" target="_blank">9</a></sup> <sup><a href="https://wiki.haskell.org/Reactive/Tutorial/A_FPS_display" target="_blank">10</a></sup> <sup><a href="https://hackage.haskell.org/package/reactive-banana" target="_blank">11</a></sup>, for a while <sup><a href="https://stackoverflow.com/questions/6675683/haskell-frp-reactive-parsec" target="_blank">12</a></sup>, that links work from 2011.   UPDATE 2023: whist looking for other things, <sup><a href="https://dev.to/ninjin/designing-the-ideal-reactivity-system-3i4o" target="_blank">13</a></sup> is a handy explainer focussed on JS. <br />
+The first Wiki states that Reactive is fine with OO, for example OO languages with reactive architecture libraries <a href="https://doc.red-lang.org/en/reactivity.html" target="_blank">red</a> lang, <a href="https://github.com/Reactive-Extensions/RxCpp" target="_blank">C++</a> and <a href="https://github.com/ReactiveX/RxJava" target="_blank">java</a>.  Many people use it with functional programming, and made a new acronym ~ FRP <sup><a href="https://en.wikipedia.org/wiki/Functional_reactive_programming" target="_blank">14</a></sup>.</p>
 
 
 <h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Implementations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
-<p>As ever I reference a language that people are more likely to pay me for <sup><a href="https://medium.com/async-php/event-loops-84978080389c" target="_blank">14</a></sup>, which states there a variety of options for reactive systems. Many of these options need PHP extensions to run efficiently.  There is an extension specifically for eventing <sup><a href="https://www.php.net/manual/en/intro.event.php" target="_blank">15</a></sup> <sup><a href="https://libevent.org/" target="_blank">16</a></sup>.  Threading in PHP isn't really mature, there is an optional extension that links <a href="https://secure.php.net/manual/en/book.pthreads.php" target="_blank">pthread</a> to the main interpreter.  Alternatively PHP has a stable extension called <a href="https://secure.php.net/manual/en/refs.fileprocess.process.php" target="_blank">cntl</a>, which has POSIX C API like <a href="https://secure.php.net/manual/en/function.pcntl-fork.php" target="_blank">fork</a>(), <a href="https://secure.php.net/manual/en/function.pcntl-signal.php" target="_blank">signal</a>(); I have little server-side experience on ms-windows, but I suspect that these do not work on there.  A quick google yielded a list of projects for the frameworks <sup><a href="https://github.com/reactphp/event-loop" target="_blank">17</a></sup> <sup><a href="https://amphp.org/amp/" target="_blank">18</a></sup> <sup><a href="https://github.com/async-interop/event-loop" target="_blank">19</a></sup>.  This last project is deprecated, although reading the project index is encouraged <sup><a href="https://github.com/icicleio/icicle" target="_blank">20</a></sup>.<br />
-Java example, outlining a list of reactive Java frameworks, supplies some code samples <sup><a href="https://medium.com/capital-one-developers/building-microservices-a-reactive-framework-comparison-fb49d8f3c8f4" target="_blank">21</a></sup>.   Here is a “study project” in Java; the analysis is worth reading <sup><a href="https://github.com/dnvriend/reactive-frameworks" target="_blank">22</a></sup>.  Another discussion on Java <sup><a href="https://stackoverflow.com/questions/33671578/comparison-of-java-reactive-frameworks" target="_blank">23</a></sup>.<br />
-For Node, the underlying language has alot of work on async, events and callbacks.  I note that MSFT are publishing Reactive Node libraries <sup><a href="https://github.com/Reactive-Extensions/RxJS" target="_blank">24</a></sup>.  Finding out “actual reactive Node frameworks” is hard, as Node doesn't really separate performance things clearly, and is always asynchronous.  <br />
-UPDATE: My current boss is very keen on <sup><a href="https://reactivex.io/languages.html" target="_blank">25</a></sup> library.<br />
-UPDATE 2022: This may be interesting for TS people <sup><a href="https://github.com/gcanti/fp-ts" target="_blank">26</a></sup></p>
+<p>As ever I reference a language that people are more likely to pay me for <sup><a href="https://medium.com/async-php/event-loops-84978080389c" target="_blank">15</a></sup>, which states there a variety of options for reactive systems. Many of these options need PHP extensions to run efficiently.  There is an extension specifically for eventing <sup><a href="https://www.php.net/manual/en/intro.event.php" target="_blank">16</a></sup> <sup><a href="https://libevent.org/" target="_blank">17</a></sup>.  Threading in PHP isn't really mature, there is an optional extension that links <a href="https://secure.php.net/manual/en/book.pthreads.php" target="_blank">pthread</a> to the main interpreter.  Alternatively PHP has a stable extension called <a href="https://secure.php.net/manual/en/refs.fileprocess.process.php" target="_blank">cntl</a>, which has POSIX C API like <a href="https://secure.php.net/manual/en/function.pcntl-fork.php" target="_blank">fork</a>(), <a href="https://secure.php.net/manual/en/function.pcntl-signal.php" target="_blank">signal</a>(); I have little server-side experience on ms-windows, but I suspect that these do not work on there.  A quick google yielded a list of projects for the frameworks <sup><a href="https://github.com/reactphp/event-loop" target="_blank">18</a></sup> <sup><a href="https://amphp.org/amp/" target="_blank">19</a></sup> <sup><a href="https://github.com/async-interop/event-loop" target="_blank">20</a></sup>.  This last project is deprecated, although reading the project index is encouraged <sup><a href="https://github.com/icicleio/icicle" target="_blank">21</a></sup>.<br />
+Java example, outlining a list of reactive Java frameworks, supplies some code samples <sup><a href="https://medium.com/capital-one-developers/building-microservices-a-reactive-framework-comparison-fb49d8f3c8f4" target="_blank">22</a></sup>.   Here is a “study project” in Java; the analysis is worth reading <sup><a href="https://github.com/dnvriend/reactive-frameworks" target="_blank">23</a></sup>.  Another discussion on Java <sup><a href="https://stackoverflow.com/questions/33671578/comparison-of-java-reactive-frameworks" target="_blank">24</a></sup>.<br />
+For Node, the underlying language has alot of work on async, events and callbacks.  I note that MSFT are publishing Reactive Node libraries <sup><a href="https://github.com/Reactive-Extensions/RxJS" target="_blank">25</a></sup>.  Finding out “actual reactive Node frameworks” is hard, as Node doesn't really separate performance things clearly, and is always asynchronous.  <br />
+UPDATE: My current boss is very keen on <sup><a href="https://reactivex.io/languages.html" target="_blank">26</a></sup> library.<br />
+UPDATE 2022: This may be interesting for TS people <sup><a href="https://github.com/gcanti/fp-ts" target="_blank">27</a></sup></p>
 
 
 <h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Plan <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
@@ -111,10 +111,10 @@ It should be already.  Messaging is a more stable, scalable to later requirement
 
 <ul class="ulbasic">
     <li class="libasic">Keep the messages themselves fairly small. This reduces likelihood for receiving half a message.</li>
-    <li class="libasic">Make messages idempotent <sup><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/IdempotentReceiver.html" target="_blank">27</a></sup>, so duplicate messages can be detected/ avoided.</li>
+    <li class="libasic">Make messages idempotent <sup><a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/IdempotentReceiver.html" target="_blank">28</a></sup>, so duplicate messages can be detected/ avoided.</li>
     <li class="libasic">Limit message sequencing requirements with careful design, so the message receivers have reduced validation requirements.</li>
-    <li class="libasic">A traditional RDBMS may not be a good solution for storing in-flight messages, outlined <sup><a href="https://erie.coolfire25.com/what-is-a-message-queue-and-when-should-you-use-messaging-queue-systems-like-rabbitmq-and-kafka/" target="_blank">28</a></sup> <sup><a href="http://alen.malhasoglu.com/2015/11/10/on-message-queue-technologies/" target="_blank">29</a></sup> (http only)</li>
-    <li class="libasic">Further reading on messaging systems <sup><a href="https://www.hillside.net/plop/2010/papers/galvis.pdf" target="_blank">30</a></sup> <sup><a href="https://www.enterpriseintegrationpatterns.com/" target="_blank">31</a></sup> <sup><a href="https://msdn.microsoft.com/en-us/library/aa480027.aspx" target="_blank">32</a></sup></li>
+    <li class="libasic">A traditional RDBMS may not be a good solution for storing in-flight messages, outlined <sup><a href="https://erie.coolfire25.com/what-is-a-message-queue-and-when-should-you-use-messaging-queue-systems-like-rabbitmq-and-kafka/" target="_blank">29</a></sup> <sup><a href="http://alen.malhasoglu.com/2015/11/10/on-message-queue-technologies/" target="_blank">30</a></sup> (http only)</li>
+    <li class="libasic">Further reading on messaging systems <sup><a href="https://www.hillside.net/plop/2010/papers/galvis.pdf" target="_blank">31</a></sup> <sup><a href="https://www.enterpriseintegrationpatterns.com/" target="_blank">32</a></sup> <sup><a href="https://msdn.microsoft.com/en-us/library/aa480027.aspx" target="_blank">33</a></sup></li>
 </ul>
 
 
@@ -159,7 +159,7 @@ interface EventLoopInterface
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Reactive Architecture</h1></header>
-			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
+			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;   </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
@@ -167,14 +167,14 @@ interface EventLoopInterface
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
 						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
 						<span class="bigScreenOnly">Share: </span>
-						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FReactive Architecture" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freactive-architecture" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
 						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
-						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FReactive Architecture" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
-						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FReactive Architecture" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freactive-architecture" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freactive-architecture" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-01-07T21:53:49">7th of Jan 2023</time>
+						<span>Edited <time datetime="2023-06-12T13:58:31">12th of Jun 2023</time>
 						</span>
 						<span>Created <time datetime="2018-01-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Jan 2018</time> </span>
 					</span>
@@ -184,7 +184,7 @@ interface EventLoopInterface
 			<dialog id="popup" class="popup1 bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FReactive Architecture" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freactive-architecture" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -220,9 +220,9 @@ interface EventLoopInterface
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixlinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-06-07T08:57:50">7th of Jun 2023, 8:57:50</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-01-07T21:53:49">7th of Jan 2023</time>.
+	<p> Page rendered <time datetime="2023-06-14T19:57:39">14th of Jun 2023, 19:57:39</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-12T13:58:31">12th of Jun 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
