@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/adaptive-palette" />
 <meta property="og:description" content="Sample colour palette for the new colour scheme used in this site." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Jun 2023, 19:32:41" />
-<meta property="article:modified_time" content="27th of May 2023" />
+<meta property="article:published_time" content="17th of Jun 2023, 21:06:09" />
+<meta property="article:modified_time" content="17th of Jun 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/adaptive-palette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Adaptive palette",
-	"article:published_time":"14th of Jun 2023, 19:32:41", 
-    "article:modified_time":"27th of May 2023",
+	"article:published_time":"17th of Jun 2023, 21:06:09", 
+    "article:modified_time":"17th of Jun 2023",
     "article:section":"technology",
 
     "author": {
@@ -53,12 +53,17 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="halferWords">
-<p>I did a crawl on the internet/ npmjs, I cannot find a CSS framework that advertises adaptive colours.  I thought it a good idea to replace the style sheet as its old and accumulated code; the newer code is smaller.  If I add more usability features (e.g. dark-mode), the smaller style sheet will be necessary.  This palette is actually the first CSS palette I have made, I normally use the premix colours in the framework, or extract values from the style-guide.  However the adaption features ares a hobbyists over-engineered solution; if you tell your browser that you a prefer an extreme on <i>prefers-contrast</i>, the palette will match it.   It would be cool if there was a thing for “I'm in an oversaturated environment”, and put the brightness up; but I do not have access to that data programmatically.</p>
+<p>I did a crawl on the internet/ npmjs, I cannot find a CSS framework that advertises adaptive colours.  I thought it a good idea to replace the style sheet as its old and accumulated code; the newer code is smaller.  If I add more usability features (e.g. dark-mode), the smaller style sheet will be necessary.  This palette is actually the first CSS palette I have made, I normally use the premix colours in the framework, or extract values from the style-guide.  However the adaption features are a hobbyists over-engineered solution; if you tell your browser that you a prefer an extreme on <i>prefers-contrast</i>, the palette will match it.   It would be cool if there was a thing for “I'm in an over-saturated environment”, and put the brightness up; but I do not have access to that data programmatically.  <br />
+If a legacy machine, probably win32, has <i>prefers-contrast:forced</i> <sup><a href="https://kilianvalkhof.com/2021/css-html/prefers-contrast-forced-is-a-mistake/" target="_blank">1</a></sup>; I'm not sure how to handle this.   The flag states the user has set colours, but doesn't say how to access them?</p>
+
+<p>The sparkly button is an effect I thought about.  I do not think this improved the UX, so I am not using it.   I can see it being a popular effect on CTA buttons for things that people buy via a desktop.  This effect uses the z-index, so needs to be mixed with other features carefully.   Note hover effect doesn't mean anything on touch/ haptic interfaces, and is definitely bad for people who dislike motion.   If you wanted a large visual effect it would be smarter to inject an image via CSS, as that would give you a larger ability to change the visuals.  I think a better effect would be to make the sparkles change size as a CSS animation, say 5pt going to 12pt, then changing colour; but that is starting to feel like power point, and definitely obstructive.   Art theory suggests adjusting the colour ratios to make them brighter, the way I did with the high contract button row.<br />
+The stars used here are not selectable, will be hard to be copy inside the GUI, and will not block mouse events.   I don't use Calckey social media, but the stars are an effect on that.</p>
 
 <p>Please see <a class="" href="https://owenberesford.me.uk/resource/accessible-css#">accessible-css</a> for more notes on colour adaption.   This code is written with RGBA colours.   There are other colour spaces available, but this has best support in browsers and external tooling.</p>
 
 
 
+<h4>New palette </h4>
 <p>It would be very hard for me to build the old palette swatch
 <ul>
 <li>Standard contrast:</li>
@@ -106,7 +111,13 @@ TODO: magic tune selection against some index/DB -->
 	</div>
 </div>
 <br />
-
+<h4>Extension maquette</h4>
+<p> Mouse hover over the button
+<div>
+   <span class="h2 button shiny" title="See notes above, a fake and inert button to show interaction">Sparkly button </span> 
+</div>
+<br />
+<br />
 </div>
 </div>
     </article>
@@ -135,7 +146,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-27T13:37:16">27th of May 2023</time>
+						<span>Edited <time datetime="2023-06-17T20:42:59">17th of Jun 2023</time>
 						</span>
 						<span>Created <time datetime="2023-05-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of May 2023</time> </span>
 					</span>
@@ -155,6 +166,8 @@ TODO: magic tune selection against some index/DB -->
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
 <menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">New palette</a></li>
+<li><a href="#toc1">Extension maquette</a></li>
 </menu>
 <br />
 
@@ -181,7 +194,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-06-14T19:32:41">14th of Jun 2023, 19:32:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-05-27T13:37:16">27th of May 2023</time>.
+	<p> Page rendered <time datetime="2023-06-17T21:06:09">17th of Jun 2023, 21:06:09</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-17T20:42:59">17th of Jun 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -204,11 +217,6 @@ body { --fgcontrast: 0.95; --bgcontrast:0.95; --fgr: 37; --fgg: 37; --fgb: 37; -
 
 .test_intense { --fgcontrast: 0.85; --bgcontrast:1.1; }
 .test_muted {  --fgcontrast: 1; --bgcontrast:0.8;  }
-/* currently unneeded control flag 
-.dark    { --bgcontrast: 0.75; }
-.darker  { --bgcontrast: 0.50; }
-.darkest { --bgcontrast: 0.25; }
-*/
 
 /* define 7 bg colours, 3 fg colours / re-define these colours for dark-mode / possible attention-seeking-mode also / need to have 1 low and 1 high colour per element */
 .fg_hi1 { --fgr: 37; --fgg: 37; --fgb: 37; } /*     deep grey */
@@ -268,6 +276,18 @@ body { --fgcontrast: 0.95; --bgcontrast:0.95; --fgr: 37; --fgg: 37; --fgb: 37; -
   cursor: pointer;
 
 }
+
+/* the stars added about an hour; from raw */
+.shiny { padding-right:2em; padding-left:1.8em; width: 190px; height:2.5em; text-align:center; }
+.shiny:hover { --fgcontrast:1.1; font-weight:600; color: rgba(
+                  calc(var(--fgr) * var(--fgcontrast)), 
+                  calc(var(--fgg) * var(--fgcontrast)), 
+                  calc(var(--fgb) * var(--fgcontrast)),
+					1.0
+                ); padding-right:0; padding-left:1em; }
+			
+.shiny:hover::before { content:"✨"; color:transparent; text-shadow: 0 0 0 #2ba6cb; display:inline-block; width:1em;  vertical-align:bottom; z-index:20;  position:relative; bottom:-1em; }
+.shiny:hover::after { content:"✨  ✨"; color:transparent; text-shadow: 0 0 0 #2ba6cb; display:inline-block; width:3em;  vertical-align:top; position:relative; top:-1em; left:-2em; z-index:20; font-size:130%; transform: rotate(40deg); }
 
 
 </style>
