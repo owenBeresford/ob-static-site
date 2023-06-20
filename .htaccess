@@ -129,7 +129,7 @@ RewriteRule .*					/resource/svg-format-notes.html
 # I seem to need both variants to gt i to work on the live server.
 
 <IfModule mod_headers.c>
-<FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2)$">
+<FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2|webp)$">
 Header add Access-Control-Allow-Origin 91.238.161.174
 Header add Access-Control-Allow-Origin 176.32.230.19
 Header add Access-Control-Allow-Origin 90.193.48.206
@@ -150,7 +150,7 @@ Header set X-timing-data "%t %D"
 	RewriteRule (.*)				$1.json
 
 </If>
-<If "%{REQUEST_URI} !~ /(-references|-meta|rss|sitemap|min\.js|min\.css|\.png|\.woff|\.woff2|\.jpeg)/">
+<If "%{REQUEST_URI} !~ /(-references|-meta|rss|sitemap|min\.js|min\.css|\.webp|\.png|\.woff|\.woff2|\.jpeg)/">
 Header set Content-Type 'text/html; encoding= utf8'
 Header set Cache-Control 'max-age=86400'
 Header add X-ICELINE "add HTML"
