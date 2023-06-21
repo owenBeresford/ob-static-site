@@ -42,10 +42,9 @@ Header add X-ICELINE "add https $1"
 </IfModule>
 rewriterule ^(.*)               https://owenberesford.me.uk%{REQUEST_URI} [L,R=301]
 
-rewritecond %{SERVER_PROTOCOL}  HTTP
-rewritecond %{REQUEST_URI}		(.*)
-rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
-
+#rewritecond %{SERVER_PROTOCOL}  HTTP
+#rewritecond %{REQUEST_URI}		(.*)
+#rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
 # if you can see this text, uoy can see the file system.
 rewritecond %{REQUEST_URI}      /res/  [OR]
