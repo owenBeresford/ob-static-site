@@ -42,10 +42,9 @@ Header add X-ICELINE "add https $1"
 </IfModule>
 rewriterule ^(.*)               https://owenberesford.me.uk%{REQUEST_URI} [L,R=301]
 
-rewritecond %{SERVER_PROTOCOL}  HTTP
-rewritecond %{REQUEST_URI}		(.*)
-rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
-
+#rewritecond %{SERVER_PROTOCOL}  HTTP
+#rewritecond %{REQUEST_URI}		(.*)
+#rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
 
 # if you can see this text, uoy can see the file system.
 rewritecond %{REQUEST_URI}      /res/  [OR]
@@ -129,7 +128,7 @@ RewriteRule .*					/resource/svg-format-notes.html
 # I seem to need both variants to gt i to work on the live server.
 
 <IfModule mod_headers.c>
-<FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2)$">
+<FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2|webp)$">
 Header add Access-Control-Allow-Origin 91.238.161.174
 Header add Access-Control-Allow-Origin 176.32.230.19
 Header add Access-Control-Allow-Origin 90.193.48.206
@@ -150,7 +149,7 @@ Header set X-timing-data "%t %D"
 	RewriteRule (.*)				$1.json
 
 </If>
-<If "%{REQUEST_URI} !~ /(-references|-meta|rss|sitemap|min\.js|min\.css|\.png|\.woff|\.woff2|\.jpeg)/">
+<If "%{REQUEST_URI} !~ /(-references|-meta|rss|sitemap|min\.js|min\.css|\.webp|\.png|\.woff|\.woff2|\.jpeg)/">
 Header set Content-Type 'text/html; encoding= utf8'
 Header set Cache-Control 'max-age=86400'
 Header add X-ICELINE "add HTML"
