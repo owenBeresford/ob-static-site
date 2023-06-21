@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Progress animations</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Overview for progress animations/ busy-wait animations; lists some existing options for professional and business use.   A look at maquettes as an example of different progress or wait animations." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Progress animations">
+<meta itemprop="description" content="Overview for progress animations/ busy-wait animations; lists some existing options for professional and business use.   A look at maquettes as an example of different progress or wait animations.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Progress animations">
+<meta name="twitter:description" content="Overview for progress animations/ busy-wait animations; lists some existing options for professional and business use.   A look at maquettes as an example of different progress or wait animations.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Progress animations" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/progress-animation-maquette" />
+<meta property="og:description" content="Overview for progress animations/ busy-wait animations; lists some existing options for professional and business use.   A look at maquettes as an example of different progress or wait animations." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="20th of Jun 2023, 20:42:18" />
+<meta property="article:modified_time" content="20th of Jun 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/progress-animation-maquette" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Progress animations",
+	"article:published_time":"20th of Jun 2023, 20:42:18", 
+    "article:modified_time":"20th of Jun 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>A popular UI interaction is the progress marker.  Thinking from a usability perspective, I do not think they are a good feature.   Everyone would prefer a fast system to one that says <i>“please hold”</i> all the time; and the animation foregrounds the fact that they are waiting.  If you have an average speed system, there may be a short blip while something loads, but a <i>“please hold”</i> notification for 0.5-1s is disruptive to concentration more than supporting.  <br />
+If you are designing the UI in a big system, careful use of caching and multi step API can minimise the delays, so there are not that may of them.   A browser on a recent phone or laptop should be able to do most things with little delay.  The most common delays on websites are the negotiation process for displaying adverts, and downloading large frameworks/ images/ sound files.  The ad servers are generally fast, but if there is a bidding process between 20-50 different companies for who wants that user's impression the most, this is iterative process and why it is slower.   None of my employers have gotten revenue from advertising, and it seems bad UX to force users to wait for the adverts that they do not want, YMMV.   For the assets mal-feature, taking Asana as a case study: they have little 3rd party advertising. When you login, the browser blocks for 5-30s to start the interactive GUI.   The delay is greater on slow internet machines, or machines with little RAM.  <br />
+Writing as a UX centric person, if using a ORM slows down your UI, so you need progress indicators; just use/ learn SQL, its pretty much a functional language.</p>
+
+<p>Some people use the progress-bar effect vertically, as a scroll-bar presentation; I have most often seen this in forms.  This article is not about this usage.</p>
+
+<p>I am writing this text, as my plan was to play with CSS and animating “length of line”. Please see end.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Existing options for work <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>In a work environment, use one of these (or other options):</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><b>Material UI</b> has a large collection of progress indicators <sup><a href="https://mui.com/material-ui/react-progress/" target="_blank">1</a></sup>.  The library includes linear progress bars (<i>à la</i> win3.1), stepper <sup><a href="https://mui.com/material-ui/react-stepper/" target="_blank">2</a></sup> and radial/ circular ones.  When linked to React, there is quite a few options <sup><a href="https://smartdevpreneur.com/the-essential-guide-to-the-material-ui-progress-bar-color-percent-and-more/" target="_blank">3</a></sup>.  I'm not sure if this is the same version of MUI, but guidelines <sup><a href="https://m2.material.io/components/progress-indicators" target="_blank">4</a></sup> broadly repeating what I wrote. <a href="https://www.npmjs.com/package/@mui/material" target="_blank">npm</a> <a href="https://github.com/mui/material-ui" target="_blank">git</a> </li>
+    <li class="libasic">A dedicated circular indicator, with many CSS hooks.  Its in typescript, called &quot;<b>react-countdown-circle-timer</b>&quot; <a href="https://www.npmjs.com/package/react-countdown-circle-timer" target="_blank">npm</a> <a href="https://github.com/vydimitrov/react-countdown-circle-timer" target="_blank">git</a>, as implied by the name, you can have countdowns</li>
+    <li class="libasic">Or a bar version that you can put text in &quot;<b>react-progress-bar-timer</b>&quot;, typescript.  This links to common toolkits (e.g. Node, Vercel etc)  <a href="https://www.npmjs.com/package/react-progress-bar-timer" target="_blank">npm</a> <a href="https://www.npmjs.com/package/react-progress-bar-timer" target="_blank">git</a></li>
+    <li class="libasic">Please note there is a HTML5 element called <i>Progress</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress" target="_blank">5</a></sup>.  This is supported by all non-ancient browsers, and will be very fast to download and configure.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Maquette <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>There is a guide to build a progress widget manually <sup><a href="https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks" target="_blank">6</a></sup>, which I'm not following.   Use the first version as a metronome, they all have a 2s loop time.   I think some of these would look better with a different speed. <br />
+With an adaptive interface, delays could be shown with changing colours, if that suits some users better.  Also the loop time can be controlled from a central config.   All these widgets are <i>just CSS</i>, they should have no impact on any features of an App (no extra downloads, no JS threads, no blocking code or events).   <br />
+<b>Note:</b> I am just using a circle, as it is easy and light/ few bytes to download.  The animation could be applied to a logo if the preferred visual was a tradition hourglass.   For production use, these should also set the mouse cursor.</p>
+
+<p><b>TODO</b> Add more animation styles: with colour cycling, add the empty to full animation</p>
+
+
+
+<div class="solidLine">
+<span class="build1 displacement spin"> A </span>
+<span class="build2 displacement spin"> B </span>
+<span class="build3 displacement spin"> C </span>
+<span class="build4 displacement spin"> <span class="build4inner displacement spinBack"> D </span> </span>
+<span class="build1 displacement spinVary"> E </span>
+<span class="build1 displacement spinBetter"> F </span>
+<span class="build1 displacement spinVary2X"> G </span>
+<span class="build1 displacement spinVary10X"> H </span>
+
+
+</div>
+I was hoping to do a twist, so the circle looked like the infinity sign.  I can do this via SVG 3d animation, but I can't see how to do this with current CSS4.
+</div>
+</div>
+<style>
+/* 
+Most CSS frameworks have utilities similar this, but I wrote this from CSS spec docs.
+dev time: english prose 2h, css 3h I think
+
+ */
+.solidLine { white-space:nowrap; overflow-y:clip; overflow-x:scroll; }
+.displacement { margin-right:2em; } 
+.displacement:last-child { margin-right:0px; }
+
+.build1 { display:inline-block; width:3em; height:3em; border:black 2px solid; border-radius:50%; border-top-width:6px; }
+.build2 { display:inline-block; width:3em; height:3em; border:black 2px solid; border-radius:50%; border-top-width:6px; border-bottom-width:0px; }
+.build3 { display:inline-block; width:3em; height:3em; border:black 4px solid; border-radius:50%; border-right-width:0px; border-top-width:0px; border-left-width:0px; }
+.build4, .build4inner { display:inline-block; width:3.2em; height:3.2em; border:black 4px solid; border-radius:50%; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; }
+.build4inner { width:3em; height:3em; border-right-width:0px; border-top-width:0px; border-left-width:0px; border-bottom-width:4px; border-color:red;  }
+
+.spin { animation: rotating 2s linear infinite; }
+.spinVary { animation: rotating 2s ease infinite; }
+.spinBetter{ animation: rotating 2s ease-in-out infinite; }
+.spinVary2X { animation: inertiaSpin 2s ease infinite; }
+.spinVary10X { animation: inertiaSpin10 2s ease infinite; }
+@keyframes rotating {
+    from{
+        transform: rotate(0deg);    
+    }
+    to{
+        transform: rotate(360deg);  
+    }
+}
+
+@keyframes inertiaSpin {
+    from{
+        transform: rotate(0deg);    
+    }
+    to{
+        transform: rotate(720deg);  
+    }
+}
+@keyframes inertiaSpin10 {
+    from{
+        transform: rotate(0deg);    
+    }
+    to{
+        transform: rotate(7200deg);  
+    }
+}
+
+.spinBack { animation: rotatingBack 2s linear infinite; }
+@keyframes rotatingBack {
+    from{
+        transform: rotate(0deg);    
+    }
+    to{
+        transform: rotate(-720deg);  
+    }
+}
+
+.twist { animation: twistDef 2s linear infinite; }
+@keyframes twistDef {
+    from{
+        transform: skewY(-180deg);    
+    }
+    to{
+        transform: skewY(0deg);  
+    }
+}
+</style>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="uitools"> <p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Progress animations</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fprogress-animation-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fprogress-animation-maquette" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fprogress-animation-maquette" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-06-20T20:41:51">20th of Jun 2023</time>
+						</span>
+						<span>Created <time datetime="2023-06-16T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >16th of Jun 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fprogress-animation-maquette" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Context</a></li>
+<li><a href="#toc1">Existing options for work</a></li>
+<li class="h4_odd"><a href="#toc2">Maquette</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-06-20T20:42:18">20th of Jun 2023, 20:42:18</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-20T20:41:51">20th of Jun 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
