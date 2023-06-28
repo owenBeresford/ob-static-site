@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/accessible-css" />
 <meta property="og:description" content="Research on making apps / websites be accessible to the full spectrum of users, supporting different perception and different sensory capacity." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Jun 2023, 19:32:39" />
-<meta property="article:modified_time" content="27th of May 2023" />
+<meta property="article:published_time" content="28th of Jun 2023, 20:11:40" />
+<meta property="article:modified_time" content="27th of Jun 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/accessible-css" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Accessibility via CSS #A11y",
-	"article:published_time":"14th of Jun 2023, 19:32:39", 
-    "article:modified_time":"27th of May 2023",
+	"article:published_time":"28th of Jun 2023, 20:11:40", 
+    "article:modified_time":"27th of Jun 2023",
     "article:section":"technology",
 
     "author": {
@@ -119,24 +119,28 @@ A list of accessibility checks that this page should solve (also see <sup><a hre
 <ul class="ulbasic">
     <li class="libasic">Anything in WCAG relating to sound preferences.</li>
     <li class="libasic">Anything in WCAG relating to video preferences.</li>
-    <li class="libasic">Language used, as its not part of CSS, although is important to users.  Also I do not have translations for my site.   Platforms involving multiple languages are complex and often done badly, the experiences of a PoC<a class="" href="https://www.google.co.uk/search?q=PoC">?</a> culture person are described <sup><a href="https://eyeondesign.aiga.org/design-often-encourages-the-white-default-how-can-designers-create-more-inclusive-digital-interfaces/" target="_blank">17</a></sup>.  I disagree with the author on whose responsibility managing the spell checker is (apps should not install spell checkers, but name length limits is clearly part of the app).  TANGENT: As a reflection, maybe the correct question about processing names in computers, is “why do all these people <em>have to</em> write things in Latin1?&quot;, quietly ignoring all the exceedingly legacy tools that big organisations use (eg DVLA).   I think the same text written in language that was created to match the spoken language would be more concise, as the phonemes/tones would match better; therefore the name would be a similar number of letters to names in Italian (roughly the modern version of Latin).</li>
+    <li class="libasic">Language used, as its not part of CSS, although is important to users.  Also I do not have translations for my site.   Platforms involving multiple languages are complex and often done badly, the experiences of a PoC culture person are described <sup><a href="https://eyeondesign.aiga.org/design-often-encourages-the-white-default-how-can-designers-create-more-inclusive-digital-interfaces/" target="_blank">17</a></sup>.  I disagree with the author on whose responsibility managing the spell checker is (apps should not install spell checkers, but name length limits are clearly part of the app).  </li>
 </ul>
+
+<p><i>TANGENT:</i> As a reflection, maybe the correct question about processing names in computers, is “why do all these people <em>have to</em> write things in Latin1?&quot;, quietly ignoring all the exceedingly legacy tools that big organisations use (e.g. DVLA).   I think the same text written in language that was created to match the spoken language would be more concise, as the phonemes/tones would match better.  Therefore the name would be a similar number of letters to names in Italian (roughly the modern version of Latin).</p>
 
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > I am applying the results of this to this site  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>Code added to project, colours.css  Code approaches have been derived from <sup><a href="https://stackoverflow.com/a/55128970" target="_blank">18</a></sup> <sup><a href="https://stackoverflow.com/a/55267265" target="_blank">19</a></sup>, but with no copy and pasting.<br />
+<p>Code has been added to project, in colours.css.  The approaches have been derived from <sup><a href="https://stackoverflow.com/a/55128970" target="_blank">18</a></sup> <sup><a href="https://stackoverflow.com/a/55267265" target="_blank">19</a></sup>, but with no copy and pasting.<br />
 Note: most CSS frameworks have a prepared palette, but maybe not using this colour notation.  Obviously it is desirable to have a clean integration, but that is left as an exercise for the user.<br />
 <i>Note:</i> It is important to test/review a new colour palette in a variety of lighting conditions, perception will change a lot depending on situation.</p>
 
 
 <h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Existing OSS <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
+    <li class="libasic"><b>UPDATE:</b> for new code, please review <a href="https://userway.org" target="_blank">userway</a> as a drop-in capacity for your current app.  This is an org site, but I would expect to pay for a tool this good.</li>
     <li class="libasic"><a href="https://turretcss.com/color/" target="_blank">TurretCSS</a> ~ is an accessible CSS framework</li>
     <li class="libasic"><a href="https://automaticcss.com/accessibility-features/" target="_blank">AutomaticCSS</a>  ~ is an accessible CSS framework</li>
     <li class="libasic"><a href="https://tailwindcss.com/" target="_blank">Tailwind</a> ~ is a generic CSS framework with a screen-reader utility <sup><a href="https://v2.tailwindcss.com/docs/screen-readers" target="_blank">20</a></sup>.  However pls see <a href="https://labinator.com/wordpress-marketplace/accessible-html-templates/lat/" target="_blank">this template</a> or <sup><a href="https://dev.to/devsatasurion/is-tailwind-css-accessible-52dc" target="_blank">21</a></sup> which claims full WCAG2.1 compliance with Tailwind.</li>
     <li class="libasic">As <a href="https://get.foundation/" target="_blank">Foundation</a> can be a compiled framework it adapts to the current situation <sup><a href="https://get.foundation/sites/docs/accessibility.html" target="_blank">22</a></sup> .   Also see the abide extension <sup><a href="https://www.geeksforgeeks.org/foundation-css-abide-accessibility/" target="_blank">23</a></sup> .  </li>
     <li class="libasic"><a href="https://getbootstrap.com/docs/5.0/getting-started/accessibility/" target="_blank">Bootstrap</a>; seems to have a strong commitment to accessibility (see link).  </li>
     <li class="libasic">A list of CSS frameworks <sup><a href="https://www.creativebloq.com/features/best-css-frameworks" target="_blank">24</a></sup></li>
+    <li class="libasic">My practice since 2012 is to inject a CSS block to with the more relevant settings (say font size).  Note a newer option for a site/ app using CSS variables, is to change the variables with ` element.style.setProperty(&quot;--my-var”, jsVar + 4); `.  In 2023, I have not added this yet.</li>
 </ul>
 
 
@@ -168,7 +172,7 @@ Note: most CSS frameworks have a prepared palette, but maybe not using this colo
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-27T09:59:29">27th of May 2023</time>
+						<span>Edited <time datetime="2023-06-27T17:21:12">27th of Jun 2023</time>
 						</span>
 						<span>Created <time datetime="2023-05-05T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >5th of May 2023</time> </span>
 					</span>
@@ -219,7 +223,7 @@ Note: most CSS frameworks have a prepared palette, but maybe not using this colo
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-06-14T19:32:39">14th of Jun 2023, 19:32:39</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-05-27T09:59:29">27th of May 2023</time>.
+	<p> Page rendered <time datetime="2023-06-28T20:11:40">28th of Jun 2023, 20:11:40</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-27T17:21:12">27th of Jun 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
