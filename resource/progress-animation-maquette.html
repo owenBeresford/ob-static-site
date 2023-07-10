@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/progress-animation-maquette" />
 <meta property="og:description" content="Overview for progress animations/ busy-wait animations; lists some existing options for professional and business use.   A look at maquettes as an example of different progress or wait animations." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Jun 2023, 20:42:18" />
-<meta property="article:modified_time" content="20th of Jun 2023" />
+<meta property="article:published_time" content="6th of Jul 2023, 9:28:41" />
+<meta property="article:modified_time" content="6th of Jul 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/progress-animation-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Progress animations",
-	"article:published_time":"20th of Jun 2023, 20:42:18", 
-    "article:modified_time":"20th of Jun 2023",
+	"article:published_time":"6th of Jul 2023, 9:28:41", 
+    "article:modified_time":"6th of Jul 2023",
     "article:section":"technology",
 
     "author": {
@@ -78,9 +78,11 @@ Writing as a UX centric person, if using a ORM slows down your UI, so you need p
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Maquette <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>There is a guide to build a progress widget manually <sup><a href="https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks" target="_blank">6</a></sup>, which I'm not following.   Use the first version as a metronome, they all have a 2s loop time.   I think some of these would look better with a different speed. <br />
 With an adaptive interface, delays could be shown with changing colours, if that suits some users better.  Also the loop time can be controlled from a central config.   All these widgets are <i>just CSS</i>, they should have no impact on any features of an App (no extra downloads, no JS threads, no blocking code or events).   <br />
-<b>Note:</b> I am just using a circle, as it is easy and light/ few bytes to download.  The animation could be applied to a logo if the preferred visual was a tradition hourglass.   For production use, these should also set the mouse cursor.</p>
+<b>As this is a maquette, all the code is in this file</b>, for better visibility and portability.   Some handy references <sup><a href="https://css-tricks.com/gradient-borders-in-css/" target="_blank">7</a></sup> <sup><a href="https://codyhouse.co/nuggets/css-gradient-borders" target="_blank">8</a></sup> <sup><a href="https://stackoverflow.com/a/7066176" target="_blank">9</a></sup> <sup><a href="https://stackoverflow.com/questions/23441060/how-to-animate-gradients-using-css" target="_blank">10</a></sup> <sup><a href="https://dev.to/gmeben/animating-gradients-with-pure-css-3bi8" target="_blank">11</a></sup></p>
 
-<p><b>TODO</b> Add more animation styles: with colour cycling, add the empty to full animation</p>
+<p><b>Note:</b> I am just using a circle, as it is easy and light/ few bytes to download.  The animation could be applied to a logo if the preferred visual was a tradition hourglass.   For production use, these should also set the mouse cursor.</p>
+
+
 
 <div class="solidLine">
 <span class="build1 displacement spin"> A </span>
@@ -92,18 +94,39 @@ With an adaptive interface, delays could be shown with changing colours, if that
 <span class="build1 displacement spinVary2X"> G </span>
 <span class="build1 displacement spinVary10X"> H </span>
 
+</div>
+<div class="solidLine">
+<span class="build5 displacement toneShift"> I </span>
+<span class="build5 displacement toneShift2"> J </span>
+<span class="build5 displacement toneShift3"> K </span>
+<!-- span class="displacement"> <span class="build6"> L </span> </span -->
+<span class="fixPosition displacement">M
+<span class="import1 lightBorder" title="This is using border-image-slice, which stops border-radius from working "> </span>
+</span> 
+<span class="fixPosition displacement">N
+<span class="import2 lightBorder" title="With border-image-slice, but the ::before isn't, so half of it is circular. "> N </span>
+</span>
+<span class="fixPosition displacement"> O
+<span class="import3 lightBorder3" title="With border-image-slice, but the ::before isn't, is using a large border-width.  Animation is based on the angle entry in linear-gradient. "> O </span>
+</span> 
+<span class="fixPosition displacement"> P
+<span class="import4 lightBorder4" title="With border-image-slice, but the ::before isn't; animation based on mutating the colours "> P </span>
+</span>
+
+<br />The last-but-one version doesn't work in FF, expired MSIE, or old Safari.
 
 </div>
+<br />
 I was hoping to do a twist, so the circle looked like the infinity sign.  I can do this via SVG 3d animation, but I can't see how to do this with current CSS4.
 </div>
 </div>
 <style>
 /* 
 Most CSS frameworks have utilities similar this, but I wrote this from CSS spec docs.
-dev time: english prose 2h, css 3h I think
+dev time: english prose 2h, css 3h I think; extra row of CSS reviews +10h
 
- */
-.solidLine { white-space:nowrap; overflow-y:clip; overflow-x:scroll; }
+*/
+.solidLine {  text-align: center; white-space:nowrap; overflow-y:clip; overflow-x:scroll; height:7em; }
 .displacement { margin-right:2em; } 
 .displacement:last-child { margin-right:0px; }
 
@@ -112,7 +135,21 @@ dev time: english prose 2h, css 3h I think
 .build3 { display:inline-block; width:3em; height:3em; border:black 4px solid; border-radius:50%; border-right-width:0px; border-top-width:0px; border-left-width:0px; }
 .build4, .build4inner { display:inline-block; width:3.2em; height:3.2em; border:black 4px solid; border-radius:50%; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; }
 .build4inner { width:3em; height:3em; border-right-width:0px; border-top-width:0px; border-left-width:0px; border-bottom-width:4px; border-color:red;  }
-
+.build5 { display:inline-block; width:3em; height:3em; border:black 2px solid; border-radius:50%; }
+.build6 { display:inline-block; width:3em; height:3em; border-style:none; border-radius:50%; box-sizing: border-box; z-index: 3; position:relative; background: rgb(255, 255, 250) border-box;  }
+.build6:before { content:""; background: linear-gradient(130deg, #ff7a18, #af002d 41.07%, #319197 76.05%)  border-box; box-sizing: border-box; position: absolute; top: -6px; left: -6px; width: calc(3em + 6px); height: calc(3em + 6px); border-radius:50%; z-index:-1; display:inline-block; }
+.fixPosition { display:inline-block; position:relative; top:1.3em;  }
+.import1 { border-radius: 20px; height: 3em; width:3em; display: inline-block; }
+.import1::before { content: ''; display: inline-block; box-sizing: border-box; height: calc( 3em + 1px ); width: calc( 3em + 1px ); border: 0.5em solid rgb(0, 84, 148); border-image: linear-gradient(10deg, rgb(255, 255, 250), rgb(0, 84, 148) ); border-image-slice: 1; }
+.import2 { height: 3em; width:3em; /* overflow: hidden; */ display: inline-block; clip-path: circle(50%); }
+.import2::before { content: ''; display: inline-block; box-sizing: border-box; height: calc( 3em + 1px ); width: calc( 3em + 1px ); border: 0.6em solid rgb(0, 84, 148) ; border-image: linear-gradient(10deg, rgb(255, 255, 250), rgb(0, 84, 148) ); border-image-slice: 1; }
+.import3 { height: 3em; width:3em; display: inline-block; clip-path: circle(50%); }
+.import3::before { content: ''; display: inline-block; box-sizing: border-box; height: calc( 3em + 1px ); width: calc( 3em + 1px ); border: 1em solid transparent; border-image: linear-gradient(var(--ang), rgb(255, 255, 250), rgb(0, 84, 148) ); border-image-slice: 1; }
+.import4 { height: 3em; width:3em; display: inline-block; clip-path: circle(50%); }
+.import4::before { content: ''; display: inline-block; box-sizing: border-box; height: calc( 3em + 1px ); width: calc( 3em + 1px ); border: 1em solid rgb(0, 84, 148); border-image: linear-gradient(10deg, rgb(var( --fgr), var( --fgg), var( --fgb) ), rgb( var(--bgr), var(--bgg), var(--bgb) ) ); border-image-slice: 1; }
+.toneShift { animation: borderAppear 2s ease-in infinite; }
+.toneShift2 { animation: borderAppear 2s ease-out infinite; }
+.toneShift3 { animation: borderAppear2 2s ease-in infinite; }
 .spin { animation: rotating 2s linear infinite; }
 .spinVary { animation: rotating 2s ease infinite; }
 .spinBetter{ animation: rotating 2s ease-in-out infinite; }
@@ -143,6 +180,96 @@ dev time: english prose 2h, css 3h I think
         transform: rotate(7200deg);  
     }
 }
+@keyframes borderAppear {
+    from{
+        border-top-color: rgb(255, 255, 250);    
+		border-top-width:8px;
+        border-left-color: rgb(255, 255, 250);    
+		border-left-width:8px;
+		padding-top:0px;
+    }
+    to{
+        border-top-color:#000;
+		border-top-width:2px;
+        border-left-color:#000;
+		border-left-width:2px;
+		padding-top:6px;
+    }
+}
+@keyframes borderAppear2 {
+    from{
+        border-top-color: rgb(255, 255, 250);    
+		border-top-width:8px;
+        border-left-color: rgb(255, 255, 250);    
+		border-left-width:8px;
+        border-bottom-color: rgb(255, 255, 250);    
+		border-bottom-width:8px;
+		padding-top:0px;
+    }
+	27.5% {
+        border-top-color: rgb(255, 255, 250);    
+		border-top-width:8px;
+        border-left-color: rgb(255, 255, 250);    
+		border-left-width:8px;
+        border-bottom-color: #000;    
+		border-bottom-width:4px;
+		}
+	55% {
+        border-top-color: rgb(255, 255, 250);    
+		border-top-width:8px;
+        border-left-color: #000;    
+		border-left-width:4px;
+        border-bottom-color: #000;    
+		border-bottom-width:2px;
+		}
+    to{
+        border-top-color:#000;
+		border-top-width:2px;
+        border-left-color:#000;
+		border-left-width:2px;
+        border-bottom-color: #000;    
+		border-bottom-width:2px;
+		padding-top:6px;
+    }
+}
+
+.lightBorder4::before { animation: lightPoint4 2s linear infinite; }
+@keyframes lightPoint4 {
+    from{
+		--fgr:0;
+		--fgg:84;
+		--fgb:148;
+
+		--bgr:255;
+		--bgg:255;
+		--bgb:250;
+    }
+    to{
+		--fgr:255;
+		--fgg:255;
+		--fgb:250;
+
+		--bgr:0;
+		--bgg:84;
+		--bgb:148;
+    }
+}
+
+/* this CSS feature doesn't exist in FF or old Safari */
+@property --ang{
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 90deg;
+}
+.lightBorder3::before { animation: lightPoint3 2s linear infinite; }
+@keyframes lightPoint3 {
+    from{
+		--ang: 0deg;
+    }
+    to{
+		--ang: 360deg;
+    }
+}
 
 .spinBack { animation: rotatingBack 2s linear infinite; }
 @keyframes rotatingBack {
@@ -154,6 +281,7 @@ dev time: english prose 2h, css 3h I think
     }
 }
 
+/* this is unused */
 .twist { animation: twistDef 2s linear infinite; }
 @keyframes twistDef {
     from{
@@ -190,7 +318,7 @@ dev time: english prose 2h, css 3h I think
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-06-20T20:41:51">20th of Jun 2023</time>
+						<span>Edited <time datetime="2023-07-06T09:24:37">6th of Jul 2023</time>
 						</span>
 						<span>Created <time datetime="2023-06-16T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >16th of Jun 2023</time> </span>
 					</span>
@@ -239,7 +367,7 @@ dev time: english prose 2h, css 3h I think
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-06-20T20:42:18">20th of Jun 2023, 20:42:18</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-20T20:41:51">20th of Jun 2023</time>.
+	<p> Page rendered <time datetime="2023-07-06T09:28:41">6th of Jul 2023, 9:28:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-07-06T09:24:37">6th of Jul 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
