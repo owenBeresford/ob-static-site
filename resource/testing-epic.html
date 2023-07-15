@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/testing-epic" />
 <meta property="og:description" content="A convenience group indexing early articles on testing. Intro and linking articles for TDD, BDD, test tables, boundary, regression, mutation and unit test notes." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Jun 2023, 19:35:51" />
-<meta property="article:modified_time" content="9th of Jun 2023" />
+<meta property="article:published_time" content="15th of Jul 2023, 21:16:10" />
+<meta property="article:modified_time" content="14th of Jul 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/testing-epic" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Testing Epic",
-	"article:published_time":"14th of Jun 2023, 19:35:51", 
-    "article:modified_time":"9th of Jun 2023",
+	"article:published_time":"15th of Jul 2023, 21:16:10", 
+    "article:modified_time":"14th of Jul 2023",
     "article:section":"technology",
 
     "author": {
@@ -142,21 +142,28 @@ Without me, my test plan is useless. Without my test plan, I am useless. I must 
 </ul>
 
 
-<h4 class="dontend" id="toc8"> <a href="#toc8" title="Jump to this section." > What is boundary testing? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 class="dontend" id="toc8"> <a href="#toc8" title="Jump to this section." > What is Contract testing? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
-    <li class="libasic">Boundary testing is unit-testing where the extreme values are checked; to confirm that possible error states are met correctly.</li>
-    <li class="libasic">This is discussed in more detail at <sup><a href="https://en.wikipedia.org/wiki/Boundary_testing" target="_blank">8</a></sup> <sup><a href="https://wiki.c2.com/?TestBoundaryConditions" target="_blank">9</a></sup>.</li>
+    <li class="libasic">For distributed or SOA systems; the different sections need to be written to the same style.  The contract test <sup><a href="https://pactflow.io/what-is-contract-testing-page/" target="_blank">8</a></sup> <sup><a href="https://microsoft.github.io/code-with-engineering-playbook/automated-testing/cdc-testing/" target="_blank">9</a></sup> verifies that the contract has been complied to on each side of an internal boundary.  Each section may be done by a different team, so this is important.  </li>
+    <li class="libasic">This process is partially done by the compiler, if you use many Interfaces in your code.   If you publish a Schema for any API, then again standard operational process has adsorbed this test step.  The programming language D <sup><a href="https://en.wikipedia.org/wiki/D_%28programming_language%29" target="_blank">10</a></sup> has a well defined process for contract tests, which it calls pre-conditions and post-conditions. </li>
 </ul>
 
 
-<h4 class="dontend" id="toc9"> <a href="#toc9" title="Jump to this section." > What are Test Tables? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 class="dontend" id="toc9"> <a href="#toc9" title="Jump to this section." > What is boundary testing? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">Boundary testing is unit-testing where the extreme values are checked; to confirm that possible error states are met correctly.</li>
+    <li class="libasic">This is discussed in more detail at <sup><a href="https://en.wikipedia.org/wiki/Boundary_testing" target="_blank">11</a></sup> <sup><a href="https://wiki.c2.com/?TestBoundaryConditions" target="_blank">12</a></sup>.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc10"> <a href="#toc10" title="Jump to this section." > What are Test Tables? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">Some languages/platform prefer to structure their Fixture data as a “table” (roughly a 2d array); rather than a separate data structure.  This is not the same as an SQL Fixture which would also be a table. </li>
     <li class="libasic">I see this term quite alot in Go, and the cucumber toolkit in Java (and I assume wherever cucumber gets its ideas from).</li>
 </ul>
 
 
-<h4 class="dontend" id="toc10"> <a href="#toc10" title="Jump to this section." > Further reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 class="dontend" id="toc11"> <a href="#toc11" title="Jump to this section." > Further reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">“what are my OSS projects?&quot; <a class="" href="https://owenberesford.me.uk/resource/wamOSSp#">wamOSSp</a></li>
     <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/unit-tests#">unit-tests</a></li>
@@ -179,10 +186,10 @@ Without me, my test plan is useless. Without my test plan, I am useless. I must 
 </ul>
 
 
-<h4 class="dontend" id="toc11"> <a href="#toc11" title="Jump to this section." > Why do I test like this? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 class="dontend" id="toc12"> <a href="#toc12" title="Jump to this section." > Why do I test like this? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>I don't have any deep and needy feeling about tests. The various flavours of tests are a risk assessment, or rather the avoidance of risk.  Things normally go wrong, not on first version, but on the later edition that just make a simple change.  These above technologies are the only known solution to being able to avoid these risks.  <br />
 A software engineer is someone who creates tools and manage the risks on creating them.  A developer is just doing the first clause.  I think in an Agile environment, software engineers are more useful. <br />
-Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb10298185.htm" target="_blank">10</a></sup></p>
+Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb10298185.htm" target="_blank">13</a></sup></p>
 
 
 </div>
@@ -214,7 +221,7 @@ Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb1029818
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-06-09T21:33:38">9th of Jun 2023</time>
+						<span>Edited <time datetime="2023-07-14T10:31:07">14th of Jul 2023</time>
 						</span>
 						<span>Created <time datetime="2017-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Mar 2017</time> </span>
 					</span>
@@ -242,10 +249,11 @@ Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb1029818
 <li><a href="#toc5">What is BDD?</a></li>
 <li class="h4_odd"><a href="#toc6">What is Regression testing?</a></li>
 <li><a href="#toc7">What is Mutation testing?</a></li>
-<li class="h4_odd"><a href="#toc8">What is boundary testing?</a></li>
-<li><a href="#toc9">What are Test Tables?</a></li>
-<li class="h4_odd"><a href="#toc10">Further reading</a></li>
-<li><a href="#toc11">Why do I test like this?</a></li>
+<li class="h4_odd"><a href="#toc8">What is Contract testing?</a></li>
+<li><a href="#toc9">What is boundary testing?</a></li>
+<li class="h4_odd"><a href="#toc10">What are Test Tables?</a></li>
+<li><a href="#toc11">Further reading</a></li>
+<li class="h4_odd"><a href="#toc12">Why do I test like this?</a></li>
 </menu>
 <br />
 
@@ -272,7 +280,7 @@ Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb1029818
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-06-14T19:35:51">14th of Jun 2023, 19:35:51</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-09T21:33:38">9th of Jun 2023</time>.
+	<p> Page rendered <time datetime="2023-07-15T21:16:10">15th of Jul 2023, 21:16:10</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-07-14T10:31:07">14th of Jul 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

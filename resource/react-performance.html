@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Improving React18 Performance</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Article defines how to make React18 apps smoother, faster, and respond to user input better by changing functions used." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Improving React18 Performance">
+<meta itemprop="description" content="Article defines how to make React18 apps smoother, faster, and respond to user input better by changing functions used.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Improving React18 Performance">
+<meta name="twitter:description" content="Article defines how to make React18 apps smoother, faster, and respond to user input better by changing functions used.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Improving React18 Performance" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/react-performance" />
+<meta property="og:description" content="Article defines how to make React18 apps smoother, faster, and respond to user input better by changing functions used." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="15th of Jul 2023, 21:15:29" />
+<meta property="article:modified_time" content="15th of Jul 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/react-performance" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Improving React18 Performance",
+	"article:published_time":"15th of Jul 2023, 21:15:29", 
+    "article:modified_time":"15th of Jul 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>This article is about React18; the approaches can be applied to other versions and frameworks, but the details only apply to that version.   Historically I try to avoid articles like this as they become dated incredibly quickly.  <i>But I brand myself as not-an-idiot.</i>   I think React is a fast framework, but I often take a different approach to other people.</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Understand the architecture <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>There is a lot of data available as <a class="" href="https://owenberesford.me.uk/resource/react18-notes#">react18-notes</a>.  The following is a diagram of unidirectional dataflow.</p>
+
+
+<figure id="imageBlock" >
+<img src="/asset/react-data-flow.wepb" alt="Diagram of unidirectional data flow in a simple React app" />
+<figcaption > 
+<a href="https://coderpad.io/blog/development/master-react-unidirectional-data-flow/" title="An article describing unidirectional dataflow.">Source of image: CoderPad </a> <span class="button bigScreenOnly" id="biggerBtn">Expand image</span>
+</figcaption>
+</figure> <br />
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Improve current code <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">Use NODE_ENV correctly in the build step.   I hope this is already done.   Also see `webpack --mode`.</li>
+    <li class="libasic">For work that you will be using for a while, make a process map of the code.  This will make it easier to see what is happening at various points.  The map should tag arrow functions vs local scope functions vs global scope functions.  Minimise function compilation on routine process, minimise data that needs to be rebuilt each time it is read eg for static data like menu options, persistently store it in a class variable.</li>
+    <li class="libasic">Move hosting to a CDN with correct geographic presence for your audience. </li>
+    <li class="libasic">Add per component tests with realistic data, and see which one is slow.  I have done this with <a class="" href="https://owenberesford.me.uk/resource/storybook#">Storybook</a>, <del>Cypress</del> and <del>Vitest</del>.  I have failed to get this usefully done via Jest and extensions for that tool. </li>
+    <li class="libasic">Reduce use of <i>useEffect</i>, as it can be triggered multiple times.  It can be swapped for <i><a href="https://react.dev/reference/react/useCallback" target="_blank">useCallback</a></i>.  Note complexity caused by references to functions, when the function is recompiled every time it is referenced ~ i.e. arrow functions <sup><a href="https://stackoverflow.com/questions/2539205/javascript-inline-functions-vs-predefined-functions" target="_blank">1</a></sup>.   Categorically do not let inputs to one <i>useEffect</i> be the output of another <i>useEffect</i>.</li>
+    <li class="libasic">For form input items, swap <i>useState</i> for <i><a href="https://react.dev/reference/react/useRef" target="_blank">useRef</a></i>, this means changing the input values doesn't force a redraw.</li>
+    <li class="libasic">Simplify waiting-for-data states by putting <a href="https://react.dev/reference/react/Suspense" target="_blank">Suspense</a> into your object tree. This class has been added fairly recently, but saves time.  Add <i><a href="https://react.dev/reference/react/StrictMode" target="_blank">StrictMode</a></i> to get visibility of errors more easily.   I also see <i><a href="https://react.dev/reference/react/Profiler" target="_blank">Profiler</a></i>, but in the context of running JS in a bigscreen webrowser, the React-browser-tool is easier to use.  If you log profiling data to a logging server for mobile, this is an option if you somehow lack normal tooling.  This component gives you <i>id, phase, actualDuration, baseDuration, startTime, commitTime</i> data points per render.</li>
+    <li class="libasic">Check HTTP headers, which should be made by the framework you are using.  Caching and compression are standard and desirable.  See <a class="" href="https://owenberesford.me.uk/resource/basic-website-features-2021#">basic-website-features-2021</a>.</li>
+    <li class="libasic">Smart use of lazy loading is cunning.   Lazy loading means reducing the amount of work needed for the first render.   However when using the feature asking for the lazy load: delays occur.   If you have an app with many features (more often desktop apps), there will be many features that do not get used often; and lazy loading these components gives an easy performance benefit.    The cunning thing is making which features are lazy loaded dynamic, and matching the current users' profile.   It should be combined with <i>Suspense</i>.</li>
+    <li class="libasic">React works better if the data model described in the architecture image is followed.   Compared to earlier frameworks, React allows more messy development.   The app will perform better if events and data have unidirectional flow.   This somewhat vague direction can be simplified to <i>“don't get or generate the data inside the component”</i>.</li>
+    <li class="libasic">Add a log to your slow component <i>render()</i>, and have component run in a unit test, or isolated for 20sec.   If it has done many redraws, fix this.  If it hasn't done many redraws, you are looking at the wrong bit of code.   The easiest way to do this is <a href="https://developer.mozilla.org/en-US/docs/Web/API/console/count" target="_blank">count</a>.</li>
+    <li class="libasic">Add object creation logging, especially if you have non-static/ non-primitive props.  Only applies to real component classes.  See count again.  Or get the count from the running app via <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef" target="_blank">weak references</a>.    </li>
+    <li class="libasic">Chrome ships with good tools for looking at React apps.   There is one recommended plugin that React will tell you about, use it to see the object graph.  However, after that, look at the performance tab in the “firebug”/chrome js debug tool.  If there is a process that is using more computation than you expected you can see it easily via here.   I haven't had good experience with <i>trace</i> output in React apps, as I either get no problem, or an unending stream of the stack, and I can't see any useful data.</li>
+    <li class="libasic">Improve performance by making components extend one of React.FC, React.VFC, or React.SFC, where applicable.  This tells the React engine that there should be less side-effects. </li>
+    <li class="libasic">Minor: Be careful around decomposition and setting props. If you are using Typescript interfaces everywhere, there should be known props, and hopefully what you wanted to set.  If you are using plain JS, that prop list may include an Axios Resultset or similar.</li>
+    <li class="libasic">Do not debug with <i>console.log</i> or worse <i>window.alert</i>. However ~ for temporary observation ~ only used in TEST builds, and removed by <i>eslint</i> later, these functions following may show you answers faster than running in a proper debugger. <ul class="ulbasic">
+        <li class="libasic"><a href="https://developer.mozilla.org/en-US/docs/Web/API/console/time" target="_blank">time</a> and timeEnd ~ Executed as a pair, creates a timestamp easier than creating date objects each time</li>
+        <li class="libasic"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/table" target="_blank">table</a> ~ renders a HTML table from a object param  </li>
+        <li class="libasic"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/dir" target="_blank">dir</a>     ~ renders a tree structure from an object</li>
+        <li class="libasic"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/trace" target="_blank">trace</a> ~ renders the JS stack from the place the call happened</li>
+        <li class="libasic"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/warn" target="_blank">warn</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/error" target="_blank">error</a> ~ display the same message as log, but in a more attention seeking fashion.  The modern JS console understand colours; but spending time on that probably means you aren't focussed on solutions.</li>
+    </ul></li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Standard Ideas for new code <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">Use the <i><a href="https://kentcdodds.com/blog/understanding-reacts-key-prop" target="_blank">key</a></i> prop to all new React Components, and change the key value when any of the state changes.   The value needs to be unique, similar to a HTML id.   This allows the change detection algorithm to know if the component has changed more efficiently; so there are less redraws.   </li>
+    <li class="libasic">For all the values that are copied into the view aspects, store them with <i>useMemo</i> better detailed as <i><a href="https://www.freecodecamp.org/news/memoization-in-javascript-and-react/" target="_blank">memorise</a></i>.  This means there is a fixed number of copies of the data.  When the value is a mutable object this is very useful, but follow the item below on immutable data.</li>
+    <li class="libasic">[LONG] Create good tests for the process of getting the JS to the client.  It could be put in one large file; or many small ones.   I have seen people advocating both options.   I assert that you can use HTTP2 <sup><a href="https://caniuse.com/http2" target="_blank">2</a></sup> as its after Jan 2023; and this has a set of characteristics.    Note your test Iphone on the office wifi has different network characteristics to someone moving on a train with Android (pls don't drive and text, or use a phone).    Having all the JS parsed in the client means a) this delay is no longer necessary  b) the user needed to wait for all that JS before they did anything.   If this app is not in testing, JS assets can be cached on the device for ages.   If this is an app where all the JS can already be installed, it will help performance; but this doesn't help the data.  Also see <a class="" href="https://owenberesford.me.uk/resource/http-cache-breaker#">http-cache-breaker</a>.   Check options for static data like locales, as many libraries include many locale data assets.</li>
+    <li class="libasic">Work out when a structure is needed (probably with the map made above).  If it doesn't change very much it can be compiled earlier, as a Static Site Generation <a href="https://jamstack.org/generators/" target="_blank">SSG</a> or Incremental Static Regeneration <a href="https://www.smashingmagazine.com/2021/04/incremental-static-regeneration-nextjs/" target="_blank">ISR</a>.  Try <a href="https://www.npmjs.com/package/next" target="_blank">nextjs</a>. </li>
+    <li class="libasic">As a general idea, don't create or process too many events, e.g. a search auto complete will <i>feel faster</i> if it executes every few chars, rather than per char.  Technically this is called <b>throttling</b>, and the following can be used <a href="https://www.npmjs.com/package/tadaaa" target="_blank">Tadaaa</a> (clean TS impl); <a href="https://www.npmjs.com/package/@npm.piece/utils" target="_blank">npm.piece/utils</a> (lots of useful bits);  <a href="https://www.npmjs.com/package/@react-hook/throttle" target="_blank">react-hook/ throttle</a>; <a href="https://www.npmjs.com/package/react-debounce-input" target="_blank">react-debounce-input</a>.    The same idea can be used to limit move or click events, with <b>debounce</b>.    </li>
+    <li class="libasic">List management: try to get data from the API in reasonable size bits (i.e. 1,000, not 10 items), but should apply search limits if data could go to &gt; 100,000 items. BUT don't render all the data at once, try <a href="https://www.npmjs.com/package/react-window" target="_blank">react-window</a>, <a href="https://www.npmjs.com/package/react-window-infinite-loader" target="_blank">react-window-infinite-loader</a>.  <i>This item sounds large and complex? Yes it is.  It took me 3 months and 5 major iterations to get a nice behaviour for a GIS search like Airbnb UI uses</i>.  Look at cache theory for best behaviour.</li>
+    <li class="libasic">Constant/ immutable data.  Functional architecture being a maths idea before an engineering idea doesn't use standard software engineering terms.  Simple problems are made simpler by only writing to each variable once.  See libraries <a href="https://www.npmjs.com/package/immutable" target="_blank">Immutable</a>, <a href="https://www.npmjs.com/package/redux" target="_blank">Redux</a>, <a href="https://www.npmjs.com/package/mobx" target="_blank">MobX</a> and more.  This is written in a longer form <sup><a href="https://swizec.com/blog/do-you-really-need-immutable-data/" target="_blank">3</a></sup></li>
+    <li class="libasic">As a minor thing, I have started making utility function <i>useXXX</i> that return an instance for each component and service.  If there are specific params, or code loading order, this utility makes things easier to read and manage.   It clearly shows that the code isn't using the old module-loading <i>require</i> structure, which is important for knowing side-effects.</li>
+    <li class="libasic">Avoid Async code in <i>componentWillMount</i>, if needed add it to <i>componentDidMount</i>; as described <sup><a href="https://www.codementor.io/blog/react-optimization-5wiwjnf9hj#13-avoid-async-initialization-in" target="_blank">4</a></sup> </li>
+    <li class="libasic">Where at all possible, avoid <i><a href="https://react.dev/reference/react-dom/flushSync" target="_blank">flushSync</a></i>. Recent React improves event-throughput by buffering up changes, and applying them in a batch; this event handling forces everything back into small steps again. </li>
+    <li class="libasic">Putting the computation in a separate thread/ process is a standard trick in programming.  As JS is very single threaded, do large functions in a <a class="" href="https://owenberesford.me.uk/resource/js-workers#">Webworker</a>, this should include talking with slow API.</li>
+    <li class="libasic">Maybe be able to reduce scope of React libraries, with cunning use of <i><a href="https://react.dev/reference/react-dom/createPortal" target="_blank">createPortal</a></i> ( <a href="https://codesandbox.io/s/42x771ykwx" target="_blank">demo</a> ).   I think this is not desirable for full-screen mobile apps with SPA; but for a marketing brochure site, it may improve performance, as static HTML is a lot faster than React.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,engineering"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Improving React18 Performance</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-07-15T20:48:49">15th of Jul 2023</time>
+						</span>
+						<span>Created <time datetime="2023-07-12T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >12th of Jul 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Understand the architecture</a></li>
+<li><a href="#toc1">Improve current code</a></li>
+<li class="h4_odd"><a href="#toc2">Standard Ideas for new code</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-07-15T21:15:29">15th of Jul 2023, 21:15:29</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-07-15T20:48:49">15th of Jul 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+<script>
+function bigger() {
+	const TMP=document.querySelector('#imageBlock');
+	const TMP2=document.querySelector('#biggerBtn');
+	if( TMP.classList.contains('fullScreen') ) {
+		TMP.classList.remove('fullScreen');
+		TMP2.innerText="Expand image";
+	} else {
+		TMP.classList.add('fullScreen');
+		TMP2.innerText="Revert image";
+	}
+	return false;
+}
+
+function mount() {
+	const TMP=document.querySelector('#biggerBtn');
+	TMP.addEventListener('click', bigger);
+	TMP.addEventListener('touch', bigger);
+}
+mount();
+</script>
+<style>
+  .fullScreen { background-color:rgb(240, 255, 255); border:#333 1px solid;  display:block; position:absolute; top:10%; left:calc( 50% - 500px ); right:calc( 50% - 500px ); min-height:500px; max-height:100%; z-index:1; }
+@media screen and (min-resolution: 150dpi) {
+	.fullScreen { left:5%; right:5%; min-height:300px; top:5%; } 
+	
+}
+.fullScreen figcaption { text-align:center; }
+.fullScreen figcaption span { margin-left:1em; }
+
+</style>
+</body>
+</html>
