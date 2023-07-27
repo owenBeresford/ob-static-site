@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/progress-animation-maquette" />
 <meta property="og:description" content="Overview for progress animations/ busy-wait animations; lists some existing options for professional and business use.   A look at maquettes as an example of different progress or wait animations." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="6th of Jul 2023, 9:28:41" />
+<meta property="article:published_time" content="26th of Jul 2023, 16:13:05" />
 <meta property="article:modified_time" content="6th of Jul 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/progress-animation-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Progress animations",
-	"article:published_time":"6th of Jul 2023, 9:28:41", 
+	"article:published_time":"26th of Jul 2023, 16:13:05", 
     "article:modified_time":"6th of Jul 2023",
     "article:section":"technology",
 
@@ -61,8 +61,6 @@ Writing as a UX centric person, if using a ORM slows down your UI, so you need p
 
 <p>Some people use the progress-bar effect vertically, as a scroll-bar presentation; I have most often seen this in forms.  This article is not about this usage.</p>
 
-<p>I am writing this text, as my plan was to play with CSS and animating “length of line”. Please see end.</p>
-
 
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Existing options for work <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>In a work environment, use one of these (or other options):</p>
@@ -74,11 +72,15 @@ Writing as a UX centric person, if using a ORM slows down your UI, so you need p
     <li class="libasic">Please note there is a HTML5 element called <i>Progress</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress" target="_blank">5</a></sup>.  This is supported by all non-ancient browsers, and will be very fast to download and configure.</li>
 </ul>
 
+<hr />
+<p>This may get pulled into a different article if get gets longer, but CSS timers are a lot better than JS timers; so people sometimes use animation to make clock faces <sup><a href="https://codepen.io/nobitagit/pen/AJXmgz" target="_blank">6</a></sup> <sup><a href="https://css-tricks.com/of-course-we-can-make-a-css-only-clock-that-tells-the-current-time/" target="_blank">7</a></sup> <sup><a href="https://medium.com/geekculture/css-only-digital-clock-accurate-settable-animated-c7610ddd26d9" target="_blank">8</a></sup> <sup><a href="https://medium.com/geekculture/css-only-digital-clock-accurate-settable-animated-c7610ddd26d9" target="_blank">9</a></sup> <sup><a href="https://devsnap.me/css-clocks" target="_blank">10</a></sup>.  Note these are basically skeuomorphic, and mostly from 2018.   I have made a JS “current time marker” <i>once</i>, and I used JS to build it, as it was not a major feature and didn't get much time allocated to it.  ...that feature was built about 2018...</p>
+
+<hr />
 
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Maquette <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
-<p>There is a guide to build a progress widget manually <sup><a href="https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks" target="_blank">6</a></sup>, which I'm not following.   Use the first version as a metronome, they all have a 2s loop time.   I think some of these would look better with a different speed. <br />
+<p>There is a guide to build a progress widget manually <sup><a href="https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks" target="_blank">11</a></sup>, which I'm not following.   Use the first version as a metronome, they all have a 2s loop time.   I think some of these would look better with a different speed. <br />
 With an adaptive interface, delays could be shown with changing colours, if that suits some users better.  Also the loop time can be controlled from a central config.   All these widgets are <i>just CSS</i>, they should have no impact on any features of an App (no extra downloads, no JS threads, no blocking code or events).   <br />
-<b>As this is a maquette, all the code is in this file</b>, for better visibility and portability.   Some handy references <sup><a href="https://css-tricks.com/gradient-borders-in-css/" target="_blank">7</a></sup> <sup><a href="https://codyhouse.co/nuggets/css-gradient-borders" target="_blank">8</a></sup> <sup><a href="https://stackoverflow.com/a/7066176" target="_blank">9</a></sup> <sup><a href="https://stackoverflow.com/questions/23441060/how-to-animate-gradients-using-css" target="_blank">10</a></sup> <sup><a href="https://dev.to/gmeben/animating-gradients-with-pure-css-3bi8" target="_blank">11</a></sup></p>
+<b>As this is a maquette, all the code is in this file</b>, for better visibility and portability.   Some handy references <sup><a href="https://css-tricks.com/gradient-borders-in-css/" target="_blank">12</a></sup> <sup><a href="https://codyhouse.co/nuggets/css-gradient-borders" target="_blank">13</a></sup> <sup><a href="https://stackoverflow.com/a/7066176" target="_blank">14</a></sup> <sup><a href="https://stackoverflow.com/questions/23441060/how-to-animate-gradients-using-css" target="_blank">15</a></sup> <sup><a href="https://dev.to/gmeben/animating-gradients-with-pure-css-3bi8" target="_blank">16</a></sup></p>
 
 <p><b>Note:</b> I am just using a circle, as it is easy and light/ few bytes to download.  The animation could be applied to a logo if the preferred visual was a tradition hourglass.   For production use, these should also set the mouse cursor.</p>
 
@@ -114,8 +116,8 @@ With an adaptive interface, delays could be shown with changing colours, if that
 </span>
 
 <br />The last-but-one version doesn't work in FF, expired MSIE, or old Safari.
-
 </div>
+
 <br />
 I was hoping to do a twist, so the circle looked like the infinity sign.  I can do this via SVG 3d animation, but I can't see how to do this with current CSS4.
 </div>
@@ -318,7 +320,7 @@ dev time: english prose 2h, css 3h I think; extra row of CSS reviews +10h
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-07-06T09:24:37">6th of Jul 2023</time>
+						<span>Edited <time datetime="2023-07-06T14:26:16">6th of Jul 2023</time>
 						</span>
 						<span>Created <time datetime="2023-06-16T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >16th of Jun 2023</time> </span>
 					</span>
@@ -367,7 +369,7 @@ dev time: english prose 2h, css 3h I think; extra row of CSS reviews +10h
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-07-06T09:28:41">6th of Jul 2023, 9:28:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-07-06T09:24:37">6th of Jul 2023</time>.
+	<p> Page rendered <time datetime="2023-07-26T16:13:05">26th of Jul 2023, 16:13:05</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-07-06T14:26:16">6th of Jul 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
