@@ -15,6 +15,26 @@ Header always set Strict-Transport-Security "max-age=31536000; preload" env=HTTP
 </If>
 </IfModule>
 
+Redirect permanent "/resource/group-martech" "/resource/group-XXX?first=martech"
+Redirect permanent "/resource/group-engineering"  "/resource/group-XXX?first=engineering"
+Redirect permanent "/resource/group-research" "/resource/group-XXX?first=research"
+Redirect permanent "/resource/group-uitools" "/resource/group-XXX?first=uitools"
+Redirect permanent "/resource/group-worklog" "/resource/group-XXX?first=worklog"
+Redirect permanent "/resource/group-legacy" "/resource/group-XXX?first=legacy"
+Redirect permanent "/resource/group-architecture" "/resource/group-XXX?first=architecture"
+Redirect permanent "/resource/group-english" "/resource/group-XXX?first=english"
+Redirect permanent "/resource/group-images" "/resource/group-XXX?first=images"
+Redirect permanent "/resource/group-research" "/resource/group-XXX?first=research"
+Redirect permanent "/resource/group-testing" "/resource/group-XXX?first=testing"
+
+Redirect permanent "/resource/cloud-hosting-2017" "/resource/cloud-hosting"
+Redirect permanent "/resource/shopping-list-hack" "/resource/shopping-list"
+Redirect permanent "/resource/fullstack-developer" "/resource/UX-engineer"
+Redirect permanent "/resource/story-book" "/resource/storybook"
+Redirect permanent "/resource/svg-notes" "/resource/svg-format-notes"
+Redirect permanent "/resource/lecture-jan" "/resource/wip-notes-jan-2019" 
+Redirect permanent "/resource/whats-changed-2020" "/resource/whats-changed-2022"
+
 RewriteCond %{HTTPS} 			off
 RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk [nc]
 rewritecond %{REQUEST_URI}		(.*)
@@ -75,54 +95,12 @@ rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
 </If>
 </IfModule>
 
-RewriteCond %{REQUEST_URI}      ^/resource/shopping-list-hack
-RewriteRule .*					/resource/shopping-list.html
-
-RewriteCond %{REQUEST_URI}      ^/resource/fullstack-developer
-RewriteRule .*					/resource/UX-engineer.html
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-martech
-RewriteRule .*					/resource/group-XXX.html?first=group-martech
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-engineering
-RewriteRule .*					/resource/group-XXX.html?first=group-engineering
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/resource/group-XXX.html?first=group-research
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-uitools
-RewriteRule .*					/resource/group-XXX.html?first=group-uitools
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-worklog
-RewriteRule .*					/resource/group-XXX.html?first=group-worklog
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-legacy
-RewriteRule .*					/resource/group-XXX.html?first=group-legacy
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-architecture
-RewriteRule .*					/resource/group-XXX.html?first=group-architecture
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-english
-RewriteRule .*					/resource/group-XXX.html?first=group-english
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-images
-RewriteRule .*					/resource/group-XXX.html?first=group-images
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-research
-RewriteRule .*					/resource/group-XXX.html?first=group-research
-
-RewriteCond %{REQUEST_URI}      ^/resource/group-testing
-RewriteRule .*					/resource/group-XXX.html?first=group-testing
-
-RewriteCond %{REQUEST_URI}      ^/resource/cloud-hosting-2017
-RewriteRule .*					/resource/cloud-hosting.html
- 
-RewriteCond %{REQUEST_URI}      ^/resource/story-book
-RewriteRule .*					/resource/storybook.html
-
-RewriteCond %{REQUEST_URI}      ^/resource/svg-notes
-RewriteRule .*					/resource/svg-format-notes.html
-
+<IfModule mod_speling.c>
+<If "%{REQUEST_URI} =~ m/[A-Z]/">
+	Header add X-ICELINE "Add case fix to URL"
+</If>
+CheckCaseOnly on
+</Ifmodule>
 
 # there is something different about the regex's on the live box.
 # I seem to need both variants to gt i to work on the live server.
