@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Improving search utility</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A website should be written to support an audience or customers; many people use search tools to add themselves to that audience.  This article describes a categorisation scheme for your audiences." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Improving search utility">
+<meta itemprop="description" content="A website should be written to support an audience or customers; many people use search tools to add themselves to that audience.  This article describes a categorisation scheme for your audiences.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Improving search utility">
+<meta name="twitter:description" content="A website should be written to support an audience or customers; many people use search tools to add themselves to that audience.  This article describes a categorisation scheme for your audiences.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Improving search utility" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/improving-search-utility" />
+<meta property="og:description" content="A website should be written to support an audience or customers; many people use search tools to add themselves to that audience.  This article describes a categorisation scheme for your audiences." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="4th of Sep 2023, 18:05:13" />
+<meta property="article:modified_time" content="4th of Sep 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/improving-search-utility" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Improving search utility",
+	"article:published_time":"4th of Sep 2023, 18:05:13", 
+    "article:modified_time":"4th of Sep 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+<p>In this text, I use the metaphor of UK educational level.   An average person may have:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">GSCEs: Are compulsory education, paid for by taxes.   Most of the population has these at 16YO, and they mean little after you are 17Y+ <sup><a href="https://www.gov.uk/government/publications/infographic-gcse-results-2021/infographics-for-gcses-2021-accesible" target="_blank">1</a></sup></li>
+    <li class="libasic">A-level [and equiv]: there are many flavours of education for 16YO-18YO.   These are recommended as more detailed training in a smaller range of subjects, and are achieved by a fairly high percent of the population.   Still paid for from taxes  <sup><a href="https://www.gov.uk/government/publications/infographic-a-level-results-2022/infographics-for-a-level-results-2022-accessible" target="_blank">2</a></sup>.</li>
+    <li class="libasic">BSc: This is an internationally understood qualification, I hope they are all similar.   This is a three year study in a single area (with possible sandwich year), and the area is likely to be more tightly defined than lower levels of grading.   Currently in the UK degrees are paid for by students; or possibly the employer in the case of more vocational ones  <sup><a href="https://explore-education-statistics.service.gov.uk/find-statistics/education-and-training-statistics-for-the-uk/2020" target="_blank">3</a></sup>.   For non-STEM subjects, it will have a different abbreviation.</li>
+    <li class="libasic">MSc: A initially higher degree, normally lasting 1Y,but may have extra sandwiches.   Paid for by student; or possibly the employer in the case of more vocational ones <sup><a href="https://www.hesa.ac.uk/news/18-04-2023/ah2304-degree-attainment-socioeconomic-background" target="_blank">4</a></sup>.  Again for non-STEM subjects, this will have a different abbreviation.</li>
+    <li class="libasic">PhD: aka Doctorate.   Highest single certificate.   An extra time of study, no fixed duration.   To achieve a doctorate, the student is supposed to demonstrate a new thing that has not been seen before.</li>
+</ul>
+
+<p>I like this scale, as a fairly standardized method for “how difficult is this?&quot;, for example:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">sample GCSE level: sort this list [...]</li>
+    <li class="libasic">sample PhD level: invent a new search algo, that is faster than the current ones</li>
+</ul>
+
+<p>For a population of people looking information up on the internet the following query ratios are likely to apply:</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><b>1000</b> GCSE complexity queries for simple information (e.g. “when is tax due?&quot;, “do I pay UK VAT on French fags?&quot; )<ul class="ulbasic">
+        <li class="libasic">There are many sites that can answer questions like this, SEO is quite crowded.  Note: Not all responses are the same quality.</li>
+    </ul></li>
+    <li class="libasic"><b>100</b>  A-level complexity queries (e.g. “Is it cheaper to give my teen an education fund, or pay their student loan?&quot; or “Xero new features” ) <ul class="ulbasic">
+        <li class="libasic">There are many sites that can answer questions like this, but hopefully longer words and less slogany.  Note: Not all responses are the same quality.</li>
+    </ul></li>
+    <li class="libasic"><b>20</b>   BSc  queries for “average tax declaration resubmission rate” or “example 'further data' form to reduce HMRC attention”<ul class="ulbasic">
+        <li class="libasic">The answer to this query will exist, and will get out of date.</li>
+    </ul></li>
+    <li class="libasic"><b>1</b>    PhD query for “UK tax 2021 combine benefits from carbon reduction and selling art”<ul class="ulbasic">
+        <li class="libasic">Rare, difficult, and very specific.  According to theory you need to be a PhD level thinker to write these.</li>
+    </ul></li>
+</ul>
+
+<p>I choose tax as an example data as tax is factual, slow to change (compared to general finance or politics), has broad scope, and lots of people need to be correct about it.</p>
+
+<p>Google and related people call the more difficult end of the market the “long tail keywords”, referencing a Stats bell-curve probability distribution.   <i>My scheme states how hard the problem is, rather than how rare it is.</i>   There are some well advertised challenges to solve a particular hard engineering problem, which I assume have many entrants; but the problem remains hard.  For example <a href="https://worldsolarchallenge.org/" target="_blank">driving across Australia only using solar power</a>.  See <sup><a href="https://en.wikipedia.org/wiki/World_Solar_Challenge" target="_blank">5</a></sup> for just factual data.</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Search and information spaces for retail <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>For a person with a site, there is a lot of SEO tooling to support the GCSE end of the market, as that will get a larger number of impressions.   This will affect your Google ranking positively, which is desirable.   Some marketing people model that consumers start by searching for vague data; then get more specific, as the consumer learns more about the situation.  For some artefacts which are practical to buy with low levels of knowledge about the product, these vague queries are useful, and can lead to success for the consumer and retailer.  This is retail e.g. buying a DVD disk as a present; and having a website that in SEO terms is very loud and clear about 'DVDs for sale' will make revenue for the owner.  This is where most SEO activity focusses, and I guess where most profit is made.<br />
+The professional 'SEO engineers' state that there is better income from targeting the simple and common questions.   This is definitely true if you sell advertising as your revenue stream.   I suppose if your content was scrapped from another site (with or without licensing it), there would be a “effort curve” encouraging less effort content, large numbers of random views not highly committed readers.  <br />
+It should be noted that the simple end of the information space is frequently crowded with many site.  Often answering the query is a means to-do a different thing, e.g. a page offering details about batteries on a site that sells them.   As a consequence of the first sentence, the market has organised towards larger networks, and strongly displays “network effects” (did you “google it” or “search engine for it”).  This is where a strong brand will dominate the information space, and effectively control it, as all competitors need to play inside the first brands process to be heard.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Search and information spaces for expert buyers  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>There are many businesses that are profitable because they solve a particular MSc or PhD grade query, and have data about it highly visible on their sales funnel website.   Example: I previously worked for a fintech startup that was founded by a watch manufacturer.  His separate watch business only sold luxury watches that he made, and that started at £500 and got more features like gold fittings for more money.  His SEO was very targeted at high-end buyers, who use luxury watches to display wealth and sophistication.   Even if he made a few non-bounced and non-search-crawler user-impressions per day, he was likely to make a healthy profit.  <br />
+When a user asks a PhD or MSc rarity query, they are an informed user, who is probably motivated to achieve that goal.   For things that are products, the asker is likely to accept spending more money per SKU as its a rare and hard solution that they are attempting to buy.   Secondly, as a rare / small market product, there is no economy of scale, and it will need to be pricey.   If exclusive luxury was cheap it wouldn't be exclusive or luxurious.</p>
+
+<p>ERRATA: My site would do better, if it had a good placement on a list of long tail keywords.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Improving search utility</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimproving-search-utility" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimproving-search-utility" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimproving-search-utility" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-09-04T18:04:01">4th of Sep 2023</time>
+						</span>
+						<span>Created <time datetime="2023-08-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Aug 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimproving-search-utility" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Search and information spaces for retail</a></li>
+<li><a href="#toc1">Search and information spaces for expert buyers</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-09-04T18:05:13">4th of Sep 2023, 18:05:13</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-09-04T18:04:01">4th of Sep 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
