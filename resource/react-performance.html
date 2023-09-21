@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/react-performance" />
 <meta property="og:description" content="Article defines how to make React18 apps smoother, faster, and respond to user input better by changing functions used." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="27th of Jul 2023, 18:08:58" />
-<meta property="article:modified_time" content="27th of Jul 2023" />
+<meta property="article:published_time" content="21st of Sep 2023, 22:56:35" />
+<meta property="article:modified_time" content="20th of Sep 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/react-performance" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Improving React18 Performance",
-	"article:published_time":"27th of Jul 2023, 18:08:58", 
-    "article:modified_time":"27th of Jul 2023",
+	"article:published_time":"21st of Sep 2023, 22:56:35", 
+    "article:modified_time":"20th of Sep 2023",
     "article:section":"technology",
 
     "author": {
@@ -74,7 +74,7 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">Use NODE_ENV correctly in the build step.   I hope this is already done.   Also see `webpack --mode`.</li>
     <li class="libasic">For work that you will be using for a while, make a process map of the code.  This will make it easier to see what is happening at various points.  The map should tag arrow functions vs local scope functions vs global scope functions.  Minimise function compilation on routine process, minimise data that needs to be rebuilt each time it is read eg for static data like menu options, persistently store it in a class variable.</li>
     <li class="libasic">Move hosting to a CDN with correct geographic presence for your audience. </li>
-    <li class="libasic">Add per component tests with realistic data, and see which one is slow.  I have done this with <a class="" href="https://owenberesford.me.uk/resource/storybook#">Storybook</a>, <del>Cypress</del> and <del>Vitest</del>.  I have failed to get this usefully done via Jest and extensions for that tool. </li>
+    <li class="libasic">Add per component tests with realistic data, and see which one is slow.  I have done this with <a class="" href="https://owenberesford.me.uk/resource/storybook#">Storybook</a>, <del>Cypress</del> and Vitest (see git).  I have failed to get this usefully done via Jest and extensions for that tool. </li>
     <li class="libasic">Reduce use of <i>useEffect</i>, as it can be triggered multiple times.  It can be swapped for <i><a href="https://react.dev/reference/react/useCallback" target="_blank">useCallback</a></i>.  Note complexity caused by references to functions, when the function is recompiled every time it is referenced ~ i.e. arrow functions <sup><a href="https://stackoverflow.com/questions/2539205/javascript-inline-functions-vs-predefined-functions" target="_blank">1</a></sup>.   Categorically do not let inputs to one <i>useEffect</i> be the output of another <i>useEffect</i>.</li>
     <li class="libasic">For form input items, swap <i>useState</i> for <i><a href="https://react.dev/reference/react/useRef" target="_blank">useRef</a></i>, this means changing the input values doesn't force a redraw.</li>
     <li class="libasic">Simplify waiting-for-data states by putting <a href="https://react.dev/reference/react/Suspense" target="_blank">Suspense</a> into your object tree. This class has been added fairly recently, but saves time.  Add <i><a href="https://react.dev/reference/react/StrictMode" target="_blank">StrictMode</a></i> to get visibility of errors more easily.   I also see <i><a href="https://react.dev/reference/react/Profiler" target="_blank">Profiler</a></i>, but in the context of running JS in a bigscreen webrowser, the React-browser-tool is easier to use.  If you log profiling data to a logging server for mobile, this is an option if you somehow lack normal tooling.  This component gives you <i>id, phase, actualDuration, baseDuration, startTime, commitTime</i> data points per render.</li>
@@ -149,7 +149,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-07-27T17:32:39">27th of Jul 2023</time>
+						<span>Edited <time datetime="2023-09-20T21:01:53">20th of Sep 2023</time>
 						</span>
 						<span>Created <time datetime="2023-07-12T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >12th of Jul 2023</time> </span>
 					</span>
@@ -198,7 +198,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-07-27T18:08:58">27th of Jul 2023, 18:08:58</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-07-27T17:32:39">27th of Jul 2023</time>.
+	<p> Page rendered <time datetime="2023-09-21T22:56:35">21st of Sep 2023, 22:56:35</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-09-20T21:01:53">20th of Sep 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
