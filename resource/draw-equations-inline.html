@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Draw equations inline</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A look at rendering nice-looking maths equations as part of a webpage.  This text mentions supporting tools, as this language is quite niche.  Favoured solution is MathML, but mentions 7 additional concepts." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Draw equations inline">
+<meta itemprop="description" content="A look at rendering nice-looking maths equations as part of a webpage.  This text mentions supporting tools, as this language is quite niche.  Favoured solution is MathML, but mentions 7 additional concepts.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Draw equations inline">
+<meta name="twitter:description" content="A look at rendering nice-looking maths equations as part of a webpage.  This text mentions supporting tools, as this language is quite niche.  Favoured solution is MathML, but mentions 7 additional concepts.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Draw equations inline" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/draw-equations-inline" />
+<meta property="og:description" content="A look at rendering nice-looking maths equations as part of a webpage.  This text mentions supporting tools, as this language is quite niche.  Favoured solution is MathML, but mentions 7 additional concepts." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="21st of Sep 2023, 22:56:34" />
+<meta property="article:modified_time" content="21st of Sep 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/draw-equations-inline" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Draw equations inline",
+	"article:published_time":"21st of Sep 2023, 22:56:34", 
+    "article:modified_time":"21st of Sep 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker drawEquationsContainer">
+<div class="halferWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Some examples <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Occasionally you may need to display an equation in a webpage.   I prefer to use function names rather than classical notation; but tastes vary.   This technology allows smart typesetting for that equation; and it can adapt to any screen size and it works for blind users.   This is built as HTML is, from tags.  <br />
+Note these Greek letters are perfectly normal Greek letters in UTF-8.  Also note this approach is very clear to speech readers.   As you can see <i>my current code highlighter doesn't understand XML.</i></p>
+
+
+<div class="row">
+<figure class="column">
+  <figcaption>Simple equation A as code: </figcaption>
+<pre lang="html" class="code"> 
+  &lt;math&gt;
+    &lt;mrow&gt;
+      &lt;munderover&gt;
+        &lt;mo&gt;&sum;&lt;/mo&gt;
+        &lt;mrow&gt;
+          &lt;mi&gt;n&lt;/mi&gt;
+          &lt;mo&gt;=&lt;/mo&gt;
+          &lt;mn&gt;1&lt;/mn&gt;
+        &lt;/mrow&gt;
+        &lt;mrow&gt;
+          &lt;mo&gt;+&lt;/mo&gt;
+          &lt;mn&gt;&infin;&lt;/mn&gt;
+        &lt;/mrow&gt;
+      &lt;/munderover&gt;
+    &lt;/mrow&gt;
+  &lt;/math&gt;
+</pre>
+</figure>
+<figure class="column">
+  <figcaption>Simple equation A rendered:</figcaption>
+	  <math>
+    <mrow>
+      <munderover>
+        <mo>∑</mo>
+        <mrow>
+          <mi>n</mi>
+          <mo>=</mo>
+          <mn>1</mn>
+        </mrow>
+        <mrow>
+          <mo>+</mo>
+          <mn>∞</mn>
+        </mrow>
+      </munderover>
+    </mrow>
+  </math>
+</figure>
+</div>
+<div class="row">
+<figure class="column">
+  <figcaption>Simple equation B as code: </figcaption>
+<pre lang="html" class="code"> 
+&lt;math&gt;
+  &lt;munderover&gt;
+    &lt;mo&gt;&amp;int;&lt;/mo&gt;
+    &lt;mi&gt;a&lt;/mi&gt;
+    &lt;mi&gt;b&lt;/mi&gt;
+  &lt;/munderover&gt;
+  &lt;mfenced separators=''&gt;
+    &lt;mn&gt;5&lt;/mn&gt;
+    &lt;mi&gt;ϰ&lt;/mi&gt;
+    &lt;mo&gt;+&lt;/mo&gt;
+    &lt;mn&gt;2&lt;/mn&gt;
+    &lt;mi&gt;sin&lt;/mi&gt;
+    &lt;mfenced separators=''&gt;
+      &lt;mi&gt;x&lt;/mi&gt;
+    &lt;/mfenced&gt;
+  &lt;/mfenced&gt;
+  &lt;mi&gt;𝛿ϰ&lt;/mi&gt;
+&lt;/math&gt;
+</pre>
+</figure>
+<figure class="column">
+  <figcaption>Simple equation B rendered: </figcaption>
+	<math>
+  <munderover>
+    <mo>&int;</mo>
+    <mi>a</mi>
+    <mi>b</mi>
+  </munderover>
+  <mfenced separators=''>
+    <mn>5</mn>
+    <mi>ϰ</mi>
+    <mo>+</mo>
+    <mn>2</mn>
+    <mi>sin</mi>
+    <mfenced separators=''>
+      <mi>x</mi>
+    </mfenced>
+  </mfenced>
+  <mi>𝛿ϰ</mi>
+</math>
+</figure>
+</div>
+
+
+<h5 id="toc1"> Background/ legacy</h5>
+<p>A long time ago there was a tool called <i>tex</i> <sup><a href="https://en.wikipedia.org/wiki/Computers_and_Typesetting" target="_blank">1</a></sup> <sup><a href="https://en.wikibooks.org/wiki/TeX" target="_blank">2</a></sup>.   This was first published in 1978 by a Maths doctorate for writing maths papers/proofs/ equations via a computer.   The doctor is famous for his other publications such as <sup><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank">3</a></sup> and publishing an idea <a class="" href="https://owenberesford.me.uk/resource/literate-programming#">literate-programming</a>.   This is a product of its time, and by modern standards not an easy to use tool. <br />
+There is an earlier format called <i>troff</i> that is still used to make <i>man pages</i>.   This is a simple typesetting language, outputting to text terminals that were normally used with computers in the 1960s/1970s.   Troff is not optimised for displaying complex typography, and neither are mono-space text terminals ~ which are also limited to monochrome in the 1970s.   <br />
+More recently, 'internet generation' people who aren't limited to 1970's tech, can use <b>MathML</b> <sup><a href="https://en.wikipedia.org/wiki/MathML" target="_blank">4</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/MathML" target="_blank">5</a></sup> spec <sup><a href="https://www.w3.org/TR/MathML2/chapter2.html" target="_blank">6</a></sup>.  Although the spec has been around for a long time, the support in browsers is lower than I would have expected <sup><a href="https://caniuse.com/?search=mathml" target="_blank">7</a></sup> (<strong>at 90%;</strong> not available for the deceased MSIE, or minority mobile browsers).   There is a W3C JS polyfill <sup><a href="https://github.com/w3c/mathml-polyfills" target="_blank">8</a></sup> and also a thing in NPM ~ which doesn't have much traction <sup><a href="https://www.npmjs.com/package/mathml" target="_blank">9</a></sup>.</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><i>Benefits</i>: MathML is entirely readable, a text format that can be in-line in a HTML file, and supports <i>some</i> CSS declarations.   </li>
+    <li class="libasic"><i>Liabilities</i>: MathML is more verbose than other options, and to repeat, has borderline viable browser support (90%).</li>
+</ul>
+
+
+
+<h5 id="toc2"> Details on MathML</h5>
+<ul class="ulbasic">
+    <li class="libasic">Look at your equation in an online tool <a href="https://fred-wang.github.io/TeXZilla/" target="_blank">TeXZilla</a> or <a href="https://www.mathmlcentral.com/Tools/FromMathML.jsp" target="_blank">MathMLcentral</a> as a viewer external to your stack, and for <i>testing</i> what you typed.  </li>
+    <li class="libasic">A handy online tool that will show errors in your XML <sup><a href="https://www.mathmlcentral.com/Tools/ValidateMathML.jsp" target="_blank">1</a></sup>.   The W3C validator is claimed to do MathML <sup><a href="https://validator.w3.org/#validate_by_input" target="_blank">2</a></sup>, and it does have detailed errors.   </li>
+    <li class="libasic">Some examples/ explainers <sup><a href="https://w3c.github.io/mathml-core/docs/explainer.html" target="_blank">3</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Learn/MathML/First_steps/Getting_started" target="_blank">4</a></sup> <sup><a href="https://elsenaju.eu/mathml/MathML-Examples.htm" target="_blank">5</a></sup> .</li>
+    <li class="libasic">Some template CSS <sup><a href="https://www.w3.org/TR/MathML2/appendixg.html" target="_blank">6</a></sup> a W3C spec <sup><a href="https://www.w3.org/TR/mathml-for-css/" target="_blank">7</a></sup>.</li>
+    <li class="libasic">Some MathML specific editors <a href="https://visualmatheditor.equatheque.net/" target="_blank">EquaThEque</a>, <a href="https://demo.wiris.com/mathtype/en/developers.php" target="_blank">Mathtype demo</a> (not specifically MathML, but these demos allow mouse or finger sketching for your Equation) </li>
+    <li class="libasic">A handy list of MathML tag names <sup><a href="https://www.npmjs.com/package/mathml-tag-names" target="_blank">8</a></sup>, if you need them for some reason.</li>
+</ul>
+
+
+<h5 id="toc3"> Other options for rendering complex typography</h5>
+<ul class="ulbasic">
+    <li class="libasic"><i>Hair splitting option:</i> use MathML in an ANNOTATION XML element, rather than a complete XML sub-document. </li>
+    <li class="libasic">A more widely supported version is a SVG containing the letter outlines of the equation (96% of users).  Care will be needed designing the SVG.</li>
+    <li class="libasic"><b>Recommended :</b> Install MathJAX <a href="https://docs.mathjax.org/en/latest/" target="_blank">docs</a> <a href="https://www.npmjs.com/package/mathjax" target="_blank">NPM</a> <a href="https://github.com/mathjax/MathJax.git" target="_blank">git</a> and supply equations as Latex, or MathML.  Latex is a less easy to use format, there are many questions on stackoverflow about rendering specific equations. </li>
+    <li class="libasic">Use ASCIIMath as its easier to type, but still rendered via MathJAX. Examples <sup><a href="http://asciimath.org/" target="_blank">9</a></sup> (warn: http link).</li>
+    <li class="libasic">A stupid option that I do not recommend to use SUP and SUB tags on plain HTML.  This will not allow you to do split line stuff like “1/2” without heavy mangling of layout padding/ margins.  Likely to break as soon as it leaves the designers device.</li>
+    <li class="libasic">&quot;PoC options” for the obstinate: render your MathML onto a HTML Canvas, save it from a test machine, use the saved image as a backup tech.   More details <sup><a href="https://stackoverflow.com/questions/10196711/saving-mathml-rendered-to-html5-canvas-as-png" target="_blank">10</a></sup>, not sure if the SVG is needed for this.  </li>
+    <li class="libasic"><b>OR</b> render the MathML inside a SVG anyway, adding D3 if necessary <sup><a href="https://stackoverflow.com/questions/27840705/rendering-mathml-on-svg-using-d3-js" target="_blank">11</a></sup>.</li>
+</ul>
+
+<p>.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Draw equations inline</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdraw-equations-inline" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdraw-equations-inline" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdraw-equations-inline" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-09-21T22:54:11">21st of Sep 2023</time>
+						</span>
+						<span>Created <time datetime="2023-09-18T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >18th of Sep 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdraw-equations-inline" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Some examples</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-09-21T22:56:34">21st of Sep 2023, 22:56:34</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-09-21T22:54:11">21st of Sep 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
+<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
+<style>
+ .drawEquationsContainer math { display:block; math-style: normal; padding:1em; font-size:150%; line-height:1.5 }
+ .drawEquationsContainer math * { display: math; } 
+ .drawEquationsContainer math mo { padding-top:0.5em; }
+ .drawEquationsContainer code { border:none; }
+ .drawEquationsContainer figure.column { margin-top:1em }
+</style>
+</body>
+</html>

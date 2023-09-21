@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-behaviour-tests" />
 <meta property="og:description" content="This article gives a definition of JS behaviour testing, provides metrics used for comparing test frameworks and finally outlines pros and cons of 7 behaviour test tools for JS" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Jul 2023, 16:12:11" />
-<meta property="article:modified_time" content="9th of May 2023" />
+<meta property="article:published_time" content="21st of Sep 2023, 22:56:35" />
+<meta property="article:modified_time" content="20th of Sep 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-behaviour-tests" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS behaviour testing",
-	"article:published_time":"26th of Jul 2023, 16:12:11", 
-    "article:modified_time":"9th of May 2023",
+	"article:published_time":"21st of Sep 2023, 22:56:35", 
+    "article:modified_time":"20th of Sep 2023",
     "article:section":"technology",
 
     "author": {
@@ -76,15 +76,15 @@ My first BDD tool was written for PHP <sup><a href="https://behat.org/en/latest/
         <li class="libasic">weaknesses: Tests can be quite slow, when simulating mouse movements.  Need to manage a JDK.  Unless carefully written, scripts will go out-of-date, compared to the target site (i.e. fail to run for nonsense reasons).  It is hard for the Selenium team to support newest CSS, although this wouldn't break JS tests.  Tests are fragile and non-deterministic for timing issues.</li>
     </ul></li>
     <li class="libasic"><b>Cypress</b> is a test framework trying to replace Selenium; but written in JS, and only supporting JS.  Cypress <a href="https://github.com/cypress-io/cypress" target="_blank">git</a> claims to be designed for UI testing, integration tests, and unit-tests.  Some links <sup><a href="https://www.cypress.io/how-it-works" target="_blank">7</a></sup> <sup><a href="https://www.producthunt.com/posts/cypress" target="_blank">8</a></sup> this is an advert <sup><a href="https://automationrhapsody.com/cypress-vs-selenium-end-era/" target="_blank">9</a></sup>.   I was introduced to it at a conference in 2021.   <ul class="ulbasic">
-        <li class="libasic">strengths: Cypress docs claim it integrates with CI <sup><a href="https://docs.cypress.io/guides/guides/continuous-integration.html#Setting-up-CI" target="_blank">10</a></sup>, but as a JS framework, they have never heard of TAP.   The advert link talks about using selectors, and having a design objective of stable tests.   The Cypress guides claims to do snapshot testing as a first rank feature (its common by 2023) <sup><a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">11</a></sup>.   Cypress claims higher reliability due to tests not using setTimeout or callbacks etc, and not having multiple implementation languages leading to timeouts <sup><a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">12</a></sup>.  For site testing, Cypress supports <i>cross origin testing</i> <sup><a href="https://docs.cypress.io/guides/guides/cross-origin-testing" target="_blank">13</a></sup>, as a integrated feature; this would improve testing coverage/stability by a visible margin (and so test process performance).  Claims to support Electron <sup><a href="https://blog.logrocket.com/cypress-io-the-selenium-killer/" target="_blank">14</a></sup>, so can be used to test random apps ~ like MSFT “teams 4 linux” ~ outside of browsers.</li>
-        <li class="libasic">weaknesses: The massive problem with this before 2022; is it only supported a Chrome environment; which isn't the browser that normally has issues.   According to <sup><a href="https://docs.cypress.io/guides/guides/launching-browsers" target="_blank">15</a></sup> the problem is solved now.   I found it took a long time to test up.</li>
+        <li class="libasic">strengths: Cypress docs claim it integrates with CI <sup><a href="https://docs.cypress.io/guides/guides/continuous-integration.html#Setting-up-CI" target="_blank">10</a></sup>, but as a JS framework, they have never heard of TAP.   The advert link talks about using selectors, and having a design objective of stable tests.   The Cypress guides claims to do snapshot testing as a first rank feature (its common by 2023) <sup><a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">11</a></sup>.   Cypress claims higher reliability due to tests not using setTimeout or callbacks etc, and not having multiple implementation languages leading to timeouts <sup><a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">12</a></sup>.  For site testing, Cypress supports <i>cross origin testing</i> <sup><a href="https://docs.cypress.io/guides/guides/cross-origin-testing" target="_blank">13</a></sup>, as a integrated feature; this would improve testing coverage/stability by a visible margin (and so test process performance).  Claims to support Electron <sup><a href="https://blog.logrocket.com/cypress-io-the-selenium-killer/" target="_blank">14</a></sup>, so can be used to test random apps ~ like MSFT “teams 4 linux” ~ outside of browsers.   Some advanced tips are available <sup><a href="https://glebbahmutov.com/blog/using-test-ids-to-pick-specs-to-run/" target="_blank">15</a></sup></li>
+        <li class="libasic">weaknesses: The massive problem with this before 2022; is it only supported a Chrome environment; which isn't the browser that normally has issues.   According to <sup><a href="https://docs.cypress.io/guides/guides/launching-browsers" target="_blank">16</a></sup> the problem is solved now.   I found it took a long time to test up.</li>
     </ul></li>
     <li class="libasic"><b> CucumberJS</b> <a href="https://github.com/cucumber/cucumber-js" target="_blank">git</a>, npm package is `@cucumber/cucumber`, <a href="https://cucumber.io/" target="_blank">docs</a>.   This is the official fully compatible Cucumber implementation in JS.<ul class="ulbasic">
         <li class="libasic">strengths:</li>
         <li class="libasic">liabilities:</li>
     </ul></li>
     <li class="libasic"><b>Storybook</b> see article <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> for more detail.  Install as `npm @storybook/core ` and then plugins, see docs first<ul class="ulbasic">
-        <li class="libasic">strengths: Includes a “auto webpack”, which is useful if you are testing very new code.  Has a framework for component testing for many toolkits.  Has quite a large volume of docs <sup><a href="https://storybook.js.org/" target="_blank">16</a></sup>, I think it can be used as a design system.   </li>
+        <li class="libasic">strengths: Includes a “auto webpack”, which is useful if you are testing very new code.  Has a framework for component testing for many toolkits.  Has quite a large volume of docs <sup><a href="https://storybook.js.org/" target="_blank">17</a></sup>, I think it can be used as a design system.   </li>
         <li class="libasic">weaknesses: Many test steps are a manual process.   Not aware of many module for TAP.   <i>The recent version doesn't work for me, I will update this. </i></li>
     </ul></li>
     <li class="libasic"><b>Jasmine</b> please see <a class="" href="https://owenberesford.me.uk/resource/JS-test-frameworks#">JS-test-frameworks</a>.   It has BDD, but everything I previously listed would still be true.  <ul class="ulbasic">
@@ -93,7 +93,7 @@ My first BDD tool was written for PHP <sup><a href="https://behat.org/en/latest/
     <li class="libasic"><b>Chai</b> claims to have BDD naming option; but it isn't as intuitive as other “full-time” BDD tools IMO.   Pls see <a class="" href="https://owenberesford.me.uk/resource/JS-test-frameworks#">JS-test-frameworks</a> for setup with PhantomJS.  <ul class="ulbasic">
         <li class="libasic">weaknesses: doesn't support modules, ES2020+ or current class loading processes.</li>
     </ul></li>
-    <li class="libasic"><b>Night watch</b> <a href="https://www.npmjs.com/package/nightwatch" target="_blank">npm</a> <a href="https://github.com/nightwatchjs/nightwatch" target="_blank">git</a>  docs <sup><a href="https://www.npmjs.com/package/nightwatch" target="_blank">17</a></sup>.  A 2014 project, I think newer projects are better.</li>
+    <li class="libasic"><b>Night watch</b> <a href="https://www.npmjs.com/package/nightwatch" target="_blank">npm</a> <a href="https://github.com/nightwatchjs/nightwatch" target="_blank">git</a>  docs <sup><a href="https://www.npmjs.com/package/nightwatch" target="_blank">18</a></sup>.  A 2014 project, I think newer projects are better.</li>
 </ul>
 
 
@@ -125,7 +125,7 @@ My first BDD tool was written for PHP <sup><a href="https://behat.org/en/latest/
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-09T09:18:53">9th of May 2023</time>
+						<span>Edited <time datetime="2023-09-20T21:20:48">20th of Sep 2023</time>
 						</span>
 						<span>Created <time datetime="2023-05-01T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of May 2023</time> </span>
 					</span>
@@ -173,7 +173,7 @@ My first BDD tool was written for PHP <sup><a href="https://behat.org/en/latest/
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-07-26T16:12:11">26th of Jul 2023, 16:12:11</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-05-09T09:18:53">9th of May 2023</time>.
+	<p> Page rendered <time datetime="2023-09-21T22:56:35">21st of Sep 2023, 22:56:35</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-09-20T21:20:48">20th of Sep 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
