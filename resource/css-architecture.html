@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>CSS architecture</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="When writing reusable UI components, ideas for how to manage CSS in them.  Most Apps will be built with a CSS framework, and this should be leveraged." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="CSS architecture">
+<meta itemprop="description" content="When writing reusable UI components, ideas for how to manage CSS in them.  Most Apps will be built with a CSS framework, and this should be leveraged.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="CSS architecture">
+<meta name="twitter:description" content="When writing reusable UI components, ideas for how to manage CSS in them.  Most Apps will be built with a CSS framework, and this should be leveraged.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="CSS architecture" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/css-architecture" />
+<meta property="og:description" content="When writing reusable UI components, ideas for how to manage CSS in them.  Most Apps will be built with a CSS framework, and this should be leveraged." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="24th of Oct 2023, 11:44:46" />
+<meta property="article:modified_time" content="24th of Oct 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/css-architecture" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "CSS architecture",
+	"article:published_time":"24th of Oct 2023, 11:44:46", 
+    "article:modified_time":"24th of Oct 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Situation and measures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Imagine you are building a SPA app, and it has styling.   There will be many interface interactions where “common understanding” is more valuable than the developer showing their skills to write code.   An app that is clear and solves a problem for the user is much more useful than an app with 15 fonts and 30 text colours.   This article is about managing complexity and improving rate of adaption to new requirements.<br />
+Using CSS is faster than images, and better for layout flexibility, so can support screen sizes etc.</p>
+
+<p>For an App button, <em>where could</em> the look-and-feel / “brand” for this be set? Options (ascending utility, descending convenience, IMO):</p>
+
+<ul class="ulbasic">
+    <li class="libasic">A1) devil's advocate: in-line CSS declarations in the button</li>
+    <li class="libasic">A2) devil's advocate: in a SVG that the button renders</li>
+    <li class="libasic">B) A per component CSS block for a styled component <sup><a href="https://dev.to/elijahtrillionz/complete-guide-on-how-to-use-styled-components-in-react-360c" target="_blank">1</a></sup> <sup><a href="https://www.freecodecamp.org/news/styled-components-essentials-in-three-steps/" target="_blank">2</a></sup> <sup><a href="https://styled-components.com/docs/basics" target="_blank">3</a></sup> </li>
+    <li class="libasic">C) Some app specific BEM structure <sup><a href="https://en.bem.info/methodology/css/" target="_blank">4</a></sup> <sup><a href="https://css-tricks.com/bem-101/" target="_blank">5</a></sup> <sup><a href="https://getbem.com/introduction/" target="_blank">6</a></sup></li>
+    <li class="libasic">D) A traditional singular CSS framework (e.g. Foundation, Bulma) that has global effect on the App <sup><a href="https://bulma.io/documentation/overview/start/" target="_blank">7</a></sup> <sup><a href="https://get.foundation/" target="_blank">8</a></sup>. There are many options here.</li>
+    <li class="libasic">E) “Smart styled component”, see end</li>
+    <li class="libasic">F) magic “namespace a framework” approach <sup><a href="https://www.smashingmagazine.com/2021/05/complete-guide-css-container-queries/" target="_blank">9</a></sup> .  If the problem was in Java ~ or languages that feel similar ~ this is what I would be doing for Classes by default.   I do not know how to apply this to a framework that lacks it; short of adding a large patch to the import.  I do not think this is practical as there will be rework and testing on each framework upgrade.  The CSS @container <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@container" target="_blank">10</a></sup> doesn't have a high enough amount of support <sup><a href="https://caniuse.com/?search=%20%40container" target="_blank">11</a></sup> to use in production IMO.</li>
+</ul>
+
+<p>I have yet to work on a project where having multiple CSS frameworks <em>for the same problem area</em> would be anything other than stupid.   Where work has been done by contractors, I try to reduce differences in tooling, ideally before they started typing.    If the app was the scale of FB, maybe it would make sense.</p>
+
+<p>For a button, <em>where is it desirable</em> to make that branding decision (descending utility, ascending button individuality IMO)?</p>
+
+<ul class="ulbasic">
+    <li class="libasic">A) Hidden option: The user/ operator</li>
+    <li class="libasic">B) Their custom config file</li>
+    <li class="libasic">C) Centrally for the entire device/ or platform login if that is relevant</li>
+    <li class="libasic">D) Centrally for the app</li>
+    <li class="libasic">E) Specifically for that button.</li>
+</ul>
+
+<p><b>Note: this is the other way up to the first list</b><br />
+There are many tutorials/ “how-to“s that assume that option E is the best, as the dev can make the button sky-blue-pink if they wish.  Starting with the user (who may be the client/ account holder/ person who chose to buy the software) this doesn't make sense.  How many individual branded buttons are there in ms-Word? <br />
+There are very few situations when option A makes sense either; and option B will only be applied to power users who spend vast amounts of time using that software.  There are people who set fonts in Excel, but they use it for 8h every day <sup><a href="https://excelchamps.com/advanced-excel/best-fonts/" target="_blank">12</a></sup> <sup><a href="https://www.typography.com/blog/office-fonts" target="_blank">13</a></sup></p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Process <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Focusing on a single choice that marketing people love to adjust, “button colour”.   In a well designed App there is a central palette, this is often administered via a CSS framework.   Normal and 'healthy' Buttons are a colour named something like “background1”, error buttons are “error1” colour and confirm/positive buttons are “confirm1”.  With a CSS framework, there will be a CSS class called something like &quot;.button”, and extensions called &quot;.button.error” and &quot;.button.confirm”.   Note that these are all common values, probably used by the entire device.   <br />
+What or how does an idiosyncratic button colour help the App?  Why waste time describing and defining a value when what you are choosing is the inherited default.  <br />
+I did extend someone's work in a startup, where “the CSS guy” had set fonts and colours on each element separately with the same value, as though inheritance/ cascade didn't exist.  I reduced code volume by 40% by deleting the unnecessary CSS style declarations.</p>
+
+<p><i>BUT, but, reusable components!??</i><br />
+If you are making a button that will be used in 15 different apps, you may need to organise some generic CSS process.   Date-picker widgets are loosing importance, but are a good historical example of a reusable Component.  They used to have their own style sheets, so if an app had a distinct colour scheme (see Darkmode), the developer needed to override everything in that style sheet.   <br />
+This is just a webpage, and it can't choose its readers.   If you are the person who makes wildly popular packages in NPM, pls read the last paragraph, it will make all our lives faster ~ I could offer patches.   If you are in the other 95% of “people who write code”, please think about who is using the feature made from the code.</p>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Reusable “smart solution” <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>I assume that most Apps will be built with a CSS framework, it saves time.  There is a list of 5-10 CSS frameworks that covers 90 something % of CSS frameworks used <sup><a href="https://2021.stateofcss.com/en-US/technologies/css-frameworks/" target="_blank">14</a></sup> (click to usage) <sup><a href="https://www.browserstack.com/guide/top-css-frameworks" target="_blank">15</a></sup> <sup><a href="https://www.copycat.dev/blog/css-frameworks/" target="_blank">16</a></sup>.   A reusable Component can have a config step.   This scripting polls the environment for the installed CSS framework (via packages.json if necessary).  The Component includes a hash/dictionary/JS object of hashes/ dictionary/ JS object.  The inner Object is for a specific framework and is a map for id-code to classname.  The compile step swaps the id-codes found in the source code for the classname.  The outer Object maps the 5 most common CSS frameworks.</p>
+
+<p>My idea is good for devs who make the components as this reduces the testing they ought to do.  A pre-built component is useful when is supplies utility on all devices.  To deliver that requires testing on many devices, which is laborious and slow.  Having a CSS framework where this has already happened avoids that cost for the CSS and presentation.</p>
+
+<p>I'm sure this must exist, but I haven't seen it.  This line of thinking leads to design systems.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>CSS architecture</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-architecture" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-architecture" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-architecture" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-10-24T11:38:16">24th of Oct 2023</time>
+						</span>
+						<span>Created <time datetime="2023-10-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Oct 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-architecture" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Situation and measures</a></li>
+<li><a href="#toc1">Process</a></li>
+<li class="h4_odd"><a href="#toc2">Reusable “smart solution”</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-10-24T11:44:46">24th of Oct 2023, 11:44:46</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-10-24T11:38:16">24th of Oct 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
