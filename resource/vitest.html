@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Vitest</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A review of another JS test tool, called Vitest.  This outlines a list of useful features and a few issues to know about." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Vitest">
+<meta itemprop="description" content="A review of another JS test tool, called Vitest.  This outlines a list of useful features and a few issues to know about.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Vitest">
+<meta name="twitter:description" content="A review of another JS test tool, called Vitest.  This outlines a list of useful features and a few issues to know about.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Vitest" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/vitest" />
+<meta property="og:description" content="A review of another JS test tool, called Vitest.  This outlines a list of useful features and a few issues to know about." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="15th of Nov 2023, 21:06:26" />
+<meta property="article:modified_time" content="15th of Nov 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/vitest" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Vitest",
+	"article:published_time":"15th of Nov 2023, 21:06:26", 
+    "article:modified_time":"15th of Nov 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Warp-speed Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>Obviously: <a href="https://www.npmjs.com/package/vitest" target="_blank">NPM</a>, <a href="https://github.com/vitest-dev/vitest" target="_blank">git</a>, <a href="https://vitest.dev/" target="_blank">docs</a><br />
+<a href="https://vitest.dev/" target="_blank">Vitest</a> is a test framework that shares features with, and integrates very cleanly with Vite.  Both tools use the newer JS module handling techniques, so do less work than older tools.   This means they run faster, and are probably more stable.  There is quite a few legacy assumptions implicit in older tools that no longer hold true.    People using the Jetbrains suite <sup><a href="https://www.jetbrains.com/help/webstorm/using-webpack.html" target="_blank">1</a></sup> get an integrated experience.  Also there is a VS code extension <sup><a href="https://lo-victoria.com/vitest-blazing-fast-unit-test-framework#heading-vitest-vs-code-extension" target="_blank">2</a></sup>.   <br />
+A few intros, as this is supposed to be the intro <sup><a href="https://vueschool.io/articles/vuejs-tutorials/start-testing-with-vitest-beginners-guide/" target="_blank">3</a></sup> <sup><a href="https://dev.to/songta17/vue-3-with-jest-and-vue-tests-utils-introduction-5h5i" target="_blank">4</a></sup> <sup><a href="https://dev.to/mayashavin/react-component-testing-with-vitest-efficiently-296c" target="_blank">5</a></sup> <sup><a href="https://lo-victoria.com/vitest-blazing-fast-unit-test-framework" target="_blank">6</a></sup>.   From a dev.to blog, I have this chart <sup><a href="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kfnko5uypqozhi7x8ixd.png?test" target="_blank">7</a></sup>, uploaded as a PNG for some reason.    <br />
+Perpetual prompt: My biggest gain from using Typescript is being able to see what hash/ dictionary names are when creating Options blocks.  In JS they reword or rename things at a fairly high rate, compared to POSIX or HTTP/HTML etc.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Features/ Use-cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>I am motivated to use Vitest as i do not have a time efficient process to be put events into a component test similar to <sup><a href="https://blog.logrocket.com/visual-debugging-vitest-preview" target="_blank">8</a></sup> in Storybook.<br />
+The tools docs are quite good and are accessible <sup><a href="https://vitest.dev/guide/features.html" target="_blank">9</a></sup>.   Atypically for a JS tool, Vitest is happy with in-module testing common in Perl, Python and (they advertise) Rust <sup><a href="https://vitest.dev/guide/features.html#in-source-testing" target="_blank">10</a></sup>.   <br />
+Vitest includes a namespace/ module called <i>test</i> <sup><a href="https://vitest.dev/api/#test" target="_blank">11</a></sup> which feels very similar to a TDD test base class in more strict OO centric languages/ frameworks (so <i>todo()</i> and <i>skip()</i> etc).   There is also <i>describe</i> common from BDD and JS test tools <sup><a href="https://vitest.dev/api/#describe" target="_blank">12</a></sup>, which supplies methods for manipulating tests (i.e. <i>concurrent()</i>).   In more strict OO languages, I normally have an extra <i>init()</i> step to setup DB or whatever; in JS test tools this gets called <i>beforeEach()</i> <sup><a href="https://vitest.dev/api/#setup-and-teardown" target="_blank">13</a></sup>.  Features listed in this paragraph are very common and well understood.   To have good integration of Vitest into other tools, access package <i>vitest/node</i> and the bootstrap features <sup><a href="https://vitest.dev/advanced/api.html#createvitest" target="_blank">14</a></sup>.   <br />
+A recipe to documenting how to test for presence of CSS classes in components <sup><a href="https://runthatline.com/test-css-module-classes-in-vue-with-vitest/" target="_blank">15</a></sup>, which is fairly obvious.  However please note <sup><a href="https://stackoverflow.com/a/73049526" target="_blank">16</a></sup>, there are some limitations, for which I hope the applied solution <sup><a href="https://github.com/vitest-dev/vitest/pull/1690" target="_blank">17</a></sup> will now be available. <br />
+Vitest can be run inside the browser <sup><a href="https://vitest.dev/guide/browser.html#browser-mode-experimental" target="_blank">18</a></sup>, or in a Node interpreter (the default).    The second option is often used with a “fake DOM” so the unit tests actually create HTML/CSS.   There are several options for this <sup><a href="https://vitest.dev/guide/environment.html#test-environment" target="_blank">19</a></sup>, choose from <i>[ 'node', 'jsdom', 'happy-dom', 'edge-runtime' ]</i>.   This list looks like a logical expansion point.   This tool is good as it has seamless and easy support for Typescript and JSX/TSX <sup><a href="https://vitest.dev/guide/features.html" target="_blank">20</a></sup>, the only thing to include TS is to add the file extension to the list of files to execute.   Compared to Babel or Jetpack the config is very simple and easier to “manage by discovery”, this thought is repeated <sup><a href="https://dev.to/codemaker2015/introducing-vitest-the-super-fast-testing-framework-g73" target="_blank">21</a></sup>.  <br />
+There are multiple choices choices for test utility libraries.   Give enough attention to not use the wrong one is needed as they sound and behave quite similarly <a href="https://testing-library.com/docs/queries/about/" target="_blank">test-library</a>, <a href="https://test-utils.vuejs.org/guide/" target="_blank">Vue test-utils</a>, <a href="https://www.fabiobiondi.dev/tutorials/react/vite-and-vitest/3-react-vitest-testing-library-test-react-components" target="_blank">React test-lib</a> <sup><a href="https://www.npmjs.com/package/@testing-library/react" target="_blank">22</a></sup>,  [XXX].   <br />
+I find this test framework easier to build component tests with, <b>and test</b> the events or activities; compared to Storybook.   It would be useful to compare to Playwright <sup><a href="https://playwright.dev/docs/best-practices" target="_blank">23</a></sup> by itself here.    I think that many people will chose Vitest currently (i.e. 2022), as it is currently the best “modern JS” test framework, in terms of being written purely to use JS modules.  But this USP will not be true in the future.  Node14+ has module support, finally</p>
+
+<p>List of utility features:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Vitest does have a visual mode <sup><a href="https://vitest.dev/guide/ui.html" target="_blank">24</a></sup> which I think is targeted at less experienced developers.  </li>
+    <li class="libasic"><a href="https://vitest.dev/guide/features.html#type-testing-experimental" target="_blank">expectTypeOf</a>, </li>
+    <li class="libasic"><a href="https://vitest.dev/guide/features.html#benchmarking-experimental" target="_blank">Benchmarking</a> ~ as in build a execution profile so differing implementations can be compared.  </li>
+    <li class="libasic"><a href="https://vitest.dev/guide/cli.html#vitest-watch" target="_blank">watchmode</a> (yawn)</li>
+    <li class="libasic"><a href="https://vitest.dev/guide/browser.html" target="_blank">Browsers</a> ~ as in load the browser in the test and control it from the test.   </li>
+    <li class="libasic"><a href="https://vitest.dev/guide/snapshot.html" target="_blank">Snapshots</a> ~ I do not think snapshots tests are useful as they show little extra to <i>git diff</i>, but they are very fast.   </li>
+    <li class="libasic"><a href="https://vitest.dev/api/mock.html" target="_blank">mock/ spy</a> ~ Mocks are a core feature of Vitest, rather than a necessary extension.    Simple tests from other test frameworks will probably work, with only a few config changes to look for the other filename suffix(es) <sup><a href="https://vitest.dev/guide/comparisons.html" target="_blank">25</a></sup>.  </li>
+    <li class="libasic">For practical testing, the util suite offers <i>flushPromises()</i> <sup><a href="https://medium.com/heybooster/mastering-flush-promises-with-vue-test-utils-vitest-and-typescript-7384e4ec9946" target="_blank">26</a></sup>, which allows you you to pretend the faster assync code is sync to make testing easier (use with <i>await</i>). </li>
+    <li class="libasic">There is a watch (a sometime JS interpreter feature), accessed as <i>vi.spyOn()</i> which can be used to see if a Component function or variable has been modified or executed.  The spyOn() call can take three arguments <sup><a href="https://dev.to/jtoscani/til-stubbing-nested-global-properties-in-vitest-35o7" target="_blank">27</a></sup> <sup><a href="https://mayashavin.com/articles/testing-components-with-vitest#spy-on-and-mock-whatever-you-dont-need-to-test-or-have-tested-already" target="_blank">28</a></sup>. </li>
+    <li class="libasic">Vitest supports HMR ~ Hot Module Reload ~ <sup><a href="https://dev.to/isiakaabd/beginner-guide-on-unit-testing-in-react-using-react-testing-library-and-vitest-4ifp" target="_blank">29</a></sup> but I thought this was common in modern JS.   HMR is desired by some developers, as they like to run tests automatically every time they hit save (when doing this style, use 'save all' to reduce noise test results).</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Limitations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>According to <sup><a href="https://www.sobyte.net/post/2023-02/vitest/" target="_blank">30</a></sup>, Vitest tests can use variables such as _ _dirname/ _ _filename which are not actually in recent versions of Node.  There are some surprising things about filename globbing <sup><a href="https://stackoverflow.com/questions/76179780/vitest-loading-absolute-path-working-for-some-components-but-not-all" target="_blank">31</a></sup> (I have seen awkward bits like this also).<br />
+Vitest is a well designed tool, I can not find many things to put on this list.</p>
+
+
+<div class="pullout">
+<p>Aside: The Vitest doc site is quite good, and if there is a middleware for component tests this isn't Vitest's problem, but for Vue3 the following information is hard to find:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">The extra modules that you add with <i>Vue3.add()</i> in an App become 'globals.plugins' items in the test Component <i>mount()</i> options.  If this specific detail is properly documented <sup><a href="https://test-utils.vuejs.org/api/" target="_blank">1</a></sup>, I can't find it.</li>
+    <li class="libasic">In theory <i>test-utils</i> system allows you to see if a given DOM element is visible <sup><a href="https://test-utils.vuejs.org/api/#isVisible" target="_blank">2</a></sup> but the Vue-test extension doesn't seem to evaluate enough CSS so it doesn't work for me.   I was hoping to improve capacity on Storybook automation limits via this, but it doesn't seem to be practical.   The problem is the level of CSS interpretation by the fake DOM.    </li>
+    <li class="libasic">Again Vue3, suggest avoid using <i>provide/ inject</i> feature at the same time as Vitest for Component tests, as you need to mock the entire Component hierarchy, and this is time consuming.  The entire hierarchy is due to the fact the data need to enter the object tree ~ via provide ~ at the same point. </li>
+    <li class="libasic">The Vue3 feature 'watch' isn't supported or interpreted by any of the Vitest extension I mentioned.  I need to test this aspect of components via Jest or something.</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing"> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Vitest</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvitest" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvitest" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvitest" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvitest&amp;t=Vitest"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
+
+
+
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-11-15T21:06:18">15th of Nov 2023</time>
+						</span>
+						<span>Created <time datetime="2023-11-04T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >4th of Nov 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvitest" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Warp-speed Intro</a></li>
+<li><a href="#toc1">Features/ Use-cases</a></li>
+<li class="h4_odd"><a href="#toc2">Limitations</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-11-15T21:06:26">15th of Nov 2023, 21:06:26</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-11-15T21:06:18">15th of Nov 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

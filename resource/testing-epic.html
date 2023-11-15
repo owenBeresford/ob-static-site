@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/testing-epic" />
 <meta property="og:description" content="A convenience group indexing early articles on testing. Intro and linking articles for TDD, BDD, test tables, boundary, regression, mutation and unit test notes." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="24th of Oct 2023, 11:44:47" />
-<meta property="article:modified_time" content="18th of Oct 2023" />
+<meta property="article:published_time" content="15th of Nov 2023, 21:01:27" />
+<meta property="article:modified_time" content="13th of Nov 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/testing-epic" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Testing Epic",
-	"article:published_time":"24th of Oct 2023, 11:44:47", 
-    "article:modified_time":"18th of Oct 2023",
+	"article:published_time":"15th of Nov 2023, 21:01:27", 
+    "article:modified_time":"13th of Nov 2023",
     "article:section":"technology",
 
     "author": {
@@ -116,6 +116,9 @@ Without me, my test plan is useless. Without my test plan, I am useless. I must 
     <li class="libasic">For some other <a href="https://stackoverflow.com/questions/2213741/dead-simple-introduction-to-tdd-test-driven-development" target="_blank">notes</a> or <a href="https://stackoverflow.com/questions/3246106/explain-tdd-in-simple-terms" target="_blank">more</a>, and <a href="https://stackoverflow.com/questions/2323613/what-are-good-online-introductions-to-testing-and-test-driven-development" target="_blank">so on</a></li>
 </ul>
 
+<p><b>Note:</b> Most people's practical-usage of TDD does not have tests for “compile errors”, which are really easy to observe and will block testing, deployment and in some cases writing code, as the IDE evaluates the current code all the time.  Thus the classic blog article “feature” where you run an initial test and discover a compiler error is pointless.  To deliver the TDD spec, run the tests with all files present, all dependencies installed, all functions declared, but not function bodies.  In some cases that last line needs adjusting as function declarations without return statements are still compile problems.  Thus you test the unit-test against your spec.<br />
+I do not have a current good process to test “have I installed the best option for dependencies”, mostly focussing on versions of fast moving JS libraries.  Remember that latest version may have a BC, so <i>latest != best</i> in some cases.   This is a time consuming chore.</p>
+
 
 <h4 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > What is BDD? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
@@ -138,7 +141,7 @@ Without me, my test plan is useless. Without my test plan, I am useless. I must 
 <ul class="ulbasic">
     <li class="libasic">This is currently fashionable in high quality PHP build processes. Oddly this has no acronym yet.  Mutation testing tools report weak areas of the test coverage by applying a mutation to the target code.</li>
     <li class="libasic">This is discussed in more detail in <sup><a href="https://en.wikipedia.org/wiki/Mutation_testing" target="_blank">5</a></sup> <sup><a href="https://github.com/skylerto/Software-Testing/wiki/09-Mutation-Testing" target="_blank">6</a></sup> <sup><a href="https://wiki.c2.com/?MutationTesting" target="_blank">7</a></sup>. </li>
-    <li class="libasic">I have no further details to log in this section at present; there are mutation test frameworks in PHP, Python, JS.  Lastly a vast number in Perl, presumably as it is easy to make errors in Perl.</li>
+    <li class="libasic">I have no further details to log in this section at present; there are mutation test frameworks in PHP, Python, JS.  Lastly a vast number in Perl, presumably as it is easy to make single-char errors in Perl.</li>
 </ul>
 
 
@@ -163,17 +166,21 @@ Without me, my test plan is useless. Without my test plan, I am useless. I must 
 </ul>
 
 
-<h4 class="dontend" id="toc11"> <a href="#toc11" title="Jump to this section." > Further reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 class="dontend" id="toc11"> <a href="#toc11" title="Jump to this section." > What is Compile testing? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>For larger projects written with strongly typed languages, it is advisable to have a soft step of “does today's work compile”, to be run fairly often.   If there is an oversight, and a technical choice contradicts a behavioural requirement, detecting this as early as possible reduces friction and delays.  With an IDE this probably doesn't need to have an actual test file, or to be checked in to the source control.</p>
+
+
+<h4 class="dontend" id="toc12"> <a href="#toc12" title="Jump to this section." > Further reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">“what are my OSS projects?&quot; <a class="" href="https://owenberesford.me.uk/resource/wamOSSp#">wamOSSp</a></li>
     <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/unit-tests#">unit-tests</a></li>
     <li class="libasic">A mocha/chai demo project <a href="https://github.com/owenBeresford/es6-test-demo/" target="_blank">git</a></li>
     <li class="libasic">A storybook demo project <a href="https://github.com/owenBeresford/CatProfileDemo/" target="_blank">git</a></li>
-    <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/qunit-demo#">qunit-demo</a></li>
-    <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/JS-test-frameworks#">JS-test-frameworks</a></li>
+    <li class="libasic">Demo: <a class="" href="https://owenberesford.me.uk/resource/qunit-demo#">qunit-demo</a></li>
+    <li class="libasic">Demo: <a class="" href="https://owenberesford.me.uk/resource/JS-test-frameworks#">JS-test-frameworks</a></li>
     <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/js-behaviour-tests#">js-behaviour-tests</a></li>
-    <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a></li>
-    <li class="libasic"><del>To-come: Vitest</del> </li>
+    <li class="libasic">3rd party Tool: <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a></li>
+    <li class="libasic">3rd party Tool: <a class="" href="https://owenberesford.me.uk/resource/vitest#">vitest</a></li>
     <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/punit#">punit</a>, <a class="" href="https://owenberesford.me.uk/resource/punit-implementation#">punit-implementation</a></li>
     <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/phpunit-skelgen#">phpunit-skelgen</a></li>
     <li class="libasic"><a class="" href="https://owenberesford.me.uk/resource/aggregate-testing#">aggregate-testing</a></li>
@@ -187,9 +194,9 @@ Without me, my test plan is useless. Without my test plan, I am useless. I must 
 </ul>
 
 
-<h4 class="dontend" id="toc12"> <a href="#toc12" title="Jump to this section." > Why do I test like this? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 class="dontend" id="toc13"> <a href="#toc13" title="Jump to this section." > Why do I test like this? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>I don't have any deep and needy feeling about tests. The various flavours of tests are a risk assessment, or rather the avoidance of risk.  Things normally go wrong, not on first version, but on the later edition that just make a simple change.  These above technologies are the only known solution to being able to avoid these risks.  <br />
-A software engineer is someone who creates tools and manage the risks on creating them.  A developer is just doing the first clause.  I think in an Agile environment, software engineers are more useful. <br />
+A software engineer is someone who creates tools and manages the risks on creating and running them.  A developer is just doing the first clause.  I think in an Agile environment, software engineers are more useful. <br />
 Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb10298185.htm" target="_blank">13</a></sup></p>
 
 
@@ -222,7 +229,7 @@ Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb1029818
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-10-18T15:28:16">18th of Oct 2023</time>
+						<span>Edited <time datetime="2023-11-13T13:33:29">13th of Nov 2023</time>
 						</span>
 						<span>Created <time datetime="2017-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Mar 2017</time> </span>
 					</span>
@@ -253,8 +260,9 @@ Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb1029818
 <li class="h4_odd"><a href="#toc8">What is Contract testing?</a></li>
 <li><a href="#toc9">What is boundary testing?</a></li>
 <li class="h4_odd"><a href="#toc10">What are Test Tables?</a></li>
-<li><a href="#toc11">Further reading</a></li>
-<li class="h4_odd"><a href="#toc12">Why do I test like this?</a></li>
+<li><a href="#toc11">What is Compile testing?</a></li>
+<li class="h4_odd"><a href="#toc12">Further reading</a></li>
+<li><a href="#toc13">Why do I test like this?</a></li>
 </menu>
 <br />
 
@@ -281,7 +289,7 @@ Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb1029818
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-10-24T11:44:47">24th of Oct 2023, 11:44:47</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-10-18T15:28:16">18th of Oct 2023</time>.
+	<p> Page rendered <time datetime="2023-11-15T21:01:27">15th of Nov 2023, 21:01:27</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-11-13T13:33:29">13th of Nov 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

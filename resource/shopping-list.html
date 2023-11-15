@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/shopping-list" />
 <meta property="og:description" content="Maquette, to play with JS/TS tooling" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="4th of Aug 2023, 12:51:54" />
-<meta property="article:modified_time" content="4th of Aug 2023" />
+<meta property="article:published_time" content="13th of Nov 2023, 13:24:58" />
+<meta property="article:modified_time" content="11th of Nov 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/shopping-list" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Shopping list hack",
-	"article:published_time":"4th of Aug 2023, 12:51:54", 
-    "article:modified_time":"4th of Aug 2023",
+	"article:published_time":"13th of Nov 2023, 13:24:58", 
+    "article:modified_time":"11th of Nov 2023",
     "article:section":"technology",
 
     "author": {
@@ -90,7 +90,7 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 
 <h2 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." >Retrospective <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li class="libasic">In order to complete this project, I have done a survey of build tools (see end).   <del>Tooling for <i>Vue3.2 + typescript</i> is immature and fragile. </del><ins>A bit later, I have tooling for vue3 and Typescript, I did think it was odd that I couldn't get a build process to work on the recommended tool chain</ins>  It is stable for <i>Vue2.6 and Typescript</i> or <i>React X and Typescript</i>. </li>
+    <li class="libasic">In order to complete this project, I have done a survey of build tools (see end).   <del>Tooling for <i>Vue3.2 + typescript</i> is immature and fragile. </del><ins>A bit later, I have tooling for vue3 and Typescript, I did think it was odd that I couldn't get a build process to work on the recommended tool chain</ins>  It is now stable for <i>Vue X and Typescript</i> or <i>React X and Typescript</i>. </li>
     <li class="libasic">I added a state library relatively late in the dev process, as I initially didn't have state.  I think I should assume I will get state, so just add <i>vuex</i> etc at the start.</li>
     <li class="libasic">I think my 'small project' single CSS file is a sensible process.  Previously where I wasn't the first developer, I was amending SCSS inside SCF files (either Vue or React), but this didn't seem to add anything for the code/ project at hand.   Components that have not been written to be reusable aren't worth trying to reuse.   If you want your app to comply to widely-used presentation standards, there is less need to have tightly localised CSS, e.g. use a colour scheme imported from the user global profile.  </li>
     <li class="libasic">I am getting experience managing JS of different generations inside the same project.  In this project I am trying to maximise library use, and have more generic things that can be pulled from libraries; so am having problems like build tool failures more frequently.</li>
@@ -190,7 +190,7 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
     <li class="libasic">Nestjs uses many decorators; these are not technically function calls, and do not want a semi-colon, or have a return value.  Decorators must be turned ON in the tsconfig.json.  </li>
     <li class="libasic">I have added a few interfaces purely for the TS typing analysis and testing (the source was expecting to run inside a JS engine so doesn't have them).</li>
     <li class="libasic">As I add unit tests, I am splitting functions abit, and reorganising to avoid any circular dependencies (purely created as I was dumping everything in too few files).</li>
-    <li class="libasic">Operational deployment for Mocha (fast to do), Jest (fairly fast).  “dev-dep” is much larger than would be normal in a commercial project. </li>
+    <li class="libasic">Operational deployment for Mocha (fast to do), Jest (fairly fast).  “dev-dep” is much larger than would be normal in a commercial project. <b>UPDATE:</b> I am moving these to Vitest to reduce the number of deps.  </li>
     <li class="libasic">I have pulled serving the front-end code into the API project; to reduce management overheads abit.</li>
     <li class="libasic">I have common interfaces like I am a real developer.  I have basic factories to instantiate objects.</li>
     <li class="libasic">I would like to show that I can use an Enum, but haven't worked out where to add this. </li>
@@ -231,9 +231,9 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-08-04T12:46:07">4th of Aug 2023</time>
+						<span>Edited <time datetime="2023-11-11T12:13:07">11th of Nov 2023</time>
 						</span>
-						<span>Created <time datetime="2021-09-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Sep 2021</time> </span>
+						<span>Created <time datetime="2021-03-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Mar 2021</time> </span>
 					</span>
 
 				</div>
@@ -281,7 +281,7 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-08-04T12:51:54">4th of Aug 2023, 12:51:54</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-08-04T12:46:07">4th of Aug 2023</time>.
+	<p> Page rendered <time datetime="2023-11-13T13:24:58">13th of Nov 2023, 13:24:58</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-11-11T12:13:07">11th of Nov 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
