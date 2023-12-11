@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/JS-test-frameworks" />
 <meta property="og:description" content="Research into what JS tools and unit-test suites are available" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Nov 2023, 21:37:05" />
-<meta property="article:modified_time" content="13th of Nov 2023" />
+<meta property="article:published_time" content="11th of Dec 2023, 21:47:51" />
+<meta property="article:modified_time" content="27th of Nov 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/JS-test-frameworks" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS unit-test frameworks",
-	"article:published_time":"15th of Nov 2023, 21:37:05", 
-    "article:modified_time":"13th of Nov 2023",
+	"article:published_time":"11th of Dec 2023, 21:47:51", 
+    "article:modified_time":"27th of Nov 2023",
     "article:section":"technology",
 
     "author": {
@@ -54,7 +54,8 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker">
 <div class="lotsOfWords">
 <p>If you want to write unit tests on JS classes, sensibly, you need a test framework.  Unit testing quite a lot of client-side JS code is hard, as it is quite involved with the DOM or webrowser.   I present a range of options. Please remember <i> 'does it feel intuitive' </i> isn't something that can be put in a unit test.  I am not presenting my own code here, as the current range of tools seem adequate (I have made a few tools previously, but those projects are firmly one of several companies IP.  The publicly available tools should be better looked after and have more investment, so represent a better solution.). <br />
-<b>I repeat to be clear, this article is about unit testing JS modules and Components, not behaviour testing webpages.</b>  The I am paid for is generally complex enough that one needs to test each one, to reduce later stage costs.  Please see <a class="" href="https://owenberesford.me.uk/resource/js-behaviour-tests#">BDD and behaviour testing</a>.</p>
+<b>I repeat to be clear, this article is about unit testing JS modules and Components, not behaviour testing webpages.</b>  The I am paid for is generally complex enough that one needs to test each one, to reduce later stage costs.  Please see <a class="" href="https://owenberesford.me.uk/resource/js-behaviour-tests#">BDD and behaviour testing</a>.<br />
+I read a thread about various libraries leaving globals lying around.  Which is bad if you keep the interpreter running; but in practice, unless you are debugging your unit-test, this doesn't make any difference.</p>
 
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Metrics I am using for comparing test frameworks: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
@@ -80,8 +81,8 @@ TODO: magic tune selection against some index/DB -->
         <li class="libasic">Strengths: Good JS module support; includes webpack “for free”; is a <em>visual tester</em>, but can be used for BDD and unit testing components; can be used to test CSS and CSS interactions; It has many plugins.</li>
         <li class="libasic">Liabilities: It is its own little world; puts random files all over your repo; quite alot of review is still *manual*. Not aware of many module for TAP.  <i>The recent version doesn't work for me, I will update this.</i></li>
     </ul></li>
-    <li class="libasic"><b>Vitest</b> this tool is part of vite suite, <a href="https://github.com/vitest-dev/vitest" target="_blank">git</a> <a href="https://www.npmjs.com/package/vitest" target="_blank">npm</a> <a href="https://vitest.dev/guide/" target="_blank">docs</a>, has proper Typescript support, claims to be able to do component testingi; this runs on Node18.  The GUI mode runs in watch by default; works well with Jetbrains autosave.  After a few days usage, single component tests can be made in 30min (best performed with a state-map doc about activities).  See also <a class="" href="https://owenberesford.me.uk/resource/vitest#">vitest</a>.<ul class="ulbasic">
-        <li class="libasic">Strengths: This has quite good docs; integrates with many same-generation-tools; TAP support has been built, but its not clear if released <sup><a href="https://github.com/vitest-dev/vitest/issues/437" target="_blank">10</a></sup>; can be run inside a browser or outside of it <sup><a href="https://vitest.dev/guide/browser.html" target="_blank">11</a></sup>.  The GUI option is easy to operate, if you favour dashboards etc, and it includes a visual dependency graph.  Can easily compile singular react components into a TSX based unit test.</li>
+    <li class="libasic"><b><a class="" href="https://owenberesford.me.uk/resource/vitest#">Vitest</a></b> this tool is part of vite suite, <a href="https://github.com/vitest-dev/vitest" target="_blank">git</a> <a href="https://www.npmjs.com/package/vitest" target="_blank">npm</a> <a href="https://vitest.dev/guide/" target="_blank">docs</a>, has proper Typescript support, claims to be able to do component testing; this runs on Node18.  The GUI mode runs in watch by default; works well with Jetbrains autosave.  After a few days usage, single component tests can be made in 30min (best performed with a state-map doc about activities).   <ul class="ulbasic">
+        <li class="libasic">Strengths: This has quite good docs; integrates with many same-generation-tools; TAP support has been built, but its not clear if released <sup><a href="https://github.com/vitest-dev/vitest/issues/437" target="_blank">10</a></sup>; can be run inside a browser or outside of it <sup><a href="https://vitest.dev/guide/browser.html" target="_blank">11</a></sup>.  The GUI option is easy to operate, if you favour dashboards etc, and it includes a visual dependency graph.  Can easily compile singular react components into a TSX based unit test.   Tests are smart about JSX and TS, due to vite.</li>
         <li class="libasic">Liabilities: I haven't found a <i>expectedException</i> feature.   It doesn't report illegal imports (i.e. imports that haven't been exported, or have been misspelled).   It took me a while to get the test files to match vs tests to match inputs correct.   <del>This wasn't mentioned when I needed it last year.</del> .  NOTICE: Creating user events in a single component test sometimes shows you nothing meaningful, if the activity is external to that component.</li>
     </ul></li>
     <li class="libasic"><b>Playwright </b> <a href="https://www.npmjs.com/package/playwright" target="_blank">npm</a> <a href="https://github.com/Microsoft/playwright" target="_blank">git</a> <a href="https://playwright.dev/" target="_blank">docs</a> made by Microsoft. <i>I ought to make a demo for this test tool.</i><ul class="ulbasic">
@@ -141,7 +142,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-11-13T13:35:47">13th of Nov 2023</time>
+						<span>Edited <time datetime="2023-11-27T09:33:04">27th of Nov 2023</time>
 						</span>
 						<span>Created <time datetime="2023-01-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Jan 2023</time> </span>
 					</span>
@@ -189,7 +190,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-11-15T21:37:05">15th of Nov 2023, 21:37:05</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-11-13T13:35:47">13th of Nov 2023</time>.
+	<p> Page rendered <time datetime="2023-12-11T21:47:51">11th of Dec 2023, 21:47:51</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-11-27T09:33:04">27th of Nov 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

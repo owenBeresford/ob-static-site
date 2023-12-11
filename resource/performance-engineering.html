@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Performance engineering</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="What is my process for performance engineering, sometimes called scaling-up, and is part of growth hacking.  I have improved multiple operational systems." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Performance engineering">
+<meta itemprop="description" content="What is my process for performance engineering, sometimes called scaling-up, and is part of growth hacking.  I have improved multiple operational systems.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Performance engineering">
+<meta name="twitter:description" content="What is my process for performance engineering, sometimes called scaling-up, and is part of growth hacking.  I have improved multiple operational systems.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Performance engineering" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/performance-engineering" />
+<meta property="og:description" content="What is my process for performance engineering, sometimes called scaling-up, and is part of growth hacking.  I have improved multiple operational systems." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="11th of Dec 2023, 21:47:52" />
+<meta property="article:modified_time" content="11th of Dec 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/performance-engineering" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Performance engineering",
+	"article:published_time":"11th of Dec 2023, 21:47:52", 
+    "article:modified_time":"11th of Dec 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p><b>Intended audience:</b> hiring decision makers, or myself if I am quoting it.<br />
+This is a vague internal article to be able to explain my thoughts and promote myself better.</p>
+
+
+<h5 id="toc0"> Typical activities</h5>
+Most of my experience is moving companies from technical idea into startup status.  I am normally adding more user journeys, more engineering maturity and stepping-in to help resolve any problems mostly caused by low current staff numbers.<br />
+ <p>My most emphasised areas are:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">user journey ideation and basic UX analysis (small companies do not always have a budget for an extra person just to do UX, <i>UX is not the same as UI design</i>)</li>
+    <li class="libasic">new technology or tech process adoption</li>
+    <li class="libasic">knowledge retention and awareness (i.e. documentation and graphic design on various things)</li>
+    <li class="libasic">data visualisation (at Hoptroff, this was mostly graphs and charts)</li>
+    <li class="libasic">performance optimisation, on DB, webapps, websites and automation levels (yes this is the hard and crunchy area of my work)</li>
+</ul>
+
+
+<h5 id="toc1"> Performance engineering</h5>
+<p>If you are looking to hire, you would like to know what my abilities with scaling platforms and tools are:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">The biggest websites I was building were MotorTRAK in 2013 (luxury car brands), and probably my Seven contract in 2014, as that was used as part of Sainsbury's site.  </li>
+    <li class="libasic">The API I built at MurphX was a more highly trafficked web-service than other startups I worked at, with abit more than 300 clients and over a million active/ simultaneous users. The ISPs sites obviously weren't the primary internet destination for the user-base, but the “pre-pay topups” feature, the “monthly usage” and the “availability checker” got volumes of traffic.   I normally skip this as it was my first role, and performance engineering work was entirely focussed on the DB and network stacks.   </li>
+    <li class="libasic">I could write text like a blog article with many generic tips, but I'm not sure this would help anyone.</li>
+    <li class="libasic">However, I have built many vertical-scaling improvements, and this is similar work.   If I have complex compliance report (like Hoptroff), and I improve the data handling so it uses about half the earlier RAM, and a quarter of the execution time, I have scaled the code.  </li>
+    <li class="libasic">I have organised and written data pipelines, as a data centric approach to getting data into or out of a system faster than many webpages.   This involves adjusting data formats at scale asynchronously, and putting data in “pages” just like RAM management.  I have some use of micro managing routine tasks, like disabling RDBMS indexes before a large import, but this is to be done carefully in a production system that customers are using (best example FairFX).   </li>
+    <li class="libasic">The other thing commerce needs is tight maintenance windows.  I use careful planning and automation as default steps (best example Hoptroff, as I was doing everything for the web technologies).   </li>
+    <li class="libasic">.</li>
+    <li class="libasic">I made search features at Swyvl, Hoptroff, FairFX, MotorTRAK and Venue10 better/ more useful and faster by better code and understanding of what databases are doing.  I improved Hoptroff's second product search by adding a denormalised cache table.  I made the search feature that Swyvl uses for most user journeys faster by not using the ORM that was applying a READ lock to every table at the same time to run the search query.  My direct SQL was returning results that were more correct as a second benefit.   I improved Venue10 search by changing edition of MongoDB, changing the DB driver, changing the data type in the DB for GIS structs, changing the data format and adding better code.   I added frontside logic to search in a small radius first, to get some results quickly; then either get results for the next location or a larger radius if the user isn't moving.</li>
+</ul>
+
+
+<h5 id="toc2"> Performance engineering process</h5>
+<p>Any <i>non-naïf</i> PO/PM/MD will know the areas of a product that money was spent on, and the areas that were done quickly and cheaply.   Performance engineering can be delayed until a successful PoC is executed, and there are some customers; so it normally is.   To-do performance engineering I <b>:</b></p>
+
+<ul class="ulbasic">
+    <li class="libasic">Ensure I have a copy of the wireframes and user experience documents, <i>especially</i> if they were an appendix/ codicil/ responsibility mentioned on a contract.  These also need to be the newest versions.  </li>
+    <li class="libasic">Ensure there are tests that show the expected behaviour is happening.   These tests shouldn't test the HTML or CSS or JS, as <i>“does it work as stated in the contract”</i> isn't a technology statement.   This is good practice, and ideally these already exist.   Quickly resolve the failure(s), if any tests fail.</li>
+    <li class="libasic">Work out a maximum acceptable latency for each step in the user journeys (emailed password resets can be an hour without comment, a page render must be less than 2s regardless of what it does.   See Asana or Slack as examples of failing).   This can often be an overlay on the wireframes.   Annotate current delays on each step, to generate the order of any changes.  </li>
+    <li class="libasic">As architecture improvements will generate better results than code-fiddling, this is still focussing on “what is the solution?&quot;.   List the technical sub-steps in detail that the slow steps you are optimising are doing.   Big slow pages can be made into smaller pages as a performance alteration in many cases.   Work out if the work could be done asynchronously to the user activity.   Work out if the sub-step could be migrated to a micro-service, or a third-party; and if this would make it faster. </li>
+    <li class="libasic">Ensure I have a test server that I can measure performance on.   This needs to match the production version in the dimension that is too slow.</li>
+    <li class="libasic">If rewriting code is still necessary, now rewrite specific code.  Ensure the first thing added is logging so before and after conditions can be seen.   Possibly add unit-tests here, as part of working. The unit-tests are to be focused on code.</li>
+    <li class="libasic">Show initial tests are still passing, and performance is now passing.   Run all tests, in case the slow point gets moved around due to RAM allocation changes.</li>
+    <li class="libasic">Publish new edition.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="english, engineering"> <p>Some similar articles in english </p><div id="groupenglish" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=english" title="This article lists all items in english group.">All of <br />english </a></span> </div><p>Some similar articles in engineering </p><div id="groupengineering" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=engineering" title="This article lists all items in engineering group.">All of <br />engineering </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Performance engineering</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-engineering" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-engineering" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-engineering" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-engineering&amp;t=Performance+engineering"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
+
+
+
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-12-11T16:08:48">11th of Dec 2023</time>
+						</span>
+						<span>Created <time datetime="2023-12-11T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >11th of Dec 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-engineering" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-12-11T21:47:52">11th of Dec 2023, 21:47:52</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-11T16:08:48">11th of Dec 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>CSS swatch palette extractor</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A list of options to build a colour palette from  an app. I'm looking at various tools available and code to build one." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="CSS swatch palette extractor">
+<meta itemprop="description" content="A list of options to build a colour palette from  an app. I'm looking at various tools available and code to build one.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="CSS swatch palette extractor">
+<meta name="twitter:description" content="A list of options to build a colour palette from  an app. I'm looking at various tools available and code to build one.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="CSS swatch palette extractor" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/css-palette-extractor" />
+<meta property="og:description" content="A list of options to build a colour palette from  an app. I'm looking at various tools available and code to build one." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="11th of Dec 2023, 21:47:50" />
+<meta property="article:modified_time" content="11th of Dec 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/css-palette-extractor" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "CSS swatch palette extractor",
+	"article:published_time":"11th of Dec 2023, 21:47:50", 
+    "article:modified_time":"11th of Dec 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker cssPaletteContainer jsNationContainer ">
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > TL;DR... Existing options <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Obviously code I don't need to write is available faster.</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><a href="https://alwane.io/" target="_blank">Alwane</a> is a dedicated web-scrapper that builds nice palettes, and is fast/ easy.  Doesn't mention contexts, similr to Adaption.  Has a list of palettes that ship with common frameworks <sup><a href="https://alwane.io/palettes" target="_blank">1</a></sup>.</li>
+    <li class="libasic"><a href="https://www.colorcombos.com/grabcolors.html" target="_blank">Colour combo</a> <del>The name reminds me of 90's beat-'em-up games.</del> Builds a nice palette on a horizontal scroll, can edit the palette from the browser.  Again not reporting about adaptive styles.</li>
+    <li class="libasic">If you can put the CSS on your local disk, <b>css-color-extractor-cli</b> <sup><a href="https://github.com/rsanchez/css-color-extractor-cli" target="_blank">2</a></sup> looks useful to do some work  that photoshop does.  Documents what CSS colours it knows about, offers colour format conversion.  It can build a HTML swatch palette.   Again not reporting about adaptive styles.</li>
+    <li class="libasic"><a href="https://csspeeper.com/" target="_blank">CSS peeper</a> is a chrome extension <sup><a href="http://bit.ly/2h52BoV" target="_blank">3</a></sup>.  Not used this, but due to local installation, may cover adaption stuff.</li>
+    <li class="libasic"><a href="https://hexcolor.co/css-color-extractor" target="_blank">Hex Colour</a> this does a single CSS file only, if you have multiple CSS files (maybe per device tweaks), this is less useful.   Includes links to related tools, and tech SEO links at bottom of page.</li>
+    <li class="libasic">very skimpy solution, Phrasefix <sup><a href="https://phrasefix.com/tools/extract-hex-color-codes/" target="_blank">4</a></sup>, paste CSS into it, it extracts the colours written in hex.</li>
+    <li class="libasic">Unmention to colorhound.net, as they understand “white-space” CSS declaration to be a colour value.</li>
+    <li class="libasic">Honourable mention to svay.com/blog/css-color-palette-extractor but the code isn't finished yet (links to github on page)</li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Goal  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>To have a palette extractor to easily look at the whole of the colours (or other CSS attribute) used in a code repo.   In terms of buildings/ property, these are called swatches, or possibly swatch palette for many swatches together.   <br />
+I think this is better applied to compiled CSS, so there is less different means to add another CSS file in, and all the SCSS, LESS, SAAS will have been compiled away.<br />
+IMPORTANT: Note, this is to look at your palette, not to say what CSS is in effect in a given situation.</p>
+
+<p>Why am I writing myself these specs? Stating it would be useful to have a tool isn't the same as knowing what it will cost to get it or build it.   Articles like this are a bit dull and talking-to-myself, <i>BUT</i> I now have worked out how hard it is.   As I am looking to see what 3rd party tools are available as part of this process, I am also working out if random things are useful to my problem.  You still think its boring? yeah, um, look at the maquettes?<br />
+CSS is not a small language.   Below are lists of CSS features and selectors etc that a parser would need to understand.<br />
+This article is focussing on colour for swatches, but a mature tool should allow other CSS attributes to be built into a table.</p>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Value of a palette <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>The value of this proposed tool is</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Ease to comparing colours, to check they are balanced.</li>
+    <li class="libasic">Ease for comparing to a brand pack from a less technical dept. </li>
+    <li class="libasic">More easily compare contrasts between colours used in the whole system, in an isolated and separate fashion.</li>
+    <li class="libasic">Be able to test colours more easily to the current environment (i.e. take phone with palette to the tube, can you still see everything clearly, or sit in the car at night ).</li>
+    <li class="libasic">Be able to easily list things for contract or legal requirements, i.e. WCAG.</li>
+</ul>
+
+
+<details>
+<summary> Appendix: Browser settings that change CSS </summary>
+<p>List of browser options that would make sense to change the active CSS, so maybe the attribute in the palette (currently colours):</p>
+
+<ul class="ulbasic">
+    <li class="libasic">text direction (ltr or rtl)</li>
+    <li class="libasic">screen aspect ratio probably written as aspect-ratio/ min-aspect-ratio/ max-aspect-ratio</li>
+    <li class="libasic">screen size (mobile, tablet, small laptop, large desktop, display) in px</li>
+    <li class="libasic">screen resolution ( max-resolution, min-resolution ) </li>
+    <li class="libasic">document language </li>
+    <li class="libasic">prefers-contrast setting   </li>
+    <li class="libasic">prefers-reduced-transparency</li>
+    <li class="libasic">video-dynamic-range</li>
+    <li class="libasic">color-gamut</li>
+    <li class="libasic">pointer (implies haptic interface)</li>
+    <li class="libasic">prefers-color-scheme</li>
+    <li class="libasic">prefers-reduced-data</li>
+    <li class="libasic">update</li>
+</ul>
+
+
+</details>
+<details>
+<summary> Appendix: list of CSS locations </summary>
+<p>List of places to look for CSS declarations (some are stacked up, so multiple locations would need to be examined)</p>
+
+<ul class="ulbasic">
+    <li class="libasic">multiple CSS files problems are minimised by using compiled CSS (as stated at start).</li>
+    <li class="libasic">CSS elements added to the DOM header by “stylesheet per component” will be a thing that needs to be looked at, at runtime.</li>
+    <li class="libasic">CSS layers</li>
+    <li class="libasic">media queries</li>
+    <li class="libasic">CSS variables at runtime</li>
+    <li class="libasic">style attributes</li>
+    <li class="libasic">specifically for extracting colours, see <b>rgba()</b> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors#an_example_using_rgba" target="_blank">1</a></sup> (availability <sup><a href="https://caniuse.com/mdn-css_types_color_rgba" target="_blank">2</a></sup> ) with variables <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/var" target="_blank">3</a></sup> (availability <sup><a href="https://caniuse.com/css-variables" target="_blank">4</a></sup> ) an RFC <sup><a href="https://drafts.csswg.org/css-variables/" target="_blank">5</a></sup></li>
+    <li class="libasic">specifically for extracting colours, see <b>filters()</b> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank">6</a></sup> (availability <sup><a href="https://caniuse.com/css-filters" target="_blank">7</a></sup> )</li>
+    <li class="libasic">specifically for extracting colours, see <b>color-mix()</b> <sup><a href="https://developer.chrome.com/articles/css-color-mix/" target="_blank">8</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix" target="_blank">9</a></sup> (availability <sup><a href="https://caniuse.com/?search=color-mix" target="_blank">10</a></sup> )</li>
+</ul>
+
+
+</details>
+<details>
+<summary> Appendix: list of CSS selectors </summary>
+<p>A list commonly used CSS select, listed here to show the scope/ complexity / cost of CSS evaluation<br />
+&lt;TODO: Add long list here&gt;</p>
+
+
+</details> 
+<details>
+<summary> Appendix: some obvious notes on extraction </summary>
+<ul class="ulbasic">
+    <li class="libasic">The CSS will be located as a) a stand alone asset with a .css suffix, b) a STYLE block in the HEAD c) annoyingly style attribs.  This last one is annoying, pls do not do this. Yes, you, Reactnative.</li>
+    <li class="libasic">Unfortunately, the palette will need to be refreshed at various time offsets after initial loading, as user activity may have added more SPA Components, so more CSS islands to the DOM.</li>
+    <li class="libasic">If the user has changed the browser, the active CSS will change.   This therefore would need to be recomputed.   The changes to the browser in this case, are its actual settings, the window size, the window orientation, networking status, and probably more I haven't thought of.   </li>
+    <li class="libasic">Anything that replaces the DOM (e.g. fast static HTML sites) may erase the currently loaded CSS and JS, so I guess a <a class="" href="https://owenberesford.me.uk/resource/js-workers#">js-workers</a> thread will need to be used to build the palette.</li>
+    <li class="libasic">Colours may be specified with named-colours <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/named-color" target="_blank">1</a></sup>, 3 octet hex colour, 6 octet hex colours, 8 octet hex colours <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color" target="_blank">2</a></sup>, hsl <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl" target="_blank">3</a></sup> ~ is the colour model used for old analogue TV, hue <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/hue" target="_blank">4</a></sup> ~ has a list of other colour models: hwb(), lch(), and oklch(),  rgb(), rgba() <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/rgb" target="_blank">5</a></sup> ~ mozilla says ragba() is legacy, and write rgb() with 4 values, cymk() <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/device-cmyk" target="_blank">6</a></sup>.   Colours can be modified with filters <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank">7</a></sup>`</li>
+    <li class="libasic">BROKEN solution (1) From a flat body of CSS, regexen could be applied, sample code <sup><a href="https://stackoverflow.com/questions/23842320/get-all-style-attribute-colors" target="_blank">8</a></sup>.  Including the full range of options is prohibitively hard (see above).  Secondly, need a way to check that this is all the CSS?   </li>
+    <li class="libasic">BROKEN solution (2) From a DOM, run targeted filters to extract the CSS text <sup><a href="https://stackoverflow.com/a/63524883" target="_blank">9</a></sup>. The supplied code would need to be tweaked to list the CSS attachments, the CSS blocks, and the inine attributes.</li>
+    <li class="libasic">Solution (3) From a DOM tree, each node can be examined via <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle" target="_blank">10</a></sup> and  <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/getPropertyValue" target="_blank">11</a></sup>.   If there is no colour set, the colour attribute will be null, otherwise it will be one of the above values.   This API returns values after CSS computation, and all the CSS is applied (so a CSS rule affecting all DIV elements would be included, and CSS specified on this DIV, and CSS inherited from parent DIVs).   </li>
+    <li class="libasic">As an example of extracting colours, but from images <sup><a href="https://github.com/lokesh/color-thief" target="_blank">12</a></sup> try the demo <sup><a href="https://lokeshdhakar.com/projects/color-thief/" target="_blank">13</a></sup></li>
+</ul>
+
+
+</details>
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research, uitools"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in uitools </p><div id="groupuitools" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=uitools" title="This article lists all items in uitools group.">All of <br />uitools </a></span> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>CSS swatch palette extractor</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-palette-extractor" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-palette-extractor" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-palette-extractor" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-palette-extractor&amp;t=CSS+swatch+palette+extractor"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
+
+
+
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-12-11T21:25:41">11th of Dec 2023</time>
+						</span>
+						<span>Created <time datetime="2023-11-25T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >25th of Nov 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcss-palette-extractor" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">TL;DR... Existing options</a></li>
+<li><a href="#toc1">Goal</a></li>
+<li class="h4_odd"><a href="#toc2">Value of a palette</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ </div>
+ <br class="blocker" />
+ <div id="biblio"></div>
+ <br class="blocker" />
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-12-11T21:47:50">11th of Dec 2023, 21:47:50</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-11T21:25:41">11th of Dec 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
