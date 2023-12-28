@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/home" />
 <meta property="og:description" content="Assorted articles and processes on the current state of software engineering. Please click through to articles..." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Nov 2023, 21:37:03" />
-<meta property="article:modified_time" content="12th of Nov 2023" />
+<meta property="article:published_time" content="28th of Dec 2023, 10:18:02" />
+<meta property="article:modified_time" content="28th of Dec 2023" />
 <!-- meta property="article:tag" content="Article Tag" /  -->
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <link rel="canonical" href="https://owenberesford.me.uk/" />
@@ -112,6 +112,7 @@ Hope you find the reading useful and helpful but I do not consider my articles t
     <li class="libasic">The articles on this site reflect semantic-web concepts from 2004 era; they each have a meta header used to build the HTML head and for my custom indexing.</li>
     <li class="libasic">One of the section headings on this homepage was “everyone is as good as their sources”. I removed that section; however you can see all my sources (all those Harvard style reference links, <strong>all of them</strong>.  Mean average of 30 or-so per article).</li>
     <li class="libasic">In 2015, I added font-awesome for logos making the site load faster; in 2020, I replaced font-awesome with fontello as it's smaller again.</li>
+    <li class="libasic">As random stats, I built a second index for discoverability, based in article name (used in the URL).  There only 4 widely used initial letters (): C..., J..., P..., and S...   This is an example of why I think alphabetical indexing is poor UX.  I defined 'widely used' to be more than 5% of articles, as I don't think I have more than 15 articles on the same same topic, so that implies the letter is used by multiple topics.</li>
     <li class="libasic">In 2017, I added the create date and edit date meta-data.  The last edit date feature is less useful than I would like (in 2020, then again end of 2022); as I needed to edit every single existing article to add more meta data.</li>
     <li class="libasic">In 2018 I put articles in article groups to improve discoverability of content.  </li>
     <li class="libasic">If I had spent one more day on site infrastructure in 2013, this would have been a JAMstack site since then.  <b>UPDATE 2022</b>: my webhost was bought; so I have done this.</li>
@@ -122,11 +123,13 @@ Hope you find the reading useful and helpful but I do not consider my articles t
     <li class="libasic">In order to be semantic, I have standardised that code samples are wrapped in &quot;&lt;CODE lang=“XXX”&gt;&lt;PRE class=“code &quot; lang=“XXX”&gt;&quot; blocks.  The HTML spec says that PRE isn't for programming languages, but using PRE makes it much more readable.</li>
     <li class="libasic">I am tagging older articles with a warning in the strap-line area.  I would like to add an URL map (the Apache feature) to pull in likely misspellings, and to make everything lower case</li>
     <li class="libasic">It would be nice to drop the jQuery for Alpine.  I can probably make the code shorter with more modern structures.</li>
-    <li class="libasic">A marketing person ~ after the have gotten over a shock about “no wordpress found” ~ will logically ask wouldn't it be faster to use a common share library e.g. <sup><a href="https://www.npmjs.com/package/@globocom/share-bar" target="_blank">1</a></sup> <sup><a href="https://www.npmjs.com/package/jquery-social-share-bar" target="_blank">2</a></sup>, rather hand-rolling one.  Hopefully they then realise a JAMstack site with strong PWA doesn't really work like that.  Also this does help me understand those media companies API better.  </li>
+    <li class="libasic">A marketing person ~ after the have gotten over a shock about “no wordpress found” ~ will logically ask wouldn't it be faster to use a common share library e.g. <sup><a href="https://www.npmjs.com/package/@globocom/share-bar" target="_blank">1</a></sup> <sup><a href="https://www.npmjs.com/package/jquery-social-share-bar" target="_blank">2</a></sup>, rather hand-rolling one.  Hopefully they then realise a JAMstack site with strong PWA doesn't really work like that.  This does help me understand those media companies API better.  </li>
     <li class="libasic">After 2012, many of the articles are where I needed to be a local expert in XYZ in a hurry.  I am trying to be planned and organised about adding more content.   I have deleted 20% of my content that I do not think is useful today.</li>
     <li class="libasic">You will note all the github links magically get the Octocat logo.  I also decorated the docs links.   I do not have a NPM logo to repeat the same trick.</li>
     <li class="libasic">This git-repo / this project has no tests.  The engine that creates the HTML does have test-scripts, and this was the biggest test population I made at that point, as I needed to <i>test a language</i>; not an app, report or something.  They are fixtures and static expected results rather than proper unit-test with assert conditions.  My recent tweaks to the template are all tested with the next items:</li>
-    <li class="libasic">Currently my the directory of raw content text, which hasn't been compiled to HTML weighs abit bigger than 3MB.  I have about 240 articles, as I deleted the oldest 20% in Jan.  The compiled HTML is about 5MB.  The common CSS is 110KB compiled; and the common JS is 350KB, with some pages pulling more JS.  <b>TODO update this line in 2024</b> </li>
+    <li class="libasic">Currently my the directory of raw content text, which hasn't been compiled to HTML weighs abit bigger than 3MB.  I have about 240 articles, as I deleted the oldest 20% in Jan 2022.  The compiled HTML is about 5MB.  The common CSS is 110KB compiled; and the common JS is 350KB, with some pages pulling more JS.  <b>TODO update this line in 2024</b> </li>
+    <li class="libasic">I have moved some older JS based “UX and information retrieval improvements” to being built in CSS.  This makes the download smaller, and hopefully PageSpeed will complain about excessively large documents less often.   Unfortunately, I cannot apply the same process to mobile view, as there is no ':hover' in that render style.   I improved error reporting for remaining dead outbound-links.   </li>
+    <li class="libasic">Some CSS perf optimisation, no idea about impact from this.</li>
     <li class="libasic">I am mostly adding text, and testing it using a word processor, and my language focused “glamorous assistant”. </li>
     <li class="libasic"> <strong> All my articles have <a href="https://pagespeed.web.dev/analysis/https-owenberesford-me-uk/nm3jtvslj7?hl=en_GB&amp;amp;form_factor=mobile" target="_blank">pagespeed</a> scores over 90, many are 100.</strong>  Google is not really supportive for longer content (based on DOM tree size).</li>
     <li class="libasic">According to <a href="https://www.websitecarbon.com/website/owenberesford-me-uk/" target="_blank">websiteCarbon</a>, due to the architecture this consumes less power per page than 95% of the web.   If I leave one tree “running in the background”, I have offset 100% of the carbon made.   This doesn't count the cost-to-compile,</li>
@@ -235,12 +238,12 @@ Hope you find the reading useful and helpful but I do not consider my articles t
 						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" ><i aria-label="Share to *your* mastodon server." class="fa fa-mastodon" aria-hidden="true"></i></a>
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhome" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhome" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
-						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fyapc&amp;t=Quick+notes+from+YAPC"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
+						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fhome&amp;t=IT+and+process"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
 
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-11-12T14:42:23">12th of Nov 2023</time></span>
+						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time></span>
 						<span>Created <time datetime="2015-03-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
 
@@ -267,7 +270,7 @@ Hope you find the reading useful and helpful but I do not consider my articles t
 <div class="leftFooter"> 
 <a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-11-15T21:37:03">15th of Nov 2023, 21:37:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-11-12T14:42:23">12th of Nov 2023</time>. <br />
+</div> Page rendered <time datetime="2023-12-28T10:18:02">28th of Dec 2023, 10:18:02</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
