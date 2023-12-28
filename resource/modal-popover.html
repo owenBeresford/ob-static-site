@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>modal popover</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="People use images to communicate. This article lists improvements across three decades of image in casual usage on the net. Sample implementation of image requirements along with existing and current image widgets." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="modal popover">
+<meta itemprop="description" content="People use images to communicate. This article lists improvements across three decades of image in casual usage on the net. Sample implementation of image requirements along with existing and current image widgets.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="modal popover">
+<meta name="twitter:description" content="People use images to communicate. This article lists improvements across three decades of image in casual usage on the net. Sample implementation of image requirements along with existing and current image widgets.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="modal popover" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/modal-popover" />
+<meta property="og:description" content="People use images to communicate. This article lists improvements across three decades of image in casual usage on the net. Sample implementation of image requirements along with existing and current image widgets." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="28th of Dec 2023, 10:18:04" />
+<meta property="article:modified_time" content="28th of Dec 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/modal-popover" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "modal popover",
+	"article:published_time":"28th of Dec 2023, 10:18:04", 
+    "article:modified_time":"28th of Dec 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker popOverWidget">
+<div class="lotsOfWords">
+<p>It would also make sense to title this article <i>“expand image”, “fullscreen-image”, “view-in-detail”</i>, &quot;...&quot; all would work; and all these options may be someone's search.   This is how to make your sales glamour shot occupy the whole of the viewer's attention.  Please also see <a class="" href="https://owenberesford.me.uk/resource/zoomable-widget#">zoomable-widget</a> for amendable grids of images.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">To render an image or text in a widget, and apply standard UI niceties; </li>
+    <li class="libasic">To support a full-screen and high resolution sales “glamour-shot mode”;</li>
+    <li class="libasic">To have normal interaction features (esc or click away etc to close);</li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Current image widgets <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li class="libasic">React Image Magnifier <a href="https://adamrisberg.github.io/react-image-magnifiers/" target="_blank">demo</a> <a href="https://www.npmjs.com/package/@vanyapr/react-image-magnifiers" target="_blank">npm</a> <a href="https://github.com/vanyapr/react-image-magnifiers" target="_blank">git</a> <a href="https://github.com/vanyapr/react-image-magnifiers#readme" target="_blank">docs</a></li>
+    <li class="libasic">React Spring lightbox <a href="https://www.npmjs.com/package/react-spring-lightbox" target="_blank">npm</a> <a href="https://github.com/tim-soft/react-spring-lightbox" target="_blank">git</a> <a href="https://timellenberger.com" target="_blank">docs</a></li>
+    <li class="libasic">Featherlight <a href="https://www.npmjs.com/package/featherlight" target="_blank">npm</a> <a href="https://github.com/noelboss/featherlight" target="_blank">git</a> <a href="https://noelboss.github.io/featherlight/" target="_blank">docs</a> ~ lightweight jQuery lightbox plugin.  NB: this is 4YO. </li>
+    <li class="libasic">@will2code/react-modal-image <sup><a href="https://www.npmjs.com/package/@will2code/react-modal-image" target="_blank">1</a></sup> <a href="https://github.com/aautio/react-modal-image" target="_blank">git</a> <a href="https://github.com/aautio/react-modal-image#readme" target="_blank">docs</a> ~ is a modal; supports transparent backgrounds; supports Zoom.</li>
+    <li class="libasic">Simple lightbox <a href="https://www.npmjs.com/package/simplelightbox" target="_blank">npm</a> <a href="https://github.com/andreknieriem/simplelightbox" target="_blank">git</a> <a href="https://simplelightbox.com/" target="_blank">docs</a> ~  this is optional jQuery; it supports ALOT of localisation overrides; it supports full mobile interaction;  it uses 6MB on disk.</li>
+    <li class="libasic">Flyout block <a href="https://www.npmjs.com/package/flyout-block" target="_blank">npm</a> <a href="https://github.com/fluidweb-co/flyout-block" target="_blank">git</a> <a href="https://github.com/fluidweb-co/flyout-block#readme" target="_blank">docs</a> ~ doesn't mention frameworks; it's built by processing HTML attributes on standard HTML tags; not widely used from NPM, released this year. </li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > My easy maquette (HTML + CSS)  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>To write from scratch, this would take a day or something (mostly testing on each browser).   I am merging in common assets in quite a few places.   Note this is not using any JS, leaving a lighter and smaller App.   The CSS has been written from scratch, but is short.   Historical plugins were more than 100KB large, and ran slower.<br />
+As a random webpage, I haven't included several meg of out-of-date code in the current maquette.</p>
+
+
+<details class="singlePopup" >
+<summary> <picture> <img title="A winter-scene with snow with foot prints (lower 45%) and a clear sky (upper 45%).  There is a row of trees with few leaves.  NOTE THIS IS A TECH DEMO" src="/asset/winter_54_by_karinclaessonart_smll.jpg" width="500" height="375"  /> </picture>   </summary>
+<p>This bit does feel like a childs homework, but here is a larger image.  This larger image is in apparent camera resolution of about 2000px across.  Note lazy loading without JS for better experience.
+ <img title="A winter-scene with snow with foot prints (lower 45%) and a clear sky (upper 45%).  There is a row of trees with few leaves." src="/asset/winter_54_by_karinclaessonart_large.jpg" width="2048" height="1536" loading="lazy" /> 
+</details>
+<details class="singlePopup" >
+<summary>Source code for maquette</summary>
+<pre class="code" lang="html">
+&lt;!-- It is suggested to add a namespace to your following CSS --&gt;
+&lt;style&gt;
+details summary picture:before { content:"Touch/ click to expand"; }
+details[open] summary img { display:inline-block; height:2em; width:3em; opacity:0.3; }
+details[open] summary picture:before { content:""; }
+details[open] { border:double 3px rgb(185, 185, 185); }
+/* fade-out background text, skippable */
+.blocker:has( details[open] ) { --fgcontrast: 5; --bgcontrast:1; }
+details.singlePopup { --fgcontrast: 0.95; --bgcontrast:1; }
+&lt;/style&gt;
+
+&lt;details class="singlePopup" &gt;
+	&lt;summary&gt; title here or small image &lt;/summary&gt;
+	&lt;p&gt; intro text is you wish
+	[large image tag here]
+&lt;/details&gt;
+&lt;!-- My running code has std UI features in JS, like ESC handling --&gt;
+</pre>
+</details>
+
+<h5 id="toc3"> Outcomes</h5>
+<p>This was tested on  : // add ticks</p>
+
+<ul class="ulbasic">
+    <li class="libasic">win32/ chrome</li>
+    <li class="libasic">win32/ edge</li>
+    <li class="libasic">win32/ FF</li>
+    <li class="libasic"><del>win32/ MSIE</del></li>
+    <li class="libasic">mac x/ chrome TICK</li>
+    <li class="libasic">mac x/ safari TICK, but see Safari colour mix bug</li>
+    <li class="libasic">linux/ chrome TICK <i>(my dev machine, but not worth doing it otherwise)</i></li>
+    <li class="libasic">linux/ FF TICK</li>
+    <li class="libasic">android/ chrome TICK, but need to add CSS for screen rotation </li>
+    <li class="libasic">android/ FF  TICK</li>
+    <li class="libasic">TODO: iphone anything</li>
+</ul>
+
+
+<h5 id="toc4"> History (skippable)</h5>
+<ol>
+    <li>This is split into decades, to be shorter, but events and tech roll-out do not match decade boundaries.  Note, a computer life-cycle is about three years (JS frameworks, work laptops, etc), so a decade of a “human-time” is a long time.   A very long time ago (1990 era) the internet was too slow for casual images.   Screen resolutions where 300-800 pixels across.</li>
+    <li>In about 2000, the internet used to be slower than today, and desktop based.  Desktop screens had more colours than before, and a higher resolution (say 1024 across).   Looking at images on the internet was a bigger user journey (I'm not talking about pron).   As less people had digital cameras so there was less images available.   The user journey “look at my image gallery” held interest for less technical users.   Secondly digital cameras were less high resolution for all but the really expensive ones.   Thirdly there was less advanced browsers and related technology.   So early web-developers used to make a gallery of small <i>faster</i> loading images, with links to click for the bigger version of the same images. </li>
+    <li>By about 2010, everyone in the EU had DSL, a larger screen again and a 'smart' mobile.   A current viewer would just call that “my phone” or similar.   Smart phones often have a camera, leading to a proliferation of images being created.   Interest in personal image galleries was gone, as everyone had moved to social media.   It was much easier to have images hosted on the SM companies servers.   <em>Companies</em> had image galleries for their products, as the faster internet meant net-shopping was practical.  There was expanded infrastructure (like HTTP 1.1 pipelining), and better caching.  JS was widely used to make more complex features.    A JS library called jQuery was used widely.    Screen sizes had climbed to 1800 pixels across on desktops, 1200 for laptops, and 600 for mobile.   One could buy a large expensive Mac with a resolution of 5000 pixels across. </li>
+    <li>By 2020, phones were released with bigger screens and had better CPUs, and general performance.   Doing most internet activity via your phone was common, outside of office-work activities.   Internet speeds have increased again, and everyone uses streaming media.  The JS libraries that are used for SPA architecture are common (React, Vue, Angular).   Technology has expanded with market size and maturity again, HTTP2 and HTTPS are used for everything, and most assets are held in a CDN or Edge network like Cloudflare.   Good Apps use images to fit the screen-size of the device being used, via various approaches.   </li>
+</ol>
+
+<p><i>Do we need an external modal popup library today? </i></p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering </a> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth" >
+					<header><h1>the modern Modal Popover</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmodal-popover" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmodal-popover" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmodal-popover" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmodal-popover&amp;t=modal+popover"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>
+						</span>
+						<span>Created <time datetime="2023-12-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Dec 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmodal-popover" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Requirements</a></li>
+<li><a href="#toc1">Current image widgets</a></li>
+<li class="h4_odd"><a href="#toc2">My easy maquette (HTML + CSS)</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-12-28T10:18:04">28th of Dec 2023, 10:18:04</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
+<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
+<style>
+ol { counter-reset: when 1980; } 
+ol li { text-indent:3em; }
+ol li:before { counter-increment: when 10; content:"ye old "counter(when); font-size:170%; font-weight:bold; color:rgba(67, 67, 72, 0.4); text-indent:inherit; position: relative; left: -6em; white-space: nowrap; }  
+details summary picture:before { content:"Touch/ click to expand"; }
+details[open] summary img { display:inline-block; height:2em; width:3em; opacity:0.3; }
+details[open] summary picture:before { content:""; }
+details[open] { border:double 3px rgb(185, 185, 185); }
+
+.blocker:has( details[open] ) { --fgcontrast: 5; --bgcontrast:1; }
+details.singlePopup { --fgcontrast: 0.95; --bgcontrast:1; }
+
+</style>
+<script defer>
+/*
+  Generate UX niceites that are standardised across frameworks.
+*/
+
+function HTMLDetailsTrap(e) {
+	if (e.code === 'Escape' || e.key === 'Escape') {
+		const tt=$('details[open]');
+		if(tt.length) {
+			tt[0].open=false;
+		}
+	}
+	e.preventDefault();
+}
+function HTMLDetailsClick(e) {
+	const find=function(ele, target) {
+		if(ele.tagName===target) { return ele; }
+
+		while(ele.tagName!==target) {
+			// extra clause to allow links to exit this page
+			if(ele.tagName==="A") { return ele; }
+			if(ele.tagName==="BODY" ) { return undefined; }
+
+			ele=ele.parentElement;
+		}
+		return ele;
+	}
+
+	let act=find(e.target, "DETAILS");
+	if(act && act.tagName==="A") {
+		return true;
+	} else if(act && act.open) {
+		act.open=false;
+	} else if(act && !act.open) {
+		act.open=true;	
+	} else if(!act) {
+		const tt=document.querySelector('details[open]');
+		if(tt) {
+			tt.open=false;
+		}
+	}
+
+	e.preventDefault();
+}
+
+function exec() {
+	document.addEventListener('keydown', HTMLDetailsTrap);
+	document.addEventListener('click', HTMLDetailsClick);
+}
+
+$(document).ready(exec);
+</script>
+</body>
+</html>
