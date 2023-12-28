@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/home" />
 <meta property="og:description" content="Assorted articles and processes on the current state of software engineering. Please click through to articles..." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 10:18:02" />
+<meta property="article:published_time" content="28th of Dec 2023, 23:06:36" />
 <meta property="article:modified_time" content="28th of Dec 2023" />
 <!-- meta property="article:tag" content="Article Tag" /  -->
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
@@ -49,25 +49,6 @@
 @media screen and (min-width:700px) and (max-width:900px)  {
 	div.chunkArticles { min-width: 15em; flex: 2 1 0px; }
 }
-
-/*
-.h4_page { margin:15px; }
-a[rel="me"] { margin: initial; padding: 0.65em 0.8em; }
-div.fullWidth { width: 65%; }
-.myUglyFace { margin-top:2em; }
-@media screen and (min-resolution: 150dpi) {
-   .after_menu.articleContent, .h4_page.wholeArticle { min-width: 100%; }
-   .halferWords {  width: 100vw; }
-	.home.column, .chunkArticles.column { flex: 1 100 0px; }
-	dialog#popup1 a.trimmed i { padding:0.3em; margin:0px; }
-	div.fullWidth { width: 100%; }
-	#siteChartLink { margin-left:0;  }
-	.myUglyFace { margin-top:0.3em; }
-    #navBar .shareMenuOpen a.button.masto { padding-left: 0.2em; padding-right: 0.2em; margin-left: 0; }
-}
-.tabs-panel.is-active { padding-top:0 }
-summary.button { background-color:#007193; }
-*/
 </style>
 </head>
 <body id="body" class="annoyingBody homeContainer">
@@ -99,44 +80,11 @@ Hope you find the reading useful and helpful but I do not consider my articles t
     <li>Assessments of various technology and processes.  </li>
     <li>Lots of material removed from my CV, so I can keep that concise.</li>
     <li>Project notes for various bits of software I have created.</li>
-    <li>Mostly, alot of words; with lots of bibliography</li>
+    <li>Mostly, a lot of words; with lots of bibliography</li>
 </ol>
 
 
-<details>
-<summary class="button" >Show boring notes about this site </summary>
-<ul class="ulbasic">
-    <li class="libasic"><b>Only read if keen</b>; it is hidden as I know pages about the site you are reading are very boring.</li>
-    <li class="libasic">Some of the early changes where a learning curve for me, but none of the ones after 2014 are.  I am adding more features to match the current scale of the data.</li>
-    <li class="libasic">This site has always been a UTF-8 site, this was more rare when I started it.</li>
-    <li class="libasic">The articles on this site reflect semantic-web concepts from 2004 era; they each have a meta header used to build the HTML head and for my custom indexing.</li>
-    <li class="libasic">One of the section headings on this homepage was “everyone is as good as their sources”. I removed that section; however you can see all my sources (all those Harvard style reference links, <strong>all of them</strong>.  Mean average of 30 or-so per article).</li>
-    <li class="libasic">In 2015, I added font-awesome for logos making the site load faster; in 2020, I replaced font-awesome with fontello as it's smaller again.</li>
-    <li class="libasic">As random stats, I built a second index for discoverability, based in article name (used in the URL).  There only 4 widely used initial letters (): C..., J..., P..., and S...   This is an example of why I think alphabetical indexing is poor UX.  I defined 'widely used' to be more than 5% of articles, as I don't think I have more than 15 articles on the same same topic, so that implies the letter is used by multiple topics.</li>
-    <li class="libasic">In 2017, I added the create date and edit date meta-data.  The last edit date feature is less useful than I would like (in 2020, then again end of 2022); as I needed to edit every single existing article to add more meta data.</li>
-    <li class="libasic">In 2018 I put articles in article groups to improve discoverability of content.  </li>
-    <li class="libasic">If I had spent one more day on site infrastructure in 2013, this would have been a JAMstack site since then.  <b>UPDATE 2022</b>: my webhost was bought; so I have done this.</li>
-    <li class="libasic">In the end of 2022, I updated many references to be HTTPS.</li>
-    <li class="libasic">In 2012 I made the site mobile capable (template v3); but I wasn't expecting anyone to use it from a phone.  I put text in columns for readability, like newspapers.  I added “page chunks” to the articles so users didn't need to scroll up and down all the time (template v4).   I added an RSS, and a site-map in that update as the content had increased.   Then 2022, I updated the HTML to a more modern version, with better accessibility (template v6).</li>
-    <li class="libasic">I am replacing the 2010 and 2012 era CSS with a BEM CSS design; again so I can improve adaptability to different peoples preferences and machines.  My palette is now 9 colours, rather than erm, about 50.   I will tidyup the font declarations next.</li>
-    <li class="libasic">I have dropped my “manual mouse hover” code (JS used for triggering adjacent elements), as CSS v4 is now widely enough supported. </li>
-    <li class="libasic">In order to be semantic, I have standardised that code samples are wrapped in &quot;&lt;CODE lang=“XXX”&gt;&lt;PRE class=“code &quot; lang=“XXX”&gt;&quot; blocks.  The HTML spec says that PRE isn't for programming languages, but using PRE makes it much more readable.</li>
-    <li class="libasic">I am tagging older articles with a warning in the strap-line area.  I would like to add an URL map (the Apache feature) to pull in likely misspellings, and to make everything lower case</li>
-    <li class="libasic">It would be nice to drop the jQuery for Alpine.  I can probably make the code shorter with more modern structures.</li>
-    <li class="libasic">A marketing person ~ after the have gotten over a shock about “no wordpress found” ~ will logically ask wouldn't it be faster to use a common share library e.g. <sup><a href="https://www.npmjs.com/package/@globocom/share-bar" target="_blank">1</a></sup> <sup><a href="https://www.npmjs.com/package/jquery-social-share-bar" target="_blank">2</a></sup>, rather hand-rolling one.  Hopefully they then realise a JAMstack site with strong PWA doesn't really work like that.  This does help me understand those media companies API better.  </li>
-    <li class="libasic">After 2012, many of the articles are where I needed to be a local expert in XYZ in a hurry.  I am trying to be planned and organised about adding more content.   I have deleted 20% of my content that I do not think is useful today.</li>
-    <li class="libasic">You will note all the github links magically get the Octocat logo.  I also decorated the docs links.   I do not have a NPM logo to repeat the same trick.</li>
-    <li class="libasic">This git-repo / this project has no tests.  The engine that creates the HTML does have test-scripts, and this was the biggest test population I made at that point, as I needed to <i>test a language</i>; not an app, report or something.  They are fixtures and static expected results rather than proper unit-test with assert conditions.  My recent tweaks to the template are all tested with the next items:</li>
-    <li class="libasic">Currently my the directory of raw content text, which hasn't been compiled to HTML weighs abit bigger than 3MB.  I have about 240 articles, as I deleted the oldest 20% in Jan 2022.  The compiled HTML is about 5MB.  The common CSS is 110KB compiled; and the common JS is 350KB, with some pages pulling more JS.  <b>TODO update this line in 2024</b> </li>
-    <li class="libasic">I have moved some older JS based “UX and information retrieval improvements” to being built in CSS.  This makes the download smaller, and hopefully PageSpeed will complain about excessively large documents less often.   Unfortunately, I cannot apply the same process to mobile view, as there is no ':hover' in that render style.   I improved error reporting for remaining dead outbound-links.   </li>
-    <li class="libasic">Some CSS perf optimisation, no idea about impact from this.</li>
-    <li class="libasic">I am mostly adding text, and testing it using a word processor, and my language focused “glamorous assistant”. </li>
-    <li class="libasic"> <strong> All my articles have <a href="https://pagespeed.web.dev/analysis/https-owenberesford-me-uk/nm3jtvslj7?hl=en_GB&amp;amp;form_factor=mobile" target="_blank">pagespeed</a> scores over 90, many are 100.</strong>  Google is not really supportive for longer content (based on DOM tree size).</li>
-    <li class="libasic">According to <a href="https://www.websitecarbon.com/website/owenberesford-me-uk/" target="_blank">websiteCarbon</a>, due to the architecture this consumes less power per page than 95% of the web.   If I leave one tree “running in the background”, I have offset 100% of the carbon made.   This doesn't count the cost-to-compile,</li>
-</ul>
-
-
-</details>
+<a class="button" href="/resource/changelog" title="View important tech changes to this site">Show boring notes about this site </a>
 </div>
 </div>
 <div class="chunkArticles column">
@@ -243,7 +191,7 @@ Hope you find the reading useful and helpful but I do not consider my articles t
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time></span>
+						<span>Edited <time datetime="2023-12-28T23:05:17">28th of Dec 2023</time></span>
 						<span>Created <time datetime="2015-03-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
 
@@ -270,7 +218,7 @@ Hope you find the reading useful and helpful but I do not consider my articles t
 <div class="leftFooter"> 
 <a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
-</div> Page rendered <time datetime="2023-12-28T10:18:02">28th of Dec 2023, 10:18:02</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>. <br />
+</div> Page rendered <time datetime="2023-12-28T23:06:36">28th of Dec 2023, 23:06:36</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2023-12-28T23:05:17">28th of Dec 2023</time>. <br />
 
 Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
@@ -289,27 +237,9 @@ let tabf2= function(e) {
 	$(e.target).parent().addClass('is-active');
 	return false;
 };
-let tabf3=function(e) {
-	$('#moreLinks').removeClass('is-hidden');
-    $('#moreLinks ol').attr('start', '27')
-	$($('#blockArticles p')[1]).css('display', 'none');
-	$($('#blockArticles p')[2]).css('display', 'none');
-	$('#listExtend').addClass('is-hidden');
-
-};
-let tabf4=function(e) {
-	$('#moreLinks2').removeClass('is-hidden');
-    $('#moreLinks2 ol').attr('start', '11')
-	$($('#blockProjects p')[1]).css('display', 'none');
-	$($('#blockProjects p')[2]).css('display', 'none');
-	$('#listExtend2').addClass('is-hidden');
-
-};
 
 jQuery(document).ready(function() {
 	$('.tabList li a').on('click touch keypress', tabf2);
-	$('#listExtend').on('click touch keypress', tabf3);
-	$('#listExtend2').on('click touch keypress', tabf4);
 });
 }
 </script>
