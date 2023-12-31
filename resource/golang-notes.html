@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/golang-notes" />
 <meta property="og:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Nov 2023, 21:37:03" />
-<meta property="article:modified_time" content="18th of May 2023" />
+<meta property="article:published_time" content="28th of Dec 2023, 21:00:30" />
+<meta property="article:modified_time" content="28th of Dec 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/golang-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "How to make a Golang binary",
-	"article:published_time":"15th of Nov 2023, 21:37:03", 
-    "article:modified_time":"18th of May 2023",
+	"article:published_time":"28th of Dec 2023, 21:00:30", 
+    "article:modified_time":"28th of Dec 2023",
     "article:section":"technology",
 
     "author": {
@@ -51,8 +51,8 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
-<div class="halferWords">
+     <div class="blocker references">
+<div class="lotsOfWords">
 <p><strong>Target audience:</strong> professional developers, myself.</p>
 
 <p>This is probably quite a dull article; but I am summarising a lot of repetitious blog articles which omitted some data that I needed. <br />
@@ -92,38 +92,45 @@ Before I started using Golang; I was focussing on “how to type in this languag
     <li class="libasic">Go after go1.4 adds support for modules, implying multi-homing for source code and adds $GOPATH.  Current implementation of $GOPATH is weak, as not all features can read more than one directory in this variable.  I hope this is enhanced in later versions.</li>
     <li class="libasic">Go is painful for excess directories; whoever this can be managed with `go mod edit` <sup><a href="https://golang.org/doc/tutorial/call-module-code" target="_blank">17</a></sup>.</li>
     <li class="libasic">`go mod $BLAH` series of commands will be requirement for later versions of go; deprecating `go get $BLAH` <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">18</a></sup>.</li>
-    <li class="libasic">The main entry point must be in a package called 'main', and be a function called main <sup><a href="https://golang.org/ref/spec#Program_execution" target="_blank">19</a></sup> <sup><a href="https://www.callicoder.com/golang-packages/" target="_blank">20</a></sup> <sup><a href="https://stackoverflow.com/questions/42333488/package-main-and-func-main" target="_blank">21</a></sup>.<ul class="ulbasic">
+</ul>
+
+
+</div>
+<hr />
+<div class="lotsOfWords">
+<ul class="ulbasic">
+    <li class="libasic">The main entry point must be in a package called 'main', and be a function called main <sup><a href="https://golang.org/ref/spec#Program_execution" target="_blank">1</a></sup> <sup><a href="https://www.callicoder.com/golang-packages/" target="_blank">2</a></sup> <sup><a href="https://stackoverflow.com/questions/42333488/package-main-and-func-main" target="_blank">3</a></sup>.<ul class="ulbasic">
         <li class="libasic">Those two statements do not talk about the file name; which is flexible.</li>
-        <li class="libasic">According to <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">22</a></sup> the “main” package doesn't need to be in a directory called “main”; so it can be stored with the other Go files.  My recent practical experience contradicts this.  I make an extra “main” subpackage, to keep it out of the way.</li>
+        <li class="libasic">According to <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">4</a></sup> the “main” package doesn't need to be in a directory called “main”; so it can be stored with the other Go files.  My recent practical experience contradicts this.  I make an extra “main” subpackage, to keep it out of the way.</li>
     </ul></li>
-    <li class="libasic">A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">23</a></sup>.  I will update this  point with which one is best.</li>
-    <li class="libasic">Golang files generally have .go as a suffix <sup><a href="https://stackoverflow.com/questions/25161774/what-are-conventions-for-filenames-in-go" target="_blank">24</a></sup>; I do not know if that is required anywhere.</li>
-    <li class="libasic">There is nearly a standard file system layout <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">25</a></sup></li>
-    <li class="libasic">In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">26</a></sup> <sup><a href="https://ednsquare.com/story/public-and-private-packages-functions-in-golang------KgKYKs" target="_blank">27</a></sup>.</li>
+    <li class="libasic">A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">5</a></sup>.  I will update this  point with which one is best.</li>
+    <li class="libasic">Golang files generally have .go as a suffix <sup><a href="https://stackoverflow.com/questions/25161774/what-are-conventions-for-filenames-in-go" target="_blank">6</a></sup>; I do not know if that is required anywhere.</li>
+    <li class="libasic">There is nearly a standard file system layout <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">7</a></sup></li>
+    <li class="libasic">In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">8</a></sup> <sup><a href="https://ednsquare.com/story/public-and-private-packages-functions-in-golang------KgKYKs" target="_blank">9</a></sup>.</li>
 </ul>
 
 <p>Dependencies:</p>
 
 <ul class="ulbasic">
     <li class="libasic">On my first simple test1; I did not run `go mod init`.  I think for a more realistic and larger project with dependencies I will need to; and the previous build steps may need adjusting.</li>
-    <li class="libasic">On my second simple test2; I included a large middleware (iris <sup><a href="https://pkg.go.dev/github.com/kataras/iris#section-readme" target="_blank">28</a></sup>); and things seem to work without attention. </li>
-    <li class="libasic">As of “time of print”; dependencies are added as source code via `go get $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">29</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">30</a></sup>.  This (after go1.3) adds a line to go.mod file; secondly downloading the source code to a appropriately named sub-directory of $GOROOT.</li>
-    <li class="libasic">Dependencies can be removed via `go clean -i $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Remove_object_files_and_cached_files" target="_blank">31</a></sup>.  I think this was added in `go1.3`.</li>
-    <li class="libasic">Dependencies can be upgraded with `go get -u $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">32</a></sup>.</li>
-    <li class="libasic">The `go get` command can be appended with GIT hashes or release tag names for greater precision <sup><a href="https://golang.org/pkg/cmd/go/internal/get/" target="_blank">33</a></sup> <sup><a href="https://medium.com/faun/managing-dependency-and-module-versioning-using-go-modules-c7c6da00787a" target="_blank">34</a></sup>.</li>
-    <li class="libasic">If a dependency is added before it is used; in go.mod it will be tagged with `/ /indirect` <sup><a href="https://golangbyexample.com/indirect-dependency-golang/" target="_blank">35</a></sup>.  Used dependencies (in the source code) are not.  </li>
-    <li class="libasic">You can list/ verify dependencies with `go mod tidy -v`; to be able to reduce unneeded deps on your local disk <sup><a href="https://golang.org/cmd/go/#hdr-Maintaining_module_requirements" target="_blank">36</a></sup> <sup><a href="https://golangbyexample.com/go-mod-tidy/" target="_blank">37</a></sup>.</li>
-    <li class="libasic">In the source files, dependencies are imported on the package level and using the keyword 'import' <sup><a href="https://golangdocs.com/import-in-golang" target="_blank">38</a></sup> <sup><a href="https://www.golangprograms.com/golang-import-struct-from-another-or-child-package.html" target="_blank">39</a></sup>. </li>
-    <li class="libasic">The import can be an array or a scalar (which is better than most languages) <sup><a href="https://medium.com/golangspec/import-declarations-in-go-8de0fd3ae8ff" target="_blank">40</a></sup>.  Much faster than Java as there is no need to specify each class.  This can be tricky as C++ with many defines <sup><a href="https://developpaper.com/golang-import-local-package-and-import-related-details/" target="_blank">41</a></sup> </li>
-    <li class="libasic">There is a compile constraint feature (like Pascal uses); this is written as a comment starting  `// +build `.  Some more detailed notes <sup><a href="https://www.jetbrains.com/help/go/configuring-build-constraints-and-vendoring.html#build-constraints" target="_blank">42</a></sup> <sup><a href="https://golang.org/pkg/cmd/go/internal/help/" target="_blank">43</a></sup> <sup><a href="https://www.kofo.dev/build-tags-in-golang" target="_blank">44</a></sup> </li>
-    <li class="libasic">Notes on cross compilation <sup><a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5" target="_blank">45</a></sup></li>
-    <li class="libasic">The Golang supports alias <sup><a href="https://golang.org/ref/spec#Import_declarations" target="_blank">46</a></sup> <sup><a href="https://www.golangprograms.com/golang-package-examples/how-to-import-and-use-packages-of-the-same-name.html" target="_blank">47</a></sup>; to be able to reference packages in a more convenient fashion. </li>
+    <li class="libasic">On my second simple test2; I included a large middleware (iris <sup><a href="https://pkg.go.dev/github.com/kataras/iris#section-readme" target="_blank">10</a></sup>); and things seem to work without attention. </li>
+    <li class="libasic">As of “time of print”; dependencies are added as source code via `go get $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">11</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">12</a></sup>.  This (after go1.3) adds a line to go.mod file; secondly downloading the source code to a appropriately named sub-directory of $GOROOT.</li>
+    <li class="libasic">Dependencies can be removed via `go clean -i $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Remove_object_files_and_cached_files" target="_blank">13</a></sup>.  I think this was added in `go1.3`.</li>
+    <li class="libasic">Dependencies can be upgraded with `go get -u $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">14</a></sup>.</li>
+    <li class="libasic">The `go get` command can be appended with GIT hashes or release tag names for greater precision <sup><a href="https://golang.org/pkg/cmd/go/internal/get/" target="_blank">15</a></sup> <sup><a href="https://medium.com/faun/managing-dependency-and-module-versioning-using-go-modules-c7c6da00787a" target="_blank">16</a></sup>.</li>
+    <li class="libasic">If a dependency is added before it is used; in go.mod it will be tagged with `/ /indirect` <sup><a href="https://golangbyexample.com/indirect-dependency-golang/" target="_blank">17</a></sup>.  Used dependencies (in the source code) are not.  </li>
+    <li class="libasic">You can list/ verify dependencies with `go mod tidy -v`; to be able to reduce unneeded deps on your local disk <sup><a href="https://golang.org/cmd/go/#hdr-Maintaining_module_requirements" target="_blank">18</a></sup> <sup><a href="https://golangbyexample.com/go-mod-tidy/" target="_blank">19</a></sup>.</li>
+    <li class="libasic">In the source files, dependencies are imported on the package level and using the keyword 'import' <sup><a href="https://golangdocs.com/import-in-golang" target="_blank">20</a></sup> <sup><a href="https://www.golangprograms.com/golang-import-struct-from-another-or-child-package.html" target="_blank">21</a></sup>. </li>
+    <li class="libasic">The import can be an array or a scalar (which is better than most languages) <sup><a href="https://medium.com/golangspec/import-declarations-in-go-8de0fd3ae8ff" target="_blank">22</a></sup>.  Much faster than Java as there is no need to specify each class.  This can be tricky as C++ with many defines <sup><a href="https://developpaper.com/golang-import-local-package-and-import-related-details/" target="_blank">23</a></sup> </li>
+    <li class="libasic">There is a compile constraint feature (like Pascal uses); this is written as a comment starting  `// +build `.  Some more detailed notes <sup><a href="https://www.jetbrains.com/help/go/configuring-build-constraints-and-vendoring.html#build-constraints" target="_blank">24</a></sup> <sup><a href="https://golang.org/pkg/cmd/go/internal/help/" target="_blank">25</a></sup> <sup><a href="https://www.kofo.dev/build-tags-in-golang" target="_blank">26</a></sup> </li>
+    <li class="libasic">Notes on cross compilation <sup><a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5" target="_blank">27</a></sup></li>
+    <li class="libasic">The Golang supports alias <sup><a href="https://golang.org/ref/spec#Import_declarations" target="_blank">28</a></sup> <sup><a href="https://www.golangprograms.com/golang-package-examples/how-to-import-and-use-packages-of-the-same-name.html" target="_blank">29</a></sup>; to be able to reference packages in a more convenient fashion. </li>
     <li class="libasic">NB: just like Node, there is a high rate of change on quite a few projects.</li>
-    <li class="libasic">To support an CTO request; how-to link existing C++ code to a Golang runtime, a terse recipe: compile the C++ code as *SO, with exported symbols; put SO file in golang project root directory, with a *.syso  suffix; add build-constraints to the go code to say load the external binary.  This supports static and dynamic linking.  Links: <sup><a href="https://golang.org/cmd/link/" target="_blank">48</a></sup> <sup><a href="https://stackoverflow.com/questions/26418883/golang-how-to-link-c-objects-using-cgo-ofiles" target="_blank">49</a></sup> <sup><a href="https://github.com/vladimirvivien/go-cshared-examples" target="_blank">50</a></sup>.  Notes for run-time linking of the two binary formats <sup><a href="https://medium.com/learning-the-go-programming-language/calling-go-functions-from-other-languages-4c7d8bcc69bf" target="_blank">51</a></sup></li>
+    <li class="libasic">To support an CTO request; how-to link existing C++ code to a Golang runtime, a terse recipe: compile the C++ code as *SO, with exported symbols; put SO file in golang project root directory, with a *.syso  suffix; add build-constraints to the go code to say load the external binary.  This supports static and dynamic linking.  Links: <sup><a href="https://golang.org/cmd/link/" target="_blank">30</a></sup> <sup><a href="https://stackoverflow.com/questions/26418883/golang-how-to-link-c-objects-using-cgo-ofiles" target="_blank">31</a></sup> <sup><a href="https://github.com/vladimirvivien/go-cshared-examples" target="_blank">32</a></sup>.  Notes for run-time linking of the two binary formats <sup><a href="https://medium.com/learning-the-go-programming-language/calling-go-functions-from-other-languages-4c7d8bcc69bf" target="_blank">33</a></sup></li>
 </ul>
 
 
-<h3 class="dontend" id="toc1"> Preferred Source tree referencing <sup><a href="https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md" target="_blank">52</a></sup></h3>
+<h3 class="dontend" id="toc1"> Preferred Source tree referencing <sup><a href="https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md" target="_blank">34</a></sup></h3>
 <ul class="ulbasic">
     <li class="libasic">situation: I have business objectives to make a small app; I have half of the features in existing libraries.  I do not wish to upload non-compileable half typed code to git; but I need to do test builds.</li>
     <li class="libasic">solution: I start a new project dir; I create sub modules/ directories as seems appropriate; in the very small sub module that holds main(), I create a vendor with `go mod vendor`; I create a symlink from the current project root dir to a new same name directory symlink in the system lib dir. </li>
@@ -135,15 +142,16 @@ Before I started using Golang; I was focussing on “how to type in this languag
     </ul></li>
 </ul>
 
-<p>Some assorted links for writing Go code (not covered in article) <sup><a href="https://golang.org/doc/code.html" target="_blank">53</a></sup> <sup><a href="https://marcofranssen.nl/start-on-your-first-golang-project/" target="_blank">54</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">55</a></sup> <sup><a href="https://thenewstack.io/understanding-golang-type-system/" target="_blank">56</a></sup> <sup><a href="https://golang.org/doc/gopath_code.html" target="_blank">57</a></sup> <sup><a href="https://github.com/kataras/iris" target="_blank">58</a></sup> <sup><a href="https://www.iris-go.com/docs/#/" target="_blank">59</a></sup> <sup><a href="https://docs.iris-go.com/iris/mvc/mvc-quickstart" target="_blank">60</a></sup> <sup><a href="https://github.com/iris-contrib/examples/blob/master/mvc/basic/main.go" target="_blank">61</a></sup> <sup><a href="https://github.com/ybkuroki/go-webapp-sample" target="_blank">62</a></sup> <sup><a href="https://hacked.work/blog/writing-simple-http2-server-go/" target="_blank">63</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">64</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">65</a></sup> <sup><a href="https://www.iris-go.com/docs/#/?id=template-rendering" target="_blank">66</a></sup> <sup><a href="https://golang.org/pkg/html/template/" target="_blank">67</a></sup> <sup><a href="https://bitfieldconsulting.com/golang/map-string-interface" target="_blank">68</a></sup> <sup><a href="https://golangdocs.com/interfaces-in-golang" target="_blank">69</a></sup> <sup><a href="https://stackoverflow.com/questions/41884806/how-to-parse-query-strings-in-iris" target="_blank">70</a></sup> <br />
-Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_blank">71</a></sup> <sup><a href="https://github.com/go-playground/assert/" target="_blank">72</a></sup></p>
+<p>Some assorted links for writing Go code (not covered in article) <sup><a href="https://golang.org/doc/code.html" target="_blank">35</a></sup> <sup><a href="https://marcofranssen.nl/start-on-your-first-golang-project/" target="_blank">36</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">37</a></sup> <sup><a href="https://thenewstack.io/understanding-golang-type-system/" target="_blank">38</a></sup> <sup><a href="https://golang.org/doc/gopath_code.html" target="_blank">39</a></sup> <sup><a href="https://github.com/kataras/iris" target="_blank">40</a></sup> <sup><a href="https://www.iris-go.com/docs/#/" target="_blank">41</a></sup> <sup><a href="https://docs.iris-go.com/iris/mvc/mvc-quickstart" target="_blank">42</a></sup> <sup><a href="https://github.com/iris-contrib/examples/blob/master/mvc/basic/main.go" target="_blank">43</a></sup> <sup><a href="https://github.com/ybkuroki/go-webapp-sample" target="_blank">44</a></sup> <sup><a href="https://hacked.work/blog/writing-simple-http2-server-go/" target="_blank">45</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">46</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">47</a></sup> <sup><a href="https://www.iris-go.com/docs/#/?id=template-rendering" target="_blank">48</a></sup> <sup><a href="https://golang.org/pkg/html/template/" target="_blank">49</a></sup> <sup><a href="https://bitfieldconsulting.com/golang/map-string-interface" target="_blank">50</a></sup> <sup><a href="https://golangdocs.com/interfaces-in-golang" target="_blank">51</a></sup> <sup><a href="https://stackoverflow.com/questions/41884806/how-to-parse-query-strings-in-iris" target="_blank">52</a></sup> <br />
+Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_blank">53</a></sup> <sup><a href="https://github.com/go-playground/assert/" target="_blank">54</a></sup></p>
 
 
 </div>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research </a> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -169,7 +177,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-18T19:50:43">18th of May 2023</time>
+						<span>Edited <time datetime="2023-12-28T19:23:52">28th of Dec 2023</time>
 						</span>
 						<span>Created <time datetime="2021-05-31T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >31st of May 2021</time> </span>
 					</span>
@@ -207,17 +215,17 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 	</nav>
 </fieldset>
 		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
  </div>
- <br class="blocker" />
- <div id="biblio"></div>
- <br class="blocker" />
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-11-15T21:37:03">15th of Nov 2023, 21:37:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-05-18T19:50:43">18th of May 2023</time>.
+	<p> Page rendered <time datetime="2023-12-28T21:00:30">28th of Dec 2023, 21:00:30</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T19:23:52">28th of Dec 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -225,9 +233,11 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 <script type="text/javascript">
 $(document).ready(function() { 
 	var r1=new RegExp('\(`[^`]+`\)', 'g'), r2=new RegExp('\/ \/', 'g'); 
-	$('.halferWords')[0].innerHTML = $('.halferWords')[0].innerHTML.replaceAll(r1, '<span style="font-family:monospace; background-color:#ccc;">$1</span>'); 
-	$('.halferWords')[0].innerHTML = $('.halferWords')[0].innerHTML.replaceAll(r2, '//'); 
-
+	$('.lotsOfWords').each((key, val) => { 
+		val.innerHTML=val.innerHTML
+				.replaceAll(r1, '<span style="font-family:monospace; background-color:#ccc;">$1</span>')
+				.replaceAll(r2, '//'); 
+	});
 } );
 </script>
 </body>

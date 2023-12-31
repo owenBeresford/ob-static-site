@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Docs for JS and TS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="The best IMO docs generators for JS and TS.  A look at options, requirements, its history and literature." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Docs for JS and TS">
+<meta itemprop="description" content="The best IMO docs generators for JS and TS.  A look at options, requirements, its history and literature.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Docs for JS and TS">
+<meta name="twitter:description" content="The best IMO docs generators for JS and TS.  A look at options, requirements, its history and literature.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Docs for JS and TS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/docs-for-js-ts" />
+<meta property="og:description" content="The best IMO docs generators for JS and TS.  A look at options, requirements, its history and literature." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="28th of Dec 2023, 10:18:01" />
+<meta property="article:modified_time" content="28th of Dec 2023" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/docs-for-js-ts" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Docs for JS and TS",
+	"article:published_time":"28th of Dec 2023, 10:18:01", 
+    "article:modified_time":"28th of Dec 2023",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker references">
+<div class="lotsOfWords ">
+<p>Article about the best IMO docs generators for JS and TS, focussing on 2023 rather than 2015 or earlier.</p>
+
+<p>I normally write the source code with annotations then generate docs and tests from this.  If I am being tidy / non-rushed, I write a empty declaration file and add all the test and doc notation at that point.    In other languages, I use decorators to define the tests and docs, and these can be preprocessed ahead of the function bodies.   I don't think “did I make this source file” is a useful test to create even with TDD.  Did I type the link / import statement correctly is transitory, and often what my first test execution shows.  <br />
+I prefer to have the test and docs headers extracted from the source code to make the single source of truth / SRP <sup><a href="https://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank">1</a></sup> the one that people pay for.   It is easier to have the docs updated from the same file and similar line number, that several different files.  Encouraging thinking in English for part of the dev process probably leads to better code, or at least better labelled code (variable and method names).</p>
+
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li class="libasic">Resultant docs must be current with the source code, but at the level of current to build-numbers.   It should be practical for the docs process to have several editions of docs depending on what edition of your product that you are looking at.</li>
+    <li class="libasic">Resultant docs must be readable in likely read devices (modern mobile, modern laptop, possibly a overhead size screen).   <b>Note in 2017</b>, Redhat docs were still poor from Android default browser. </li>
+    <li class="libasic">If the docs contain diagrams, I strongly prefer SVG diagrams for normal reasons, and as a domain specific requirement that it should be generatable from source annotation easier than a saved HTML Canvas.</li>
+    <li class="libasic">Prefer some sort of search tool, as your reader may not know what file a symbol is defined in (why they are reading the docs).  This can be solved via grep, but an inline viewer is nicer.</li>
+    <li class="libasic">Prefer docs to have coherent architecture to the logical code architecture, rather than the actual files.  If your class is defined across 4 files as you like decomposition in FP, this shouldn't be your readers' problem.  </li>
+    <li class="libasic">For the vast majority of my work, I strongly favour locally hosted docs.   Not all work is public, and not needing to pay to host docs on small OSS projects increases the chances that they get docs. </li>
+</ul>
+
+
+<h5 id="toc1"> History</h5>
+<p>This section exists for “why do I write this file now? Not in 2012...&quot;<br />
+In about 2012 I made myself a quick hack, in vimscript <sup><a href="http://vimscript.org/" target="_blank">2</a></sup> to generate most of the text for docs headers, using Javadoc <sup><a href="https://en.wikipedia.org/wiki/Javadoc" target="_blank">3</a></sup> notation.  I have been using this hack since, but it's less use for TS, as it can't read types.  I don't always edit the source code in vim, but the auto-generation features are useful.  Vim does have a backup indent algorithm if the one in my IDE doesn't work for some reason (i.e. minified JSON).   I am retiring this as it doesn't understand ES6 classes well enough, and Typescript completely flummuxes it.  The docs need to be on the source that a dev would edit, not a compiled down ES15.<br />
+In 2015, I was building docs from comment blocks in JS source code using swagger <sup><a href="https://en.wikipedia.org/wiki/Swagger_%28software%29" target="_blank">4</a></sup> <a href="https://www.npmjs.com/package/swagger" target="_blank">npm</a>.  Modern versions of Swagger start with a spec file, and generate an empty template JS file for your files.   I am unable to find source to docs generation in current editions.  The failpoint is that they also want you to host the docs on their webhosting platform.</p>
+
+
+<h5 id="toc2"> Literature crawl</h5>
+<p>Initially I look at what I can do inside an IDE, mostly install a external plugin (as different dev languages..):</p>
+
+<ul class="ulbasic">
+    <li class="libasic">microsoft <a href="https://code.visualstudio.com/" target="_blank">VScode</a> / <a href="https://visualstudio.microsoft.com/" target="_blank">Visual studio</a> <a href="https://github.com/microsoft/vscode" target="_blank">git</a> plugins for docs from their marketplace: <a href="https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen" target="_blank">Doxygen</a>; <a href="https://marketplace.visualstudio.com/items?itemName=Docstring.docstring" target="_blank">Docstring</a>; <a href="https://marketplace.visualstudio.com/items?itemName=CalebMoore.mooreapidocs" target="_blank">Moore docs</a> ~ free; <a href="https://marketplace.visualstudio.com/items?itemName=mintlify.document" target="_blank">Mintify</a> ~ claims ML, is OSS;  </li>
+    <li class="libasic"><a href="https://www.jetbrains.com/webstorm/" target="_blank">Jetbrains suite</a> is very good, plugins from their marketplace: <a href="https://plugins.jetbrains.com/plugin/21294-docgen" target="_blank">Docgen</a> uses chatGPT 3.5; YinZhengFei <a href="https://plugins.jetbrains.com/plugin/13086-generate-document" target="_blank">Generate Document</a> ~ is pay-for-ware but not pricey; <a href="https://plugins.jetbrains.com/plugin/18606-mintlify-doc-writer" target="_blank">Mintify</a> </li>
+    <li class="libasic"><a href="https://cursor.sh/" target="_blank">Cursor</a> (an AI tool that includes an IDE).</li>
+    <li class="libasic"><a href="https://www.eclipse.org/downloads/" target="_blank">Eclipse</a> plugins from their marketplace: <a href="https://marketplace.eclipse.org/free-tagging/document-generator" target="_blank">PXdoc</a> this index lists 5 different targeted output platforms from PXdoc; <a href="https://docs.gradle.org/current/userguide/eclipse_plugin.html" target="_blank">Gradle</a> ~ I thought this a Java HTML template library;</li>
+    <li class="libasic"><b>No known doc building tools</b> for <a href="https://www.activestate.com/products/komodo-ide/" target="_blank">Komodo</a> <sup><a href="https://komodo-edit.en.softonic.com/" target="_blank">5</a></sup> <a href="https://github.com/ActiveState/OpenKomodoIDE" target="_blank">git</a>; <a href="https://www.sublimetext.com/download" target="_blank">Sublime</a> has many easily discoverable tools for <i>old versions</i> of sublime, and none for sublime 4+;</li>
+</ul>
+
+<p>As standalone libraries, the following are in the Noösphere:<br />
+I don't see any need for documentation tools to be written in the same language that they build docs for (i.e. use JS tool to build docs for JS source), but some people do.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">Some people claim to document projects via <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> <sup><a href="https://storybook.js.org/" target="_blank">6</a></sup> <sup><a href="https://dev.to/mildrenben/5-best-tools-for-writing-javascript-documentation-4m7i" target="_blank">7</a></sup>.   This isn't what I am looking for, although it would be good for somethings.</li>
+    <li class="libasic">The slate project <sup><a href="https://github.com/slatedocs/slate" target="_blank">8</a></sup> has strong multilingual support, apparently design-copy from Stripe API docs <sup><a href="https://dev.to/mildrenben/5-best-tools-for-writing-javascript-documentation-4m7i" target="_blank">9</a></sup></li>
+    <li class="libasic">I normally write Wiki starting with Confluence or something.  I have setup PHP builds of this language (there are many), but there is also a JS version <sup><a href="https://wiki.js.org/" target="_blank">10</a></sup></li>
+    <li class="libasic">Doxygen is an old tool, and can be used in many IDEs; however it's also a standard alone <sup><a href="https://www.npmjs.com/package/doxygen" target="_blank">11</a></sup></li>
+    <li class="libasic"><a href="https://docsify.js.org/#/?id=docsify" target="_blank">Docsify</a> <a href="https://www.npmjs.com/package/docsify" target="_blank">npm</a> <a href="https://github.com/docsifyjs/docsify" target="_blank">git</a> looks like a platform rather than a package, but it has good documentation (including ascii diagrams).  </li>
+    <li class="libasic">If you are using YUI you will probably know about <a href="https://yui.github.io/yuidoc/" target="_blank">Yui Docs</a>, this is in JS not PHP </li>
+    <li class="libasic">There are many more tools, e.g. the ones listed on <sup><a href="https://nordicapis.com/7-open-source-openapi-documentation-generators/" target="_blank">12</a></sup> (updated sept 2023)</li>
+</ul>
+
+
+</div>
+<hr />
+<div class="lotsOfWords popOverWidget">
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > JSDoc in detail <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p><i>[Several paragraphs of fact scrapping]</i> <b>JSdoc</b> <a href="https://jsdoc.app/" target="_blank">docs</a> <a href="https://github.com/jsdoc/jsdoc" target="_blank">git</a> <a href="https://en.wikipedia.org/wiki/JSDoc" target="_blank">wiki</a> <a href="https://devhints.io/jsdoc" target="_blank">cheetsheet</a> is shiny standard specifically for JS.   It is over 10 years old, and has legal representation since 2011 (says the jsdoc.app site).   Please scroll down the first two links for the range of supported Decorators.   The current defacto tool in npmjs supports all the tags I guess.   The versions in npm go back to v3 codebase, which a bit over 12 years old.   <br />
+It was a feature of the google closure compiler <sup><a href="https://developers.google.com/closure/compiler/" target="_blank">1</a></sup> <sup><a href="https://github.com/google/closure-compiler" target="_blank">2</a></sup>, and probably still is; but they were an early user.  Article involving current ~ 2021 ~ use of JSDoc, in a workflow with related tools <sup><a href="https://dev.to/essentialrandom/documenting-express-rest-apis-with-openapi-and-jsdoc-m68" target="_blank">3</a></sup>.  This dev workflow puts docs more centrally, like <a class="" href="https://owenberesford.me.uk/resource/literate-programming#">literate-programming</a> does.   <i>If my sole work responsibility was making API in Node, I would be closer to working like this.</i>   A second workflow example showing JSdoc, as integrated with VScode <sup><a href="https://dev.to/paulasantamaria/document-your-javascript-code-with-jsdoc-2fbf" target="_blank">4</a></sup>.</p>
+
+<p>The npmjs edition of this standard supports inlining <i>README.txt</i>s <sup><a href="https://jsdoc.app/about-including-readme" target="_blank">5</a></sup>.   Likewise it can pull version data from the <i>package,json</i> <sup><a href="https://jsdoc.app/about-including-package" target="_blank">6</a></sup>.   The most important tag in my opinion is <i>@link</i> <sup><a href="https://jsdoc.app/tags-inline-link" target="_blank">7</a></sup>, as normally you don't want to write an entire book per JS file.   If you have overloaded functions JSdoc does something smart <sup><a href="https://jsdoc.app/about-namepaths" target="_blank">8</a></sup>.   It supports quite a few CLI args <sup><a href="https://jsdoc.app/about-commandline" target="_blank">9</a></sup>.   HTML templates can be individualised via <sup><a href="https://jsdoc.app/about-configuring-default-template" target="_blank">10</a></sup>.   <br />
+Docs on how to use the JSDoc config <sup><a href="https://jsdoc.app/about-configuring-jsdoc" target="_blank">11</a></sup>.   Some examples of awkward JS structures that JSDoc can cope with <sup><a href="https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html#other-supported-patterns" target="_blank">12</a></sup>.   I mention core version, as there are various other projects derived from the JSdoc spec and JSdoc repos.   For example <sup><a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">13</a></sup> (also adds TS support).   Some people use JSDoc to deliver the same goals as TS <sup><a href="https://docs.joshuatz.com/cheatsheets/js/jsdoc/" target="_blank">14</a></sup>, I think this example needs VScode to work.   If you are a person who finds it hard to learn by reading docs, here are some worked examples <sup><a href="https://nikolasbarwicki.com/articles/mastering-jsdoc-the-complete-guide-for-javascript-developers" target="_blank">15</a></sup>.</p>
+
+
+<details>
+<summary>Sample Config for JSDOC</summary>
+<pre class="code" lang="javascript" >
+// Look at a less simple example for file path.  NB this is derived from an OSS repo, so not secret.
+	{
+		"source": {
+			"includePattern": ".+\\.(m)?[jt]s(x)?$",
+				"exclude": [ "src/client/test/", "src/server/tests", "/node_modules/", "src/stories/", "src/build-tools" ],
+				"excludePattern": ".*\\.DISABLED$|.*reportWebVitals\\.js$|.*doc-server\\.mjs$"
+		},
+			"sourceType": "module",
+			"opts": {
+				"encoding": "utf8",
+				"destination": "./public/docs/",
+				"recurseDepth": 3
+			},
+			"plugins": [
+				"plugins/markdown",
+			"node_modules/jsdoc-babel"
+			],
+			"babel": {
+				"extensions": ["ts", "tsx"],
+				"ignore": ["**/*.(test|spec).ts", "/tests/*", "client/reportWebVitals.js", "*.json", "*.DISABLED"],
+				"babelrc": false,
+				"presets": [["@babel/preset-env", { "targets": { "node": true } }], "@babel/preset-typescript"],
+				"plugins": ["@babel/proposal-class-properties", "@babel/proposal-object-rest-spread"]
+			}
+	}
+</pre >
+</details>
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > TypeDoc in detail <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>If you have a TS codebase, you have entered a lot more information than the same codebase in JS.   It is parsimonious to use the type text to build your docs, thus <b>TypeDoc</b> (worked example <sup><a href="https://blog.cloudflare.com/generating-documentation-for-typescript-projects/#whynotjsdoc" target="_blank">1</a></sup> ):<br />
+Introducing TypeDoc <a href="https://typedoc.org/" target="_blank">docs</a> <a href="https://github.com/TypeStrong/typedoc" target="_blank">wiki</a> <a href="https://www.npmjs.com/package/typedoc" target="_blank">npm</a>.   The minimal docs are very quick to build <sup><a href="https://dev.to/sarcxd/document-your-typescript-project-in-5-mins-typedoc-3ilm" target="_blank">2</a></sup>, compared to JSdoc (although plugin based workrounds can be used).   Starting with grammar cheatsheets <sup><a href="https://github.com/TypeStrong/typedoc/blob/main/example/README.md" target="_blank">3</a></sup>, that are very similar to JSDoc.   A second cheatsheet/ tutorial <sup><a href="https://waynestalk.com/en/typedoc-tutorial-en/" target="_blank">4</a></sup>, which seems more advanced (e.g. @typeParam).   The ability to include a README.md in the result HTML was added in 0.4 edition <sup><a href="https://github.com/TypeStrong/typedoc/issues/153" target="_blank">5</a></sup>.   TypeDoc seems to lack the ability to pull version data from the anywhere.  Configuration is similar <sup><a href="https://typedoc.org/options/configuration/" target="_blank">6</a></sup>.  <br />
+Typedoc supports a range of Tags/ Decorators (look at menu on left) <sup><a href="https://typedoc.org/guides/tags/" target="_blank">7</a></sup>, but also locally defined Tags/ Decorators, same link.   It also has @link...  TypeDoc supports Themes <sup><a href="https://typedoc.org/guides/themes/" target="_blank">8</a></sup> ~ typedoc-theme-* in npm, rather than templates.   TypeDoc supports a range of output categorisation <sup><a href="https://typedoc.org/options/organization/" target="_blank">9</a></sup>, probably only useful for larger projects.   Like quite a few JS tools, TypeDoc can read most config via CLI options <sup><a href="https://typedoc.org/options/" target="_blank">10</a></sup>.   It supports TS based overloading <sup><a href="https://typedoc.org/example/functions/overloadedFunction.html" target="_blank">11</a></sup>, but the examples are less complex than the JSdoc ones.   There is a plugin to build MDN links <sup><a href="https://www.npmjs.com/package/typedoc-plugin-mdn-links" target="_blank">12</a></sup>.  <br />
+Note TypeDoc doesn't include a minimal webserver to display the docs, however there are loads of static site tools, so this has small impact.  If this is used with VScode ~ there is a preview plugin ~ to be able to see the result docs as you type stuff into the IDE <sup><a href="https://marketplace.visualstudio.com/items?itemName=psulek-solo.typedoc-live-preview" target="_blank">13</a></sup>.  There is some localisation ability via plugin <sup><a href="https://www.npmjs.com/package/typedoc-plugin-localization" target="_blank">14</a></sup>.</p>
+
+
+<details>
+<summary>Sample Config for TSDOC</summary>
+<pre class="code" lang="javascript">
+	{
+		"$schema": "https://typedoc.org/schema.json",
+			"entryPoints": [
+				"./src/index.js",
+				"./src/server/services/*",
+				"./src/server/types/*",
+				"./src/server/index.ts",
+				"./src/client/services/*",
+				"./src/client/components/*",
+				"./src/client/types/*"
+			],
+			"out": "public/docs",
+			"exclude": [
+				"./src/client/test/",
+				"./src/server/tests",
+				"/node_modules/",
+				"./src/stories/",
+				"./src/build-tools"
+			],
+			"excludeExternals": true,
+			"htmlLang": "en-GB",
+			"skipErrorChecking": true,
+			"searchInComments": true,
+			"plugin": [ 
+				"typedoc-plugin-missing-exports"
+			]
+	}
+</pre>
+</details>
+<hr />
+
+<h3 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > What is useful information? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Code docs should cover all useful information, in a fashion that is useful to your expected audience. Look at the following examples.  These express two extremes for the approach.</p>
+
+
+</div>
+<div class="row">
+<details open class="column">
+<summary>Sample 1</summary>
+<pre class="code" lang="javascript" >
+...
+/**
+ * Calculates the sum of two numbers
+ *
+ * @param {number} a - The first number to add
+ * @param {number} b - The second number to add
+ * @returns {number} The sum of a and b
+ */
+function sum(a, b) {
+  return a + b
+}
+...
+</pre >
+</details>
+<details open class="column">
+<summary>Sample 2</summary>
+<pre class="code" lang="javascript">
+...
+/**
+ * Calculates and returns addition
+ *
+ * @param {number} first
+ * @param {number} second 
+ * @returns {number} - the sum
+ */
+function sum(first, second) {
+  return first + second;
+}
+...
+</pre>
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering </a> </div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Tools for docs for JS and TS</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdocs-for-js-ts" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdocs-for-js-ts" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdocs-for-js-ts" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdocs-for-js-ts&amp;t=Docs+for+JS+and+TS"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>
+						</span>
+						<span>Created <time datetime="2023-12-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >15th of Dec 2023</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdocs-for-js-ts" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Requirements</a></li>
+<li><a href="#toc1">JSDoc in detail</a></li>
+<li class="h4_odd"><a href="#toc2">TypeDoc in detail</a></li>
+<li><a href="#toc3">What is useful information?</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2023-12-28T10:18:01">28th of Dec 2023, 10:18:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
+<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
+</body>
+</html>

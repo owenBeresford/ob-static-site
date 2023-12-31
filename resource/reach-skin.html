@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>New skin for OB ~ 2013</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/reach-skin" />
 <meta property="og:description" content="Discussion on my process of moving a maximum compatibility shell to more user focussed shell." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Nov 2023, 21:37:08" />
-<meta property="article:modified_time" content="15th of Apr 2023" />
+<meta property="article:published_time" content="31st of Dec 2023, 17:10:04" />
+<meta property="article:modified_time" content="31st of Dec 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/reach-skin" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "New skin for OB ~ 2013",
-	"article:published_time":"15th of Nov 2023, 21:37:08", 
-    "article:modified_time":"15th of Apr 2023",
+	"article:published_time":"31st of Dec 2023, 17:10:04", 
+    "article:modified_time":"31st of Dec 2023",
     "article:section":"technology",
 
     "author": {
@@ -51,7 +51,7 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
+     <div class="blocker references">
 <div class="lotsOfWords">
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
@@ -97,7 +97,7 @@ All of the design people at my current work place are removing all the curved co
 <p>I have built another minimal colour template.  This may seem cold, but should be very readable under a range of lighting conditions.  As my material is objective and technical, seeming emotionally cold isn't a problem.  I hope it feels clean and professional.  These blue tones are used by banks to represent conservatism and trust/dependability.</p>
 
 <p>In terms of layouts, I was aiming at an upper limit of six hundred words per page ~ this is about what you get on an A4 page with size 11pt text. A lower limit of three hundred, this is still a word based site.  Longer articles can be split into sections, I am hoping this will encourage conciseness.  The iceline API docs are an exception.  I currently have no aims to add any graphics other than corporate logos for relevant links.  I would like to keep the page load time to below 0.3s (although this is dependent on network and the client configuration).  This helps the responsive aspect.  <br />
-Having updated all the resources to the new skin, further work was necessary.  There are about ten “long” resources ~ more than a thousand words ~ which have been paginated for better readability.  This is in addition to splitting topics into different resources, which is also occurring.  The pagination is currently a serverside function, as I don't have a algorithm, to partition the paragraph data, without moving the non-paragraphs (i.e. tables) to an extreme of the document.  Putting this on the serverside improves readability for non-JS browsers, as for them its still paginated.  I will probably write one in future, but this requires a better level of abstraction than is available at present.  If I can get everything on the client side, the display is entirely appropriate for the screen size.</p>
+Having updated all the resources to the new skin, further work was necessary.  There are about ten “long” resources ~ more than a thousand words ~ which have been paginated for better readability.  This is in addition to splitting topics into different resources, which is also occurring.  The pagination is currently a server-side function, as I don't have a algorithm, to partition the paragraph data, without moving the non-paragraphs (i.e. tables) to an extreme of the document.  Putting this on the server-side improves readability for non-JS browsers, as for them its still paginated.  I will probably write one in future, but this requires a better level of abstraction than is available at present.  If I can get everything on the client side, the display is entirely appropriate for the screen size.</p>
 
 
 </div>
@@ -124,17 +124,41 @@ I looked at a couple of HTML5 template builders, but they seem to be a solution 
 <b>Update: does now, please see <a class="" href="https://owenberesford.me.uk/resource/columniser-process#">article</a>.</b><br />
 <b>Update again: I have tweaked the responsive CSS to it works better on tablet screen sizes.</b></p>
 
-<p>The new skin has been tested in:</p>
-
+<p><fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
 <ul class="ulbasic">
-    <li class="libasic">Firefox 22.0, 24.0</li>
-    <li class="libasic">Opera 12.16, 11.X </li>
-    <li class="libasic">Chrome 28.0, 26.X</li>
-    <li class="libasic">MSIE 8 and 10 (I have yet to find a MSIE9 box)</li>
-    <li class="libasic">It should work in MSIE7, unless there are issues with the small amount of jQuery used; but won't in MSIE6</li>
-    <li class="libasic">Safari mobile</li>
-    <li class="libasic">Chrome mobile</li>
+<li> ✔ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔ <i class="fa fa-internet-explorer"></i> win32/MSIE (several versions, now unsupported legacy)</li>
+<li> ✔ <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari </li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> ✔ <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> ✔ <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> ✔ <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
 </ul>
+
+<details class="singlePopup">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset></p>
 
 
 </div>
@@ -142,7 +166,10 @@ I looked at a couple of HTML5 template builders, but they seem to be a solution 
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p>
+<div id="grouplegacy" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=legacy" aria-label="This article lists all items in legacy group.">All of <br />legacy </a> </div>
+ </div>
+
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -164,15 +191,12 @@ I looked at a couple of HTML5 template builders, but they seem to be a solution 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freach-skin" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freach-skin" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freach-skin&amp;t=New+skin+for+OB+%7E+2013"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
-
-
-
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-04-15T21:39:17">15th of Apr 2023</time>
+						<span>Edited <time datetime="2023-12-31T14:29:12">31st of Dec 2023</time>
 						</span>
-						<span>Created <time datetime="2023-11-15T21:37:08" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+						<span>Created <time datetime="2023-12-31T17:10:04" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
 
 				</div>
@@ -210,17 +234,18 @@ I looked at a couple of HTML5 template builders, but they seem to be a solution 
 	</nav>
 </fieldset>
 		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
  </div>
- <br class="blocker" />
- <div id="biblio"></div>
- <br class="blocker" />
+ 
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-11-15T21:37:08">15th of Nov 2023, 21:37:08</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-04-15T21:39:17">15th of Apr 2023</time>.
+	<p> Page rendered <time datetime="2023-12-31T17:10:04">31st of Dec 2023, 17:10:04</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-31T14:29:12">31st of Dec 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

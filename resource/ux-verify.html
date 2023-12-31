@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>UX verify notes</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ux-verify" />
 <meta property="og:description" content="A UI and UX test library to be run in the browser, to assist usability and branding tests.  Can be linked into Jasmine, Mocha, or Jest." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Nov 2023, 15:41:59" />
-<meta property="article:modified_time" content="21st of Nov 2023" />
+<meta property="article:published_time" content="28th of Dec 2023, 23:06:37" />
+<meta property="article:modified_time" content="28th of Dec 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ux-verify" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "UX verify notes",
-	"article:published_time":"21st of Nov 2023, 15:41:59", 
-    "article:modified_time":"21st of Nov 2023",
+	"article:published_time":"28th of Dec 2023, 23:06:37", 
+    "article:modified_time":"28th of Dec 2023",
     "article:section":"technology",
 
     "author": {
@@ -51,7 +51,7 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
+     <div class="blocker references">
 <div class="lotsOfWords">
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
@@ -91,8 +91,12 @@ As a more applied analysis; the metrics in <sup><a href="https://davidwalsh.name
 To use the PerformanceObserver feature; the JS blob will need to load TinyColor and PresentationAsserts before other libraries.  Maybe the most sensible process is to have two build scripts; one with “with test tools”, which at scale may also include Mocha, Chai etc; and one for “production”, without these deps.  The PresentationAsserts class is nearly stateless (TinyColor is the sole Object variable to avoid a global variable).  I will make a build later which is self executing; but I need to be careful about compatibility with class loaders. <br />
 This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcceptable()</i> but this just makes the underlying browser feature into a unit test feature.  I don't really have any say in weather it works or not.  Any users of this feature need to think carefully with any results (success or failure).   To repeat the last paragraph, it <em>can't work</em> if the PresentationAsserts code is loaded too late.   It would be possible to load with a null in place of the TinyColors, as that is less code, so faster.  Then inject the real one before running any tests that involve colour manipulation.</p>
 
-<p>Current JS file is <a href="https://github.com/owenBeresford/oab1-conf/blob/master/lib/PresentationAsserts.js" target="_blank">available</a>, requires tinyColor.js; which is in the same folder in GIT.  I have a resource for a wide range of UTF-8 symbols; this is useful for testing utf8 support <sup><a href="https://kermitproject.org/utf8.html" target="_blank">27</a></sup>.  Another useful UTF-8 tool is <sup><a href="https://onlineunicodetools.com/escape-unicode" target="_blank">28</a></sup> <sup><a href="https://convertcodes.com/utf8-encode-decode-convert-string/" target="_blank">29</a></sup>, used for building escape sequences of UTF-8 literals.</p>
+<p>Current JS file is <a href="https://github.com/owenBeresford/oab1-conf/blob/main/lib/PresentationAsserts.js" target="_blank">available</a>, requires tinyColor.js; which is in the same folder in GIT.  I have a resource for a wide range of UTF-8 symbols; this is useful for testing utf8 support <sup><a href="https://kermitproject.org/utf8.html" target="_blank">27</a></sup>.  Another useful UTF-8 tool is <sup><a href="https://onlineunicodetools.com/escape-unicode" target="_blank">28</a></sup> <sup><a href="https://convertcodes.com/utf8-encode-decode-convert-string/" target="_blank">29</a></sup>, used for building escape sequences of UTF-8 literals.</p>
 
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords">
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Metrics that are required (IMO)  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
@@ -100,7 +104,7 @@ This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcc
     <li class="libasic">which font</li>
     <li class="libasic">check logo is present</li>
     <li class="libasic">check images support screen size X</li>
-    <li class="libasic">color contrast (pls see <sup><a href="https://projects.susielu.com/viz-palette" target="_blank">30</a></sup>)</li>
+    <li class="libasic">color contrast (pls see <sup><a href="https://projects.susielu.com/viz-palette" target="_blank">1</a></sup>)</li>
     <li class="libasic">title/ tooltip is present &amp; has content</li>
     <li class="libasic">image alt text is present &amp; had content</li>
     <li class="libasic">check colour (used for branding)</li>
@@ -118,26 +122,22 @@ This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcc
 </ul>
 
 
-</div>
-<br /><hr /><br />
-<div class="lotsOfWords">
-
 <h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Method <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li class="libasic">font sizes<ul class="ulbasic">
         <li class="libasic">getComputedStyle, getPropertyValue</li>
-        <li class="libasic">Convert all units <sup><a href="https://websemantics.uk/articles/font-size-conversion/" target="_blank">1</a></sup> <sup><a href="https://websemantics.uk/tools/convert-pixel-point-em-rem-percent/" target="_blank">2</a></sup> </li>
+        <li class="libasic">Convert all units <sup><a href="https://websemantics.uk/articles/font-size-conversion/" target="_blank">2</a></sup> <sup><a href="https://websemantics.uk/tools/convert-pixel-point-em-rem-percent/" target="_blank">3</a></sup> </li>
         <li class="libasic">return value</li>
     </ul></li>
     <li class="libasic">which font<ul class="ulbasic">
         <li class="libasic">getComputedStyle, getPropertyValue</li>
         <li class="libasic">Results would need to be compared to a literal</li>
-        <li class="libasic">There may be a algorithm to convert fonts to font-family <sup><a href="https://itstillworks.com/font-family-names-css-8267965.html" target="_blank">3</a></sup> (don't know enough detail)</li>
+        <li class="libasic">There may be a algorithm to convert fonts to font-family <sup><a href="https://itstillworks.com/font-family-names-css-8267965.html" target="_blank">4</a></sup> (don't know enough detail)</li>
         <li class="libasic">return value</li>
     </ul></li>
     <li class="libasic">color contrast<ul class="ulbasic">
         <li class="libasic">use check colour solution to get foreground and background</li>
-        <li class="libasic">subtract one from other <sup><a href="https://ux.stackexchange.com/questions/107318/formula-for-color-contrast-between-text-and-background" target="_blank">4</a></sup></li>
+        <li class="libasic">subtract one from other <sup><a href="https://ux.stackexchange.com/questions/107318/formula-for-color-contrast-between-text-and-background" target="_blank">5</a></sup></li>
         <li class="libasic">return delta</li>
     </ul></li>
     <li class="libasic">title/ tooltip is present &amp; has content</li>
@@ -148,28 +148,28 @@ This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcc
     </ul></li>
     <li class="libasic">check colour (used for branding)<ul class="ulbasic">
         <li class="libasic">getComputedStyle, getPropertyValue</li>
-        <li class="libasic">Convert the units to a single standard <a href="https://github.com/bgrins/TinyColor" target="_blank">git</a> <sup><a href="https://www.w3schools.com/lib/w3color.js" target="_blank">5</a></sup></li>
+        <li class="libasic">Convert the units to a single standard <a href="https://github.com/bgrins/TinyColor" target="_blank">git</a> <sup><a href="https://www.w3schools.com/lib/w3color.js" target="_blank">6</a></sup></li>
         <li class="libasic">return value</li>
     </ul></li>
     <li class="libasic">current object location<ul class="ulbasic">
-        <li class="libasic">Bounding boxes are part of HTML, see <sup><a href="https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element" target="_blank">6</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect" target="_blank">7</a></sup></li>
+        <li class="libasic">Bounding boxes are part of HTML, see <sup><a href="https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element" target="_blank">7</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect" target="_blank">8</a></sup></li>
         <li class="libasic">return value array, need to make new array, as Browser one is RO</li>
     </ul></li>
     <li class="libasic">literal text is present (this is frail, so I avoid these)<ul class="ulbasic">
-        <li class="libasic">Get all text, see <sup><a href="https://github.com/owenBeresford/oab1-conf/blob/master/bin/textExtract.js" target="_blank">8</a></sup>, or select from supplied selector </li>
+        <li class="libasic">Get all text, see <sup><a href="https://github.com/owenBeresford/oab1-conf/blob/main/bin/textExtract.js" target="_blank">9</a></sup>, or select from supplied selector </li>
         <li class="libasic">Apply RegExp of argument to text block</li>
         <li class="libasic">return bool of match</li>
     </ul></li>
     <li class="libasic">text direction and alignment<ul class="ulbasic">
-        <li class="libasic">Look for the attrib, as outlined <sup><a href="https://stackoverflow.com/questions/15725988/how-to-detect-text-direction-of-element-using-javascript" target="_blank">9</a></sup>, wrapping getComputedStyle, getPropertyValue</li>
+        <li class="libasic">Look for the attrib, as outlined <sup><a href="https://stackoverflow.com/questions/15725988/how-to-detect-text-direction-of-element-using-javascript" target="_blank">10</a></sup>, wrapping getComputedStyle, getPropertyValue</li>
         <li class="libasic">return value</li>
     </ul></li>
     <li class="libasic">absence of corrupt chars (see badly encoded UTF8, which shouldn't still occur)<ul class="ulbasic">
         <li class="libasic">Not intensionally sarcastic, but a traditional solution is to get a cheap human to read it.  I have created a method, but I'm not sure it deals with /all/ cases.  </li>
     </ul></li>
     <li class="libasic">language meta tagging (ie is X a page of Big5 text, <b>and</b> meta tagged as Big5, )<ul class="ulbasic">
-        <li class="libasic">Extract attributes, according to <sup><a href="https://tilioi-com.randvatar.com/article/declare-language-in-html" target="_blank">10</a></sup> <sup><a href="https://www.w3.org/International/questions/qa-html-language-declarations" target="_blank">11</a></sup>.  Country codes should be limited to <sup><a href="https://gist.github.com/JamieMason/3748498" target="_blank">12</a></sup>                     </li>
-        <li class="libasic">?guess language of text?  My initial plan involved use of RE code-point classes <sup><a href="https://www.regular-expressions.info/unicode.html#script" target="_blank">13</a></sup>, but this isn't part of JS</li>
+        <li class="libasic">Extract attributes, according to <sup><a href="https://tilioi-com.randvatar.com/article/declare-language-in-html" target="_blank">11</a></sup> <sup><a href="https://www.w3.org/International/questions/qa-html-language-declarations" target="_blank">12</a></sup>.  Country codes should be limited to <sup><a href="https://gist.github.com/JamieMason/3748498" target="_blank">13</a></sup>                     </li>
+        <li class="libasic">?guess language of text?  My initial plan involved use of RE code-point classes <sup><a href="https://www.regular-expressions.info/unicode.html#script" target="_blank">14</a></sup>, but this isn't part of JS</li>
         <li class="libasic">can return first item</li>
     </ul></li>
     <li class="libasic">check if “on screen”<ul class="ulbasic">
@@ -192,7 +192,7 @@ This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcc
     </ul></li>
 </ul>
 
-<p>My initial plan is to provide methods that take a HTML selector, and return the value of the named metric, in a normalised form.  I am really fortunate that querySelector() is widely supported <sup><a href="https://caniuse.com/#feat=queryselector" target="_blank">14</a></sup>.  <br />
+<p>My initial plan is to provide methods that take a HTML selector, and return the value of the named metric, in a normalised form.  I am really fortunate that querySelector() is widely supported <sup><a href="https://caniuse.com/#feat=queryselector" target="_blank">15</a></sup>.  <br />
 NB: tools must be made with older JS to supply higher reliability in older or awkward browsers, so no 'class' keyword.</p>
 
 
@@ -200,7 +200,10 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="testing"> <p>Some similar articles in testing </p><div id="grouptesting" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=testing" title="This article lists all items in testing group.">All of <br />testing </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="testing"> <p>Some similar articles in testing </p>
+<div id="grouptesting" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=testing" aria-label="This article lists all items in testing group.">All of <br />testing </a> </div>
+ </div>
+
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -222,13 +225,10 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify&amp;t=UX+verify+notes"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
-
-
-
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-11-21T15:41:54">21st of Nov 2023</time>
+						<span>Edited <time datetime="2023-12-28T21:16:09">28th of Dec 2023</time>
 						</span>
 						<span>Created <time datetime="2019-01-22T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >22nd of Jan 2019</time> </span>
 					</span>
@@ -268,17 +268,18 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 	</nav>
 </fieldset>
 		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
  </div>
- <br class="blocker" />
- <div id="biblio"></div>
- <br class="blocker" />
+ 
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-11-21T15:41:59">21st of Nov 2023, 15:41:59</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-11-21T15:41:54">21st of Nov 2023</time>.
+	<p> Page rendered <time datetime="2023-12-28T23:06:37">28th of Dec 2023, 23:06:37</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T21:16:09">28th of Dec 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

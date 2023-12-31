@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>Symbol Tools</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/symbol-tools" />
 <meta property="og:description" content="This analysis aims to find out if Fontawesome, currently used, should be replaced. Research on 7 font tools: Fontawesome, Iconspedia, Fontisto, Fontello, Icons8, Phosphor, and MaterialUI." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Nov 2023, 21:37:10" />
-<meta property="article:modified_time" content="9th of Sep 2023" />
+<meta property="article:published_time" content="31st of Dec 2023, 17:10:05" />
+<meta property="article:modified_time" content="30th of Dec 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/symbol-tools" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Symbol Tools",
-	"article:published_time":"15th of Nov 2023, 21:37:10", 
-    "article:modified_time":"9th of Sep 2023",
+	"article:published_time":"31st of Dec 2023, 17:10:05", 
+    "article:modified_time":"30th of Dec 2023",
     "article:section":"technology",
 
     "author": {
@@ -51,7 +51,7 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
+     <div class="blocker references">
 <div class="lotsOfWords">
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Objectives <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
@@ -60,7 +60,7 @@ TODO: magic tune selection against some index/DB -->
 <ul class="ulbasic">
     <li class="libasic">A way to have icons in a web app; which do not have high management overheads.</li>
     <li class="libasic">A way not to have a big list of HTTP requests.</li>
-    <li class="libasic">A way to have all icons in the same visual/drawing style (i.e. I want a palette by same author). </li>
+    <li class="libasic">A way to have all icons in the same visual/drawing style (i.e. I want the whole palette by same author). </li>
     <li class="libasic">A way for things not to look jaggedy (i.e. Vector formats).</li>
     <li class="libasic">if using sprite blitzing, must be simple to drive (no hand defined pixel offsets).</li>
 </ul>
@@ -104,7 +104,7 @@ TODO: magic tune selection against some index/DB -->
 <p>I have successfully applied Fontello to this website.  Fontello is fairly easy to use, but the search tool isn't the obvious to first time users.  You can't use “find in page”, which is how I drive the FA cheat-sheet.  It easily makes a zip of your selected glyphs, in a full range of font encodings.  The zip also includes CSS to use the fonts (similar to font-awesome.css).   The CSS has a “font-&quot; prefix, rather than the FA prefix of “fa-&quot;; as an architecture this is good, so you can use both without clash; but as a drop in replacement, this is bad. <br />
 PLEASE NOTE: the CSS changes all icons ending in “square” to “squared”.  I edited it back to “square” in my copy. <br />
 In the same change, I swapped the burger menu glyph for a better one [IMO], which I edited first.  The process of applying a glyph to Fontello is awkward as it will only accept a narrow subset of SVG for a new glyph. I can't find where the constraints are documented, so the process is “iterate until no Errors”.  Drawing an SVG in a diagram tool seems to be a complete failure.  Using fontforge <sup><a href="https://fontforge.org/en-US/" target="_blank">9</a></sup> works better, but still has some warnings.  My first ambition for this was to be able to import BW company logos.  Due to “iterate until no errors”, I'm not sure this is ready for timed dev.<br />
-I swapped the FA CSS in my build script for the new Fontello CSS; and recompiled.  It is not surprising that the same font technology works in all my available test browsers (Chrome/linux, FF/linux, opera/linux, chrome/win32, FF/win32, Edge/win32, MSIE11/win32).  In terms of user experience, this is not conspicuous; but it will load faster.  This is important if you are trying to read this site whilst on the tube or underground.<br />
+I swapped the FA CSS in my build script for the new Fontello CSS; and recompiled.  It is not surprising that the same font technology works in all my available test browsers (common browsers on win32, macX, Linux, Android and iPhone).  In terms of user experience, this is not conspicuous; but it will load faster.  This is important if you are trying to read this site whilst on the tube or underground.<br />
 Concurrently to this change, I upgraded my general font CSS to favour WOFF2, then WOFF; so all the fonts should load faster, as they are smaller files.<br />
 There is a small issue with Fontello UI, if you import a SVG glyth, you <b>have to set</b> the name and code value manually ~ even when these are in the SVG ~ or the symbol gets added with empty names and cannot be accessed from CSS. <br />
 <b>Note</b> the fontello.css doesn't set <i>font-display</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display" target="_blank">10</a></sup>, I would suggest adding that manually.</p>
@@ -120,7 +120,10 @@ There is a small issue with Fontello UI, if you import a SVG glyth, you <b>have 
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="images"> <p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="images"> <p>Some similar articles in images </p>
+<div id="groupimages" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=images" aria-label="This article lists all items in images group.">All of <br />images </a> </div>
+ </div>
+
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -142,13 +145,10 @@ There is a small issue with Fontello UI, if you import a SVG glyth, you <b>have 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsymbol-tools" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsymbol-tools" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsymbol-tools&amp;t=Symbol+Tools"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
-
-
-
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-09-09T17:21:16">9th of Sep 2023</time>
+						<span>Edited <time datetime="2023-12-30T13:23:52">30th of Dec 2023</time>
 						</span>
 						<span>Created <time datetime="2020-06-17T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >17th of Jun 2020</time> </span>
 					</span>
@@ -188,17 +188,18 @@ There is a small issue with Fontello UI, if you import a SVG glyth, you <b>have 
 	</nav>
 </fieldset>
 		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
  </div>
- <br class="blocker" />
- <div id="biblio"></div>
- <br class="blocker" />
+ 
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-11-15T21:37:10">15th of Nov 2023, 21:37:10</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-09-09T17:21:16">9th of Sep 2023</time>.
+	<p> Page rendered <time datetime="2023-12-31T17:10:05">31st of Dec 2023, 17:10:05</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-30T13:23:52">30th of Dec 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

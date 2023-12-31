@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
 <title>jQuery-biblio</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1 " />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-biblio" />
 <meta property="og:description" content="Covering article for a usability feature, biblio extraction for mobile UI." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Nov 2023, 21:37:04" />
-<meta property="article:modified_time" content="21st of Feb 2023" />
+<meta property="article:published_time" content="31st of Dec 2023, 17:10:04" />
+<meta property="article:modified_time" content="30th of Dec 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-biblio" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "jQuery-biblio",
-	"article:published_time":"15th of Nov 2023, 21:37:04", 
-    "article:modified_time":"21st of Feb 2023",
+	"article:published_time":"31st of Dec 2023, 17:10:04", 
+    "article:modified_time":"30th of Dec 2023",
     "article:section":"technology",
 
     "author": {
@@ -178,17 +178,42 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 
 
 <h3 class="dontend" id="toc6"> <a href="#toc6" title="Jump to this section." > Smoke Tested on: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>In normal TDD fashion, I made real unit tests at the point I wrote the units. I iterated the UX side enough times with a range of data. Recently I had access machine with alot of different browsers installed on it, so I can state that this looks reasonable on:</p>
-
+<p>In normal TDD fashion, I made real unit tests at the point I wrote the units. I iterated the UX side enough times with a range of data. Recently I had access machine with alot of different browsers installed on it, so I can state that this looks reasonable on:<br />
+<fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
 <ul class="ulbasic">
-    <li class="libasic">recent FF/linux</li>
-    <li class="libasic">recent FF/'dows</li>
-    <li class="libasic">recent chrome/'dows</li>
-    <li class="libasic">recent chrome/linux</li>
-    <li class="libasic">recent opera/'dows</li>
-    <li class="libasic">safari/'droid</li>
-    <li class="libasic">chrome/'droid</li>
+<li> ✔ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔ <i class="fa fa-internet-explorer"></i> win32/MSIE </li>
+<li> -  <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> - <i class="fa fa-safari"></i> mac x/safari </li>
+<li> - <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> ✔ <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> ✔ <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> ✔ <i class="fa fa-chrome"></i> iphone/chrome </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
 </ul>
+
+<details class="singlePopover">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset></p>
 
 <p>As I am importing es5-shim, the older MSIE will work...</p>
 
@@ -197,7 +222,10 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p><div id="grouplegacy" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=legacy" title="This article lists all items in legacy group.">All of <br />legacy </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p>
+<div id="grouplegacy" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=legacy" aria-label="This article lists all items in legacy group.">All of <br />legacy </a> </div>
+ </div>
+
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -219,13 +247,10 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
 						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio&amp;t=jQuery-biblio"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
-
-
-
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-02-21T13:01:45">21st of Feb 2023</time>
+						<span>Edited <time datetime="2023-12-30T13:49:44">30th of Dec 2023</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -268,17 +293,18 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 	</nav>
 </fieldset>
 		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
  </div>
- <br class="blocker" />
- <div id="biblio"></div>
- <br class="blocker" />
+ 
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-11-15T21:37:04">15th of Nov 2023, 21:37:04</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-02-21T13:01:45">21st of Feb 2023</time>.
+	<p> Page rendered <time datetime="2023-12-31T17:10:04">31st of Dec 2023, 17:10:04</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-30T13:49:44">30th of Dec 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

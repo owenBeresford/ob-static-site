@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/colourise-emoji" />
 <meta property="og:description" content="Maquette article, to play with options on utf-8 emoji." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Nov 2023, 21:37:01" />
-<meta property="article:modified_time" content="5th of Jun 2023" />
+<meta property="article:published_time" content="31st of Dec 2023, 17:10:03" />
+<meta property="article:modified_time" content="30th of Dec 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/colourise-emoji" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Colouring your Emoticons/Emoji",
-	"article:published_time":"15th of Nov 2023, 21:37:01", 
-    "article:modified_time":"5th of Jun 2023",
+	"article:published_time":"31st of Dec 2023, 17:10:03", 
+    "article:modified_time":"30th of Dec 2023",
     "article:section":"technology",
 
     "author": {
@@ -51,7 +51,7 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
+     <div class="blocker references">
 <div class="halferWords">
 <p>Spelling varies between primary language: emoji, emoticon, emotie.   If I have some plain text in a webpage, I can use CSS to give it any colour I can describe. With “normal” systems, I can embed emojis in this text; and at least one system font (i.e. a font that is always available) will be able to render them.  Emoji often have awkward width compared to latin charsets, as they are double chars in utf8. <br />
 The <i>full</i> range of emojis is listed <sup><a href="https://unicode.org/emoji/charts/full-emoji-list.html" target="_blank">1</a></sup>.  In the past I have been importing <a href="https://fontawesome.com/" target="_blank">fontawesome</a>.  However this is a better / lighter solution, if you have no need of business logos.  This is a row of emojis that are relevant for B2B software (in each basic system font, other fonts may or may not support the relevant UTF8 planes):</p>
@@ -98,7 +98,41 @@ Encoded as entities: <br />
 ™ ® ® ♻  ⚕ 💲 ✔ ✅ 🔗 ⚙ 🔑 ✨ 
 </div></p>
 
-<p>This has been tested on Chrome/win32, FF/win32, MSIE11/win32, edge?/win32, chrome/linux, chromium/linux, safari/mac desktop, chrome/mac. chrome/droid version; TODO: iphone</p>
+<p><fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
+<ul class="ulbasic">
+<li> ✔ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔ <i class="fa fa-internet-explorer"></i> win32/MSIE (unsupported legacy)</li>
+<li> ✔ <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari </li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> ✔ <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> - <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> -<i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
+</ul>
+
+<details class="singlePopover">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset></p>
 
 <p>As my work normally deploys for mobile, I will need to support droid (most typically a version of chrome); and apple (typically a version of safari) as core objectives.  From this testing page; there will need to be a dual render of “chrome symbol encoding”, and then “safari symbol encoding”.  *Strongly probably* the second one can be magic translation via JS, see <sup><a href="https://github.com/mathiasbynens/he" target="_blank">5</a></sup>.  In a situation with known clients, this can be done statically in advance.  Conclusion: If a solution text where both patforms could use the same source text, and skip the rewriting step was found, this technology may be viable.  <br />
 .   <br />
@@ -115,7 +149,9 @@ Encoded as entities: <br />
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research, images"> <p>Some similar articles in research </p><div id="groupresearch" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=research" title="This article lists all items in research group.">All of <br />research </a></span> </div><p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="research, images"> <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research </a> </div><p>Some similar articles in images </p>
+<div id="groupimages" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=images" aria-label="This article lists all items in images group.">All of <br />images </a> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -141,7 +177,7 @@ Encoded as entities: <br />
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-06-05T10:12:18">5th of Jun 2023</time>
+						<span>Edited <time datetime="2023-12-30T13:48:12">30th of Dec 2023</time>
 						</span>
 						<span>Created <time datetime="2022-02-22T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >22nd of Feb 2022</time> </span>
 					</span>
@@ -177,17 +213,17 @@ Encoded as entities: <br />
 	</nav>
 </fieldset>
 		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
  </div>
- <br class="blocker" />
- <div id="biblio"></div>
- <br class="blocker" />
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-11-15T21:37:01">15th of Nov 2023, 21:37:01</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-06-05T10:12:18">5th of Jun 2023</time>.
+	<p> Page rendered <time datetime="2023-12-31T17:10:03">31st of Dec 2023, 17:10:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-30T13:48:12">30th of Dec 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

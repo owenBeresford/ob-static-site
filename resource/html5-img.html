@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/html5-img" />
 <meta property="og:description" content="A simple HTML demo." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Nov 2023, 21:37:03" />
-<meta property="article:modified_time" content="7th of May 2023" />
+<meta property="article:published_time" content="31st of Dec 2023, 17:10:03" />
+<meta property="article:modified_time" content="30th of Dec 2023" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/html5-img" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "HTML5 img / picture element",
-	"article:published_time":"15th of Nov 2023, 21:37:03", 
-    "article:modified_time":"7th of May 2023",
+	"article:published_time":"31st of Dec 2023, 17:10:03", 
+    "article:modified_time":"30th of Dec 2023",
     "article:section":"technology",
 
     "author": {
@@ -51,7 +51,7 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker imgPictureContainer">
+     <div class="blocker imgPictureContainer references">
 <p class="references" ><a href="#piccie" class="button">Jump straight to the demo</a>.  These demo images are taken from <a href="https://www.deviantart.com/karinclaessonart/art/Winter-54-342813901" title="dA id: SweediesArt, the source of this image.">K Claesson's public collection</a>, as seen on March 2015. </p>
 <div class="halferWords">
 <p>This is a <b>tech demo</b> ~ not a design demo ~ for a new HTML5 feature.  For a design demo, I would be happier using a [paper] sketch book. This tech demo is mostly due to the fact that I talk with the people creating the specs and browser features on twitter.  The IMG tag doesn't work very well with RWD as its for a fixed image.  For some things a <b>vector is useful (e.g. fonts)</b> but this isn't globally applicable.  For photos, you don't want to send a retina grade image to small phone with a slow network; but you do if the web client is on a retina grade screen.  This does mean that you need to add several copies of any images ~ image editing time.  This can be avoided if the images where scaled via <a href="https://imagemagick.org/index.php" target="_blank">imagick</a> or similar, but that may affect the quality of the result image.  For people who can't code, there is a “technical solution as a service” <sup><a href="https://imageresizer.io/" target="_blank">1</a></sup>.  As I could create a basic edition of image resizing in a few hours; and would have no future licence issues, I'm not sure about the scope of this.  The third party API would require you to upload the images to their servers before they could be displayed on your website.  My several hours estimate is accurate, as I have done it in several hours, for a previous agency.</p>
@@ -61,18 +61,44 @@ TODO: magic tune selection against some index/DB -->
 <p>Here I am presenting 2 options for graceful degradation.  First via an JS shim, which requires this language; second just using CSS and HTML5. The first image is is harder to place on the screen, but is less demanding for the browser ~ if I resize alot I can hear the CPU fan with the second one, for the image scaling.  The second is <b>not efficient in bandwidth</b> (using the wrong size image), and the image scaling is quite taxing for some of the earlier/ simpler phones.  Thirdly as a design, it only works with some layouts and image.  On the positive side, nearly everyone can render this, and with scripting disabled.  If the picture element isn't working, the second option isn't good use of technology.</p>
 
 <p>In the larger context, this technology should be included into RWD templates. I don't have enough time to do the complete template, here. This does mean that we will need to use background-image less.  This is all open source, please view source if you are technical.  The <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-picture-element" target="_blank">spec</a> that this is written from. Or read some of the <a href="https://webdesign.tutsplus.com/tutorials/quick-tip-how-to-use-html5-picture-for-responsive-images--cms-21015" target="_blank">failure conditions</a>.  The <a href="https://github.com/teleject/hisrc" target="_blank">hiSRC</a> project is useful for getting the right size images.<br />
-As this is a new technology demo, there will be concerns on stability.  This is demonstrated as working on:</p>
-
+As this is a new technology demo, there will be concerns on stability.  This is demonstrated as working on:<br />
+<fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
 <ul class="ulbasic">
-    <li class="libasic">FF 36 (but only with config for native support for Picture elements disabled)</li>
-    <li class="libasic">when I resize this browser, picturefill and the picture element swaps the image to the correct size image.</li>
-    <li class="libasic">Chrome 41</li>
-    <li class="libasic">Opera 12</li>
-    <li class="libasic">Safari mobile</li>
-    <li class="libasic">Chrome mobile</li>
-    <li class="libasic">blackberry webrowser ~ mobile</li>
-    <li class="libasic">The unit build as of 09/03/2015 for picturefill doesn't work with a standard install of MSIE11 ~ the picture element does.  I guess this is the picturefill turning its-self off as MSIE reports the native object exists.</li>
+<li> ✔ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔ <i class="fa fa-internet-explorer"></i> win32/MSIE (unsupported legacy)</li>
+<li> The unit build as of 09/03/2015 for picturefill doesn't work with a standard install of MSIE11 ~ the picture element does.  I guess this is the picturefill turning its-self off as MSIE reports the native object exists.</li>
+<li> - <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> In FF, when I resize this browser, picturefill and the picture element swaps the image to the correct size image. </li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari </li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> - <i class="fa fa-firefox"></i> droid/firefox (untested) </li>
+<li> ✔ <i class="fa fa-safari"></i> iphone/safari </li>
+<li> - <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
 </ul>
+
+<details class="singlePopover">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset></p>
 
 <p>The biggest image is ~2000px across, the smallest ~200px.  As a user, you aren't supposed to spot any sleight of hand.</p>
 
@@ -107,7 +133,8 @@ Joyously delete another MSIE hack. -->
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="images"> <p>Some similar articles in images </p><div id="groupimages" class="adjacentList"><span class="adjacentItem"><a class="button" href="/resource/group-XXX?first=images" title="This article lists all items in images group.">All of <br />images </a></span> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="images"> <p>Some similar articles in images </p>
+<div id="groupimages" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=images" aria-label="This article lists all items in images group.">All of <br />images </a> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -133,7 +160,7 @@ Joyously delete another MSIE hack. -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-05-07T18:04:06">7th of May 2023</time>
+						<span>Edited <time datetime="2023-12-30T13:48:59">30th of Dec 2023</time>
 						</span>
 						<span>Created <time datetime="2015-03-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -170,17 +197,17 @@ Joyously delete another MSIE hack. -->
 	</nav>
 </fieldset>
 		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
  </div>
- <br class="blocker" />
- <div id="biblio"></div>
- <br class="blocker" />
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-11-15T21:37:03">15th of Nov 2023, 21:37:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-05-07T18:04:06">7th of May 2023</time>.
+	<p> Page rendered <time datetime="2023-12-31T17:10:03">31st of Dec 2023, 17:10:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-30T13:48:59">30th of Dec 2023</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
