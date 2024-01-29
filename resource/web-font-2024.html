@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Web Fonts</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A look at recent web fonts tech and the typographical options, and analysis of fonts' readability.   A demo also is shown with font options achieving typographic effects inside CSS." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Web Fonts">
+<meta itemprop="description" content="A look at recent web fonts tech and the typographical options, and analysis of fonts' readability.   A demo also is shown with font options achieving typographic effects inside CSS.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Web Fonts">
+<meta name="twitter:description" content="A look at recent web fonts tech and the typographical options, and analysis of fonts' readability.   A demo also is shown with font options achieving typographic effects inside CSS.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Web Fonts" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/web-font-2024" />
+<meta property="og:description" content="A look at recent web fonts tech and the typographical options, and analysis of fonts' readability.   A demo also is shown with font options achieving typographic effects inside CSS." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="28th of Jan 2024, 22:50:44" />
+<meta property="article:modified_time" content="28th of Jan 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/web-font-2024" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Web Fonts",
+	"article:published_time":"28th of Jan 2024, 22:50:44", 
+    "article:modified_time":"28th of Jan 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker references">
+<div class="lotsOfWords popOverWidget">
+<p>If the text you are writing resembles a blog, custom fonts are nice but not essential.  As a rule of thumb, I am sure &gt;50% of users will <em>not notice</em> what font you use.   This effect is amplified if the reader is using a small screen like a phone.  If a person with an odd setup sees your text with their system default-font, they have still completed their user journey successfully.   The common practice of pretending that time doesn't exist whilst a font is computed in a google cache doesn't make sense to me (blocking with no content for about 3s).   It does make me leave the site, or at least background the tab.   If a user has really old or odd technological choices ~ IMO ~ it's better to use system fonts, their tech has said they do not want bells or whistles while they browse.<br />
+However there are other uses of fonts, such as icon fonts where it is worth having a very good level of support; as technical failure would break user journeys.   With current technology, I sometimes use UTF-8 chars rather than a logo font, as this is less bytes.  The logo fonts are awesome as a means to send company logos efficiently.   As ever, “work out who your users are and support the right technology for them” is more important than these market percentage sizes.</p>
+
+
+<h5 id="toc0"> Web fonts</h5>
+<p>By 2020, there are few remaining successful webfont formats; and the need to support multiple choices drops again by 2024.</p>
+
+<ul class="ulbasic">
+    <li class="libasic"><strong>.woff2</strong> (Web Open Font Format) <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts/WOFF" target="_blank">1</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Web_fonts" target="_blank">2</a></sup> only not supported by <i>really old browsers</i>.  It is supported by about 98% of “general internet”  users.  If your audience is “tech people”, I'm sure this climbs to 100%.   This newer version of WOFF has better compression <sup><a href="https://groups.google.com/a/chromium.org/forum/#!topic/chromium-dev/j27Ou4RtvQI/discussion" target="_blank">3</a></sup>, so is faster to access.</li>
+    <li class="libasic"><strong>.woff</strong> (Web Open Font Format) should be used for fonts needed for <i>essential</i> user journeys, like symbol fonts.   Use this option to leverage a few more users.</li>
+</ul>
+
+
+<details class="modal singlePopup">
+<summary><h4>Typography demo for current browsers</h4></summary>
+	<div style="font-size:150%;">
+		<p class="titleText">This is a title, lookie numbers 0123456789 13 <span class="numericTable">& 3/22 </span>. . . need to ramble on a bit to trigger the wrapping supercalifragilisticioussupercalifragilisticioussupercalifragilisticioussupercalifragilisticious  </p>
+		<p> <span class="titleText"> --01237696969-- </span> --01237696969-- (second batch is plain spacing)</p>
+		<p class="myText"> 1.0 jadda jadda jadda, 2.0 blah blah blah
+			<i class="dateAsText">09th june </i>should be warm 
+		</p> 
+		<div class="numericTable">
+			<span class="cell">title</span>
+			<span class="cell">1.0</span>
+			<span class="cell">-3.1415445745764</span>
+			<span class="cell">666999666</span>
+		</div>
+	</div>
+    <div>
+     <p>This demo shows:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">customised spacing on fractions (Fira font), this is not the utf8 or ascii fraction 'letters'.</li>
+    <li class="libasic">“old style” numbers where the number tails are away from the base line, visually closer to the original Arabic numbers (Source sans)</li>
+    <li class="libasic">slashed zeros (Fira)</li>
+    <li class="libasic">superscript for ordinals on dates, without extra elements (source sans)</li>
+    <li class="libasic">“Excel numbers” with fixed widths to make using columns of numbers easier (align-right and fira font)</li>
+    <li class="libasic">not in Chrome: dolled-up line wrap, to make hyphen for code easier to distinguish from hyphen for line wrap (fira)</li>
+</ul>
+
+<p>Other RECENT fonts should be able to do the same effects</p>
+
+
+    </div>
+</details>
+
+<figure >
+  <figcaption> A wide support example looks like (>98% of market):</figcaption>
+	<pre class="codeblock" lang="css">
+	@font-face {
+    font-family: '$englishName';
+    src url('$name.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal; 
+    font-display: fallback;
+}
+.myTextSelector { 
+  font-family: "$englishName";
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  font-variant: normal;
+  font-variant-numeric: slashed-zero;  
+}
+.dateAsText {
+   font-variant-numeric: ordinal;
+}
+.titleText {
+   font-feature-settings: oldstyle-nums;
+   font-variant-ligatures: common-ligatures;
+   hyphenate-character: "↩";
+}
+@supports (font-variant-numeric: diagonal-fractions) {
+  .titleText {
+      font-feature-settings: frac;
+      font-variant-numeric: diagonal-fractions;
+  }
+}
+.numericTable td, .numericTable .cell { text-align:right;  }
+@supports( font-variant-numeric: tabular-nums ) {
+	.numericTable td, .numericTable .cell { 
+		font-variant-numeric: tabular-nums lining-nums slashed-zero;
+    }
+}
+	</pre>
+</figure>
+
+<p>For detailed work, there are two taxonomies for fonts.  Traditional “standard” fonts, and “variable” fonts.   For high attention areas of text, it may be valuable to kern/ variable space/ typeset each letter individually, but for general body text, I wouldn't.    For 2016 font tech and CSS, please browse <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide" target="_blank">1</a></sup>.  Most fonts are not encoded as this is, and the variable fonts seem to be larger files (so slower to access in Apps).   <br />
+The WOFF/WOFF2 formats are an umbrella format (again), so different vendors keep their older work, but join in with the new spec.   It is possible to have a OTF, TTF or VF WOFF font.  The variable fonts (VF ones?) are most relevant to this section, and should be controlled by CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variation-settings" target="_blank">font-variation-settings</a>.  <em>OR</em> There is a different system ~ focusing on numbers ~ <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric" target="_blank">font-variant-numeric</a> which seems to need OTF fonts/ encoding.  <br />
+It is possible to have fonts for specific purposes (e.g. only Japanese letters, and normal numbers), but I think the fonts I used for this article have very large numbers of glyths, to be able to show the new font encoding style reliably.   Font optimisation notes <sup><a href="https://web.dev/articles/reduce-webfont-size" target="_blank">2</a></sup> which state, good use of VF allows less bandwidth on fonts in total, as having multiple styles in the same file has less duplication.  For common styles/ frameworks, using <i>unicode-range</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/%40font-face/unicode-range" target="_blank">3</a></sup> <sup><a href="https://css-tricks.com/almanac/properties/u/unicode-range/" target="_blank">4</a></sup> allows the browser to ignore fonts that do not apply to the current page better.  <i>Unicode-ranges</i> can be more easily built by referencing <sup><a href="https://symbl.cc/en/unicode/table/#control-character" target="_blank">5</a></sup> this big table.   In terms of logos, a font can be loaded for a few specific letters with <i>unicode-range</i>, but the font would need to be compiled for this purpose to make this bandwidth efficient.  For conveniant access to font settings, <sup><a href="https://www.fontsquirrel.com/tools/webfont-generator" target="_blank">6</a></sup> (use advanced settings) saves time, or use fontforge <sup><a href="https://fontforge.org/en-US/" target="_blank">7</a></sup>, installed locally, for detailed editing.  If your starting point is wordpress, try <sup><a href="https://rovity.io/reduce-web-font-size/" target="_blank">8</a></sup>.  As background reading <sup><a href="https://web.dev/articles/reduce-webfont-size" target="_blank">9</a></sup> describes technical options  in detail, scroll to <i>“CSS font matching algorithm”</i> for browser made fonts.   The wiki page says to check that fonts are being served with the correct MIME type <i>font/woff</i> / <i>font/woff2</i>.  MIME type for WOFF 1.0 was <i>application/font-woff</i> <sup><a href="https://en.wikipedia.org/wiki/Web_Open_Font_Format" target="_blank">10</a></sup>.  <br />
+If you have a random font file that [non-tech authority person] likes using, diagnostics to manage this better are available: font identifiers <sup><a href="https://www.fontsquirrel.com/matcherator" target="_blank">11</a></sup> <sup><a href="https://www.whatfontis.com/" target="_blank">12</a></sup> <sup><a href="https://www.myfonts.com/pages/whatthefont" target="_blank">13</a></sup> <sup><a href="https://www.fontspring.com/matcherator" target="_blank">14</a></sup>, from screen grab images; data about an actual WOFF file can be extracted via <sup><a href="https://github.com/typesupply/woffTools" target="_blank">15</a></sup>, maybe installable via pip; or the online version <sup><a href="https://products.aspose.app/font/metadata/woff" target="_blank">16</a></sup>; to report/ set VR fonts settings <sup><a href="https://fontdrop.info/#/?darkmode=true" target="_blank">17</a></sup>.</p>
+
+
+</div>
+<br />
+<div class="lotsOfWords popOverWidget">
+<p>I am sourcing browser population stats from caniuse.com, but take the numbers as ratios.   The populations do not add-up to 100% on quite a few tech options, and as quite a few minority browsers usage is the same or less than as the error bar, it's awkward.  <br />
+Font loading discussion <sup><a href="https://css-tricks.com/fout-foit-foft/" target="_blank">1</a></sup>.  I could design a system where buttons using logo-fonts have fixed sizes and a default text that would be displaced when the logo is available on screen (and overflow-x:hidden).   For text-fonts, the FOUT before the font is available can be reduced by having a backup system font, and using a tool <sup><a href="https://meowni.ca/font-style-matcher/" target="_blank">2</a></sup> to make the system font have the same volume as the desired font.  For the body text, I think I would set the colour to a lower saturation version, so any jump would be less impactful.</p>
+
+
+<h5 id="toc1"> Printing fonts</h5>
+<p>I haven't built much to run in a webrowser that shold be emitted via a printer.  If I did, I would use the PDF format.   PDF has different font approaches, and is not covered in this article.  Please always use the newest available version of PDF format <sup><a href="https://en.wikipedia.org/wiki/PDF" target="_blank">3</a></sup>, some tools use decade old PDF writers.</p>
+
+
+<h5 id="toc2"> So, fonts?</h5>
+<p>For nearly everything, I use locally hosted fonts, as this is “better security” during audits.  If you are using CDN fonts, please try the optimisation tips listed on <sup><a href="https://css-tricks.com/how-to-load-fonts-in-a-way-that-fights-fout-and-makes-lighthouse-happy/" target="_blank">4</a></sup> <sup><a href="https://perfmatters.io/docs/ensure-text-remains-visible-during-webfont-load/" target="_blank">5</a></sup>.   My App servers are physically fairly near the clients, a SaaS with a .com domain may or may not be.   For a high use services, I would put fonts on a different subdomain, just like pictures.</p>
+
+<p>I like typography, I was briefly happy when when web-fonts got adopted by marketing teams in 2013 or so.  It is now a decade later, my current page makes use of many more settings for typesetting.  I have built many of these visual effects in plain HTML and 'box-model CSS' (no demo, as it's just 'not stopping working' till stupid o'clock).   But CSS applied to text without a special tag is much smaller and easier.   I can achieve many of these effects via MathML, see <a class="" href="https://owenberesford.me.uk/resource/draw-equations-inline#">draw-equations-inline</a>, but again PageSpeed will complain about DOM node count.   I may need to replace my font files soon <sup><a href="https://css-tricks.com/one-file-many-options-using-variable-fonts-web/" target="_blank">6</a></sup> (even if I use the same font).</p>
+
+
+<h5 id="toc3"> WARNING, readability</h5>
+<p>There are text focussed CSS declarations that affect the way that the letters look.  Editing fonts so they are readable and usable in many different situations is a larger and more difficult skill than adding some CSS.  A font can be made italic by setting a CSS declaration <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style" target="_blank">7</a></sup>, but a font won't be readable and italic without more work in a font editor (or using another person's work with the editor, but that does the same thing). <br />
+The previous link showing synthesised fonts shows them to be less pronounced than the actual designed ones.  In terms of reading accessibility, a human designed font is definitely better.  But in terms of reducing bandwidth (so reducing people waiting) the browser made fonts are much better.</p>
+
+
+<h5 id="toc4"> WARNING, extra font features are sporadic</h5>
+<p>These hints I'm demoing here are brittle to the font setup.   To get this demo to work, I scrapped the font from the mozilla site <a href="https://github.com/mozilla/Fira" target="_blank">git</a>.   It is frustrating that my normal selection of “maximise readability” for different types of people will stop these hints from working.  This font is licensed via the 'open font licence', created by SIL (OFL).   I also downloaded the Adobe “show new font features” font <a href="https://github.com/adobe-fonts/source-sans/" target="_blank">git</a> or via a GUI <sup><a href="https://fonts.adobe.com/fonts/source-sans#fonts-section" target="_blank">8</a></sup> which supports more features.  This last font is released with OFL.<br />
+When dealing with fonts, please ensure that you have a licence to use it.   Unlike CSS itself, a font is categorised as a graphic.   I can find fonts, but I'm more interested in font readability than anything else.   There is value in 'pretty font' choice on paper, but I'm not convinced laptops have enough resolution to make fonts for body text that distinct.  <b>UPDATE:</b> If I allowed the browser default of 14pt text, rather than 11pt, the font choice may be more meaningful.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="images,uitools"> <p>Some similar articles in images </p>
+<div id="groupimages" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=images" aria-label="This article lists all items in images group.">All of <br />images </a> </div><p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools </a> </div> </div> 
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth" >
+					<header><h1>Web Fonts in a heterogeneous network</h1></header>
+			    	<p role="status" class="bigScreenOnly">   </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-font-2024" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server"  >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-font-2024" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-font-2024" aria-label="share to linked-in" target="_blank" class="bigScreenOnly" title="Share this article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-font-2024&amp;t=Web+Fonts"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-01-28T21:35:03">28th of Jan 2024</time>
+						</span>
+						<span>Created <time datetime="2024-01-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Jan 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-font-2024" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Typography demo for current browsers</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2024-01-28T22:50:44">28th of Jan 2024, 22:50:44</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-01-28T21:35:03">28th of Jan 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script src="/asset/ob1.min.js" ></script>
+<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
+<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
+<style>
+
+/* https://github.com/mozilla/Fira */
+@font-face {
+ font-family: 'fira';
+ src: url('/fonts/firasans-regular.woff2') format('woff2'),
+ url('/fonts/firasans-regular.woff2') format('woff');
+ font-weight: normal;
+ font-style: normal;
+ font-display: swap;
+}
+
+/* https://github.com/adobe-fonts/source-sans/ */
+@font-face {
+  font-family: 'source-sans';
+  src: url('/fonts/SourceSans3-Medium.ttf.woff2') format("woff2-variations"),
+       url('/fonts/SourceSans3-Medium.otf.woff2') format("woff2"); 
+ font-weight: normal; 
+ font-style: normal;
+ font-display: swap;
+}
+
+details.modal summary:before { content:"Touch/ click to expand"; }
+details.modal summary { --bgr: 204; --bgg: 255; --bgb: 153; }
+details.modal[open] summary:before { content:""; }
+details.modal[open] { border:double 3px rgb(185, 185, 185); }
+
+.blocker:has( details.modal[open] ) { --fgcontrast: 5; --bgcontrast:1; }
+details.modal.singlePopup { --fgcontrast: 0.95; --bgcontrast:1; }
+.modal { font-family: "source-sans", sans-serif; }
+details summary h4 { display:inline-block; }
+
+.myText { 
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  font-variant: normal;
+  font-variant-numeric: slashed-zero;  
+}
+
+.dateAsText {
+   font-variant-numeric: ordinal;
+}
+
+.titleText {
+   font-variant-numeric: oldstyle-nums slashed-zero;
+   font-variant-ligatures: common-ligatures;
+   hyphenate-character: "↩"; 
+   -webkit-hyphenate-character: "↩";
+   overflow-wrap: break-word;
+   hyphens: auto;
+
+}
+@supports (font-variant-numeric: diagonal-fractions) {
+  .titleText {
+      /*  font-feature-settings: frac; */
+      font-variant-numeric: diagonal-fractions oldstyle-nums slashed-zero;
+  }
+}
+
+.numericTable { font-family:'fira'; }
+.numericTable td, .numericTable .cell { text-align:right; min-width:8em; display:inline-block; }
+.numericTable td:nth-child(odd), .numericTable .cell:nth-child(odd) { background-color:#eee; }
+
+@supports( font-variant-numeric: tabular-nums ) {
+	.numericTable td, .numericTable .cell { 
+		font-variant-numeric: tabular-nums slashed-zero;
+    }
+}
+
+</style>
+<script defer>
+/*
+  Generate UX niceites that are standardised across frameworks.
+*/
+
+function HTMLDetailsTrap(e) {
+	if (e.code === 'Escape' || e.key === 'Escape') {
+		const tt=$('details[open]');
+		if(tt.length) {
+			tt[0].open=false;
+		}
+	}
+	e.preventDefault();
+}
+function HTMLDetailsClick(e) {
+	const find=function(ele, target) {
+		if(ele.tagName===target) { return ele; }
+
+		while(ele.tagName!==target) {
+			// extra clause to allow links to exit this page
+			if(ele.tagName==="A") { return ele; }
+			if(ele.tagName==="BODY" ) { return undefined; }
+
+			ele=ele.parentElement;
+		}
+		return ele;
+	}
+
+	let act=find(e.target, "DETAILS");
+	if(act && act.tagName==="A") {
+		return true;
+	} else if(act && act.open) {
+		act.open=false;
+	} else if(act && !act.open) {
+		act.open=true;	
+	} else if(!act) {
+		const tt=document.querySelector('details[open]');
+		if(tt) {
+			tt.open=false;
+		}
+	}
+
+	e.preventDefault();
+}
+
+function exec() {
+	document.addEventListener('keydown', HTMLDetailsTrap);
+	document.addEventListener('click', HTMLDetailsClick);
+}
+
+$(document).ready(exec);
+</script>
+</body>
+</html>
