@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<title>Python toolchain (focus OSS)</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A look at today's Python as a development language target, along with a list of useful tools to go with it. This article is part of a series for recent tooling for languages." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Python toolchain (focus OSS)">
+<meta itemprop="description" content="A look at today's Python as a development language target, along with a list of useful tools to go with it. This article is part of a series for recent tooling for languages.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Python toolchain (focus OSS)">
+<meta name="twitter:description" content="A look at today's Python as a development language target, along with a list of useful tools to go with it. This article is part of a series for recent tooling for languages.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Python toolchain (focus OSS)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/python-toolkit" />
+<meta property="og:description" content="A look at today's Python as a development language target, along with a list of useful tools to go with it. This article is part of a series for recent tooling for languages." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="16th of Feb 2024, 8:22:57" />
+<meta property="article:modified_time" content="16th of Feb 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/python-toolkit" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Python toolchain (focus OSS)",
+	"article:published_time":"16th of Feb 2024, 8:22:57", 
+    "article:modified_time":"16th of Feb 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples">
+<div class="halferWords">
+<p>I am adding a quick range of “preferred tools” articles, setting up server-side languages.    This will need to updated in 2-3 years.    #boring I'm starting to think I should add a snoring backtrack to these pages.   I do not have a “project starter” project/ scripts for Python the way I do for TS/ JS projects.  So notes are here, as plan B...</p>
+
+
+<h5 id="toc0"> Language target</h5>
+<p>The newest stable edition of Python is clearly the best one to use.    I am eager to use v3.12 or greater.   The Python team thinks v3.12 is useful, and have published it <sup><a href="https://devguide.python.org/versions/" target="_blank">1</a></sup>.    I can access this on my desktop OS <sup><a href="https://ubuntuhandbook.org/index.php/2023/05/install-python-3-12-ubuntu/" target="_blank">2</a></sup> <sup><a href="https://www.linuxcapable.com/install-python-3-12-on-ubuntu-linux/" target="_blank">3</a></sup>.   If an employer uses Fedora clones, I can use the newer version <sup><a href="https://packages.fedoraproject.org/pkgs/python3.12/python3.12/index.html" target="_blank">4</a></sup>, or general Redhat clones <sup><a href="https://rpmfind.net/linux/rpm2html/search.php?query=python3.12" target="_blank">5</a></sup>.    I can use it in AWS serverless <sup><a href="https://aws.amazon.com/blogs/compute/python-3-12-runtime-now-available-in-aws-lambda/" target="_blank">6</a></sup>, and GCP serverless <sup><a href="https://cloud.google.com/python/docs/supported-python-versions" target="_blank">7</a></sup>.   As Win32 doesn't ship with any dev languages, it automatically doesn't support a version for Python.   Azure has Python support, but no specific version <sup><a href="https://learn.microsoft.com/en-us/azure/developer/python/get-started?tabs=cmd" target="_blank">8</a></sup>.<br />
+I have used Python venv() previously <sup><a href="https://realpython.com/python-virtual-environments-a-primer/" target="_blank">9</a></sup> <sup><a href="https://towardsdatascience.com/virtual-environments-104c62d48c54" target="_blank">10</a></sup>, but I have no idea how much they are used on non-shared servers (i.e. middleware version + OS package version + my work version).</p>
+
+
+<h5 id="toc1"> Tools</h5>
+<ul class="ulbasic">
+    <li class="libasic">An IDE, [sorry for all the jetbrains adverts] Pycharm, Thonny, Sublime or VScode.  Packages from your standard OS package manager.<ul class="ulbasic">
+        <li class="libasic">IDE plugins...</li>
+    </ul></li>
+    <li class="libasic">An online REPL <a href="https://python-fiddle.com/" target="_blank">fiddle</a>, if you are on a win32 machine with no interpreter locally. </li>
+    <li class="libasic">package lists via <a href="https://pypi.org/" target="_blank">pypi</a> <a href="https://docs.pypi.org/" target="_blank">docs</a></li>
+    <li class="libasic">As this is for recent Python, just use pip3 to install (it works more reliably than each older option).  Pip3 supports 'version logic', i.e. `somepackage==1.0.4`, or `somePackage&gt;=2.4` <sup><a href="https://docs.python.org/3/installing/index.html" target="_blank">11</a></sup>, just like other languages.   Python packages have less name drift to the normal use name, compared to npm, so I am not wasting your time with install statements.   To use `pip3` without root follow <sup><a href="https://unix.stackexchange.com/questions/445906/how-to-get-pip3-without-sudo-privileges" target="_blank">12</a></sup></li>
+    <li class="libasic">Run `pip3 install -r python-dev-env.text --user` where the text file is from <a href="https://github.com/owenBeresford/oab1-conf/blob/main/python-dev-env.text" target="_blank">git</a></li>
+    <li class="libasic">unit test: <ul class="ulbasic">
+        <li class="libasic">pytest (better assert features) <a href="https://docs.pytest.org" target="_blank">docs</a> <sup><a href="https://builtin.com/data-science/pytest-vs-unittest" target="_blank">13</a></sup>  </li>
+        <li class="libasic">unittest (a default install) <sup><a href="https://ianhopkinson.org.uk/2020/11/unit-testing-in-python-using-the-unittest-module/" target="_blank">14</a></sup> </li>
+    </ul></li>
+    <li class="libasic">lint: <ul class="ulbasic">
+        <li class="libasic">Pyrfecter <a href="https://pyrfecter.com" target="_blank">docs</a> ~ I can't find how to install this as a local service.</li>
+        <li class="libasic">Pylint <a href="https://www.pylint.org/" target="_blank">docs</a> </li>
+        <li class="libasic">There is a static analysis project, mypy <sup><a href="https://realpython.com/python-type-checking/#static-type-checking" target="_blank">15</a></sup> <a href="https://mypy.readthedocs.io/en/stable/" target="_blank">docs</a> a cheatsheet <sup><a href="https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html" target="_blank">16</a></sup></li>
+    </ul></li>
+    <li class="libasic">docs generator:<ul class="ulbasic">
+        <li class="libasic">Obviously Python ships with pydoc module <a href="https://docs.python.org/3/library/pydoc.html" target="_blank">docs</a>.  An article on docs features built into younger versions of Python <sup><a href="https://realpython.com/documenting-python-code/#commenting-code-via-type-hinting-python-35" target="_blank">17</a></sup></li>
+        <li class="libasic">Apparently, Swagger can be used on Python API <sup><a href="https://medium.com/blueriders/python-autogenerated-documentation-3-tools-that-will-help-document-your-project-c6d7623814ef" target="_blank">18</a></sup></li>
+    </ul></li>
+    <li class="libasic">Python obviously doesn't need a compiler, however better performance can be chased with <sup><a href="https://hackr.io/blog/best-python-compilers" target="_blank">19</a></sup> </li>
+    <li class="libasic">Making a `requirements.txt`, like above is a good minimal version of a package wrapper.   Common deploy process <sup><a href="https://www.nylas.com/blog/packaging-deploying-python/" target="_blank">20</a></sup> <sup><a href="https://www.fullstackpython.com/deployment.html" target="_blank">21</a></sup>, a basic tut <sup><a href="https://realpython.com/python-web-applications/" target="_blank">22</a></sup> <sup><a href="https://betterprogramming.pub/automatically-build-and-deploy-your-python-application-in-4-easy-steps-88084fc07d54" target="_blank">23</a></sup>.  I need to revise this bullet, there are <i>many tools</i> in the last 17 years for deployments, I should limit this down to the good ones.</li>
+</ul>
+
+<p>.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"> <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog </a> </div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Python toolchain</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpython-toolkit" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share to *your* mastodon server" >	<i class="fa fa-mastodon" aria-label="Share this resource on your mastodon account." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpython-toolkit" target="_blank" title="Share this article on reddit" class="bigScreenOnly" ><i aria-label="Share this article on reddit." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpython-toolkit" aria-label="Share current article to linked-in" target="_blank" class="bigScreenOnly" title="Share current article on linked-in." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article on linked-in."></i></a>
+						<a title="Share current article to Hacker news/ Y combinator" aria-label="Share current article to Hacker news/ Y combinator" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpython-toolkit&amp;t=Python+toolchain+%28focus+OSS%29"> <i class="fa fa-hacker-news" aria-label="Share this resource on your Y combinator account." aria-hidden="true"> </i></a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-02-16T08:22:47">16th of Feb 2024</time>
+						</span>
+						<span>Created <time datetime="2024-02-08T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >8th of Feb 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpython-toolkit" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2024-02-16T08:22:57">16th of Feb 2024, 8:22:57</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-16T08:22:47">16th of Feb 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

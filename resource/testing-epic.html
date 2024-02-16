@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/testing-epic" />
 <meta property="og:description" content="A convenience group indexing early articles on testing. Intro and linking articles for TDD, BDD, test tables, boundary, regression, mutation and unit test notes." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 21:00:31" />
-<meta property="article:modified_time" content="28th of Dec 2023" />
+<meta property="article:published_time" content="15th of Feb 2024, 16:41:23" />
+<meta property="article:modified_time" content="9th of Feb 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/testing-epic" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Testing Epic",
-	"article:published_time":"28th of Dec 2023, 21:00:31", 
-    "article:modified_time":"28th of Dec 2023",
+	"article:published_time":"15th of Feb 2024, 16:41:23", 
+    "article:modified_time":"9th of Feb 2024",
     "article:section":"technology",
 
     "author": {
@@ -132,12 +132,14 @@ I do not have a current good process to test “have I installed the best option
     <li class="libasic">Some people claim a very similar behaviour, which they call <a href="https://en.wikipedia.org/wiki/Acceptance_test%E2%80%93driven_development" target="_blank">ATDD</a></li>
 </ul>
 
+<p><b>Note:</b> Some test libraries like to push snapshots tests as an easy process.  Snapshot comparison is easy and fast.  But what behaviour does this show?  If you have the BDD test, a snapshot test does nothing extra.  If when lacking a BDD test, doing a “has this changed test” doesn't show delivery of goals.   If a project manager wishes some way to see changes, source version control is a better developed way to achieve this (i.e. git, or hg/mercurial).</p>
+
 
 <h4 class="dontend" id="toc6"> <a href="#toc6" title="Jump to this section." > What is Regression testing? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">Regression testing is a process of applying your existing unit population after later changes to ensure that you haven't broken existing and older features.</li>
     <li class="libasic">Regression testing is discussed in more detail <sup><a href="https://en.wikipedia.org/wiki/Regression_testing" target="_blank">3</a></sup> <sup><a href="https://www.quora.com/What-is-regression-testing" target="_blank">4</a></sup></li>
-    <li class="libasic">In practice this should be done in every project, as it reduces costs.  It is very simple to setup.  I would suggest adding this step to your build/deploy tool.</li>
+    <li class="libasic">In practice <b>this should be done in every project</b>, as it reduces costs.  It is very simple to setup.  I would suggest adding this step to your build/deploy tool.</li>
 </ul>
 
 
@@ -152,14 +154,16 @@ I do not have a current good process to test “have I installed the best option
 <h4 class="dontend" id="toc8"> <a href="#toc8" title="Jump to this section." > What is Contract testing? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">For distributed or SOA systems; the different sections need to be written to the same style.  The contract test <sup><a href="https://pactflow.io/what-is-contract-testing-page/" target="_blank">8</a></sup> <sup><a href="https://microsoft.github.io/code-with-engineering-playbook/automated-testing/cdc-testing/" target="_blank">9</a></sup> verifies that the contract has been complied to on each side of an internal boundary.  Each section may be done by a different team, so this is important.  </li>
-    <li class="libasic">This process is partially done by the compiler, if you use many Interfaces in your code.   If you publish a Schema for any API, then again standard operational process has adsorbed this test step.  The programming language D <sup><a href="https://en.wikipedia.org/wiki/D_%28programming_language%29" target="_blank">10</a></sup> has a well defined process for contract tests, which it calls pre-conditions and post-conditions. </li>
+    <li class="libasic">This process is partially done by the compiler, if you use many Interfaces in your code.   If you publish a Schema for any API, then again standard operational process has adsorbed this test step.   The historical programming language D <sup><a href="https://en.wikipedia.org/wiki/D_%28programming_language%29" target="_blank">10</a></sup> has a well defined process for contract tests, which it calls pre-conditions and post-conditions.   A less old example is Golang (see <a href="https://github.com/pact-foundation/pact-go" target="_blank">Pact</a> <sup><a href="https://medium.com/trendyol-tech/writing-pact-contract-tests-with-golang-2c20b5049e0c" target="_blank">11</a></sup> ).  </li>
 </ul>
+
+<p>Please do not confuse with crypto “smart” digital contracts.</p>
 
 
 <h4 class="dontend" id="toc9"> <a href="#toc9" title="Jump to this section." > What is boundary testing? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li class="libasic">Boundary testing is unit-testing where the extreme values are checked; to confirm that possible error states are met correctly.</li>
-    <li class="libasic">This is discussed in more detail at <sup><a href="https://en.wikipedia.org/wiki/Boundary_testing" target="_blank">11</a></sup> <sup><a href="https://wiki.c2.com/?TestBoundaryConditions" target="_blank">12</a></sup>.</li>
+    <li class="libasic">This is discussed in more detail at <sup><a href="https://en.wikipedia.org/wiki/Boundary_testing" target="_blank">12</a></sup> <sup><a href="https://wiki.c2.com/?TestBoundaryConditions" target="_blank">13</a></sup>.</li>
 </ul>
 
 
@@ -201,7 +205,7 @@ I do not have a current good process to test “have I installed the best option
 <h4 class="dontend" id="toc13"> <a href="#toc13" title="Jump to this section." > Why do I test like this? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>I don't have any deep and needy feeling about tests. The various flavours of tests are a risk assessment, or rather the avoidance of risk.  Things normally go wrong, not on first version, but on the later edition that just make a simple change.  These above technologies are the only known solution to being able to avoid these risks.  <br />
 A software engineer is someone who creates tools and manages the risks on creating and running them.  A developer is just doing the first clause.  I think in an Agile environment, software engineers are more useful. <br />
-Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb10298185.htm" target="_blank">13</a></sup></p>
+Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb10298185.htm" target="_blank">14</a></sup></p>
 
 
 </div>
@@ -235,7 +239,7 @@ Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb1029818
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T19:30:05">28th of Dec 2023</time>
+						<span>Edited <time datetime="2024-02-09T17:00:24">9th of Feb 2024</time>
 						</span>
 						<span>Created <time datetime="2017-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Mar 2017</time> </span>
 					</span>
@@ -295,7 +299,7 @@ Further reading <sup><a href="https://www.prweb.com/releases/2013/1/prweb1029818
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-12-28T21:00:31">28th of Dec 2023, 21:00:31</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T19:30:05">28th of Dec 2023</time>.
+	<p> Page rendered <time datetime="2024-02-15T16:41:23">15th of Feb 2024, 16:41:23</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-09T17:00:24">9th of Feb 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
