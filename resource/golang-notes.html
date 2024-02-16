@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/golang-notes" />
 <meta property="og:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 21:00:30" />
-<meta property="article:modified_time" content="28th of Dec 2023" />
+<meta property="article:published_time" content="15th of Feb 2024, 16:41:22" />
+<meta property="article:modified_time" content="13th of Feb 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/golang-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "How to make a Golang binary",
-	"article:published_time":"28th of Dec 2023, 21:00:30", 
-    "article:modified_time":"28th of Dec 2023",
+	"article:published_time":"15th of Feb 2024, 16:41:22", 
+    "article:modified_time":"13th of Feb 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,11 +51,11 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker references">
+     <div class="blocker references addBashSamples">
 <div class="lotsOfWords">
 <p><strong>Target audience:</strong> professional developers, myself.</p>
 
-<p>This is probably quite a dull article; but I am summarising a lot of repetitious blog articles which omitted some data that I needed. <br />
+<p>This is quite a dull article; but I am summarising a lot of repetitious blog articles which omitted some data that I needed. <br />
 I do not know if it is considered better in prose to write “golang” or “go-lang”.  For human to computer communication it is “go”.<br />
 Before I started using Golang; I was focussing on “how to type in this language”.  When I started the project I suddenly realised I need to manage the build chain.   Referencing C++ with UTF-8 and POSIX &amp; win32 API; If I add a thread library to that problem spec; this is the sweet spot for Golang.</p>
 
@@ -75,11 +75,11 @@ Before I started using Golang; I was focussing on “how to type in this languag
 
 <ul class="ulbasic">
     <li class="libasic">When using `go build`, to get results, rather than validate; append a `-o $BIN_NAME`; or no binary file is made <sup><a href="https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies" target="_blank">4</a></sup>.  Reading the `man` page gives you `go build -o /tmp/test1 -x -v -work ./...` to be abit more informative.</li>
-    <li class="libasic">When using the current version of goland; there is a small error in the default config; it sets -o twice [XXX].  This leads to files that can't be executed.</li>
-    <li class="libasic">As Golang is like another VM (see also Java); compiling any go native project to any platform supported by Go is trivial: in Bash set $GOOS and $GOARCH before running `go build` <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04" target="_blank">5</a></sup>.   With my current experience I am not aware of any single OS libraries in Go; but that statement is very limited scope.   The other online examples seem to use `env`, which would save a sub-shell.<ul class="ulbasic">
+    <li class="libasic">In 2021, using the then current version of [jetbrains] goland; there is a small error in the default config; it sets -o twice [XXX].  This leads to files that can't be executed.</li>
+    <li class="libasic">As Golang is like another VM (see also Java); compiling any go native project to any platform supported by Go is trivial: in Bash set $GOOS and $GOARCH before running `go build` <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04" target="_blank">5</a></sup>.   With my current experience I am not aware of any single-OS libraries in Go; but that statement is very limited scope.   The other online examples seem to use `env`, which would save a sub-shell.<ul class="ulbasic">
         <li class="libasic">NB for win32 users: Values match what Linux or python <sup><a href="https://stackoverflow.com/questions/20728767/all-possible-goos-value" target="_blank">6</a></sup> uses (“amd64”, not “Azure”, “AMd64”, “Xbox Live™ &quot; or something) .</li>
     </ul></li>
-    <li class="libasic">I tested linux/amd64 compiling for windows/amd64; which works on recent editions of windows without any fiddling at all.  TODO: compat testing on a wider variety of machines. </li>
+    <li class="libasic">I tested linux/amd64 compiling for windows/amd64; which works on recent editions of windows without any fiddling at all.  <b>TODO:</b> compat testing on a wider variety of machines. </li>
     <li class="libasic">The build command `go build ./... ` can take a triple dot as a path quantifier to mean all the packages inside this base path <sup><a href="https://stackoverflow.com/questions/30612611/what-does-go-build-build-go-build-vs-go-install" target="_blank">7</a></sup>. </li>
     <li class="libasic">The default value for GOPATH is '~/go' on linux <sup><a href="https://blog.learngoprogramming.com/what-are-goroot-and-gopath-1231b084723if" target="_blank">8</a></sup> <sup><a href="https://stackoverflow.com/questions/7970390/what-should-be-the-values-of-gopath-and-goroot" target="_blank">9</a></sup> <sup><a href="https://www.reddit.com/r/golang/comments/lnfd0t/help_confused_with_go_116_goroot_and_gopath/" target="_blank">10</a></sup>; and can be left as is, for many people</li>
     <li class="libasic">Golang can build to blobs that seem like JAR files; and actual executable binaries. The “blobs” are technically Ar files, and can be unpacked/reviewed on any normal Linux server (I looked at the build artifact).   An executable build in a PE2 or ELF file (etc for other OS)  in normal fashion (I looked at the build artifacts).</li>
@@ -177,7 +177,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T19:23:52">28th of Dec 2023</time>
+						<span>Edited <time datetime="2024-02-13T10:36:58">13th of Feb 2024</time>
 						</span>
 						<span>Created <time datetime="2021-05-31T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >31st of May 2021</time> </span>
 					</span>
@@ -225,20 +225,11 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-12-28T21:00:30">28th of Dec 2023, 21:00:30</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T19:23:52">28th of Dec 2023</time>.
+	<p> Page rendered <time datetime="2024-02-15T16:41:22">15th of Feb 2024, 16:41:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-13T10:36:58">13th of Feb 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script src="/asset/ob1.min.js" ></script>
-<script type="text/javascript">
-$(document).ready(function() { 
-	var r1=new RegExp('\(`[^`]+`\)', 'g'), r2=new RegExp('\/ \/', 'g'); 
-	$('.lotsOfWords').each((key, val) => { 
-		val.innerHTML=val.innerHTML
-				.replaceAll(r1, '<span style="font-family:monospace; background-color:#ccc;">$1</span>')
-				.replaceAll(r2, '//'); 
-	});
-} );
-</script>
+
 </body>
 </html>

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-classloader" />
 <meta property="og:description" content="An article on my findings for the next iteration with making my site load faster." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 10:18:03" />
-<meta property="article:modified_time" content="28th of Dec 2023" />
+<meta property="article:published_time" content="15th of Feb 2024, 16:41:22" />
+<meta property="article:modified_time" content="11th of Feb 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-classloader" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS Autoloader/ classloader",
-	"article:published_time":"28th of Dec 2023, 10:18:03", 
-    "article:modified_time":"28th of Dec 2023",
+	"article:published_time":"15th of Feb 2024, 16:41:22", 
+    "article:modified_time":"11th of Feb 2024",
     "article:section":"technology",
 
     "author": {
@@ -53,9 +53,9 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker references">
 <div class="lotsOfWords">
-<p>This article is called this <sup><a href="https://addyosmani.com/largescalejavascript/" target="_blank">1</a></sup>, as I use many OO languages, and do not consider an “include statement” a good way to manage dependency injection.  Simple JS notes also assert that code should be manually injected with a static locked version.<br />
+<p>This article is called this <sup><a href="https://addyosmani.com/largescalejavascript/" target="_blank">1</a></sup>, as I use many OO languages, and do not consider an PHP style “include statement” a good way to manage dependency injection.  Simple JS notes also assert that code should be manually injected with a static locked version.<br />
 <em>This article is limited to client side JS.</em>  At point of writing this site has no good process loading JS.  There was originally a small number of JS libraries, and my personal shim to fix (now historical) browser faults.   I have been adding to the UX niceties, so the JS is getting heavier.   I want a better solution than statically linking JS classes in the main/root template.  I am writing an exploration (this text) ahead of any decisions or work.<br />
-A few years later I wrote an article about methods to get source code to the client-side, see <a class="" href="https://owenberesford.me.uk/resource/js-modules-notes#">js-modules-notes</a></p>
+A few years later I wrote an article about methods to get source code to the client-side, see <a class="" href="https://owenberesford.me.uk/resource/js-modules-notes#">js-modules-notes</a>.  I suggest reading detailed notes on <a href="https://webperf.tips/tip/cached-js-misconceptions/" target="_blank">JS code loading</a>, published July 2022.</p>
 
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Possible Architectures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
@@ -131,7 +131,8 @@ A few years later I wrote an article about methods to get source code to the cli
 <h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > TODO <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>My actual requirements is to fix the JS HTTP headers, and give the pages a per page module load list.  I don't like “manual include statements”, but this may be the most appropriate level of technology on this site.  I will make/ import a minimiser, as secondary target.  Don't think this is worth a github project for.<br />
 Obviously the least stupid solution is to use native require() support in the browser from a HTTP2 server. I am still waiting. <br />
-<b>UPDATE2022</b>: forced host upgrade in Q4 2022; I now have HTTP2 at no hassle.   NB: HTTP2 is no longer a hard thing to achieve; I have deployed it commercially.   Secondly, maybe I should look at swapping the many JSON meta files to ProtoBuf.   I think the headers are fixed since 2016; I have been using a minifier since a bit after I wrote the first version of this article.</p>
+<b>UPDATE2022</b>: forced host upgrade in Q4 2022; I now have HTTP2 at no hassle.   NB: HTTP2 is no longer a hard thing to achieve; I have deployed it commercially.   Secondly, maybe I should look at swapping the many JSON meta files to ProtoBuf.   I think the headers are fixed since 2016; and I have been using a minifier since a bit after I wrote the first version of this article.  I haven't mentioned SPA. Yes. This site is more of a blog, and I don't think people <i>“browse the web”</i> that much after social media got more common in 2007 or something.  Paying SPA overheads if you only read one article is not assisting the user do anything.<br />
+A better thing to look at is how can I avoid needing to rewrite all the old 2011 edition JS to ES2020 and JS modules standards, but keep the same user interactions.   I have drop-in upgraded fonts three times since this layout was built.</p>
 
 <p>[ 1 ] I wrote <a class="" href="https://owenberesford.me.uk/resource/punit#">Perl unit test</a> skeleton generator, as I am unable to find one.</p>
 
@@ -170,7 +171,7 @@ Obviously the least stupid solution is to use native require() support in the br
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>
+						<span>Edited <time datetime="2024-02-11T16:41:19">11th of Feb 2024</time>
 						</span>
 						<span>Created <time datetime="2015-12-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Dec 2015</time> </span>
 					</span>
@@ -221,7 +222,7 @@ Obviously the least stupid solution is to use native require() support in the br
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-12-28T10:18:03">28th of Dec 2023, 10:18:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>.
+	<p> Page rendered <time datetime="2024-02-15T16:41:22">15th of Feb 2024, 16:41:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-11T16:41:19">11th of Feb 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
