@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
 <title>modal popover</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/extended-modal-popover" />
 <meta property="og:description" content="This is an extended article on modal popover, this file contains improved graphic design, which matches visually other websites, however,  it is technically better." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="19th of Feb 2024, 20:10:12" />
-<meta property="article:modified_time" content="19th of Feb 2024" />
+<meta property="article:published_time" content="21st of Feb 2024, 15:57:53" />
+<meta property="article:modified_time" content="21st of Feb 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/extended-modal-popover" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "modal popover",
-	"article:published_time":"19th of Feb 2024, 20:10:12", 
-    "article:modified_time":"19th of Feb 2024",
+	"article:published_time":"21st of Feb 2024, 15:57:53", 
+    "article:modified_time":"21st of Feb 2024",
     "article:section":"technology",
 
     "author": {
@@ -57,9 +57,21 @@ TODO: magic tune selection against some index/DB -->
 The change is just CSS.  There are no images for logos, and the JS is just for UX nicities that CSS can't touch.</p>
 
 <p>Its not the standard widget edition (on my site), as this site doesn't use many curves.   I need to add a few more details before the maquette is finished.   The new section of CSS was about an hour, maybe two.  I didn't see any good HTML solutions in NPM.   It is practical to use React to make HTML islands, but handover most of the runtime work to the CSS engine (which is C/ C++ code, and much faster).   <br />
-I am not aware of CSS classes in standard frameworks that would deliver this effect, but as I was building a singular specific thing, I admit I didn't look that much.</p>
+I am not aware of CSS classes in standard frameworks that would deliver this effect, but as I was building a singular specific thing, I admit I didn't look that much.   A sensible place to look would be a CSS animation framework, but depending on other animation in the app-under-dev that may be overkill.<br />
+<b>Very important note</b>: this minor interaction DOES NOT block the UI in any fashion, and its also not selectable, if you grab all the text.  JS animation often does.</p>
 
-<p>Very important note: this minor interaction DOES NOT block the UI in any fashion.  JS animation often does.</p>
+<p>Similar things from NPM:</p>
+
+<ul class="ulbasic">
+    <li class="libasic">None of these look quite the same, but they are quite close.</li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/project-react-accordion" target="_blank">Project react accordion</a> <a href="https://github.com/kriit24/project-react-accordion#readme" target="_blank">git</a></li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap" target="_blank">NG bootstrap</a> <a href="https://github.com/ng-bootstrap/ng-bootstrap#readme" target="_blank">git</a></li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/@radix-ui/react-accordion" target="_blank">React accordion</a> <a href="https://www.radix-ui.com/primitives" target="_blank">docs</a></li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/accordion-js" target="_blank">Accordion -js</a> <a href="https://github.com/michu2k/Accordion#readme" target="_blank">docs</a></li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/accordion-react-ts" target="_blank">Accordion React -ts</a> maybe same as <a href="https://github.com/BentonFraizer/accordion-react-ts" target="_blank">git</a> (diff author) </li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/react-accordion-ts" target="_blank">React Accordion -ts</a> <a href="https://react-accordion-ts.atanas.info/" target="_blank">demo</a> <a href="https://github.com/scriptex/react-accordion-ts" target="_blank">git</a></li>
+    <li class="libasic"><a href="https://www.npmjs.com/package/aria-accordion" target="_blank">Aria accordion</a> <a href="https://github.com/18F/accordion#readme" target="_blank">git</a></li>
+</ul>
 
 
 <details class="singlePopup" >
@@ -77,6 +89,7 @@ I am not aware of CSS classes in standard frameworks that would deliver this eff
 <h5 id="toc0"> Outcomes</h5>
 <p><fieldset class="browserTestingContainer">
 <legend> This feature has been tested on:</legend>
+<p class="showState">Note: CSS Animation is </p>
 <ul class="ulbasic">
 <li> - <i class="fa fa-chrome"></i> win32/chrome (untested) </li>
 <li> - <i class="fa fa-internet-explorer"></i> win32/MSIE (unsupported legacy) (untested) </li>
@@ -144,7 +157,7 @@ I have never tested on (but for specific geo-markets should do):
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-02-19T20:09:28">19th of Feb 2024</time>
+						<span>Edited <time datetime="2024-02-21T15:57:50">21st of Feb 2024</time>
 						</span>
 						<span>Created <time datetime="2023-12-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Dec 2023</time> </span>
 					</span>
@@ -191,7 +204,7 @@ I have never tested on (but for specific geo-markets should do):
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-02-19T20:10:12">19th of Feb 2024, 20:10:12</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-19T20:09:28">19th of Feb 2024</time>.
+	<p> Page rendered <time datetime="2024-02-21T15:57:53">21st of Feb 2024, 15:57:53</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-21T15:57:50">21st of Feb 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -200,7 +213,7 @@ I have never tested on (but for specific geo-markets should do):
 .testWidget details summary::marker { content:""; }
 .testWidget details summary>* { display:inline-block; }
 .testWidget details summary::after, .testWidget details.singlePopup summary::after { content:""; border:none; }
-.testWidget details summary:before { content:" + "; padding:0.1em 0.3em; border-radius:50%;	font-size: 130%; 
+.testWidget details summary:before { speak: none; content:" + "; padding:0.1em 0.3em; border-radius:50%;	font-size: 130%; 
 	border:solid 1px rgba( calc(var(--fgr) * var(--fgcontrast)), calc(var(--fgg) * var(--fgcontrast)), calc(var(--fgb) * var(--fgcontrast)), 1.0 );
     display:inline-block; margin-right:0.2em; line-height:1; }
 .testWidget details[open] summary::before { transform:rotate(135deg); border-width:2px;  }
@@ -208,8 +221,10 @@ I have never tested on (but for specific geo-markets should do):
 
 .blocker:has( details[open] ) { --fgcontrast: 5; --bgcontrast:1; }
 details.singlePopup { --fgcontrast: 0.95; --bgcontrast:1; --fgr: 0; --fgg: 82; --fgb: 137; --bgr: 240; --bgg: 255; --bgb: 255; }
+.showState:after { content:"DISABLED"; font-weight:bold; color:#7D0000;  }
 
 @media (  prefers-reduced-motion: no-preference ) {
+  .showState:after { content:"ENABLED"; }
   .testWidget details summary:before { transition: transform 1s ease-in-out; } 
   .testWidget details[open] summary::before { transition: transform 1s ease-in-out, border-width 1s ease-out; }
 }
