@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-biblio" />
 <meta property="og:description" content="Covering article for a usability feature, biblio extraction for mobile UI." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of Feb 2024, 19:19:57" />
-<meta property="article:modified_time" content="23rd of Feb 2024" />
+<meta property="article:published_time" content="28th of Feb 2024, 17:38:31" />
+<meta property="article:modified_time" content="26th of Feb 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-biblio" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "jQuery-biblio",
-	"article:published_time":"23rd of Feb 2024, 19:19:57", 
-    "article:modified_time":"23rd of Feb 2024",
+	"article:published_time":"28th of Feb 2024, 17:38:31", 
+    "article:modified_time":"26th of Feb 2024",
     "article:section":"technology",
 
     "author": {
@@ -147,22 +147,20 @@ As this library is targeting links created by a wiki software; there is shortage
     <li class="libasic">callbacks  ~ see following list:</li>
 </ul>
 
+<p><code lang="javascript" class="bashSample"> default:{
+		appendLi:_appendLi,
+		appendList:_appendList,
+		neuterLink:_neuterLink,
+		appendTitle:_appendTitle,
+		emptyList:_emptyList,
+		postList:_postList,
+		appendSection:_appendBiblioTitle,
+		haveEmptyPage:_emptyPage,
+						}
+</code><br />
+Callbacks are functions called in the context of the BibliographyExtractor class, so may access the options hash.  They should return HTML, or perform the stated change.   If you want to override many of these, it may be faster to fork the plugin and edit the library.</p>
 
-<pre class="codeblock"><code>
- default:{
-        appendLi:_appendLi,
-        appendList:_appendList,
-        neuterLink:_neuterLink,
-        appendTitle:_appendTitle,
-        emptyList:_emptyList,
-        postList:_postList,
-        appendSection:_appendBiblioTitle,
-        haveEmptyPage:_emptyPage,
 
-                        }</code></pre>
-
-<br />
-Callbacks are functions called in the context of the BibliographyExtractor class, so may access the options hash.  They should return HTML, or perform the stated change.   If you want to override many of these, it may be faster to fork the plugin and edit the library. 
 <h4 class="dontend" id="toc5"> Value for <i>extendViaDownload</i> </h4>
 <p><i>Practical tip: just build a references cache, with the included tool, and use that. It is much faster, and works better with normal sites.</i><br />
 The downloading has to be organised sequentially, due to webrowsers sensibly limiting available threads.  Additionally I add a small delay, between each one, as I don't assume that this is the only page loaded.</p>
@@ -250,7 +248,7 @@ I have never tested on (but for specific geo-markets should do):
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-02-23T19:13:17">23rd of Feb 2024</time>
+						<span>Edited <time datetime="2024-02-26T18:49:43">26th of Feb 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -304,7 +302,7 @@ I have never tested on (but for specific geo-markets should do):
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-02-23T19:19:57">23rd of Feb 2024, 19:19:57</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-23T19:13:17">23rd of Feb 2024</time>.
+	<p> Page rendered <time datetime="2024-02-28T17:38:31">28th of Feb 2024, 17:38:31</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-26T18:49:43">26th of Feb 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

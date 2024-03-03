@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
 <title>Notes on the CAIN project</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/cain-project" />
 <meta property="og:description" content="Technical notes, read if you are interested in OO Perl, and automated decision making." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 10:18:00" />
-<meta property="article:modified_time" content="28th of Dec 2023" />
+<meta property="article:published_time" content="28th of Feb 2024, 17:38:31" />
+<meta property="article:modified_time" content="26th of Feb 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/cain-project" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Notes on the CAIN project",
-	"article:published_time":"28th of Dec 2023, 10:18:00", 
-    "article:modified_time":"28th of Dec 2023",
+	"article:published_time":"28th of Feb 2024, 17:38:31", 
+    "article:modified_time":"26th of Feb 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,7 +51,7 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
+     <div class="blocker addBashSamples">
 <div class="lotsOfWords">
 <p>Following my MSc, I assisted a psychology PhD student with the technical aspects to her thesis.   Her work was to analyse means to improve the internet for people with disabilities.   As high level summary, add an extra level of search filtering to Google results (unfortunately before the Google API was released) so the many thousands of pages would be practically reduced to a short list people could actually use.   I was employed before I could complete the work on this, although source is available.  <br />
 This project was written to be seen by others rather than to explore ideas so I was writing structural documentation from the start.</p>
@@ -177,45 +177,35 @@ One of my activities was a twenty minute presentation on how I was building my c
 <p>1) Email me for the source bundle file. This is a dead project, and I have removed it from public source directories.<br />
 put the file in your home</p>
 
-2) decompress it<br />
+<p>2) decompress it<br />
+` tar -xzf ./cain-script-dev.tar.gz `</p>
 
-<pre class="codeblock"><code>
-tar -xzf ./cain-script-dev.tar.gz</code></pre>
-
-3) copy the wrapper to a directory on you path<br />
-
-<pre class="codeblock"><code>
-chmod 755 ~/cain/cain
+<p>3) copy the wrapper to a directory on you path<br />
+<code class="bashSample wide" lang="bash">chmod 755 ~/cain/cain
 chmod 755 ~/cain/Tester.pl
 chmod 755 ~/cain/Main.pl
-cp ~/cain/cain $some_directory_on_your_path</code></pre>
+cp ~/cain/cain $some_directory_on_your_path
+</code></p>
 
-4) ensure you have a recent version of perl<br />
+<p>4) ensure you have a recent version of perl<br />
+` perl -v `</p>
 
-<pre class="codeblock"><code>
-perl -v</code></pre>
-
-5) use CPAN or similar to install required libraries<br />
+<p>5) use CPAN or similar to install required libraries<br />
 (these are listed in requirements.txt)<br />
 to use CPAN: <br />
-
-<pre class="codeblock"><code>
-perl -MCPAN -e shell</code></pre>
+` perl -MCPAN -e shell`</p>
 
 <p>6) cd ~/cain</p>
 
 <p>7) the database tests use a some test stuff in the database.<br />
 the host, password etc, are controlled via the cain.conf<br />
-anyway the tests read and write to a table called test2 as described:</p>
-
-
-<pre class="codeblock"><code>
-mysql&gt; use cain
+anyway the tests read and write to a table called test2 as described:<br />
+<code class="bashSample" lang="sql">mysql> use cain
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
-mysql&gt; show tables;
+mysql> show tables;
  +----------------+
  | Tables_in_cain |
  +----------------+
@@ -223,7 +213,7 @@ mysql&gt; show tables;
  +----------------+
 1 row in set (0.00 sec)
 
-mysql&gt; desc test2;
+mysql> desc test2;
  +-------+-------------+------+-----+---------+----------------+
  | Field | Type        | Null | Key | Default | Extra          |
  +-------+-------------+------+-----+---------+----------------+
@@ -232,15 +222,15 @@ mysql&gt; desc test2;
  +-------+-------------+------+-----+---------+----------------+
 2 rows in set (0.01 sec)
 
-mysql&gt; 
-</code></pre>
+mysql> 
+</code></p>
 
 <p>8) make any edits, <br />
 run it with the wrapper script (the one called 'cain', that you put on your <br />
 path)<br />
 the wrapper script redirects the debugging output (on STDOUT) to ~/cain/cain.out</p>
 
-<p>there a small number of sample scripts in the 'ts' directory<br />
+<p>There a small number of sample scripts in the 'ts' directory<br />
 the interface prototype from alice is in the 'web' directory</p>
 
 
@@ -281,7 +271,7 @@ the interface prototype from alice is in the 'web' directory</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>
+						<span>Edited <time datetime="2024-02-26T14:57:02">26th of Feb 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -337,7 +327,7 @@ the interface prototype from alice is in the 'web' directory</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-12-28T10:18:00">28th of Dec 2023, 10:18:00</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>.
+	<p> Page rendered <time datetime="2024-02-28T17:38:31">28th of Feb 2024, 17:38:31</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-26T14:57:02">26th of Feb 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
