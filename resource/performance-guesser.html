@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
 <title>Performance GuessR</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/performance-guesser" />
 <meta property="og:description" content="This is between a spoof and a serious proposition. It guesses server resources needed" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 10:18:05" />
-<meta property="article:modified_time" content="28th of Dec 2023" />
+<meta property="article:published_time" content="4th of Mar 2024, 10:56:52" />
+<meta property="article:modified_time" content="3rd of Mar 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/performance-guesser" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Performance GuessR",
-	"article:published_time":"28th of Dec 2023, 10:18:05", 
-    "article:modified_time":"28th of Dec 2023",
+	"article:published_time":"4th of Mar 2024, 10:56:52", 
+    "article:modified_time":"3rd of Mar 2024",
     "article:section":"technology",
 
     "author": {
@@ -61,25 +61,25 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 
 <br />
 <form method="get" name="values" id="values">
-<p id="totalPopWrapper" class=""><label for="totalPop" id="totalPopLabel" class="h4_label">Total number of users :</label><input type="number" name="totalPop" id="totalPop" value="" class="" /></p>
-<p id="instantPopWrapper" class=""><label for="instantPop" id="instantPopLabel" class="h4_label">Avg concurrent users :</label><input type="number" name="instantPop" id="instantPop" value="" class="" /></p>
-<p id="spikePopWrapper" class=""><label for="spikePop" id="spikePopLabel" class="h4_label">Burst concurrent users :</label><input type="number" name="spikePop" id="spikePop" value="" class="" /></p>
-<p id="maxDelayWrapper" class=""><label for="maxDelay" id="maxDelayLabel" class="h4_label">Maximum acceptable render time (ms) :</label><input type="number" name="maxDelay" id="maxDelay" value="" class="" /></p>
-<p id="langWrapper" class=""><label for="lang" id="langLabel" class="h4_label">The impl language is :</label><select name="lang" id="lang" class="" >
+<p id="totalPopWrapper" class=""><label for="totalPop" id="totalPopLabel" class="h4_label">Total number of users :</label><input type="number" name="totalPop" id="totalPop" value="" class="" required  /></p>
+<p id="instantPopWrapper" class=""><label for="instantPop" id="instantPopLabel" class="h4_label">Avg concurrent users :</label><input type="number" name="instantPop" id="instantPop" value="" class="" required  /></p>
+<p id="spikePopWrapper" class=""><label for="spikePop" id="spikePopLabel" class="h4_label">Burst concurrent users :</label><input type="number" name="spikePop" id="spikePop" value="" class="" required  /></p>
+<p id="maxDelayWrapper" class=""><label for="maxDelay" id="maxDelayLabel" class="h4_label">Maximum acceptable render time (ms) :</label><input type="number" name="maxDelay" id="maxDelay" value="" class="" required  /></p>
+<p id="langWrapper" class=""><label for="lang" id="langLabel" class="h4_label">The impl language is :</label><select name="lang" id="lang" class="" required="required">
 <option selected="selected" value="php7">Sensible PHP</option><option value="php5">Legacy PHP</option><option value="node1">old NodeJS</option><option value="node4">new NodeJS</option><option value="wp">WordPress</option><option value="java">Java*</option><option value="perl">Perl*</option><option value="python">Python + Django</option><option value="pixies">Pixies</option>
 </select></p>
-<p id="langRAMWrapper" class=""><label for="langRAM" id="langRAMLabel" class="h4_label">RAM cost (MB) :</label><input type="number" name="langRAM" id="langRAM" value="" class="" /></p>
-<p id="langTimeWrapper" class=""><label for="langTime" id="langTimeLabel" class="h4_label">Render time (ms) :</label><input type="number" name="langTime" id="langTime" value="" class="" /></p>
-<p id="httpsWrapper" class=""><label for="https" id="httpsLabel" class="h4_label">Using HTTPS? :</label><select name="https" id="https" class="" >
+<p id="langRAMWrapper" class=""><label for="langRAM" id="langRAMLabel" class="h4_label">RAM cost (MB) :</label><input type="number" name="langRAM" id="langRAM" value="" class="" required  /></p>
+<p id="langTimeWrapper" class=""><label for="langTime" id="langTimeLabel" class="h4_label">Render time (ms) :</label><input type="number" name="langTime" id="langTime" value="" class="" required  /></p>
+<p id="httpsWrapper" class=""><label for="https" id="httpsLabel" class="h4_label">Using HTTPS? :</label><select name="https" id="https" class="" required="required">
 <option value="HTTPS">yes</option><option value="HTTP">no</option>
 </select></p>
 <p id="btnSubmitWrapper" class=""><input type="button" name="btnSubmit" id="btnSubmit" value="Compute" class="button" /></p>
-<p id="avg_freqHostWrapper" class=""><label for="avg_freqHost" id="avg_freqHostLabel" class="h4_label">AVG Num of machines :</label><input type="number" name="avg_freqHost" id="avg_freqHost" value="" class="" /></p>
-<p id="avg_RAMHostWrapper" class=""><label for="avg_RAMHost" id="avg_RAMHostLabel" class="h4_label">AVG How much RAM (on each)? :</label><input type="number" name="avg_RAMHost" id="avg_RAMHost" value="" class="" /></p>
-<p id="avg_CPUHostWrapper" class=""><label for="avg_CPUHost" id="avg_CPUHostLabel" class="h4_label">AVG How fast? :</label><input type="number" name="avg_CPUHost" id="avg_CPUHost" value="" class="" /></p>
-<p id="spike_freqHostWrapper" class=""><label for="spike_freqHost" id="spike_freqHostLabel" class="h4_label">SPIKE Num of machines :</label><input type="number" name="spike_freqHost" id="spike_freqHost" value="" class="" /></p>
-<p id="spike_RAMHostWrapper" class=""><label for="spike_RAMHost" id="spike_RAMHostLabel" class="h4_label">SPIKE How much RAM (on each)? :</label><input type="number" name="spike_RAMHost" id="spike_RAMHost" value="" class="" /></p>
-<p id="spike_CPUHostWrapper" class=""><label for="spike_CPUHost" id="spike_CPUHostLabel" class="h4_label">SPIKE How fast? :</label><input type="number" name="spike_CPUHost" id="spike_CPUHost" value="" class="" /></p>
+<p id="avg_freqHostWrapper" class=""><label for="avg_freqHost" id="avg_freqHostLabel" class="h4_label">AVG Num of machines :</label><input type="number" name="avg_freqHost" id="avg_freqHost" value="" class="" required  /></p>
+<p id="avg_RAMHostWrapper" class=""><label for="avg_RAMHost" id="avg_RAMHostLabel" class="h4_label">AVG How much RAM (on each)? :</label><input type="number" name="avg_RAMHost" id="avg_RAMHost" value="" class="" required  /></p>
+<p id="avg_CPUHostWrapper" class=""><label for="avg_CPUHost" id="avg_CPUHostLabel" class="h4_label">AVG How fast? :</label><input type="number" name="avg_CPUHost" id="avg_CPUHost" value="" class="" required  /></p>
+<p id="spike_freqHostWrapper" class=""><label for="spike_freqHost" id="spike_freqHostLabel" class="h4_label">SPIKE Num of machines :</label><input type="number" name="spike_freqHost" id="spike_freqHost" value="" class="" required  /></p>
+<p id="spike_RAMHostWrapper" class=""><label for="spike_RAMHost" id="spike_RAMHostLabel" class="h4_label">SPIKE How much RAM (on each)? :</label><input type="number" name="spike_RAMHost" id="spike_RAMHost" value="" class="" required  /></p>
+<p id="spike_CPUHostWrapper" class=""><label for="spike_CPUHost" id="spike_CPUHostLabel" class="h4_label">SPIKE How fast? :</label><input type="number" name="spike_CPUHost" id="spike_CPUHost" value="" class="" required  /></p>
 
 </form>
 </div>
@@ -113,7 +113,7 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>
+						<span>Edited <time datetime="2024-03-03T23:07:38">3rd of Mar 2024</time>
 						</span>
 						<span>Created <time datetime="2017-04-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Apr 2017</time> </span>
 					</span>
@@ -159,19 +159,19 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-12-28T10:18:05">28th of Dec 2023, 10:18:05</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>.
+	<p> Page rendered <time datetime="2024-03-04T10:56:52">4th of Mar 2024, 10:56:52</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-03T23:07:38">3rd of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script src="/asset/ob1.min.js" ></script>
-<script defer type="text/javascript" src="/asset/jquery-validate.min.js" ></script>
-<script type="text/javascript">
-if(!Object.freeze) {
+<!-- script defer type="text/javascript" src="/asset/jquery-validate.min.js" ></script -->
+<script>
+//iif(!Object.freeze) {
 // you are free to use your current webrowser, and buy software from another source.
 // many opensource people have the same attitude ~ "Localised responsibility".
-	window.alert("For free software, I only support new browsers.\n pls upgrade.\nWith the exception of MSIE, upgrades are *free*.");
-	throw new Error("Old browser problem.");
-}
+//	window.alert("For free software, I only support new browsers.\n pls upgrade.\nWith the exception of MSIE, upgrades are *free*.");
+//	throw new Error("Old browser problem.");
+//}
 "use strict";
 const techCosts={
 	php7:{ RAM:128, render:10, },
@@ -223,7 +223,7 @@ const computeResources =function () {
 const loadPage= function() {
 	$('#lang').on('change', updateResources);
 	updateResources();
-	$('#avg_freqHostWrapper').append('<span style="display:none; text-align:center; " id="comment">If you think this value is wrong, check average render time.</span>');
+	$('#avg_freqHostWrapper').append ('<span style="display:none; text-align:center; " id="comment">If you think this value is wrong, check average render time.</span>');
 	$('#btnSubmit').on('click keypress touch', computeResources);
 }
 

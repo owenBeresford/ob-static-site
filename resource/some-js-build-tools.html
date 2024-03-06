@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
 <title>Some JS build tools.</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/some-js-build-tools" />
 <meta property="og:description" content="Tidied up tech notes, pls just use JS modules + HTTP2" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 10:18:08" />
-<meta property="article:modified_time" content="28th of Dec 2023" />
+<meta property="article:published_time" content="6th of Mar 2024, 9:14:42" />
+<meta property="article:modified_time" content="6th of Mar 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/some-js-build-tools" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Some JS build tools.",
-	"article:published_time":"28th of Dec 2023, 10:18:08", 
-    "article:modified_time":"28th of Dec 2023",
+	"article:published_time":"6th of Mar 2024, 9:14:42", 
+    "article:modified_time":"6th of Mar 2024",
     "article:section":"technology",
 
     "author": {
@@ -52,23 +52,25 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker references">
-<div class="fewWords">
+<div class="lotsOfWords">
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > These configs are to use Vue3 and typescript; that is why its complex and manual <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>This is a dull article to save me time during a sprint.  Please refer to the article creation date; it will be useless after a year.  Merging your separate JS libraries into a bigger blob reduces the impact of the overheads of a HTTP transaction.  Most webrowsers will only allow streaming of two assets at a time per domain.  Merging all CSS and JS into fewer bigger blobs stops this from being a bottleneck.   Sometimes people are running compiling tools to change from the version of JS that they want to write (code aesthetics) in to a maximum compatibility version.<br />
 Pls see <a class="" href="https://owenberesford.me.uk/resource/js-modules-notes#">js-modules-notes</a> and <a class="" href="https://owenberesford.me.uk/resource/js-classloader#">js-classloader</a> for older work in this space.  I have been waiting for several years for JS module support <sup><a href="https://caniuse.com/?search=modules" target="_blank">1</a></sup> to climb, as it is a better way to solve the problem.  Modules mean we go back to <b>not having global variables</b> again.  If a feature has been decomposed into many JS files, its a good idea to merge them before transmission to the client side.<br />
-The most widely used transpiler/ bundler is still <i>babeljs</i> with webpack <sup><a href="https://stackshare.io/babel" target="_blank">2</a></sup> <sup><a href="https://www.wappalyzer.com/technologies/miscellaneous/babel" target="_blank">3</a></sup> <a href="https://babeljs.io/docs/en/" target="_blank">docs</a>. The newest version is 7.18 released on May 19, 2022 <sup><a href="https://babeljs.io/blog/2022/05/19/7.18.0" target="_blank">4</a></sup>.   This is popular, but I don't like the config file very much; they look like <sup><a href="https://babeljs.io/docs/en/config-files" target="_blank">5</a></sup> <sup><a href="https://babeljs.io/docs/en/configuration" target="_blank">6</a></sup>.<br />
-<pre class="code" lang="js">
-module.exports = {
+The most widely used transpiler/ bundler is still <i>babeljs</i> with webpack <sup><a href="https://stackshare.io/babel" target="_blank">2</a></sup> <sup><a href="https://www.wappalyzer.com/technologies/miscellaneous/babel" target="_blank">3</a></sup> <a href="https://babeljs.io/docs/en/" target="_blank">docs</a>. The newest version is 7.18 released on May 19, 2022 <sup><a href="https://babeljs.io/blog/2022/05/19/7.18.0" target="_blank">4</a></sup>.   This is popular, but I don't like the config file very much; they look like <sup><a href="https://babeljs.io/docs/en/config-files" target="_blank">5</a></sup> <sup><a href="https://babeljs.io/docs/en/configuration" target="_blank">6</a></sup>.</p>
+
+
+<code class="highlight wide" lang="javascript">module.exports = {
   presets: [
     '@vue/cli-plugin-babel/preset',
   ],
 };
-</pre></p>
+</code>
 
-<p>As I am now using typescript, I am now using at least one tsconfig file in each project.  The documentation for this mentions 3-4 different file names (tsconfig.js, .tsconfigrc.js tsconfig.json, tsconfig.build.json and so on).  The documentation is <sup><a href="https://www.typescriptlang.org/tsconfig" target="_blank">7</a></sup> <sup><a href="https://nextjs.org/learn/excel/typescript/create-tsconfig" target="_blank">8</a></sup>.  The standard tool for typescript claims responsibility for type checking, generating meta data files and sometimes generating JS from the TS; not bundling.  <br />
-<pre class="code" lang="json">
-{
+<p>As I am now using typescript, I am now using at least one tsconfig file in each project.  The documentation for this mentions 3-4 different file names (tsconfig.js, .tsconfigrc.js tsconfig.json, tsconfig.build.json and so on).  The documentation is <sup><a href="https://www.typescriptlang.org/tsconfig" target="_blank">1</a></sup> <sup><a href="https://nextjs.org/learn/excel/typescript/create-tsconfig" target="_blank">2</a></sup>.  The standard tool for typescript claims responsibility for type checking, generating meta data files and sometimes generating JS from the TS; not bundling.</p>
+
+
+<code class="highlight wide" lang="javascript">{
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -104,11 +106,12 @@ module.exports = {
     "node_modules"
   ]
 }
-</pre></p>
+</code>
 
-<p>The best tool for linting JS and TS that I have found was eslint; as it supplies alot of information.  This is managed by in-source-comments that start &quot;// eslint” <sup><a href="https://eslint.org/docs/rules/" target="_blank">9</a></sup> and by a config file called &quot;.eslintrc.json” <sup><a href="https://eslint.org/docs/user-guide/getting-started" target="_blank">10</a></sup> <sup><a href="https://es.eslint.org/docs/user-guide/configuring/configuration-files/" target="_blank">11</a></sup>.   I like that the eslint tool doesn't get in your way most of the time, and does offer a &quot;--fix” option for things it cares about that no human should (i.e. are you using double or single quotes for string delimiting, or whether your IDE has expanded tabs or not).<br />
-<pre class="code" lang="json">
-{
+<p>The best tool for linting JS and TS that I have found was eslint; as it supplies alot of information.  This is managed by in-source-comments that start &quot;// eslint” <sup><a href="https://eslint.org/docs/rules/" target="_blank">1</a></sup> and by a config file called &quot;.eslintrc.json” <sup><a href="https://eslint.org/docs/user-guide/getting-started" target="_blank">2</a></sup> <sup><a href="https://es.eslint.org/docs/user-guide/configuring/configuration-files/" target="_blank">3</a></sup>.   I like that the eslint tool doesn't get in your way most of the time, and does offer a &quot;--fix” option for things it cares about that no human should (i.e. are you using double or single quotes for string delimiting, or whether your IDE has expanded tabs or not).</p>
+
+
+<code class="highlight wide" lang="javascript">{
   "root":true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -119,11 +122,12 @@ module.exports = {
   "extends": ["plugin:@typescript-eslint/recommended", "plugin:vue/vue3-essential"],
   "rules":{ "strict":1 }
 }
-</pre></p>
+</code>
 
-<p>If you look at building failures in <a class="" href="https://owenberesford.me.uk/resource/shopping-list#">shopping-list</a>, I have had to iterate tooling frequently.  I have achieved partial success with rollupjs.  This has a plain JS file for a config, but mostly you add more plugins to get behaviour <sup><a href="https://devhints.io/rollup" target="_blank">12</a></sup> <sup><a href="https://rollupjs.org/guide/en/" target="_blank">13</a></sup> <sup><a href="https://blog.openreplay.com/the-ultimate-guide-to-getting-started-with-the-rollup-js-javascript-bundler" target="_blank">14</a></sup>.<br />
-<pre class="code" lang="js">
-import vue from 'rollup-plugin-vue';
+<p>If you look at building failures in <a class="" href="https://owenberesford.me.uk/resource/shopping-list#">shopping-list</a>, I have had to iterate tooling frequently.  I have achieved partial success with rollupjs.  This has a plain JS file for a config, but mostly you add more plugins to get behaviour <sup><a href="https://devhints.io/rollup" target="_blank">1</a></sup> <sup><a href="https://rollupjs.org/guide/en/" target="_blank">2</a></sup> <sup><a href="https://blog.openreplay.com/the-ultimate-guide-to-getting-started-with-the-rollup-js-javascript-bundler" target="_blank">3</a></sup>.</p>
+
+
+<code class="highlight wide" lang="javascript">import vue from 'rollup-plugin-vue';
 import typescript from 'rollup-plugin-typescript2';
 import replace from '@rollup/plugin-replace';
 // import nodeResolve from '@rollup/plugin-node-resolve';
@@ -246,34 +250,23 @@ function presetTS2(nom, format) {
 
 export default [
 	presetSCF('EnterInput', 'es'),
-	presetSCF('InterstitialView', 'es'),
-	presetSCF('ListOfLists', 'es'),
-	presetSCF('ThisList', 'es'),
-	presetSCF('UnknownRoute', 'es'),
-	presetSCF('TabBar', 'es'),
-	presetSCF('App', 'es'),
+	//...
 
 	presetTS('Localisation', 'es'),
-	presetTS('AList', 'es'),
-	presetTS('Store', 'es'),
-	presetTS('ListService', 'es'),
-	presetTS('LocalCopy', 'es'),
-	presetTS('URLs', 'es'),
-	presetTS('MotionStream', 'es'),
-	presetTS('FAKE1_Factory', 'es'),
-	presetTS('util', 'es'),
+	//...
+
 	presetTS2('workers/InstallWorker', 'es'),
-	presetTS2('components/Routing', 'es'),
-	presetTS2('main', 'es'),
+	//...
 
 ];
 
 // and several more
-</pre></p>
+</code>
 
-<p>I tried and failed to get Vite <sup><a href="https://vitejs.dev/guide/features.html" target="_blank">15</a></sup> <sup><a href="https://vitejs.dev/" target="_blank">16</a></sup> (not vitebot, which is like selenium) to build front end code.  Vite is very fast as it is correctly using JS modules.  It is controlled via a config <sup><a href="https://vitejs.dev/config/" target="_blank">17</a></sup> <sup><a href="https://vitejs.dev/guide/build.html" target="_blank">18</a></sup> that looks like this:<br />
-<pre class="code" lang="js">
-import { defineConfig } from 'vite';
+<p>I tried and failed to get Vite <sup><a href="https://vitejs.dev/guide/features.html" target="_blank">1</a></sup> <sup><a href="https://vitejs.dev/" target="_blank">2</a></sup> (not vitebot, which is like selenium) to build front end code.  Vite is very fast as it is correctly using JS modules.  It is controlled via a config <sup><a href="https://vitejs.dev/config/" target="_blank">3</a></sup> <sup><a href="https://vitejs.dev/guide/build.html" target="_blank">4</a></sup> that looks like this:</p>
+
+
+<code class="highlight wide" lang="javascript">import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -286,17 +279,18 @@ export default defineConfig({
 //		include: [ "./build/*js", './build/components/*js', './build/services/*js']	
 //	}
 });
-</pre></p>
+</code>
 
 <p>I haven't listed tools that I couldn't get to work; as I assume I would get the same fault in future.  If I to need to pull those names, they are listed in the project article.</p>
+
 
 
 </div>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p>
-<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research </a> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p>
+<div id="grouplegacy" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=legacy" aria-label="This article lists all items in legacy group.">All of <br />legacy </a> </div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -322,7 +316,7 @@ export default defineConfig({
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>
+						<span>Edited <time datetime="2024-03-06T08:59:26">6th of Mar 2024</time>
 						</span>
 						<span>Created <time datetime="2022-05-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of May 2022</time> </span>
 					</span>
@@ -369,12 +363,11 @@ export default defineConfig({
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-12-28T10:18:08">28th of Dec 2023, 10:18:08</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>.
+	<p> Page rendered <time datetime="2024-03-06T09:14:42">6th of Mar 2024, 9:14:42</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-06T08:59:26">6th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script src="/asset/ob1.min.js" ></script>
-<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
-<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
+
 </body>
 </html>

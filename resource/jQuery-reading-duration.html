@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-reading-duration" />
 <meta property="og:description" content="Design article and research behind the reading time statistic." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Feb 2024, 17:38:31" />
-<meta property="article:modified_time" content="26th of Feb 2024" />
+<meta property="article:published_time" content="6th of Mar 2024, 9:14:41" />
+<meta property="article:modified_time" content="6th of Mar 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-reading-duration" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Reading time stat",
-	"article:published_time":"28th of Feb 2024, 17:38:31", 
-    "article:modified_time":"26th of Feb 2024",
+	"article:published_time":"6th of Mar 2024, 9:14:41", 
+    "article:modified_time":"6th of Mar 2024",
     "article:section":"technology",
 
     "author": {
@@ -63,14 +63,14 @@ For authorship, I would advise using a article content-assistance tool, rather t
 <p>The average reading speed is quoted as being between 250 and 300 words per minute <sup><a href="https://en.wikipedia.org/wiki/Words_per_minute" target="_blank">4</a></sup> <sup><a href="https://www.forbes.com/sites/brettnelson/2012/06/04/do-you-read-fast-enough-to-be-successful/" target="_blank">5</a></sup> <sup><a href="https://www.tempestamedia.com/2022/12/21/why-its-important-to-add-an-estimated-reading-time/" target="_blank">6</a></sup> <sup><a href="https://www.dailymail.co.uk/sciencetech/article-2147537/Think-youre-fast-reader-Take-speed-reading-test-beat-national-average-300-words-minute.html" target="_blank">7</a></sup> <sup><a href="https://speechify.com/blog/average-reading-speed-pages/?" target="_blank">8</a></sup>.   I also find a separate ranking scheme, IELTS <sup><a href="https://www.kanan.co/ielts/general/reading/score/" target="_blank">9</a></sup> <sup><a href="https://www.upgradabroad.com/exam/ielts/reading-band-score" target="_blank">10</a></sup>.  My casual survey did not find any breakdown by subject, Fogg value, nationality, primary or secondary language status, or educational attainment of the reader.  For a more comprehensive tool this analysis is required.   In my personal case the biggest routine variance is my fatigue and the language of the text.   I suspect but would be very careful in stating, that some languages are better designed for volume data transfer than others.</p>
 
 <p>So a simple reading duration would be expressed as :<br />
-<code lang="javascript" class="bashSample">var duration= ($(root_element_for_text).text()
+<code lang="javascript" class="highlight">var duration= ($(root_element_for_text).text()
 		.match(/\b[^ \t\n]+\b/g).length)/275 * 60
 </code></p>
 
 <p>I am asserting that people will read most of the text, and not much of the headers, menus, legal disclaimers etc.  I am assuming that most webpages have a single root element (be it &lt;article&gt; or a &lt;div&gt;), and that avoids the other visible words.</p>
 
 <p>I will copy Medium's notes <sup><a href="https://medium.com/the-story/read-time-and-you" target="_blank">11</a></sup>, and add time for images.  These will also be counted from the root element.   <br />
-<code lang="javascript" class="bashSample"> //... cont from previous code block
+<code lang="javascript" class="highlight"> //... cont from previous code block
  + ($(root_element_for_text).find('img').length) * 12;
 </code></p>
 
@@ -136,7 +136,7 @@ The opts hash may take the following:</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-02-26T18:46:13">26th of Feb 2024</time>
+						<span>Edited <time datetime="2024-03-06T08:59:26">6th of Mar 2024</time>
 						</span>
 						<span>Created <time datetime="2015-11-25T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >25th of Nov 2015</time> </span>
 					</span>
@@ -185,7 +185,7 @@ The opts hash may take the following:</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-02-28T17:38:31">28th of Feb 2024, 17:38:31</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-26T18:46:13">26th of Feb 2024</time>.
+	<p> Page rendered <time datetime="2024-03-06T09:14:41">6th of Mar 2024, 9:14:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-06T08:59:26">6th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
