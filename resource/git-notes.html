@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/git-notes" />
 <meta property="og:description" content="Advanced Git notes and Git workflow on how to use it to solve practical problems with it, with extensive performance tips list which are omitted from general sites." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="3rd of Mar 2024, 18:10:14" />
-<meta property="article:modified_time" content="3rd of Mar 2024" />
+<meta property="article:published_time" content="6th of Mar 2024, 9:14:41" />
+<meta property="article:modified_time" content="6th of Mar 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/git-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Git",
-	"article:published_time":"3rd of Mar 2024, 18:10:14", 
-    "article:modified_time":"3rd of Mar 2024",
+	"article:published_time":"6th of Mar 2024, 9:14:41", 
+    "article:modified_time":"6th of Mar 2024",
     "article:section":"technology",
 
     "author": {
@@ -109,28 +109,28 @@ For a more detailed look on the options, see this <a href="https://en.wikipedia.
 <p>Basic note: create a branch with a different remote name (for those of us with spelling issues).   In many cases $remoteRepo will be called origin, but it doesn't need to be.</p>
 
 
-<code class="bashSample wide" lang="bash">git checkout $myBrnachName 
+<code class="highlight wide" lang="bash">git checkout $myBrnachName 
     git push $remoteRepo $myBranchName
 </code>
 
 <p>List changed files since branch creation.   I think this could be scripted to extract the first and last ids out, then do the second call automatically.</p>
 
 
-<code class="bashSample wide" lang="bash"> git cherry $remoteRepo $branchName
+<code class="highlight wide" lang="bash"> git cherry $remoteRepo $branchName
     git diff --name-only $firstListedId $lastListedId
 </code>
 
 <p>List change set since branch creation</p>
 
 
-<code class="bashSample wide" lang="bash"> git cherry $remoteRepo $currentBranch
+<code class="highlight wide" lang="bash"> git cherry $remoteRepo $currentBranch
     git diff $firstListedId $lastListedId
 </code>
 
 <p>A method to fix annoying spelling issues.   New edition will be easier, reference <sup><a href="https://smartlogic.io/blog/git-commit-amend/" target="_blank">1</a></sup></p>
 
 
-<code class="bashSample wide" lang="bash"> git commit $file -m "i have aspellidg drgdrgd "
+<code class="highlight wide" lang="bash"> git commit $file -m "i have aspellidg drgdrgd "
     # oops
     git reset --soft HEAD^
     git commit $file -m "I can now spell properly."
@@ -144,7 +144,7 @@ For a more detailed look on the options, see this <a href="https://en.wikipedia.
 <p>Delete unneeded branches (from the local side).</p>
 
 
-<code class="bashSample wide" lang="bash"> # test obviously
+<code class="highlight wide" lang="bash"> # test obviously
     git remote prune origin --dry-run
     # update remote data
     git remote prune origin 
@@ -156,7 +156,7 @@ For a more detailed look on the options, see this <a href="https://en.wikipedia.
 <p>Tidy up the local repo, including directories</p>
 
 
-<code class="bashSample wide" lang="bash"> # -n does a dry run first
+<code class="highlight wide" lang="bash"> # -n does a dry run first
     git clean -fdn
     git clean -fd
 </code>
@@ -167,7 +167,7 @@ For a more detailed look on the options, see this <a href="https://en.wikipedia.
 <p>Detect branches that have been merged into the trunk (so may be deleted).   Assuming you want comparison to the master branch,</p>
 
 
-<code class="bashSample wide" lang="bash"> git branch --merged master
+<code class="highlight wide" lang="bash"> git branch --merged master
     # comparison to current branch
     git branch --merged
 </code>
@@ -191,7 +191,7 @@ To publish existing repo to new and empty repo, if you want multiple branches up
 <p>To revert whitespace-only changes before committing your changes to git <sup><a href="https://stackoverflow.com/a/45486981/69868" target="_blank">1</a></sup> from <a href="https://stackoverflow.com/users/2438446/kent-munthe-caspersen" target="_blank">Kent Munthe Caspersen</a>.  I have wrapped this for readability, but its one line (note the return arrow).</p>
 
 
-<code class="bashSample wide" lang="bash"> git diff -U0 -w --no-color |                               ↩
+<code class="highlight wide" lang="bash"> git diff -U0 -w --no-color |                               ↩
     git apply --cached --ignore-whitespace --unidiff-zero -
 </code>
 
@@ -235,7 +235,7 @@ This page will be updated.  I am using GIT everyday, but mostly routine.</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-03T18:10:08">3rd of Mar 2024</time>
+						<span>Edited <time datetime="2024-03-06T08:59:25">6th of Mar 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -286,13 +286,13 @@ This page will be updated.  I am using GIT everyday, but mostly routine.</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-03T18:10:14">3rd of Mar 2024, 18:10:14</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-03T18:10:08">3rd of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-03-06T09:14:41">6th of Mar 2024, 9:14:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-06T08:59:25">6th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script defer src="/asset/ob1.min.js" ></script>
 <style>
-code.bashSample { block-size: 100%; }
+code.highlight { block-size: 100%; }
 </style>
 </body>
 </html>

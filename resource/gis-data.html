@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
 <title>GIS data (pt1)</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/gis-data" />
 <meta property="og:description" content="A collection of notes for GIS related solutions" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 10:18:02" />
-<meta property="article:modified_time" content="28th of Dec 2023" />
+<meta property="article:published_time" content="6th of Mar 2024, 9:14:41" />
+<meta property="article:modified_time" content="6th of Mar 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/gis-data" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "GIS data (pt1)",
-	"article:published_time":"28th of Dec 2023, 10:18:02", 
-    "article:modified_time":"28th of Dec 2023",
+	"article:published_time":"6th of Mar 2024, 9:14:41", 
+    "article:modified_time":"6th of Mar 2024",
     "article:section":"technology",
 
     "author": {
@@ -75,7 +75,7 @@ As a European it is necessary to state country=UK (or FR etc) on each request, o
 <p>Technically this isn't precise, as its not compensating for Earths ellipsoid-ness.   It is accurate enough for my purposes (i.e. maps on small screens)</p>
 
 
-<pre class="code dontsplit" lang="JS">
+<code class="highlight dontsplit" lang="javascript">
 // given lat1, lat2, and long1, long2  
 
 var R = 6371; // km
@@ -87,7 +87,7 @@ var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
         Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 var d = R * c;
-</pre>
+</code>
 <p><strong> references: </strong></p>
 
 <ul class="ulbasic">
@@ -101,7 +101,7 @@ var d = R * c;
 <p>Use this to set the correct zoom to draw your data.</p>
 
 
-<pre class="code dontsplit" lang="JS">
+<code class="highlight dontsplit" lang="javascript">
 /**
  *  compute_zoom_from_renderSize
  *  @param lat ~ must be in degrees ~ how far North
@@ -120,7 +120,7 @@ function compute_zoom_from_renderSize(lat, pixels) {
 	//	math.pow( 2, (out +8 )) =  EARTH_CIRCUMFERENCE * Math.cos(lat) / pixels
 	return Math.log2( EARTH_CIRCUMFERENCE * Math.cos(lat) / pixels ) -MYSTIC_OFFSET;
 }
-</pre>
+</code>
 <p><strong> references:</strong></p>
 
 <ul class="ulbasic">
@@ -134,7 +134,7 @@ function compute_zoom_from_renderSize(lat, pixels) {
 <p>If your data is known to be inside a geographical area, a quick test during development can increase your development velocity e.g. UK data should never have co-ords less than 40deg North.  As not all co-ord systems put the co-ords items in the same order, <em>this check is really useful</em>.</p>
 
 
-<pre class="code dontsplit" lang="JS">
+<code class="highlight dontsplit" lang="javascript">
 /**
  * test_bounds ~ determines if your point is inside a box.
  * Doesn't do surface projection so don't use on boxes larger than around 10deg
@@ -174,7 +174,7 @@ function rectify_inversion(long, lat, box) {
 	}
 	return null;
 }
-</pre>
+</code>
 </div>
 </div>
     </article>
@@ -206,7 +206,7 @@ function rectify_inversion(long, lat, box) {
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>
+						<span>Edited <time datetime="2024-03-06T09:02:16">6th of Mar 2024</time>
 						</span>
 						<span>Created <time datetime="2016-05-29T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >29th of May 2016</time> </span>
 					</span>
@@ -257,13 +257,11 @@ function rectify_inversion(long, lat, box) {
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-12-28T10:18:02">28th of Dec 2023, 10:18:02</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>.
+	<p> Page rendered <time datetime="2024-03-06T09:14:41">6th of Mar 2024, 9:14:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-06T09:02:16">6th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script src="/asset/ob1.min.js" ></script>
-<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
-<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
-<!-- style type="text/css">.highlight .code ol li { font-weight:normal; } </style -->
+
 </body>
 </html>

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/changelog" />
 <meta property="og:description" content="This is a list of changes, focussing on the UX.   Its quite boring.  This is NOT date sorted.    I pulled this out of the home page as Google said that page was too heavy." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="25th of Feb 2024, 19:23:34" />
-<meta property="article:modified_time" content="25th of Feb 2024" />
+<meta property="article:published_time" content="8th of Mar 2024, 23:10:52" />
+<meta property="article:modified_time" content="7th of Mar 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/changelog" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Changelog",
-	"article:published_time":"25th of Feb 2024, 19:23:34", 
-    "article:modified_time":"25th of Feb 2024",
+	"article:published_time":"8th of Mar 2024, 23:10:52", 
+    "article:modified_time":"7th of Mar 2024",
     "article:section":"technology",
 
     "author": {
@@ -74,7 +74,7 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">In 2012 I made the site mobile capable (template v3); but I wasn't expecting anyone to use it from a phone.  I put text in columns for readability, like newspapers.  I added “page chunks” to the articles so users didn't need to scroll up and down all the time (template v4).   I added an RSS, and a site-map in that update as the content had increased.   Then 2022, I updated the HTML to a more modern version, with better accessibility (template v6).</li>
     <li class="libasic">I am replacing the 2010 and 2012 era CSS with a BEM CSS design; again so I can improve adaptability to different peoples preferences and machines.  My palette is now 9 colours, rather than erm, about 50.   I will tidyup the font declarations next.   Things would be shorter if I dropped a lot of positioning for <i>flex-grid</i></li>
     <li class="libasic">I have dropped my “manual mouse hover” code (JS used for triggering adjacent elements), as CSS v4 is now widely enough supported.   In 2024 I removed all remaining shim for MSIE.</li>
-    <li class="libasic">In order to be semantic, I have standardised that code samples are wrapped in &quot;&lt;CODE lang=“XXX”&gt;&lt;PRE class=“code &quot; lang=“XXX”&gt;&quot; blocks.  The HTML spec says that PRE isn't for programming languages, but using PRE makes it much more readable.   The bashSamples are wrapped as CODE for better semantics.</li>
+    <li class="libasic">In order to be semantic, I have standardised that code samples are wrapped in &quot;&lt;CODE lang=“XXX”&gt;&lt;PRE class=“code &quot; lang=“XXX”&gt;&quot; blocks.  The HTML spec says that PRE isn't for programming languages, but using PRE makes it much more readable.   The highlights are wrapped as CODE for better semantics.</li>
     <li class="libasic">I am tagging older articles with a warning in the strap-line area.  I would like to add an URL map (the Apache feature) to pull in likely misspellings, and to make everything lower case</li>
     <li class="libasic">It would be nice to drop the jQuery for Alpine.  I can probably make the code shorter with more modern structures.   Modern JS has more features that eliminate the need for jQuery.   The optional UX features each have a feature-flag in the root container to enable/ skip them.   Syntax highlighting in particular is much better technology than it used to be (not upgraded yet).</li>
     <li class="libasic">A marketing person ~ after the have gotten over a shock about “no wordpress found” ~ will logically ask wouldn't it be faster to use a common share library e.g. <sup><a href="https://www.npmjs.com/package/@globocom/share-bar" target="_blank">1</a></sup> <sup><a href="https://www.npmjs.com/package/jquery-social-share-bar" target="_blank">2</a></sup>, rather hand-rolling one.  Hopefully they then realise a JAMstack site with strong PWA doesn't really work like that.  This does help me understand those media companies API better.  </li>
@@ -82,8 +82,9 @@ TODO: magic tune selection against some index/DB -->
     <li class="libasic">You will note all the github links magically get the Octocat logo.  I also decorated the docs links.   I do not have a NPM logo to repeat the same trick.</li>
     <li class="libasic">This git-repo / this project has no tests.  The engine that creates the HTML does have test-scripts, and this was the biggest test population I made at that point, as I needed to <i>test a language</i>; not an app, report or something.  They are fixtures and static expected results rather than proper unit-test with assert conditions.  My recent tweaks to the template are all tested with the next items:</li>
     <li class="libasic">Currently my the directory of raw content text, which hasn't been compiled to HTML weighs abit bigger than 3MB.  I have about 240 articles, as I deleted the oldest 20% in Jan 2022.  The compiled HTML is about 5MB.  The common CSS is 110KB compiled; and the common JS is 350KB, with some pages pulling more JS.   In 2024, I assembled a better minifier, its now 220K. <b>TODO update this line in 2024</b> </li>
-    <li class="libasic">I have moved some older JS based “UX and information retrieval improvements” to being built in CSS.  This makes the download smaller, and hopefully PageSpeed will complain about excessively large documents less often.   Unfortunately, I cannot apply the same process to mobile view, as there is no ':hover' in that render style.   I improved error reporting for remaining dead outbound-links.   </li>
+    <li class="libasic">I have moved some older JS based “UX and information retrieval improvements” to being built via CSS.  This makes the download smaller, and hopefully PageSpeed will complain about excessively large documents less often.   Unfortunately, I cannot apply the same process to mobile view, as there is no ':hover' in that render style.   I improved error reporting for remaining dead outbound-links.   </li>
     <li class="libasic">Some CSS perf optimisation, no idea about impact from this.</li>
+    <li class="libasic">I do not understand why many web agencies have a 1-3s page load time, after the first page impression.  They are loading vast amounts of assets via Cloudflare, which have little impact.   I do not think that random web-viewers are impressed that you installed a wordpress plugin, but they should have better market analysis than me.</li>
     <li class="libasic">I am mostly adding text, and testing it using a word processor, and my language focused “glamorous assistant”. </li>
     <li class="libasic"> <strong> All my articles have <a href="https://pagespeed.web.dev/analysis/https-owenberesford-me-uk/nm3jtvslj7?hl=en_GB&amp;amp;form_factor=mobile" target="_blank">pagespeed</a> scores over 90, many are 100.</strong>  Google is not really supportive for longer content (based on DOM tree size).</li>
     <li class="libasic">According to <a href="https://www.websitecarbon.com/website/owenberesford-me-uk/" target="_blank">websiteCarbon</a>, due to the architecture this consumes less power per page than 95% of the web.   If I leave one tree “running in the background”, I have offset 100% of the carbon made.   This doesn't count the cost-to-compile,</li>
@@ -122,7 +123,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-02-25T18:45:47">25th of Feb 2024</time>
+						<span>Edited <time datetime="2024-03-07T10:36:53">7th of Mar 2024</time>
 						</span>
 						<span>Created <time datetime="2023-12-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Dec 2023</time> </span>
 					</span>
@@ -169,7 +170,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-02-25T19:23:34">25th of Feb 2024, 19:23:34</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-25T18:45:47">25th of Feb 2024</time>.
+	<p> Page rendered <time datetime="2024-03-08T23:10:52">8th of Mar 2024, 23:10:52</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-07T10:36:53">7th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/web-font-2024" />
 <meta property="og:description" content="A look at recent web fonts tech and the typographical options, and analysis of fonts' readability.   A demo also is shown with font options achieving typographic effects inside CSS." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Feb 2024, 17:38:33" />
-<meta property="article:modified_time" content="28th of Feb 2024" />
+<meta property="article:published_time" content="8th of Mar 2024, 23:10:54" />
+<meta property="article:modified_time" content="8th of Mar 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/web-font-2024" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Web Fonts '24",
-	"article:published_time":"28th of Feb 2024, 17:38:33", 
-    "article:modified_time":"28th of Feb 2024",
+	"article:published_time":"8th of Mar 2024, 23:10:54", 
+    "article:modified_time":"8th of Mar 2024",
     "article:section":"technology",
 
     "author": {
@@ -101,7 +101,7 @@ However there are other uses of fonts, such as icon fonts where it is worth havi
 
 <figure >
   <figcaption> A wide support example looks like (>98% of market):</figcaption>
-	<pre class="codeblock" lang="css">
+	<code class="highlight" lang="css">
 	@font-face {
     font-family: '$englishName';
     src url('$name.woff2') format('woff2');
@@ -137,7 +137,7 @@ However there are other uses of fonts, such as icon fonts where it is worth havi
 		font-variant-numeric: tabular-nums lining-nums slashed-zero;
     }
 }
-	</pre>
+	</code>
 </figure>
 
 <p>UPDATE: I need to extend this section abit so its easier to read.<br />
@@ -159,19 +159,19 @@ Font loading discussion <sup><a href="https://css-tricks.com/fout-foit-foft/" ta
 
 
 <h5 id="toc2"> So, fonts?</h5>
-<p>For nearly everything, I use locally hosted fonts, as this is “better security” during audits.  If you are using CDN fonts, please try the optimisation tips listed on <sup><a href="https://css-tricks.com/how-to-load-fonts-in-a-way-that-fights-fout-and-makes-lighthouse-happy/" target="_blank">4</a></sup> <sup><a href="https://perfmatters.io/docs/ensure-text-remains-visible-during-webfont-load/" target="_blank">5</a></sup>.   My App servers are physically fairly near the clients, a SaaS with a .com domain may or may not be.   For a high use services, I would put fonts on a different subdomain, just like pictures.</p>
+<p>For nearly everything, I use locally hosted fonts, as this is “better security” during audits.  If you are using CDN fonts, please try the optimisation tips listed on <sup><a href="https://css-tricks.com/how-to-load-fonts-in-a-way-that-fights-fout-and-makes-lighthouse-happy/" target="_blank">4</a></sup> <sup><a href="https://perfmatters.io/docs/ensure-text-remains-visible-during-webfont-load/" target="_blank">5</a></sup>.   My App servers are physically fairly near the clients, a SaaS with a .com domain may or may not be.   For a high use services, I would put fonts on a different subdomain, just like pictures.   Warning, fonts should be considered a external binary of unknown providence, says Canva <sup><a href="https://www.theregister.com/2024/03/08/canva_font_security/" target="_blank">6</a></sup>.  The article doesn't list anything that would affect a web app, but I suspect that no-one thought about that threat vector.   I would treat the article as Canva trying to build-up market value.</p>
 
-<p>I like typography, I was briefly happy when when web-fonts got adopted by marketing teams in 2012 or so.  It is now a decade later, my current page makes use of many more settings for typesetting.  I have built many of these visual effects in plain HTML and 'box-model CSS' (no demo, as it's just 'not stopping working' till stupid o'clock).   But CSS applied to text without a special tag is much smaller and easier.   I can achieve many of these effects via MathML, see <a class="" href="https://owenberesford.me.uk/resource/draw-equations-inline#">draw-equations-inline</a>, but again PageSpeed will complain about DOM node count.   I may need to replace my font files soon <sup><a href="https://css-tricks.com/one-file-many-options-using-variable-fonts-web/" target="_blank">6</a></sup> (even if I use the same font).</p>
+<p>I like typography, I was briefly happy when when web-fonts got adopted by marketing teams in 2012 or so.  It is now a decade later, my current page makes use of many more settings for typesetting.  I have built many of these visual effects in plain HTML and 'box-model CSS' (no demo, as it's just 'not stopping working' till stupid o'clock).   But CSS applied to text without a special tag is much smaller and easier.   I can achieve many of these effects via MathML, see <a class="" href="https://owenberesford.me.uk/resource/draw-equations-inline#">draw-equations-inline</a>, but again PageSpeed will complain about DOM node count.   I may need to replace my font files soon <sup><a href="https://css-tricks.com/one-file-many-options-using-variable-fonts-web/" target="_blank">7</a></sup> (even if I use the same font).</p>
 
 
 <h5 id="toc3"> WARNING, readability</h5>
-<p>There are text focussed CSS declarations that affect the way that the letters look.  Editing fonts so they are readable and usable in many different situations is a larger and more difficult skill than adding some CSS.  A font can be made italic by setting a CSS declaration <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style" target="_blank">7</a></sup>, but a font won't be readable and italic without more work in a font editor (or using another person's work with the editor, but that does the same thing). <br />
+<p>There are text focussed CSS declarations that affect the way that the letters look.  Editing fonts so they are readable and usable in many different situations is a larger and more difficult skill than adding some CSS.  A font can be made italic by setting a CSS declaration <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style" target="_blank">8</a></sup>, but a font won't be readable and italic without more work in a font editor (or using another person's work with the editor, but that does the same thing). <br />
 The previous link showing synthesised fonts shows them to be less pronounced than the actual designed ones.  In terms of reading accessibility, a human designed font is definitely better.  But in terms of reducing bandwidth (so reducing people waiting) the browser made fonts are much better.  <br />
-In terms of flicker when fonts are applied, this can minimised by smoothing the differences in the default font, and the preferred one.  This can be done by setting <i>size-adjust, ascent-override, descent-override</i>, and <i>line-gap-override</i> <sup><a href="https://web.dev/articles/optimize-cls" target="_blank">8</a></sup>.  This is a supportive feature only, as these CSS declarations are less often supported on Safari or MSIE <sup><a href="https://caniuse.com/?search=line-gap-override" target="_blank">9</a></sup>.   As far as I can tell, these values would need to be computed manually.</p>
+In terms of flicker when fonts are applied, this can minimised by smoothing the differences in the default font, and the preferred one.  This can be done by setting <i>size-adjust, ascent-override, descent-override</i>, and <i>line-gap-override</i> <sup><a href="https://web.dev/articles/optimize-cls" target="_blank">9</a></sup>.  This is a supportive feature only, as these CSS declarations are less often supported on Safari or MSIE <sup><a href="https://caniuse.com/?search=line-gap-override" target="_blank">10</a></sup>.   As far as I can tell, these values would need to be computed manually.</p>
 
 
 <h5 id="toc4"> WARNING, extra font features are sporadic</h5>
-<p>These hints I'm demoing here are brittle to the font setup.   To get this demo to work, I scrapped the font from the mozilla site <a href="https://github.com/mozilla/Fira" target="_blank">git</a>.   It is frustrating that my normal selection of “maximise readability” for different types of people will stop these hints from working.   This font is licensed via the 'open font licence', created by SIL (OFL).   I also downloaded the Adobe “show new font features” font <a href="https://github.com/adobe-fonts/source-sans/" target="_blank">git</a> or via a GUI <sup><a href="https://fonts.adobe.com/fonts/source-sans#fonts-section" target="_blank">10</a></sup> which supports more features.  This last font is released with OFL.<br />
+<p>These hints I'm demoing here are brittle to the font setup.   To get this demo to work, I scrapped the font from the mozilla site <a href="https://github.com/mozilla/Fira" target="_blank">git</a>.   It is frustrating that my normal selection of “maximise readability” for different types of people will stop these hints from working.   This font is licensed via the 'open font licence', created by SIL (OFL).   I also downloaded the Adobe “show new font features” font <a href="https://github.com/adobe-fonts/source-sans/" target="_blank">git</a> or via a GUI <sup><a href="https://fonts.adobe.com/fonts/source-sans#fonts-section" target="_blank">11</a></sup> which supports more features.  This last font is released with OFL.<br />
 When dealing with fonts, please ensure that you have a licence to use it.   Unlike CSS itself, a font is categorised as a graphic.   I can find fonts, but I'm more interested in font readability than anything else.   There is value in 'pretty font' choice on paper, but I'm not convinced laptops have enough resolution to make fonts for body text that distinct.  <b>UPDATE:</b> If I allowed the browser default of 14pt text, rather than 11pt, the font choice may be more meaningful.</p>
 
 
@@ -207,7 +207,7 @@ When dealing with fonts, please ensure that you have a licence to use it.   Unli
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-02-28T11:26:40">28th of Feb 2024</time>
+						<span>Edited <time datetime="2024-03-08T21:31:35">8th of Mar 2024</time>
 						</span>
 						<span>Created <time datetime="2024-01-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Jan 2024</time> </span>
 					</span>
@@ -254,13 +254,11 @@ When dealing with fonts, please ensure that you have a licence to use it.   Unli
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-02-28T17:38:33">28th of Feb 2024, 17:38:33</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-02-28T11:26:40">28th of Feb 2024</time>.
+	<p> Page rendered <time datetime="2024-03-08T23:10:54">8th of Mar 2024, 23:10:54</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-08T21:31:35">8th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script src="/asset/ob1.min.js" ></script>
-<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
-<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
 <style>
 
 /* https://github.com/mozilla/Fira */

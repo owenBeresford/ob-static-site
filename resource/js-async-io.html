@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 170,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
 <title>Better JS Async IO</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-async-io" />
 <meta property="og:description" content="Article outlining my solution not having generators in browsers JS" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="28th of Dec 2023, 10:18:03" />
-<meta property="article:modified_time" content="28th of Dec 2023" />
+<meta property="article:published_time" content="6th of Mar 2024, 9:14:41" />
+<meta property="article:modified_time" content="6th of Mar 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-async-io" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Better JS Async IO",
-	"article:published_time":"28th of Dec 2023, 10:18:03", 
-    "article:modified_time":"28th of Dec 2023",
+	"article:published_time":"6th of Mar 2024, 9:14:41", 
+    "article:modified_time":"6th of Mar 2024",
     "article:section":"technology",
 
     "author": {
@@ -59,7 +59,7 @@ There are millions of articles on line to help people from the job title “lens
 <p>The following is my preferred solution, I am getting sick of the above articles messes.  Secondly I wish to avoid global variables, which many JS examples litter all over the place.  There are many XMLHTTPRequest wrappers <sup><a href="https://github.com/cferdinandi/atomic" target="_blank">12</a></sup> <sup><a href="https://zeptojs.com/#$.ajax" target="_blank">13</a></sup> <sup><a href="https://github.com/calmm-js/karet.xhr" target="_blank">14</a></sup> <sup><a href="https://github.com/organic-scholar/http.js" target="_blank">15</a></sup> <sup><a href="https://github.com/natevw/fermata" target="_blank">16</a></sup> <sup><a href="https://github.com/MrOnlineCoder/sul.js" target="_blank">17</a></sup> <sup><a href="https://github.com/typicode/pegasus" target="_blank">18</a></sup> <sup><a href="https://github.com/ForbesLindesay/ajax" target="_blank">19</a></sup>, and this isn't the point of this article.  It is assumed that there is a library that exports Promises, and does all the REST verbs.  I generally try to write code that can run in a browser directly, as it makes wide browser support faster/cheaper.  This following code is optimised for a chain of API calls, where data needs to flow from one to the next. I am writing this down, purely for reference, and that I am practicing what I preach.</p>
 
 
-<pre class="code" lang="javascript">
+<code class="highlight" lang="javascript">
 // The basic unit in this is a set of functions put into a object. These should 
 // be viewed as structs, not classes, as it is poor OO.
 // The point of doing this is to associate a response to a request, but not nest 
@@ -175,7 +175,7 @@ const SearchAPIService ={
 }
 // all the variables are constrained to the search function, making it fairly 
 // stateless
-</pre>
+</code>
 
 <h5 id="toc0"> Why use this rather than a Promise?</h5>
 <p>This structure is to interact with async REST API without making messy unreadable code.  This has features in common with Promises; except this this is tidy callbacks to deal with responses, and has better support for chains of async events than Promises.  Promises do not have a section for response processing.  I have been told that Promises shouldn't be used in vast numbers, as they use some CPU time whilst waiting for the resolve call (problem probably limited to games, and rich real-time data visualisation tools).   This API does nothing whilst waiting.   NB: You could use Promises to build this structure....</p>
@@ -223,7 +223,7 @@ I made a second version of this queueing class, where a single queue is shared a
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>
+						<span>Edited <time datetime="2024-03-06T08:59:26">6th of Mar 2024</time>
 						</span>
 						<span>Created <time datetime="2018-10-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Oct 2018</time> </span>
 					</span>
@@ -269,13 +269,11 @@ I made a second version of this queueing class, where a single queue is shared a
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2023-12-28T10:18:03">28th of Dec 2023, 10:18:03</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2023-12-28T10:16:35">28th of Dec 2023</time>.
+	<p> Page rendered <time datetime="2024-03-06T09:14:41">6th of Mar 2024, 9:14:41</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-06T08:59:26">6th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script src="/asset/ob1.min.js" ></script>
-<link rel="stylesheet" type="text/css" href="/asset/jquery-hilight-1.02.min.css" />
-<script defer src="/asset/jquery-hilight-1.06.min.js" ></script>
-<!-- style>.halferWords ol {text-align: left; list-style-type:decimal; } </style -->
+
 </body>
 </html>
