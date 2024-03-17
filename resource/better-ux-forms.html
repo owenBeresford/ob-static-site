@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Better UX forms</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="What epitomises excellent UX forms? A close look at form interactions as an experience, with an analysis of good forms along with dark UX patterns. Finally, I propose that forms are built with CSS to improve accessibility." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Better UX forms">
+<meta itemprop="description" content="What epitomises excellent UX forms? A close look at form interactions as an experience, with an analysis of good forms along with dark UX patterns. Finally, I propose that forms are built with CSS to improve accessibility.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Better UX forms">
+<meta name="twitter:description" content="What epitomises excellent UX forms? A close look at form interactions as an experience, with an analysis of good forms along with dark UX patterns. Finally, I propose that forms are built with CSS to improve accessibility.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Better UX forms" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/better-ux-forms" />
+<meta property="og:description" content="What epitomises excellent UX forms? A close look at form interactions as an experience, with an analysis of good forms along with dark UX patterns. Finally, I propose that forms are built with CSS to improve accessibility." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="17th of Mar 2024, 16:50:33" />
+<meta property="article:modified_time" content="16th of Mar 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/better-ux-forms" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Better UX forms",
+	"article:published_time":"17th of Mar 2024, 16:50:33", 
+    "article:modified_time":"16th of Mar 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords references">
+<p>I was thinking about some bad forms I had used recently.   So I thought I should define what is a “good form”.</p>
+
+
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Form interactions as an experience  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>The references documents for this tend to be long, so would hit multiple ideas.   I do have a decades worth of experience, but I think a published reference is a better touch point.  During 2017, I read a huge (file size) ebook, that showed UX changes by an UX agency across their clients' sites.  The ebook was too big for me to save it on my phone.  I will structure it as a list of references at the end.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">It is widely known that “screens” / multi-step forms perform better than single large scrolling forms.   I would love to be able to apply this via CSS, but injecting a Form component based on screen size isn't what CSS is for.  </li>
+    <li class="libasic">It's 2024 today, I really hope I don't need to mention making mobile the first device to support.</li>
+    <li class="libasic">Remember previous input if that can help, but not for passwords.   Remember it is less time to edit a nearly right address than to re-enter the entire thing.  In many places it's convenient to set a useful value as the default (e.g. “enter country”), but in others it's counter productive (e.g. “carpark location”).   </li>
+    <li class="libasic">Automate sections that can be done, like PAF.  Use device hardware if it can help (this mostly applied to phones),   For predictable input, either ask for it in a low effort style ~ like checkboxes, or add autocomplete.  Automate “manual work” like capitalising postcodes ~ but not for passwords.   It is more than twice as important to automate the manual work on mobile.</li>
+    <li class="libasic">Use structures so users are not forced to get involved in questions they don't need to answer.</li>
+    <li class="libasic">State average time to complete form at start.   Be clear about the progress through the form.   Be clear about goals, and motivations for filling in the form.  There have been reported usability problems when users didn't notice that a form changed “screen” and so the user hit back as a default action.   Marketeers are told to keep using the word “free”, but this doesn't apply in all situations.</li>
+    <li class="libasic">For low input forms, there is research that reducing eye motion improves “form filling performance”.   If the user is entering a line of text on each form item, this may not apply.</li>
+    <li class="libasic">Use inputs where the entire range of possibilities can be casually seen.   This implies that checkboxes are better than open SELECTs, and open SELECTs are still better than closed SELECTs.   Also have grouping structure on long SELECT boxes.</li>
+    <li class="libasic">Apply “common tropes” e.g. the credit card numbers are in groups of digits.   This reduces the mental load to fill in the form.   Supply relevant size to the form item.   Use placeholders to guide users if there could be more than one style for data entered (e.g. when asking for phone numbers, offer a suggestion, so users can see about prefixes, and number grouping).</li>
+    <li class="libasic">Avoid unnecessary questions, people aren't filling in forms for fun.   Structure the information so it makes sense, maybe talk through your form as though there was no devices, and you needed to voice call people to get the data.   Consider whether optional fields are worth displaying at all.  Use a “Thanks” page after submittal but ideally somehow that doesn't make the user do an extra interaction.   </li>
+    <li class="libasic">Unfortunately colour shouldn't be used as sole sigil, due to fairly common colour blindness. </li>
+    <li class="libasic">Supply validation feedback as early / fast as possible ~ I always validate on the client side, but then again on the server.   The error messages upon failure should be specific, and actionable.  </li>
+    <li class="libasic">General advice on text sizes applies here very strongly.  Try <a class="" href="https://owenberesford.me.uk/resource/readable-fonts#">readable-fonts</a>  </li>
+    <li class="libasic">For sales forms, labelling in important: make all calls to action (CTA) very clear and personalised in terms of wording.   Also high contrast to backgrounds.   </li>
+    <li class="libasic">Think about adding a CAPTCHA service, this first link is offering alternatives <sup><a href="https://datadome.co/guides/captcha/captcha-recaptcha-alternatives/" target="_blank">1</a></sup>.  There are many CAPTCHA vendors (this list is just a few alternatives) <sup><a href="https://proton.me/blog/proton-captcha" target="_blank">2</a></sup> <sup><a href="https://castle.io/" target="_blank">3</a></sup> <sup><a href="https://www.arkoselabs.com/" target="_blank">4</a></sup> <sup><a href="https://www.cloudflare.com/products/turnstile/" target="_blank">5</a></sup> <sup><a href="https://www.hcaptcha.com/" target="_blank">6</a></sup> </li>
+</ul>
+
+<p>Relevant reading material <sup><a href="https://www.ventureharbour.com/form-design-best-practices/" target="_blank">7</a></sup> <sup><a href="https://www.jotform.com/form-design/" target="_blank">8</a></sup> <sup><a href="https://designerup.co/blog/the-best-collections-of-real-ux-design-patterns/" target="_blank">9</a></sup> <sup><a href="https://zight.com/blog/form-design-ux/" target="_blank">10</a></sup> <sup><a href="https://blog.logrocket.com/ux-design/ux-form-validation-inline-after-submission/" target="_blank">11</a></sup> <sup><a href="https://clearout.io/blog/form-design/" target="_blank">12</a></sup> <sup><a href="https://medium.com/@cotiniluigi/best-ux-ui-practices-for-designing-a-form-35245b572193" target="_blank">13</a></sup>, lastly pull-out all the books mentioning UX from my <a class="" href="https://owenberesford.me.uk/resource/reading-list#">reading-list</a>.</p>
+
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords references">
+
+<h5 id="toc1"> Negative/ dark UX patterns</h5>
+<p>Most of my site is about technical ability, the following structures are common sales techniques.  Using those structures will make your employer the same as its competitors.  I am not endorsing dark patterns, just realistic, every normal person will have met these in general life before they are old enough to be a qualified developer ~ “boot camp” tech courses use most of these patterns.   In the US they trust in a god, in the EU we have GDPR.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">The simplest dark patterns are really traditional, and used pre-internet.  Adding hidden costs to a consumer transaction.    Sales misdirection, likely to support the hidden costs.    Making fake social proofs ~ like hiring a celeb to endorse your product, even though they would've never actually used it.   </li>
+    <li class="libasic">There are traditional revenue boosting mechanisms: 'bait and switch' on the product that the user is looking at.   In today's terms, this is encouraging users to start to use a freemium edition that doesn't actually do anything, so they they will make the mental commitment to buying the normal product.  Or time limited demo editions that will auto-enroll the user to the paid service.   This is why users should be cautious about supplying card details for a demo.   Deceptively adding extra items to an invoice, like a subscription, an insurance or fast delivery.</li>
+    <li class="libasic">Non-conspicuous adverts have been around for a long time, look at most elections as an example.  On the internet this can be a 'advertorial' or an 'infomercial' formats, where the media subtly pitches their product hoping the user doesn't notice.   </li>
+    <li class="libasic">Historic US <em>sales men</em> got a reputation for some types of activity (note they were nearly all male at that point).   Fast talking, trick questions and misdirection.  'Confirmshaming' ~ which I'm sure at least one religion uses ~ framing choices so the only one that looks neutral is the one the business wants to happen.   In the US, preselected sales options were common, GDPR stopped them being so obvious. </li>
+    <li class="libasic">Processes that make it really easy to signup, and hard to cancel are well known.  This is known as a 'Roach motel'.</li>
+    <li class="libasic">The newer edition of social proof is getting a user's friends (mostly the people listed in the address book or friends list) to look at an advert for the service in front of the user.  Linkedin was an early adopter of this, and got quite famous about using it.   </li>
+    <li class="libasic">Structuring the sales funnel so it is hard to compare prices, so users will over-buy.  This is also applied to stopping external price comparison tools from working.  Traditionally labelled as “Price available on application”.  Building the funnel to have a strong FOMO ~ a fake alert saying <em>“only a few of these left to buy, buy now!&quot;</em>.</li>
+</ul>
+
+<p>Aggregate references (which are all SEO text): <sup><a href="https://bootcamp.uxdesign.cc/the-dark-patterns-dd17b98091a6" target="_blank">1</a></sup> <sup><a href="https://www.uxpin.com/studio/blog/dark-patterns-in-ux-design/" target="_blank">2</a></sup> <sup><a href="https://blog.emb.global/13-dark-patterns-in-ux-design/" target="_blank">3</a></sup> <sup><a href="https://uxplaybook.org/articles/ux-dark-patterns-and-ethical-design" target="_blank">4</a></sup> <sup><a href="https://blog.logrocket.com/ux-design/common-ux-dark-patterns-avoid/" target="_blank">5</a></sup> <sup><a href="https://www.digitaldoughnut.com/articles/2023/october-2023/dark-patterns-in-ux-design-a-guide-for-designers" target="_blank">6</a></sup>  <br />
+For extra study, look at usability and UX reports, a more focussed writing if nothing else.  Nielsen Norman group are a well known example, eg <sup><a href="https://www.nngroup.com/articles/deceptive-patterns/" target="_blank">7</a></sup>.  Many businesses expand their web platforms by imitating a competitor, as they <strong>observe the techniques were working</strong>.</p>
+
+
+<h5 id="toc2"> Are Dark patterns useful? </h5>
+<p>Linkedin used the “spam your address book” option for years.   I suspect it netted them more accounts.   If the motto of your company isn't “do no evil”, and it is inside the law, trade is trade.   It should be possible to make a sales funnel that is clear about prices, and mostly transparent etc etc.<br />
+If there is a bidding UI, supplying the user with fresh information about availability and contention is a good feature.   The early versions of ebay did this dynamic feature, and it wasn't thought of as a dark pattern.   Now every Shopify site does the same interactions, and it is on these sites.   Mostly as Shopify sites are not competitive bidding.</p>
+
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords addBashSamples references">
+
+<h2 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Idea: Form design without JS <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>As an experiment, if a form was built with only CSS and HTML5 it would probably be faster loading than a JS monstrosity.  The number of things that can be achieved with CSS is increasing, and clearly we all want the smallest, fastest-loading approach to be used.    This list of ideas is also presented as an oversized code-demo available as <del><a class="" href="https://owenberesford.me.uk/resource/form-no-js-maquette#">form-no-js-maquette</a></del>.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">A short list of hopefully well-known HTML attributes <sup><a href="https://betterprogramming.pub/advanced-form-validation-with-only-html-and-css-e92fa3dc9b54" target="_blank">1</a></sup><ul class="ulbasic">
+        <li class="libasic">“required” attrib,</li>
+        <li class="libasic">judicious use of “autocomplete” attrib <sup><a href="https://web.dev/learn/forms/autofill/" target="_blank">2</a></sup>.  I'd like to be able to offer auto complete values that the server knows about and that this client (browser) doesn't.  Unfortunately, I can't see how-to do this.  This “made by vendor” auto complete is NOT relevant to personal info,</li>
+        <li class="libasic">pattern attrib to set a regex that the browser will run automatically,</li>
+        <li class="libasic">“min-length”, “max-length” attribs for number of characters on text input,</li>
+        <li class="libasic">“max-length”, “min-length” on numeric types</li>
+        <li class="libasic">'input type=“date”', 'input type=“url”'  are now supported rather than being theories,</li>
+    </ul></li>
+    <li class="libasic">A CSS selector for non-empty form items that currently invalid.  Use this structure to not whine about form items that people haven't touched yet.<ul class="ulbasic">
+        <li class="libasic">` input:not( [value=&quot;&quot;] ):invalid `</li>
+    </ul></li>
+    <li class="libasic">A CSS selector to display the help text at relevant time, mostly the suggested use is password rules <sup><a href="https://www.sitepoint.com/html5-form-validation/" target="_blank">3</a></sup>  <ul class="ulbasic">
+        <li class="libasic">` input:focus + .help `</li>
+        <li class="libasic">IMPORTANT: if some scripting is necessary (like email address validation), and this is blocking the form, there should be a message explaining the block state to the user.</li>
+    </ul></li>
+    <li class="libasic">A useful CSS selector to display that a form item has a good / accepted value (add a tick or similar via content).<ul class="ulbasic">
+        <li class="libasic">` input:valid:after ` </li>
+    </ul></li>
+    <li class="libasic">A CSS selector for non-empty form items that are currently invalid.  Use this structure to not whine about form items that people haven't touched yet <sup><a href="https://css-tricks.com/almanac/selectors/i/invalid/" target="_blank">4</a></sup>.<ul class="ulbasic">
+        <li class="libasic">` input:not( [value=&quot;&quot;] ):invalid `</li>
+    </ul></li>
+    <li class="libasic">A mostly CSS widget for “other option”, use a SELECT for known items, have an OPTION labelled “other”, when “other” is selected, show a text input <sup><a href="https://www.sliderrevolution.com/resources/css-select-styles/" target="_blank">5</a></sup>. <ul class="ulbasic">
+        <li class="libasic">` body { --extraInput:“none”; } ` </li>
+        <li class="libasic">` select.withOther option[value=“other”]:selected { --extraInput:“block”; } `</li>
+        <li class="libasic">` input.withOther, label.withOther { display:var(--extraInput);  } `</li>
+        <li class="libasic">“Paranoia first development” says to add and remove a “disabled” flag on the text input, but I can't do that via CSS <sup><a href="https://medium.com/@hayavuk/disabling-form-controls-in-html-5451e81bb1a8" target="_blank">6</a></sup>.   The disabled flag would stop the input being sent to the server, so allowing the server logic to be simpler and hopefully with less errors.</li>
+    </ul></li>
+    <li class="libasic">A CSS based form blocker, to be in effect until everything is filled in.  In practice the plain HTML attributes should deliver this effect, but CSS extras allows branding to be applied <sup><a href="https://uxpickle.com/disable-the-submit-button-if-form-validation-is-incomplete/" target="_blank">7</a></sup> <sup><a href="https://ux.stackexchange.com/questions/73728/should-form-continue-button-be-disabled-if-validation-is-incomplete" target="_blank">8</a></sup>, the control on the submit button was innovated via <sup><a href="https://www.codewithfaraz.com/questions/10/how-can-css-variables-be-used-to-dynamically-generate-attribute-selectors" target="_blank">9</a></sup><ul class="ulbasic">
+        <li class="libasic">` body { --formEnabled:“notAForm”; } `</li>
+        <li class="libasic">` form &gt; not(input:invalid) { --formEnabled=“Save”; } `</li>
+        <li class="libasic"><em>Adjust the text above to match your form</em></li>
+        <li class="libasic">` form input.submit[value=var( --formEnabled )] `</li>
+    </ul></li>
+    <li class="libasic">I have looked but been unable to build a formatting instruction to apply gaps into text for credit card numbers.  Obviously this can be done via JS, probably standard widgets .<ul class="ulbasic">
+        <li class="libasic">A traditional solution (ie 2005 era) is to use multiple text inputs, but then there needs to be a thing to automatically jump to the next input ~ JS.</li>
+        <li class="libasic">TEST THIS list of CSS features that I can't currently apply to utilise solve the problem <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-fill" target="_blank">10</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank">11</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/hyphenate-limit-chars" target="_blank">12</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow?" target="_blank">13</a></sup></li>
+    </ul></li>
+    <li class="libasic">A selector to display a card vendor logo, based on the first 3 digits of the card.  <ul class="ulbasic">
+        <li class="libasic">` form input.credit[value^=“44”]:before { content:“Visa &quot;; } `</li>
+        <li class="libasic">Add further card vendors, and add further details to style up the card logo, paying attention to its width.  List of US vendors <sup><a href="https://www.chargeflow.io/blog/bank-identification-numbers-bin-the-backbone-of-payment-processing" target="_blank">14</a></sup> <sup><a href="https://medium.com/@nitinfication/behind-the-digits-understanding-the-structure-of-credit-card-numbers-fbd845c9d632" target="_blank">15</a></sup>.  The second link describes the Luln verification, but I don't think that is practical in CSS.  Ok, I could <sup><a href="https://css-tricks.com/logical-operations-with-css-variables/" target="_blank">16</a></sup>, but I think that is misplaced effort.</li>
+    </ul></li>
+</ul>
+
+
+</div>
+<br />
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research,uitools"> <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research </a> </div>
+<p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools </a> </div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Better UX forms</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+						<a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbetter-ux-forms" title="Share this article with your twitter/ X audience." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this article on your twitter/X audience." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbetter-ux-forms" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbetter-ux-forms" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i></a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbetter-ux-forms&amp;t=Better+UX+forms"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i></a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbetter-ux-forms" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-03-16T13:26:55">16th of Mar 2024</time>
+						</span>
+						<span>Created <time datetime="2024-03-07T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >7th of Mar 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbetter-ux-forms" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Form interactions as an experience</a></li>
+<li><a href="#toc1">Idea: Form design without JS</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2024-03-17T16:50:33">17th of Mar 2024, 16:50:33</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-16T13:26:55">16th of Mar 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
