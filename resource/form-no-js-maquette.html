@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Forms with only HTML+CSS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A tech demo of how much form can be built without using JS.  This has validation for user input." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Forms with only HTML+CSS">
+<meta itemprop="description" content="A tech demo of how much form can be built without using JS.  This has validation for user input.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Forms with only HTML+CSS">
+<meta name="twitter:description" content="A tech demo of how much form can be built without using JS.  This has validation for user input.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Forms with only HTML+CSS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/form-no-js-maquette" />
+<meta property="og:description" content="A tech demo of how much form can be built without using JS.  This has validation for user input." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="26th of Mar 2024, 12:19:53" />
+<meta property="article:modified_time" content="26th of Mar 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/form-no-js-maquette" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Forms with only HTML+CSS",
+	"article:published_time":"26th of Mar 2024, 12:19:53", 
+    "article:modified_time":"26th of Mar 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>This is an oversized form.   I have included a full range of HTML widgets / components to show what I could build without using any JS.  This is just a maquette, please see <a class="" href="https://owenberesford.me.uk/resource/better-ux-forms#">better-ux-forms</a> for notes on other options.  As a demo of what can be done via CSS, there are no useful library imports, and I needed to write all the CSS.   It currently supports two screen widths, 1300px+ and 600-800px.   Most of this tech has been available for a while.   Items with a purple outline <i>are using JS</i>.    <strong>GDPR Note:</strong> this data isn't sent to servers, it's just a tech demo.</p>
+
+
+</div>
+<form class="outsizeFormContainer" action="" method="post" encoding="multipart/form-data; charset=utf8" >
+<p>Please supply your details (takes about 1-2min from desktop, about 5min from a phone):
+<fieldset class="formTab">
+<legend><label for="tab1Label"> Contact detail &nbsp; &nbsp; &nbsp; &nbsp;  </label> <input type="radio" id="tab1Label" name="tabs" value="group1" checked />  </legend>
+<div class="body">
+
+<label for="txt1" >Your name:</label>
+<input id="txt1" class="f1" placeholder="Jane Doe" type="text" value="" name="nm" required minlength="5" />
+<span class="formHelp">Use a name that won't embarrass you if you are in a different situation.<br />Also for data validation, please enter enough of a name, that it is more likely to be unique (>5 letters).</span>
+
+<label for="txt2" >Your email:</label>
+<input id="txt2" class="f1" type="email" name="em" required value="" placeholder="j.doe@corpo-server.com" />
+<span class="formHelp">A normal email address. This uses your browser's definition for "email address".</span>
+
+<div class="stacked">
+<label for="txt3" >Preferred phone:</label>
+<span class="clear"><input id="txt3" class="f1" type="tel" autocomplete pattern="0[0-9]{8,10}" value="" placeholder="000000000" name="phn" required maxlength="11" minlength="9" />
+<span class="formHelp">A UK number, either mob/landline.  Skip the country prefix.<br />Starts with a 0</span>
+</span>
+</div>
+
+<div class="stacked">
+<label for="txt4" >Your website:</label>
+<span class="clear"><input id="txt4" class="f1 url" type="text" required name="url" value="" placeholder="www.domain.com" minlength="5" />
+<span class="formHelp"> Enter an URL. This will auto-prepend add "https://" when it saves.<br />
+  The production edition would include a URL vetting feature. </span>
+</span>
+</div>
+
+</div>
+</fieldset>
+
+<fieldset class="formTab">
+<legend><label for="tab2Label"> Profile Details &nbsp; &nbsp; &nbsp; </label> <input type="radio" id="tab2Label" name="tabs" value="group2" /> </legend>
+<div class="body">
+
+<div class="stacked clear">
+<label for="txt6" > Number of cats: </label>
+<input id="txt6" class="f1 cats" type="number" min="0" max="10" name="cats" required value="0" />
+<span class="formHelp">Please your ideal number of fur children (0-10) </span>
+</div>
+
+<div class="stacked clear">
+<label for="txt7" > Best hair style: </label>
+<select id="txt7" class="f1 hair JSassist" name="hair" required >
+  <option disabled selected value="-1" >Please select</option>
+  <option value="none">Baldy/ skin</option>
+  <option value="short">Pixie/ crew/ short</option>
+  <option value="braid">Full braids/ dredz/ lox</option>
+  <option value="long">Loose straight</option>
+  <option value="long">Half shaved/ hawk/ topknot</option>
+  <option value="other">Other</option>
+</select>
+</div>
+
+<div id="txt8wrap" class="stacked clear extraHair">
+<label for="txt8" class="" > Other hair: </label>
+<input id="txt8" class="f1" min="5" max="30" name="other_hair" type="text" value="" />
+<span class="formHelp">Enter your exotic hair style </span>
+</div>
+
+<div class="stacked clear">
+<label for="txt5" noWarning="noWarning"> Your DoB: </label>
+<input id="txt5" class="f1 date" type="date" min="2020-01-01" max="2024-12-31" name="dob" required value="" />
+<span class="formHelp">Please enter a date (as this is fake data, the range limits are 2020 to 2024). </span>
+</div>
+
+<hr />
+<div class="stacked clear">
+<label for="txt9"> Shoe size: </label>
+<input id="txt9" class="f1 shoes" type="number" min="3" max="15" name="shoe" required value="7" />
+<span class="formHelp">What size shoes do you admit to? **Adult UK size ranges** </span>
+<label for="txt10" > Heel elevation: </label>
+<input id="txt10" class="f1 shoes2" type="number" min="0" max="10" name="shoe2" required value="1" />
+<span class="formHelp">This is in inches, as all the shoes I have seen are measured that way. (0-10)</span>
+ </div>
+
+ </div>
+</fieldset>
+
+<fieldset class="formTab">
+<legend><label for="tab3Label"> Media Type &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </label> <input type="radio" id="tab3Label" name="tabs" value="group3" /> </legend>
+<div class="body">
+<label for="txt11" >Describe your ideal event:</label>
+<textarea id="txt11" class="f1" rows="4" cold="50" name="evnt" required ></textarea>
+<span class="formHelp">"Event" as in an item for sale in EventBright or Ticketmaster<br />
+This is free text, I applied no validation rules. </span>
+
+<fieldset >
+<legend class="inner"> Social gender metrics: </legend>
+<table>
+<tr>
+<td> <span class="large">♂ </span> Masculine</td><td> <input id="txt12" class="f1" type="range" min="-5" max="5" name="gender1" required /></td><td> <span class="large">♀</span> Feminine</td>
+</tr>
+<tr>
+<td> Introverted</td><td> <input id="txt13" class="f1" type="range" min="-5" max="5" name="gender2" required /></td> <td>Extroverted</td>
+</tr>
+<tr>
+<td> Kaos</td> <td> <input id="txt14" class="f1" type="range" min="-5" max="5" name="gender3" required /></td> <td> Ordered</td>
+</tr>
+<tr>
+<td> Individualistic</td><td> <input id="txt15" class="f1" type="range" min="-5" max="5" name="gender4" required /></td><td>  Community</td>
+</tr>
+</table>
+<span class="formHelp">Remember this is a form demo, not a political statement </span>
+</fieldset>
+
+<div class="clear stacked">
+<label for="txt16" class="stacked">Favourite selfie: </label>
+<input id="txt16" class="f1 selfie" type="file" name="selfie" required accept="image/webp, image/png, image/jpeg, image/jpg"  />
+<span class="formHelp">Select some random image file that you like. This accepts: *.webp, *.png, *.jpeg, *.jpg</span>
+<span id="testImage" class="testImage JSassist" title="This is a small JS feature to allow users to see the photo they choose before they save.  In some phones its awkward to see the photo in the image browser"></span>
+</div>
+
+</div>
+</fieldset>
+
+<fieldset class="formTab">
+<legend><label for="tab4Label"> Card details &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </label> <input type="radio" id="tab4Label" name="tabs" value="group4" /> </legend>
+<div class="body">
+
+<label for="txt17" >Card number:</label>
+<input id="txt17" class="f1 number" type="text" minlength="16" maxlength="16" name="cc" placeholder="0000 0000 0000 0000" required pattern="[0-9]{16}" value="" />
+<span class="formHelp">The 16 digit number that is across the top of the card.  See notes </span>
+
+<label for="txt18" >Card holder name: </label>
+<input id="txt18" class="f1" type="text" minlength="6" maxlength="50" name="cc_name" required value="" placeholder="mx S Cardholder" />
+<span class="formHelp">Name of the cardholder, note some banks are picky, so pls be precise</span>
+
+<div class="stacked">
+<label for="txt19" class="noWarning">Expiry: </label>
+<input id="txt19" class="f1 date" type="date" min="2024-01-01" max="2028-01-01" name="exp_b" value="" required />
+<span class="formHelp">The expiry date will be on the card somewhere </span>
+</div>
+
+<div class="stacked">
+<label for="txt20" >Security Code: </label>
+ <input id="txt20" class="f1 ccCode" type="number" min="100" max="999" minlength="3"  placeholder="000" name="cc_verif" required value="" />
+<span class="formHelp">The 3 digit number that is traditionally on the reverse of the card </span>
+</div>
+
+
+</div>
+</fieldset>
+<div class="clear annoying">
+<input id="txt21" class="button f1 JSassist" type="submit" name="txt21" value="Review and save" />
+</div>
+</form>
+<br />
+<details class="halferWords">
+<summary>Some notes I made in progress [abit long and rambly] </summary>
+<p>To deliver this, I needed to use JS for a few details.   I was expecting to use JS for form POST, but sigh.   'Making a form' is not a thing to demo, normally.   If somehow the CSS goes missing, there is still a functioning form present, but not as nice.   If the JS goes missing, and the server can accept legacy formats, it would work.</p>
+
+
+<h5 id="toc0"> CSS extra details:</h5>
+<ul class="ulbasic">
+    <li class="libasic">In this demo z-index 3 is for notices, z-index 2 is layers, z-index 1 is for masks (currently unused).  Obviously most elements are z-index 0.   For a bigger system, I would use a larger number range;</li>
+    <li class="libasic">Dynamic just-CSS tab count markers.   LIMITATION: I don't seem to be able to make the total count a CSS variable;</li>
+    <li class="libasic">Successfully made form help-prompts as you enter data (and only as you enter, and with no layout shifts);</li>
+    <li class="libasic">Without using JS, it will take a long dev-time to get support for “in this case use this date picker, in that case use that date picker”.   I spent 6h trying to chew through the problem, most version of Safari and all of FF do not support input[type=“month”] which is best for CC forms;   </li>
+    <li class="libasic"><del>I do not have a media query to group recent Safari and FF and not Chrome, to be able to build smart-and-clean handing on input[type=month] ~ which is absent from Safari and FF </del></li>
+    <li class="libasic">The screen titles need to be in the same DOM sub-tree as the screen content, so this took abit longer to layout than if they were just connected by an ID, like I would for JS;</li>
+    <li class="libasic">Due to this being a tech demo (not a design demo), there is no specific support for mobile landscape layout.   I think for that layout, I would push the form screens to the right/ “after” of the tabs; </li>
+    <li class="libasic">Decorations saying form sections have valid data (not the same as correct data, but I can't vet that);</li>
+    <li class="libasic">Can't use CSS content on INPUTs, I needed to add extra SPANs;</li>
+    <li class="libasic">Not using accesskeys, as they don't match forms very much, and I find them harder to use a multiple platform fashion;</li>
+    <li class="libasic">I need to not use input[type=url], as I was adding the protocol for the user; </li>
+    <li class="libasic">Its not ideal that the green and blue in the screen header are about the same colour intensity.  This is bad for colour blind people. TOPO: Fix the green before adopting for real use; </li>
+    <li class="libasic">I dare not use the traditional inch marker (&quot;) by the shoe inputs in this as people will assume its a typo in some code;</li>
+    <li class="libasic">I hope that 50 chars is enough letters for a persons full name ~ I need more example data here;</li>
+    <li class="libasic">I am not using a flex layout in the tab titles, as I wanted it to be clear that the GUI Sigils were just CSS; </li>
+    <li class="libasic">I need a different unit for input screen sizes, as em or rem doesn't seem to match anything that the user enters (especially for number inputs);</li>
+</ul>
+
+
+<h5 id="toc1"> JS is essential for:</h5>
+<ul class="ulbasic">
+    <li class="libasic">LULN validation (in theory can be CSS, but that would be hUUUUUge code volume, and an arse to test);</li>
+    <li class="libasic">Email validation, probably via server (i.e. talk to internet to see if the address works);</li>
+    <li class="libasic">URL validation, probably via server (i.e. talk to the internet to see if the address works).   I added and removed a regex to look at the URL, but as modern URLs are quite flexible, so this would be A LOT of regex;</li>
+    <li class="libasic">Form packing (i.e. convert to JSON and Fetch/ Axios it);</li>
+    <li class="libasic">Drop files onto form to upload has to be done via JS;</li>
+    <li class="libasic">You can't see chosen values of SELECT via CSS, so adding JS to automate that step ;</li>
+    <li class="libasic">Tap to empty an INPUT field;</li>
+</ul>
+
+
+</details>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"> <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog </a> </div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Forms with only HTML+CSS</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i></a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette&amp;t=Forms+with+only+HTML%2BCSS"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i></a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						</span>
+						<span>Created <time datetime="2024-03-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Mar 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2024-03-26T12:19:53">26th of Mar 2024, 12:19:53</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+<style>
+/* in this text added to the left of the form item should be assumed added by the server,
+           text added to the right is a guide for the user 
+
+https://stackoverflow.com/questions/952861/targeting-only-firefox-with-css 
+ */
+.outsizeFormContainer { display:block; padding-bottom:3em; height:40em; counter-reset: tab; --noTabs:4; --hardfg: #eee; --actionbg:green;  accent-color:#eee; }
+.outsizeFormContainer .formTab { display:inline-block; padding:0.1em; padding-bottom:0; height:calc(100% - 4em); }
+.outsizeFormContainer .formTab:has( legend>input[type="radio"]:checked ) { display:inline-block; }
+.outsizeFormContainer .formTab .body { display:none; }
+.outsizeFormContainer .formTab:has( legend>input[type="radio"]:checked )>.body { min-width:30em; display:block; position: absolute; width: 30em; left:calc(50vw - 15em); min-height: 20em; height: fit-content; }
+.outsizeFormContainer legend label { background-color:var(--attentionbg); color:var(--starkfg); font-weight:bold; font-size:120%; padding:0.5em; min-width:15em; padding-left:0; }
+@media screen and (max-width:50em ) {
+/* very fast, small-screen reflow. Concern for height.  No support for landscape layout */ 
+  .outsizeFormContainer { height:55em; }
+  .outsizeFormContainer .formTab { display:block; width:100%; height:fit-content; }
+  .outsizeFormContainer legend { display:block; width:100%; }
+
+  .outsizeFormContainer .formTab:has( legend>input[type="radio"]:checked )>.body {  }  
+  .outsizeFormContainer .formTab:nth-child(2):has( legend>input[type="radio"]:checked )>.body { transform: translate(0, 17em); }  
+  .outsizeFormContainer .formTab:nth-child(3):has( legend>input[type="radio"]:checked )>.body { transform: translate(0, 12em); }  
+  .outsizeFormContainer .formTab:nth-child(4):has( legend>input[type="radio"]:checked )>.body { transform: translate(0, 6em); }  
+  .outsizeFormContainer .formTab:nth-child(5):has( legend>input[type="radio"]:checked )>.body {  }  
+}
+
+.outsizeFormContainer .formTab legend:has( input[type="radio"]:checked )>label::after { content:"\\/"; color:var(--starkfg); font-size:120%; }
+
+.outsizeFormContainer legend label::before { counter-increment:tab; content: counter(tab) "/4"; 
+	padding: 0.7em 0.5em; font-size:150%; border-radius:50%; color:var(--starkfg); background-color:var(--attentionbg) ; border:var(--starkfg) 3px double; position:sticky; z-index:3; }
+
+.outsizeFormContainer input[type="radio"] { visibility:hidden; display:none; margin-bottom:0; padding-bottom:0; } 
+.outsizeFormContainer [type="date"], .outsizeFormContainer .url, .outsizeFormContainer [type="tel"], .outsizeFormContainer [type="number"] { display:inline-block; }
+.outsizeFormContainer input[type="range"] { -webkit-appearance: none; }
+.outsizeFormContainer input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; background-color:var(--attentionbg); font-size:16pt; height:1em; width:1em; border-radius: 35%; margin-top:-10px; }
+
+.outsizeFormContainer input[type="range"]::-moz-range-thumb { background-color:var(--attentionbg); font-size:16pt; height:0.9em; width:0.9em; border-radius: 35%; margin-top:-10px; }
+.outsizeFormContainer input[type="range"]::-webkit-slider-runnable-track { width: 100%; height: 0.3em; background: #ddd; }
+/* https://codepen.io/sol_b/pen/QdNOGK?editors=1100 */
+
+.outsizeFormContainer .large { font-size:160%; font-weight:bold; line-height:0.8; padding:0; }
+.outsizeFormContainer label { margin:0.2em 0.5em; width:10em; } 
+.outsizeFormContainer label:has(+textarea) { width:fit-content; }
+
+.outsizeFormContainer .formTab:not( :invalid, :placeholder-shown, textarea[value=""] )>legend>label { background-color: var(--actionbg); }
+.outsizeFormContainer .formTab:not( :invalid, :placeholder-shown, textarea[value=""] )>legend:has( input[type="radio"] )>label:after { font-size:200%; font-weight:bold; line-height:0.8; color: var(--starkfg); content:" ✔ "; margin-bottom:-10px; z-index:3; }  
+
+.outsizeFormContainer table tbody td { padding: 0.3rem 0.625rem; }
+.outsizeFormContainer .ccCode { width:6em; display:inline-block; }
+.outsizeFormContainer .date { width:12em; }
+.outsizeFormContainer .selfie { width:15em; margin-bottom:0.21em; }
+.outsizeFormContainer .shoes, .outsizeFormContainer .cats, .outsizeFormContainer .shoes2 { width:4em; }
+.outsizeFormContainer .number { width:13em; }
+.outsizeFormContainer .hair { width:16em; line-height: 1.2; }
+outsizeFormContainer .inner { margin-left:0.5em; }
+.outsizeFormContainer .testImage { background-color:#ccc; width: 4em; height: 4em; vertical-align: bottom; display: inline-block; }
+ 
+.outsizeFormContainer .clear { margin:0; padding:0; display:inline-block; clear:both; }
+fieldset:first-of-type .body label { width:fit-content; white-space:nowrap; }
+.outsizeFormContainer .stacked { display:flex; align-items: baseline; }
+.outsizeFormContainer .stacked:has( input[type=file] ) { align-items: center; }
+.outsizeFormContainer .extraHair { display:none; }
+.outsizeFormContainer .visibleHair { display:block; width:30em; }
+
+.outsizeFormContainer .formHelp { display:none; padding:0.3em 1em; white-space:wrap; background-color:var(--hardfg); overflow-wrap: break-word; pointer-events: none; min-width:30em; text-align:center; }
+.outsizeFormContainer input { max-width:29em; }
+.outsizeFormContainer .formHelp { display:none; }
+
+.outsizeFormContainer input:focus-within +.formHelp, .outsizeFormContainer textarea:focus-within +.formHelp { display:block; position:absolute; margin-top:0.5em; z-index:3; }
+.outsizeFormContainer .stacked input:focus-within +.formHelp { margin-top: 3em; }
+.outsizeFormContainer div.stacked>.clear>input:focus-within + .formHelp { margin-top: 0.5em; }
+.outsizeFormContainer div.clear.stacked input:focus-within + .formHelp { margin-top: 5.5em; }
+.outsizeFormContainer fieldset:has( table tr td input[type="range"]:focus-within )>.formHelp { display:block; position:absolute; margin-top:1em; z-index:3; }
+
+.outsizeFormContainer .body input:invalid:not(:focus-within) +.formHelp { background-color: var(--errorbg); color:var(--starkfg); } 
+.outsizeFormContainer .body input:placeholder-shown +.formHelp { background-color: var(--hardfg); color:#000; } 
+
+.outsizeFormContainer .body input:invalid:not(:placeholder-shown, :focus-within, [type="file"], [type="date"]) { border: var(--errorbg) 2px solid; } 
+.outsizeFormContainer .body label:has( +input:not( :placeholder-shown, :focus-within, [type="file"], [type="date"] ):invalid )::after, 
+.outsizeFormContainer .body .stacked .clear:has( input:not( :placeholder-shown, :focus-within ):invalid )::after
+{ content:"❌"; } 
+.outsizeFormContainer .body label:has( +textarea )::after,  
+.outsizeFormContainer .body label:has( +input[type="date"] )::after, 
+.outsizeFormContainer .body label:has( +input[type="file"] )::after { content:""; }
+
+.outsizeFormContainer input[type="tel"] { width:10em; display:inline-block; }
+.outsizeFormContainer input.url { width:18em; display:inline-block; }
+.outsizeFormContainer .clear:has(input[type="tel"]) { width: 14em; margin-left:1em; }
+.outsizeFormContainer .clear:has(input.url) { width: 23em; margin-left:1em; }
+.outsizeFormContainer .clear:has(input[type="tel"])::before { content:"+44 "; }
+.outsizeFormContainer .clear:has(input.url)::before { content:"https://"; }
+
+/* improve this feature isn't allowed to work. 
+The data could be improved with more detailed vendor data, so UK brands are mentioned.  Also if the normal logos where used, it would be better for end-users  */
+/*
+.outsizeFormContainer .number[value^="44"]::before { content:"Visa "; } 
+.outsizeFormContainer .number[value^="55"]::before { content:"MC"; } 
+.outsizeFormContainer .number[value^="2"]::before { content:"MC"; } 
+.outsizeFormContainer .number[value^="377"]::before { content:"Amex"; } 
+*/
+
+.outsizeFormContainer .JSassist { border:dashed 4px rebeccapurple; }
+.outsizeFormContainer input[type="submit"].f1 { background-color:var(--actionbg); color:var(--starkfg); padding:0.7em; width:15em; margin:0 calc(50vw - 7.5em); user-select:none; }
+.outsizeFormContainer .annoying { cursor: grab; }
+.outsizeFormContainer:has( :invalid ) .annoying { cursor:not-allowed; }
+.outsizeFormContainer:has( :invalid ) input[type="submit"] { font-size:150%; pointer-events: none; cursor:not-allowed; background-color:var(--errorbg); color:var(--starkfg); } 
+
+@media screen and (max-width:50em ) {
+  .outsizeFormContainer input[type="submit"].f1 { width:100%; }
+  .outsizeFormContainer .annoying { width:100%; transform: translate(0, 26em); }  
+  .outsizeFormContainer input[type="submit"].f1 { margin:inherit; }
+}
+
+</style>
+<script>
+function ready(callback) {
+    if (document.readyState!='loading') { callback(); }
+    else if (document.addEventListener) { document.addEventListener('DOMContentLoaded', callback); }
+    else document.attachEvent('onreadystatechange', function(){
+        if (document.readyState=='complete') { callback(); }
+    });
+}
+
+// these functions exist as JS, as I am not allowed to see current value selected via CSS
+function hair() {
+	const el1=document.getElementById('txt7');
+	const el2=document.getElementById('txt8wrap');
+
+	if(el1.selectedIndex=== el1.options.length -1) {
+		el2.classList.remove('extraHair');
+		el2.classList.add('visibleHair');
+		const el3=document.getElementById('txt8');
+		el3.focus();
+
+	} else {
+		el2.classList.remove('visibleHair');
+		el2.classList.add('extraHair');
+	}
+}
+
+function selfie() {
+	const el1=document.getElementById('txt16');
+	const el2=document.getElementById('testImage');
+   	const el3 = document.createElement("img");
+	
+    el3.onload= (thing) => { 
+		el2.appendChild(el3); 
+		URL.revokeObjectURL( b1);
+	};
+	const b1= URL.createObjectURL( el1.files[0] );
+	el3.src=b1;
+}
+
+// I really want to put quotes round the function name, but that is buying trouble
+function postthis(e) {
+	const l1=document.querySelectorAll('.outsizeFormContainer .body input, .outsizeFormContainer .body textarea');
+	let l2={};
+	for(let i=0; i<l1.length; i++) {
+		if( l1[i].getAttribute('name')==="txt21" ) { continue; } // this button
+
+		l2[ l1[i].getAttribute('name') ]= l1[i].value;
+	}
+	window.prompt("NOTE: This is not how to pack an image \n"+ JSON.stringify(l2, null, 2) );
+    e.preventDefault();
+	return false;
+}
+
+function init() {
+	const el1=document.getElementById('txt7');
+	el1.addEventListener('change', hair);
+
+	const el2=document.getElementById('txt16');
+	el2.addEventListener('change', selfie);
+
+	const el3=document.getElementById('txt21');
+	el3.addEventListener('click', postthis);
+	el3.addEventListener('keydown', postthis);
+}
+ready(init);
+</script>
+</body>
+</html>
