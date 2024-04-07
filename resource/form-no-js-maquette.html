@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/form-no-js-maquette" />
 <meta property="og:description" content="A tech demo of how much form can be built without using JS.  This has validation for user input." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:53" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="7th of Apr 2024, 20:42:22" />
+<meta property="article:modified_time" content="7th of Apr 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/form-no-js-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Forms with only HTML+CSS",
-	"article:published_time":"26th of Mar 2024, 12:19:53", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"7th of Apr 2024, 20:42:22", 
+    "article:modified_time":"7th of Apr 2024",
     "article:section":"technology",
 
     "author": {
@@ -52,20 +52,88 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker">
+<p class="accessSrc">
+<a class="button" href="#demoHere" title="Scroll down page to the demo."> Jump to demo</a>
+</p>
 <div class="halferWords">
-<p>This is an oversized form.   I have included a full range of HTML widgets / components to show what I could build without using any JS.  This is just a maquette, please see <a class="" href="https://owenberesford.me.uk/resource/better-ux-forms#">better-ux-forms</a> for notes on other options.  As a demo of what can be done via CSS, there are no useful library imports, and I needed to write all the CSS.   It currently supports two screen widths, 1300px+ and 600-800px.   Most of this tech has been available for a while.   Items with a purple outline <i>are using JS</i>.    <strong>GDPR Note:</strong> this data isn't sent to servers, it's just a tech demo.</p>
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>This is an oversized form.   I have included a full range of HTML widgets / components to show what I could build without using any JS.  This is just a maquette, please see <a class="" href="https://owenberesford.me.uk/resource/better-ux-forms#">better-ux-forms</a> for notes on other options.  As a demo of what <em>can be done</em> via CSS, there are no useful library imports, and I needed to write all the CSS.   If I keep working this idea, I will see what can be imported.   It currently supports two screen widths, 1300px+ and 600-800px.   Most of this tech has been available for a while.   Items with a purple outline <i>are using JS</i>.   I could make a sparkly edition. <br />
+<strong>GDPR Note:</strong> this data isn't sent to any servers, it's just a tech demo.</p>
 
 
+<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Benefits: Why interact with this page? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>This form is equivalent to a narrow purpose app.   Until I get enough time to polish the resource, its a rough demo.</p>
+
+<ul class="ulbasic">
+    <li class="libasic">This page including prose comes to 25KB, uncompressed ~ less in transit.  I haven't seen an app at less than a few meg in size. <ul class="ulbasic">
+        <li class="libasic">the assets and JS in the page template can be ignored as they aren't used in the demo. </li>
+    </ul></li>
+    <li class="libasic">This page has instant loading, admittedly on my Wifi.  When I have stopped editing it, I will benchmark this.</li>
+    <li class="libasic">This supports a wide range of devices, as I cautiously didn't use partially supported CSS.  It is slower and more expensive to deliver this with other tooling, although React is good for wide support.</li>
+    <li class="libasic">If you happen to be in a bad network area, this demo will still work (its only 25kb).  This is easy to cache.   Heavier frameworks can't deliver around a bad network connection.   </li>
+    <li class="libasic">This uses *very* little CPU and battery power.  Compared to Electron apps, this article can 'fly to the moon' on the power needed to show the loading screen in Electron.  </li>
+    <li class="libasic">The cost to move this to another locale is quite small compared to other tech options.  </li>
+</ul>
+
+
+<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Liabilities <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<ul class="ulbasic">
+    <li class="libasic">Note this is primarily a form demo, I am adding in standard design elements (which I normally get from a framework).</li>
+    <li class="libasic">With this technique, I cannot add social logins/ OAuth.</li>
+    <li class="libasic">A more featured demo would upload any selfies to S3 or equivalent service (again JS).</li>
+    <li class="libasic">I need to overwork the CSS.  If I had used a targeted framework for doing this, it would be much easier/ faster.   The major negative about using the framework is that I need to rely on all these features being present.</li>
+    <li class="libasic">More work still needed.</li>
+</ul>
+
+
+<br />
+<fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
+<ul class="ulbasic">
+<li> ✖ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✖ <i class="fa fa-internet-explorer"></i> win32/MSIE (unsupported legacy)</li>
+<li> ✖ <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✖ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari (FAIL on Safari 12) </li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> ✖ <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> ✖ <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
+</ul>
+<details class="singlePopup">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser (erm Ok, not this one)</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset>
 </div>
+
+<br />
 <form class="outsizeFormContainer" action="" method="post" encoding="multipart/form-data; charset=utf8" >
-<p>Please supply your details (takes about 1-2min from desktop, about 5min from a phone):
+<p><a name="demoHere"></a> Please supply your details (takes about 1-2min from desktop, about 5min from a phone):
 <fieldset class="formTab">
 <legend><label for="tab1Label"> Contact detail &nbsp; &nbsp; &nbsp; &nbsp;  </label> <input type="radio" id="tab1Label" name="tabs" value="group1" checked />  </legend>
 <div class="body">
 
 <label for="txt1" >Your name:</label>
 <input id="txt1" class="f1" placeholder="Jane Doe" type="text" value="" name="nm" required minlength="5" />
-<span class="formHelp">Use a name that won't embarrass you if you are in a different situation.<br />Also for data validation, please enter enough of a name, that it is more likely to be unique (>5 letters).</span>
+<span class="formHelp">For data validation, please enter enough text, that it is more likely to be unique (>5 letters).</span>
 
 <label for="txt2" >Your email:</label>
 <input id="txt2" class="f1" type="email" name="em" required value="" placeholder="j.doe@corpo-server.com" />
@@ -82,7 +150,7 @@ TODO: magic tune selection against some index/DB -->
 <label for="txt4" >Your website:</label>
 <span class="clear"><input id="txt4" class="f1 url" type="text" required name="url" value="" placeholder="www.domain.com" minlength="5" />
 <span class="formHelp"> Enter an URL. This will auto-prepend add "https://" when it saves.<br />
-  The production edition would include a URL vetting feature. </span>
+  The production edition should include a URL vetting feature. </span>
 </span>
 </div>
 
@@ -96,7 +164,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="stacked clear">
 <label for="txt6" > Number of cats: </label>
 <input id="txt6" class="f1 cats" type="number" min="0" max="10" name="cats" required value="0" />
-<span class="formHelp">Please your ideal number of fur children (0-10) </span>
+<span class="formHelp">Please enter your ideal number of fur children (0-10) </span>
 </div>
 
 <div class="stacked clear">
@@ -180,11 +248,11 @@ This is free text, I applied no validation rules. </span>
 
 <label for="txt17" >Card number:</label>
 <input id="txt17" class="f1 number" type="text" minlength="16" maxlength="16" name="cc" placeholder="0000 0000 0000 0000" required pattern="[0-9]{16}" value="" />
-<span class="formHelp">The 16 digit number that is across the top of the card.  See notes </span>
+<span class="formHelp">The 16 digit number that is across the top of the card.<br />See notes, I have tried to make the layout easier to use.</span>
 
 <label for="txt18" >Card holder name: </label>
 <input id="txt18" class="f1" type="text" minlength="6" maxlength="50" name="cc_name" required value="" placeholder="mx S Cardholder" />
-<span class="formHelp">Name of the cardholder, note some banks are picky, so pls be precise</span>
+<span class="formHelp">The name on the card,<br />Note some banks are picky, so please be precise.</span>
 
 <div class="stacked">
 <label for="txt19" class="noWarning">Expiry: </label>
@@ -198,20 +266,21 @@ This is free text, I applied no validation rules. </span>
 <span class="formHelp">The 3 digit number that is traditionally on the reverse of the card </span>
 </div>
 
-
 </div>
 </fieldset>
 <div class="clear annoying">
+https://css-tricks.com/css-target-for-off-screen-designs/
+https://ishadeed.com/article/css-container-query-guide
 <input id="txt21" class="button f1 JSassist" type="submit" name="txt21" value="Review and save" />
 </div>
 </form>
 <br />
 <details class="halferWords">
-<summary>Some notes I made in progress [abit long and rambly] </summary>
+<summary>Some notes I made during progress [long and rambly] </summary>
 <p>To deliver this, I needed to use JS for a few details.   I was expecting to use JS for form POST, but sigh.   'Making a form' is not a thing to demo, normally.   If somehow the CSS goes missing, there is still a functioning form present, but not as nice.   If the JS goes missing, and the server can accept legacy formats, it would work.</p>
 
 
-<h5 id="toc0"> CSS extra details:</h5>
+<h5 id="toc3"> CSS extra details:</h5>
 <ul class="ulbasic">
     <li class="libasic">In this demo z-index 3 is for notices, z-index 2 is layers, z-index 1 is for masks (currently unused).  Obviously most elements are z-index 0.   For a bigger system, I would use a larger number range;</li>
     <li class="libasic">Dynamic just-CSS tab count markers.   LIMITATION: I don't seem to be able to make the total count a CSS variable;</li>
@@ -232,7 +301,7 @@ This is free text, I applied no validation rules. </span>
 </ul>
 
 
-<h5 id="toc1"> JS is essential for:</h5>
+<h5 id="toc4"> JS is essential for:</h5>
 <ul class="ulbasic">
     <li class="libasic">LULN validation (in theory can be CSS, but that would be hUUUUUge code volume, and an arse to test);</li>
     <li class="libasic">Email validation, probably via server (i.e. talk to internet to see if the address works);</li>
@@ -245,6 +314,7 @@ This is free text, I applied no validation rules. </span>
 
 
 </details>
+<br />
 </div>
     </article>
    </main>
@@ -277,7 +347,7 @@ This is free text, I applied no validation rules. </span>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-04-07T20:33:10">7th of Apr 2024</time>
 						</span>
 						<span>Created <time datetime="2024-03-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Mar 2024</time> </span>
 					</span>
@@ -297,6 +367,9 @@ This is free text, I applied no validation rules. </span>
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
 <menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">Benefits: Why interact with this page?</a></li>
+<li class="h4_odd"><a href="#toc2">Liabilities</a></li>
 </menu>
 <br />
 
@@ -324,7 +397,7 @@ This is free text, I applied no validation rules. </span>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:53">26th of Mar 2024, 12:19:53</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-07T20:33:10">7th of Apr 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -333,25 +406,27 @@ This is free text, I applied no validation rules. </span>
 /* in this text added to the left of the form item should be assumed added by the server,
            text added to the right is a guide for the user 
 
+  .outsizeFormContainer .formTab:nth-child(1)   is a P, and ignored in the form
+
+https://www.amitmerchant.com/dynamic-progress-bars-using-css/
 https://stackoverflow.com/questions/952861/targeting-only-firefox-with-css 
  */
-.outsizeFormContainer { display:block; padding-bottom:3em; height:40em; counter-reset: tab; --noTabs:4; --hardfg: #eee; --actionbg:green;  accent-color:#eee; }
+
+.outsizeFormContainer { display:block; padding-bottom:3em; height:40em; counter-reset: tab; --noTabs:4; --hardfg: #eee; --actionbg:green; accent-color:#eee; }
 .outsizeFormContainer .formTab { display:inline-block; padding:0.1em; padding-bottom:0; height:calc(100% - 4em); }
 .outsizeFormContainer .formTab:has( legend>input[type="radio"]:checked ) { display:inline-block; }
 .outsizeFormContainer .formTab .body { display:none; }
 .outsizeFormContainer .formTab:has( legend>input[type="radio"]:checked )>.body { min-width:30em; display:block; position: absolute; width: 30em; left:calc(50vw - 15em); min-height: 20em; height: fit-content; }
 .outsizeFormContainer legend label { background-color:var(--attentionbg); color:var(--starkfg); font-weight:bold; font-size:120%; padding:0.5em; min-width:15em; padding-left:0; }
-@media screen and (max-width:50em ) {
+@media screen and (max-width:50em ) and (min-resolution: 150dpi) {
 /* very fast, small-screen reflow. Concern for height.  No support for landscape layout */ 
   .outsizeFormContainer { height:55em; }
   .outsizeFormContainer .formTab { display:block; width:100%; height:fit-content; }
   .outsizeFormContainer legend { display:block; width:100%; }
 
-  .outsizeFormContainer .formTab:has( legend>input[type="radio"]:checked )>.body {  }  
   .outsizeFormContainer .formTab:nth-child(2):has( legend>input[type="radio"]:checked )>.body { transform: translate(0, 17em); }  
   .outsizeFormContainer .formTab:nth-child(3):has( legend>input[type="radio"]:checked )>.body { transform: translate(0, 12em); }  
   .outsizeFormContainer .formTab:nth-child(4):has( legend>input[type="radio"]:checked )>.body { transform: translate(0, 6em); }  
-  .outsizeFormContainer .formTab:nth-child(5):has( legend>input[type="radio"]:checked )>.body {  }  
 }
 
 .outsizeFormContainer .formTab legend:has( input[type="radio"]:checked )>label::after { content:"\\/"; color:var(--starkfg); font-size:120%; }
@@ -420,7 +495,7 @@ fieldset:first-of-type .body label { width:fit-content; white-space:nowrap; }
 .outsizeFormContainer .clear:has(input[type="tel"])::before { content:"+44 "; }
 .outsizeFormContainer .clear:has(input.url)::before { content:"https://"; }
 
-/* improve this feature isn't allowed to work. 
+/* improve this feature isn't allowed to work, without JS.  
 The data could be improved with more detailed vendor data, so UK brands are mentioned.  Also if the normal logos where used, it would be better for end-users  */
 /*
 .outsizeFormContainer .number[value^="44"]::before { content:"Visa "; } 
@@ -435,10 +510,11 @@ The data could be improved with more detailed vendor data, so UK brands are ment
 .outsizeFormContainer:has( :invalid ) .annoying { cursor:not-allowed; }
 .outsizeFormContainer:has( :invalid ) input[type="submit"] { font-size:150%; pointer-events: none; cursor:not-allowed; background-color:var(--errorbg); color:var(--starkfg); } 
 
-@media screen and (max-width:50em ) {
+@media screen and (max-width:50em ) and (min-resolution: 150dpi) {
   .outsizeFormContainer input[type="submit"].f1 { width:100%; }
   .outsizeFormContainer .annoying { width:100%; transform: translate(0, 26em); }  
   .outsizeFormContainer input[type="submit"].f1 { margin:inherit; }
+
 }
 
 </style>
