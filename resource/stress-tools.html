@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/stress-tools" />
 <meta property="og:description" content="Article with information about current stress test tools" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Apr 2024, 20:42:25" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="17th of Apr 2024, 17:40:51" />
+<meta property="article:modified_time" content="17th of Apr 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/stress-tools" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "REST test tools",
-	"article:published_time":"7th of Apr 2024, 20:42:25", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"17th of Apr 2024, 17:40:51", 
+    "article:modified_time":"17th of Apr 2024",
     "article:section":"technology",
 
     "author": {
@@ -53,67 +53,67 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker addReferences">
 <div class="halferWords">
-<p>This is background research into current saturation test tools that work over HTTP. This domain is suited to E2E testing, but generally excludes any client side stuff, as the client doesn't need to scale that much.  For test purposes, I would setup the tool on the same host as the webserver, so results on different test scenarios are more reliably comparable.<br />
+<p>This is background research into current saturation test tools that work over HTTP(S). This domain is suited to E2E testing, but generally excludes any client side stuff, as the client doesn't need to scale that much.  For test purposes, I would setup the tool on the same host as the webserver, so results on different test scenarios are more reliably comparable.<br />
 I'm writing this, as today I wrote another test runner to be able to send API requests in bulk; and think this is misplaced effort.</p>
 
 
 <h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Requirements for the tools: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li class="libasic">can talk HTTPS</li>
-    <li class="libasic">can authenticate self at start of script (via a login request; or HTTP auth, if essential)</li>
-    <li class="libasic">will understand full range of HTTP response codes</li>
-    <li class="libasic">can send each HTTP verb [1]</li>
-    <li class="libasic">provides control on request population</li>
-    <li class="libasic">provides summaries of results</li>
-    <li class="libasic">ideally has basic support for JSON and XML parsing, to be able to understand inline error codes from API that aren't REST [2]</li>
-    <li class="libasic">can be linked into a CI</li>
-    <li class="libasic">can do floods of requests, not singular ones</li>
+    <li>can talk HTTPS</li>
+    <li>can authenticate self at start of script (via a login request; or HTTP auth, if essential)</li>
+    <li>will understand full range of HTTP response codes</li>
+    <li>can send each HTTP verb [1]</li>
+    <li>provides control on request population</li>
+    <li>provides summaries of results</li>
+    <li>ideally has basic support for JSON and XML parsing, to be able to understand inline error codes from API that aren't REST [2]</li>
+    <li>can be linked into a CI</li>
+    <li>can do floods of requests, not singular ones</li>
 </ul>
 
 
 <h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > List <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li class="libasic">General articles on stress tools <sup><a href="https://dzone.com/articles/12-great-web-service-testing-tools" target="_blank">1</a></sup> <sup><a href="https://www.quora.com/What-is-the-best-platform-tools-for-testing-a-REST-API" target="_blank">2</a></sup>    </li>
-    <li class="libasic"> </li>
-    <li class="libasic"><strong><a href="https://packagecontrol.io/packages/Requester" target="_blank">Requester</a></strong>, env: sublime text editor/Python. <ul class="ulbasic">
-        <li class="libasic">see comprehensive notes <sup><a href="https://www.quora.com/What-is-the-best-platform-tools-for-testing-a-REST-API" target="_blank">3</a></sup> <sup><a href="https://kylebebak.github.io/Requester/" target="_blank">4</a></sup></li>
-        <li class="libasic"><a href="https://github.com/braindamageinc/SublimeHttpRequester" target="_blank">supports HTTPS</a> ✔ <a href="https://kylebebak.github.io/Requester/#sessions" target="_blank">authentication</a> ✔ <a href="https://kylebebak.github.io/Requester/#test-runner" target="_blank">status codes</a> ✔ <a href="https://github.com/kylebebak/Requester/blob/master/docs/_content/body.md" target="_blank">http verbs</a> ✔ summaries, CI integration and JSON parsing can be done via Python, but not by automagic.  Can export tests to flat Python scripts.</li>
-        <li class="libasic"></li>
+    <li>General articles on stress tools <sup><a href="https://dzone.com/articles/12-great-web-service-testing-tools" target="_blank">1</a></sup> <sup><a href="https://www.quora.com/What-is-the-best-platform-tools-for-testing-a-REST-API" target="_blank">2</a></sup>    </li>
+    <li> </li>
+    <li><strong><a href="https://packagecontrol.io/packages/Requester" target="_blank">Requester</a></strong>, env: sublime text editor/Python. <ul class="ulbasic">
+        <li>see comprehensive notes <sup><a href="https://www.quora.com/What-is-the-best-platform-tools-for-testing-a-REST-API" target="_blank">3</a></sup> <sup><a href="https://kylebebak.github.io/Requester/" target="_blank">4</a></sup></li>
+        <li><a href="https://github.com/braindamageinc/SublimeHttpRequester" target="_blank">supports HTTPS</a> ✔ <a href="https://kylebebak.github.io/Requester/#sessions" target="_blank">authentication</a> ✔ <a href="https://kylebebak.github.io/Requester/#test-runner" target="_blank">status codes</a> ✔ <a href="https://github.com/kylebebak/Requester/blob/master/docs/_content/body.md" target="_blank">http verbs</a> ✔ summaries, CI integration and JSON parsing can be done via Python, but not by automagic.  Can export tests to flat Python scripts.</li>
+        <li></li>
     </ul></li>
-    <li class="libasic"><strong><a href="https://www.getpostman.com/products" target="_blank">Postman</a></strong>, env: some cloud server + your Chrome instance<ul class="ulbasic">
-        <li class="libasic">mature documentation at <sup><a href="https://www.getpostman.com/docs/v6/" target="_blank">5</a></sup></li>
-        <li class="libasic">targeting CI, its a payfer ware <sup><a href="https://www.getpostman.com/pricing" target="_blank">6</a></sup></li>
-        <li class="libasic"><a href="https://blog.postman.com/using-self-signed-certificates-with-postman/" target="_blank">supports HTTPS</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/authorization" target="_blank">supports authentication</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/responses" target="_blank">status codes and response parsing</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/requests" target="_blank">http verbs</a> (find in page for Method) ✔ <a href="https://www.getpostman.com/docs/v6/postman/collections/managing_collections" target="_blank">populations</a> ✔ <a href="https://blog.jongallant.com/2017/04/postman-newman-vsts-continuous-integration/" target="_blank">CI integration</a> ✔ </li>
+    <li><strong><a href="https://www.getpostman.com/products" target="_blank">Postman</a></strong>, env: some cloud server + your Chrome instance<ul class="ulbasic">
+        <li>mature documentation at <sup><a href="https://www.getpostman.com/docs/v6/" target="_blank">5</a></sup></li>
+        <li>targeting CI, its a payfer ware <sup><a href="https://www.getpostman.com/pricing" target="_blank">6</a></sup></li>
+        <li><a href="https://blog.postman.com/using-self-signed-certificates-with-postman/" target="_blank">supports HTTPS</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/authorization" target="_blank">supports authentication</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/responses" target="_blank">status codes and response parsing</a> ✔ <a href="https://www.getpostman.com/docs/v6/postman/sending_api_requests/requests" target="_blank">http verbs</a> (find in page for Method) ✔ <a href="https://www.getpostman.com/docs/v6/postman/collections/managing_collections" target="_blank">populations</a> ✔ <a href="https://blog.jongallant.com/2017/04/postman-newman-vsts-continuous-integration/" target="_blank">CI integration</a> ✔ </li>
     </ul></li>
-    <li class="libasic"><strong><a href="https://www.soapui.org/" target="_blank">SoapUI</a></strong>, env: Java/Maven. <ul class="ulbasic">
-        <li class="libasic">some docs <a href="https://en.wikipedia.org/wiki/SoapUI" target="_blank">wiki</a> <sup><a href="https://support.smartbear.com/readyapi/docs/soapui/index.html" target="_blank">7</a></sup> which are auto-generated, and hard to read.</li>
-        <li class="libasic">is a payfer ware, although I'm not sure on value to you, the customer</li>
-        <li class="libasic"><a href="https://support.smartbear.com/readyapi/docs/soapui/steps/index.html" target="_blank">supports HTTPS</a> ✔ <a href="https://stackoverflow.com/questions/23296792/using-soapui-to-test-login-function-of-rest-application" target="_blank">supports authentication</a> ✔ <a href="https://www.soapui.org/docs/functional-testing/validating-messages/getting-started-with-assertions.html" target="_blank">status codes</a> ✔ <a href="https://stackoverflow.com/questions/33800164/soapui-property-transfer-from-json-response-single-response-without-any-value" target="_blank">response parsing</a> ✔ <a href="https://www.soapui.org/learn/api/rest-request-method-verbs.html" target="_blank">http verbs</a> ✔ <a href="https://stackoverflow.com/questions/2673369/can-i-use-soapui-for-concurrency-testing?rq=1" target="_blank">populations</a> ✔ <a href="https://stackoverflow.com/questions/6648244/how-to-integrate-soapui-with-jenkins" target="_blank">CI integration</a> ✔ </li>
+    <li><strong><a href="https://www.soapui.org/" target="_blank">SoapUI</a></strong>, env: Java/Maven. <ul class="ulbasic">
+        <li>some docs <a href="https://en.wikipedia.org/wiki/SoapUI" target="_blank">wiki</a> <sup><a href="https://support.smartbear.com/readyapi/docs/soapui/index.html" target="_blank">7</a></sup> which are auto-generated, and hard to read.</li>
+        <li>is a payfer ware, although I'm not sure on value to you, the customer</li>
+        <li><a href="https://support.smartbear.com/readyapi/docs/soapui/steps/index.html" target="_blank">supports HTTPS</a> ✔ <a href="https://stackoverflow.com/questions/23296792/using-soapui-to-test-login-function-of-rest-application" target="_blank">supports authentication</a> ✔ <a href="https://www.soapui.org/docs/functional-testing/validating-messages/getting-started-with-assertions.html" target="_blank">status codes</a> ✔ <a href="https://stackoverflow.com/questions/33800164/soapui-property-transfer-from-json-response-single-response-without-any-value" target="_blank">response parsing</a> ✔ <a href="https://www.soapui.org/learn/api/rest-request-method-verbs.html" target="_blank">http verbs</a> ✔ <a href="https://stackoverflow.com/questions/2673369/can-i-use-soapui-for-concurrency-testing?rq=1" target="_blank">populations</a> ✔ <a href="https://stackoverflow.com/questions/6648244/how-to-integrate-soapui-with-jenkins" target="_blank">CI integration</a> ✔ </li>
     </ul></li>
-    <li class="libasic"><strong><a href="https://www.inflectra.com/Rapise/Highlights.aspx" target="_blank">Rapise</a></strong> env: java <ul class="ulbasic">
-        <li class="libasic">This looses marks for being win32 only but written in Java</li>
-        <li class="libasic">This seems to be an interactive HTTP client, with JS, but without media support.  Like a HTTP-REPL.</li>
-        <li class="libasic">This looks like a strong contender with Selenium.</li>
-        <li class="libasic"><a href="https://www.inflectra.com/Documents/Rapise%20Web%20Service%20Testing%20Tutorials.pdf" target="_blank">manual</a></li>
-        <li class="libasic">supports authentication ~ roughly, but the docs only mention BASIC auth status codes ~ roughly the manual only mentions HTTP200 ✔ <a href="https://www.inflectra.com/Rapise/Highlights/Test-Validation.aspx" target="_blank">response parsing</a> ✔  http verbs ~ roughly, the manual only mentions GET and POST <a href="https://www.inflectra.com/Rapise/Highlights/SpiraTest-Integration.aspx" target="_blank">populations</a> ✔ <a href="https://www.inflectra.com/support/knowledgebase/kb300.aspx" target="_blank">CI integration</a> ✔ (roughly, they want to hype their own scheduler tools)</li>
+    <li><strong><a href="https://www.inflectra.com/Rapise/Highlights.aspx" target="_blank">Rapise</a></strong> env: java <ul class="ulbasic">
+        <li>This looses marks for being win32 only but written in Java</li>
+        <li>This seems to be an interactive HTTP client, with JS, but without media support.  Like a HTTP-REPL.</li>
+        <li>This looks like a strong contender with Selenium.</li>
+        <li><a href="https://www.inflectra.com/Documents/Rapise%20Web%20Service%20Testing%20Tutorials.pdf" target="_blank">manual</a></li>
+        <li>supports authentication ~ roughly, but the docs only mention BASIC auth status codes ~ roughly the manual only mentions HTTP200 ✔ <a href="https://www.inflectra.com/Rapise/Highlights/Test-Validation.aspx" target="_blank">response parsing</a> ✔  http verbs ~ roughly, the manual only mentions GET and POST <a href="https://www.inflectra.com/Rapise/Highlights/SpiraTest-Integration.aspx" target="_blank">populations</a> ✔ <a href="https://www.inflectra.com/support/knowledgebase/kb300.aspx" target="_blank">CI integration</a> ✔ (roughly, they want to hype their own scheduler tools)</li>
     </ul></li>
-    <li class="libasic"><strong><a href="https://gatling.io/" target="_blank">Gatling</a></strong> env: scala<ul class="ulbasic">
-        <li class="libasic">docs <sup><a href="https://gatling.io/documentation/" target="_blank">8</a></sup> <sup><a href="https://gatling.io/blog/" target="_blank">9</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Gatling_%28software%29" target="_blank">10</a></sup></li>
-        <li class="libasic">The docs show writing a full couple of classes as a test; same volume of work as adding a static page to a Symfony website.  Any thing you can do with a programming language, may be included in a test.  This isn't really a tool, but does have good high request volume support.</li>
+    <li><strong><a href="https://gatling.io/" target="_blank">Gatling</a></strong> env: scala<ul class="ulbasic">
+        <li>docs <sup><a href="https://gatling.io/documentation/" target="_blank">8</a></sup> <sup><a href="https://gatling.io/blog/" target="_blank">9</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Gatling_%28software%29" target="_blank">10</a></sup></li>
+        <li>The docs show writing a full couple of classes as a test; same volume of work as adding a static page to a Symfony website.  Any thing you can do with a programming language, may be included in a test.  This isn't really a tool, but does have good high request volume support.</li>
     </ul></li>
-    <li class="libasic"><strong><a href="https://www.parasoft.com/products/soatest" target="_blank">SOAtest</a></strong> env: .Net <ul class="ulbasic">
-        <li class="libasic">docs <sup><a href="https://docs.parasoft.com/display/SOA9103/Testing+RESTful+Services+1" target="_blank">11</a></sup> <sup><a href="https://docs.parasoft.com/display/SOA9105/SOAtest+Smart+API+Test+Generator" target="_blank">12</a></sup> <sup><a href="https://en.wikipedia.org/wiki/SOAtest" target="_blank">13</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Parasoft" target="_blank">14</a></sup> manual on scribd <sup><a href="https://www.scribd.com/doc/249718308/Tutorial-Parasoft" target="_blank">15</a></sup> </li>
-        <li class="libasic">This tool is quite focussed on XML, not REST.</li>
-        <li class="libasic">They are waving the word “licence” around a lot.</li>
-        <li class="libasic"><a href="https://docs.parasoft.com/display/SOAVIRT9103/Configuring+for+Services+Deployed+Over+HTTPS" target="_blank">supports HTTPS</a> ✔ <a href="https://docs.parasoft.com/display/SOAVIRT9103/Authentication%2C+Encryption%2C+and+Access+Control" target="_blank">supports authentication</a> ~ read the link, they are focussed on XML RPC certs, not user accounts. Response parsing is not in the manual at all, <a href="https://www.scribd.com/doc/249718308/Tutorial-Parasoft" target="_blank">although</a>.  No mention of http verbs <a href="https://docs.parasoft.com/display/SOA9103/Automated+Testing+as+a+Nightly+Process" target="_blank">populations</a> ✔ <a href="https://stackoverflow.com/questions/26674229/how-to-integrate-parasoft-soatest-with-jenkins" target="_blank">CI integration</a> ✔ </li>
+    <li><strong><a href="https://www.parasoft.com/products/soatest" target="_blank">SOAtest</a></strong> env: .Net <ul class="ulbasic">
+        <li>docs <sup><a href="https://docs.parasoft.com/display/SOA9103/Testing+RESTful+Services+1" target="_blank">11</a></sup> <sup><a href="https://docs.parasoft.com/display/SOA9105/SOAtest+Smart+API+Test+Generator" target="_blank">12</a></sup> <sup><a href="https://en.wikipedia.org/wiki/SOAtest" target="_blank">13</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Parasoft" target="_blank">14</a></sup> manual on scribd <sup><a href="https://www.scribd.com/doc/249718308/Tutorial-Parasoft" target="_blank">15</a></sup> </li>
+        <li>This tool is quite focussed on XML, not REST.</li>
+        <li>They are waving the word “licence” around a lot.</li>
+        <li><a href="https://docs.parasoft.com/display/SOAVIRT9103/Configuring+for+Services+Deployed+Over+HTTPS" target="_blank">supports HTTPS</a> ✔ <a href="https://docs.parasoft.com/display/SOAVIRT9103/Authentication%2C+Encryption%2C+and+Access+Control" target="_blank">supports authentication</a> ~ read the link, they are focussed on XML RPC certs, not user accounts. Response parsing is not in the manual at all, <a href="https://www.scribd.com/doc/249718308/Tutorial-Parasoft" target="_blank">although</a>.  No mention of http verbs <a href="https://docs.parasoft.com/display/SOA9103/Automated+Testing+as+a+Nightly+Process" target="_blank">populations</a> ✔ <a href="https://stackoverflow.com/questions/26674229/how-to-integrate-parasoft-soatest-with-jenkins" target="_blank">CI integration</a> ✔ </li>
     </ul></li>
-    <li class="libasic"><strong><a href="https://vrest.io/" target="_blank">vREST</a></strong> env: Node<ul class="ulbasic">
-        <li class="libasic">payfer wares <sup><a href="https://vrest.io/pricing" target="_blank">16</a></sup>, docs <sup><a href="https://docs.optimizory.com/display/vrest/vREST+Documentation+Home" target="_blank">17</a></sup> <sup><a href="https://www.linkedin.com/pulse/automate-your-rest-api-testing-using-vrest-dheeraj-kumar-aggarwal/" target="_blank">18</a></sup></li>
-        <li class="libasic">supports HTTPS, I assert yes, if its written in Node, but its not listed anywhere. <a href="https://docs.optimizory.com/display/vrest/Cookie+Based+Authentication" target="_blank">supports authentication</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Response+Validation" target="_blank">status codes and response parsing</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Writing+your+first+test+case" target="_blank">http verbs</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Executing+test+cases" target="_blank">populations</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Jenkins+Server" target="_blank">CI integration</a> ✔ </li>
+    <li><strong><a href="https://vrest.io/" target="_blank">vREST</a></strong> env: Node<ul class="ulbasic">
+        <li>payfer wares <sup><a href="https://vrest.io/pricing" target="_blank">16</a></sup>, docs <sup><a href="https://docs.optimizory.com/display/vrest/vREST+Documentation+Home" target="_blank">17</a></sup> <sup><a href="https://www.linkedin.com/pulse/automate-your-rest-api-testing-using-vrest-dheeraj-kumar-aggarwal/" target="_blank">18</a></sup></li>
+        <li>supports HTTPS, I assert yes, if its written in Node, but its not listed anywhere. <a href="https://docs.optimizory.com/display/vrest/Cookie+Based+Authentication" target="_blank">supports authentication</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Response+Validation" target="_blank">status codes and response parsing</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Writing+your+first+test+case" target="_blank">http verbs</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Executing+test+cases" target="_blank">populations</a> ✔ <a href="https://docs.optimizory.com/display/vrest/Jenkins+Server" target="_blank">CI integration</a> ✔ </li>
     </ul></li>
-    <li class="libasic"><strong><a href="https://jmeter.apache.org/" target="_blank">JMeter</a></strong> env: I suspect C<ul class="ulbasic">
-        <li class="libasic">docs <sup><a href="https://jmeter.apache.org/usermanual/component_reference.html" target="_blank">19</a></sup>  </li>
-        <li class="libasic"><a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request" target="_blank">supports HTTPS</a> ✔ <a href="https://stackoverflow.com/questions/1389464/session-cookie-management-in-apache-jmeter" target="_blank">supports authentication</a> (this is more together, it includes links to their docs) ✔ <a href="https://stackoverflow.com/questions/10145555/assert-returned-status-code-http-400-as-a-success" target="_blank">status codes</a> ✔ <a href="https://www.testingexcellence.com/parse-json-response-using-jmeters-json-extractor/" target="_blank">response parsing</a> ✔ <a href="https://jmeter.apache.org/usermanual/build-web-test-plan.html#logging_in" target="_blank">http verbs</a> ✔ <a href="https://jmeter.apache.org/usermanual/test_plan.html" target="_blank">populations</a> ✔ <a href="https://www.blazemeter.com/blog/continuous-integration-101-how-run-jmeter-jenkins" target="_blank">CI integration</a> ✔ </li>
+    <li><strong><a href="https://jmeter.apache.org/" target="_blank">JMeter</a></strong> env: I suspect C<ul class="ulbasic">
+        <li>docs <sup><a href="https://jmeter.apache.org/usermanual/component_reference.html" target="_blank">19</a></sup>  </li>
+        <li><a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request" target="_blank">supports HTTPS</a> ✔ <a href="https://stackoverflow.com/questions/1389464/session-cookie-management-in-apache-jmeter" target="_blank">supports authentication</a> (this is more together, it includes links to their docs) ✔ <a href="https://stackoverflow.com/questions/10145555/assert-returned-status-code-http-400-as-a-success" target="_blank">status codes</a> ✔ <a href="https://www.testingexcellence.com/parse-json-response-using-jmeters-json-extractor/" target="_blank">response parsing</a> ✔ <a href="https://jmeter.apache.org/usermanual/build-web-test-plan.html#logging_in" target="_blank">http verbs</a> ✔ <a href="https://jmeter.apache.org/usermanual/test_plan.html" target="_blank">populations</a> ✔ <a href="https://www.blazemeter.com/blog/continuous-integration-101-how-run-jmeter-jenkins" target="_blank">CI integration</a> ✔ </li>
     </ul></li>
 </ul>
 
@@ -155,7 +155,7 @@ I'm writing this, as today I wrote another test runner to be able to send API re
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T15:37:16">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-04-17T08:16:24">17th of Apr 2024</time>
 						</span>
 						<span>Created <time datetime="2018-10-14T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >14th of Oct 2018</time> </span>
 					</span>
@@ -204,7 +204,7 @@ I'm writing this, as today I wrote another test runner to be able to send API re
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:25">7th of Apr 2024, 20:42:25</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:37:16">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-17T17:40:51">17th of Apr 2024, 17:40:51</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-17T08:16:24">17th of Apr 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
