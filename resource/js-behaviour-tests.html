@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-behaviour-tests" />
 <meta property="og:description" content="This article gives a definition of JS behaviour testing, provides metrics used for comparing test frameworks and finally outlines pros and cons of 7 behaviour test tools for JS" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Apr 2024, 20:42:23" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="17th of Apr 2024, 17:40:50" />
+<meta property="article:modified_time" content="15th of Apr 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-behaviour-tests" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "JS behaviour testing",
-	"article:published_time":"7th of Apr 2024, 20:42:23", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"17th of Apr 2024, 17:40:50", 
+    "article:modified_time":"15th of Apr 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,49 +51,104 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker addReferences addBashSamples">
-<div class="lotsOfWords">
-<p>I pulled out the type of testing from the other test pages to keep the themes coherent, and the article a reasonable length.  For JS tooling, these are distinctly a personal study ~ I tend to use the same tool over and over again ~ but there may be a more efficient solution. <br />
-As a results of testing an app/site/platform from the user perspective, the BDD test should be run from a realistic browser setup.  Technically, a BDD test <em>could</em> be run as a unit test on a single JS class; but this is less useful, in practice.   A browser includes many moving parts, and may override or alter what the JS did, leading to misleading test results.   All these tools listed below therefore have to be whole app/ site/ platform testers.  Historically, I built this by adding a second index page named “test.html” which also includes the test libraries and the test “script” [in the context of film-script] of all the scenarios. <br />
-My first BDD tool was written for PHP <sup><a href="https://behat.org/en/latest/quick_start.html" target="_blank">1</a></sup>, it had a double pass of “compile story files to PHP skeletons”, then “execute tests built on skeletons”.  The first story files are readable by non-technical people; although trivial changes to English in them increases the cost of the testing, as the tests need to be rebuilt again.  More recently created BDD test frameworks in JS don't seem to do this; but are more likely to have a non-executable docs version.  Having the knowledge on what the system is supposed to do is valuable, but needs to be kept updated.  Wireframes and internal wiki are other means to do the same end.</p>
+     <div class="blocker addReferences addBashSamples betterDL">
+<div class="halferWords">
+<p>I pulled out the type of testing from the other test pages to keep the themes coherent, and the article a reasonable length.  For JS tooling, these are distinctly a personal study ~ I tend to use the same tool repeatedly ~ but there may be a more efficient solution. <br />
+As a result of testing an app / site / platform from the user perspective, the BDD test should be run from a realistic browser setup.  Technically, a BDD test <em>could</em> be run as a unit test for a single JS class; but this is less useful in practice.   A browser includes many moving parts, and may override or alter what the JS did, generating misleading test results.   All these tools listed below therefore have to be whole app / site/ platform testers.  Historically, I built this by adding a second index page named “test.html” which also includes the test libraries and the test “script” [in the context of a film-script] of all the scenarios. <br />
+My first BDD tool was written for PHP <sup><a href="https://behat.org/en/latest/quick_start.html" target="_blank">1</a></sup>, it had a double pass of “compile story files to PHP skeletons”, then “execute tests built on skeletons”.  The first story files are readable by non-technical people; although trivial changes to English in them increase the cost of the testing, as the tests need to be rebuilt again.  More recently-created BDD test frameworks in JS don't seem to do this; but are more likely to have a non-executable docs version.  Having the knowledge of what the system is supposed to do is valuable, but needs to be kept updated.  Wireframes and internal wiki are other means to do the same end.</p>
 
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Metrics I am using for comparing test frameworks: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
-    <li class="libasic">what you can test with X;</li>
-    <li class="libasic">complexity / time to make stable tests;</li>
-    <li class="libasic">ability to integrate with a common CI tool;</li>
-    <li class="libasic">ability to output TAP <sup><a href="https://testanything.org/producers.html#javascript" target="_blank">2</a></sup> (for linking into other tools).  There is a TAP package in npm <sup><a href="https://github.com/tapjs/node-tap" target="_blank">3</a></sup> <sup><a href="https://github.com/ljharb/tape" target="_blank">4</a></sup>;</li>
-    <li class="libasic">fragility of tests;</li>
-    <li class="libasic">if tests are inside the browser, or outside</li>
+    <li>what you can test with X;</li>
+    <li>complexity / time to make stable tests;</li>
+    <li>ability to integrate with a common CI tool;</li>
+    <li>ability to output TAP <sup><a href="https://testanything.org/producers.html#javascript" target="_blank">2</a></sup> (for linking into other tools).  There is a TAP package in npm <sup><a href="https://github.com/tapjs/node-tap" target="_blank">3</a></sup> <sup><a href="https://github.com/ljharb/tape" target="_blank">4</a></sup>;</li>
+    <li>fragility of tests;</li>
+    <li>if tests are inside the browser, or outside</li>
 </ul>
 
 
+</div>
+<div class="lotsOfWords">
+
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Behaviour test tools for JS <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
-    <li class="libasic"><b>Selenium</b> ~ this is a simulation of a <a href="http://docs.seleniumhq.org/" target="_blank">full webrowser</a>.  Selenium 2 is written in Java.  A version of Selenium is available via NPM <sup><a href="https://www.npmjs.com/package/selenium-webdriver" target="_blank">5</a></sup>, and is version 4.9; it is getting updates.  I guess the newer versions aren't using Java anymore, as its in npm.   Selenium-webdriver is inside the browser, the original tool was a stand-alone, and outside.<ul class="ulbasic">
-        <li class="libasic">strengths: Massive numbers of features, just like webrowsers. Comprehensive ability to automate any possible action in a webrowser.  Can be used by non-tech people, when used in record mode.  Can easily test in <b>each</b> browser (although they would all need to be installed locally).   Due to age/ success of project, can easily link to software in many languages, including Java, Python, and C# <sup><a href="https://www.browserstack.com/guide/cypress-vs-selenium" target="_blank">6</a></sup>. </li>
-        <li class="libasic">weaknesses: Tests can be quite slow, when simulating mouse movements.  Need to manage a JDK.  Unless carefully written, scripts will go out-of-date, compared to the target site (i.e. fail to run for nonsense reasons).  It is hard for the Selenium team to support newest CSS, although this wouldn't break JS tests.  Tests are fragile and non-deterministic for timing issues.</li>
-    </ul></li>
-    <li class="libasic"><b>Cypress</b> is a test framework trying to replace Selenium; but written in JS, and only supporting JS.  Cypress <a href="https://github.com/cypress-io/cypress" target="_blank">git</a> claims to be designed for UI testing, integration tests, and unit-tests.  Some links <sup><a href="https://www.cypress.io/how-it-works" target="_blank">7</a></sup> <sup><a href="https://www.producthunt.com/posts/cypress" target="_blank">8</a></sup> this is an advert <sup><a href="https://automationrhapsody.com/cypress-vs-selenium-end-era/" target="_blank">9</a></sup>.   I was introduced to it at a conference in 2021.   <ul class="ulbasic">
-        <li class="libasic">strengths: Cypress docs claim it integrates with CI <sup><a href="https://docs.cypress.io/guides/guides/continuous-integration.html#Setting-up-CI" target="_blank">10</a></sup>, but as a JS framework, they have never heard of TAP.   The advert link talks about using selectors, and having a design objective of stable tests.   The Cypress guides claims to do snapshot testing as a first rank feature (its common by 2023) <sup><a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">11</a></sup>.   Cypress claims higher reliability due to tests not using setTimeout or callbacks etc, and not having multiple implementation languages leading to timeouts <sup><a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">12</a></sup>.  For site testing, Cypress supports <i>cross origin testing</i> <sup><a href="https://docs.cypress.io/guides/guides/cross-origin-testing" target="_blank">13</a></sup>, as a integrated feature; this would improve testing coverage/stability by a visible margin (and so test process performance).  Claims to support Electron <sup><a href="https://blog.logrocket.com/cypress-io-the-selenium-killer/" target="_blank">14</a></sup>, so can be used to test random apps ~ like MSFT “teams 4 linux” ~ outside of browsers.   Some advanced tips are available <sup><a href="https://glebbahmutov.com/blog/using-test-ids-to-pick-specs-to-run/" target="_blank">15</a></sup></li>
-        <li class="libasic">weaknesses: The massive problem with this before 2022; is it only supported a Chrome environment; which isn't the browser that normally has issues.   According to <sup><a href="https://docs.cypress.io/guides/guides/launching-browsers" target="_blank">16</a></sup> the problem is solved now.   I found it took a long time to test up.</li>
-    </ul></li>
-    <li class="libasic"><b> CucumberJS</b> <a href="https://github.com/cucumber/cucumber-js" target="_blank">git</a>, npm package is `@cucumber/cucumber`, <a href="https://cucumber.io/" target="_blank">docs</a>.   This is the official fully compatible Cucumber implementation in JS.<ul class="ulbasic">
-        <li class="libasic">strengths:</li>
-        <li class="libasic">liabilities:</li>
-    </ul></li>
-    <li class="libasic"><b>Storybook</b> see article <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> for more detail.  Install as `npm @storybook/core ` and then plugins, see docs first<ul class="ulbasic">
-        <li class="libasic">strengths: Includes a “auto webpack”, which is useful if you are testing very new code.  Has a framework for component testing for many toolkits.  Has quite a large volume of docs <sup><a href="https://storybook.js.org/" target="_blank">17</a></sup>, I think it can be used as a design system.   </li>
-        <li class="libasic">weaknesses: Many test steps are a manual process.   Not aware of many module for TAP.   <i>The recent version doesn't work for me, I will update this. </i></li>
-    </ul></li>
-    <li class="libasic"><b>Jasmine</b> please see <a class="" href="https://owenberesford.me.uk/resource/JS-test-frameworks#">JS-test-frameworks</a>.   It has BDD, but everything I previously listed would still be true.  <ul class="ulbasic">
-        <li class="libasic">weaknesses: I think doesn't support modules, ES2020+ or current class loading processes.</li>
-    </ul></li>
-    <li class="libasic"><b>Chai</b> claims to have BDD naming option; but it isn't as intuitive as other “full-time” BDD tools IMO.   Pls see <a class="" href="https://owenberesford.me.uk/resource/JS-test-frameworks#">JS-test-frameworks</a> for setup with PhantomJS.  <ul class="ulbasic">
-        <li class="libasic">weaknesses: doesn't support modules, ES2020+ or current class loading processes.</li>
-    </ul></li>
-    <li class="libasic"><b>Night watch</b> <a href="https://www.npmjs.com/package/nightwatch" target="_blank">npm</a> <a href="https://github.com/nightwatchjs/nightwatch" target="_blank">git</a>  docs <sup><a href="https://www.npmjs.com/package/nightwatch" target="_blank">18</a></sup>.  A 2014 project, I think newer projects are better.</li>
+    <li><b>Selenium</b> ~ this is a simulation of a <a href="http://docs.seleniumhq.org/" target="_blank">full webrowser</a>.  Selenium 2 is written in Java.  A version of Selenium is available via NPM <sup><a href="https://www.npmjs.com/package/selenium-webdriver" target="_blank">1</a></sup>, and is version 4.9; it is getting regular updates.  I guess the newer versions aren't using Java anymore, as it's in npm.   Selenium-webdriver is inside the browser.   The original tool was a stand-alone, and outside.</li>
+</ul>
+
+<dl>
+    <dt>strengths</dt>
+        <dd>Massive numbers of features, just like webrowsers. Comprehensive ability to automate any possible action in a webrowser.  Selenium can be used by non-tech people when used in record mode.  It can easily test in <b>each</b> browser (although they would all need to be installed locally).   Due to the age / success of the project, it can easily link to software in many languages, including Java, Python, and C# <sup><a href="https://www.browserstack.com/guide/cypress-vs-selenium" target="_blank">2</a></sup>.</dd>
+    <dt>liabilities</dt>
+        <dd>Tests can be quite slow when simulating mouse movements.  Developers need to manage a JDK.  Unless carefully written, scripts will go out-of-date, compared to the target site (i.e. fails to run for nonsense reasons).  It is hard for the Selenium team to support the newest CSS, although this wouldn't break JS tests.  Tests are fragile and non-deterministic for timing issues.</dd>
+</dl>
+
+<ul class="ulbasic">
+    <li><b> CucumberJS</b> <a href="https://github.com/cucumber/cucumber-js" target="_blank">git</a>, npm package is `@cucumber/cucumber`, <a href="https://cucumber.io/" target="_blank">docs</a>.   This is the official full-compatible Cucumber implementation in JS, which is the earliest BDD tool I am aware of.  They mention testLeft.</li>
+</ul>
+
+<dl>
+    <dt>strengths</dt>
+        <dd>As a test tool, CucumberJS supplies good support for modern ESM and older CJS <sup><a href="https://cucumber.io/blog/open-source/announcing-cucumber-js-8-0-0/" target="_blank">3</a></sup>.   The syntax looks clear, but with all these BDD tests, there are more files than desirable.  The JS version advertises integration with Jira often.   Because of its Java heritage, the basic BDD script can be written in more than one human language, and the tool will understand it <sup><a href="https://github.com/cucumber/cucumber-js/blob/main/docs/cli.md" target="_blank">4</a></sup> ~ the <i>--i18n-keywords</i> option.  It can be run from the CLI, and works with Jenkins <sup><a href="https://www.lambdatest.com/blog/cucumber-with-jenkins-integration/" target="_blank">5</a></sup> ~ I would assume more Java centric build tools too.   There is a process to use Cucumber with Typescript <sup><a href="https://www.elliotdenolf.com/blog/cucumberjs-with-typescript" target="_blank">6</a></sup>.  There is good integration with Webstorm.</dd>
+    <dt>liabilities</dt>
+        <dd>No known TAP integration.  In some situations, clearly documenting all the boundary states will be slower than a list of assert() statements, but I think this is affordable due to improved readability.</dd>
+</dl>
+
+<ul class="ulbasic">
+    <li><b>Cypress</b> is a test framework trying to replace Selenium; but written in JS, and only supporting JS.  Cypress <a href="https://github.com/cypress-io/cypress" target="_blank">git</a> <a href="https://www.npmjs.com/package/cypress" target="_blank">npm</a> <a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">docs</a> claims to be designed for UI testing, integration tests, and unit-tests.  Some links <sup><a href="https://www.cypress.io/how-it-works" target="_blank">7</a></sup> <sup><a href="https://www.producthunt.com/posts/cypress" target="_blank">8</a></sup> this is an advert <sup><a href="https://automationrhapsody.com/cypress-vs-selenium-end-era/" target="_blank">9</a></sup>.   I was introduced to it at a conference in 2021.   </li>
+</ul>
+
+<dl>
+    <dt>strengths</dt>
+        <dd>Cypress docs claim it integrates with CI <sup><a href="https://docs.cypress.io/guides/guides/continuous-integration.html#Setting-up-CI" target="_blank">10</a></sup>, but as a JS framework, they have never heard of TAP.   The advert link talks about using selectors, and having a design aim of stable tests.   The Cypress guides claim to do snapshot testing as a first rank feature (it's common by 2023) <sup><a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">11</a></sup>.   Cypress claims higher reliability due to tests not using setTimeout or callbacks etc, and not having multiple implementation languages leading to timeouts <sup><a href="https://docs.cypress.io/guides/overview/why-cypress" target="_blank">12</a></sup>.  For site testing, Cypress supports <i>cross origin testing</i> <sup><a href="https://docs.cypress.io/guides/guides/cross-origin-testing" target="_blank">13</a></sup>, as an integrated feature; this would improve testing coverage / stability by a visible margin (and so test process performance).  Claims to support Electron <sup><a href="https://blog.logrocket.com/cypress-io-the-selenium-killer/" target="_blank">14</a></sup>, so it can test random apps ~ like MSFT “teams 4 linux” ~ outside of browsers.   Some advanced tips are available <sup><a href="https://glebbahmutov.com/blog/using-test-ids-to-pick-specs-to-run/" target="_blank">15</a></sup></dd>
+    <dt>liabilities</dt>
+        <dd>The massive problem with this before 2022 was that it only supported a Chrome environment; which isn't the browser that normally has issues.   According to <sup><a href="https://docs.cypress.io/guides/guides/launching-browsers" target="_blank">16</a></sup> the problem is solved now.   I found it took a long time to set-up this tool.</dd>
+</dl>
+
+<ul class="ulbasic">
+    <li><b>Storybook</b> see article <a class="" href="https://owenberesford.me.uk/resource/storybook#">storybook</a> for more detail.  Install via npm / yarn as `@storybook/core` and then plugins, as described in the article <a href="https://storybook.js.org/docs/get-started" target="_blank">docs</a>.</li>
+</ul>
+
+<dl>
+    <dt>strengths</dt>
+        <dd>Includes a “auto webpack”, which is useful if you are testing very new code.  Has a framework for component testing for many toolkits.  Has quite a large volume of docs <sup><a href="https://storybook.js.org/" target="_blank">17</a></sup>, I think it can be used as a design system.</dd>
+    <dt>liabilities</dt>
+        <dd>Many test steps are a manual process.   Not aware of many module for TAP.   <i>The recent version doesn't work for me.   I will update this. </i></dd>
+</dl>
+
+ <b>Nightwatch</b> <a href="https://www.npmjs.com/package/nightwatch" target="_blank">npm</a>, <a href="https://github.com/nightwatchjs/nightwatch" target="_blank">git</a>, <a href="https://www.npmjs.com/package/nightwatch" target="_blank">docs</a>.  A 2014 project, I think newer projects are better. <br />
+<dl>
+    <dt>liabilities</dt>
+        <dd>There is no mention for TAP support.  In terms of listicles, it looses points as it can be very dependant on Selenium.   In the realworld, this is fine, but using Selenium would require setting up Java.  The docs are benchmarking against older test tools, rather than ES6 and modules based ones <sup><a href="https://www.sitepoint.com/javascript-functional-testing-nightwatch-js/#h-frequently-asked-questions-faqs-about-nightwatch-js" target="_blank">18</a></sup></dd>
+    <dt>strengths</dt>
+        <dd>In 2024 there are new alterations and editions.  As a platform this supports sessions <sup><a href="https://nightwatchjs.org/guide/concepts/session-capabilities.html" target="_blank">19</a></sup>.  This supports test population <sup><a href="https://nightwatchjs.org/guide/concepts/parallel-testing-in-nightwatch.html" target="_blank">20</a></sup>.  Nightwatch supports BDD flavour tests <sup><a href="https://nightwatchjs.org/guide/writing-tests/test-syntax-bdd.html" target="_blank">21</a></sup>.  Nightwatch can be run inside a browser, or on the CLI.  As it can be run on a CLI, it can be used with a CI tool.  This tool can be linked to CucumberJS <sup><a href="https://nightwatchjs.org/guide/writing-tests/using-cucumberjs.html" target="_blank">22</a></sup>.   According to <sup><a href="https://www.davidmello.com/using-nightwatch-with-typescript/" target="_blank">23</a></sup> it can be used with typescript.   There is a process to test Electron Apps with Nightwatch <sup><a href="https://github.com/rik12s/ElectronApp-Automation-Nightwatch" target="_blank">24</a></sup> (reference code, not docs).</dd>
+</dl>
+
+<ul class="ulbasic">
+    <li><b>Jasmine</b> please see <a class="" href="https://owenberesford.me.uk/resource/JS-test-frameworks#">JS-test-frameworks</a> for code centric details <a href="https://jasmine.github.io/pages/docs_home.html" target="_blank">docs</a>.   Jasmine supports BDD syntax, but everything I previously listed in the other article is still true.   </li>
+</ul>
+
+<dl>
+    <dt>liabilities</dt>
+        <dd>I think it doesn't support modules, ES2020+ or current class loading processes (see attempts from 3 years ago <sup><a href="https://github.com/jasmine/jasmine-npm/issues/170" target="_blank">25</a></sup> ).   In 2015, Jasmine was fiddly and verbose when used for complex and async code (...e.g. networking code).</dd>
+    <dt>strengths</dt>
+        <dd>There are many modules in NPM to skirt historic JS problems.   There are THREE modules in NPM to deliver TAP output.  Jasmine can be linked to Jenkins <sup><a href="https://edspencer.net/2013/07/28/jasmine-and-jenkins-continuous-integration" target="_blank">26</a></sup>, or run from NPM <sup><a href="https://github.com/jasmine/jasmine-npm" target="_blank">27</a></sup>.</dd>
+</dl>
+
+<ul class="ulbasic">
+    <li><b>Chai</b> claims to have a BDD naming option; but it isn't as intuitive as other “full-time” BDD tools IMO.   Please see <a class="" href="https://owenberesford.me.uk/resource/JS-test-frameworks#">JS-test-frameworks</a> for setup.  </li>
+</ul>
+
+<dl>
+    <dt>liabilities</dt>
+        <dd>This doesn't support modules, ES2020+ or current class loading processes.</dd>
+    <dt>strengths</dt>
+        <dd>For code written between 2012 and 2016, this may be the most relevant test tool.   TAP support can be added via Mocha (says flags set in npmjs).</dd>
+</dl>
+
+<ul class="ulbasic">
+    <li></li>
 </ul>
 
 
@@ -130,7 +185,7 @@ My first BDD tool was written for PHP <sup><a href="https://behat.org/en/latest/
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T15:36:58">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-04-15T21:07:15">15th of Apr 2024</time>
 						</span>
 						<span>Created <time datetime="2023-05-01T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of May 2023</time> </span>
 					</span>
@@ -179,7 +234,7 @@ My first BDD tool was written for PHP <sup><a href="https://behat.org/en/latest/
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:58">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-17T17:40:50">17th of Apr 2024, 17:40:50</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-15T21:07:15">15th of Apr 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

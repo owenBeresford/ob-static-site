@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/punit" />
 <meta property="og:description" content="Case notes for my Perl unit test framework." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Apr 2024, 20:42:25" />
-<meta property="article:modified_time" content="28th of Mar 2024" />
+<meta property="article:published_time" content="17th of Apr 2024, 17:40:50" />
+<meta property="article:modified_time" content="17th of Apr 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/punit" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "punit",
-	"article:published_time":"7th of Apr 2024, 20:42:25", 
-    "article:modified_time":"28th of Mar 2024",
+	"article:published_time":"17th of Apr 2024, 17:40:50", 
+    "article:modified_time":"17th of Apr 2024",
     "article:section":"technology",
 
     "author": {
@@ -52,7 +52,7 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker addReferences">
-<p class="accessSrc">Source is available: <a class="button" title="A public GIT repo of this project." href="https://github.com/owenBeresford/punit"><i class="fa fa-github" aria-hidden="true"></i></a> or <del class="button" >cpan</del>.   The second article is mostly <a title="The first article, mostly discussion on implementation." href="https://owenberesford.me.uk/resource/punit-implementation">implementation</a>. </p>
+<p class="accessSrc">Source is available: <a class="button" title="A public GIT repo of this project." href="https://github.com/owenBeresford/punit"><i class="fa fa-github" aria-hidden="true"></i></a> or <del class="button" >cpan</del>.   The second article is mostly <a title="The first article, mostly discussion on implementation." href="/resource/punit-implementation">implementation</a>. </p>
 <div class="lotsOfWords">
 <p>A well-designed unit test will give one confidence in ones unit, it reduces development time, it improves API design.   A unit test is a definite long term asset, as it allows later changes at low risk.  If you don't want to write in objects, this tool isn't going to help you.   For the whole of this document “skelgen” is a contraction of “skeleton-generator”, code that auto-magically builds a class outline and attempts to fillin function definitions where possible; likewise “codegen” is a condensed “code-generator”.</p>
 
@@ -63,17 +63,17 @@ TODO: magic tune selection against some index/DB -->
 <p>There are the following, as a non-complete list (more available <sup><a href="https://qa.perl.org/test-modules.html" target="_blank">1</a></sup>):</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><b>Test::Skeleton::Generator</b> ~ an alternative library with similar functionality to this project.   It is less attached to objects, which I think are necessary for code reuse; and therefore cheap development.  As I intend to add annotation support to my project, it was faster to start with a fresh codebase.  People are encouraged to have a quick look at this library in addition ~ if you aren't attached to objects either, this may suit better.</li>
-    <li class="libasic"><b>Test::More</b> ~ the basic library for recent versions of Perl.</li>
-    <li class="libasic"><b>Test::Exception</b> ~ just for Exceptions</li>
-    <li class="libasic"><b>Test::Common</b> ~ a wrapper module, to reduce the number of specific test libraries that you need to import.</li>
-    <li class="libasic"><b>Test::Assert</b> ~ a library to provide logical condition statements, similar API to xUnit.</li>
-    <li class="libasic"><b>Test::Class</b> ~ an xUnit library that seems more useful. Unfortunately lacks the skelgen.</li>
-    <li class="libasic"><b>Test::Unit</b> ~ a procedural test framework.</li>
-    <li class="libasic"><b>Test::MockObject</b> ~ I haven't used this, but reflection in Perl is quite easy. </li>
-    <li class="libasic"><b>Test::Extreme</b> ~ this claims to be a “perlish xUnit” library.   Doesn't ship with any type of skelgen.</li>
-    <li class="libasic"><b>Test::Builder</b> ~ not a code gen, despite the name.   Framework to manage TAP output and improve inter-operation between test libraries. </li>
-    <li class="libasic"><b>Test::Subs</b> ~ I went to a <a href="https://www.meetup.com/London-Perl-Mongers/events/227844261/" target="_blank">hackday</a>, this is one of the things that I take home with me.  Subs looks like a useful API, although I have already coded with Test::Assert.  This is a small piece of a solution. </li>
+    <li><b>Test::Skeleton::Generator</b> ~ an alternative library with similar functionality to this project.   It is less attached to objects, which I think are necessary for code reuse; and therefore cheap development.  As I intend to add annotation support to my project, it was faster to start with a fresh codebase.  People are encouraged to have a quick look at this library in addition ~ if you aren't attached to objects either, this may suit better.</li>
+    <li><b>Test::More</b> ~ the basic library for recent versions of Perl.</li>
+    <li><b>Test::Exception</b> ~ just for Exceptions</li>
+    <li><b>Test::Common</b> ~ a wrapper module, to reduce the number of specific test libraries that you need to import.</li>
+    <li><b>Test::Assert</b> ~ a library to provide logical condition statements, similar API to xUnit.</li>
+    <li><b>Test::Class</b> ~ an xUnit library that seems more useful. Unfortunately lacks the skelgen.</li>
+    <li><b>Test::Unit</b> ~ a procedural test framework.</li>
+    <li><b>Test::MockObject</b> ~ I haven't used this, but reflection in Perl is quite easy. </li>
+    <li><b>Test::Extreme</b> ~ this claims to be a “perlish xUnit” library.   Doesn't ship with any type of skelgen.</li>
+    <li><b>Test::Builder</b> ~ not a code gen, despite the name.   Framework to manage TAP output and improve inter-operation between test libraries. </li>
+    <li><b>Test::Subs</b> ~ I went to a <a href="https://www.meetup.com/London-Perl-Mongers/events/227844261/" target="_blank">hackday</a>, this is one of the things that I take home with me.  Subs looks like a useful API, although I have already coded with Test::Assert.  This is a small piece of a solution. </li>
 </ul>
 
 
@@ -92,22 +92,22 @@ The other languages that I use tend to be more forceful about using objects, and
 <p>This tool SHOULD :</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Create tests for units/ classes.</li>
-    <li class="libasic">Create at least one test per testee-class function.</li>
-    <li class="libasic">Under current analysis ignore private functions </li>
-    <li class="libasic">Support Fixture structures.</li>
-    <li class="libasic">Implement the logic conditions (e.g. assert*) as outlined in other unit-test suites.</li>
-    <li class="libasic">Where there is output, make this TAP compliant.</li>
-    <li class="libasic">Be linkable into other Perl tools.</li>
-    <li class="libasic">As an extension to previous, runnable with prove.</li>
-    <li class="libasic">Automate as much as possible, so using this tool reduces time to solution.</li>
+    <li>Create tests for units/ classes.</li>
+    <li>Create at least one test per testee-class function.</li>
+    <li>Under current analysis ignore private functions </li>
+    <li>Support Fixture structures.</li>
+    <li>Implement the logic conditions (e.g. assert*) as outlined in other unit-test suites.</li>
+    <li>Where there is output, make this TAP compliant.</li>
+    <li>Be linkable into other Perl tools.</li>
+    <li>As an extension to previous, runnable with prove.</li>
+    <li>Automate as much as possible, so using this tool reduces time to solution.</li>
 </ul>
 
 <p>This tool SHOULD NOT:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Force a particular OO style on the operator.</li>
-    <li class="libasic">Create tests that are fragile, so needing alot of test maintenance.  This point is with respect to comment parsing on the second edition in particular.</li>
+    <li>Force a particular OO style on the operator.</li>
+    <li>Create tests that are fragile, so needing alot of test maintenance.  This point is with respect to comment parsing on the second edition in particular.</li>
 </ul>
 
 
@@ -164,7 +164,7 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-28T18:04:59">28th of Mar 2024</time>
+						<span>Edited <time datetime="2024-04-17T08:55:03">17th of Apr 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -215,7 +215,7 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:25">7th of Apr 2024, 20:42:25</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-28T18:04:59">28th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-17T17:40:50">17th of Apr 2024, 17:40:50</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-17T08:55:03">17th of Apr 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
