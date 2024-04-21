@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Architectures for CSS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A review of different ways to assemble CSS.  With modern apps and tools, good management of CSS is essential.   There are 5 code layouts, and 9 architectures compared." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Architectures for CSS">
+<meta itemprop="description" content="A review of different ways to assemble CSS.  With modern apps and tools, good management of CSS is essential.   There are 5 code layouts, and 9 architectures compared.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Architectures for CSS">
+<meta name="twitter:description" content="A review of different ways to assemble CSS.  With modern apps and tools, good management of CSS is essential.   There are 5 code layouts, and 9 architectures compared.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Architectures for CSS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/architectures-for-css" />
+<meta property="og:description" content="A review of different ways to assemble CSS.  With modern apps and tools, good management of CSS is essential.   There are 5 code layouts, and 9 architectures compared." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="20th of Apr 2024, 12:31:46" />
+<meta property="article:modified_time" content="20th of Apr 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/architectures-for-css" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Architectures for CSS",
+	"article:published_time":"20th of Apr 2024, 12:31:46", 
+    "article:modified_time":"20th of Apr 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords betterDL">
+<p>Some people like CSS, some people don't.   Regardless of which side you choose, CSS shouldn't be an afterthought for modern apps.   Below is a list of architectures that could be used, and when to use them, in each case.   I would like to think that no-one goes from no-architecture to an architecture after a products user stories are complete, and also I would like to think that no-one does everything from scratch without a framework.</p>
+
+<p><strong>Intended Audience: </strong> Everyone who did not have CSS in their education, but now does have it in their workflows.  Also myself, to harmonise terminology.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Code layouts <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>I'm not sure abut the wording used to describe these, but these are not <em>architectures</em>.</p>
+
+
+<h5 id="toc1"> Legacy inline styles</h5>
+<dl>
+    <dt>what</dt>
+        <dd>Code standards from the 90s, absolutely no FE tooling.   For this approach, I would expect mostly <strong>CSS 1</strong>.</dd>
+    <dt>when</dt>
+        <dd>AFAIAA, there is no reason to do this.  <strong>EXCEPT</strong>, <em>I have seen people using this to set CSS variables for that HTML element as a component, which is valid.</em></dd>
+    <dt>why not</dt>
+        <dd>It is terrible practice, it has very poor scalability, many CSS features will not work like this.</dd>
+    <dt>why</dt>
+        <dd>AFAIAA, there is no reason to do this.</dd>
+</dl>
+
+
+<h5 id="toc2"> Just flat files...</h5>
+<dl>
+    <dt>what</dt>
+        <dd>Very simple and common, the default way to do CSS.   Just plain selectors written in <strong>CSS 2</strong></dd>
+    <dt>when</dt>
+        <dd>The other techniques can be layered on top of this.</dd>
+    <dt>why not</dt>
+        <dd>I don't know the answer to this point.  <strong>NOTE:</strong> Many people say do not use HTML IDs in CSS</dd>
+    <dt>why</dt>
+        <dd>It's easy, it's works.  It works with caching and minification.</dd>
+</dl>
+
+
+<h5 id="toc3"> “CSS-in-JS” </h5>
+<dl>
+    <dt>what</dt>
+        <dd>Setting CSS attributes via JS.   Note this isn't setting a class name attribute, but each CSS option, as though you never heard of CSS.   Often used for Reactnative projects, and this idea has leaked sideways to other areas.</dd>
+    <dt>when</dt>
+        <dd>The entire dev team cannot use CSS themselves.   There are better ways to achieve styling, IMO.</dd>
+    <dt>why not</dt>
+        <dd>C code to make a webrowser is faster than JS code <sup><a href="https://v2.chakra-ui.com/getting-started/comparison#the-runtime-trade-off-%EF%B8%8F" target="_blank">1</a></sup>.  CSS used correctly is easier to read <sup><a href="https://medium.com/@_imGufran/why-use-css-in-js-benefits-and-drawbacks-df40ab4ebef9" target="_blank">2</a></sup>.  Every-time I have seen this, the styling added doesn't seem as well thought out.  It is more work to make CSS-in-JS be RWD (and this is rarely applied) as there as no structure for the media queries.   Doesn't mix with SSR <sup><a href="https://blog.logrocket.com/exploring-shift-css-in-js-headless-ui-libraries/" target="_blank">3</a></sup>, and it's hard to extract back to actual CSS (if the choice is reverted).   Official note from React <sup><a href="https://github.com/reactwg/react-18/discussions/110" target="_blank">4</a></sup>.</dd>
+    <dt>why</dt>
+        <dd>CSS-in-JS is good for lazy loading CSS, without extra DOM count.  Alternatively, having single-file libraries, which is desirable in some library situations.</dd>
+</dl>
+
+
+<h5 id="toc4"> Nested CSS</h5>
+<dl>
+    <dt>what</dt>
+        <dd>Use a <strong>CSS 4</strong> structure, where selectors can be written inside other CSS selectors.  To get best value from this, use the nesting selector <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Nesting_selector" target="_blank">5</a></sup>  This currently has quite low support, especially on mobile, BUT is in the baseline since dec-2023 <sup><a href="https://caniuse.com/?search=nested%20css" target="_blank">6</a></sup>. WARN: I think 'can I use' data is out of date on this point <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting" target="_blank">7</a></sup>.</dd>
+    <dt>when</dt>
+        <dd>The outer CSS selector applies to all the other rules, so this technique can applied with BEM or StyledComponents.   It can be used if you are confident that all mobile users <em>only</em> use big vendor browsers (Apple and Google).</dd>
+    <dt>why not</dt>
+        <dd>You need to support minority browsers, or MSIE, or old Edge</dd>
+    <dt>why</dt>
+        <dd>Can lead to smaller or more readable CSS.   Definitely should reduce boilerplate code.</dd>
+</dl>
+
+
+<h5 id="toc5"> Layered CSS</h5>
+<dl>
+    <dt>what</dt>
+        <dd>Uses <strong>CSS 5</strong> features, but needs to be used with another code structure.  Extra notes <a href="https://www.w3.org/TR/css-cascade-5/#layering" target="_blank">docs</a> <sup><a href="https://css-tricks.com/css-cascade-layers/#use-cases-when-would-i-want-to-use-cascade-layers" target="_blank">8</a></sup> <sup><a href="https://www.smashingmagazine.com/2022/01/introduction-css-cascade-layers/" target="_blank">9</a></sup>.   Having CSS in layers should increase the odds that the product is more adaptive.</dd>
+    <dt>when</dt>
+        <dd>You know your audience uses new devices, this can lead to a shorter-code solution (note, it has borderline availability <sup><a href="https://caniuse.com/?search=%40layer" target="_blank">10</a></sup> ).   External code can be more safely loaded as a layer <sup><a href="https://blog.logrocket.com/control-css-cascade-with-cascade-layers/" target="_blank">11</a></sup>.  I really like the idea of holding screen size / orientation layouts in different layers.   This makes the semantic or branding focussed CSS a lot easier to read as it would be separate.</dd>
+    <dt>why not</dt>
+        <dd>Less support amongst old devices, tools or other software.</dd>
+    <dt>why</dt>
+        <dd>You like tidier code.   Or you want to use but isolate external libraries.</dd>
+</dl>
+
+
+<h3 class="dontend" id="toc6"> <a href="#toc6" title="Jump to this section." > Listicle about CSS archs <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+
+<h5 id="toc7"><del>Idiot style</del><ins>Cascade suppressed</ins></h5>
+<dl>
+    <dt>what</dt>
+        <dd>i.e. define every CSS attribute in the style attribute on each element.</dd>
+    <dt>when</dt>
+        <dd>used when you are translating a word file in to a webpage, and are in a rush.   OR you are using an extremely legacy toolkit, which hasn't yet upgraded to use any CSS (I hope this last option doesn't exist, but I recently read that some people are using win3.1 at work <sup><a href="https://www.quora.com/Is-it-possible-there-are-people-out-there-who-still-use-Windows-3-1-or-9x-as-their-main-OS" target="_blank">12</a></sup> still! 16bit 4eva!).</dd>
+    <dt>why not</dt>
+        <dd>The lack of CSS architecture leads to vast amounts of duplicate definitions; it generally leads to poor accessibility, as it wasn't designed for this; ms-word spacing units do not match with web spacing units, leading to malformed designs; and is hard to update. Files made by this process will load slowly and have google penalties.</dd>
+    <dt>why</dt>
+        <dd>If only uploaded to your internal Confluence account, this is 'good value' docs.  Confluence will clean up the worst of the mess.   <em>Other tools probably support the same word file import capacity.</em></dd>
+</dl>
+
+
+</div>
+<hr />
+<div class="lotsOfWords betterDL">
+
+<h5 id="toc8"> Standard framework limited</h5>
+<dl>
+    <dt>what</dt>
+        <dd>Only use CSS included in that framework.</dd>
+    <dt>when</dt>
+        <dd>Used for web artifacts like blogs or non-sales-funnel web artifacts that have limited design budget (or low impact gained from a larger design budget).</dd>
+    <dt>why not</dt>
+        <dd>This needs a routine check that you have the newest edition of the framework.</dd>
+    <dt>why</dt>
+        <dd>The person may be less technical or spend less time, as the whole of the CSS has been outsourced.  Assets can be held in a web-cache or otherwise shared between sites for better internet.</dd>
+</dl>
+
+
+<h5 id="toc9"> Unstructured CSS</h5>
+<dl>
+    <dt>what</dt>
+        <dd>All CSS classes are put in a single file, and probably authored locally.</dd>
+    <dt>when</dt>
+        <dd>Simple strategy for people who mostly do backed development. OR used for slow-dev artifacts with manual testing, as each step is easier to check.  Doing this requires careful checking of the uniqueness of class names (grep?)</dd>
+    <dt>why not</dt>
+        <dd>This leads to more CSS volume, and can lead to less cascade than desirable.</dd>
+    <dt>why</dt>
+        <dd>This allows a few points of design in a non-designed artefact more easily.   If the artifact is really small, like a standalone landing page, it is more efficient.</dd>
+</dl>
+
+
+<h5 id="toc10"> BEM CSS</h5>
+<dl>
+    <dt>what</dt>
+        <dd>No, not <i>“bug-eyed monster”</i>. “block, element, modifier” CSS.   This is designed for bigger systems where the design doesn't change quickly <sup><a href="https://en.bem.info/methodology/" target="_blank">1</a></sup>.   This option resembles general OO done poorly IMO.   <ins>Design notes for BEM state that the structure is designed to manage use of specificity <sup><a href="https://snipcart.com/blog/organize-css-modular-architecture" target="_blank">2</a></sup> </ins></dd>
+    <dt>when</dt>
+        <dd>Works better with medium to larger projects than the Unstructured option, and supports stronger design than a framework limited option.</dd>
+    <dt>why not</dt>
+        <dd>Can be higher CSS volume due to container names.   It can be harder to update CSS declaration, focussing on new devices or CSS features, as it is harder to workout where to add the new declarations.  The rigid structure needs to be aligned with accessibility from the start.</dd>
+    <dt>why</dt>
+        <dd>A bit complex for small projects.  This is smaller and easier to read than an unstructured option.  Due to some centralised planning, probably a middle ground strategy.</dd>
+</dl>
+
+
+<h5 id="toc11"> Reduced cascade / “utility CSS” / “atomic CSS”</h5>
+<dl>
+    <dt>what</dt>
+        <dd>Define highly orthogonal / narrow purpose CSS classes.  You will like this if you want to use functional programming; noting that declarative CSS is fairly functional already.</dd>
+    <dt>when</dt>
+        <dd>If you are a dev who can't understand the CSS Cascade, this is your best process.  If you like exceedingly clear code, this may also help you.   If you are stuck with some weird middleware that doesn't use DOM trees like a normal webrowser, this may help again (looking at chain / franchise P.O.S. UI, for example).</dd>
+    <dt>why not</dt>
+        <dd>It's been demonstrated to make bloated designs many times. This is because elements may use 50 utilities, particularly for designs on many screen sizes.</dd>
+    <dt>why</dt>
+        <dd>If the dev team does not know CSS very well, this improves design of outcomes.   This often means that problems can be solved from the HTML file, so fixes are faster.</dd>
+</dl>
+
+
+<h5 id="toc12"> OO-CSS </h5>
+<dl>
+    <dt>what</dt>
+        <dd>A style of writing CSS that builds separation of concerns <sup><a href="https://www.keycdn.com/blog/oocss" target="_blank">3</a></sup>.   So the CSS that forms branding for a button is not in the same file OR not in the same area of a file as the basic structuring and typesetting aspects.   I would combine this with <strong>CSS 4</strong> nested selectors to generate encapsulation, but that isn't considered in the online references.</dd>
+    <dt>when</dt>
+        <dd>Best used for non-trivial size projects, as the stricter code quality.  OOCSS works well with SASS @extend.</dd>
+    <dt>why not</dt>
+        <dd>All devs will need to be familiar with it.   Too complex for small projects.</dd>
+    <dt>why</dt>
+        <dd>Similar to most processes to keep the code tidy: scalability, readability, and maintainability <sup><a href="https://www.smashingmagazine.com/2011/12/an-introduction-to-object-oriented-css-oocss/" target="_blank">4</a></sup> <sup><a href="https://snipcart.com/blog/organize-css-modular-architecture" target="_blank">5</a></sup>.</dd>
+</dl>
+
+
+<h5 id="toc13"> Isolated Component CSS</h5>
+<dl>
+    <dt>what</dt>
+        <dd>Each web-component includes a CSS island with its styles.  These should be written with selectors that only apply to the current elements to avoid vast amounts of splash damage.</dd>
+    <dt>when</dt>
+        <dd>Recent React and recent Vue favour this approach.  Suited to many-developer approaches, such as platforms built on top of OSS.</dd>
+    <dt>why not</dt>
+        <dd>Each component will need to be tested separately, and possibly updated.  May lead to excess CSS, as basic and core things cannot be assumed.   I think the long list of CSS islands in the DOM (which are frequently not compressed) is ugly.   For better performance, the islands shouldn't be added during rendering OR held in the components.</dd>
+    <dt>why</dt>
+        <dd>Works well with platforms the size of Facebook.  Note testing will be simpler and faster.</dd>
+</dl>
+
+
+<h5 id="toc14"> ITCSS aka “invert triangle” / SMACSS</h5>
+<dl>
+    <dt>what</dt>
+        <dd>SMACSS is clearly documented <sup><a href="https://smacss.com/" target="_blank">6</a></sup>.   ITCSS is described <sup><a href="https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/" target="_blank">7</a></sup>, as the official-looking URL has no content <sup><a href="https://itcss.io/" target="_blank">8</a></sup>.  Both these structures are quite similar, so I am grouping them (so do other writers).</dd>
+    <dt>when</dt>
+        <dd>When you have big enough deliverables and you need to split the CSS into smaller sections to improve readability.</dd>
+    <dt>why not</dt>
+        <dd>This is excess engineering for small deliverables.</dd>
+    <dt>why</dt>
+        <dd>Readability, and a reduction is accidental side-effect CSS matches.  This means dev costs are less.</dd>
+</dl>
+
+
+<h5 id="toc15"> Hybrid</h5>
+<dl>
+    <dt>what</dt>
+        <dd>Slap two or more of the above together, to meet your needs, and then <i>say “jobzagoodurn”</i>.  The metrics of good CSS are usability, adaptability, maintainability, readability and scalability.   This doesn't mention strict architecture.</dd>
+    <dt>when</dt>
+        <dd>You are in the real world (no references supplied here), and it's messy.   An example: a standard framework and styled components written as OO-CSS.</dd>
+    <dt>why not</dt>
+        <dd>You lose some architecture points, and it will take longer to explain the code to other developers.  Maybe add a diagram to reduce the complexity gap.</dd>
+    <dt>why</dt>
+        <dd>You gain some <i>“yes boss, I have delivered what you asked for”</i> points.</dd>
+</dl>
+
+
+</div>
+<hr />
+<div class="halferWords">
+
+<h3 class="dontend" id="toc16"> <a href="#toc16" title="Jump to this section." > Example iteration: building dark-mode. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There are quite a few products that gain dark-mode in version 2 or something.   This is just an isolated change that is quite easy to manage and see.   In recent CSS, there are numerous methods to annotate a colour.  Those are off-topic to this article.</p>
+
+<ul class="ulbasic">
+    <li>If the current arch is unstructured CSS, it's necessary to stop and add structure.  ❌ expense.</li>
+    <li>If the current arch is limited to a framework, obviously add the CSS variable or something that makes the framework operate in dark-mode.  The framework is likely to be one of these other options.  ✔ This should be fast, and reliable.</li>
+    <li>If the current arch is a utility / atomic, redefine those utilities on colour.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is an ITCSS or SMACSS, redefine those utilities on colour.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is using isolated components, and in classic / original mode, you need to touch MANY points as declarations ~ like colour ~ are scattered throughout the structure.   This is twice as bad if you later need to update the components from their third-party source.  ❌ expense twice! </li>
+    <li>If the current arch is BEM, and in classic/ original mode, you have to touch MANY points as declarations like colour are scattered throughout the structure. ❌ expense. </li>
+    <li>If the current arch is BEM, and in modern CSS4 mode, you are likely to redefine some variables, or override a class.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is OOCSS, and in classic / original mode, you will need to override a few classes. ✔ This should be fast and reliable. </li>
+    <li>If the current arch is OOCSS, and in modern CSS4 mode, you are likely to redefine some variables, or override a class.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is a good hybrid, you are likely to redefine some variables, or override a few classes.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is a bad hybrid, you are likely to redefine quite a few points.  Medium complexity, and slow to test. </li>
+</ul>
+
+
+<h3 class="dontend" id="toc17"> <a href="#toc17" title="Jump to this section." > Example iteration: building new screen size. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This is slightly contrived.  Marketing say your product would be twice as cool on some large screen watch.   This watch has 200px by 200px screen and a low refresh rate.   Marketing may notice you turned <strong>off</strong> animations on the watch in a few months, even though you did email them about this.</p>
+
+<ul class="ulbasic">
+    <li>If the current arch is unstructured CSS, it's necessary to stop and add structure.  ❌ expense.</li>
+    <li>If the current arch is limited to a framework.  I do not know of standard frameworks that look good at 200x 200.  May need to redesign entire thing.  ❌ expense.</li>
+    <li>If the current arch is a utility / atomic, redefine those utilities on colour.  Probably the best action  is to replace many of the sizing utilities.  Medium speed, but quite simple. </li>
+    <li>If the current arch is an ITCSS or SMACSS, change the active utilities.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is using isolated components, and in classic / original mode, you need to touch MANY points as declarations ~ like colour ~ are scattered throughout the structure.   This is twice as bad if you later need to update the components from their third-party source.  ❌ expense twice! </li>
+    <li>If the current arch is BEM, and in classic/ original mode, you have to touch MANY points as declarations like colour are scattered throughout the structure. ❌ expense. </li>
+    <li>If the current arch is BEM, and in modern CSS4 mode, you are likely to redefine some variables, or override a class.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is OOCSS, and in classic / original mode, you will need to override a few classes. ✔ This should be fast and reliable. </li>
+    <li>If the current arch is OOCSS, and in modern CSS4 mode, you are likely to redefine some variables, or override a class.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is a good hybrid, you are likely to redefine some variables, or override a class.  ✔ This should be fast and reliable. </li>
+    <li>If the current arch is a bad hybrid, you are likely to redefine quite a few points.  Medium complexity, and slow to test. </li>
+</ul>
+
+
+<h3 class="dontend" id="toc18"> <a href="#toc18" title="Jump to this section." > Why write this? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>If I need to talk about how to build CSS, I thought being able to use standard terminology would help.   None of these options were available choices when I graduated, and by default, I pay more attention to structures than words to describe structures.   <br />
+Yes, it is intensional that the negative reasons are before the positive reasons, project failure is worse than some chaos and eventual delivery.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="engineering, architecture"> <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering </a> </div>
+<p>Some similar articles in architecture </p>
+<div id="grouparchitecture" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=architecture" aria-label="This article lists all items in architecture group.">All of <br />architecture </a> </div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Architectures for CSS</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitectures-for-css" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitectures-for-css" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitectures-for-css" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i></a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitectures-for-css&amp;t=Architectures+for+CSS"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i></a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitectures-for-css" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-04-20T12:30:22">20th of Apr 2024</time>
+						</span>
+						<span>Created <time datetime="2024-04-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Apr 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Farchitectures-for-css" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Code layouts</a></li>
+<li><a href="#toc1">Listicle about CSS archs</a></li>
+<li class="h4_odd"><a href="#toc2">Example iteration: building dark-mode.</a></li>
+<li><a href="#toc3">Example iteration: building new screen size.</a></li>
+<li class="h4_odd"><a href="#toc4">Why write this?</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2024-04-20T12:31:46">20th of Apr 2024, 12:31:46</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-20T12:30:22">20th of Apr 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
