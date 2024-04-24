@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/word-filtering" />
 <meta property="og:description" content="On text cleaning, and the algorithms necessary." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:20:00" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="20th of Apr 2024, 23:12:13" />
+<meta property="article:modified_time" content="20th of Apr 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/word-filtering" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Word filtering",
-	"article:published_time":"26th of Mar 2024, 12:20:00", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"20th of Apr 2024, 23:12:13", 
+    "article:modified_time":"20th of Apr 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,21 +51,21 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker ">
+     <div class="blocker wordFilteringContainer">
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This is a sketch of a solution.   The site currently has absolutely no need of this feature (without user submitted data a filter to ensure its hygienic is naif), and the security focussed clean up is more urgent.  To achieve reasonable features I intend to use external binaries, which will need managing.  I could write everything from raw; but duplication of source, just so it is in a single process isn't Unix practice or OSS practice.<br />
-This is to be used with a spellcheck, but isn't a combined feature.  Common sense says put the spellcheck as close to the user as possible; whereas word filtering this is part of processing.  It may be useful to run several batches of wordfiltering, to support contextual behaviour (i.e. any mentions to a certain footballs club mean the content gets a club strip branding style-sheet applied to it).   In terms of outcomes, much of this is similar to a Bayesian net spam filter.   By volume the usecase for this is swear filtering, although this not why the solution is interesting.</p>
+This is to be used with a spellcheck, but isn't a combined feature.  Common sense says put the spellcheck as close to the user as possible; whereas word filtering this is part of processing.  It may be useful to run several batches of wordfiltering, to support contextual behaviour (i.e. any mentions to a certain footballs club mean the content gets a club strip branding style-sheet applied to it).   In terms of outcomes, much of this is similar to a Bayesian net spam filter.   By volume the use-case for this is swear filtering, although this not why the solution is interesting.</p>
 
 <p><em>Code like this is why I'm writing iceline.</em></p>
 
 
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Goals <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">To create an extendable sub-system to “understand” all nouns in a given text. Understand is quoted, as this is machine processing; but when the <strong>target concepts</strong> are mentioned, return a message to the caller.</li>
-    <li class="libasic">This subsystem should be written to support <strong>human languages</strong>, although practicality may constrain deployed versions to en_UK.  See discussion on language structures. </li>
-    <li class="libasic">To deal with realworld spelling correctly, the way a human does, this is <a href="https://stackoverflow.com/questions/6549197/php-form-curse-word-input-filter-solution" target="_blank">discussed</a> .</li>
-    <li class="libasic">Where feasible create this so it can be ported into other systems.</li>
+    <li>To create an extendable sub-system to “understand” all nouns in a given text. Understand is quoted, as this is machine processing; but when the <strong>target concepts</strong> are mentioned, return a message to the caller.</li>
+    <li>This subsystem should be written to support <strong>human languages</strong>, although practicality may constrain deployed versions to en_UK.  See discussion on language structures. </li>
+    <li>To deal with realworld spelling correctly, the way a human does, this is <a href="https://stackoverflow.com/questions/6549197/php-form-curse-word-input-filter-solution" target="_blank">discussed</a> .</li>
+    <li>Where feasible create this so it can be ported into other systems.</li>
 </ul>
 
 
@@ -90,16 +90,16 @@ Due to the requested complexities of the features in this, it may be required to
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">The target concepts are to be selected with each usage, and chosen at runtime.</li>
-    <li class="libasic">This is just to understand and detect the target words. Actions as a result are controlled by the caller code.  Look at the structure of pspell in PHP for reference.</li>
-    <li class="libasic">Everything must be locale-aware where possible, e.g. there are non-ascii-20 word separation characters used in Arabic.  Perl regex are quite good for this type of awareness.</li>
-    <li class="libasic">The feature is to decompose the block into words and “homogenise” them.  Then feed them into a semantic parser, loaded with additional dictionaries.  The semantic parser should report what concept the word means.  </li>
-    <li class="libasic">To cleanly report supported and non-supported locales;</li>
-    <li class="libasic">NICE-TO-HAVE Auto populating “sp3ling” synonyms to feed the dictionary with.  As this system is to understand language as it is written, rather than any formal definition this stage is more important than in other system. </li>
-    <li class="libasic">NICE-TO-HAVE A contextual guesser, to make a guess at what language a section of text is in, and so what stemming, dictionaries and grammar rules apply.  This is hard on short sections.</li>
-    <li class="libasic">NICE-TO-HAVE An option to tag all items that the feature can't parse, so it is cleanly possible to detect poor dictionaries.</li>
-    <li class="libasic">NICE-TO-HAVE A utility function to “hash out” words, according to a config setting. </li>
-    <li class="libasic">NICE-TO-HAVE A strictness option (like a grammar check does).  If you are just running this to capture “things that might lose me contracts”, its a different usage to “that guy can't write in formal English, I had better do linguistic fascism”.  In the second case preserving authentic voice <sup><a href="https://books.google.co.uk/books?id=qbDb7UbYFh8C&amp;amp;pg=PA63&amp;amp;lpg=PA63&amp;amp;dq=%22national+heritage+%22+%22authentic+voice%22&amp;amp;source=bl&amp;amp;&amp;amp;hl=en&amp;amp;sa=X&amp;amp;v=onepage&amp;amp;q=%22national%20heritage%20%22%20%22authentic%20voice%22&amp;amp;f=false#v=snippet&amp;amp;q=%22national%20heritage%20%22%20%22authentic%20voice%22&amp;amp;f=false" target="_blank">1</a></sup> is important.</li>
+    <li>The target concepts are to be selected with each usage, and chosen at runtime.</li>
+    <li>This is just to understand and detect the target words. Actions as a result are controlled by the caller code.  Look at the structure of pspell in PHP for reference.</li>
+    <li>Everything must be locale-aware where possible, e.g. there are non-ascii-20 word separation characters used in Arabic.  Perl regex are quite good for this type of awareness.</li>
+    <li>The feature is to decompose the block into words and “homogenise” them.  Then feed them into a semantic parser, loaded with additional dictionaries.  The semantic parser should report what concept the word means.  </li>
+    <li>To cleanly report supported and non-supported locales;</li>
+    <li>NICE-TO-HAVE Auto populating “sp3ling” synonyms to feed the dictionary with.  As this system is to understand language as it is written, rather than any formal definition this stage is more important than in other system. </li>
+    <li>NICE-TO-HAVE A contextual guesser, to make a guess at what language a section of text is in, and so what stemming, dictionaries and grammar rules apply.  This is hard on short sections.</li>
+    <li>NICE-TO-HAVE An option to tag all items that the feature can't parse, so it is cleanly possible to detect poor dictionaries.</li>
+    <li>NICE-TO-HAVE A utility function to “hash out” words, according to a config setting. </li>
+    <li>NICE-TO-HAVE A strictness option (like a grammar check does).  If you are just running this to capture “things that might lose me contracts”, its a different usage to “that guy can't write in formal English, I had better do linguistic fascism”.  In the second case preserving authentic voice <sup><a href="https://books.google.co.uk/books?id=qbDb7UbYFh8C&amp;amp;pg=PA63&amp;amp;lpg=PA63&amp;amp;dq=%22national+heritage+%22+%22authentic+voice%22&amp;amp;source=bl&amp;amp;&amp;amp;hl=en&amp;amp;sa=X&amp;amp;v=onepage&amp;amp;q=%22national%20heritage%20%22%20%22authentic%20voice%22&amp;amp;f=false#v=snippet&amp;amp;q=%22national%20heritage%20%22%20%22authentic%20voice%22&amp;amp;f=false" target="_blank">1</a></sup> is important.</li>
 </ul>
 
 
@@ -111,12 +111,12 @@ Due to the requested complexities of the features in this, it may be required to
 <p>This is what seems to happen in the blogosphere:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">This one doesn't look very complicated, the developer needs to load the dictionaries themselves, so do internationalisation <sup><a href="https://wordpress.org/plugins/wp-content-filter/" target="_blank">7</a></sup>;</li>
-    <li class="libasic">A better tool supports a range of language “out of the box” <sup><a href="https://wordpress.org/plugins/webpurifytextreplace/" target="_blank">8</a></sup></li>
-    <li class="libasic">This is the kind of complexity of the feature I am proposing <sup><a href="https://wordpress.org/plugins/sitebrains-1/" target="_blank">9</a></sup></li>
-    <li class="libasic">A pure JS implementation <sup><a href="https://codecanyon.net/item/live-swear-words-filter-filters-as-you-type/127462" target="_blank">10</a></sup></li>
-    <li class="libasic">This is an index, but does contain alot of useful information <sup><a href="https://lorelle.wordpress.com/2007/02/26/wordpress-plugins-for-comments/" target="_blank">11</a></sup></li>
-    <li class="libasic">filtration <sup><a href="https://wordpress.org/plugins/filtration/" target="_blank">12</a></sup></li>
+    <li>This one doesn't look very complicated, the developer needs to load the dictionaries themselves, so do internationalisation <sup><a href="https://wordpress.org/plugins/wp-content-filter/" target="_blank">7</a></sup>;</li>
+    <li>A better tool supports a range of language “out of the box” <sup><a href="https://wordpress.org/plugins/webpurifytextreplace/" target="_blank">8</a></sup></li>
+    <li>This is the kind of complexity of the feature I am proposing <sup><a href="https://wordpress.org/plugins/sitebrains-1/" target="_blank">9</a></sup></li>
+    <li>A pure JS implementation <sup><a href="https://codecanyon.net/item/live-swear-words-filter-filters-as-you-type/127462" target="_blank">10</a></sup></li>
+    <li>This is an index, but does contain alot of useful information <sup><a href="https://lorelle.wordpress.com/2007/02/26/wordpress-plugins-for-comments/" target="_blank">11</a></sup></li>
+    <li>filtration <sup><a href="https://wordpress.org/plugins/filtration/" target="_blank">12</a></sup></li>
 </ul>
 
 <p>Writing test cases for this will be “fun”.   I will add more length to this article, probably as a second resource.</p>
@@ -154,7 +154,7 @@ Due to the requested complexities of the features in this, it may be required to
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-04-20T13:57:23">20th of Apr 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -206,7 +206,7 @@ Due to the requested complexities of the features in this, it may be required to
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:20:00">26th of Mar 2024, 12:20:00</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-20T23:12:13">20th of Apr 2024, 23:12:13</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-20T13:57:23">20th of Apr 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
