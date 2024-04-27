@@ -82,13 +82,13 @@ I may do performance optimisation on this code later, if the page render time on
 <p>For the current column, the first list should start at a count so that:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">“zeroth” columns ~ just after a page break, are left untouched;</li>
-    <li class="libasic">When there are non-lists after the last list in the previous column, don't touch;</li>
-    <li class="libasic">With the count from the last list in the previous column;<ul class="ulbasic">
-        <li class="libasic">If above list wraps into three columns, also include the count from i-2 column;</li>
+    <li >“zeroth” columns ~ just after a page break, are left untouched;</li>
+    <li >When there are non-lists after the last list in the previous column, don't touch;</li>
+    <li >With the count from the last list in the previous column;<ul class="ulbasic">
+        <li >If above list wraps into three columns, also include the count from i-2 column;</li>
     </ul></li>
-    <li class="libasic">If the first list in the current column, contains a sublist, and that sublist is also split, that sublist should be renumbered;</li>
-    <li class="libasic">Do each list type separately, it makes the logic more testable;</li>
+    <li >If the first list in the current column, contains a sublist, and that sublist is also split, that sublist should be renumbered;</li>
+    <li >Do each list type separately, it makes the logic more testable;</li>
 </ul>
 
 <p>Iterate over all the columns..</p>
@@ -104,8 +104,8 @@ I may do performance optimisation on this code later, if the page render time on
 <p>In the constructor, the options param may include:</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><i>elipsisText</i> ~ the text that gets added to the end of lists, on split items to make it obvious its split.  You should set this match whatever you use in the CSS.</li>
-    <li class="libasic"><i>setColumnStart</i> ~ a lambda function that controls what happens when doing a renumber.</li>
+    <li ><i>elipsisText</i> ~ the text that gets added to the end of lists, on split items to make it obvious its split.  You should set this match whatever you use in the CSS.</li>
+    <li ><i>setColumnStart</i> ~ a lambda function that controls what happens when doing a renumber.</li>
 </ul>
 
 <p>The function will be called with 2 parameters:<br />
@@ -117,10 +117,10 @@ I may do performance optimisation on this code later, if the page render time on
 <p><b>.renumberByJS</b> (<i>$searchTag, $colno, $targetId, $targetClass</i>)  where</p>
 
 <ul class="ulbasic">
-    <li class="libasic">$searchTag ~ the tag you wish to renumber. This feature is to apply to mixed documents, not all elements want numbering.</li>
-    <li class="libasic">$colno ~ how many columns the text was split into (this is hidden by a wrapper function in my site).  This affects which columns get renumbered.</li>
-    <li class="libasic">$targetId ~ optional, what blocks to renumber.  One of these two must be supplied.</li>
-    <li class="libasic">$targetClass ~ optional, what blocks to renumber.</li>
+    <li >$searchTag ~ the tag you wish to renumber. This feature is to apply to mixed documents, not all elements want numbering.</li>
+    <li >$colno ~ how many columns the text was split into (this is hidden by a wrapper function in my site).  This affects which columns get renumbered.</li>
+    <li >$targetId ~ optional, what blocks to renumber.  One of these two must be supplied.</li>
+    <li >$targetClass ~ optional, what blocks to renumber.</li>
 </ul>
 
 <p>The computation of <i>$int</i> is done via counting child elements, so this should work regardless of what the <i>$searchTag</i> element is.</p>
@@ -133,7 +133,7 @@ I may do performance optimisation on this code later, if the page render time on
 
 <p>This must work cleanly on MSIE8, and MSIE9; due to the business focus of this site.</p>
 
-<p>Despite all the above complications, I achieve success.  In the past development would have need to be performed like this, for everything; as tools hadn't been created.  The renumbering code started very simple.  Then I fixed a lot of edge cases, and its not so simple any more.  It passes the test-cases <a class="" href="https://owenberesford.me.uk/resource/columniser-process#">columniser-process</a>, and is <a href="https://github.com/adamwulf/Columnizer-jQuery-Plugin" target="_blank">available</a>.  The development is discussed in the second article on <a class="" href="https://owenberesford.me.uk/resource/columniser-process#">this</a></p>
+<p>Despite all the above complications, I achieve success.  In the past development would have need to be performed like this, for everything; as tools hadn't been created.  The renumbering code started very simple.  Then I fixed a lot of edge cases, and its not so simple any more.  It passes the test-cases <a href="https://owenberesford.me.uk/resource/columniser-process#">columniser-process</a>, and is <a href="https://github.com/adamwulf/Columnizer-jQuery-Plugin" target="_blank">available</a>.  The development is discussed in the second article on <a href="https://owenberesford.me.uk/resource/columniser-process#">this</a></p>
 
 
 </div>
@@ -220,7 +220,7 @@ I may do performance optimisation on this code later, if the page render time on
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-29T10:25:33">29th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-29T10:25:33">29th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

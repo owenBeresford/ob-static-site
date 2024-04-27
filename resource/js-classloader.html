@@ -55,42 +55,42 @@ TODO: magic tune selection against some index/DB -->
 <div class="lotsOfWords">
 <p>This article is called this <sup><a href="https://addyosmani.com/largescalejavascript/" target="_blank">1</a></sup>, as I use many OO languages, and do not consider an PHP style “include statement” a good way to manage dependency injection.  Simple JS notes also assert that code should be manually injected with a static locked version.<br />
 <em>This article is limited to client side JS.</em>  At point of writing this site has no good process loading JS.  There was originally a small number of JS libraries, and my personal shim to fix (now historical) browser faults.   I have been adding to the UX niceties, so the JS is getting heavier.   I want a better solution than statically linking JS classes in the main/root template.  I am writing an exploration (this text) ahead of any decisions or work.<br />
-A few years later I wrote an article about methods to get source code to the client-side, see <a class="" href="https://owenberesford.me.uk/resource/js-modules-notes#">js-modules-notes</a>.  I suggest reading detailed notes on <a href="https://webperf.tips/tip/cached-js-misconceptions/" target="_blank">JS code loading</a>, published July 2022.</p>
+A few years later I wrote an article about methods to get source code to the client-side, see <a href="https://owenberesford.me.uk/resource/js-modules-notes#">js-modules-notes</a>.  I suggest reading detailed notes on <a href="https://webperf.tips/tip/cached-js-misconceptions/" target="_blank">JS code loading</a>, published July 2022.</p>
 
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Possible Architectures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>In terms of architecture, the following approaches exist (this section doesn't mention solutions, or integration costs):</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Correct HTTP caching per file &amp;&amp; inpage shims<ul class="ulbasic">
-        <li class="libasic">On the assertion that if each library is already on the client, it can be applied to a page really quickly; this is a very simple solution.</li>
-        <li class="libasic">Use a small section of script on each page that holds configuration for each active module.</li>
-        <li class="libasic">Requires that each page can have separate JS libraries loaded (a CMS management issue).</li>
+    <li >Correct HTTP caching per file &amp;&amp; inpage shims<ul class="ulbasic">
+        <li >On the assertion that if each library is already on the client, it can be applied to a page really quickly; this is a very simple solution.</li>
+        <li >Use a small section of script on each page that holds configuration for each active module.</li>
+        <li >Requires that each page can have separate JS libraries loaded (a CMS management issue).</li>
     </ul></li>
-    <li class="libasic">Server concatenation of JS (like a PAK file).<ul class="ulbasic">
-        <li class="libasic">Easy to edit the JS source in separate files.</li>
-        <li class="libasic">Would be used with gzip on the network.</li>
-        <li class="libasic">Very easy to make.</li>
-        <li class="libasic">Avoids many HTTP connections, but is mostly obsolete due to HTTP1.1 pipelining.</li>
-        <li class="libasic">Can be dynamically configured for each page, as the files are assembled in real time.</li>
+    <li >Server concatenation of JS (like a PAK file).<ul class="ulbasic">
+        <li >Easy to edit the JS source in separate files.</li>
+        <li >Would be used with gzip on the network.</li>
+        <li >Very easy to make.</li>
+        <li >Avoids many HTTP connections, but is mostly obsolete due to HTTP1.1 pipelining.</li>
+        <li >Can be dynamically configured for each page, as the files are assembled in real time.</li>
     </ul></li>
-    <li class="libasic">Dynamically server-side compiled buffers from separate source files (like C compilation).<ul class="ulbasic">
-        <li class="libasic"><b>UPDATE</b> this is called 'a minifier'/ minification; there are many choices.   WARN: it is possible to build JS that makes illegal code when minified.</li>
-        <li class="libasic">Easy to edit the JS source in separate files.</li>
-        <li class="libasic">The compiled form doesn't need white-space, or to be readable (variable name replacement).</li>
-        <li class="libasic">Can include analysis tools to report likely failures.</li>
-        <li class="libasic">This leads to a smaller footprint but static linking.</li>
-        <li class="libasic">When each page uses the same libraries (or SPA), this is efficient.</li>
-        <li class="libasic">With HTTP caching, this should be efficient.</li>
-        <li class="libasic">Due to heavier processing, may wish to build the buffer asynchronously.  </li>
+    <li >Dynamically server-side compiled buffers from separate source files (like C compilation).<ul class="ulbasic">
+        <li ><b>UPDATE</b> this is called 'a minifier'/ minification; there are many choices.   WARN: it is possible to build JS that makes illegal code when minified.</li>
+        <li >Easy to edit the JS source in separate files.</li>
+        <li >The compiled form doesn't need white-space, or to be readable (variable name replacement).</li>
+        <li >Can include analysis tools to report likely failures.</li>
+        <li >This leads to a smaller footprint but static linking.</li>
+        <li >When each page uses the same libraries (or SPA), this is efficient.</li>
+        <li >With HTTP caching, this should be efficient.</li>
+        <li >Due to heavier processing, may wish to build the buffer asynchronously.  </li>
     </ul></li>
-    <li class="libasic">Client side library to manage download and lazy loading.<ul class="ulbasic">
-        <li class="libasic"><b>UPDATE</b> An example is <strong>Webpack</strong>, which was first released the year <strong>after</strong> I wrote this article.</li>
-        <li class="libasic">Sensibly, this needs to be made with a callback system (i.e. after I have moduleX, run moduleX init function). This requires architecting from scratch. <em> This is the actual classloading option.</em></li>
-        <li class="libasic">Works better with many different pages as each JS library is only downloaded when requested, meaning the first page is displayed faster.</li>
-        <li class="libasic">Does require an extra library on the client, but this doesn't need to be very large.</li>
-        <li class="libasic">May make page seem slower, due to more complex model (browser parses HTML, downloads 1st JS lib, parses that, then downloads behaviour libs, then parses them)</li>
-        <li class="libasic">Can do more behaviour on failure, than the other solutions...</li>
+    <li >Client side library to manage download and lazy loading.<ul class="ulbasic">
+        <li ><b>UPDATE</b> An example is <strong>Webpack</strong>, which was first released the year <strong>after</strong> I wrote this article.</li>
+        <li >Sensibly, this needs to be made with a callback system (i.e. after I have moduleX, run moduleX init function). This requires architecting from scratch. <em> This is the actual classloading option.</em></li>
+        <li >Works better with many different pages as each JS library is only downloaded when requested, meaning the first page is displayed faster.</li>
+        <li >Does require an extra library on the client, but this doesn't need to be very large.</li>
+        <li >May make page seem slower, due to more complex model (browser parses HTML, downloads 1st JS lib, parses that, then downloads behaviour libs, then parses them)</li>
+        <li >Can do more behaviour on failure, than the other solutions...</li>
     </ul></li>
 </ul>
 
@@ -107,24 +107,24 @@ A few years later I wrote an article about methods to get source code to the cli
 <p>There is little value in writing a platform from scratch, <em>although I can do</em> see [1].  From a quick google search here are some options:</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><b> Commonjs</b> standard. UPDATE 2019: Last year I started started including a project called CommonJS, to allow deps to load better.   If this was supposed to be used in node, its very browser friendly in architecture.  The project is in NPM <sup><a href="https://www.npmjs.com/package/common-js" target="_blank">1</a></sup> or <sup><a href="https://unpkg.com/common-js@latest" target="_blank">2</a></sup>, authored by Andrea Giammarchi aka <sup><a href="https://github.com/WebReflection/common-js" target="_blank">3</a></sup>.  This library is maintained.  There is more than one implementation for CommonJS, </li>
+    <li ><b> Commonjs</b> standard. UPDATE 2019: Last year I started started including a project called CommonJS, to allow deps to load better.   If this was supposed to be used in node, its very browser friendly in architecture.  The project is in NPM <sup><a href="https://www.npmjs.com/package/common-js" target="_blank">1</a></sup> or <sup><a href="https://unpkg.com/common-js@latest" target="_blank">2</a></sup>, authored by Andrea Giammarchi aka <sup><a href="https://github.com/WebReflection/common-js" target="_blank">3</a></sup>.  This library is maintained.  There is more than one implementation for CommonJS, </li>
 </ul>
 
 <p>A while ago, there was a standards focussed group called CommonJS <sup><a href="https://www.commonjs.org/" target="_blank">4</a></sup> (didn't directly make any code).  This is focussed on <i>serverside JS</i>, and is mentioned here for completeness; and that if ignorant people are reading this “AMD like” subject, notes on what to ignore may save them time.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">an AMD solution, see above.  In 2023, AMD is still supported by many packing tools, so can be used as an output format for existing platforms.  </li>
-    <li class="libasic"><b> RequireJS </b> <sup><a href="https://requirejs.org/docs/api.html" target="_blank">5</a></sup>, a common JS framework for dependency injection.  This has integration with several JS tools such as Angular.</li>
+    <li >an AMD solution, see above.  In 2023, AMD is still supported by many packing tools, so can be used as an output format for existing platforms.  </li>
+    <li ><b> RequireJS </b> <sup><a href="https://requirejs.org/docs/api.html" target="_blank">5</a></sup>, a common JS framework for dependency injection.  This has integration with several JS tools such as Angular.</li>
 </ul>
 
 <p>Legacy solutions that I think should be avoided:</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><b>Steal </b> <sup><a href="https://stealjs.com/" target="_blank">6</a></sup> <a href="https://github.com/stealjs/steal" target="_blank">github</a> <a href="https://stealjs.com/docs/index.html" target="_blank">docs</a>.  This is reviewed as <sup><a href="https://lastzero.net/2012/10/how-to-use-the-stealjs-file-loader-as-a-stand-alone-tool/" target="_blank">7</a></sup>, its <a href="https://stackoverflow.com/questions/tagged/stealjs" target="_blank">stackexchange</a> seems to have sensible questions.  </li>
-    <li class="libasic"><b>Dojo toolkit</b> <sup><a href="https://dojotoolkit.org/community/roadmap/" target="_blank">8</a></sup> <a href="https://github.com/dojo/loader" target="_blank">github</a>  This project believes in docs in word files, I link the loader <sup><a href="https://docs.google.com/document/d/1-gbawq5nhi1GuYuVMoTJBFAzESaqgYKlS_aLzHzaAXs/edit?pref=2&amp;amp;pli=1#heading=h.mknz10lo6jxp" target="_blank">9</a></sup>.  This is distributed with the 'new BSD' licence.   An article advocating Dojo <sup><a href="https://code.tutsplus.com/tutorials/10-reasons-why-your-projects-should-use-the-dojo-toolkit--net-26072" target="_blank">10</a></sup> although it seems to have declined popularity <sup><a href="https://www.quora.com/Why-has-the-Dojo-toolkit-disappeared-off-peoples-radar" target="_blank">11</a></sup> (for the whole framework..)</li>
-    <li class="libasic"><b>curl.js</b> <sup><a href="https://github.com/cujojs/curl" target="_blank">12</a></sup>.  This is a good tool, but it seems the project is suspended, so its use should be considered with caution.</li>
-    <li class="libasic"><b> ScriptmanJS </b> I can see notes referencing this on AMD sites.  This site has an expired domain, I assume a dead project.  Google doesn't return the github project either.</li>
-    <li class="libasic">UPDATE: I need to look the tools listed in here <sup><a href="https://stackoverflow.com/questions/12893046/how-to-manage-client-side-javascript-dependencies" target="_blank">13</a></sup></li>
+    <li ><b>Steal </b> <sup><a href="https://stealjs.com/" target="_blank">6</a></sup> <a href="https://github.com/stealjs/steal" target="_blank">github</a> <a href="https://stealjs.com/docs/index.html" target="_blank">docs</a>.  This is reviewed as <sup><a href="https://lastzero.net/2012/10/how-to-use-the-stealjs-file-loader-as-a-stand-alone-tool/" target="_blank">7</a></sup>, its <a href="https://stackoverflow.com/questions/tagged/stealjs" target="_blank">stackexchange</a> seems to have sensible questions.  </li>
+    <li ><b>Dojo toolkit</b> <sup><a href="https://dojotoolkit.org/community/roadmap/" target="_blank">8</a></sup> <a href="https://github.com/dojo/loader" target="_blank">github</a>  This project believes in docs in word files, I link the loader <sup><a href="https://docs.google.com/document/d/1-gbawq5nhi1GuYuVMoTJBFAzESaqgYKlS_aLzHzaAXs/edit?pref=2&amp;amp;pli=1#heading=h.mknz10lo6jxp" target="_blank">9</a></sup>.  This is distributed with the 'new BSD' licence.   An article advocating Dojo <sup><a href="https://code.tutsplus.com/tutorials/10-reasons-why-your-projects-should-use-the-dojo-toolkit--net-26072" target="_blank">10</a></sup> although it seems to have declined popularity <sup><a href="https://www.quora.com/Why-has-the-Dojo-toolkit-disappeared-off-peoples-radar" target="_blank">11</a></sup> (for the whole framework..)</li>
+    <li ><b>curl.js</b> <sup><a href="https://github.com/cujojs/curl" target="_blank">12</a></sup>.  This is a good tool, but it seems the project is suspended, so its use should be considered with caution.</li>
+    <li ><b> ScriptmanJS </b> I can see notes referencing this on AMD sites.  This site has an expired domain, I assume a dead project.  Google doesn't return the github project either.</li>
+    <li >UPDATE: I need to look the tools listed in here <sup><a href="https://stackoverflow.com/questions/12893046/how-to-manage-client-side-javascript-dependencies" target="_blank">13</a></sup></li>
 </ul>
 
 
@@ -134,7 +134,7 @@ Obviously the least stupid solution is to use native require() support in the br
 <b>UPDATE2022</b>: forced host upgrade in Q4 2022; I now have HTTP2 at no hassle.   NB: HTTP2 is no longer a hard thing to achieve; I have deployed it commercially.   Secondly, maybe I should look at swapping the many JSON meta files to ProtoBuf.   I think the headers are fixed since 2016; and I have been using a minifier since a bit after I wrote the first version of this article.  I haven't mentioned SPA. Yes. This site is more of a blog, and I don't think people <i>“browse the web”</i> that much after social media got more common in 2007 or something.  Paying SPA overheads if you only read one article is not assisting the user do anything.<br />
 A better thing to look at is how can I avoid needing to rewrite all the old 2011 edition JS to ES2020 and JS modules standards, but keep the same user interactions.   I have drop-in upgraded fonts three times since this layout was built.</p>
 
-<p>[ 1 ] I wrote <a class="" href="https://owenberesford.me.uk/resource/punit#">Perl unit test</a> skeleton generator, as I am unable to find one.</p>
+<p>[ 1 ] I wrote <a href="https://owenberesford.me.uk/resource/punit#">Perl unit test</a> skeleton generator, as I am unable to find one.</p>
 
 
 </div>
@@ -223,7 +223,7 @@ A better thing to look at is how can I avoid needing to rewrite all the old 2011
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:58">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:58">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

@@ -60,9 +60,9 @@ TODO: magic tune selection against some index/DB -->
 <p>This article is written about MongoDB; and replaces an older article on MongoDB from 2015.  Please review the MongoDB release log <sup><a href="https://www.mongodb.com/docs/manual/release-notes/" target="_blank">1</a></sup>.  Unfortunately, when writing complex code with MongoDB  (or other DB), sometimes it is necessary to use a version of the DB from the Vendor, rather than your package manager to get new features.  What matters for large datasets to be used in continuous concurrent access, is multi-dimensional.  We need to be able to</p>
 
 <ul class="ulbasic">
-    <li class="libasic">store the data, </li>
-    <li class="libasic">access it quickly,</li>
-    <li class="libasic">and concurrently.</li>
+    <li >store the data, </li>
+    <li >access it quickly,</li>
+    <li >and concurrently.</li>
 </ul>
 
 <p>The recent versions of Mongo have no maximum size per collection as a software limit <sup><a href="https://www.mongodb.com/docs/manual/reference/limits/#mongodb-limit-Maximum-Number-of-Documents-in-a-Capped-Collection" target="_blank">2</a></sup>.   If you are using a capped collection, the limit will be what you set.   The max size per document / row is still 16MB; I guess the min size of the document is 8bytes; needed to store the auto-generated '_id' int.  Larger data blobs can be stored/ accessed via GridFS <sup><a href="https://www.mongodb.com/docs/manual/core/gridfs/" target="_blank">3</a></sup>.   WiredTiger <sup><a href="https://www.mongodb.com/docs/manual/core/wiredtiger/" target="_blank">4</a></sup> compresses data when written to disk, and is the only option for MongoDB &gt; 4.2 <sup><a href="https://www.mongodb.com/docs/manual/core/storage-engines/" target="_blank">5</a></sup>; the WiredTiger engine adds row level locking.  The docs do not publish expected compression rates as it's complex and varies on the data.   The volume of data in each document is affected by what you put in the document (NoSQL, no fixed structure), see next section.   There may be a max of 50 nodes in a cluster; and a max of 7 used for voting which one is the Primary <sup><a href="https://www.mongodb.com/docs/manual/core/replica-set-elections/#non-voting-members" target="_blank">6</a></sup>; but that wasn't relevant to the business situation.</p>
@@ -179,7 +179,7 @@ There is a standardised tool ~ Yahoo Cloud Serving Benchmark (YCSB) <a href="htt
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:25">7th of Apr 2024, 20:42:25</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:37:10">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:25">7th of Apr 2024, 20:42:25</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:37:10">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

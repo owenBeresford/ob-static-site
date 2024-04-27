@@ -56,33 +56,33 @@ TODO: magic tune selection against some index/DB -->
 <p>It is a fairly common business requirement to need to render an invoice, a ticket or a receipt in a read-only format which the users may save and print.  This can be done in HTML but that is not read-only, and this isn't very print optimised.  PDF is better than MS Word or other similar tools with a smaller supported media range, as PDF supports mobile better and works better on the expanding markets of Mac OSX and Linux.  In terms of the earlier versions of MS Word, an internet optimised PDF was smaller so downloaded faster.  This article is targeted at PHP/ LAMP stack; I will add extra text for external scripts, so other languages and platforms may benefit from the article.  This is another boring summary article, to save my time later.</p>
 
 <p>Whilst it is not PDF rendering, PDFs can be displayed inside pages with most browsers, via the Object tag <sup><a href="http://joliclic.free.fr/html/object-tag/en/object-application.html#pdf" target="_blank">1</a></sup>.  This has a good level of support in older browsers.  When making PDFs care needs to be applied about resource linking, as missing resources will cause problems.   <br />
-ASIDE: I have been told that for Accessibility, PDFs built by hand should be created with the 'Export' feature, rather than 'Print to PDF' where possible as that keeps all the meta data that a screen-reader can use ~ idea via the [@A11yAwareness<a class="" href="https://www.google.co.uk/search?q=A11yAwareness">?</a>@disabled.social Mastodon account].</p>
+ASIDE: I have been told that for Accessibility, PDFs built by hand should be created with the 'Export' feature, rather than 'Print to PDF' where possible as that keeps all the meta data that a screen-reader can use ~ idea via the [@A11yAwareness<a href="https://www.google.co.uk/search?q=A11yAwareness">?</a>@disabled.social Mastodon account].</p>
 
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Technical Requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>There are three different technical requirement profiles inside this general article.  To list:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Make “print grade” digital goods.<ul class="ulbasic">
-        <li class="libasic">Ensure all source data images are high quality (abort the render on absence).</li>
-        <li class="libasic">Ensure all fonts can be bound into the PDF.</li>
-        <li class="libasic">Be able to render all the characters in the source data (trademarks, copyrights, names).</li>
-        <li class="libasic">Ensure the Apple inc default paper size is corrected to A4.  Maybe target other document sizes (e.g. posters).</li>
-        <li class="libasic">Be able to present a test render to the user on screen, to verify the layout (the designer may not have been working to A4).</li>
-        <li class="libasic">Covert colours to the print colour spaces (normally CYMK).</li>
-        <li class="libasic">Render all the artifacts to at least <i>600 DPI</i>.</li>
-        <li class="libasic">Execution time isn't a top priority.</li>
-        <li class="libasic">Normally will require level of control for object placement, inside the result PDF. </li>
+    <li >Make “print grade” digital goods.<ul class="ulbasic">
+        <li >Ensure all source data images are high quality (abort the render on absence).</li>
+        <li >Ensure all fonts can be bound into the PDF.</li>
+        <li >Be able to render all the characters in the source data (trademarks, copyrights, names).</li>
+        <li >Ensure the Apple inc default paper size is corrected to A4.  Maybe target other document sizes (e.g. posters).</li>
+        <li >Be able to present a test render to the user on screen, to verify the layout (the designer may not have been working to A4).</li>
+        <li >Covert colours to the print colour spaces (normally CYMK).</li>
+        <li >Render all the artifacts to at least <i>600 DPI</i>.</li>
+        <li >Execution time isn't a top priority.</li>
+        <li >Normally will require level of control for object placement, inside the result PDF. </li>
     </ul></li>
-    <li class="libasic">Make read-only transaction documents, to be used outside of the business website.<ul class="ulbasic">
-        <li class="libasic">Speed of render is critical, due to work volume.</li>
-        <li class="libasic">Create all necessary keywords, indexes and metadata.</li>
-        <li class="libasic">Ensure tabular data is correctly presented.</li>
-        <li class="libasic">Be able to render all the characters in the source data (trademarks, copyrights, names).</li>
+    <li >Make read-only transaction documents, to be used outside of the business website.<ul class="ulbasic">
+        <li >Speed of render is critical, due to work volume.</li>
+        <li >Create all necessary keywords, indexes and metadata.</li>
+        <li >Ensure tabular data is correctly presented.</li>
+        <li >Be able to render all the characters in the source data (trademarks, copyrights, names).</li>
     </ul></li>
-    <li class="libasic">a Data Dump ~ this is likely to be rare, as there are more relevant formats<ul class="ulbasic">
-        <li class="libasic">High volume of data per document.</li>
-        <li class="libasic">Resource management on the renderer is critical.</li>
+    <li >a Data Dump ~ this is likely to be rare, as there are more relevant formats<ul class="ulbasic">
+        <li >High volume of data per document.</li>
+        <li >Resource management on the renderer is critical.</li>
     </ul></li>
 </ul>
 
@@ -203,7 +203,7 @@ This option <sup><a href="https://pediapress.com/" target="_blank">21</a></sup> 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:24">7th of Apr 2024, 20:42:24</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:37:05">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:24">7th of Apr 2024, 20:42:24</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:37:05">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

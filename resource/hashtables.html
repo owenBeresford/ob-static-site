@@ -72,12 +72,12 @@ First variant: O( X + Y ) degrading to O( X + nY )</p>
 <p>Discuss (this is verbal, so I have not written):</p>
 
 <ul class="ulbasic">
-    <li class="libasic">concept.</li>
-    <li class="libasic">why different to arrays.</li>
-    <li class="libasic">why different to general AVP structures structures (config files, “moron grade” NoSQL).</li>
-    <li class="libasic">low density use</li>
-    <li class="libasic">high density use</li>
-    <li class="libasic">buffering (d/b vs o/s)</li>
+    <li >concept.</li>
+    <li >why different to arrays.</li>
+    <li >why different to general AVP structures structures (config files, “moron grade” NoSQL).</li>
+    <li >low density use</li>
+    <li >high density use</li>
+    <li >buffering (d/b vs o/s)</li>
 </ul>
 
 
@@ -92,23 +92,23 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 <p>I pulled up some references as I only have 10m to talk about this.  These articles are longer and more detailed.</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><a class="cleanimage" href="https://en.wikipedia.org/wiki/Hash_table" target="_blank">https://en.wikipedia.org/wiki/Hash_table</a></li>
-    <li class="libasic"><a class="cleanimage" href="https://pointlessprogramming.wordpress.com/2011/02/20/what-in-the-hell-are-hash-tables/" target="_blank">https://pointlessprogramming.wordpress.com/2011/02/20/what-in-the-hell-are-hash-tables/</a></li>
-    <li class="libasic"><a class="cleanimage" href="https://www.laurentluce.com/posts/python-dictionary-implementation/" target="_blank">https://www.laurentluce.com/posts/python-dictionary-implementation/</a></li>
-    <li class="libasic"><a class="cleanimage" href="https://www.npopov.com/2012/03/28/Understanding-PHPs-internal-array-implementation.html" target="_blank">https://www.npopov.com/2012/03/28/Understanding-PHPs-internal-array-implementation.html</a></li>
-    <li class="libasic"><a class="cleanimage" href="https://www.cs.auckland.ac.nz/~jmor159/PLDS210/niemann/s_has.htm" target="_blank">https://www.cs.auckland.ac.nz/~jmor159/PLDS210/niemann/s_has.htm</a></li>
-    <li class="libasic"><a class="cleanimage" href="https://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf" target="_blank">https://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf</a></li>
-    <li class="libasic"><a class="cleanimage" href="http://web.textfiles.com/hacking/DYNAMICHELL/hashtables.txt" target="_blank">http://web.textfiles.com/hacking/DYNAMICHELL/hashtables.txt</a></li>
-    <li class="libasic"><a class="cleanimage" href="https://github.com/rurban/illguts" target="_blank">https://github.com/rurban/illguts</a></li>
+    <li ><a class="cleanimage" href="https://en.wikipedia.org/wiki/Hash_table" target="_blank">https://en.wikipedia.org/wiki/Hash_table</a></li>
+    <li ><a class="cleanimage" href="https://pointlessprogramming.wordpress.com/2011/02/20/what-in-the-hell-are-hash-tables/" target="_blank">https://pointlessprogramming.wordpress.com/2011/02/20/what-in-the-hell-are-hash-tables/</a></li>
+    <li ><a class="cleanimage" href="https://www.laurentluce.com/posts/python-dictionary-implementation/" target="_blank">https://www.laurentluce.com/posts/python-dictionary-implementation/</a></li>
+    <li ><a class="cleanimage" href="https://www.npopov.com/2012/03/28/Understanding-PHPs-internal-array-implementation.html" target="_blank">https://www.npopov.com/2012/03/28/Understanding-PHPs-internal-array-implementation.html</a></li>
+    <li ><a class="cleanimage" href="https://www.cs.auckland.ac.nz/~jmor159/PLDS210/niemann/s_has.htm" target="_blank">https://www.cs.auckland.ac.nz/~jmor159/PLDS210/niemann/s_has.htm</a></li>
+    <li ><a class="cleanimage" href="https://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf" target="_blank">https://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf</a></li>
+    <li ><a class="cleanimage" href="http://web.textfiles.com/hacking/DYNAMICHELL/hashtables.txt" target="_blank">http://web.textfiles.com/hacking/DYNAMICHELL/hashtables.txt</a></li>
+    <li ><a class="cleanimage" href="https://github.com/rurban/illguts" target="_blank">https://github.com/rurban/illguts</a></li>
 </ul>
 
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Some common implementations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">Python has dictionaries, see <a href="https://github.com/python/cpython/blob/main/Objects/dictobject.c" target="_blank">src</a></li>
-    <li class="libasic">Perl has hashes, see a relevant file inside <a href="https://github.com/Perl/perl5" target="_blank">src</a> couldn't find a readable source inside reasonable time.</li>
-    <li class="libasic">PHP uses <a href="https://uk1.php.net/manual/en/language.types.array.php" target="_blank">associative arrays</a> , which are close relatives of hashes ~ <a href="https://github.com/php/php-src/blob/master/ext/standard/array.c" target="_blank">src</a></li>
-    <li class="libasic">C + + hash table libraries <sup><a href="https://www.cplusplus.com/forum/general/11875/" target="_blank">3</a></sup> <sup><a href="https://attractivechaos.wordpress.com/2008/08/28/comparison-of-hash-table-libraries/" target="_blank">4</a></sup> <sup><a href="https://www.cplusplus.com/reference/functional/hash/" target="_blank">5</a></sup></li>
+    <li >Python has dictionaries, see <a href="https://github.com/python/cpython/blob/main/Objects/dictobject.c" target="_blank">src</a></li>
+    <li >Perl has hashes, see a relevant file inside <a href="https://github.com/Perl/perl5" target="_blank">src</a> couldn't find a readable source inside reasonable time.</li>
+    <li >PHP uses <a href="https://uk1.php.net/manual/en/language.types.array.php" target="_blank">associative arrays</a> , which are close relatives of hashes ~ <a href="https://github.com/php/php-src/blob/master/ext/standard/array.c" target="_blank">src</a></li>
+    <li >C + + hash table libraries <sup><a href="https://www.cplusplus.com/forum/general/11875/" target="_blank">3</a></sup> <sup><a href="https://attractivechaos.wordpress.com/2008/08/28/comparison-of-hash-table-libraries/" target="_blank">4</a></sup> <sup><a href="https://www.cplusplus.com/reference/functional/hash/" target="_blank">5</a></sup></li>
 </ul>
 
 
@@ -194,7 +194,7 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:56">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:56">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

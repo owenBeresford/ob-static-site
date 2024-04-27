@@ -66,40 +66,40 @@ TODO: magic tune selection against some index/DB -->
 <p>if you have a well setup system, this list of items is fast.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">The first thing is a binary search on the platform to partition what is failing.<ul class="ulbasic">
-        <li class="libasic">Does the fault occur in all browsers?</li>
-        <li class="libasic">If I look at the client diagnostic tools (e.g. Firebug or Venkmann etc) am I getting valid output?</li>
-        <li class="libasic">Are there any faults written in the webservers error log (or general syslog log if relevant)?</li>
-        <li class="libasic">Look at the log book, what has changed recently ?</li>
-        <li class="libasic">On a test server, run the code without resource constraints, and see if the issue still occurs.  If this stops it breaking, maintain service availability by making this change, whilst actually looking for the fault.</li>
-        <li class="libasic">Assuming the system has user profiles, does the fault occur for all types of user?</li>
-        <li class="libasic">How many features have this fault (what area of the code)?</li>
+    <li >The first thing is a binary search on the platform to partition what is failing.<ul class="ulbasic">
+        <li >Does the fault occur in all browsers?</li>
+        <li >If I look at the client diagnostic tools (e.g. Firebug or Venkmann etc) am I getting valid output?</li>
+        <li >Are there any faults written in the webservers error log (or general syslog log if relevant)?</li>
+        <li >Look at the log book, what has changed recently ?</li>
+        <li >On a test server, run the code without resource constraints, and see if the issue still occurs.  If this stops it breaking, maintain service availability by making this change, whilst actually looking for the fault.</li>
+        <li >Assuming the system has user profiles, does the fault occur for all types of user?</li>
+        <li >How many features have this fault (what area of the code)?</li>
     </ul></li>
 </ul>
 
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Possible causes: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">Sometimes high usage will lead to databases “gone away” (literal text).  This can be resolved by altering how your interpreter is using DB connections, or by increasing the number of DB workers.</li>
-    <li class="libasic">Sometimes congestion will lead to a saturated DB, and some queries hang not execute.  This can be resolved by improving your SQL.  Frozen queries should be aborted (via tools) to improve the service for everything else.</li>
-    <li class="libasic">It is potentially possible that the number of client has exceeded the number of Apache workers.  To resolve, add more workers; or look at why your asset processing is taking so long.</li>
-    <li class="libasic">Long running SPA may exhaust RAM on the client.  This is mostly a MSIE problem.  Use the MSIEleaks tool, fix your memory leaks; or build your client side scripts so that they pass id string, not the DOM objects.</li>
-    <li class="libasic">If you are starting and stopping XML parsers alot, it is possible to exhaust handles on Expat.  They are still exhausted if you kill all PHP processes; to resolve you have to reboot.  Ensure your code deallocates all the Expat resources that it uses, specifically in the error states.</li>
-    <li class="libasic">With massive concurrency, it is possible to exhaust IO handles (as allocated by the kernel).  To fix, don't open handles that you don't need, and look at your architecture. There is probably something that should be changed.</li>
-    <li class="libasic">Don't forkbomb.</li>
-    <li class="libasic">Be careful about creating Perl processes; the maximum limit for Perl is lower than other processes types.</li>
-    <li class="libasic">On some filesystems/ via some tools; writing more than 2GB per file leads to problems. Analyse if you need this (yes for DB, which are written specifically to deal with this...). </li>
-    <li class="libasic">See if a complex computation could be performed by a different library, written in a more high performance language.</li>
+    <li >Sometimes high usage will lead to databases “gone away” (literal text).  This can be resolved by altering how your interpreter is using DB connections, or by increasing the number of DB workers.</li>
+    <li >Sometimes congestion will lead to a saturated DB, and some queries hang not execute.  This can be resolved by improving your SQL.  Frozen queries should be aborted (via tools) to improve the service for everything else.</li>
+    <li >It is potentially possible that the number of client has exceeded the number of Apache workers.  To resolve, add more workers; or look at why your asset processing is taking so long.</li>
+    <li >Long running SPA may exhaust RAM on the client.  This is mostly a MSIE problem.  Use the MSIEleaks tool, fix your memory leaks; or build your client side scripts so that they pass id string, not the DOM objects.</li>
+    <li >If you are starting and stopping XML parsers alot, it is possible to exhaust handles on Expat.  They are still exhausted if you kill all PHP processes; to resolve you have to reboot.  Ensure your code deallocates all the Expat resources that it uses, specifically in the error states.</li>
+    <li >With massive concurrency, it is possible to exhaust IO handles (as allocated by the kernel).  To fix, don't open handles that you don't need, and look at your architecture. There is probably something that should be changed.</li>
+    <li >Don't forkbomb.</li>
+    <li >Be careful about creating Perl processes; the maximum limit for Perl is lower than other processes types.</li>
+    <li >On some filesystems/ via some tools; writing more than 2GB per file leads to problems. Analyse if you need this (yes for DB, which are written specifically to deal with this...). </li>
+    <li >See if a complex computation could be performed by a different library, written in a more high performance language.</li>
 </ul>
 
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Actions: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">For the above list of items; was any specific data returned?  If so resolution should be easy.</li>
-    <li class="libasic">If this is practical; run all the testcases, specifically the performance ones on complete subsystems.</li>
-    <li class="libasic">Turn on crash reporting features (to log to a log).  This will tell you about the failures better.  I have crash handlers etc</li>
-    <li class="libasic">If you have no useful analysis; fail over to xdebug.  I repeat everyone elses notes about not running that on a production machine.  This will provide better data about segfaults, if other mechanisms failed.  Alter what the xdebug trace tells you.</li>
-    <li class="libasic">Run xdebug in interactive mode, can't be done on a production server.   I don't need to use this approach very often; as I can read code quite well, and earlier mechanisms generically tell me what I need to know.  I note that Zend likes people using the debugger, as it encourages sales on their IDE.</li>
+    <li >For the above list of items; was any specific data returned?  If so resolution should be easy.</li>
+    <li >If this is practical; run all the testcases, specifically the performance ones on complete subsystems.</li>
+    <li >Turn on crash reporting features (to log to a log).  This will tell you about the failures better.  I have crash handlers etc</li>
+    <li >If you have no useful analysis; fail over to xdebug.  I repeat everyone elses notes about not running that on a production machine.  This will provide better data about segfaults, if other mechanisms failed.  Alter what the xdebug trace tells you.</li>
+    <li >Run xdebug in interactive mode, can't be done on a production server.   I don't need to use this approach very often; as I can read code quite well, and earlier mechanisms generically tell me what I need to know.  I note that Zend likes people using the debugger, as it encourages sales on their IDE.</li>
 </ul>
 
 
@@ -187,7 +187,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:53">26th of Mar 2024, 12:19:53</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-03-26T12:19:53">26th of Mar 2024, 12:19:53</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

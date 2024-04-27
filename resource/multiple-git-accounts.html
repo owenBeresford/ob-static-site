@@ -56,35 +56,35 @@ TODO: magic tune selection against some index/DB -->
 <p>In my personal desktop, I send code to multiple git servers; using different authentication processes.  On work laptops, I am sometimes doing the same.  I always loose time getting this to work correctly.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">First: security mandate: update to using <b>SSL ident</b> if not already done.</li>
-    <li class="libasic">Second: replace an SSL v2 certs; as github and other large companies say these are not secure enough anymore.</li>
-    <li class="libasic">My personal github is currently using elliptic curve SSL.  See notes from git vendors on setting up SSL <sup><a href="https://confluence.atlassian.com/bitbucketserver075/enabling-ssh-access-to-git-repositories-in-bitbucket-server-1018785627.html" target="_blank">1</a></sup> <sup><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh" target="_blank">2</a></sup> <sup><a href="https://github.blog/2021-09-01-improving-git-protocol-security-github/" target="_blank">3</a></sup>. </li>
-    <li class="libasic">For public repos, source can be imaged to the local machine with normal URLs e.g. <b><a class="cleanimage" href="https://github.com/owenBeresford/oab1-conf.git" target="_blank">https://github.com/owenBeresford/oab1-conf.git</a></b></li>
-    <li class="libasic">In your bash shell, set </li>
+    <li >First: security mandate: update to using <b>SSL ident</b> if not already done.</li>
+    <li >Second: replace an SSL v2 certs; as github and other large companies say these are not secure enough anymore.</li>
+    <li >My personal github is currently using elliptic curve SSL.  See notes from git vendors on setting up SSL <sup><a href="https://confluence.atlassian.com/bitbucketserver075/enabling-ssh-access-to-git-repositories-in-bitbucket-server-1018785627.html" target="_blank">1</a></sup> <sup><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh" target="_blank">2</a></sup> <sup><a href="https://github.blog/2021-09-01-improving-git-protocol-security-github/" target="_blank">3</a></sup>. </li>
+    <li >For public repos, source can be imaged to the local machine with normal URLs e.g. <b><a class="cleanimage" href="https://github.com/owenBeresford/oab1-conf.git" target="_blank">https://github.com/owenBeresford/oab1-conf.git</a></b></li>
+    <li >In your bash shell, set </li>
 </ul>
 
 <p><b>export GIT_SSH_COMMAND=“ssh -i ~/.ssh/github.secret.personal.key -o IdentitiesOnly=yes”</b></p>
 
 <ul class="ulbasic">
-    <li class="libasic">Set non-global git names e.g.</li>
+    <li >Set non-global git names e.g.</li>
 </ul>
 
 <p><b>git config user.name “owenberesford” </b></p>
 
 <ul class="ulbasic">
-    <li class="libasic">Test the SSH setup via </li>
+    <li >Test the SSH setup via </li>
 </ul>
 
 <p><b>ssh -v ssh@github.com </b></p>
 
 <ul class="ulbasic">
-    <li class="libasic">Use <b>git-remote</b> to set this format </li>
+    <li >Use <b>git-remote</b> to set this format </li>
 </ul>
 
 <p><b>ssh://git@github.com/owenBeresford/oab1-conf.git</b></p>
 
 <ul class="ulbasic">
-    <li class="libasic">If there is more then one account on the same provider; <sup><a href="https://www.cloudsavvyit.com/2245/how-to-manage-multiple-git-accounts-on-one-system/" target="_blank">4</a></sup> suggests to use the <b>.ssh/config</b>; and maintain different “hostnames” for each account.</li>
+    <li >If there is more then one account on the same provider; <sup><a href="https://www.cloudsavvyit.com/2245/how-to-manage-multiple-git-accounts-on-one-system/" target="_blank">4</a></sup> suggests to use the <b>.ssh/config</b>; and maintain different “hostnames” for each account.</li>
 </ul>
 
 <p>.</p>
@@ -170,7 +170,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:59">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:59">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

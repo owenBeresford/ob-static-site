@@ -63,15 +63,15 @@ The reason for this intro is “what type of JS support is useful for sites that
 
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Objectives <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">To make 'similar content' articles more conspicuous from <em>an</em> article;</li>
-    <li class="libasic">To make it easier to browse this site as a unit;</li>
-    <li class="libasic">To be very clear/ easy to understand and use;</li>
-    <li class="libasic">To reduce this sites the dependency on index pages (which as an interaction, feels strongly 1990s/ “web v1”);</li>
+    <li >To make 'similar content' articles more conspicuous from <em>an</em> article;</li>
+    <li >To make it easier to browse this site as a unit;</li>
+    <li >To be very clear/ easy to understand and use;</li>
+    <li >To reduce this sites the dependency on index pages (which as an interaction, feels strongly 1990s/ “web v1”);</li>
 </ul>
 
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Discussion <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>It is reasonable to ask “why is this implemented in JS, rather than your serverside language?&quot;.  The answer is that I would like my current article format<a class="" href="">?</a> to work with static sites.  It is not practical to statically build “the next X articles on the same topic” as a pre-computed list on each article.   Or if I do do that; to be able to update it with new content.   Secondly, if you look at quite a few blog sites; they also use a separate “related content” API; partially for syndication.  If this has been published as a design pattern, I don't know what it is called.  <i>UPDATE:</i> having written that text and feature; it now occurs to me I can keep the separate file (my requirement), and use some sort of SSI technology (on this site, probably a iceline v2 file include) to do the merging.  This may be a tad faster to render; its probably not valuable to optimise that point.   I have wasted about 10min using a “normal process” ~ AJAJ ~ to get the data to the client.  The process I did build is more re-useable.</p>
+<p>It is reasonable to ask “why is this implemented in JS, rather than your serverside language?&quot;.  The answer is that I would like my current article format<a href="">?</a> to work with static sites.  It is not practical to statically build “the next X articles on the same topic” as a pre-computed list on each article.   Or if I do do that; to be able to update it with new content.   Secondly, if you look at quite a few blog sites; they also use a separate “related content” API; partially for syndication.  If this has been published as a design pattern, I don't know what it is called.  <i>UPDATE:</i> having written that text and feature; it now occurs to me I can keep the separate file (my requirement), and use some sort of SSI technology (on this site, probably a iceline v2 file include) to do the merging.  This may be a tad faster to render; its probably not valuable to optimise that point.   I have wasted about 10min using a “normal process” ~ AJAJ ~ to get the data to the client.  The process I did build is more re-useable.</p>
 
 <p>As far as I observe, tag clouds are now <em>passé</em> (and have been for some time).  The related content, for example on <em>ars technica</em> e.g. <sup><a href="https://arstechnica.com/features/2020/08/bridgefy-the-app-promoted-for-mass-protests-is-a-privacy-disaster/" target="_blank">1</a></sup> seems to solve the same objective.  It is intentional to allow an article to appear in more than one group.  Likewise its not actually required that all articles in a group are owned by me.<br />
 I am not sure whether it is worth adding a new git project for this; I suppose the least wasted effort solution is to add it to the jquery-ob project.  Obviously the new feature is very tightly integrated into the CMS.</p>
@@ -84,8 +84,8 @@ I am not sure whether it is worth adding a new git project for this; I suppose t
 I see there are two groups of users who need the feature:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Random people who wandered in from a SERPs; but use keywords differently to me (as different location/culture/language). I think this group of people are likely to just hit “back”, as that is what I would do.  </li>
-    <li class="libasic">People who have already been to the site; but went from a bookmark or similar, and are on the wrong page.  The adjacent articles feature may help these people.</li>
+    <li >Random people who wandered in from a SERPs; but use keywords differently to me (as different location/culture/language). I think this group of people are likely to just hit “back”, as that is what I would do.  </li>
+    <li >People who have already been to the site; but went from a bookmark or similar, and are on the wrong page.  The adjacent articles feature may help these people.</li>
 </ul>
 
 <p>I have added an extra option to the fixed page menu to assist people who think its worth a few clicks to find their objective.</p>
@@ -95,17 +95,17 @@ I see there are two groups of users who need the feature:</p>
 
 <h5 id="toc3"> Technically this new Javascript tool is:</h5>
 <ul class="ulbasic">
-    <li class="libasic">time spent thinking about how to group the articles</li>
-    <li class="libasic">a lot of time improving meta data in each article, as I am now using it more</li>
-    <li class="libasic">UPDATE: today I added even more time here</li>
-    <li class="libasic">a procedure that each group has a meta JSON resource to list the articles in the group </li>
-    <li class="libasic">an extension to my biblio extraction tool; to build meta data indexes for the articles in the group</li>
-    <li class="libasic">a [not released] script to help me aggregate the articles</li>
-    <li class="libasic">a jquery plugin</li>
-    <li class="libasic">a small revision to the 'reach' page template to include the extra HTML/JS</li>
-    <li class="libasic">a small revision to my asset build script to include the new JS file</li>
-    <li class="libasic">currently the CSS is in my main site CSS file; I ought to extract this for the separate project.</li>
-    <li class="libasic">I noted previously that as I was editing my content; the <i>last edit date</i> isn't as useful as it should be (now I have touched nearly every article making this feature).  I have built a way to extract the <i>article create date</i> from <i>git</i></li>
+    <li >time spent thinking about how to group the articles</li>
+    <li >a lot of time improving meta data in each article, as I am now using it more</li>
+    <li >UPDATE: today I added even more time here</li>
+    <li >a procedure that each group has a meta JSON resource to list the articles in the group </li>
+    <li >an extension to my biblio extraction tool; to build meta data indexes for the articles in the group</li>
+    <li >a [not released] script to help me aggregate the articles</li>
+    <li >a jquery plugin</li>
+    <li >a small revision to the 'reach' page template to include the extra HTML/JS</li>
+    <li >a small revision to my asset build script to include the new JS file</li>
+    <li >currently the CSS is in my main site CSS file; I ought to extract this for the separate project.</li>
+    <li >I noted previously that as I was editing my content; the <i>last edit date</i> isn't as useful as it should be (now I have touched nearly every article making this feature).  I have built a way to extract the <i>article create date</i> from <i>git</i></li>
 </ul>
 
 <p>The biggest time spends where updating old content (<i>quelle surprise</i>) and making a solution to tooltips popping up and hiding the buttons they are for.</p>
@@ -194,7 +194,7 @@ I see there are two groups of users who need the feature:</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:56">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:56">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

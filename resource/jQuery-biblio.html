@@ -57,28 +57,28 @@ TODO: magic tune selection against some index/DB -->
 <p>If you are on a small screen, the academic habit of putting reference links as super-text is annoying and fiddly.  I think the content should still have the links in normal fashion for bigger screen users.  This module is to extract the links and display them as a OL list at the end of the page.  The result list will need to be styled so the list can be operated with a thumb.  I am putting my wiki content inside “screenful” blocks, so the columnisation is easier to read.  This means the link number keep starting from 1 again; and result biblio needs to be similarly paginated.  This requirement isn't likely to be needed by other people. <br />
 As this library is targeting links created by a wiki software; there is shortage of meta data.  I can code to inject values when they are supplied, and supply generic values otherwise.  It would be nice to have automatic publication date extraction, and a title extraction.  Date published can be presented from last-modified HTTP headers, this can be taken from AJAX, setting the request type to HEAD.  HTTP doesn't present any means to get a title outside of a full request; as not all resources have titles.</p>
 
-<p>I have put an MVP solution in the <a class="" href="https://owenberesford.me.uk/resource/drupal-notes#">drupal-notes</a> page.  Real code will need to be more flexible and think about HTML generation.   This is lower down the prioritise than modules that are likely to be used.  <i><strong>Update 2014</strong>, I bumped this up the work list as I have another boring train journey, with intermittent net connection.</i></p>
+<p>I have put an MVP solution in the <a href="https://owenberesford.me.uk/resource/drupal-notes#">drupal-notes</a> page.  Real code will need to be more flexible and think about HTML generation.   This is lower down the prioritise than modules that are likely to be used.  <i><strong>Update 2014</strong>, I bumped this up the work list as I have another boring train journey, with intermittent net connection.</i></p>
 
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Dev notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">I built a static demo, and a unit test (linking qunit);</li>
-    <li class="libasic">I will remodel my resources to be more clear (jQuery articles will now start with jQuery);</li>
-    <li class="libasic">Part of the responsibility of the plugin will include fixing the TOC;</li>
-    <li class="libasic">All the HTML will need to be in callbacks or be done with templates; so it is brandable;</li>
-    <li class="libasic">I think I now have enough local jQuery dev to create a template project (and expected future developments);</li>
-    <li class="libasic">Work will be hosted on github along with the other projects;</li>
-    <li class="libasic">This is is using prototype based objects, rather than literal object to make it abit more readable;</li>
-    <li class="libasic">Callbacks are part of the structure to make localisation to sites easier.  These will be done with apply(), and be run in the context of the plugin.  Callbacks are expected to be really simple and stateless.   They either return HTML text (so may need to be altered to match the current site); or adjust attributes of structural elements (so will definitely need to match the param feed in to the plugin).</li>
-    <li class="libasic">Semantically this is applied to a document, and doesn't reference the “selected element”.  One could write this as a plugin to extract links from the selected element, but semantically where does that imply that one should insert them?  This is abit confused, but does occur in other plugins.   </li>
-    <li class="libasic">I will add some tests specifically for jQuery mobile, but this is only expected to be small patches if anything.  </li>
-    <li class="libasic">Logging is controlled via <i>option.debug</i>, and is currently output via console.   Developers who use MSIE first are expected to load the dev tools, as your platform doesn't do this automatically.  With dev tools loaded (via &lt;f12&gt;), your browser can execute console statements.  Casual web-use should be logging disabled for performance (and lost souls who use MSIE won't know what a debug is anyway).  </li>
-    <li class="libasic">My usecase requires altering a TOC. As of 2014, I have added code to update the TOC. Practically this requires a small change the TOC folding code, as the TOC wasn't expected to change size.</li>
-    <li class="libasic">I need to build a sensible solution to tagging my source with version numbers.  Obviously development is done inside a VCS, which holds all the granularity on version that you can need or want.  The common way to tag releases, is to include the plugin version is the filename.  I have solved this problem previously, but I'm not building RPM, NPM or similar.   At present I am hand building these filename, but this wouldn't scale very well.  As a second issue I'm not tagging the version in the meta data anywhere, so can't reference it.  </li>
-    <li class="libasic">I have tested this with qunit not jasmine, as qunit is really small and light to setup.   I can include the qunit source in my src tree without much effect.  Secondly as a standalone plugin, I can't CI, as I have no target to CI into.</li>
-    <li class="libasic">I note that when I integrated the plugin into my site; I suddenly started to behave like a designer.  I wrote a version, looked at it, and rewrote it till the layout “worked”.</li>
-    <li class="libasic">My use-case has paged data, as very long columns in text are hard to use.  Print media as books would put the references at the end of each page or chapter.  Journal print media at the end of the paper, but many journal articles are only a few pages.   I think its better narrative to put the references at the end of the content.   </li>
-    <li class="libasic">Although I have edited the DOM via JS, this is actually the first time I have edited HTML headers or HTTP headers from JS.  I will move the high risk sections to the start of the second edition.</li>
+    <li >I built a static demo, and a unit test (linking qunit);</li>
+    <li >I will remodel my resources to be more clear (jQuery articles will now start with jQuery);</li>
+    <li >Part of the responsibility of the plugin will include fixing the TOC;</li>
+    <li >All the HTML will need to be in callbacks or be done with templates; so it is brandable;</li>
+    <li >I think I now have enough local jQuery dev to create a template project (and expected future developments);</li>
+    <li >Work will be hosted on github along with the other projects;</li>
+    <li >This is is using prototype based objects, rather than literal object to make it abit more readable;</li>
+    <li >Callbacks are part of the structure to make localisation to sites easier.  These will be done with apply(), and be run in the context of the plugin.  Callbacks are expected to be really simple and stateless.   They either return HTML text (so may need to be altered to match the current site); or adjust attributes of structural elements (so will definitely need to match the param feed in to the plugin).</li>
+    <li >Semantically this is applied to a document, and doesn't reference the “selected element”.  One could write this as a plugin to extract links from the selected element, but semantically where does that imply that one should insert them?  This is abit confused, but does occur in other plugins.   </li>
+    <li >I will add some tests specifically for jQuery mobile, but this is only expected to be small patches if anything.  </li>
+    <li >Logging is controlled via <i>option.debug</i>, and is currently output via console.   Developers who use MSIE first are expected to load the dev tools, as your platform doesn't do this automatically.  With dev tools loaded (via &lt;f12&gt;), your browser can execute console statements.  Casual web-use should be logging disabled for performance (and lost souls who use MSIE won't know what a debug is anyway).  </li>
+    <li >My usecase requires altering a TOC. As of 2014, I have added code to update the TOC. Practically this requires a small change the TOC folding code, as the TOC wasn't expected to change size.</li>
+    <li >I need to build a sensible solution to tagging my source with version numbers.  Obviously development is done inside a VCS, which holds all the granularity on version that you can need or want.  The common way to tag releases, is to include the plugin version is the filename.  I have solved this problem previously, but I'm not building RPM, NPM or similar.   At present I am hand building these filename, but this wouldn't scale very well.  As a second issue I'm not tagging the version in the meta data anywhere, so can't reference it.  </li>
+    <li >I have tested this with qunit not jasmine, as qunit is really small and light to setup.   I can include the qunit source in my src tree without much effect.  Secondly as a standalone plugin, I can't CI, as I have no target to CI into.</li>
+    <li >I note that when I integrated the plugin into my site; I suddenly started to behave like a designer.  I wrote a version, looked at it, and rewrote it till the layout “worked”.</li>
+    <li >My use-case has paged data, as very long columns in text are hard to use.  Print media as books would put the references at the end of each page or chapter.  Journal print media at the end of the paper, but many journal articles are only a few pages.   I think its better narrative to put the references at the end of the content.   </li>
+    <li >Although I have edited the DOM via JS, this is actually the first time I have edited HTML headers or HTTP headers from JS.  I will move the high risk sections to the start of the second edition.</li>
 </ul>
 
 <p>By 2014, I have built the second edition that will pull a references cache from the original server.  This is a reasonable performance for the indices.  To build the cache, please use the `tests/extractor.php` file, run as a webpage.  This will extract the references on a URL that you set (assuming on the same host, due to CORs), and return to you with a JSON array.  This should be written to into your CMS in your normal process (a jQuery library shouldn't dictate about the CMS).  The version that I publish copes with erratic headers and meta-data of the real internet.  My personal site has a wrapper library that integrates the plugin into the site, allowing for resources which are cached and ones which are not.   I have worked the erratic source data as far as possible.</p>
@@ -92,13 +92,13 @@ As this library is targeting links created by a wiki software; there is shortage
 
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Requirements (on Mobile) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">Be an OO jQuery plugin (cheap solution will be tightly dependant on the framework, so separation will make little practical difference).  This is mentioning a solution, but should be taken as focussed on budget.</li>
-    <li class="libasic">Copy all the links inside an HTML element.</li>
-    <li class="libasic">Neuter the original links to point to the new biblio (those links shouldn't be used, otherwise is confusing).</li>
-    <li class="libasic">Append the semantics of the original links to a visible OL list, inserted at a target block element.</li>
-    <li class="libasic">My prime usecase supplies data in “pages”, sensible output will need to be applied, so the links are numbered usefully.</li>
-    <li class="libasic">Library to strip “display:none” CSS attrib from targeted elements (I additionally use notices at the head of the article to inform mobile users).</li>
-    <li class="libasic">As extension get the publish date from the HTTP headers of the links target; and the resource title, for a more informative biblio title.  </li>
+    <li >Be an OO jQuery plugin (cheap solution will be tightly dependant on the framework, so separation will make little practical difference).  This is mentioning a solution, but should be taken as focussed on budget.</li>
+    <li >Copy all the links inside an HTML element.</li>
+    <li >Neuter the original links to point to the new biblio (those links shouldn't be used, otherwise is confusing).</li>
+    <li >Append the semantics of the original links to a visible OL list, inserted at a target block element.</li>
+    <li >My prime usecase supplies data in “pages”, sensible output will need to be applied, so the links are numbered usefully.</li>
+    <li >Library to strip “display:none” CSS attrib from targeted elements (I additionally use notices at the head of the article to inform mobile users).</li>
+    <li >As extension get the publish date from the HTTP headers of the links target; and the resource title, for a more informative biblio title.  </li>
 </ul>
 
 
@@ -106,22 +106,22 @@ As this library is targeting links created by a wiki software; there is shortage
 <p>This is a second extension, after I saw papers in Nature; add a tooltip to make viewing of references to external websites more clear.  I have copied the basic idea, and for desktop browsers, this now will:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Suppress the list HTML at end of page, as unneeded.</li>
-    <li class="libasic">Add a tooltip block, at the location of the mouse, on hover of a reference super-text label.</li>
-    <li class="libasic">Supply biblio type data (author, date, etc) in the tooltip, as this isn't otherwise accessible.</li>
-    <li class="libasic">Allow easy click through to reference</li>
-    <li class="libasic">Not a goal for here, but the original Nature system allowed export of entire biblio list; or the current reference. </li>
+    <li >Suppress the list HTML at end of page, as unneeded.</li>
+    <li >Add a tooltip block, at the location of the mouse, on hover of a reference super-text label.</li>
+    <li >Supply biblio type data (author, date, etc) in the tooltip, as this isn't otherwise accessible.</li>
+    <li >Allow easy click through to reference</li>
+    <li >Not a goal for here, but the original Nature system allowed export of entire biblio list; or the current reference. </li>
 </ul>
 
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Usability concerns / meta data for the JS tool  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">My prime use-case is wiki links, these are terse on meta data.</li>
-    <li class="libasic">Good UI/ UX / accessible sites have detail on each link.</li>
-    <li class="libasic">I can optionally read Aria attributes off links when they are available. </li>
-    <li class="libasic">For my use-case, I will explore to see if it is possible to inject data into the wiki structure.</li>
-    <li class="libasic">A third option is write JS to pull the linked documents, and append the meta DESCRIPTION tag, where found.  This will need to work with CORS.  Most web browsers allow a maximum of 4 requests concurrently, and frequently 1 AJAX request %%.  HTTP2 will address this, but not all facilities support it.  This architecture is slow, and requires a net connection (I mostly use mobile sites on the train, so have spotty connection).  It may be easier to cache them as a second resource on the server.  <b>Empirical testing demonstrates more user friendliness with cached extensions.</b>  </li>
-    <li class="libasic">As addendum to previous, if this is used, should provide visible notice that the link is being altered.</li>
+    <li >My prime use-case is wiki links, these are terse on meta data.</li>
+    <li >Good UI/ UX / accessible sites have detail on each link.</li>
+    <li >I can optionally read Aria attributes off links when they are available. </li>
+    <li >For my use-case, I will explore to see if it is possible to inject data into the wiki structure.</li>
+    <li >A third option is write JS to pull the linked documents, and append the meta DESCRIPTION tag, where found.  This will need to work with CORS.  Most web browsers allow a maximum of 4 requests concurrently, and frequently 1 AJAX request %%.  HTTP2 will address this, but not all facilities support it.  This architecture is slow, and requires a net connection (I mostly use mobile sites on the train, so have spotty connection).  It may be easier to cache them as a second resource on the server.  <b>Empirical testing demonstrates more user friendliness with cached extensions.</b>  </li>
+    <li >As addendum to previous, if this is used, should provide visible notice that the link is being altered.</li>
 </ul>
 
 <p>%% I am citing my testing for a pre-jQuery AJAX library I wrote.</p>
@@ -131,19 +131,19 @@ As this library is targeting links created by a wiki software; there is shortage
 <p>This has no public API functions, just a single access via biblio().  Biblio is configured by the following (the function takes a hash, with the following keys):</p>
 
 <ul class="ulbasic">
-    <li class="libasic">debug ~ whether to write to console.log, or not.</li>
-    <li class="libasic">width ~ default: <i>400</i> ~ size to trigger the extraction.</li>
-    <li class="libasic">wholeURL ~ default:<i>8</i> ~ how long an URL must be to be “converted” to a simpler name.</li>
-    <li class="libasic">wholeTitle ~ default:<i>50</i> ~ when supplied with links, the maximum size that is used.</li>
-    <li class="libasic">extendViaDownload ~ default:<i>0</i> ~ Attempt to download further information from the target link.  See list at end.</li>
-    <li class="libasic">referencesCache ~ defaults:&quot;&quot; ~ if using the single remote download option, what URL?</li>
-    <li class="libasic">selector ~ default:<i> 'sup a' </i> ~ what to look for, WRT the links that being extracted.</li>
-    <li class="libasic">gainingElement ~ default:<i> '#biblio' </i> ~ where to add the generated OL.</li>
-    <li class="libasic">loosingElement ~ default:<i> '.lotsOfWords' </i> ~ where to look for the links (you probably don't want footer links to show up, for example)</li>
-    <li class="libasic">tocEdit ~ default:0 ~ revise the TOC? For ob site only probably.</li>
-    <li class="libasic">tocElement ~ default:<i> 'fieldset.h4_menu &gt; .h4_lean' </i> ~ what element to add content to.</li>
-    <li class="libasic">textAsName ~ default:3 ~ if using the visible text in a link, minimum number of chars before guess its word.</li>
-    <li class="libasic">limitDesc ~ default:200 ~ really long meta descriptions break the layout. Trim them to this length.</li>
+    <li >debug ~ whether to write to console.log, or not.</li>
+    <li >width ~ default: <i>400</i> ~ size to trigger the extraction.</li>
+    <li >wholeURL ~ default:<i>8</i> ~ how long an URL must be to be “converted” to a simpler name.</li>
+    <li >wholeTitle ~ default:<i>50</i> ~ when supplied with links, the maximum size that is used.</li>
+    <li >extendViaDownload ~ default:<i>0</i> ~ Attempt to download further information from the target link.  See list at end.</li>
+    <li >referencesCache ~ defaults:&quot;&quot; ~ if using the single remote download option, what URL?</li>
+    <li >selector ~ default:<i> 'sup a' </i> ~ what to look for, WRT the links that being extracted.</li>
+    <li >gainingElement ~ default:<i> '#biblio' </i> ~ where to add the generated OL.</li>
+    <li >loosingElement ~ default:<i> '.lotsOfWords' </i> ~ where to look for the links (you probably don't want footer links to show up, for example)</li>
+    <li >tocEdit ~ default:0 ~ revise the TOC? For ob site only probably.</li>
+    <li >tocElement ~ default:<i> 'fieldset.h4_menu &gt; .h4_lean' </i> ~ what element to add content to.</li>
+    <li >textAsName ~ default:3 ~ if using the visible text in a link, minimum number of chars before guess its word.</li>
+    <li >limitDesc ~ default:200 ~ really long meta descriptions break the layout. Trim them to this length.</li>
 </ul>
 
 
@@ -151,7 +151,7 @@ As this library is targeting links created by a wiki software; there is shortage
 <hr />
 <div class="lotsOfWords">
 <ul class="ulbasic">
-    <li class="libasic">callbacks  ~ see following list:</li>
+    <li >callbacks  ~ see following list:</li>
 </ul>
 
 <p><code lang="javascript" class="highlight"> default:{
@@ -173,10 +173,10 @@ Callbacks are functions called in the context of the BibliographyExtractor class
 The downloading has to be organised sequentially, due to webrowsers sensibly limiting available threads.  Additionally I add a small delay, between each one, as I don't assume that this is the only page loaded.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">0: Off</li>
-    <li class="libasic">1: Download the extra data from '3rd parties' when requested; show a button.</li>
-    <li class="libasic">2: Download the extra data from '3rd parties' on module load.</li>
-    <li class="libasic">4: Download the extra data as JSON from 'referencesCache' URL.</li>
+    <li >0: Off</li>
+    <li >1: Download the extra data from '3rd parties' when requested; show a button.</li>
+    <li >2: Download the extra data from '3rd parties' on module load.</li>
+    <li >4: Download the extra data as JSON from 'referencesCache' URL.</li>
 </ul>
 
 <p>Everything is tagged '3rd party', as the links may be on your own website.</p>
@@ -310,7 +310,7 @@ I have never tested on (but for specific geo-markets should do):
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-28T19:49:29">28th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-28T19:49:29">28th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
