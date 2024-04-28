@@ -7,14 +7,7 @@ DirectoryIndex /resource/home.html
 #  `index.htm`  is  ignored 
 Options  -Indexes  +FollowSymLinks -Multiviews
 IndexIgnore  */.ht*  *~  *#  */HEADER*  */README*  */_vti* 
-RewriteEngine  on 
-RewriteBase /
-<IfModule mod_headers.c>
-<If "%{HTTP_HOST} !~ /^www/">
-Header always set Strict-Transport-Security "max-age=31536000; preload" env=HTTPS
-</If>
-</IfModule>
-
+# this is called mod_alias
 Redirect permanent "/resource/group-martech" "/resource/group-XXX?first=martech"
 Redirect permanent "/resource/group-engineering"  "/resource/group-XXX?first=engineering"
 Redirect permanent "/resource/group-research" "/resource/group-XXX?first=research"
@@ -32,200 +25,9 @@ Redirect permanent "/resource/shopping-list-hack" "/resource/shopping-list"
 Redirect permanent "/resource/fullstack-developer" "/resource/UX-engineer"
 Redirect permanent "/resource/story-book" "/resource/storybook"
 Redirect permanent "/resource/svg-notes" "/resource/svg-format-notes"
+Redirect permanent "/resource/css-architecture" "/resource/css-organisation"
 Redirect permanent "/resource/lecture-jan" "/resource/wip-notes-jan-2019" 
 Redirect permanent "/resource/whats-changed-2020" "/resource/whats-changed-2022"
-
-RewriteCond %{HTTPS} 			off
-RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk [nc]
-rewritecond %{REQUEST_URI}		(.*)
-Header append Vary x-iceline
-<IfModule mod_headers.c>
-Header add X-ICELINE "remove www, add https $1"
-</IfModule>
-rewriterule ^(.*)               https://owenberesford.me.uk%{REQUEST_URI} [L,R=301]
-
-RewriteCond %{HTTPS} 			on
-RewriteCond %{HTTP_HOST} 		www.owenberesford.me.uk [nc]
-rewritecond %{REQUEST_URI}		(.*)
-<IfModule mod_headers.c>
-Header add X-ICELINE "remove www $1"
-</IfModule>
-rewriterule ^(.*)               https://owenberesford.me.uk%{REQUEST_URI} [L,R=301]
-
-# https://linuxize.com/post/redirect-http-to-https-in-apache/
-# the server_protocol variable doesnt seem to work with http2
-# rewritecond %{SERVER_PROTOCOL}  HTTP
-RewriteCond %{HTTPS} 			off
-rewritecond %{REQUEST_URI}		(.*)
-<IfModule mod_headers.c>
-Header add X-ICELINE "add https $1"
-</IfModule>
-rewriterule ^(.*)               https://owenberesford.me.uk%{REQUEST_URI} [L,R=301]
-
-#rewritecond %{SERVER_PROTOCOL}  HTTP
-#rewritecond %{REQUEST_URI}		(.*)
-#rewriterule ^(.*)               https://owenberesford.me.uk/$1 [L,R=301]
-
-# if you can see this text, uoy can see the file system.
-rewritecond %{REQUEST_URI}      /res/  [OR]
-rewritecond %{REQUEST_URI}      /res-reach/  [OR]
-rewritecond %{REQUEST_URI}      /ast/  [OR]
-rewritecond %{REQUEST_URI}      /site/  [OR]
-rewritecond %{REQUEST_URI}      /lib/  [OR]
-rewritecond %{REQUEST_URI}      /res-test/ [OR] 
-rewritecond %{REQUEST_URI}      /.git/ [OR]
-
-rewritecond %{REQUEST_URI}      /.gitignore [OR]
-rewritecond %{REQUEST_URI}      /test/
-rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
-
-<IfModule mod_headers.c>
-<If "%{REQUEST_URI} =~ /^$/">
-	<IfModule mod_headers.c>
-	Header add X-ICELINE "fix empty URL "
-	</IfModule>
-	RewriteRule (.*)			/resource/home.html   [L,R=301,QSA]
-</If>
-<If "%{REQUEST_URI} =~ m#.*/$#">
-	<IfModule mod_headers.c>
-	Header add X-ICELINE "fix empty URL2 "
-	</IfModule>
-	rewritecond %{REQUEST_URI}		(.*)
-	RewriteRule (.*)			/resource/home.html  [L,R=301,QSA]
-</If>
-</IfModule>
-
-<IfModule mod_speling.c>
-<If "%{REQUEST_URI} =~ m/[A-Z]/">
-	Header add X-ICELINE "Add case fix to URL"
-</If>
-CheckCaseOnly on
-</Ifmodule>
-
-# there is something different about the regex's on the live box.
-# I seem to need both variants to gt i to work on the live server.
-
-<IfModule mod_headers.c>
-<FilesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|otf|eot|ttf|woff|woff2|webp)$">
-Header add Access-Control-Allow-Origin 91.238.161.174
-Header add Access-Control-Allow-Origin 176.32.230.19
-Header add Access-Control-Allow-Origin 90.193.48.206
-Header unset cache-control 
-
-Header set Cache-Control "max-age=2592000, public"
-Header set X-timing-data "%t %D"
-</FilesMatch>
-</IfModule>
-
-<IfModule mod_headers.c>
-<If "%{REQUEST_URI} =~ /-references/">
-	Header set Content-Type 'application/json; encoding=utf8'
-	Header set Cache-Control 'max-age=86400'
-	Header add X-ICELINE "add ref JSON "
-	RewriteCond %{REQUEST_URI}      ^/resource/
-	RewriteCond "%{REQUEST_FILENAME}.json" -f
-	RewriteRule (.*)				$1.json
-
-</If>
-<If "%{REQUEST_URI} !~ /(-references|-meta|rss|sitemap|min\.js|min\.css|\.webp|\.png|\.woff|\.woff2|\.jpeg)/">
-Header set Content-Type 'text/html; encoding= utf8'
-Header set Cache-Control 'max-age=86400'
-Header add X-ICELINE "add HTML"
-RewriteCond %{REQUEST_URI}      ^/resource/
-RewriteCond "%{REQUEST_FILENAME}.html" -f
-RewriteRule (.*)				$1.html
-</If>
-
-<If "%{REQUEST_URI} =~ /-meta/">
-	Header unset Content-Type 
-	Header set Content-Type 'application/json; encoding=utf8'
-	Header set Cache-Control 'max-age=86400'
-	Header add X-ICELINE "add JSON"
-	RewriteCond %{REQUEST_URI}      ^/resource/
-	RewriteCond "%{REQUEST_FILENAME}.json" -f
-	RewriteRule (.*)				$1.json
-</If>
-<If "%{REQUEST_URI} =~ /rss$/">
-	Header unset Content-Type 
-	Header set Content-Type 'application/rss+xml'
-	Header set Cache-Control 'max-age=86400'
-	Header add X-ICELINE "add XML/rss"
-	RewriteCond %{REQUEST_URI}      ^/resource/
-	RewriteCond "%{REQUEST_FILENAME}.xml" -f
-	RewriteRule (.*)				$1.xml
-
-</If>
-<If "%{REQUEST_URI} =~ /sitemap-plan/">
-Header set Content-Type 'text/html; encoding= utf8'
-Header set Cache-Control 'max-age=86400'
-Header add X-ICELINE "add HTML"
-RewriteCond %{REQUEST_URI}      ^/resource/
-RewriteCond "%{REQUEST_FILENAME}.html" -f
-RewriteRule (.*)				$1.html
-</If>
-<If "%{REQUEST_URI} =~ /sitemap/">
-	Header unset Content-Type 
-	Header set Content-Type 'application/xml; encoding=utf8'
-	Header set Cache-Control 'max-age=86400'
-	Header add X-ICELINE "add XML"
-	RewriteCond %{REQUEST_URI}      ^/resource/
-	RewriteCond "%{REQUEST_FILENAME}.xml" -f
-	RewriteRule (.*)				$1.xml
-</If>
-
-<If "%{REQUEST_URI} =~ /min\.css/">
-	Header unset Content-Type 
-	Header set Content-Type 'text/css; encoding=utf8'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-
-<If "%{REQUEST_URI} =~ /min\.js/">
-	Header unset Content-Type 
-	Header set Content-Type 'text/javascript; encoding=utf8'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-
-<If "%{REQUEST_URI} =~ /\.jpeg$/">
-	Header unset Content-Type 
-	Header set Content-Type 'image/jpeg'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-
-<If "%{REQUEST_URI} =~ /\.png$/">
-	Header unset Content-Type 
-	Header set Content-Type 'image/png'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-<If "%{REQUEST_URI} =~ /\.svg$/">
-	Header unset Content-Type 
-	Header set Content-Type 'image/svg+xml'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-<If "%{REQUEST_URI} =~ /\.webp$/">
-	Header unset Content-Type 
-	Header set Content-Type 'image/webp'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-
-<If "%{REQUEST_URI} =~ /\.woff$/">
-	Header unset Content-Type 
-	Header set Content-Type 'font/woff'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-
-<If "%{REQUEST_URI} =~ /\.woff2$/">
-	Header unset Content-Type 
-	Header set Content-Type 'font/woff2'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-
-<If "%{REQUEST_URI} =~ /\.ico$/">
-	Header unset Content-Type 
-	Header set Content-Type 'image/x-icon'
-	Header set Cache-Control 'max-age=2592000'
-</If>
-
-</IfModule>
 
 <IfModule mod_deflate.c>
   SetOutputFilter DEFLATE
@@ -238,17 +40,9 @@ RewriteRule (.*)				$1.html
   AddOutputFilterByType DEFLATE text/javascript  
   AddOutputFilterByType DEFLATE application/json
   AddOutputFilterByType DEFLATE application/rss+xml
-  AddOutputFilterByType DEFLATE application/x-font
-  AddOutputFilterByType DEFLATE application/x-font-opentype
-  AddOutputFilterByType DEFLATE application/x-font-otf
-  AddOutputFilterByType DEFLATE application/x-font-truetype
-  AddOutputFilterByType DEFLATE application/x-font-ttf
   AddOutputFilterByType DEFLATE application/x-javascript
   AddOutputFilterByType DEFLATE application/xhtml+xml
   AddOutputFilterByType DEFLATE application/xml
-  AddOutputFilterByType DEFLATE font/opentype
-  AddOutputFilterByType DEFLATE font/otf
-  AddOutputFilterByType DEFLATE font/ttf
   AddOutputFilterByType DEFLATE image/svg+xml
   AddOutputFilterByType DEFLATE image/x-icon
   AddOutputFilterByType DEFLATE text/css
@@ -260,29 +54,197 @@ RewriteRule (.*)				$1.html
   AddOutputFilterByType DEFLATE image/svg+xml
   AddOutputFilterByType DEFLATE image/png
   AddOutputFilterByType DEFLATE image/jpeg
-
 </IfModule>
 
 # 
 <IfModule mod_expires.c>
   ExpiresActive On
-  Header add X-ICELINE "can haz expires "
+  Header append X-ICELINE "can haz expires "
  ExpiresByType text/html "access plus 1 week"
  ExpiresByType application/json "access plus 1 week"
  ExpiresByType application/xml "access plus 1 week"
  ExpiresByType application/rss+xml "access plus 1 week"
- 
  ExpiresByType test/css "access plus 1 week"
  ExpiresByType text/javascript "access plus 1 week"
-  
  ExpiresByType image/gif "modification plus 1 month"
  ExpiresByType image/webp "modification plus 1 month"
  ExpiresByType image/png "modification plus 1 month"
  ExpiresByType image/jpeg "modification plus 1 month"
  ExpiresByType image/svg+xml "modification plus 1 month"
- 
+ </IfModule>
+
+# this doesn't seem to work
+#<IfModule mod_speling.c>
+#<If "%{REQUEST_URI} =~ m/[A-Z]/">
+#	Header append X-ICELINE "Add case fix to URL"
+#</If>
+#CheckCaseOnly on
+#</IfModule>
+
+RewriteEngine  on 
+RewriteBase /
+<IfModule mod_headers.c>
+	Header append Vary x-iceline
+
+# if you can see this text, uoy can see the file system.
+# this section does splat your intent, as this is a security cutout.
+rewritecond %{REQUEST_URI}      /res/  [OR]
+rewritecond %{REQUEST_URI}      /res-reach/  [OR]
+rewritecond %{REQUEST_URI}      /ast/  [OR]
+rewritecond %{REQUEST_URI}      /site/  [OR]
+rewritecond %{REQUEST_URI}      /lib/  [OR]
+rewritecond %{REQUEST_URI}      /res-test/ [OR] 
+rewritecond %{REQUEST_URI}      /.git/ [OR]
+rewritecond %{REQUEST_URI}      /.gitignore [OR]
+rewritecond %{REQUEST_URI}      /test/
+rewriterule ^(.*)               https://owenberesford.me.uk/ [L,R=301]
+
+<filesMatch "\.(ico|pdf|jpg|jpeg|png|js|css|svg|woff|woff2|webp)$">
+Header append Access-Control-Allow-Origin 91.238.161.174
+Header append Access-Control-Allow-Origin 176.32.230.19
+Header append Access-Control-Allow-Origin 90.193.48.206
+Header append Access-Control-Allow-Origin 51.146.37.168
+Header unset cache-control 
+
+Header set Cache-Control "max-age=2592000, public"
+</filesMatch>
+
+<filesMatch ".*-references|.*-meta">
+	Header set Content-Type 'application/json; encoding=utf8'
+	Header set Cache-Control 'max-age=86400'
+	Header append X-ICELINE "add ref JSON"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.json" -f
+	RewriteRule ^(.*)%				$1.json
+</filesMatch>
+
+# https://stackoverflow.com/a/39474567                       ^(?!.*STRING1|.*STRING2|.*STRING3).*$
+<FilesMatch ".*(?!-references|-meta|rss|sitemap|\.min\.js|\.min\.css|\.webp|\.png|\.woff|\.woff2|\.ico|\.jpeg)$">
+Header set Content-Type 'text/html; encoding= utf8'
+Header set Cache-Control 'max-age=86400'
+Header append X-ICELINE "group - add HTML"
+RewriteCond %{REQUEST_URI}      ^/resource/
+RewriteCond "%{REQUEST_FILENAME}.html" -f
+RewriteCond %{SERVER_PORT}      80
+RewriteRule ^(.*)$				https://%{HTTP_HOST}$1.html
+
+RewriteCond %{REQUEST_URI}      ^/resource/
+RewriteCond "%{REQUEST_FILENAME}.html" -f
+RewriteCond %{SERVER_PORT}      443
+RewriteRule ^(.*)$				$1.html
+</FilesMatch>
+<FilesMatch ".*-references.*">
+	Header set Content-Type 'application/json; encoding=utf8'
+	Header set Cache-Control 'max-age=86400'
+	Header append X-ICELINE "add ref JSON"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.json" -f
+	RewriteCond %{SERVER_PORT}      80
+	RewriteRule ^(.*)$				https://%{HTTP_HOST}$1.json
+
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.json" -f
+	RewriteCond %{SERVER_PORT}      443
+	RewriteRule ^(.*)$				$1.json
+</FilesMatch>
+<FilesMatch ".*-meta">
+	Header set Content-Type 'application/json; encoding=utf8'
+	Header set Cache-Control 'max-age=86400'
+	Header append X-ICELINE "add ref JSON"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+    RewriteCond "%{REQUEST_FILENAME}.json" -f
+	RewriteRule ^(.*)$				$1.json
+</FilesMatch>
+<FilesMatch "rss">
+	Header unset Content-Type 
+	Header set Content-Type 'application/rss+xml'
+	Header set Cache-Control 'max-age=86400'
+	Header append X-ICELINE "add XML/rss"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.xml" -f
+	RewriteRule (.*)				$1.xml
+</filesMatch>
+<filesmatch "sitemap">
+	Header unset Content-Type 
+	Header set Content-Type 'application/xml; encoding=utf8'
+	Header set Cache-Control 'max-age=86400'
+	Header append X-ICELINE "add XML"
+	RewriteCond %{REQUEST_URI}      ^/resource/
+	RewriteCond "%{REQUEST_FILENAME}.xml" -f
+	RewriteRule (.*)				$1.xml
+</filesMatch>
+<filesMatch "sitemap-plan">
+Header set Content-Type 'text/html; encoding= utf8'
+Header set Cache-Control 'max-age=86400'
+Header append X-ICELINE "sitemap - add HTML"
+RewriteCond %{REQUEST_URI}      ^/resource/
+RewriteCond "%{REQUEST_FILENAME}.html" -f
+RewriteRule (.*)				$1.html
+</filesMatch>
+<filesMatch ".*min\.css">
+	Header unset Content-Type 
+	Header append X-ICELINE "add css"
+	Header set Content-Type 'text/css; encoding=utf8'
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+<filesMatch ".*min\.js">
+	Header unset Content-Type 
+	Header append X-ICELINE "add JS"
+	Header set Content-Type 'text/javascript; encoding=utf8'
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+<filesMatch ".jpeg">
+	Header unset Content-Type 
+	Header set Content-Type 'image/jpeg'
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+<filesMatch ".png">
+	Header unset Content-Type 
+	Header set Content-Type 'image/png'
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+<filesMatch ".svg">
+	Header unset Content-Type 
+	Header set Content-Type 'image/svg+xml'
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+<FilesMatch ".jpg">
+	Header unset Content-Type 
+	Header set Content-Type 'image/jpg'
+	Header set Cache-Control 'max-age=2592000'
+</FilesMatch>
+<filesMatch "\.webp">
+	Header unset Content-Type 
+	Header set Content-Type 'image/webp'
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+<filesMatch "\.woff">
+	Header unset Content-Type 
+	Header set Content-Type 'font/woff'
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+<filesMatch "\.woff2">
+	Header unset Content-Type 
+	Header set Content-Type 'font/woff2'
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+<filesMatch "\.ico">
+	Header unset Content-Type 
+	Header set Content-Type 'image/x-icon'
+	Header append X-ICELINE "add ICON"
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
+
 </IfModule>
- 
+
+RewriteCond %{HTTP_HOST}        ^www\.
+RewriteRule ^.* https://owenberesford.me.uk%{REQUEST_URI} [L,R=301,QSA]
+
+RewriteCond %{SERVER_PORT}      80
+rewritecond %{REQUEST_URI}      ^(.*)$
+RewriteRule ^.* https://%{HTTP_HOST}%{REQUEST_URI}        [L,R=301,QSA]
+Header always set Strict-Transport-Security "max-age=31536000; preload" env=HTTPS
+
 # vi: ts=4
 # vim: ts=4 sw=4 fdm=marker syn=apache
 

@@ -66,58 +66,58 @@ Data sources are what make and break this type of application.  Google spends so
 <p>A point usage pin map</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Rendering aggregate data points into a google map;</li>
-    <li class="libasic">Each point has an attached template that provides non-graphical information;<ul class="ulbasic">
-        <li class="libasic">in addition to the details on the aggregates;</li>
+    <li >Rendering aggregate data points into a google map;</li>
+    <li >Each point has an attached template that provides non-graphical information;<ul class="ulbasic">
+        <li >in addition to the details on the aggregates;</li>
     </ul></li>
-    <li class="libasic">The pins are colour coded, so the sales enquiries are different to general searches;</li>
-    <li class="libasic">Client side event loop polls the server every so often and downloads more recent pins;</li>
-    <li class="libasic">When enabled, older pins are deleted, to conserve RAM on the clients machine;</li>
+    <li >The pins are colour coded, so the sales enquiries are different to general searches;</li>
+    <li >Client side event loop polls the server every so often and downloads more recent pins;</li>
+    <li >When enabled, older pins are deleted, to conserve RAM on the clients machine;</li>
 </ul>
 
 <p>Alternatively a heatmap</p>
 
 <ul class="ulbasic">
-    <li class="libasic">The same data, but rendered as an intensity gradient heatmap;</li>
-    <li class="libasic">Contained a slide-show function, to refresh the data at predetermined intervals;</li>
-    <li class="libasic">The IP of the company.</li>
+    <li >The same data, but rendered as an intensity gradient heatmap;</li>
+    <li >Contained a slide-show function, to refresh the data at predetermined intervals;</li>
+    <li >The IP of the company.</li>
 </ul>
 
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > As a discussion on technology <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">Some care was needed to avoid flooding the data collector, during busy patches;<ul class="ulbasic">
-        <li class="libasic">The data needed to be mapped URLs =&gt; clients, so the right data may be returned to them;</li>
+    <li >Some care was needed to avoid flooding the data collector, during busy patches;<ul class="ulbasic">
+        <li >The data needed to be mapped URLs =&gt; clients, so the right data may be returned to them;</li>
     </ul></li>
-    <li class="libasic">The raw data off the webserver obviously held the client IP, but no co-ordinates;<ul class="ulbasic">
-        <li class="libasic">A lookup service was used for IP =&gt; [long,lat] mapping;</li>
-        <li class="libasic">Obviously my test data from the LAN is meaningless, LAN IPs have no geographical location;</li>
-        <li class="libasic">The currentness and accuracy of the mapping data is important.  Knowing the location of the registered offices of an ISP (who are renting the IPs) does nothing useful;</li>
-        <li class="libasic">Some people with static IPs sometimes give away more information;</li>
-        <li class="libasic">Quite a few of the IP mappers held useful data in a single continent, but more vague else where. Chinese IPs tend to be useless, they all say the centre of that country;</li>
-        <li class="libasic">There are still some IPs with no known location;</li>
+    <li >The raw data off the webserver obviously held the client IP, but no co-ordinates;<ul class="ulbasic">
+        <li >A lookup service was used for IP =&gt; [long,lat] mapping;</li>
+        <li >Obviously my test data from the LAN is meaningless, LAN IPs have no geographical location;</li>
+        <li >The currentness and accuracy of the mapping data is important.  Knowing the location of the registered offices of an ISP (who are renting the IPs) does nothing useful;</li>
+        <li >Some people with static IPs sometimes give away more information;</li>
+        <li >Quite a few of the IP mappers held useful data in a single continent, but more vague else where. Chinese IPs tend to be useless, they all say the centre of that country;</li>
+        <li >There are still some IPs with no known location;</li>
     </ul></li>
-    <li class="libasic">The most configurable heatmapping tool was written in Python ~ an OSS product ;<ul class="ulbasic">
-        <li class="libasic">I edited it, so it read from MTs DB (the OSS version ran from text files);</li>
-        <li class="libasic">I performance tweaked the script by about 1000% speedup (although it was originally really bad).  The original script was designed to be run asynchronous to the webserver, so performance was no concern;</li>
-        <li class="libasic">I adjusted the class hierarchy, to allow the interaction with various DBs in a credible fashion for OO.</li>
-        <li class="libasic">I added range clipping so it only rendered the currently visible bits of the planet;</li>
+    <li >The most configurable heatmapping tool was written in Python ~ an OSS product ;<ul class="ulbasic">
+        <li >I edited it, so it read from MTs DB (the OSS version ran from text files);</li>
+        <li >I performance tweaked the script by about 1000% speedup (although it was originally really bad).  The original script was designed to be run asynchronous to the webserver, so performance was no concern;</li>
+        <li >I adjusted the class hierarchy, to allow the interaction with various DBs in a credible fashion for OO.</li>
+        <li >I added range clipping so it only rendered the currently visible bits of the planet;</li>
     </ul></li>
-    <li class="libasic">To implement a heatmap via Google's heatmapapi (one of the tech options), one needs to proxy data via your server to prohibit cross-site-scripting.<ul class="ulbasic">
-        <li class="libasic">Second to this, one needs to manage ones google licence carefully, a heatmap of 100points isn't professionally useful.</li>
-        <li class="libasic">One may clip the off-screen data from the heatmap request to make best use of that 100.</li>
-        <li class="libasic">It is unfortunate that the map cells in the google overlay are controlled by the client (Google API).  The data goes from the server to the client, for the googlemap api, to request it from the server, as a proxy request to the google heatmap server.</li>
-        <li class="libasic">The google image rendering code was written in a faster platform than Python, or they had some sort of cache (convert the data to a fast fourier, use the result as a hash key, and select data rendered last week from a large memcache? );</li>
-        <li class="libasic">I had more plans for more complex use of DB, and a few other enhancements in the Python build;</li>
+    <li >To implement a heatmap via Google's heatmapapi (one of the tech options), one needs to proxy data via your server to prohibit cross-site-scripting.<ul class="ulbasic">
+        <li >Second to this, one needs to manage ones google licence carefully, a heatmap of 100points isn't professionally useful.</li>
+        <li >One may clip the off-screen data from the heatmap request to make best use of that 100.</li>
+        <li >It is unfortunate that the map cells in the google overlay are controlled by the client (Google API).  The data goes from the server to the client, for the googlemap api, to request it from the server, as a proxy request to the google heatmap server.</li>
+        <li >The google image rendering code was written in a faster platform than Python, or they had some sort of cache (convert the data to a fast fourier, use the result as a hash key, and select data rendered last week from a large memcache? );</li>
+        <li >I had more plans for more complex use of DB, and a few other enhancements in the Python build;</li>
     </ul></li>
-    <li class="libasic">I spent some time trying to get a “nice looking slider” for the heatmap.  After the images are computed, the images can be rendered for the user at the speed of the users internet connection;<ul class="ulbasic">
-        <li class="libasic">Obviously good trending visibility;</li>
-        <li class="libasic">The values in the slider need to be dynamically computed to match the users current start and stop selection;</li>
-        <li class="libasic">Start and stop entries are comparatively simple;</li>
-        <li class="libasic">The existing CMS needed updates to support complex libraries interacting with tabs;</li>
+    <li >I spent some time trying to get a “nice looking slider” for the heatmap.  After the images are computed, the images can be rendered for the user at the speed of the users internet connection;<ul class="ulbasic">
+        <li >Obviously good trending visibility;</li>
+        <li >The values in the slider need to be dynamically computed to match the users current start and stop selection;</li>
+        <li >Start and stop entries are comparatively simple;</li>
+        <li >The existing CMS needed updates to support complex libraries interacting with tabs;</li>
     </ul></li>
-    <li class="libasic">The existing CMS supported the logins, and user identities, so nothing needed changing there;</li>
-    <li class="libasic">It should be noted that PHP5.4 is a much better language for doing OO, than earlier builds.  The amount of OO practice that can be applied in older code is limited.  This comment is focused on the established CMS.</li>
+    <li >The existing CMS supported the logins, and user identities, so nothing needed changing there;</li>
+    <li >It should be noted that PHP5.4 is a much better language for doing OO, than earlier builds.  The amount of OO practice that can be applied in older code is limited.  This comment is focused on the established CMS.</li>
 </ul>
 
 
@@ -125,23 +125,23 @@ Data sources are what make and break this type of application.  Google spends so
 <p>This list will be more short.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">My original spec was vague, so I made a point of showing my stakeholders something every so often (at least once a week).  I was asking for feedback regularly.</li>
-    <li class="libasic">Further to this I did a static visualisation prototype in Gimp (there was some L&amp;F updates going through the CMS, and I didn't want to clash with the new release).  As I could steal screenshots of the existing site, this process didn't take more than a few hours.</li>
-    <li class="libasic">As I needed to integrate quick a few JS libraries (which may or may not operate together), I built quick UX demos.   The second reason for this is the ability to demo something before the data collectors were installed.  </li>
-    <li class="libasic">My process was fairly Agile, in that I did short sprints, and had a fairly lean process.  In my opinion that application was too complicated, and had a lot of data, so structuring was required.   Even in Agile, everything must work; so I wrote quite alot of testcases (using differing approaches and tool kits for different aspects).</li>
-    <li class="libasic">I followed the IEEE mandate on getting something running, then make it fast.</li>
-    <li class="libasic">I learned my way into MT systems, whilst building this.</li>
-    <li class="libasic">The project was about 60% frontend technologies, of various types.  It covered two server-side languages, three front-end languages, five data storage systems and four test platforms.</li>
+    <li >My original spec was vague, so I made a point of showing my stakeholders something every so often (at least once a week).  I was asking for feedback regularly.</li>
+    <li >Further to this I did a static visualisation prototype in Gimp (there was some L&amp;F updates going through the CMS, and I didn't want to clash with the new release).  As I could steal screenshots of the existing site, this process didn't take more than a few hours.</li>
+    <li >As I needed to integrate quick a few JS libraries (which may or may not operate together), I built quick UX demos.   The second reason for this is the ability to demo something before the data collectors were installed.  </li>
+    <li >My process was fairly Agile, in that I did short sprints, and had a fairly lean process.  In my opinion that application was too complicated, and had a lot of data, so structuring was required.   Even in Agile, everything must work; so I wrote quite alot of testcases (using differing approaches and tool kits for different aspects).</li>
+    <li >I followed the IEEE mandate on getting something running, then make it fast.</li>
+    <li >I learned my way into MT systems, whilst building this.</li>
+    <li >The project was about 60% frontend technologies, of various types.  It covered two server-side languages, three front-end languages, five data storage systems and four test platforms.</li>
 </ul>
 
 
 <h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > As a discussion on testing <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">The Python project shipped with test cases, I extended them, as I wrote more code.  I has plans to do various implementations, and performance monitor the outcomes, but this was clearly a “do last” thing.  </li>
-    <li class="libasic">I created testcases to the limits of the platform for the work inside the established CMS.   The underlying CMS isn't built to the methodology for unit tests, although to be fair dependency injection and interface isolation is harder in the older versions of PHP.</li>
-    <li class="libasic">With the JS, I had alot more control.  My JS was created in objects, and I unit tested it.  This process was abit more complex then desirable, as I needed to mock the communications with the server in the test cases.  </li>
-    <li class="libasic">When the basic system was together, I started updating the UX (this is roughly testing).  I demonstrated the system to some people; monitoring their responses, but this uncovered no major changes required.</li>
-    <li class="libasic">I did heavy usage over a period of of time.  Logged the memory consumption across time.  For a range of browsers.</li>
+    <li >The Python project shipped with test cases, I extended them, as I wrote more code.  I has plans to do various implementations, and performance monitor the outcomes, but this was clearly a “do last” thing.  </li>
+    <li >I created testcases to the limits of the platform for the work inside the established CMS.   The underlying CMS isn't built to the methodology for unit tests, although to be fair dependency injection and interface isolation is harder in the older versions of PHP.</li>
+    <li >With the JS, I had alot more control.  My JS was created in objects, and I unit tested it.  This process was abit more complex then desirable, as I needed to mock the communications with the server in the test cases.  </li>
+    <li >When the basic system was together, I started updating the UX (this is roughly testing).  I demonstrated the system to some people; monitoring their responses, but this uncovered no major changes required.</li>
+    <li >I did heavy usage over a period of of time.  Logged the memory consumption across time.  For a range of browsers.</li>
 </ul>
 
 
@@ -230,7 +230,7 @@ Data sources are what make and break this type of application.  Google spends so
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:20:00">26th of Mar 2024, 12:20:00</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-03-26T12:20:00">26th of Mar 2024, 12:20:00</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

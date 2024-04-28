@@ -73,8 +73,8 @@ Modern hardware includes features to set the clock-speed of the CPU <sup><a href
 This are low risk steps; but <strong>only use non-mainline kernels if necessary</strong>.  For productions machines where uptime of &gt;99.9 % time is needed; do not use hardware where the mainline kernel doesn't support it properly.</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><b>hidden step 0</b>: I upgraded my kernel, now I am not using a Canon certified one, but the urgent upgrade happened as there is a bug for my family of hardware that uses 200% vCPU for absolutely no reason.</li>
-    <li class="libasic"><b>hidden step 1</b>: Remove random win32 loader that I hadn't deleted yet (performance gain from cold start). This changes order that partitions are referenced, so the one that I want happens first.  Run <i>efibootmgr -o 0006,0005,0000,0001</i></li>
+    <li ><b>hidden step 0</b>: I upgraded my kernel, now I am not using a Canon certified one, but the urgent upgrade happened as there is a bug for my family of hardware that uses 200% vCPU for absolutely no reason.</li>
+    <li ><b>hidden step 1</b>: Remove random win32 loader that I hadn't deleted yet (performance gain from cold start). This changes order that partitions are referenced, so the one that I want happens first.  Run <i>efibootmgr -o 0006,0005,0000,0001</i></li>
 </ul>
 
 
@@ -120,7 +120,7 @@ ls /sys/devices/system/cpu/
 <p><strong>WARNING: On some hardware and kernel combinations this does not work as expected.</strong>  Previously observed fail conditions are 1) vCPUs disabled but drawing full power <sup><a href="https://unix.stackexchange.com/questions/439463/disabling-re-enabling-cores-via-kernel-in-threadripper-epyc-systems" target="_blank">1</a></sup> [XXX], and 2) vCPUs not returning to live state after a cold start [XXX], effectively bricking the hardware.  Documentation of possibilities is not a statement of support or reliability.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">If the current machine is a server, that is only interacted with for machine administration, definitely remove X-windows as its not needed. This will release a lot of RAM and reduce boot time.  </li>
+    <li >If the current machine is a server, that is only interacted with for machine administration, definitely remove X-windows as its not needed. This will release a lot of RAM and reduce boot time.  </li>
 </ul>
 
 <p>To observe current settings, use the next step; run this before and after to confirm that choices are applied correctly.</p>
@@ -140,10 +140,10 @@ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 </code>
 <ul class="ulbasic">
-    <li class="libasic">Remove sound, if not needed <sup><a href="https://docs.kernel.org/sound/designs/powersave.html" target="_blank">1</a></sup></li>
-    <li class="libasic">Remove extra network drivers (wifi/ eth) if not needed <sup><a href="https://askubuntu.com/questions/1285875/uninstalling-reinstalling-wifi-drivers-in-ubuntu" target="_blank">2</a></sup> <sup><a href="https://unix.stackexchange.com/questions/111256/how-to-permanently-disable-a-network-interface" target="_blank">3</a></sup></li>
-    <li class="libasic">Disable Bluetooth if not using it <sup><a href="https://askubuntu.com/questions/638352/how-do-you-disable-bluetooth-from-terminal-in-ubuntu" target="_blank">4</a></sup></li>
-    <li class="libasic">Look at the rate that the system update scripts are running; and set its timing to work best with your environment.  Note: you can set events on various system changes, like ETH interface up or main power used <sup><a href="https://wiki.ubuntu.com/PowerManagement" target="_blank">5</a></sup> </li>
+    <li >Remove sound, if not needed <sup><a href="https://docs.kernel.org/sound/designs/powersave.html" target="_blank">1</a></sup></li>
+    <li >Remove extra network drivers (wifi/ eth) if not needed <sup><a href="https://askubuntu.com/questions/1285875/uninstalling-reinstalling-wifi-drivers-in-ubuntu" target="_blank">2</a></sup> <sup><a href="https://unix.stackexchange.com/questions/111256/how-to-permanently-disable-a-network-interface" target="_blank">3</a></sup></li>
+    <li >Disable Bluetooth if not using it <sup><a href="https://askubuntu.com/questions/638352/how-do-you-disable-bluetooth-from-terminal-in-ubuntu" target="_blank">4</a></sup></li>
+    <li >Look at the rate that the system update scripts are running; and set its timing to work best with your environment.  Note: you can set events on various system changes, like ETH interface up or main power used <sup><a href="https://wiki.ubuntu.com/PowerManagement" target="_blank">5</a></sup> </li>
 </ul>
 
 <p>I created a script to manage the above settings <a href="https://github.com/owenBeresford/oab1-conf/blob/main/bin/edit-battery.bash" target="_blank">git</a> (no package practical).   One of the above GUIs would do most of this, but a single wrapper will be more convenient for me, as I wouldn't need to think about best choices each time.</p>
@@ -231,7 +231,7 @@ echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:59">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:59">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

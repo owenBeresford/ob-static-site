@@ -55,7 +55,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="lotsOfWords">
 <p><b>UPDATE:  The article is kept because I'm writing about the quality of my testing to find bugs in libraries. this 10year old code Columniser can be replaced today with CSS.</b></p>
 
-<p>The <a class="" href="https://owenberesford.me.uk/resource/jQuery-columnise#">first article</a> I started has gotten too long, so this is the second half.  This is written after the fact, but the first thing I did with feature change on the website is the F series testcases listed at the end. The test cases <em>which where crashing halfway through</em> are the requirement for change.  As I was talking with the jquery module author ~ <a href="https://www.linkedin.com/in/adamwulf" target="_blank">A Wulf</a> ~ he has changed it.  Secondly he added basic list renumbering.   As I have a en_UK market, I am sticking to the en_UK spelling where possible.  Obviously the uploads to the <a href="https://github.com/adamwulf/Columnizer-jQuery-Plugin" target="_blank">git</a> are left in en-US.</p>
+<p>The <a href="https://owenberesford.me.uk/resource/jQuery-columnise#">first article</a> I started has gotten too long, so this is the second half.  This is written after the fact, but the first thing I did with feature change on the website is the F series testcases listed at the end. The test cases <em>which where crashing halfway through</em> are the requirement for change.  As I was talking with the jquery module author ~ <a href="https://www.linkedin.com/in/adamwulf" target="_blank">A Wulf</a> ~ he has changed it.  Secondly he added basic list renumbering.   As I have a en_UK market, I am sticking to the en_UK spelling where possible.  Obviously the uploads to the <a href="https://github.com/adamwulf/Columnizer-jQuery-Plugin" target="_blank">git</a> are left in en-US.</p>
 
 <p>This artifact (jquery-coloumniser) was an exploratory project.  I don't often write code like this, as it is hard to do performance benchmarking on an exploration basis.  For this project, I have iterated the requirements a few times.  This process added to code complexity by a large margin.  The simple numbering added by A wulf is about 10lines of code, covering the basic use-case.  As I am using numbered lists as an output artifact (for lists where ordering isn't meaningful, they are un-ordered lists), this isn't acceptable.  Until I had the requirements as a written list, I was applying the columnisation to articles, and seeing what broke.  I find this odd, and unschedulable.<br />
 As soon as I had the behaviour requirements, I generated the gunit test cases.  The test cases are complicated, as there is different expectations on different screen sizes.  It is not acceptable to need to adjust each test case manually, so the testcase had to open browser windows, on specific sizes.  This step needed to go via the actual browser window, as far as I can tell, as A Wulf is bravely taking the size of the rendered letters, after they are in the screen buffer.  It took some time to get the test boundary conditions detailed as jQuery selectors.<br />
@@ -65,29 +65,29 @@ The current edition is 200 lines of text, as one visible function, which I inten
 <p>The following are against a maximum size browser on a 1280x1024 display. This is bounds edge-case, and will have different failure points on a different size screen.  The fault is actually a null pointer getting passed into a function when the module is splitting elements. UPDATE2022: I removed the aatual unit tests from this article, as they are not very interesting to a casual reader, and are out of date by now.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">F1: The raw text, null-test</li>
-    <li class="libasic">F2: a small table ~ not broken, but table isn't near end of column</li>
-    <li class="libasic">F3: a big table ~ broken</li>
-    <li class="libasic">F4: a long list, display:inline-block not broken </li>
-    <li class="libasic">F5: a long list with sublists ~ not broken </li>
-    <li class="libasic">F6: long wide table, ~ broken </li>
-    <li class="libasic">F7: display:inline block list ~ not broken </li>
-    <li class="libasic">F8: small table 3cols, tall row ~ broken </li>
-    <li class="libasic">F9: smalltable, height on the cell ~ broken </li>
-    <li class="libasic">F10: big div inside a div ~ not broken </li>
-    <li class="libasic">F11: Empty big div ~ not broken </li>
-    <li class="libasic">F12: Null-test, a long list split into columns </li>
-    <li class="libasic">F13: the last A in each list is broken </li>
-    <li class="libasic"><i>With the new edition of A Wulfs code, the above test data functions correctly.</i></li>
+    <li >F1: The raw text, null-test</li>
+    <li >F2: a small table ~ not broken, but table isn't near end of column</li>
+    <li >F3: a big table ~ broken</li>
+    <li >F4: a long list, display:inline-block not broken </li>
+    <li >F5: a long list with sublists ~ not broken </li>
+    <li >F6: long wide table, ~ broken </li>
+    <li >F7: display:inline block list ~ not broken </li>
+    <li >F8: small table 3cols, tall row ~ broken </li>
+    <li >F9: smalltable, height on the cell ~ broken </li>
+    <li >F10: big div inside a div ~ not broken </li>
+    <li >F11: Empty big div ~ not broken </li>
+    <li >F12: Null-test, a long list split into columns </li>
+    <li >F13: the last A in each list is broken </li>
+    <li ><i>With the new edition of A Wulfs code, the above test data functions correctly.</i></li>
 </ul>
 
 <p>Having listed failures in my 3rd party, I thought I ought to be diligent.  Thus this is one of the few volunteer modules to have tests.  For the purpose of this tests, it is necessary to control window size, and so layout.  Therefore the first file opens the other ones.  Having unit tests that require manual interaction is a contradiction.</p>
 
 <ul class="ulbasic">
-    <li class="libasic">c1 base file ~ this loads the rest... </li>
-    <li class="libasic">c2 ~ runs twice with different sizes</li>
-    <li class="libasic">c3 ~ runs twice with different sizes  </li>
-    <li class="libasic">c4 ~ the basic renumbering done by A Wulf in the newest edition.</li>
+    <li >c1 base file ~ this loads the rest... </li>
+    <li >c2 ~ runs twice with different sizes</li>
+    <li >c3 ~ runs twice with different sizes  </li>
+    <li >c4 ~ the basic renumbering done by A Wulf in the newest edition.</li>
 </ul>
 
 <p>These tests are proper test cases (rather than test data of the preceding error reports), and require <a href="https://qunitjs.com" target="_blank">qunit</a> if you copy them to your server.  Everything in the files is done on the client side.  When you run the test cases, you may wonder why the test items have these weird names attached to them.  I was somewhat tired by the time I got to making these testcases, and the entire test suite is about the numerical prefix, it just counts things.  I thought a corruption of prime minister W Churchill's 1939 speech “we have nothing but twigs and damp tissues, but we will fight; we are Empire.&quot; <sup><a href="https://en.wikipedia.org/wiki/We_shall_fight_on_the_beaches" target="_blank">1</a></sup> was funny.  Thus “we will count” until my eyes are square. <br />
@@ -174,7 +174,7 @@ Then you will ask why one of the test fails, but I submitted it.  If you read th
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:52">26th of Mar 2024, 12:19:52</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-03-26T12:19:52">26th of Mar 2024, 12:19:52</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

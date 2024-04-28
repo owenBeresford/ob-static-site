@@ -56,32 +56,32 @@ TODO: magic tune selection against some index/DB -->
 <p>My completed code will tend to match the following measures.  These are heuristics rules not dogmatism.:</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><b>General readability measures</b><ul class="ulbasic">
-        <li class="libasic">Code is organised in classes (non-OO language still use modules).</li>
-        <li class="libasic">The API of a class is organised into messages that make sense inside domain of the object.</li>
-        <li class="libasic">The names of the API should be concise and non-ambiguous.</li>
-        <li class="libasic">Params, exceptions and returns should be tagged to the compiler, and in the unit docs.  That requires a sensible name and a type.</li>
-        <li class="libasic">Avoid non-dictionary abbreviations or acronyms in visible data (i.e. constants, API or classes). Companies and department names are an exception to this.  HTML is fine, HTMLv4_01 is fine, BT21CNclient is fine, realImpl is not, reg0A34 is not.</li>
-        <li class="libasic">Although in PHP, constants are not really special; use of constants generally improves readability.  In particular flag values must be constants, as this allows refactoring better, when the requirements change. </li>
-        <li class="libasic">Defines are not constants.  All other things being equal, constants are better, as they follow namespace rules.</li>
-        <li class="libasic">Most people define constants in caps <sup><a href="https://stackoverflow.com/questions/838929/naming-why-should-named-constants-be-all-uppercase-in-c-java" target="_blank">1</a></sup> <sup><a href="https://stackoverflow.com/questions/777641/why-are-all-caps-constant-considered-bad-coding-style" target="_blank">2</a></sup>.</li>
-        <li class="libasic">Orthogonality <sup><a href="https://en.wikipedia.org/wiki/Orthogonality_%28programming%29" target="_blank">3</a></sup> is valued.</li>
-        <li class="libasic">In old hardware more than 5 param was inefficient use of registers; this doesn't matter anymore but I apply this limit as a number of the things that a human is likely to be able to retain in short term memory.  This is awkward for functional programming.</li>
-        <li class="libasic">Like graph titles, every class should be definable by a single sentence “a class to...&quot;.</li>
-        <li class="libasic">An optimised architecture leads to much better outcomes than optimised code.</li>
+    <li ><b>General readability measures</b><ul class="ulbasic">
+        <li >Code is organised in classes (non-OO language still use modules).</li>
+        <li >The API of a class is organised into messages that make sense inside domain of the object.</li>
+        <li >The names of the API should be concise and non-ambiguous.</li>
+        <li >Params, exceptions and returns should be tagged to the compiler, and in the unit docs.  That requires a sensible name and a type.</li>
+        <li >Avoid non-dictionary abbreviations or acronyms in visible data (i.e. constants, API or classes). Companies and department names are an exception to this.  HTML is fine, HTMLv4_01 is fine, BT21CNclient is fine, realImpl is not, reg0A34 is not.</li>
+        <li >Although in PHP, constants are not really special; use of constants generally improves readability.  In particular flag values must be constants, as this allows refactoring better, when the requirements change. </li>
+        <li >Defines are not constants.  All other things being equal, constants are better, as they follow namespace rules.</li>
+        <li >Most people define constants in caps <sup><a href="https://stackoverflow.com/questions/838929/naming-why-should-named-constants-be-all-uppercase-in-c-java" target="_blank">1</a></sup> <sup><a href="https://stackoverflow.com/questions/777641/why-are-all-caps-constant-considered-bad-coding-style" target="_blank">2</a></sup>.</li>
+        <li >Orthogonality <sup><a href="https://en.wikipedia.org/wiki/Orthogonality_%28programming%29" target="_blank">3</a></sup> is valued.</li>
+        <li >In old hardware more than 5 param was inefficient use of registers; this doesn't matter anymore but I apply this limit as a number of the things that a human is likely to be able to retain in short term memory.  This is awkward for functional programming.</li>
+        <li >Like graph titles, every class should be definable by a single sentence “a class to...&quot;.</li>
+        <li >An optimised architecture leads to much better outcomes than optimised code.</li>
     </ul></li>
-    <li class="libasic"><b>Code complexity measures</b><ul class="ulbasic">
-        <li class="libasic">Complex code REQUIRES unit tests.</li>
-        <li class="libasic">The basic/minimal structure is a function or method.</li>
-        <li class="libasic">I think functions may only have one entry point, but may have many exits (for high level languages, like Python).  Other people disagree on this statement e.g. <sup><a href="https://wiki.c2.com/?SingleFunctionExitPoint" target="_blank">4</a></sup> <sup><a href="https://stackoverflow.com/questions/12745412/single-entry-single-exit-rule" target="_blank">5</a></sup> <sup><a href="https://www.tomdalling.com/blog/coding-tips/coding-tip-have-a-single-exit-point/" target="_blank">6</a></sup>, but tend to use C. </li>
-        <li class="libasic">I test on the negative, and die/return early.  This makes the code easier to read, and less indented (but is terrible in C). </li>
-        <li class="libasic">Complex code MUST be documented, in the API doc header; and this MUST be updated.  Complex code is not 'cool' or 'professional'.</li>
-        <li class="libasic">Functions should be &lt;=50lines, excluding documentation.</li>
-        <li class="libasic">Classes should be &lt;=400lines, excluding documentation.</li>
-        <li class="libasic">Classes should have &lt;7methods excluding the constructor and any DI setters.  More than this means you have too much responsibility in a single class.</li>
-        <li class="libasic">I favour loops over branching, as it can be extended/enhanced faster and more safely.  If a behaviour is true for 1..N, it is trivial to make to true for N+1.   This is doesn't execute as quickly, but in most cases, on a per instruction, level coder time is more important than execution time.  I am aware that “Those who do not study Lisp are doomed to reimplement it, poorly” <sup><a href="https://cl-pdx.com/comp.lang.lisp/2003/apr/107306.html" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule" target="_blank">8</a></sup>  in every major coding project. </li>
-        <li class="libasic">I use Facades <sup><a href="https://en.wikipedia.org/wiki/Facade_pattern" target="_blank">9</a></sup> quite often (see 50line function constraint).</li>
-        <li class="libasic">If you can't work out how to document a function; you can't test it, so it needs to be refactored.</li>
+    <li ><b>Code complexity measures</b><ul class="ulbasic">
+        <li >Complex code REQUIRES unit tests.</li>
+        <li >The basic/minimal structure is a function or method.</li>
+        <li >I think functions may only have one entry point, but may have many exits (for high level languages, like Python).  Other people disagree on this statement e.g. <sup><a href="https://wiki.c2.com/?SingleFunctionExitPoint" target="_blank">4</a></sup> <sup><a href="https://stackoverflow.com/questions/12745412/single-entry-single-exit-rule" target="_blank">5</a></sup> <sup><a href="https://www.tomdalling.com/blog/coding-tips/coding-tip-have-a-single-exit-point/" target="_blank">6</a></sup>, but tend to use C. </li>
+        <li >I test on the negative, and die/return early.  This makes the code easier to read, and less indented (but is terrible in C). </li>
+        <li >Complex code MUST be documented, in the API doc header; and this MUST be updated.  Complex code is not 'cool' or 'professional'.</li>
+        <li >Functions should be &lt;=50lines, excluding documentation.</li>
+        <li >Classes should be &lt;=400lines, excluding documentation.</li>
+        <li >Classes should have &lt;7methods excluding the constructor and any DI setters.  More than this means you have too much responsibility in a single class.</li>
+        <li >I favour loops over branching, as it can be extended/enhanced faster and more safely.  If a behaviour is true for 1..N, it is trivial to make to true for N+1.   This is doesn't execute as quickly, but in most cases, on a per instruction, level coder time is more important than execution time.  I am aware that “Those who do not study Lisp are doomed to reimplement it, poorly” <sup><a href="https://cl-pdx.com/comp.lang.lisp/2003/apr/107306.html" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule" target="_blank">8</a></sup>  in every major coding project. </li>
+        <li >I use Facades <sup><a href="https://en.wikipedia.org/wiki/Facade_pattern" target="_blank">9</a></sup> quite often (see 50line function constraint).</li>
+        <li >If you can't work out how to document a function; you can't test it, so it needs to be refactored.</li>
     </ul></li>
 </ul>
 
@@ -166,7 +166,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:21">7th of Apr 2024, 20:42:21</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:52">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:21">7th of Apr 2024, 20:42:21</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:52">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

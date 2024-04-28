@@ -60,23 +60,23 @@ TODO: magic tune selection against some index/DB -->
 <p>For JS specific use-case, devs gain if there is aggregated logging for:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Event logging e.g. a new signup event  </li>
-    <li class="libasic">Exception catching so awkward situations are known by devs.</li>
-    <li class="libasic">Progress logging, added by the dev for anything complex </li>
+    <li >Event logging e.g. a new signup event  </li>
+    <li >Exception catching so awkward situations are known by devs.</li>
+    <li >Progress logging, added by the dev for anything complex </li>
 </ul>
 
 <p>Requirements:</p>
 
 <ul class="ulbasic">
-    <li class="libasic">Develop with logging</li>
-    <li class="libasic">Each log message should have a level, and messages less important than a requested level are to be disabled.  This step duplicates syslog <sup><a href="https://www.man7.org/linux/man-pages/man3/syslog.3.html" target="_blank">1</a></sup>.</li>
-    <li class="libasic">Logging works better if there is enough context, this is expanded more in <a class="" href="https://owenberesford.me.uk/resource/logging#">logging</a>.</li>
-    <li class="libasic">Logging is more useful when its aggregated to a log server; which in the case of JS means each client updates app state to the log server.</li>
-    <li class="libasic">For this use-case; it's useful if the app has a process to inject “scripts with logging enabled” to accounts with a flag.   This step fights client installation...</li>
-    <li class="libasic">There is further benefit if logging can be enabled per app feature, as will consume lots of log server disk and bandwidth, if only one feature is being looked at.</li>
-    <li class="libasic">For each page load, have the logging enabled/ disabled depending on the profile.</li>
-    <li class="libasic">After running in production for a while (comparing to the event logs, which is permanently enabled), it would be nice to auto-enable logging on accounts that seem to be behaving abnormally (<b>business case:</b> user goes through 70% of our sales funnel then stops, <i>why?</i>). </li>
-    <li class="libasic">For JS, I think logging should be removable by compilation, to reduce network overheads.  This needs to be created for webapps, or the logging isn't strippable <i>sometimes</i>.   See <a class="" href="https://owenberesford.me.uk/resource/http-cache-breaker#">http-cache-breaker</a> for cache management process.</li>
+    <li >Develop with logging</li>
+    <li >Each log message should have a level, and messages less important than a requested level are to be disabled.  This step duplicates syslog <sup><a href="https://www.man7.org/linux/man-pages/man3/syslog.3.html" target="_blank">1</a></sup>.</li>
+    <li >Logging works better if there is enough context, this is expanded more in <a href="https://owenberesford.me.uk/resource/logging#">logging</a>.</li>
+    <li >Logging is more useful when its aggregated to a log server; which in the case of JS means each client updates app state to the log server.</li>
+    <li >For this use-case; it's useful if the app has a process to inject “scripts with logging enabled” to accounts with a flag.   This step fights client installation...</li>
+    <li >There is further benefit if logging can be enabled per app feature, as will consume lots of log server disk and bandwidth, if only one feature is being looked at.</li>
+    <li >For each page load, have the logging enabled/ disabled depending on the profile.</li>
+    <li >After running in production for a while (comparing to the event logs, which is permanently enabled), it would be nice to auto-enable logging on accounts that seem to be behaving abnormally (<b>business case:</b> user goes through 70% of our sales funnel then stops, <i>why?</i>). </li>
+    <li >For JS, I think logging should be removable by compilation, to reduce network overheads.  This needs to be created for webapps, or the logging isn't strippable <i>sometimes</i>.   See <a href="https://owenberesford.me.uk/resource/http-cache-breaker#">http-cache-breaker</a> for cache management process.</li>
 </ul>
 
 <p>I have built this solution in server side languages previously, for example with Symfony <a href="https://packagist.org/packages/monolog/monolog" target="_blank">Monolog</a>.  <b>Business case:</b> Creating this more systematic logging approach on the client should improve app availability as problems are observable before a user reports it.  Having logging that can can be run permanently, rather than issuing a “test build to investigate” will improve business agility.</p>
@@ -84,9 +84,9 @@ TODO: magic tune selection against some index/DB -->
 
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > See also <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">To look at users, rather than your code, try <a class="" href="https://owenberesford.me.uk/resource/user-tracking-tools#">user-tracking-tools</a>.</li>
-    <li class="libasic">Many startups ups use google analytics <a class="" href="https://owenberesford.me.uk/resource/current-gA#">current-gA</a></li>
-    <li class="libasic">...probably more...</li>
+    <li >To look at users, rather than your code, try <a href="https://owenberesford.me.uk/resource/user-tracking-tools#">user-tracking-tools</a>.</li>
+    <li >Many startups ups use google analytics <a href="https://owenberesford.me.uk/resource/current-gA#">current-gA</a></li>
+    <li >...probably more...</li>
 </ul>
 
 
@@ -95,20 +95,20 @@ TODO: magic tune selection against some index/DB -->
 This idea can be created faster if the aggregation server isn't in-house.  Some rentable options are:</p>
 
 <ul class="ulbasic">
-    <li class="libasic"><b><a href="https://analytics.google.com/analytics/web/" target="_blank">GA</a></b> from Google: pls refer to new editions <sup><a href="https://developers.google.com/analytics/devguides/collection/ga4" target="_blank">2</a></sup> <sup><a href="https://support.google.com/analytics/answer/10089681?hl=en" target="_blank">3</a></sup>, old notes <a class="" href="https://owenberesford.me.uk/resource/current-gA#">current-gA</a> from 2018 <a href="https://www.npmjs.com/package/@google-analytics/data" target="_blank">npm</a> and many others, </li>
-    <li class="libasic"><b><a href="https://aws.amazon.com/cloudwatch/getting-started/" target="_blank">Cloudwatch</a></b> from AWS: <a href="https://docs.aws.amazon.com/cloudwatch/index.html" target="_blank">docs</a>, <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/" target="_blank">client API docs</a> and <a href="https://www.npmjs.com/package/aws-sdk" target="_blank">npm</a> <sup><a href="https://stackoverflow.com/questions/64019890/how-to-submit-the-simple-log-with-aws-cloudwatch-logs-from-frontend" target="_blank">4</a></sup> </li>
-    <li class="libasic"><b><a href="https://sematext.com/" target="_blank">Somatext</a></b>: <a href="https://en.wikipedia.org/wiki/Sematext" target="_blank">wiki</a>, <a href="https://github.com/sematext" target="_blank">git</a> with cheatsheet <sup><a href="https://github.com/sematext/cheatsheets" target="_blank">5</a></sup>, <a href="https://github.com/sematext/docs" target="_blank">docs</a> includes Elasticsearch with Kibana access path.  </li>
-    <li class="libasic"><b><a href="https://www.datadoghq.com" target="_blank">Datadog</a></b>: see <a class="" href="https://owenberesford.me.uk/resource/datadog#">datadog</a>, <a href="https://en.wikipedia.org/wiki/Datadog" target="_blank">wiki</a>, client <a href="https://www.npmjs.com/package/@datadog/datadog-api-client" target="_blank">npm</a>, <a href="https://docs.datadoghq.com/" target="_blank">docs</a>, </li>
-    <li class="libasic"><b><a href="https://www.papertrail.com/" target="_blank">Papertrail</a></b>: is owned by SolarWinds, <a href="https://www.papertrail.com/help/papertrail-documentation/" target="_blank">docs</a>, client <a href="https://www.npmjs.com/package/papertrail" target="_blank">npm</a>, there are more precise clients. </li>
-    <li class="libasic"><b><a href="https://developer.newrelic.com" target="_blank">New relic</a></b>: <a href="https://en.wikipedia.org/wiki/New_Relic" target="_blank">wiki</a>, <a href="https://docs.newrelic.com" target="_blank">docs</a> <sup><a href="https://docs.newrelic.com/docs/apm/agents/nodejs-agent/getting-started/introduction-new-relic-nodejs/" target="_blank">6</a></sup>, <a href="https://www.npmjs.com/package/newrelic" target="_blank">npm</a>, there are more precise libraries, <a href="https://github.com/newrelic/node-newrelic" target="_blank">git</a> </li>
-    <li class="libasic"><b><a href="https://betterstack.com/logs" target="_blank">Betterstack</a></b>: <a href="https://github.com/BetterStackHQ" target="_blank">git</a>, <a href="https://betterstack.com/docs/uptime/api/create-incoming-webhook/" target="_blank">webhooks</a>, a client to access it <sup><a href="https://www.npmjs.com/package/@betterstack/upload-client" target="_blank">7</a></sup>, <a href="https://pypi.org/project/tap-betterstack/" target="_blank">pypi</a>, <a href="https://betterstack.com/community/guides/logging/" target="_blank">docs</a> <sup><a href="https://betterstack.com/community/guides/logging/log-formatting/" target="_blank">8</a></sup></li>
-    <li class="libasic">SolarWinds: retail network cards with hardware logging capacity</li>
-    <li class="libasic"><b><a href="https://www.crowdstrike.com" target="_blank">CrowdStrike</a></b>:  advertorial <sup><a href="https://www.crowdstrike.com/cybersecurity-101/observability/centralized-logging/" target="_blank">9</a></sup></li>
-    <li class="libasic"><b><a href="https://www.loggly.com/" target="_blank">Loggly</a></b>: <a href="https://en.wikipedia.org/wiki/Loggly" target="_blank">wiki</a>, this has been bought by SolarWinds, but is still running as a SaaS. <a href="https://www.npmjs.com/package/loggly" target="_blank">npm</a> client wrapper.   </li>
-    <li class="libasic"><b><a href="https://logz.io" target="_blank">Logz</a></b>: client <a href="https://www.npmjs.com/package/logz" target="_blank">npm</a>, <a href="https://docs.logz.io" target="_blank">docs</a>, Integration to ELK <sup><a href="https://logz.io/learn/guides/" target="_blank">10</a></sup>  <i>old project</i></li>
-    <li class="libasic"><b><a href="https://www.sumologic.com" target="_blank">Sumo Logic</a></b>: <a href="https://en.wikipedia.org/wiki/Sumo_Logic" target="_blank">wiki</a>, client <a href="https://www.npmjs.com/package/sumologic" target="_blank">npm</a>, <a href="https://help.sumologic.com/docs/" target="_blank">docs</a></li>
-    <li class="libasic"><b><a href="https://app.logdna.com/account/signin" target="_blank">LogDNA</a></b>: <a href="https://en.wikipedia.org/wiki/LogDNA" target="_blank">wiki</a>, <a href="https://www.npmjs.com/package/@logdna/logger" target="_blank">npm</a>, <a href="https://github.com/logdna/logdna-agent-v2" target="_blank">git</a>.  A lot of integration to IBM cloud</li>
-    <li class="libasic">Previously I used Fabric.io for this but it was bought by Google.</li>
+    <li ><b><a href="https://analytics.google.com/analytics/web/" target="_blank">GA</a></b> from Google: pls refer to new editions <sup><a href="https://developers.google.com/analytics/devguides/collection/ga4" target="_blank">2</a></sup> <sup><a href="https://support.google.com/analytics/answer/10089681?hl=en" target="_blank">3</a></sup>, old notes <a href="https://owenberesford.me.uk/resource/current-gA#">current-gA</a> from 2018 <a href="https://www.npmjs.com/package/@google-analytics/data" target="_blank">npm</a> and many others, </li>
+    <li ><b><a href="https://aws.amazon.com/cloudwatch/getting-started/" target="_blank">Cloudwatch</a></b> from AWS: <a href="https://docs.aws.amazon.com/cloudwatch/index.html" target="_blank">docs</a>, <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/" target="_blank">client API docs</a> and <a href="https://www.npmjs.com/package/aws-sdk" target="_blank">npm</a> <sup><a href="https://stackoverflow.com/questions/64019890/how-to-submit-the-simple-log-with-aws-cloudwatch-logs-from-frontend" target="_blank">4</a></sup> </li>
+    <li ><b><a href="https://sematext.com/" target="_blank">Somatext</a></b>: <a href="https://en.wikipedia.org/wiki/Sematext" target="_blank">wiki</a>, <a href="https://github.com/sematext" target="_blank">git</a> with cheatsheet <sup><a href="https://github.com/sematext/cheatsheets" target="_blank">5</a></sup>, <a href="https://github.com/sematext/docs" target="_blank">docs</a> includes Elasticsearch with Kibana access path.  </li>
+    <li ><b><a href="https://www.datadoghq.com" target="_blank">Datadog</a></b>: see <a href="https://owenberesford.me.uk/resource/datadog#">datadog</a>, <a href="https://en.wikipedia.org/wiki/Datadog" target="_blank">wiki</a>, client <a href="https://www.npmjs.com/package/@datadog/datadog-api-client" target="_blank">npm</a>, <a href="https://docs.datadoghq.com/" target="_blank">docs</a>, </li>
+    <li ><b><a href="https://www.papertrail.com/" target="_blank">Papertrail</a></b>: is owned by SolarWinds, <a href="https://www.papertrail.com/help/papertrail-documentation/" target="_blank">docs</a>, client <a href="https://www.npmjs.com/package/papertrail" target="_blank">npm</a>, there are more precise clients. </li>
+    <li ><b><a href="https://developer.newrelic.com" target="_blank">New relic</a></b>: <a href="https://en.wikipedia.org/wiki/New_Relic" target="_blank">wiki</a>, <a href="https://docs.newrelic.com" target="_blank">docs</a> <sup><a href="https://docs.newrelic.com/docs/apm/agents/nodejs-agent/getting-started/introduction-new-relic-nodejs/" target="_blank">6</a></sup>, <a href="https://www.npmjs.com/package/newrelic" target="_blank">npm</a>, there are more precise libraries, <a href="https://github.com/newrelic/node-newrelic" target="_blank">git</a> </li>
+    <li ><b><a href="https://betterstack.com/logs" target="_blank">Betterstack</a></b>: <a href="https://github.com/BetterStackHQ" target="_blank">git</a>, <a href="https://betterstack.com/docs/uptime/api/create-incoming-webhook/" target="_blank">webhooks</a>, a client to access it <sup><a href="https://www.npmjs.com/package/@betterstack/upload-client" target="_blank">7</a></sup>, <a href="https://pypi.org/project/tap-betterstack/" target="_blank">pypi</a>, <a href="https://betterstack.com/community/guides/logging/" target="_blank">docs</a> <sup><a href="https://betterstack.com/community/guides/logging/log-formatting/" target="_blank">8</a></sup></li>
+    <li >SolarWinds: retail network cards with hardware logging capacity</li>
+    <li ><b><a href="https://www.crowdstrike.com" target="_blank">CrowdStrike</a></b>:  advertorial <sup><a href="https://www.crowdstrike.com/cybersecurity-101/observability/centralized-logging/" target="_blank">9</a></sup></li>
+    <li ><b><a href="https://www.loggly.com/" target="_blank">Loggly</a></b>: <a href="https://en.wikipedia.org/wiki/Loggly" target="_blank">wiki</a>, this has been bought by SolarWinds, but is still running as a SaaS. <a href="https://www.npmjs.com/package/loggly" target="_blank">npm</a> client wrapper.   </li>
+    <li ><b><a href="https://logz.io" target="_blank">Logz</a></b>: client <a href="https://www.npmjs.com/package/logz" target="_blank">npm</a>, <a href="https://docs.logz.io" target="_blank">docs</a>, Integration to ELK <sup><a href="https://logz.io/learn/guides/" target="_blank">10</a></sup>  <i>old project</i></li>
+    <li ><b><a href="https://www.sumologic.com" target="_blank">Sumo Logic</a></b>: <a href="https://en.wikipedia.org/wiki/Sumo_Logic" target="_blank">wiki</a>, client <a href="https://www.npmjs.com/package/sumologic" target="_blank">npm</a>, <a href="https://help.sumologic.com/docs/" target="_blank">docs</a></li>
+    <li ><b><a href="https://app.logdna.com/account/signin" target="_blank">LogDNA</a></b>: <a href="https://en.wikipedia.org/wiki/LogDNA" target="_blank">wiki</a>, <a href="https://www.npmjs.com/package/@logdna/logger" target="_blank">npm</a>, <a href="https://github.com/logdna/logdna-agent-v2" target="_blank">git</a>.  A lot of integration to IBM cloud</li>
+    <li >Previously I used Fabric.io for this but it was bought by Google.</li>
 </ul>
 
 <p>This list will expire, but I didn't know about 1/2 these vendors before I started these notes.</p>
@@ -116,10 +116,10 @@ This idea can be created faster if the aggregation server isn't in-house.  Some 
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Implementation of ideas <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li class="libasic">to know where a log message was done (in the src code)</li>
-    <li class="libasic">to disable logging depending on flags</li>
-    <li class="libasic">to serve logging flags as part of the profile</li>
-    <li class="libasic">to serve a error-only faster-lighter version most of the time</li>
+    <li >to know where a log message was done (in the src code)</li>
+    <li >to disable logging depending on flags</li>
+    <li >to serve logging flags as part of the profile</li>
+    <li >to serve a error-only faster-lighter version most of the time</li>
 </ul>
 
 
@@ -214,7 +214,7 @@ This idea can be created faster if the aggregation server isn't in-house.  Some 
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:58">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:23">7th of Apr 2024, 20:42:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:58">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

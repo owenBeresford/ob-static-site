@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/form-no-js-maquette" />
 <meta property="og:description" content="A tech demo of how much form can be built without using JS.  This has validation for user input." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Apr 2024, 18:33:06" />
-<meta property="article:modified_time" content="17th of Apr 2024" />
+<meta property="article:published_time" content="25th of Apr 2024, 10:38:25" />
+<meta property="article:modified_time" content="25th of Apr 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/form-no-js-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Forms with only HTML+CSS",
-	"article:published_time":"17th of Apr 2024, 18:33:06", 
-    "article:modified_time":"17th of Apr 2024",
+	"article:published_time":"25th of Apr 2024, 10:38:25", 
+    "article:modified_time":"25th of Apr 2024",
     "article:section":"technology",
 
     "author": {
@@ -58,7 +58,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="halferWords">
 
 <h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
-<p>This is an oversized form.   I have included a full range of HTML widgets / components to show what I could build without using any JS.  This is just a maquette, please see <a class="" href="https://owenberesford.me.uk/resource/better-ux-forms#">better-ux-forms</a> for notes on other options.  As a demo of what <em>can be done</em> via CSS, there are no useful library imports, and I needed to write all the CSS.   If I keep working this idea, I will see what can be imported.   It currently supports two screen widths, 1300px+ and 600-800px.   Most of this tech has been available for a while.   Items with a purple outline <i>are using JS</i>.   I could make a sparkly edition. <br />
+<p>This is an oversized form.   I have included a full range of HTML widgets / components to show what I could build without using any JS.  This is just a maquette, please see <a href="https://owenberesford.me.uk/resource/better-ux-forms#">better-ux-forms</a> for notes on other options.  As a demo of what <em>can be done</em> via CSS, there are no useful library imports, and I needed to write all the CSS.   If I keep working this idea, I will see what can be imported.   It currently supports two screen widths, 1300px+ and 600-800px.   Most of this tech has been available for a while.   Items with a purple outline <i>are using JS</i>.   I could make a sparkly edition. <br />
 <strong>GDPR Note:</strong> this data isn't sent to any servers, it's just a tech demo.</p>
 
 
@@ -91,16 +91,17 @@ TODO: magic tune selection against some index/DB -->
 <fieldset class="browserTestingContainer">
 <legend> This feature has been tested on:</legend>
 <ul class="ulbasic">
-<li> ✖ <i class="fa fa-chrome"></i> win32/chrome </li>
-<li> ✖ <i class="fa fa-internet-explorer"></i> win32/MSIE (unsupported legacy)</li>
-<li> ✖ <i class="fa fa-edge"></i> win32/Edge </li>
-<li> ✖ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
-<li> ✔ <i class="fa fa-safari"></i> mac x/safari (FAIL on Safari 12) </li>
+<li> ✔  <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔  <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔  <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li>There are some sizing issues on the big buttons at the top.</li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari  </li>
+<li>Safari 12 is not supported (inc by Apple I think)</li>
 <li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
 <li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
 <li> &nbsp;-&nbsp; <i class="fa fa-firefox"></i> droid/firefox </li>
-<li> ✖ <i class="fa fa-safari"></i> iphone/safari (untested) </li>
-<li> ✖ <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
 <li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
 </ul>
 <details class="singlePopup">
@@ -111,6 +112,7 @@ I am not testing on the following, as they use the Chrome code-base as a startin
 <li> Opera </li>
 <li> Brave </li>
 <li> Blackberry browser (erm Ok, not this one)</li>
+<li> MSIE (or this one)</li>
 </ul>
 I have never tested on (but for specific geo-markets should do):
 <ul class="ulbasic">
@@ -181,7 +183,7 @@ I have never tested on (but for specific geo-markets should do):
 </div>
 
 <div id="txt8wrap" class="stacked clear extraHair">
-<label for="txt8" class="" > Other hair: </label>
+<label for="txt8" > Other hair: </label>
 <input id="txt8" class="f1" min="5" max="30" name="other_hair" type="text" value="" />
 <span class="formHelp">Enter your exotic hair style </span>
 </div>
@@ -276,6 +278,8 @@ This is free text, I applied no validation rules. </span>
 </div>
 </form>
 <br />
+<br />
+<br />
 <details class="halferWords">
 <summary>Some notes I made during progress [long and rambly] </summary>
 <p>To deliver this, I needed to use JS for a few details.   I was expecting to use JS for form POST, but sigh.   'Making a form' is not a thing to demo, normally.   If somehow the CSS goes missing, there is still a functioning form present, but not as nice.   If the JS goes missing, and the server can accept legacy formats, it would work.</p>
@@ -348,7 +352,7 @@ This is free text, I applied no validation rules. </span>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-04-17T18:31:56">17th of Apr 2024</time>
+						<span>Edited <time datetime="2024-04-25T10:38:23">25th of Apr 2024</time>
 						</span>
 						<span>Created <time datetime="2024-03-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Mar 2024</time> </span>
 					</span>
@@ -398,7 +402,7 @@ This is free text, I applied no validation rules. </span>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-17T18:33:06">17th of Apr 2024, 18:33:06</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-17T18:31:56">17th of Apr 2024</time>.
+	<p> Page rendered <time datetime="2024-04-25T10:38:25">25th of Apr 2024, 10:38:25</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-25T10:38:23">25th of Apr 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

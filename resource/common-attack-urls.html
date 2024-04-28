@@ -60,95 +60,95 @@ TODO: magic tune selection against some index/DB -->
 
 <h4 class="dontend" id="toc0"> HTTP OPTIONS requests <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/OPTIONS" target="_blank">1</a></sup></h4>
 <ul class="ulbasic">
-    <li class="libasic">/ (33 times)</li>
-    <li class="libasic">/IPC$ (1 time)</li>
-    <li class="libasic">/compiled/2.3.5-b23/ (72 times) ~ this is a valid base URL, but doesn't make sense. Why would you support HATEOS for static script assets? </li>
-    <li class="libasic">I would have expected the attacks to come from random client IPs, as its more efficient, and therefore in JS; therefore many more OPTIONS. </li>
+    <li >/ (33 times)</li>
+    <li >/IPC$ (1 time)</li>
+    <li >/compiled/2.3.5-b23/ (72 times) ~ this is a valid base URL, but doesn't make sense. Why would you support HATEOS for static script assets? </li>
+    <li >I would have expected the attacks to come from random client IPs, as its more efficient, and therefore in JS; therefore many more OPTIONS. </li>
 </ul>
 
 
 <h4 class="dontend" id="toc1"> HTTP CONNECT <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/CONNECT" target="_blank">2</a></sup> <sup><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html" target="_blank">3</a></sup></h4>
 <ul class="ulbasic">
-    <li class="libasic">We aren't a proxy, so not allowing these</li>
-    <li class="libasic">All for port 443, all chinese language domain names, or IP addresses</li>
-    <li class="libasic">total 230 times</li>
-    <li class="libasic">Attempting to proxy past some security layer?</li>
+    <li >We aren't a proxy, so not allowing these</li>
+    <li >All for port 443, all chinese language domain names, or IP addresses</li>
+    <li >total 230 times</li>
+    <li >Attempting to proxy past some security layer?</li>
 </ul>
 
 
 <h4 class="dontend" id="toc2"> HTTP GET <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET" target="_blank">4</a></sup></h4>
 <ul class="ulbasic">
-    <li class="libasic">There are no GETs listed here, as GETs are likely to GET a page, even if its an error page asking for better formed param.  The software has good levels of defaulting, do you can just walk up without knowing what you are doing.</li>
+    <li >There are no GETs listed here, as GETs are likely to GET a page, even if its an error page asking for better formed param.  The software has good levels of defaulting, do you can just walk up without knowing what you are doing.</li>
 </ul>
 
 
 <h4 class="dontend" id="toc3"> HTTP POST <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST" target="_blank">5</a></sup></h4>
 <ul class="ulbasic">
-    <li class="libasic">There are many of these, I have grouped them abit.</li>
-    <li class="libasic">Unless you think *all* users of your site are stupid and ignorant, URLs should be considered “typable”, and are part of your user interface.  I don't understand why I would put the current implementation tech in the URL, its like showing my cheap gone-grey mid-week underwear. </li>
-    <li class="libasic">Attack URLs that look like shells in some fashion<ul class="ulbasic">
-        <li class="libasic">/command.php (20 times)</li>
-        <li class="libasic">/hndUnblock.cgi (18 times)</li>
-        <li class="libasic">/CGI/Execute (2 times)</li>
-        <li class="libasic">/RPC2 (11 times)</li>
-        <li class="libasic">/cgi-sys/php5 (11 times)</li>
-        <li class="libasic">/jbossmq-httpil/HTTPServerILServlet<a class="" href="https://www.google.co.uk/search?q=HTTPServerILServlet">?</a> (1 times)</li>
-        <li class="libasic">/_vti_bin/_vti_aut/author.dll (2 times)</li>
-        <li class="libasic">/command.php (1 times)</li>
-        <li class="libasic">/cmd.php (205 times)</li>
-        <li class="libasic">/system.php (205 times)</li>
-        <li class="libasic">/dns-query (1 times)</li>
-        <li class="libasic">/web_shell_cmd.gch (9 times)</li>
-        <li class="libasic">/wshell.php (215 times)</li>
-        <li class="libasic">/xshell.php (214 times)</li>
-        <li class="libasic">/tomcat.php (149 times)</li>
+    <li >There are many of these, I have grouped them abit.</li>
+    <li >Unless you think *all* users of your site are stupid and ignorant, URLs should be considered “typable”, and are part of your user interface.  I don't understand why I would put the current implementation tech in the URL, its like showing my cheap gone-grey mid-week underwear. </li>
+    <li >Attack URLs that look like shells in some fashion<ul class="ulbasic">
+        <li >/command.php (20 times)</li>
+        <li >/hndUnblock.cgi (18 times)</li>
+        <li >/CGI/Execute (2 times)</li>
+        <li >/RPC2 (11 times)</li>
+        <li >/cgi-sys/php5 (11 times)</li>
+        <li >/jbossmq-httpil/HTTPServerILServlet<a href="https://www.google.co.uk/search?q=HTTPServerILServlet">?</a> (1 times)</li>
+        <li >/_vti_bin/_vti_aut/author.dll (2 times)</li>
+        <li >/command.php (1 times)</li>
+        <li >/cmd.php (205 times)</li>
+        <li >/system.php (205 times)</li>
+        <li >/dns-query (1 times)</li>
+        <li >/web_shell_cmd.gch (9 times)</li>
+        <li >/wshell.php (215 times)</li>
+        <li >/xshell.php (214 times)</li>
+        <li >/tomcat.php (149 times)</li>
     </ul></li>
-    <li class="libasic">URLs that look like blog + extra “smart” bits, like WP RPC.<ul class="ulbasic">
-        <li class="libasic">/RPC2 (3 times)</li>
-        <li class="libasic">/xmlrpc.php (2 times)</li>
-        <li class="libasic">/zabbix/jsrpc.php (4 times)</li>
-        <li class="libasic">/zabbix/api_jsonrpc.php (1 times)</li>
-        <li class="libasic">/blog/xmlrpc.php (2 times)</li>
-        <li class="libasic">/wp-admins.php (198 times)</li>
-        <li class="libasic">/HNAP1/ (1 times)</li>
-        <li class="libasic">/ws/v1/cluster/apps/new-application (23 times)</li>
-        <li class="libasic">/client/en/community/supportcli.php (1 times)</li>
+    <li >URLs that look like blog + extra “smart” bits, like WP RPC.<ul class="ulbasic">
+        <li >/RPC2 (3 times)</li>
+        <li >/xmlrpc.php (2 times)</li>
+        <li >/zabbix/jsrpc.php (4 times)</li>
+        <li >/zabbix/api_jsonrpc.php (1 times)</li>
+        <li >/blog/xmlrpc.php (2 times)</li>
+        <li >/wp-admins.php (198 times)</li>
+        <li >/HNAP1/ (1 times)</li>
+        <li >/ws/v1/cluster/apps/new-application (23 times)</li>
+        <li >/client/en/community/supportcli.php (1 times)</li>
     </ul></li>
-    <li class="libasic">My <i>PUBLIC PHP/DB config</i> obviously ? <ul class="ulbasic">
-        <li class="libasic">/phpini.php (15 times)</li>
-        <li class="libasic">/conf1g.php (137 times)</li>
-        <li class="libasic">/conflg.php (283 times)</li>
-        <li class="libasic">/confg.php (505 times)</li>
-        <li class="libasic">/conf.php (132 times)</li>
-        <li class="libasic">/db.init.php (238 times)</li>
-        <li class="libasic">/db_session.init.php (235 times)</li>
-        <li class="libasic">/db__.init.php (217 times)</li>
-        <li class="libasic">/getcfg.php (42 times)</li>
-        <li class="libasic">/db.php (87 times)</li>
-        <li class="libasic">/mysql.php (21 times)</li>
-        <li class="libasic">/db_dataml.php (198 times)</li>
-        <li class="libasic">/db_desql.php (196 times)</li>
+    <li >My <i>PUBLIC PHP/DB config</i> obviously ? <ul class="ulbasic">
+        <li >/phpini.php (15 times)</li>
+        <li >/conf1g.php (137 times)</li>
+        <li >/conflg.php (283 times)</li>
+        <li >/confg.php (505 times)</li>
+        <li >/conf.php (132 times)</li>
+        <li >/db.init.php (238 times)</li>
+        <li >/db_session.init.php (235 times)</li>
+        <li >/db__.init.php (217 times)</li>
+        <li >/getcfg.php (42 times)</li>
+        <li >/db.php (87 times)</li>
+        <li >/mysql.php (21 times)</li>
+        <li >/db_dataml.php (198 times)</li>
+        <li >/db_desql.php (196 times)</li>
     </ul></li>
-    <li class="libasic">The default page that you see will be a login page, due to security architecture; so you try to make an account?<ul class="ulbasic">
-        <li class="libasic">/login/login.jsp (12 times)</li>
-        <li class="libasic">/login/indexAction.action (12 times)</li>
-        <li class="libasic">/indexAction.action (12 times)</li>
-        <li class="libasic">/index.action (14 times)</li>
-        <li class="libasic">/login.action (14 times)</li>
-        <li class="libasic">/login.do (12 times)</li>
-        <li class="libasic">/login.jsp (12 times)</li>
-        <li class="libasic">/user/register (4 times)</li>
-        <li class="libasic">/register.jsp (12 times)</li>
-        <li class="libasic">/admin/newuser.php (1 times)</li>
+    <li >The default page that you see will be a login page, due to security architecture; so you try to make an account?<ul class="ulbasic">
+        <li >/login/login.jsp (12 times)</li>
+        <li >/login/indexAction.action (12 times)</li>
+        <li >/indexAction.action (12 times)</li>
+        <li >/index.action (14 times)</li>
+        <li >/login.action (14 times)</li>
+        <li >/login.do (12 times)</li>
+        <li >/login.jsp (12 times)</li>
+        <li >/user/register (4 times)</li>
+        <li >/register.jsp (12 times)</li>
+        <li >/admin/newuser.php (1 times)</li>
     </ul></li>
-    <li class="libasic">You think the server is already cracked, so you try a POST to the “special access door”<ul class="ulbasic">
-        <li class="libasic">/picture/yts166.jpeg (1 times)</li>
-        <li class="libasic">/getimage/151580.gif (1 times)</li>
-        <li class="libasic">/connectors/system/phpthumb.php (1 times)</li>
+    <li >You think the server is already cracked, so you try a POST to the “special access door”<ul class="ulbasic">
+        <li >/picture/yts166.jpeg (1 times)</li>
+        <li >/getimage/151580.gif (1 times)</li>
+        <li >/connectors/system/phpthumb.php (1 times)</li>
     </ul></li>
-    <li class="libasic">other URLS <ul class="ulbasic">
-        <li class="libasic">These are random, and mostly look hand typed. The numbers of attempts tend to cluster, adjacently.  This seems to reinforce the “hand typed” feel. There is an above average density on number sequences that match gambling sequences, eg 666, and very low density on people's names.</li>
-        <li class="libasic">They add up to a scary 30171 attempts</li>
+    <li >other URLS <ul class="ulbasic">
+        <li >These are random, and mostly look hand typed. The numbers of attempts tend to cluster, adjacently.  This seems to reinforce the “hand typed” feel. There is an above average density on number sequences that match gambling sequences, eg 666, and very low density on people's names.</li>
+        <li >They add up to a scary 30171 attempts</li>
     </ul></li>
 </ul>
 
@@ -156,238 +156,238 @@ TODO: magic tune selection against some index/DB -->
 <details>
 <summary>Full List of URLs </summary>
 <ul class="ulbasic">
-    <li class="libasic">/phppath/php (1 times)</li>
-    <li class="libasic">/ (32 times)</li>
-    <li class="libasic">/invoker/readonly (10 times)</li>
-    <li class="libasic">/wls-wsat/CoordinatorPortType (120 times)</li>
-    <li class="libasic">/GponForm/diag_Form (6 times)</li>
-    <li class="libasic">/sdk (34 times)</li>
-    <li class="libasic">/asdfi23piuypiuh.php (3 times)</li>
-    <li class="libasic">/3r1ep1lgqypc440u.php (3 times)</li>
-    <li class="libasic">/ubus (1 times)</li>
-    <li class="libasic">/wls-wsat/CoordinatorPortType (3 times)</li>
-    <li class="libasic">/wuwu11.php (240 times)</li>
-    <li class="libasic">/xw.php (243 times)</li>
-    <li class="libasic">/xx.php (446 times)</li>
-    <li class="libasic">/s.php (409 times)</li>
-    <li class="libasic">/w.php (245 times)</li>
-    <li class="libasic">/sheep.php (241 times)</li>
-    <li class="libasic">/wc.php (222 times)</li>
-    <li class="libasic">/xw1.php (215 times)</li>
-    <li class="libasic">/9678.php (219 times)</li>
-    <li class="libasic">/mx.php (213 times)</li>
-    <li class="libasic">/7788.php (4 times)</li>
-    <li class="libasic">/8899.php (4 times)</li>
-    <li class="libasic">/qq.php (814 times)</li>
-    <li class="libasic">/lindex.php (216 times)</li>
-    <li class="libasic">/phpstudy.php (406 times)</li>
-    <li class="libasic">/weixiao.php (216 times)</li>
-    <li class="libasic">/feixiang.php (217 times)</li>
-    <li class="libasic">/ak47.php (216 times)</li>
-    <li class="libasic">/xiaoma.php (200 times)</li>
-    <li class="libasic">/xiao.php (210 times)</li>
-    <li class="libasic">/defect.php (209 times)</li>
-    <li class="libasic">/webslee.php (211 times)</li>
-    <li class="libasic">/pe.php (213 times)</li>
-    <li class="libasic">/hm.php (213 times)</li>
-    <li class="libasic">/data.php (196 times)</li>
-    <li class="libasic">/log.php (195 times)</li>
-    <li class="libasic">/fack.php (194 times)</li>
-    <li class="libasic">/angge.php (194 times)</li>
-    <li class="libasic">/yao.php (210 times)</li>
-    <li class="libasic">/q.php (433 times)</li>
-    <li class="libasic">/cainiao.php (202 times)</li>
-    <li class="libasic">/zuoshou.php (206 times)</li>
-    <li class="libasic">/aotu.php (202 times)</li>
-    <li class="libasic">/l7.php (201 times)</li>
-    <li class="libasic">/l8.php (202 times)</li>
-    <li class="libasic">/qaq.php (264 times)</li>
-    <li class="libasic">/56.php (201 times)</li>
-    <li class="libasic">/mz.php (201 times)</li>
-    <li class="libasic">/yumo.php (202 times)</li>
-    <li class="libasic">/min.php (199 times)</li>
-    <li class="libasic">/wanan.php (199 times)</li>
-    <li class="libasic">/ssaa.php (199 times)</li>
-    <li class="libasic">/aw.php (193 times)</li>
-    <li class="libasic">/12.php (196 times)</li>
-    <li class="libasic">/hh.php (194 times)</li>
-    <li class="libasic">/m.php (329 times)</li>
-    <li class="libasic">/zuo.php (194 times)</li>
-    <li class="libasic">/bak.php (196 times)</li>
-    <li class="libasic">/wan.php (194 times)</li>
-    <li class="libasic">/ak.php (190 times)</li>
-    <li class="libasic">/ip.php (191 times)</li>
-    <li class="libasic">/infoo.php (189 times)</li>
-    <li class="libasic">/qwe.php (190 times)</li>
-    <li class="libasic">/1213.php (189 times)</li>
-    <li class="libasic">/h1.php (189 times)</li>
-    <li class="libasic">/test.php (429 times)</li>
-    <li class="libasic">/3.php (189 times)</li>
-    <li class="libasic">/xiaomar.php (177 times)</li>
-    <li class="libasic">/ak48.php (195 times)</li>
-    <li class="libasic">/post.php (188 times)</li>
-    <li class="libasic">/phpinfi.php (186 times)</li>
-    <li class="libasic">/xiaomae.php (176 times)</li>
-    <li class="libasic">/aaaa.php (183 times)</li>
-    <li class="libasic">/9510.php (181 times)</li>
-    <li class="libasic">/index.do (12 times)</li>
-    <li class="libasic">/index.jsp (12 times)</li>
-    <li class="libasic">/main.jsp (12 times)</li>
-    <li class="libasic">/default.jsp (12 times)</li>
-    <li class="libasic">/logidfsf (1 times)</li>
-    <li class="libasic">/python.php (174 times)</li>
-    <li class="libasic">/default.php (174 times)</li>
-    <li class="libasic">/sean.php (170 times)</li>
-    <li class="libasic">/help.php (170 times)</li>
-    <li class="libasic">/tiandi.php (169 times)</li>
-    <li class="libasic">/xz.php (167 times)</li>
-    <li class="libasic">/linuxse.php (169 times)</li>
-    <li class="libasic">/zuoindex.php (169 times)</li>
-    <li class="libasic">/zshmindex.php (169 times)</li>
-    <li class="libasic">/ceshi.php (170 times)</li>
-    <li class="libasic">/l6.php (170 times)</li>
-    <li class="libasic">/miao.php (163 times)</li>
-    <li class="libasic">/boots.php (164 times)</li>
-    <li class="libasic">/she.php (163 times)</li>
-    <li class="libasic">/qw.php (160 times)</li>
-    <li class="libasic">/caonma.php (160 times)</li>
-    <li class="libasic">/ss.php (300 times)</li>
-    <li class="libasic">/wcp.php (159 times)</li>
-    <li class="libasic">/1hou.php (149 times)</li>
-    <li class="libasic">/uuu.php (148 times)</li>
-    <li class="libasic">/1.php (589 times)</li>
-    <li class="libasic">/2.php (280 times)</li>
-    <li class="libasic">/qaz.php (147 times)</li>
-    <li class="libasic">/sss.php (160 times)</li>
-    <li class="libasic">/sha.php (142 times)</li>
-    <li class="libasic">/ver.php (141 times)</li>
-    <li class="libasic">/hack.php (139 times)</li>
-    <li class="libasic">/qa.php (141 times)</li>
-    <li class="libasic">/xxx.php (139 times)</li>
-    <li class="libasic">/92.php (140 times)</li>
-    <li class="libasic">/z.php (233 times)</li>
-    <li class="libasic">/core.php (139 times)</li>
-    <li class="libasic">/ppx.php (137 times)</li>
-    <li class="libasic">/nuoxi.php (136 times)</li>
-    <li class="libasic">/godkey.php (136 times)</li>
-    <li class="libasic">/okokok.php (135 times)</li>
-    <li class="libasic">/erwa.php (137 times)</li>
-    <li class="libasic">/pma.php (137 times)</li>
-    <li class="libasic">/ruyi.php (136 times)</li>
-    <li class="libasic">/51314.php (137 times)</li>
-    <li class="libasic">/5201314.php (137 times)</li>
-    <li class="libasic">/fusheng.php (137 times)</li>
-    <li class="libasic">/general.php (136 times)</li>
-    <li class="libasic">/repeat.php (136 times)</li>
-    <li class="libasic">/ldw.php (136 times)</li>
-    <li class="libasic">/api.php (187 times)</li>
-    <li class="libasic">/s1.php (134 times)</li>
-    <li class="libasic">/xiaodai.php (134 times)</li>
-    <li class="libasic">/ou2.php (138 times)</li>
-    <li class="libasic">/zuos.php (138 times)</li>
-    <li class="libasic">/zuoss.php (137 times)</li>
-    <li class="libasic">/u.php (138 times)</li>
-    <li class="libasic">/x.php (321 times)</li>
-    <li class="libasic">/hello.php (233 times)</li>
-    <li class="libasic">/xp.php (133 times)</li>
-    <li class="libasic">/p.php (133 times)</li>
-    <li class="libasic">/a.php (132 times)</li>
-    <li class="libasic">/123.php (132 times)</li>
-    <li class="libasic">/HX.php (133 times)</li>
-    <li class="libasic">/diy.php (132 times)</li>
-    <li class="libasic">/666.php (131 times)</li>
-    <li class="libasic">/777.php (132 times)</li>
-    <li class="libasic">/qwq.php (132 times)</li>
-    <li class="libasic">/zuoshss.php (136 times)</li>
-    <li class="libasic">/.php (130 times)</li>
-    <li class="libasic">/dexgp.php (123 times)</li>
-    <li class="libasic">/infos.php (121 times)</li>
-    <li class="libasic">/htfr.php (119 times)</li>
-    <li class="libasic">/zzk.php (120 times)</li>
-    <li class="libasic">/10 (2 times)</li>
-    <li class="libasic">/toor.php (113 times)</li>
-    <li class="libasic">/alexa (1 times)</li>
-    <li class="libasic">/uu.php (102 times)</li>
-    <li class="libasic">/aa.php (97 times)</li>
-    <li class="libasic">/wb.php (96 times)</li>
-    <li class="libasic">/yj.php (95 times)</li>
-    <li class="libasic">/7.php (95 times)</li>
-    <li class="libasic">/hacly.php (89 times)</li>
-    <li class="libasic">/xiaohei.php (89 times)</li>
-    <li class="libasic">/cadre.php (86 times)</li>
-    <li class="libasic">/xiaomo.php (87 times)</li>
-    <li class="libasic">/admn.php (87 times)</li>
-    <li class="libasic">/hell.php (87 times)</li>
-    <li class="libasic">/cxfm666.php (84 times)</li>
-    <li class="libasic">/xiaoyu.php (84 times)</li>
-    <li class="libasic">/j.php (83 times)</li>
-    <li class="libasic">/qq5262.php (82 times)</li>
-    <li class="libasic">/MCLi.php (164 times)</li>
-    <li class="libasic">/51.php (84 times)</li>
-    <li class="libasic">/mm.php (83 times)</li>
-    <li class="libasic">/1q.php (81 times)</li>
-    <li class="libasic">/zxc1.php (121 times)</li>
-    <li class="libasic">/zxc0.php (61 times)</li>
-    <li class="libasic">/zxc2.php (61 times)</li>
-    <li class="libasic">/indexa.php (61 times)</li>
-    <li class="libasic">/qwqw.php (54 times)</li>
-    <li class="libasic">/lucky.php (75 times)</li>
-    <li class="libasic">/lx.php (53 times)</li>
-    <li class="libasic">/index1.php (52 times)</li>
-    <li class="libasic">/info.php (52 times)</li>
-    <li class="libasic">/info1.php (52 times)</li>
-    <li class="libasic">/aaaaaa1.php (51 times)</li>
-    <li class="libasic">/up.php (52 times)</li>
-    <li class="libasic">/test123.php (81 times)</li>
-    <li class="libasic">/fb.php (53 times)</li>
-    <li class="libasic">/1111.php (52 times)</li>
-    <li class="libasic">/aotu7.php (52 times)</li>
-    <li class="libasic">/lost.php (48 times)</li>
-    <li class="libasic">/php.php (48 times)</li>
-    <li class="libasic">/errors.php (47 times)</li>
-    <li class="libasic">/win.php (44 times)</li>
-    <li class="libasic">/win1.php (43 times)</li>
-    <li class="libasic">/linux.php (44 times)</li>
-    <li class="libasic">/linux1.php (44 times)</li>
-    <li class="libasic">/paylog.php (78 times)</li>
-    <li class="libasic">/cc.php (34 times)</li>
-    <li class="libasic">/cn.php (33 times)</li>
-    <li class="libasic">/cnm.php (28 times)</li>
-    <li class="libasic">/lanke.php (20 times)</li>
-    <li class="libasic">/neko.php (21 times)</li>
-    <li class="libasic">/super.php (21 times)</li>
-    <li class="libasic">/cere.php (21 times)</li>
-    <li class="libasic">/aaa.php (21 times)</li>
-    <li class="libasic">/Administrator.php (21 times)</li>
-    <li class="libasic">/liangchen.php (21 times)</li>
-    <li class="libasic">/meng.php (21 times)</li>
-    <li class="libasic">/no.php (21 times)</li>
-    <li class="libasic">/Updata.php (21 times)</li>
-    <li class="libasic">/xxxx.php (21 times)</li>
-    <li class="libasic">/coon.php (21 times)</li>
-    <li class="libasic">/099.php (17 times)</li>
-    <li class="libasic">/_404.php (17 times)</li>
-    <li class="libasic">/Alarg53.php (17 times)</li>
-    <li class="libasic">/lapan.php (17 times)</li>
-    <li class="libasic">/p34ky1337.php (17 times)</li>
-    <li class="libasic">/pk1914.php (17 times)</li>
-    <li class="libasic">/sllolx.php (16 times)</li>
-    <li class="libasic">/Skri.php (17 times)</li>
-    <li class="libasic">/mazi.php (16 times)</li>
-    <li class="libasic">/guai.php (15 times)</li>
-    <li class="libasic">/ljb.php (15 times)</li>
-    <li class="libasic">/www.php (15 times)</li>
-    <li class="libasic">/chaoda.php (15 times)</li>
-    <li class="libasic">/vuln1.php (14 times)</li>
-    <li class="libasic">/orange.php (14 times)</li>
-    <li class="libasic">/d.php (14 times)</li>
-    <li class="libasic">/1ndex.php (14 times)</li>
-    <li class="libasic">/lanyecn.php (15 times)</li>
-    <li class="libasic">/mybestloves.php (14 times)</li>
-    <li class="libasic">/erba.php (3 times)</li>
-    <li class="libasic">/link.php (3 times)</li>
-    <li class="libasic">/xiaobin.php (1 times)</li>
-    <li class="libasic">/ppp.php (1 times)</li>
+    <li >/phppath/php (1 times)</li>
+    <li >/ (32 times)</li>
+    <li >/invoker/readonly (10 times)</li>
+    <li >/wls-wsat/CoordinatorPortType (120 times)</li>
+    <li >/GponForm/diag_Form (6 times)</li>
+    <li >/sdk (34 times)</li>
+    <li >/asdfi23piuypiuh.php (3 times)</li>
+    <li >/3r1ep1lgqypc440u.php (3 times)</li>
+    <li >/ubus (1 times)</li>
+    <li >/wls-wsat/CoordinatorPortType (3 times)</li>
+    <li >/wuwu11.php (240 times)</li>
+    <li >/xw.php (243 times)</li>
+    <li >/xx.php (446 times)</li>
+    <li >/s.php (409 times)</li>
+    <li >/w.php (245 times)</li>
+    <li >/sheep.php (241 times)</li>
+    <li >/wc.php (222 times)</li>
+    <li >/xw1.php (215 times)</li>
+    <li >/9678.php (219 times)</li>
+    <li >/mx.php (213 times)</li>
+    <li >/7788.php (4 times)</li>
+    <li >/8899.php (4 times)</li>
+    <li >/qq.php (814 times)</li>
+    <li >/lindex.php (216 times)</li>
+    <li >/phpstudy.php (406 times)</li>
+    <li >/weixiao.php (216 times)</li>
+    <li >/feixiang.php (217 times)</li>
+    <li >/ak47.php (216 times)</li>
+    <li >/xiaoma.php (200 times)</li>
+    <li >/xiao.php (210 times)</li>
+    <li >/defect.php (209 times)</li>
+    <li >/webslee.php (211 times)</li>
+    <li >/pe.php (213 times)</li>
+    <li >/hm.php (213 times)</li>
+    <li >/data.php (196 times)</li>
+    <li >/log.php (195 times)</li>
+    <li >/fack.php (194 times)</li>
+    <li >/angge.php (194 times)</li>
+    <li >/yao.php (210 times)</li>
+    <li >/q.php (433 times)</li>
+    <li >/cainiao.php (202 times)</li>
+    <li >/zuoshou.php (206 times)</li>
+    <li >/aotu.php (202 times)</li>
+    <li >/l7.php (201 times)</li>
+    <li >/l8.php (202 times)</li>
+    <li >/qaq.php (264 times)</li>
+    <li >/56.php (201 times)</li>
+    <li >/mz.php (201 times)</li>
+    <li >/yumo.php (202 times)</li>
+    <li >/min.php (199 times)</li>
+    <li >/wanan.php (199 times)</li>
+    <li >/ssaa.php (199 times)</li>
+    <li >/aw.php (193 times)</li>
+    <li >/12.php (196 times)</li>
+    <li >/hh.php (194 times)</li>
+    <li >/m.php (329 times)</li>
+    <li >/zuo.php (194 times)</li>
+    <li >/bak.php (196 times)</li>
+    <li >/wan.php (194 times)</li>
+    <li >/ak.php (190 times)</li>
+    <li >/ip.php (191 times)</li>
+    <li >/infoo.php (189 times)</li>
+    <li >/qwe.php (190 times)</li>
+    <li >/1213.php (189 times)</li>
+    <li >/h1.php (189 times)</li>
+    <li >/test.php (429 times)</li>
+    <li >/3.php (189 times)</li>
+    <li >/xiaomar.php (177 times)</li>
+    <li >/ak48.php (195 times)</li>
+    <li >/post.php (188 times)</li>
+    <li >/phpinfi.php (186 times)</li>
+    <li >/xiaomae.php (176 times)</li>
+    <li >/aaaa.php (183 times)</li>
+    <li >/9510.php (181 times)</li>
+    <li >/index.do (12 times)</li>
+    <li >/index.jsp (12 times)</li>
+    <li >/main.jsp (12 times)</li>
+    <li >/default.jsp (12 times)</li>
+    <li >/logidfsf (1 times)</li>
+    <li >/python.php (174 times)</li>
+    <li >/default.php (174 times)</li>
+    <li >/sean.php (170 times)</li>
+    <li >/help.php (170 times)</li>
+    <li >/tiandi.php (169 times)</li>
+    <li >/xz.php (167 times)</li>
+    <li >/linuxse.php (169 times)</li>
+    <li >/zuoindex.php (169 times)</li>
+    <li >/zshmindex.php (169 times)</li>
+    <li >/ceshi.php (170 times)</li>
+    <li >/l6.php (170 times)</li>
+    <li >/miao.php (163 times)</li>
+    <li >/boots.php (164 times)</li>
+    <li >/she.php (163 times)</li>
+    <li >/qw.php (160 times)</li>
+    <li >/caonma.php (160 times)</li>
+    <li >/ss.php (300 times)</li>
+    <li >/wcp.php (159 times)</li>
+    <li >/1hou.php (149 times)</li>
+    <li >/uuu.php (148 times)</li>
+    <li >/1.php (589 times)</li>
+    <li >/2.php (280 times)</li>
+    <li >/qaz.php (147 times)</li>
+    <li >/sss.php (160 times)</li>
+    <li >/sha.php (142 times)</li>
+    <li >/ver.php (141 times)</li>
+    <li >/hack.php (139 times)</li>
+    <li >/qa.php (141 times)</li>
+    <li >/xxx.php (139 times)</li>
+    <li >/92.php (140 times)</li>
+    <li >/z.php (233 times)</li>
+    <li >/core.php (139 times)</li>
+    <li >/ppx.php (137 times)</li>
+    <li >/nuoxi.php (136 times)</li>
+    <li >/godkey.php (136 times)</li>
+    <li >/okokok.php (135 times)</li>
+    <li >/erwa.php (137 times)</li>
+    <li >/pma.php (137 times)</li>
+    <li >/ruyi.php (136 times)</li>
+    <li >/51314.php (137 times)</li>
+    <li >/5201314.php (137 times)</li>
+    <li >/fusheng.php (137 times)</li>
+    <li >/general.php (136 times)</li>
+    <li >/repeat.php (136 times)</li>
+    <li >/ldw.php (136 times)</li>
+    <li >/api.php (187 times)</li>
+    <li >/s1.php (134 times)</li>
+    <li >/xiaodai.php (134 times)</li>
+    <li >/ou2.php (138 times)</li>
+    <li >/zuos.php (138 times)</li>
+    <li >/zuoss.php (137 times)</li>
+    <li >/u.php (138 times)</li>
+    <li >/x.php (321 times)</li>
+    <li >/hello.php (233 times)</li>
+    <li >/xp.php (133 times)</li>
+    <li >/p.php (133 times)</li>
+    <li >/a.php (132 times)</li>
+    <li >/123.php (132 times)</li>
+    <li >/HX.php (133 times)</li>
+    <li >/diy.php (132 times)</li>
+    <li >/666.php (131 times)</li>
+    <li >/777.php (132 times)</li>
+    <li >/qwq.php (132 times)</li>
+    <li >/zuoshss.php (136 times)</li>
+    <li >/.php (130 times)</li>
+    <li >/dexgp.php (123 times)</li>
+    <li >/infos.php (121 times)</li>
+    <li >/htfr.php (119 times)</li>
+    <li >/zzk.php (120 times)</li>
+    <li >/10 (2 times)</li>
+    <li >/toor.php (113 times)</li>
+    <li >/alexa (1 times)</li>
+    <li >/uu.php (102 times)</li>
+    <li >/aa.php (97 times)</li>
+    <li >/wb.php (96 times)</li>
+    <li >/yj.php (95 times)</li>
+    <li >/7.php (95 times)</li>
+    <li >/hacly.php (89 times)</li>
+    <li >/xiaohei.php (89 times)</li>
+    <li >/cadre.php (86 times)</li>
+    <li >/xiaomo.php (87 times)</li>
+    <li >/admn.php (87 times)</li>
+    <li >/hell.php (87 times)</li>
+    <li >/cxfm666.php (84 times)</li>
+    <li >/xiaoyu.php (84 times)</li>
+    <li >/j.php (83 times)</li>
+    <li >/qq5262.php (82 times)</li>
+    <li >/MCLi.php (164 times)</li>
+    <li >/51.php (84 times)</li>
+    <li >/mm.php (83 times)</li>
+    <li >/1q.php (81 times)</li>
+    <li >/zxc1.php (121 times)</li>
+    <li >/zxc0.php (61 times)</li>
+    <li >/zxc2.php (61 times)</li>
+    <li >/indexa.php (61 times)</li>
+    <li >/qwqw.php (54 times)</li>
+    <li >/lucky.php (75 times)</li>
+    <li >/lx.php (53 times)</li>
+    <li >/index1.php (52 times)</li>
+    <li >/info.php (52 times)</li>
+    <li >/info1.php (52 times)</li>
+    <li >/aaaaaa1.php (51 times)</li>
+    <li >/up.php (52 times)</li>
+    <li >/test123.php (81 times)</li>
+    <li >/fb.php (53 times)</li>
+    <li >/1111.php (52 times)</li>
+    <li >/aotu7.php (52 times)</li>
+    <li >/lost.php (48 times)</li>
+    <li >/php.php (48 times)</li>
+    <li >/errors.php (47 times)</li>
+    <li >/win.php (44 times)</li>
+    <li >/win1.php (43 times)</li>
+    <li >/linux.php (44 times)</li>
+    <li >/linux1.php (44 times)</li>
+    <li >/paylog.php (78 times)</li>
+    <li >/cc.php (34 times)</li>
+    <li >/cn.php (33 times)</li>
+    <li >/cnm.php (28 times)</li>
+    <li >/lanke.php (20 times)</li>
+    <li >/neko.php (21 times)</li>
+    <li >/super.php (21 times)</li>
+    <li >/cere.php (21 times)</li>
+    <li >/aaa.php (21 times)</li>
+    <li >/Administrator.php (21 times)</li>
+    <li >/liangchen.php (21 times)</li>
+    <li >/meng.php (21 times)</li>
+    <li >/no.php (21 times)</li>
+    <li >/Updata.php (21 times)</li>
+    <li >/xxxx.php (21 times)</li>
+    <li >/coon.php (21 times)</li>
+    <li >/099.php (17 times)</li>
+    <li >/_404.php (17 times)</li>
+    <li >/Alarg53.php (17 times)</li>
+    <li >/lapan.php (17 times)</li>
+    <li >/p34ky1337.php (17 times)</li>
+    <li >/pk1914.php (17 times)</li>
+    <li >/sllolx.php (16 times)</li>
+    <li >/Skri.php (17 times)</li>
+    <li >/mazi.php (16 times)</li>
+    <li >/guai.php (15 times)</li>
+    <li >/ljb.php (15 times)</li>
+    <li >/www.php (15 times)</li>
+    <li >/chaoda.php (15 times)</li>
+    <li >/vuln1.php (14 times)</li>
+    <li >/orange.php (14 times)</li>
+    <li >/d.php (14 times)</li>
+    <li >/1ndex.php (14 times)</li>
+    <li >/lanyecn.php (15 times)</li>
+    <li >/mybestloves.php (14 times)</li>
+    <li >/erba.php (3 times)</li>
+    <li >/link.php (3 times)</li>
+    <li >/xiaobin.php (1 times)</li>
+    <li >/ppp.php (1 times)</li>
 </ul>
 
 
@@ -476,7 +476,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:21">7th of Apr 2024, 20:42:21</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:52">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-04-07T20:42:21">7th of Apr 2024, 20:42:21</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:52">26th of Mar 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
