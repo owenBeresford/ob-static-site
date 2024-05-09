@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/react18-notes" />
 <meta property="og:description" content="A very detailed article on React 18 Architecture to act as a single page cheat-sheet. Target audience: Software engineers who have used many frameworks, and like detailed notes. The notes are by a software engineer on how React18 works; and what features got in the completed edition.  I explain all 15 React Hooks; 23 React18 methods and 3 built-in tags." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Apr 2024, 20:42:25" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="3rd of May 2024, 8:58:25" />
+<meta property="article:modified_time" content="29th of Apr 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/react18-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "React 18 Architecture",
-	"article:published_time":"7th of Apr 2024, 20:42:25", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"3rd of May 2024, 8:58:25", 
+    "article:modified_time":"29th of Apr 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,7 +51,7 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker addReferences">
+     <div class="blocker addReferences addImages">
 <p><b>Target audience</b>: Software engineers who have used many frameworks, and like detailed notes.</p>
 
 <p>Architecture notes for React 18 on one simple page, with no banner ads.  The idea for “good docs” is typically either likely to be “here are ThreeThings to need to know” (small list to make it easier); or “here is Everything” (reading source-code is a slower process and to be avoided).  I am definitely on the Everything model.  @dan_abramov recently said he had spent several months updating docs <sup><a href="https://twitter.com/dan_abramov/status/1567854990479220736" target="_blank">1</a></sup>, I suspect what he has written is what I'm reading / referenced.  Managing re-renders is an important task for react based apps, and not what this article is doing; however read <sup><a href="https://www.developerway.com/?filter=react" target="_blank">2</a></sup> or <a href="https://owenberesford.me.uk/resource/react-performance#">react-performance</a>.</p>
@@ -60,7 +60,7 @@ TODO: magic tune selection against some index/DB -->
 <hr />
 <div class="lotsOfWords">
 <ul class="ulbasic">
-    <li >A vastly over engineered diagram, drawn in React <sup><a href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/" target="_blank">1</a></sup>.  Someone's test code to explore hooks <sup><a href="https://github.com/GregNicholas/hooks-in-react18-next" target="_blank">2</a></sup> </li>
+    <li>A vastly over engineered diagram, drawn in React <sup><a href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/" target="_blank">1</a></sup>.  Someone's test code to explore hooks <sup><a href="https://github.com/GregNicholas/hooks-in-react18-next" target="_blank">2</a></sup> </li>
 </ul>
 
 <p>The newest version of React has a slightly different life cycle model; and some of the older process have been retired <sup><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">3</a></sup> <sup><a href="https://medium.com/how-to-react/react-life-cycle-methods-with-examples-2bdb7465332b" target="_blank">4</a></sup> <sup><a href="https://medium.com/swlh/react-lifecycle-hooks-71547ef4e7a8" target="_blank">5</a></sup>.</p>
@@ -98,69 +98,69 @@ It would be an extremely heretical statement; but this architecture can be achie
 <p>Most of these function names are well chosen, and are really obvious/ clear.  I have added the behavioural notes for when I am feeling stupid and so needing documentation.</p>
 
 <ul class="ulbasic">
-    <li ><b>useState()</b> <sup><a href="https://reactjs.org/docs/hooks-state.html" target="_blank">2</a></sup> COMMON ~ Stores a value, with a process to update it.<ul class="ulbasic">
-        <li >const [state, setState] = useState(initialState);</li>
-        <li >package: React</li>
+    <li><b>useState()</b> <sup><a href="https://reactjs.org/docs/hooks-state.html" target="_blank">2</a></sup> COMMON ~ Stores a value, with a process to update it.<ul class="ulbasic">
+        <li>const [state, setState] = useState(initialState);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-effect.html" target="_blank">3</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useeffect" target="_blank">4</a></sup> COMMON ~ Place a function that will get executed when a value of data changes.  It is designed for expensive function calls (...networking).  USE CAREFULLY, be aware of recursive effects, and update cascades if multiple useEffect() are created.  The function is executed with the item in data as params.  This is triggered after render() <sup><a href="https://stackoverflow.com/a/68201925/2375161" target="_blank">5</a></sup>, which is why re-triggering is problematic. <ul class="ulbasic">
-        <li >useEffect(()=&gt;()=&gt;void, [data*])</li>
-        <li >package: React</li>
+    <li><b>useEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-effect.html" target="_blank">3</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useeffect" target="_blank">4</a></sup> COMMON ~ Place a function that will get executed when a value of data changes.  It is designed for expensive function calls (...networking).  USE CAREFULLY, be aware of recursive effects, and update cascades if multiple useEffect() are created.  The function is executed with the item in data as params.  This is triggered after render() <sup><a href="https://stackoverflow.com/a/68201925/2375161" target="_blank">5</a></sup>, which is why re-triggering is problematic. <ul class="ulbasic">
+        <li>useEffect(()=&gt;()=&gt;void, [data*])</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useMemo()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usememo" target="_blank">6</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Memoization" target="_blank">7</a></sup> COMMON ~ Computes a value, triggered by changes in params.  This is executed during the render(), if there is a change <sup><a href="https://stackoverflow.com/questions/71925654/difference-between-useeffect-and-usememo" target="_blank">8</a></sup>,  <ul class="ulbasic">
-        <li >const memoizedValue = useMemo(() =&gt; computeExpensiveValue(a, b), [a, b]);</li>
-        <li >package: React</li>
+    <li><b>useMemo()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usememo" target="_blank">6</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Memoization" target="_blank">7</a></sup> COMMON ~ Computes a value, triggered by changes in params.  This is executed during the render(), if there is a change <sup><a href="https://stackoverflow.com/questions/71925654/difference-between-useeffect-and-usememo" target="_blank">8</a></sup>,  <ul class="ulbasic">
+        <li>const memoizedValue = useMemo(() =&gt; computeExpensiveValue(a, b), [a, b]);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useReducer()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usereducer" target="_blank">9</a></sup> ~ An parallel option for useState(), takes data and saves it for later.   The noticeable difference is an additional function that allows you to edit / improve the raw data.  As useState(), there is a dispatch function to update it.<ul class="ulbasic">
-        <li >const [state, dispatch] = useReducer(reducer, initialArg, init);</li>
-        <li >package: React</li>
+    <li><b>useReducer()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usereducer" target="_blank">9</a></sup> ~ An parallel option for useState(), takes data and saves it for later.   The noticeable difference is an additional function that allows you to edit / improve the raw data.  As useState(), there is a dispatch function to update it.<ul class="ulbasic">
+        <li>const [state, dispatch] = useReducer(reducer, initialArg, init);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useId()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useid" target="_blank">10</a></sup> <sup><a href="https://towardsdev.com/useid-the-new-hook-introduced-in-react-18-1ef2ce5c5353" target="_blank">11</a></sup> ~ Added for server side rendering, generates a unique ID, to for example link a LABEL and INPUT elements.  Created value is a computation of the object tree that React is rendering <sup><a href="https://react.dev/reference/react/useId#specifying-a-shared-prefix-for-all-generated-ids" target="_blank">12</a></sup>; if different values are needed, manually add suffixes; secondly cannot be used for keys in any lists.<ul class="ulbasic">
-        <li >const id = useId();</li>
-        <li >package: React</li>
+    <li><b>useId()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useid" target="_blank">10</a></sup> <sup><a href="https://towardsdev.com/useid-the-new-hook-introduced-in-react-18-1ef2ce5c5353" target="_blank">11</a></sup> ~ Added for server side rendering, generates a unique ID, to for example link a LABEL and INPUT elements.  Created value is a computation of the object tree that React is rendering <sup><a href="https://react.dev/reference/react/useId#specifying-a-shared-prefix-for-all-generated-ids" target="_blank">12</a></sup>; if different values are needed, manually add suffixes; secondly cannot be used for keys in any lists.<ul class="ulbasic">
+        <li>const id = useId();</li>
+        <li>package: React</li>
     </ul></li>
-    <li >...   </li>
-    <li ><b>useCallback()</b> <sup><a href="https://react.dev/reference/react/useCallback" target="_blank">13</a></sup> <sup><a href="https://dmitripavlutin.com/react-usecallback/" target="_blank">14</a></sup> ~ Creates a memorised function that will execute when the params change.  This is to be used when passing data to child components that use refs.  Is equivalent to a useMemo() call. <ul class="ulbasic">
-        <li >const memoizedCallback = useCallback( () =&gt; {  doSomething(a, b); }, [a, b],);</li>
-        <li >package: React</li>
+    <li>...   </li>
+    <li><b>useCallback()</b> <sup><a href="https://react.dev/reference/react/useCallback" target="_blank">13</a></sup> <sup><a href="https://dmitripavlutin.com/react-usecallback/" target="_blank">14</a></sup> ~ Creates a memorised function that will execute when the params change.  This is to be used when passing data to child components that use refs.  Is equivalent to a useMemo() call. <ul class="ulbasic">
+        <li>const memoizedCallback = useCallback( () =&gt; {  doSomething(a, b); }, [a, b],);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useRef()</b> <sup><a href="https://react.dev/reference/react/useRef" target="_blank">15</a></sup> <sup><a href="https://medium.com/trabe/react-useref-hook-b6c9d39e2022" target="_blank">16</a></sup> ~ Ref is short for Reference; this is a smart pointer structure.   The pointed-to data is mutable.<ul class="ulbasic">
-        <li >const refContainer = useRef(initialValue);</li>
-        <li >package: React</li>
+    <li><b>useRef()</b> <sup><a href="https://react.dev/reference/react/useRef" target="_blank">15</a></sup> <sup><a href="https://medium.com/trabe/react-useref-hook-b6c9d39e2022" target="_blank">16</a></sup> ~ Ref is short for Reference; this is a smart pointer structure.   The pointed-to data is mutable.<ul class="ulbasic">
+        <li>const refContainer = useRef(initialValue);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useTransition()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usetransition" target="_blank">17</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">18</a></sup>.  Invokes a callback on the next relevant priority update cycle in the render function.  Transitions are similar to RDBMS Locks; it's a scheduling feature not get block small really visible updates by things that require computation.   <ul class="ulbasic">
-        <li >const [isPending, startTransition] = useTransition();</li>
-        <li >package: React</li>
+    <li><b>useTransition()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usetransition" target="_blank">17</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">18</a></sup>.  Invokes a callback on the next relevant priority update cycle in the render function.  Transitions are similar to RDBMS Locks; it's a scheduling feature not get block small really visible updates by things that require computation.   <ul class="ulbasic">
+        <li>const [isPending, startTransition] = useTransition();</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useDeferredValue()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html?#usedeferredvalue" target="_blank">19</a></sup> <sup><a href="https://academind.com/tutorials/react-usetransition-vs-usedeferredvalue#usedeferredvalue-in-action" target="_blank">20</a></sup> ~ Uses the current value until a Promise resolves then uses the new value.  The updated value will be applied as soon as any current render()s are complete. <ul class="ulbasic">
-        <li >const deferredValue = useDeferredValue(value);</li>
-        <li >package: React</li>
+    <li><b>useDeferredValue()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html?#usedeferredvalue" target="_blank">19</a></sup> <sup><a href="https://academind.com/tutorials/react-usetransition-vs-usedeferredvalue#usedeferredvalue-in-action" target="_blank">20</a></sup> ~ Uses the current value until a Promise resolves then uses the new value.  The updated value will be applied as soon as any current render()s are complete. <ul class="ulbasic">
+        <li>const deferredValue = useDeferredValue(value);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useImperativeHandle()</b> <sup><a href="https://react.dev/reference/react/useImperativeHandle" target="_blank">21</a></sup> <sup><a href="https://medium.com/trabe/react-useref-hook-b6c9d39e2022" target="_blank">22</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useimperativehandle" target="_blank">23</a></sup> ~ Try to avoid using this because React is trying not to be imperative and performance is terible.   Creates an action ~ the createHandle ~ that will be executed when data exposed to a parent ref is changed.   <ul class="ulbasic">
-        <li >useImperativeHandle(ref, createHandle, [deps]);</li>
-        <li >package: React</li>
+    <li><b>useImperativeHandle()</b> <sup><a href="https://react.dev/reference/react/useImperativeHandle" target="_blank">21</a></sup> <sup><a href="https://medium.com/trabe/react-useref-hook-b6c9d39e2022" target="_blank">22</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useimperativehandle" target="_blank">23</a></sup> ~ Try to avoid using this because React is trying not to be imperative and performance is terible.   Creates an action ~ the createHandle ~ that will be executed when data exposed to a parent ref is changed.   <ul class="ulbasic">
+        <li>useImperativeHandle(ref, createHandle, [deps]);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useLayoutEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#uselayouteffect" target="_blank">24</a></sup> <sup><a href="https://blog.logrocket.com/useeffect-vs-uselayouteffect-examples/" target="_blank">25</a></sup> ~ Note same signature as useEffect (preceeding); but this one fires after render/ *any* changes to the DOM, rather than params. <ul class="ulbasic">
-        <li >useLayoutEffect(()=&gt;()=&gt;void, [data*]); </li>
-        <li >package: React</li>
+    <li><b>useLayoutEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#uselayouteffect" target="_blank">24</a></sup> <sup><a href="https://blog.logrocket.com/useeffect-vs-uselayouteffect-examples/" target="_blank">25</a></sup> ~ Note same signature as useEffect (preceeding); but this one fires after render/ *any* changes to the DOM, rather than params. <ul class="ulbasic">
+        <li>useLayoutEffect(()=&gt;()=&gt;void, [data*]); </li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useInsertionEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useinsertioneffect" target="_blank">26</a></sup> ~ A hook that allows CSS-in-JS libraries.  Fires before render()/ DOM changes.<ul class="ulbasic">
-        <li >useInsertionEffect(()=&gt;()=&gt;void, [data*]); </li>
-        <li >package: React</li>
+    <li><b>useInsertionEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useinsertioneffect" target="_blank">26</a></sup> ~ A hook that allows CSS-in-JS libraries.  Fires before render()/ DOM changes.<ul class="ulbasic">
+        <li>useInsertionEffect(()=&gt;()=&gt;void, [data*]); </li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useSyncExternalStore()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usesyncexternalstore" target="_blank">27</a></sup> ~ Probably for library dev only,   Clearly named function, allows a non-standard Redux-clone library.<ul class="ulbasic">
-        <li >const state = useSyncExternalStore(subscribe, getSnapshot[, getServerSnapshot]); </li>
-        <li >package: React</li>
+    <li><b>useSyncExternalStore()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usesyncexternalstore" target="_blank">27</a></sup> ~ Probably for library dev only,   Clearly named function, allows a non-standard Redux-clone library.<ul class="ulbasic">
+        <li>const state = useSyncExternalStore(subscribe, getSnapshot[, getServerSnapshot]); </li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useDebugValue()</b> <sup><a href="https://react.dev/reference/react/useDebugValue" target="_blank">28</a></sup> <sup><a href="https://reactjsguru.com/react-usedebugvalue-hook/" target="_blank">29</a></sup> ~ Renders a value to ReactDebugTools<a href="https://www.google.co.uk/search?q=ReactDebugTools">?</a>; Also supports a version without the Adaptor. <ul class="ulbasic">
-        <li >useDebugValue(data, (data) =&gt; any);</li>
-        <li >package: React</li>
+    <li><b>useDebugValue()</b> <sup><a href="https://react.dev/reference/react/useDebugValue" target="_blank">28</a></sup> <sup><a href="https://reactjsguru.com/react-usedebugvalue-hook/" target="_blank">29</a></sup> ~ Renders a value to ReactDebugTools<a href="https://www.google.co.uk/search?q=ReactDebugTools">?</a>; Also supports a version without the Adaptor. <ul class="ulbasic">
+        <li>useDebugValue(data, (data) =&gt; any);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>useContext()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usecontext" target="_blank">30</a></sup> “Context provides a way to pass data through the component tree without having to pass props down manually at every level.&quot; <sup><a href="https://reactjs.org/docs/context.html" target="_blank">31</a></sup> <ul class="ulbasic">
-        <li >const MyContext = React.createContext(defaultValue); const value = useContext(MyContext);</li>
-        <li >package: React</li>
+    <li><b>useContext()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usecontext" target="_blank">30</a></sup> “Context provides a way to pass data through the component tree without having to pass props down manually at every level.&quot; <sup><a href="https://reactjs.org/docs/context.html" target="_blank">31</a></sup> <ul class="ulbasic">
+        <li>const MyContext = React.createContext(defaultValue); const value = useContext(MyContext);</li>
+        <li>package: React</li>
     </ul></li>
-    <li ><b>isValidElement()</b> <sup><a href="https://reactjs.org/docs/react-api.html#isvalidelement" target="_blank">32</a></sup> As self-described. Returns boolean.<ul class="ulbasic">
-        <li >package: React</li>
+    <li><b>isValidElement()</b> <sup><a href="https://reactjs.org/docs/react-api.html#isvalidelement" target="_blank">32</a></sup> As self-described. Returns boolean.<ul class="ulbasic">
+        <li>package: React</li>
     </ul></li>
 </ul>
 
@@ -171,122 +171,122 @@ It would be an extremely heretical statement; but this architecture can be achie
 
 <h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > React18 methods <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li ><b>constructor()</b> <sup><a href="https://reactjs.org/docs/react-component.html#constructor" target="_blank">1</a></sup>, only used when your components are more complex.  General notes for functions <sup><a href="https://reactjs.org/docs/react-api.html" target="_blank">2</a></sup><ul class="ulbasic">
-        <li >projecf: React</li>
+    <li><b>constructor()</b> <sup><a href="https://reactjs.org/docs/react-component.html#constructor" target="_blank">1</a></sup>, only used when your components are more complex.  General notes for functions <sup><a href="https://reactjs.org/docs/react-api.html" target="_blank">2</a></sup><ul class="ulbasic">
+        <li>projecf: React</li>
     </ul></li>
-    <li ><b>render()</b> <sup><a href="https://reactjs.org/docs/react-component.html#render" target="_blank">3</a></sup> ~ The “main function” that most people see as “React”. This should specify how to convert this React interface/ object / component (term depending on version) into a DOM Island.   This has magic-context-free access to class variables; but is typically considered a pure function for performance outcomes.    <ul class="ulbasic">
-        <li >project: React</li>
+    <li><b>render()</b> <sup><a href="https://reactjs.org/docs/react-component.html#render" target="_blank">3</a></sup> ~ The “main function” that most people see as “React”. This should specify how to convert this React interface/ object / component (term depending on version) into a DOM Island.   This has magic-context-free access to class variables; but is typically considered a pure function for performance outcomes.    <ul class="ulbasic">
+        <li>project: React</li>
     </ul></li>
-    <li ><b>createRef() / useRef()</b> <sup><a href="https://react.dev/reference/react/createRef" target="_blank">4</a></sup> <sup><a href="https://reactjs.org/docs/react-api.html#reactcreateref" target="_blank">5</a></sup> Creates a reference to the current Component, so it can be manipulated (see closures) <sup><a href="https://stackoverflow.com/questions/65418747/how-does-react-createref-actually-work" target="_blank">6</a></sup>.<ul class="ulbasic">
-        <li >const refContainer = useRef(initialValue);</li>
-        <li >projecf: React</li>
+    <li><b>createRef() / useRef()</b> <sup><a href="https://react.dev/reference/react/createRef" target="_blank">4</a></sup> <sup><a href="https://reactjs.org/docs/react-api.html#reactcreateref" target="_blank">5</a></sup> Creates a reference to the current Component, so it can be manipulated (see closures) <sup><a href="https://stackoverflow.com/questions/65418747/how-does-react-createref-actually-work" target="_blank">6</a></sup>.<ul class="ulbasic">
+        <li>const refContainer = useRef(initialValue);</li>
+        <li>projecf: React</li>
     </ul></li>
-    <li ><b>setState()</b> <sup><a href="https://reactjs.org/docs/react-component.html#setstate" target="_blank">7</a></sup>.  Setter function to assign a value to the Components local state; needs to be used in conjunction with componentDidUpdate <sup><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">8</a></sup> <sup><a href="https://riptutorial.com/reactjs/example/5936/setstate" target="_blank">9</a></sup><ul class="ulbasic">
-        <li >setState(updater[, callback])    </li>
-        <li >projecf: React</li>
+    <li><b>setState()</b> <sup><a href="https://reactjs.org/docs/react-component.html#setstate" target="_blank">7</a></sup>.  Setter function to assign a value to the Components local state; needs to be used in conjunction with componentDidUpdate <sup><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">8</a></sup> <sup><a href="https://riptutorial.com/reactjs/example/5936/setstate" target="_blank">9</a></sup><ul class="ulbasic">
+        <li>setState(updater[, callback])    </li>
+        <li>projecf: React</li>
     </ul></li>
-    <li ><b>createRoot()</b> <sup><a href="https://react.dev/reference/react-dom/client/createRoot" target="_blank">10</a></sup> <sup><a href="https://reactjs.org/docs/react-dom-client.html#createroot" target="_blank">11</a></sup> <sup><a href="https://www.syncfusion.com/blogs/post/everything-you-should-know-about-react-18.aspx" target="_blank">12</a></sup> <sup><a href="https://www.techiediaries.com/react-18-createroot/" target="_blank">13</a></sup>.   This is the new way to start executing a React project.  As the 'React thing' is a data tree, this is its root; and bound to a real DOM node.<ul class="ulbasic">
-        <li >createRoot(container[, options]);</li>
-        <li >project: react-dom</li>
+    <li><b>createRoot()</b> <sup><a href="https://react.dev/reference/react-dom/client/createRoot" target="_blank">10</a></sup> <sup><a href="https://reactjs.org/docs/react-dom-client.html#createroot" target="_blank">11</a></sup> <sup><a href="https://www.syncfusion.com/blogs/post/everything-you-should-know-about-react-18.aspx" target="_blank">12</a></sup> <sup><a href="https://www.techiediaries.com/react-18-createroot/" target="_blank">13</a></sup>.   This is the new way to start executing a React project.  As the 'React thing' is a data tree, this is its root; and bound to a real DOM node.<ul class="ulbasic">
+        <li>createRoot(container[, options]);</li>
+        <li>project: react-dom</li>
     </ul></li>
-    <li ><b>hydrateRoot()</b> <sup><a href="https://react.dev/reference/react-dom/client/hydrateRoot" target="_blank">14</a></sup> When a react node is built on a server; this call adds the actual data into it, to be run on the client. <ul class="ulbasic">
-        <li >const root = hydrateRoot(domNode, reactNode, options?)</li>
-        <li >project: react-dom</li>
+    <li><b>hydrateRoot()</b> <sup><a href="https://react.dev/reference/react-dom/client/hydrateRoot" target="_blank">14</a></sup> When a react node is built on a server; this call adds the actual data into it, to be run on the client. <ul class="ulbasic">
+        <li>const root = hydrateRoot(domNode, reactNode, options?)</li>
+        <li>project: react-dom</li>
     </ul></li>
 </ul>
 
 <p>Limit use of (React tries to organise changes so they are executed quickly, but this may not be the order you want):</p>
 
 <ul class="ulbasic">
-    <li ><b>flushSync()</b> <sup><a href="https://react.dev/reference/react-dom/flushSync" target="_blank">15</a></sup> ~ Most updates are async and batched; this makes updates synchronous, please read caveats in next link <sup><a href="https://react.dev/reference/react-dom/flushSync" target="_blank">16</a></sup> <sup><a href="https://stackoverflow.com/questions/62725935/what-does-flushsync-do-in-react" target="_blank">17</a></sup> <ul class="ulbasic">
-        <li >flushSync(callback)  </li>
-        <li >project: react-dom</li>
+    <li><b>flushSync()</b> <sup><a href="https://react.dev/reference/react-dom/flushSync" target="_blank">15</a></sup> ~ Most updates are async and batched; this makes updates synchronous, please read caveats in next link <sup><a href="https://react.dev/reference/react-dom/flushSync" target="_blank">16</a></sup> <sup><a href="https://stackoverflow.com/questions/62725935/what-does-flushsync-do-in-react" target="_blank">17</a></sup> <ul class="ulbasic">
+        <li>flushSync(callback)  </li>
+        <li>project: react-dom</li>
     </ul></li>
-    <li ><b>forceUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#forceupdate" target="_blank">18</a></sup> <sup><a href="https://stackoverflow.com/questions/57883814/forceupdate-with-react-hooks" target="_blank">19</a></sup> ~ Forces a render() to happen now on this component. <ul class="ulbasic">
-        <li >component.forceUpdate(callback)</li>
-        <li >project: react/Component</li>
+    <li><b>forceUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#forceupdate" target="_blank">18</a></sup> <sup><a href="https://stackoverflow.com/questions/57883814/forceupdate-with-react-hooks" target="_blank">19</a></sup> ~ Forces a render() to happen now on this component. <ul class="ulbasic">
+        <li>component.forceUpdate(callback)</li>
+        <li>project: react/Component</li>
     </ul></li>
 </ul>
 
 <p>Less common lifecycle methods:</p>
 
 <ul class="ulbasic">
-    <li ><b>componentDidMount()</b> <sup><a href="https://reactjs.org/docs/react-component.html#mounting" target="_blank">20</a></sup> ~ A function to report when a component is mounted; implement to do things like setup timers.  <ul class="ulbasic">
-        <li >project: react/Component</li>
+    <li><b>componentDidMount()</b> <sup><a href="https://reactjs.org/docs/react-component.html#mounting" target="_blank">20</a></sup> ~ A function to report when a component is mounted; implement to do things like setup timers.  <ul class="ulbasic">
+        <li>project: react/Component</li>
     </ul></li>
-    <li ><b>componentWillUnmount()</b> <sup><a href="https://reactjs.org/docs/react-component.html#unmounting" target="_blank">21</a></sup> ~ A function to undo whatever happened in componentDidMount.<ul class="ulbasic">
-        <li >project: react/Component</li>
+    <li><b>componentWillUnmount()</b> <sup><a href="https://reactjs.org/docs/react-component.html#unmounting" target="_blank">21</a></sup> ~ A function to undo whatever happened in componentDidMount.<ul class="ulbasic">
+        <li>project: react/Component</li>
     </ul></li>
-    <li ><b>shouldComponentUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">22</a></sup> <sup><a href="https://wanago.io/2019/07/08/algorithm-react-update-the-view-increasing-the-performance/" target="_blank">23</a></sup> used as a test, and is a micro-optimisation, shouldn't affect local state. <ul class="ulbasic">
-        <li >project: react/Component</li>
+    <li><b>shouldComponentUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank">22</a></sup> <sup><a href="https://wanago.io/2019/07/08/algorithm-react-update-the-view-increasing-the-performance/" target="_blank">23</a></sup> used as a test, and is a micro-optimisation, shouldn't affect local state. <ul class="ulbasic">
+        <li>project: react/Component</li>
     </ul></li>
-    <li ><b>componentDidUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#updating" target="_blank">24</a></sup> ~ A function that is triggered after render().  The notes <sup><a href="https://reactjs.org/docs/react-component.html#componentdidupdate" target="_blank">25</a></sup> say that this can be used for network requests, as long as there is a check for delta on data.    <ul class="ulbasic">
-        <li >componentDidUpdate(prevProps, prevState, snapshot) </li>
-        <li >project: react/Component</li>
+    <li><b>componentDidUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#updating" target="_blank">24</a></sup> ~ A function that is triggered after render().  The notes <sup><a href="https://reactjs.org/docs/react-component.html#componentdidupdate" target="_blank">25</a></sup> say that this can be used for network requests, as long as there is a check for delta on data.    <ul class="ulbasic">
+        <li>componentDidUpdate(prevProps, prevState, snapshot) </li>
+        <li>project: react/Component</li>
     </ul></li>
-    <li ><b>getSnapshotBeforeUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate" target="_blank">26</a></sup> Allows access to DOM just before a state change is applied.<ul class="ulbasic">
-        <li >getSnapshotBeforeUpdate(prevProps, prevState)</li>
-        <li >project: react/Component</li>
+    <li><b>getSnapshotBeforeUpdate()</b> <sup><a href="https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate" target="_blank">26</a></sup> Allows access to DOM just before a state change is applied.<ul class="ulbasic">
+        <li>getSnapshotBeforeUpdate(prevProps, prevState)</li>
+        <li>project: react/Component</li>
     </ul></li>
-    <li >static <b>getDerivedStateFromProps()</b> <sup><a href="https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops" target="_blank">27</a></sup> Used to be able to render data that is affected by time.  Note that is called in every render cycle.  Check if needed first as this will make code more complex.<ul class="ulbasic">
-        <li >project: react/Component</li>
+    <li>static <b>getDerivedStateFromProps()</b> <sup><a href="https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops" target="_blank">27</a></sup> Used to be able to render data that is affected by time.  Note that is called in every render cycle.  Check if needed first as this will make code more complex.<ul class="ulbasic">
+        <li>project: react/Component</li>
     </ul></li>
-    <li >static <b>getDerivedStateFromError()</b> <sup><a href="https://reactjs.org/docs/react-component.html#static-getderivedstatefromerror" target="_blank">28</a></sup> This function is used to supply a revised state; executed when an error is thrown, this gets passed the error.  <ul class="ulbasic">
-        <li >static getDerivedStateFromError(error)</li>
-        <li >project: react/Component</li>
+    <li>static <b>getDerivedStateFromError()</b> <sup><a href="https://reactjs.org/docs/react-component.html#static-getderivedstatefromerror" target="_blank">28</a></sup> This function is used to supply a revised state; executed when an error is thrown, this gets passed the error.  <ul class="ulbasic">
+        <li>static getDerivedStateFromError(error)</li>
+        <li>project: react/Component</li>
     </ul></li>
-    <li ><b>forwardRef()</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactforwardref" target="_blank">29</a></sup> Creates a component that uses a ref that was made elsewhere. This new component is supposed to be inside/ below the older one<ul class="ulbasic">
-        <li >project: react</li>
+    <li><b>forwardRef()</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactforwardref" target="_blank">29</a></sup> Creates a component that uses a ref that was made elsewhere. This new component is supposed to be inside/ below the older one<ul class="ulbasic">
+        <li>project: react</li>
     </ul></li>
-    <li ><b>componentDidCatch()</b> <sup><a href="https://reactjs.org/docs/react-component.html#componentdidcatch" target="_blank">30</a></sup>.  A method to catch errors created by child components; designed to be used for actions like logging.  <ul class="ulbasic">
-        <li >componentDidCatch(error, info)</li>
-        <li >project: react/Component</li>
+    <li><b>componentDidCatch()</b> <sup><a href="https://reactjs.org/docs/react-component.html#componentdidcatch" target="_blank">30</a></sup>.  A method to catch errors created by child components; designed to be used for actions like logging.  <ul class="ulbasic">
+        <li>componentDidCatch(error, info)</li>
+        <li>project: react/Component</li>
     </ul></li>
-    <li ><b>lazy()</b> for SSR <sup><a href="https://reactjs.org/blog/2018/10/23/react-v-16-6.html" target="_blank">31</a></sup> <sup><a href="https://reactgo.com/tutorial-reactlazy-react-suspense/" target="_blank">32</a></sup> Function lets you render a dynamic import as a regular component.<ul class="ulbasic">
-        <li >const OtherComponent = React.lazy(() =&gt; import('./OtherComponent'));</li>
-        <li >project: react</li>
+    <li><b>lazy()</b> for SSR <sup><a href="https://reactjs.org/blog/2018/10/23/react-v-16-6.html" target="_blank">31</a></sup> <sup><a href="https://reactgo.com/tutorial-reactlazy-react-suspense/" target="_blank">32</a></sup> Function lets you render a dynamic import as a regular component.<ul class="ulbasic">
+        <li>const OtherComponent = React.lazy(() =&gt; import('./OtherComponent'));</li>
+        <li>project: react</li>
     </ul></li>
-    <li ><b>unmount()</b> <sup><a href="https://reactjs.org/docs/implementation-notes.html#unmounting" target="_blank">33</a></sup> <sup><a href="https://react.dev/reference/react-dom/client/hydrateRoot#root-unmount" target="_blank">34</a></sup> <sup><a href="https://www.pluralsight.com/guides/how-to-unmount-react.js-node" target="_blank">35</a></sup> Deallocates local resources.<ul class="ulbasic">
-        <li >project: react</li>
+    <li><b>unmount()</b> <sup><a href="https://reactjs.org/docs/implementation-notes.html#unmounting" target="_blank">33</a></sup> <sup><a href="https://react.dev/reference/react-dom/client/hydrateRoot#root-unmount" target="_blank">34</a></sup> <sup><a href="https://www.pluralsight.com/guides/how-to-unmount-react.js-node" target="_blank">35</a></sup> Deallocates local resources.<ul class="ulbasic">
+        <li>project: react</li>
     </ul></li>
-    <li ><b>memo()</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactmemo" target="_blank">36</a></sup> A method version of useMemo() hook.<ul class="ulbasic">
-        <li >project: react</li>
+    <li><b>memo()</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactmemo" target="_blank">36</a></sup> A method version of useMemo() hook.<ul class="ulbasic">
+        <li>project: react</li>
     </ul></li>
-    <li >cloneElement(),  createContext(), createElement() are unchanged from previous versions <sup><a href="https://reactjs.org/docs/react-api.html#createelement" target="_blank">37</a></sup><ul class="ulbasic">
-        <li >project: react</li>
+    <li>cloneElement(),  createContext(), createElement() are unchanged from previous versions <sup><a href="https://reactjs.org/docs/react-api.html#createelement" target="_blank">37</a></sup><ul class="ulbasic">
+        <li>project: react</li>
     </ul></li>
 </ul>
 
 
 <h3 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > React18 built-in tags <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li ><b>Fragment</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactfragment" target="_blank">38</a></sup> You have probably used this as the next line; but this is its name.<ul class="ulbasic">
-        <li >&lt;&gt;&lt;/&gt;</li>
-        <li >project: React</li>
+    <li><b>Fragment</b> <sup><a href="https://reactjs.org/docs/react-api.html#reactfragment" target="_blank">38</a></sup> You have probably used this as the next line; but this is its name.<ul class="ulbasic">
+        <li>&lt;&gt;&lt;/&gt;</li>
+        <li>project: React</li>
     </ul></li>
-    <li ><b>Suspense</b> <sup><a href="https://reactjs.org/docs/react-api.html#suspense" target="_blank">39</a></sup>, used to FP style supply a loading screen without branching, needs createRoot() to be active <sup><a href="https://blog.bitsrc.io/quick-walkthrough-to-suspenselist-in-react-b930d1ece892" target="_blank">40</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">41</a></sup>.  <a href="https://dev.to/vaukalak/react-18-suspense-minimal-example-3j0k" target="_blank">Minimal sample</a>.    <ul class="ulbasic">
-        <li >project: React</li>
+    <li><b>Suspense</b> <sup><a href="https://reactjs.org/docs/react-api.html#suspense" target="_blank">39</a></sup>, used to FP style supply a loading screen without branching, needs createRoot() to be active <sup><a href="https://blog.bitsrc.io/quick-walkthrough-to-suspenselist-in-react-b930d1ece892" target="_blank">40</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">41</a></sup>.  <a href="https://dev.to/vaukalak/react-18-suspense-minimal-example-3j0k" target="_blank">Minimal sample</a>.    <ul class="ulbasic">
+        <li>project: React</li>
     </ul></li>
-    <li ><b>StrictMode</b> <sup><a href="https://reactjs.org/docs/strict-mode.html" target="_blank">42</a></sup> This is only for dev builds; enables more detailed error reporting.  In some code you get effects <sup><a href="https://blog.ag-grid.com/avoiding-react-18-double-mount/" target="_blank">43</a></sup> <sup><a href="https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode" target="_blank">44</a></sup>.  <a href="https://medium.com/nmc-techblog/wait-youre-not-using-react-strictmode-a9713927a33b" target="_blank">Minimal example</a> <ul class="ulbasic">
-        <li >project: React</li>
+    <li><b>StrictMode</b> <sup><a href="https://reactjs.org/docs/strict-mode.html" target="_blank">42</a></sup> This is only for dev builds; enables more detailed error reporting.  In some code you get effects <sup><a href="https://blog.ag-grid.com/avoiding-react-18-double-mount/" target="_blank">43</a></sup> <sup><a href="https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode" target="_blank">44</a></sup>.  <a href="https://medium.com/nmc-techblog/wait-youre-not-using-react-strictmode-a9713927a33b" target="_blank">Minimal example</a> <ul class="ulbasic">
+        <li>project: React</li>
     </ul></li>
-    <li ><del> SuspenseList</del> <sup><a href="https://yagmurcetintas.com/journal/whats-new-in-react-18" target="_blank">45</a></sup> Basically the same idea as previous, for a list of items.  ONLY EXISTS IN VERY EARLY VERSIONS OF React18, DO NOT USE <a href="https://www.programcreek.com/typescript/?api=react.SuspenseList" target="_blank">Minimal samples</a><ul class="ulbasic">
-        <li >project: React</li>
+    <li><del> SuspenseList</del> <sup><a href="https://yagmurcetintas.com/journal/whats-new-in-react-18" target="_blank">45</a></sup> Basically the same idea as previous, for a list of items.  ONLY EXISTS IN VERY EARLY VERSIONS OF React18, DO NOT USE <a href="https://www.programcreek.com/typescript/?api=react.SuspenseList" target="_blank">Minimal samples</a><ul class="ulbasic">
+        <li>project: React</li>
     </ul></li>
-    <li ><del>Offscreen</del>, ONLY EXISTS IN VERY EARLY VERSIONS OF React18, DO NOT USE.  If this feature is needed in stable versions of react18, try react-offscreen <a href="https://www.npmjs.com/package/react-offscreen" target="_blank">Minimal examples</a> in npmjs.<ul class="ulbasic">
-        <li >project: React</li>
+    <li><del>Offscreen</del>, ONLY EXISTS IN VERY EARLY VERSIONS OF React18, DO NOT USE.  If this feature is needed in stable versions of react18, try react-offscreen <a href="https://www.npmjs.com/package/react-offscreen" target="_blank">Minimal examples</a> in npmjs.<ul class="ulbasic">
+        <li>project: React</li>
     </ul></li>
-    <li ></li>
-    <li >Interfaces/ base classes: <ul class="ulbasic">
-        <li ><b>React.Component</b> <sup><a href="https://react.dev/reference/react/Component" target="_blank">46</a></sup> <sup><a href="https://reactjs.org/docs/react-component.html" target="_blank">47</a></sup>,</li>
-        <li ><b>React.FC</b> <sup><a href="https://medium.com/@harrymt/should-you-use-react-fc-for-typing-react-components-62cde9ba67c" target="_blank">48</a></sup> <sup><a href="https://www.pluralsight.com/guides/use-interface-props-in-functional-components-using-typescript-with-react" target="_blank">49</a></sup> <sup><a href="https://medium.com/raccoons-group/why-you-probably-shouldnt-use-react-fc-to-type-your-react-components-37ca1243dd13" target="_blank">50</a></sup> aka FunctionComponent,</li>
-        <li ><b>React.VFC</b> <sup><a href="https://www.mydatahack.com/using-react-vfc-instead-of-react-fc/" target="_blank">51</a></sup> aka VoidFunctionComponent and </li>
-        <li ><b>React.SFC</b> aka StatelessFunctionComponent <sup><a href="https://medium.com/@ethan_ikt/react-stateless-functional-component-with-typescript-ce5043466011" target="_blank">52</a></sup> <sup><a href="https://stackoverflow.com/questions/40748397/how-to-use-children-with-react-stateless-functional-component-in-typescript" target="_blank">53</a></sup> <sup><a href="https://stackoverflow.com/questions/53885993/react-16-7-react-sfc-is-now-deprecated" target="_blank">54</a></sup>.  </li>
-        <li ><b>ErrorBoundary</b> <sup><a href="https://reactjs.org/docs/error-boundaries.html" target="_blank">55</a></sup> <sup><a href="https://blog.pusher.com/react-error-boundaries/" target="_blank">56</a></sup> a small feature to localise error handling, rather than use a single global errorhandler; leading to easier to diagnose and therefore fix problems.</li>
-        <li >These are not actually tags, but used to make them.</li>
-        <li >Note only Component is in the basic user-docs; I mention the rest as this is “everything docs”.   They are being added and deprecated quite quickly.</li>
-        <li >Note2, watch for presence or absence of Children data-member. One can add it if absent. </li>
-        <li >project: React, variety of versions</li>
+    <li></li>
+    <li>Interfaces/ base classes: <ul class="ulbasic">
+        <li><b>React.Component</b> <sup><a href="https://react.dev/reference/react/Component" target="_blank">46</a></sup> <sup><a href="https://reactjs.org/docs/react-component.html" target="_blank">47</a></sup>,</li>
+        <li><b>React.FC</b> <sup><a href="https://medium.com/@harrymt/should-you-use-react-fc-for-typing-react-components-62cde9ba67c" target="_blank">48</a></sup> <sup><a href="https://www.pluralsight.com/guides/use-interface-props-in-functional-components-using-typescript-with-react" target="_blank">49</a></sup> <sup><a href="https://medium.com/raccoons-group/why-you-probably-shouldnt-use-react-fc-to-type-your-react-components-37ca1243dd13" target="_blank">50</a></sup> aka FunctionComponent,</li>
+        <li><b>React.VFC</b> <sup><a href="https://www.mydatahack.com/using-react-vfc-instead-of-react-fc/" target="_blank">51</a></sup> aka VoidFunctionComponent and </li>
+        <li><b>React.SFC</b> aka StatelessFunctionComponent <sup><a href="https://medium.com/@ethan_ikt/react-stateless-functional-component-with-typescript-ce5043466011" target="_blank">52</a></sup> <sup><a href="https://stackoverflow.com/questions/40748397/how-to-use-children-with-react-stateless-functional-component-in-typescript" target="_blank">53</a></sup> <sup><a href="https://stackoverflow.com/questions/53885993/react-16-7-react-sfc-is-now-deprecated" target="_blank">54</a></sup>.  </li>
+        <li><b>ErrorBoundary</b> <sup><a href="https://reactjs.org/docs/error-boundaries.html" target="_blank">55</a></sup> <sup><a href="https://blog.pusher.com/react-error-boundaries/" target="_blank">56</a></sup> a small feature to localise error handling, rather than use a single global errorhandler; leading to easier to diagnose and therefore fix problems.</li>
+        <li>These are not actually tags, but used to make them.</li>
+        <li>Note only Component is in the basic user-docs; I mention the rest as this is “everything docs”.   They are being added and deprecated quite quickly.</li>
+        <li>Note2, watch for presence or absence of Children data-member. One can add it if absent. </li>
+        <li>project: React, variety of versions</li>
     </ul></li>
 </ul>
 
@@ -326,7 +326,7 @@ It would be an extremely heretical statement; but this architecture can be achie
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T15:37:07">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-04-29T20:20:26">29th of Apr 2024</time>
 						</span>
 						<span>Created <time datetime="2022-08-01T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of Aug 2022</time> </span>
 					</span>
@@ -376,7 +376,7 @@ It would be an extremely heretical statement; but this architecture can be achie
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:25">7th of Apr 2024, 20:42:25</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:37:07">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-03T08:58:25">3rd of May 2024, 8:58:25</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-04-29T20:20:26">29th of Apr 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
