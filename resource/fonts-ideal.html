@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Fonts, current ideal</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="The range of options that you can use to improve your fonts for readability or design. An analysis of ideal quality and performance of web-fonts." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Fonts, current ideal">
+<meta itemprop="description" content="The range of options that you can use to improve your fonts for readability or design. An analysis of ideal quality and performance of web-fonts.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Fonts, current ideal">
+<meta name="twitter:description" content="The range of options that you can use to improve your fonts for readability or design. An analysis of ideal quality and performance of web-fonts.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Fonts, current ideal" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/fonts-ideal" />
+<meta property="og:description" content="The range of options that you can use to improve your fonts for readability or design. An analysis of ideal quality and performance of web-fonts." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:05" />
+<meta property="article:modified_time" content="19th of May 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/fonts-ideal" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Fonts, current ideal",
+	"article:published_time":"19th of May 2024, 12:07:05", 
+    "article:modified_time":"19th of May 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords addReferences">
+<p>In the 90s I was doing graphical design via Coreldraw.   I was precise on typography and letter-setting.  Now I can <em>finally</em> do the same in CSS if I prep the fonts.   <i>Con sotto voco: TODO, make each letter in the title a different font</i>.</p>
+
+<p>To get the best typography in 2024 without using kerning, or text set via a graphic system like SVG, I think apply the following:</p>
+
+<ul class="ulbasic">
+    <li><strong>Optional reading:</strong> An interesting article describing <em>terms</em>, not mechanisms <sup><a href="https://www.linearity.io/blog/legibility-vs-readability/" target="_blank">1</a></sup></li>
+    <li>Have a readable font designed for your language.   For non-title text check the ascenders and descenders to keep the output more readable across lines.   Design-wise I like “tall text”, but this is weak accessibility.   Check if it's mono-space <sup><a href="https://en.wikipedia.org/wiki/List_of_monospaced_typefaces" target="_blank">2</a></sup> ~ which is very useful for code, less useful for plain reading-text.   Unless you are doing very specific things the system fonts are quite reasonable choices. The remaining points below only apply if you are not using the system fonts.  </li>
+    <li>For known content, tweak the font, so only the relevant glyths are included (with Fontforge <sup><a href="https://fontforge.org/en-US/" target="_blank">3</a></sup> or similar).   A web site written in Deutsch <b>de-DE</b> lang, doesn't need letters for <b>ga-IE</b> Irish or <b>ko-KO</b> Korean.   US readers many be shocked about the number of different char-sets in their fonts.   <ul class="ulbasic">
+        <li>If sub-setting the font file isn't an option, there is a CSS feature <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range" target="_blank">unicode-range</a> to only load some glyths from a font file, if the UTF8 symbol range used are known.   This is widely supported <sup><a href="https://caniuse.com/?search=unicode-range" target="_blank">4</a></sup>.  This would make the font use less RAM, but have little impact on download speed.   Probably most important for established Japanese and Chinese fonts which may be a 100MB large.</li>
+        <li>Font subsetting ranges would be better if I knew where to get a list of alphabet ranges from, <sup><a href="https://unicode.org/reports/tr18/#General_Category_Property" target="_blank">5</a></sup> isn't quite the right answer.</li>
+    </ul></li>
+    <li>Include ligature symbols in the font file for the target language (better readability, do not need to affect text for it).<ul class="ulbasic">
+        <li>This is extended by more CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-ligatures" target="_blank">font-variant-ligatures</a>, current support is quite decent <sup><a href="https://caniuse.com/?search=font-variant-ligatures" target="_blank">6</a></sup>.</li>
+    </ul></li>
+    <li>Choose an acceptable font weight (the thickness of the strokes).  There is common guidance that thin is great design, but less good for people with poor focus capacity <sup><a href="https://searchfacts.com/web-font-screen-readability" target="_blank">7</a></sup>.   I normally make titles in a heavier weight, more urgently than bigger.  </li>
+    <li>NOTE: Making text have a higher weight when in invert-colour mode is better for most people's vision.</li>
+    <li>Some people use all-caps for “attention text”.  <em>This is bad.</em>  For text of a variety of sources, consider controlling capitalisation via CSS as a final sanity check <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform" target="_blank">8</a></sup> <sup><a href="https://css-tricks.com/almanac/properties/t/text-transform/" target="_blank">9</a></sup>.   It would be faster to fix the casing in the data storage, as it would only happen once.  </li>
+    <li>There is no general option to adjust x-height in fonts (yet).  Safari and Firefox support <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size-adjust" target="_blank">font-size-adjust</a> which would be useful, but Chrome doesn't <sup><a href="https://caniuse.com/?search=%20font-size-adjust" target="_blank">10</a></sup>, ao I can't use it ~ availability <sup><a href="https://caniuse.com/?search=size-adjust" target="_blank">11</a></sup>.  There is an option for harmony between different fonts <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/size-adjust" target="_blank">12</a></sup> wide browser support but that is a different process.  </li>
+    <li>Performance details ~ not likely to have much impact for posters, but will have for web or mobile: <ul class="ulbasic">
+        <li>Use the smallest font file size (woff2), so it will download faster.  This reduces page loading delay.</li>
+        <li>Check that the font is compressed properly, there was at least one tool that doesn't use libgzip the way I would and the files are quite large.</li>
+        <li>Set HTTP caching headers, so the font will only be downloaded once, see <a href="https://owenberesford.me.uk/resource/basic-website-features-2021#">basic-website-features-2021</a> for details.</li>
+        <li>Use some sort of edge-cache or CDN so there is less network latency.</li>
+        <li>Note, for text based websites (like a book) the text is written in advance, so there is little need for your own very fast servers, put all the computation power into the edge nodes.</li>
+    </ul></li>
+    <li><strong>Desired:</strong> the ability to pack several font weights and styles (e.g. italic or not) into a single font file <a href="https://css-tricks.com/one-file-many-options-using-variable-fonts-web/" target="_blank">demo</a>.   Having properly designed italic ~ rather than synthetic italic ~ reads better.  <ul class="ulbasic">
+        <li>As the reader is less likely to be a font editor, note there are often different font files for each different weighting and amount of lean in every font purchased.  </li>
+        <li>Example: If I load a page on a Mac, the bold text works much stronger than on my desktop.   This is due to the fact that the Mac used the bold font, but my desktop faked it.</li>
+        <li>A simple PoC in 2012 tech <sup><a href="https://stackoverflow.com/a/10046346" target="_blank">13</a></sup> <sup><a href="https://stackoverflow.com/a/28339483" target="_blank">14</a></sup>, but this uses three filters, so need to change this to include ranges.</li>
+        <li>Better tech for mangling fonts <a href="https://fonttools.readthedocs.io/en/latest/subset/index.html" target="_blank">subset</a></li>
+        <li>A tool to assist writing the CSS for loading fonts, <a href="https://transfonter.org/" target="_blank">transfonter</a></li>
+    </ul></li>
+</ul>
+
+<p>⚠ WARNING ⚠ this range of effort is quite involved, and will prohibit some caching services (e.g. google fonts).</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="research, uitools"> <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research </a> </div>
+<p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools </a> </div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Fonts, current ideal</h1></header>
+			    	<p role="status" class="bigScreenOnly">  A list of options for best quality, performance and readability in fonts. *mechanisms* not words or policy.  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffonts-ideal" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffonts-ideal" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffonts-ideal" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i></a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffonts-ideal&amp;t=Fonts%2C+current+ideal"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i></a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffonts-ideal" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
+						</span>
+						<span>Created <time datetime="2024-04-05T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >5th of Apr 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ffonts-ideal" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2024-05-19T12:07:05">19th of May 2024, 12:07:05</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>

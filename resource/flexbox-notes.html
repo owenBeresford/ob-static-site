@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/flexbox-notes" />
 <meta property="og:description" content="Assessment of stuff relating to flexbox, as operational in B2B" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Apr 2024, 20:42:22" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:05" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/flexbox-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Flexbox notes",
-	"article:published_time":"7th of Apr 2024, 20:42:22", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:05", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -61,24 +61,24 @@ UPDATE: this is the first edition of flex CSS; many people use a more recent edi
 <p>i.e. your CSS framework.   If you have no CSS framework, fix this first.</p>
 
 <ul class="ulbasic">
-    <li >Decent docs for Foundation framework <sup><a href="https://foundation.zurb.com/sites/docs/flex-grid.html" target="_blank">1</a></sup></li>
-    <li >Also good docs, for Bootstrap <sup><a href="https://bootstrapcreative.com/bootstrap-4-grid-explained-examples/" target="_blank">2</a></sup></li>
-    <li >flexigrid <sup><a href="https://www.flexible-grid.com/" target="_blank">3</a></sup> ~ single use library...</li>
-    <li >Frow <sup><a href="https://frowcss.com/" target="_blank">4</a></sup> ~ and another</li>
-    <li >A toy <sup><a href="https://demo.agektmr.com/flexbox/" target="_blank">5</a></sup> to play with settings, and see what works on specific browsers. </li>
-    <li >and probably many more. This list is just so that my code sample at the end doesn't seem to support bad practice. </li>
+    <li>Decent docs for Foundation framework <sup><a href="https://foundation.zurb.com/sites/docs/flex-grid.html" target="_blank">1</a></sup></li>
+    <li>Also good docs, for Bootstrap <sup><a href="https://bootstrapcreative.com/bootstrap-4-grid-explained-examples/" target="_blank">2</a></sup></li>
+    <li>flexigrid <sup><a href="https://www.flexible-grid.com/" target="_blank">3</a></sup> ~ single use library...</li>
+    <li>Frow <sup><a href="https://frowcss.com/" target="_blank">4</a></sup> ~ and another</li>
+    <li>A toy <sup><a href="https://demo.agektmr.com/flexbox/" target="_blank">5</a></sup> to play with settings, and see what works on specific browsers. </li>
+    <li>and probably many more. This list is just so that my code sample at the end doesn't seem to support bad practice. </li>
 </ul>
 
 
 <h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Things to consider   <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li >Has decent support for vertical alignments <sup><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">6</a></sup> <sup><a href="https://stackoverflow.com/questions/25311541/how-to-vertically-align-text-inside-a-flexbox" target="_blank">7</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container" target="_blank">8</a></sup>. The code samples on the second link is better, although less well presented, and probably has less browser support. This is worth whatever the transition cost is its own right.</li>
-    <li >If you use enough variants, flexbox is completely supported by 94% of browsers <sup><a href="https://caniuse.com/#search=flexbox" target="_blank">9</a></sup>, and partially supported by most of the remaining 6%. This makes it more stable than all previous technologies and hacks for the same objective.   A context reference <sup><a href="https://en.wikipedia.org/wiki/Holy_grail_%28web_design%29" target="_blank">10</a></sup></li>
-    <li >This should be used with screen units (which are basically percentages... with adaption for changing orientation) and em.  Quite a few frameworks are using em, as it leads to more readable designs.</li>
-    <li >When people on <sup><a href="https://www.tenforums.com/tutorials/5990-change-dpi-scaling-level-displays-windows-10-a.html" target="_blank">11</a></sup> <sup><a href="https://blogs.technet.microsoft.com/askcore/2015/12/08/display-scaling-in-windows-10/" target="_blank">12</a></sup> 'dows laptops make everything supersize, and so small amount of things per screen-full.  Flexbox will tend to work.</li>
-    <li >Some notes say the shortform flexbox render faster <sup><a href="https://developers.google.com/web/updates/2013/10/Flexbox-layout-isn-t-slow?hl=en" target="_blank">13</a></sup>. I haven't tested this statement.  </li>
-    <li >Some care needs to be invested, to have a page that packs well on desktop and mobile; read <sup><a href="https://dev.opera.com/articles/advanced-cross-browser-flexbox/" target="_blank">14</a></sup>.  As ever knowing your current audience and your desired audience is important prerequisite.  I normally do this by tactically setting display to block on a maximum width; but there are better solutions.  Whilst you can have 80% of your screen empty (i.e. a badly organised mobile layout on a desktop screen), its abit wasteful, and if the user wanted to look at empty space, the wall behind is easier. </li>
-    <li > Some of this is superceded by grid, check your usecase.</li>
+    <li>Has decent support for vertical alignments <sup><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">6</a></sup> <sup><a href="https://stackoverflow.com/questions/25311541/how-to-vertically-align-text-inside-a-flexbox" target="_blank">7</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Aligning_Items_in_a_Flex_Container" target="_blank">8</a></sup>. The code samples on the second link is better, although less well presented, and probably has less browser support. This is worth whatever the transition cost is its own right.</li>
+    <li>If you use enough variants, flexbox is completely supported by 94% of browsers <sup><a href="https://caniuse.com/#search=flexbox" target="_blank">9</a></sup>, and partially supported by most of the remaining 6%. This makes it more stable than all previous technologies and hacks for the same objective.   A context reference <sup><a href="https://en.wikipedia.org/wiki/Holy_grail_%28web_design%29" target="_blank">10</a></sup></li>
+    <li>This should be used with screen units (which are basically percentages... with adaption for changing orientation) and em.  Quite a few frameworks are using em, as it leads to more readable designs.</li>
+    <li>When people on <sup><a href="https://www.tenforums.com/tutorials/5990-change-dpi-scaling-level-displays-windows-10-a.html" target="_blank">11</a></sup> <sup><a href="https://blogs.technet.microsoft.com/askcore/2015/12/08/display-scaling-in-windows-10/" target="_blank">12</a></sup> 'dows laptops make everything supersize, and so small amount of things per screen-full.  Flexbox will tend to work.</li>
+    <li>Some notes say the shortform flexbox render faster <sup><a href="https://developers.google.com/web/updates/2013/10/Flexbox-layout-isn-t-slow?hl=en" target="_blank">13</a></sup>. I haven't tested this statement.  </li>
+    <li>Some care needs to be invested, to have a page that packs well on desktop and mobile; read <sup><a href="https://dev.opera.com/articles/advanced-cross-browser-flexbox/" target="_blank">14</a></sup>.  As ever knowing your current audience and your desired audience is important prerequisite.  I normally do this by tactically setting display to block on a maximum width; but there are better solutions.  Whilst you can have 80% of your screen empty (i.e. a badly organised mobile layout on a desktop screen), its abit wasteful, and if the user wanted to look at empty space, the wall behind is easier. </li>
+    <li> Some of this is superceded by grid, check your usecase.</li>
 </ul>
 
 
@@ -99,18 +99,18 @@ As a minimum, not recommended for industrial use:</p>
 <p>Mostly as a reference to me, a complete list of CSS keywords, relevant to flexbox.  There are too many articles that miss half the detail, so here is a boring list (and see below for grid):</p>
 
 <ul class="ulbasic">
-    <li >display: <a href="https://www.w3.org/TR/css-flexbox-1/#flex-property" target="_blank">flex</a> ~ required for the things below</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#flex-basis-property" target="_blank">flex-basis</a>: [auto, n] ~ sets the initial size of items</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#flex-wrap-property" target="_blank">flex-wrap</a>: [ nowrap, wrap, wrap-reverse ]</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#flex-grow-property" target="_blank">flex-grow</a>: n</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#flex-shrink-property" target="_blank">flex-shrink</a>: n</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#flex-flow-property" target="_blank">flex-flow</a>: [ row, wrap, column ] ~ tricky composite item, assembling flex-direction and flex-wrap </li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#flex-direction-property" target="_blank">flex-direction</a>: [column, column-reverse, row, row-reverse]</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#order-property" target="_blank">order</a>: n ~ i.e. the sequence to display</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#justify-content-property" target="_blank">justify-content</a>: [ space-around, space-between, flex-start, flex-end, baseline, centre, space-evenly ]</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#align-items-property" target="_blank">align-items</a>: [ flex-start, flex-end, center, baseline, stretch ]</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#align-content-property" target="_blank">align-content</a>: [ start, end, centre, stretch, space-around, space-between, space-evenly ]</li>
-    <li ><a href="https://www.w3.org/TR/css-flexbox-1/#align-items-property" target="_blank">align-self</a>: [ flex-end, flex-start, center ]</li>
+    <li>display: <a href="https://www.w3.org/TR/css-flexbox-1/#flex-property" target="_blank">flex</a> ~ required for the things below</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#flex-basis-property" target="_blank">flex-basis</a>: [auto, n] ~ sets the initial size of items</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#flex-wrap-property" target="_blank">flex-wrap</a>: [ nowrap, wrap, wrap-reverse ]</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#flex-grow-property" target="_blank">flex-grow</a>: n</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#flex-shrink-property" target="_blank">flex-shrink</a>: n</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#flex-flow-property" target="_blank">flex-flow</a>: [ row, wrap, column ] ~ tricky composite item, assembling flex-direction and flex-wrap </li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#flex-direction-property" target="_blank">flex-direction</a>: [column, column-reverse, row, row-reverse]</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#order-property" target="_blank">order</a>: n ~ i.e. the sequence to display</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#justify-content-property" target="_blank">justify-content</a>: [ space-around, space-between, flex-start, flex-end, baseline, centre, space-evenly ]</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#align-items-property" target="_blank">align-items</a>: [ flex-start, flex-end, center, baseline, stretch ]</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#align-content-property" target="_blank">align-content</a>: [ start, end, centre, stretch, space-around, space-between, space-evenly ]</li>
+    <li><a href="https://www.w3.org/TR/css-flexbox-1/#align-items-property" target="_blank">align-self</a>: [ flex-end, flex-start, center ]</li>
 </ul>
 
 <p>I found some other thorough articles <sup><a href="https://paulrobertlloyd.com/2016/03/logical_flexbox" target="_blank">1</a></sup> <sup><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">2</a></sup> <sup><a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">3</a></sup></p>
@@ -118,37 +118,37 @@ As a minimum, not recommended for industrial use:</p>
 <p>Grid keywords...</p>
 
 <ul class="ulbasic">
-    <li ><a href="https://www.w3.org/TR/css-align-3/#propdef-justify-items" target="_blank">justify-items</a>: [     normal, stretch, baseline-position, overflow-position, self-position, left, right, legacy, left, right, centre ] ~ this is way complex, see spec</li>
-    <li ><a href="https://www.w3.org/TR/css-align-3/#justify-self-property" target="_blank">justify-self</a>: [stretch, start, end ]</li>
-    <li ><a href="https://www.w3.org/TR/css-align-3/#place-self-property" target="_blank">place-self</a>: [align-self, justify-self]</li>
-    <li ><a href="https://www.w3.org/TR/css-align-3/#propdef-align-items" target="_blank">align-items</a>: [stretch, start, end, centre ]</li>
-    <li ><a href="https://www.w3.org/TR/2017/CR-css-grid-1-20171214/#propdef-grid-auto-rows" target="_blank">grid-auto-rows</a> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows" target="_blank">4</a></sup></li>
-    <li ><a href="https://www.w3.org/TR/2017/CR-css-grid-1-20171214/#propdef-grid-auto-columns" target="_blank">grid-auto-columns</a></li>
-    <li >. . . </li>
+    <li><a href="https://www.w3.org/TR/css-align-3/#propdef-justify-items" target="_blank">justify-items</a>: [     normal, stretch, baseline-position, overflow-position, self-position, left, right, legacy, left, right, centre ] ~ this is way complex, see spec</li>
+    <li><a href="https://www.w3.org/TR/css-align-3/#justify-self-property" target="_blank">justify-self</a>: [stretch, start, end ]</li>
+    <li><a href="https://www.w3.org/TR/css-align-3/#place-self-property" target="_blank">place-self</a>: [align-self, justify-self]</li>
+    <li><a href="https://www.w3.org/TR/css-align-3/#propdef-align-items" target="_blank">align-items</a>: [stretch, start, end, centre ]</li>
+    <li><a href="https://www.w3.org/TR/2017/CR-css-grid-1-20171214/#propdef-grid-auto-rows" target="_blank">grid-auto-rows</a> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows" target="_blank">4</a></sup></li>
+    <li><a href="https://www.w3.org/TR/2017/CR-css-grid-1-20171214/#propdef-grid-auto-columns" target="_blank">grid-auto-columns</a></li>
+    <li>. . . </li>
 </ul>
 
 <p><b>Foundation class names</b> ~ needs to be v6.2, the newer versions use grid.  Including <a href="https://foundation.zurb.com/sites/docs/kitchen-sink.html" target="_blank">kitchen sink</a> demo<br />
 I have pulled out keywords from the source, use these to efficiently search.</p>
 
 <ul class="ulbasic">
-    <li >row, columns</li>
-    <li >small-{N}, medium-{N}, large-{N} ~ choose scale word to match desired screen-size N to match amount of screen used.  The size word indicates how larges the screen is.</li>
-    <li >{W}-shrink, {W}-expand, {W}-unstack {W}-order-{N} ~ used as suffixes to the previous scale words.</li>
-    <li >there are more more specialised items, see raw source.</li>
-    <li ><sup><a href="https://scotch.io/tutorials/cheat-sheet-for-comparing-bootstrap-and-foundation-css-classes" target="_blank">5</a></sup> <a href="https://sudheerdev.github.io/Foundation5CheatSheet/" target="_blank">git</a> <sup><a href="https://foundation.zurb.com/sites/docs/kitchen-sink.html" target="_blank">6</a></sup></li>
+    <li>row, columns</li>
+    <li>small-{N}, medium-{N}, large-{N} ~ choose scale word to match desired screen-size N to match amount of screen used.  The size word indicates how larges the screen is.</li>
+    <li>{W}-shrink, {W}-expand, {W}-unstack {W}-order-{N} ~ used as suffixes to the previous scale words.</li>
+    <li>there are more more specialised items, see raw source.</li>
+    <li><sup><a href="https://scotch.io/tutorials/cheat-sheet-for-comparing-bootstrap-and-foundation-css-classes" target="_blank">5</a></sup> <a href="https://sudheerdev.github.io/Foundation5CheatSheet/" target="_blank">git</a> <sup><a href="https://foundation.zurb.com/sites/docs/kitchen-sink.html" target="_blank">6</a></sup></li>
 </ul>
 
 <p><b>Bootstrap class names</b> ~ needs to be bootstrap4</p>
 
 <ul class="ulbasic">
-    <li >NORMAL USE CLASSES (for each of this list, W may be one of [sm,md,lg,xl]):  d-{W}-flex, d-{W}-inline-flex, flex-{W}-row, flex-{W}-row-reverse, flex-{W}-column, flex-{W}-column-reverse, justify-content-{W}-start, justify-content-{W}-end, justify-content-{W}-center, justify-content-{W}-between, justify-content-{W}-around, flex-{W}-fill, flex-{W}-grow-{N}, flex-{W}-grow-{N}, flex-{W}-shrink-{N}, flex-{W}-shrink-{N}, order-{W}-{N}, flex-{W}-nowrap, flex-{W}-wrap, flex-{W}-wrap-reverse, align-content-{W}-start, align-content-{W}-end, align-content-{W}-center, align-content-{W}-around, align-content-{W}-stretch, align-items-{W}-start, align-items-{W}-end, align-items-{W}-center, align-items-{W}-baseline, align-items-{W}-stretch, align-self-{W}-start, align-self-{W}-end, align-self-{W}-center, align-self-{W}-baseline, align-self-{W}-stretch</li>
-    <li >flex-container, flex-item</li>
-    <li >justify-content-[center, end, between, around, start] align-items-center, flex-grow-1, flex-shrink-1, order-N, align-content-end, align-content-center, align-content-between, align-content-around, align-content-stretch, align-items-start, align-items-end, align-items-center, align-items-baseline, align-items-stretch, align-self-start, align-self-end, align-self-center, align-self-baseline, align-self-stretch  </li>
-    <li >d-flex d-inline-flex, flex-fill</li>
-    <li >flex-row flex-row-reverse flex-column flex-column-reverse, flex-nowrap, flex-wrap, flex-wrap-reverse </li>
-    <li > <sup><a href="https://medium.com/codingthesmartway-com-blog/introduction-to-bootstrap-4-flex-layout-flexbox-for-bootstrap-f85405ce5ebf" target="_blank">7</a></sup> <sup><a href="https://medium.com/wdstack/bootstrap-is-still-better-than-css-grid-for-creating-layouts-522b7baf0411" target="_blank">8</a></sup></li>
-    <li ><sup><a href="https://bootstrapcreative.com/resources/bootstrap-4-css-classes-index/" target="_blank">9</a></sup> <sup><a href="https://hackerthemes.com/bootstrap-cheatsheet/" target="_blank">10</a></sup> <sup><a href="https://mdbootstrap.com/utilities/flexbox/" target="_blank">11</a></sup></li>
-    <li >This list shows in diagrammatic form why I prefer Foundation.</li>
+    <li>NORMAL USE CLASSES (for each of this list, W may be one of [sm,md,lg,xl]):  d-{W}-flex, d-{W}-inline-flex, flex-{W}-row, flex-{W}-row-reverse, flex-{W}-column, flex-{W}-column-reverse, justify-content-{W}-start, justify-content-{W}-end, justify-content-{W}-center, justify-content-{W}-between, justify-content-{W}-around, flex-{W}-fill, flex-{W}-grow-{N}, flex-{W}-grow-{N}, flex-{W}-shrink-{N}, flex-{W}-shrink-{N}, order-{W}-{N}, flex-{W}-nowrap, flex-{W}-wrap, flex-{W}-wrap-reverse, align-content-{W}-start, align-content-{W}-end, align-content-{W}-center, align-content-{W}-around, align-content-{W}-stretch, align-items-{W}-start, align-items-{W}-end, align-items-{W}-center, align-items-{W}-baseline, align-items-{W}-stretch, align-self-{W}-start, align-self-{W}-end, align-self-{W}-center, align-self-{W}-baseline, align-self-{W}-stretch</li>
+    <li>flex-container, flex-item</li>
+    <li>justify-content-[center, end, between, around, start] align-items-center, flex-grow-1, flex-shrink-1, order-N, align-content-end, align-content-center, align-content-between, align-content-around, align-content-stretch, align-items-start, align-items-end, align-items-center, align-items-baseline, align-items-stretch, align-self-start, align-self-end, align-self-center, align-self-baseline, align-self-stretch  </li>
+    <li>d-flex d-inline-flex, flex-fill</li>
+    <li>flex-row flex-row-reverse flex-column flex-column-reverse, flex-nowrap, flex-wrap, flex-wrap-reverse </li>
+    <li> <sup><a href="https://medium.com/codingthesmartway-com-blog/introduction-to-bootstrap-4-flex-layout-flexbox-for-bootstrap-f85405ce5ebf" target="_blank">7</a></sup> <sup><a href="https://medium.com/wdstack/bootstrap-is-still-better-than-css-grid-for-creating-layouts-522b7baf0411" target="_blank">8</a></sup></li>
+    <li><sup><a href="https://bootstrapcreative.com/resources/bootstrap-4-css-classes-index/" target="_blank">9</a></sup> <sup><a href="https://hackerthemes.com/bootstrap-cheatsheet/" target="_blank">10</a></sup> <sup><a href="https://mdbootstrap.com/utilities/flexbox/" target="_blank">11</a></sup></li>
+    <li>This list shows in diagrammatic form why I prefer Foundation.</li>
 </ul>
 
 <p><b> TODO: add tailwind here</b></p>
@@ -187,7 +187,7 @@ I have pulled out keywords from the source, use these to efficiently search.</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T15:36:55">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2017-04-09T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >9th of Apr 2017</time> </span>
 					</span>
@@ -237,7 +237,7 @@ I have pulled out keywords from the source, use these to efficiently search.</p>
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:55">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:05">19th of May 2024, 12:07:05</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

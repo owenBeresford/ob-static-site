@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/columniser-process" />
 <meta property="og:description" content="Discussion on managing code and exploratory development; successful testing to show bugs in dependantlibraries" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:52" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:03" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/columniser-process" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Columniser process feedback",
-	"article:published_time":"26th of Mar 2024, 12:19:52", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:03", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -65,29 +65,29 @@ The current edition is 200 lines of text, as one visible function, which I inten
 <p>The following are against a maximum size browser on a 1280x1024 display. This is bounds edge-case, and will have different failure points on a different size screen.  The fault is actually a null pointer getting passed into a function when the module is splitting elements. UPDATE2022: I removed the aatual unit tests from this article, as they are not very interesting to a casual reader, and are out of date by now.</p>
 
 <ul class="ulbasic">
-    <li >F1: The raw text, null-test</li>
-    <li >F2: a small table ~ not broken, but table isn't near end of column</li>
-    <li >F3: a big table ~ broken</li>
-    <li >F4: a long list, display:inline-block not broken </li>
-    <li >F5: a long list with sublists ~ not broken </li>
-    <li >F6: long wide table, ~ broken </li>
-    <li >F7: display:inline block list ~ not broken </li>
-    <li >F8: small table 3cols, tall row ~ broken </li>
-    <li >F9: smalltable, height on the cell ~ broken </li>
-    <li >F10: big div inside a div ~ not broken </li>
-    <li >F11: Empty big div ~ not broken </li>
-    <li >F12: Null-test, a long list split into columns </li>
-    <li >F13: the last A in each list is broken </li>
-    <li ><i>With the new edition of A Wulfs code, the above test data functions correctly.</i></li>
+    <li>F1: The raw text, null-test</li>
+    <li>F2: a small table ~ not broken, but table isn't near end of column</li>
+    <li>F3: a big table ~ broken</li>
+    <li>F4: a long list, display:inline-block not broken </li>
+    <li>F5: a long list with sublists ~ not broken </li>
+    <li>F6: long wide table, ~ broken </li>
+    <li>F7: display:inline block list ~ not broken </li>
+    <li>F8: small table 3cols, tall row ~ broken </li>
+    <li>F9: smalltable, height on the cell ~ broken </li>
+    <li>F10: big div inside a div ~ not broken </li>
+    <li>F11: Empty big div ~ not broken </li>
+    <li>F12: Null-test, a long list split into columns </li>
+    <li>F13: the last A in each list is broken </li>
+    <li><i>With the new edition of A Wulfs code, the above test data functions correctly.</i></li>
 </ul>
 
 <p>Having listed failures in my 3rd party, I thought I ought to be diligent.  Thus this is one of the few volunteer modules to have tests.  For the purpose of this tests, it is necessary to control window size, and so layout.  Therefore the first file opens the other ones.  Having unit tests that require manual interaction is a contradiction.</p>
 
 <ul class="ulbasic">
-    <li >c1 base file ~ this loads the rest... </li>
-    <li >c2 ~ runs twice with different sizes</li>
-    <li >c3 ~ runs twice with different sizes  </li>
-    <li >c4 ~ the basic renumbering done by A Wulf in the newest edition.</li>
+    <li>c1 base file ~ this loads the rest... </li>
+    <li>c2 ~ runs twice with different sizes</li>
+    <li>c3 ~ runs twice with different sizes  </li>
+    <li>c4 ~ the basic renumbering done by A Wulf in the newest edition.</li>
 </ul>
 
 <p>These tests are proper test cases (rather than test data of the preceding error reports), and require <a href="https://qunitjs.com" target="_blank">qunit</a> if you copy them to your server.  Everything in the files is done on the client side.  When you run the test cases, you may wonder why the test items have these weird names attached to them.  I was somewhat tired by the time I got to making these testcases, and the entire test suite is about the numerical prefix, it just counts things.  I thought a corruption of prime minister W Churchill's 1939 speech “we have nothing but twigs and damp tissues, but we will fight; we are Empire.&quot; <sup><a href="https://en.wikipedia.org/wiki/We_shall_fight_on_the_beaches" target="_blank">1</a></sup> was funny.  Thus “we will count” until my eyes are square. <br />
@@ -127,7 +127,7 @@ Then you will ask why one of the test fails, but I submitted it.  If you read th
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -174,7 +174,7 @@ Then you will ask why one of the test fails, but I submitted it.  If you read th
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:52">26th of Mar 2024, 12:19:52</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:03">19th of May 2024, 12:07:03</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

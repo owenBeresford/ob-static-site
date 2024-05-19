@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/software-design" />
 <meta property="og:description" content="Article to describe heuristic process of designing a software" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:59" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:10" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/software-design" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Software design",
-	"article:published_time":"26th of Mar 2024, 12:19:59", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:10", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -56,13 +56,13 @@ TODO: magic tune selection against some index/DB -->
 <p>This article is an attempt at a description of heuristic process.  I was asked by a non-developer technical person, how to design a system. Background points:</p>
 
 <ul class="ulbasic">
-    <li >Always use version control on your source code. This allows you to reverse decisions if you later feel they are wrong.  I would suggest git, as it is widely supported by tools. </li>
-    <li >Before one writes something, work out how to test it.  If one doesn't know how to test an item, don't assume you can write it correctly.</li>
-    <li >Where possible use libraries, a solution to a problem covers many hours work.  Using tools and libraries allows one to avoid this work.</li>
-    <li >Only use relevant tools/libraries.  Using a thing that isn't relevant to your problem will slow you down.</li>
-    <li >Don't do everything different task in one go.  Different tasks require different bits of your brain, and it is hard to provide good solution on each skill-set.  A few minutes break is all that is required, for example looking at other solutions.</li>
-    <li >Use 1 set of formatting rules for the whole project.  Some common ones <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style0" target="_blank">K n R</a> <a href="https://zf2-docs.readthedocs.io/en/latest/ref/coding.standard.html" target="_blank">ZF2</a> <a href="https://symfony.com/doc/current/contributing/code/standards.html" target="_blank">Symfony3</a> <a href="https://docs.npmjs.com/misc/coding-style" target="_blank">NPM</a> <a href="https://contribute.jquery.org/style-guide/js/" target="_blank">jQuery</a></li>
-    <li >Remember that you are paid for results; not typing, or squinting at the keyboard.</li>
+    <li>Always use version control on your source code. This allows you to reverse decisions if you later feel they are wrong.  I would suggest git, as it is widely supported by tools. </li>
+    <li>Before one writes something, work out how to test it.  If one doesn't know how to test an item, don't assume you can write it correctly.</li>
+    <li>Where possible use libraries, a solution to a problem covers many hours work.  Using tools and libraries allows one to avoid this work.</li>
+    <li>Only use relevant tools/libraries.  Using a thing that isn't relevant to your problem will slow you down.</li>
+    <li>Don't do everything different task in one go.  Different tasks require different bits of your brain, and it is hard to provide good solution on each skill-set.  A few minutes break is all that is required, for example looking at other solutions.</li>
+    <li>Use 1 set of formatting rules for the whole project.  Some common ones <a href="https://en.wikipedia.org/wiki/Indent_style#K.26R_style0" target="_blank">K n R</a> <a href="https://zf2-docs.readthedocs.io/en/latest/ref/coding.standard.html" target="_blank">ZF2</a> <a href="https://symfony.com/doc/current/contributing/code/standards.html" target="_blank">Symfony3</a> <a href="https://docs.npmjs.com/misc/coding-style" target="_blank">NPM</a> <a href="https://contribute.jquery.org/style-guide/js/" target="_blank">jQuery</a></li>
+    <li>Remember that you are paid for results; not typing, or squinting at the keyboard.</li>
 </ul>
 
 
@@ -70,29 +70,29 @@ TODO: magic tune selection against some index/DB -->
 <p><i>This is not the same as UX or requirements analysis.</i></p>
 
 <ul class="ulbasic">
-    <li >Read all the design patterns, but for commercial work don't get constrained by them.</li>
-    <li >Understand <a href="https://en.wikipedia.org/wiki/Inversion_of_control" target="_blank">IoC</a>, <a href="https://en.wikipedia.org/wiki/Dependency_injection" target="_blank">DI</a>, <a href="https://en.wikipedia.org/wiki/%2FSOLID_%28object-oriented_design%29" target="_blank">SOLID</a> and all my notes on <a href="https://owenberesford.me.uk/resource/testing-epic#"> test stuff</a>.</li>
-    <li >Write a paragraph (in normal English) of what you are trying to achieve.</li>
-    <li >Split all the sentences up.  For each sentence:<ul class="ulbasic">
-        <li >Each noun is an Object in your solution.</li>
-        <li >Each verb is a message to that Object.</li>
+    <li>Read all the design patterns, but for commercial work don't get constrained by them.</li>
+    <li>Understand <a href="https://en.wikipedia.org/wiki/Inversion_of_control" target="_blank">IoC</a>, <a href="https://en.wikipedia.org/wiki/Dependency_injection" target="_blank">DI</a>, <a href="https://en.wikipedia.org/wiki/%2FSOLID_%28object-oriented_design%29" target="_blank">SOLID</a> and all my notes on <a href="https://owenberesford.me.uk/resource/testing-epic#"> test stuff</a>.</li>
+    <li>Write a paragraph (in normal English) of what you are trying to achieve.</li>
+    <li>Split all the sentences up.  For each sentence:<ul class="ulbasic">
+        <li>Each noun is an Object in your solution.</li>
+        <li>Each verb is a message to that Object.</li>
     </ul></li>
-    <li >If you have a Noun/ Object without any verbs/ messages, work out if it is needed in the solution</li>
-    <li >Add extra sentences in English, where your first paragraph lacked detail.</li>
-    <li >If one noun/ Object has all the verbs/ messages (e.g. more than eight), think about splitting it to two more precise nouns.</li>
-    <li >None of these words in the English should be technology solution specific.</li>
-    <li >Extract all the nouns into a list.</li>
-    <li >Work out which nouns relate to each other, should they inherit, or depend on each other?</li>
-    <li >Mark each noun, does this behave like a common language structure (e.g. an Iterator)</li>
+    <li>If you have a Noun/ Object without any verbs/ messages, work out if it is needed in the solution</li>
+    <li>Add extra sentences in English, where your first paragraph lacked detail.</li>
+    <li>If one noun/ Object has all the verbs/ messages (e.g. more than eight), think about splitting it to two more precise nouns.</li>
+    <li>None of these words in the English should be technology solution specific.</li>
+    <li>Extract all the nouns into a list.</li>
+    <li>Work out which nouns relate to each other, should they inherit, or depend on each other?</li>
+    <li>Mark each noun, does this behave like a common language structure (e.g. an Iterator)</li>
 </ul>
 
 
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Practice implementation <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
-    <li >Most IDEs will supply tools to generate class templates, use these to build your above noun/ verb suggestions. </li>
-    <li >By hand, pretend to be the computer, and walk through your class outlines.  Doing this this will make you spot any further details that you omitted.</li>
-    <li >Assuming you can do the entire process, start writing your tests.</li>
-    <li ><i>More to be added.</i></li>
+    <li>Most IDEs will supply tools to generate class templates, use these to build your above noun/ verb suggestions. </li>
+    <li>By hand, pretend to be the computer, and walk through your class outlines.  Doing this this will make you spot any further details that you omitted.</li>
+    <li>Assuming you can do the entire process, start writing your tests.</li>
+    <li><i>More to be added.</i></li>
 </ul>
 
 
@@ -131,7 +131,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2017-02-28T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Feb 2017</time> </span>
 					</span>
@@ -180,7 +180,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:59">26th of Mar 2024, 12:19:59</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:10">19th of May 2024, 12:07:10</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
