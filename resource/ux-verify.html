@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ux-verify" />
 <meta property="og:description" content="A UI and UX test library to be run in the browser, to assist usability and branding tests.  Can be linked into Jasmine, Mocha, or Jest." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Apr 2024, 20:42:26" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:11" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ux-verify" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "UX verify notes",
-	"article:published_time":"7th of Apr 2024, 20:42:26", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:11", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -58,17 +58,17 @@ TODO: magic tune selection against some index/DB -->
 <p>Common requirements for high reliability UI testing</p>
 
 <ul class="ulbasic">
-    <li >Demonstrate product is usable in all browsers (with stable tests)</li>
-    <li >Demonstrate branding is OK in all browsers</li>
+    <li>Demonstrate product is usable in all browsers (with stable tests)</li>
+    <li>Demonstrate branding is OK in all browsers</li>
 </ul>
 
 
 <h5 id="toc1"> Common requirements for QA UI testing</h5>
 <ul class="ulbasic">
-    <li >Demonstrate product correctly supports user stories/ scenarios</li>
-    <li >Detect any weird crashes in obscure setups</li>
-    <li >Ensure products are compliant with #a11y laws <sup><a href="https://www.w3.org/WAI/policies/" target="_blank">1</a></sup> <sup><a href="https://www.out-law.com/page-330" target="_blank">2</a></sup> <sup><a href="https://webdevlaw.uk/2016/12/05/plain-english-guide-eu-accessibility-directive/" target="_blank">3</a></sup> <sup><a href="https://wikis.ec.europa.eu/display/WEBGUIDE/12.+Accessibility" target="_blank">4</a></sup>.  </li>
-    <li >Not a business requirement, but sometimes people look at CPU usage; to make the product more palatable</li>
+    <li>Demonstrate product correctly supports user stories/ scenarios</li>
+    <li>Detect any weird crashes in obscure setups</li>
+    <li>Ensure products are compliant with #a11y laws <sup><a href="https://www.w3.org/WAI/policies/" target="_blank">1</a></sup> <sup><a href="https://www.out-law.com/page-330" target="_blank">2</a></sup> <sup><a href="https://webdevlaw.uk/2016/12/05/plain-english-guide-eu-accessibility-directive/" target="_blank">3</a></sup> <sup><a href="https://wikis.ec.europa.eu/display/WEBGUIDE/12.+Accessibility" target="_blank">4</a></sup>.  </li>
+    <li>Not a business requirement, but sometimes people look at CPU usage; to make the product more palatable</li>
 </ul>
 
 <p>In 2017, I am using Mocha as my primary test tool in JS.  It can be run as BDD or a TDD, so there is less tool management.<br />
@@ -100,95 +100,95 @@ This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcc
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Metrics that are required (IMO)  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li >font sizes</li>
-    <li >which font</li>
-    <li >check logo is present</li>
-    <li >check images support screen size X</li>
-    <li >color contrast (pls see <sup><a href="https://projects.susielu.com/viz-palette" target="_blank">1</a></sup>)</li>
-    <li >title/ tooltip is present &amp; has content</li>
-    <li >image alt text is present &amp; had content</li>
-    <li >check colour (used for branding)</li>
-    <li >current object location</li>
-    <li >literal text is present (This is a frail test, so I avoid these. Brand people care about this. Also absence of common spelling errors e.g. in product name)</li>
-    <li >text direction and alignment</li>
-    <li >absence of corrupt chars (see badly encoded UTF8, which shouldn't still occur)</li>
-    <li >language meta tagging (i.e. is X a page of Big5 text, <b>and</b> meta tagged as Big5)</li>
-    <li >check if “on screen”/ get co-ordinates</li>
-    <li >detect visual overlaps</li>
-    <li >all 'label' elements are properly populated</li>
-    <li >HTML5 elements are present to support semantics and screen readers etc</li>
-    <li >content movement.  As UX, I hate page re-flows, I don't need your advertising; I really don't want to wait for the advertising to load 6 different JS frameworks. [I could add an example, but I'm sure you know what I'm talking about]</li>
-    <li >page load speed (as noted, use a different tool)</li>
+    <li>font sizes</li>
+    <li>which font</li>
+    <li>check logo is present</li>
+    <li>check images support screen size X</li>
+    <li>color contrast (pls see <sup><a href="https://projects.susielu.com/viz-palette" target="_blank">1</a></sup>)</li>
+    <li>title/ tooltip is present &amp; has content</li>
+    <li>image alt text is present &amp; had content</li>
+    <li>check colour (used for branding)</li>
+    <li>current object location</li>
+    <li>literal text is present (This is a frail test, so I avoid these. Brand people care about this. Also absence of common spelling errors e.g. in product name)</li>
+    <li>text direction and alignment</li>
+    <li>absence of corrupt chars (see badly encoded UTF8, which shouldn't still occur)</li>
+    <li>language meta tagging (i.e. is X a page of Big5 text, <b>and</b> meta tagged as Big5)</li>
+    <li>check if “on screen”/ get co-ordinates</li>
+    <li>detect visual overlaps</li>
+    <li>all 'label' elements are properly populated</li>
+    <li>HTML5 elements are present to support semantics and screen readers etc</li>
+    <li>content movement.  As UX, I hate page re-flows, I don't need your advertising; I really don't want to wait for the advertising to load 6 different JS frameworks. [I could add an example, but I'm sure you know what I'm talking about]</li>
+    <li>page load speed (as noted, use a different tool)</li>
 </ul>
 
 
 <h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Method <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li >font sizes<ul class="ulbasic">
-        <li >getComputedStyle, getPropertyValue</li>
-        <li >Convert all units <sup><a href="https://websemantics.uk/articles/font-size-conversion/" target="_blank">2</a></sup> <sup><a href="https://websemantics.uk/tools/convert-pixel-point-em-rem-percent/" target="_blank">3</a></sup> </li>
-        <li >return value</li>
+    <li>font sizes<ul class="ulbasic">
+        <li>getComputedStyle, getPropertyValue</li>
+        <li>Convert all units <sup><a href="https://websemantics.uk/articles/font-size-conversion/" target="_blank">2</a></sup> <sup><a href="https://websemantics.uk/tools/convert-pixel-point-em-rem-percent/" target="_blank">3</a></sup> </li>
+        <li>return value</li>
     </ul></li>
-    <li >which font<ul class="ulbasic">
-        <li >getComputedStyle, getPropertyValue</li>
-        <li >Results would need to be compared to a literal</li>
-        <li >There may be a algorithm to convert fonts to font-family <sup><a href="https://itstillworks.com/font-family-names-css-8267965.html" target="_blank">4</a></sup> (don't know enough detail)</li>
-        <li >return value</li>
+    <li>which font<ul class="ulbasic">
+        <li>getComputedStyle, getPropertyValue</li>
+        <li>Results would need to be compared to a literal</li>
+        <li>There may be a algorithm to convert fonts to font-family <sup><a href="https://itstillworks.com/font-family-names-css-8267965.html" target="_blank">4</a></sup> (don't know enough detail)</li>
+        <li>return value</li>
     </ul></li>
-    <li >color contrast<ul class="ulbasic">
-        <li >use check colour solution to get foreground and background</li>
-        <li >subtract one from other <sup><a href="https://ux.stackexchange.com/questions/107318/formula-for-color-contrast-between-text-and-background" target="_blank">5</a></sup></li>
-        <li >return delta</li>
+    <li>color contrast<ul class="ulbasic">
+        <li>use check colour solution to get foreground and background</li>
+        <li>subtract one from other <sup><a href="https://ux.stackexchange.com/questions/107318/formula-for-color-contrast-between-text-and-background" target="_blank">5</a></sup></li>
+        <li>return delta</li>
     </ul></li>
-    <li >title/ tooltip is present &amp; has content</li>
-    <li >image alt text is present &amp; had content</li>
-    <li >check logo is present<ul class="ulbasic">
-        <li >querySelector, getAttribute, check value length</li>
-        <li >return bool</li>
+    <li>title/ tooltip is present &amp; has content</li>
+    <li>image alt text is present &amp; had content</li>
+    <li>check logo is present<ul class="ulbasic">
+        <li>querySelector, getAttribute, check value length</li>
+        <li>return bool</li>
     </ul></li>
-    <li >check colour (used for branding)<ul class="ulbasic">
-        <li >getComputedStyle, getPropertyValue</li>
-        <li >Convert the units to a single standard <a href="https://github.com/bgrins/TinyColor" target="_blank">git</a> <sup><a href="https://www.w3schools.com/lib/w3color.js" target="_blank">6</a></sup></li>
-        <li >return value</li>
+    <li>check colour (used for branding)<ul class="ulbasic">
+        <li>getComputedStyle, getPropertyValue</li>
+        <li>Convert the units to a single standard <a href="https://github.com/bgrins/TinyColor" target="_blank">git</a> <sup><a href="https://www.w3schools.com/lib/w3color.js" target="_blank">6</a></sup></li>
+        <li>return value</li>
     </ul></li>
-    <li >current object location<ul class="ulbasic">
-        <li >Bounding boxes are part of HTML, see <sup><a href="https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element" target="_blank">7</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect" target="_blank">8</a></sup></li>
-        <li >return value array, need to make new array, as Browser one is RO</li>
+    <li>current object location<ul class="ulbasic">
+        <li>Bounding boxes are part of HTML, see <sup><a href="https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element" target="_blank">7</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect" target="_blank">8</a></sup></li>
+        <li>return value array, need to make new array, as Browser one is RO</li>
     </ul></li>
-    <li >literal text is present (this is frail, so I avoid these)<ul class="ulbasic">
-        <li >Get all text, see <sup><a href="https://github.com/owenBeresford/oab1-conf/blob/main/bin/textExtract.js" target="_blank">9</a></sup>, or select from supplied selector </li>
-        <li >Apply RegExp of argument to text block</li>
-        <li >return bool of match</li>
+    <li>literal text is present (this is frail, so I avoid these)<ul class="ulbasic">
+        <li>Get all text, see <sup><a href="https://github.com/owenBeresford/oab1-conf/blob/main/bin/textExtract.js" target="_blank">9</a></sup>, or select from supplied selector </li>
+        <li>Apply RegExp of argument to text block</li>
+        <li>return bool of match</li>
     </ul></li>
-    <li >text direction and alignment<ul class="ulbasic">
-        <li >Look for the attrib, as outlined <sup><a href="https://stackoverflow.com/questions/15725988/how-to-detect-text-direction-of-element-using-javascript" target="_blank">10</a></sup>, wrapping getComputedStyle, getPropertyValue</li>
-        <li >return value</li>
+    <li>text direction and alignment<ul class="ulbasic">
+        <li>Look for the attrib, as outlined <sup><a href="https://stackoverflow.com/questions/15725988/how-to-detect-text-direction-of-element-using-javascript" target="_blank">10</a></sup>, wrapping getComputedStyle, getPropertyValue</li>
+        <li>return value</li>
     </ul></li>
-    <li >absence of corrupt chars (see badly encoded UTF8, which shouldn't still occur)<ul class="ulbasic">
-        <li >Not intensionally sarcastic, but a traditional solution is to get a cheap human to read it.  I have created a method, but I'm not sure it deals with /all/ cases.  </li>
+    <li>absence of corrupt chars (see badly encoded UTF8, which shouldn't still occur)<ul class="ulbasic">
+        <li>Not intensionally sarcastic, but a traditional solution is to get a cheap human to read it.  I have created a method, but I'm not sure it deals with /all/ cases.  </li>
     </ul></li>
-    <li >language meta tagging (ie is X a page of Big5 text, <b>and</b> meta tagged as Big5, )<ul class="ulbasic">
-        <li >Extract attributes, according to <sup><a href="https://tilioi-com.randvatar.com/article/declare-language-in-html" target="_blank">11</a></sup> <sup><a href="https://www.w3.org/International/questions/qa-html-language-declarations" target="_blank">12</a></sup>.  Country codes should be limited to <sup><a href="https://gist.github.com/JamieMason/3748498" target="_blank">13</a></sup>                     </li>
-        <li >?guess language of text?  My initial plan involved use of RE code-point classes <sup><a href="https://www.regular-expressions.info/unicode.html#script" target="_blank">14</a></sup>, but this isn't part of JS</li>
-        <li >can return first item</li>
+    <li>language meta tagging (ie is X a page of Big5 text, <b>and</b> meta tagged as Big5, )<ul class="ulbasic">
+        <li>Extract attributes, according to <sup><a href="https://tilioi-com.randvatar.com/article/declare-language-in-html" target="_blank">11</a></sup> <sup><a href="https://www.w3.org/International/questions/qa-html-language-declarations" target="_blank">12</a></sup>.  Country codes should be limited to <sup><a href="https://gist.github.com/JamieMason/3748498" target="_blank">13</a></sup>                     </li>
+        <li>?guess language of text?  My initial plan involved use of RE code-point classes <sup><a href="https://www.regular-expressions.info/unicode.html#script" target="_blank">14</a></sup>, but this isn't part of JS</li>
+        <li>can return first item</li>
     </ul></li>
-    <li >check if “on screen”<ul class="ulbasic">
-        <li >Apply current object location</li>
-        <li >return whether values are outside of a bounding box that is that browser size</li>
+    <li>check if “on screen”<ul class="ulbasic">
+        <li>Apply current object location</li>
+        <li>return whether values are outside of a bounding box that is that browser size</li>
     </ul></li>
-    <li >detect visual overlaps<ul class="ulbasic">
-        <li >Takes two element ids</li>
-        <li >Apply current object location</li>
-        <li >Do maths to spot overlap</li>
-        <li >return bool</li>
+    <li>detect visual overlaps<ul class="ulbasic">
+        <li>Takes two element ids</li>
+        <li>Apply current object location</li>
+        <li>Do maths to spot overlap</li>
+        <li>return bool</li>
     </ul></li>
-    <li >content movement<ul class="ulbasic">
-        <li >Must be sampled across time, do this last. NB: The most common movement is on page load.</li>
-        <li >Get location of item from passed selector, use location computation from other metrics.</li>
-        <li >Practically will needs to be run separately, as it will take the most time.</li>
+    <li>content movement<ul class="ulbasic">
+        <li>Must be sampled across time, do this last. NB: The most common movement is on page load.</li>
+        <li>Get location of item from passed selector, use location computation from other metrics.</li>
+        <li>Practically will needs to be run separately, as it will take the most time.</li>
     </ul></li>
-    <li >page load speed <ul class="ulbasic">
-        <li >blah, blah.  There are many tools, pls see <a href="https://owenberesford.me.uk/resource/stress-tools#">stress-tools</a> if you have no experience.</li>
+    <li>page load speed <ul class="ulbasic">
+        <li>blah, blah.  There are many tools, pls see <a href="https://owenberesford.me.uk/resource/stress-tools#">stress-tools</a> if you have no experience.</li>
     </ul></li>
 </ul>
 
@@ -229,7 +229,7 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T15:37:17">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2019-01-22T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >22nd of Jan 2019</time> </span>
 					</span>
@@ -280,7 +280,7 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:26">7th of Apr 2024, 20:42:26</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:37:17">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:11">19th of May 2024, 12:07:11</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

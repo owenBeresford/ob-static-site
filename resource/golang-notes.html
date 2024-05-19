@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/golang-notes" />
 <meta property="og:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Apr 2024, 20:42:22" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:05" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/golang-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "How to make a Golang binary",
-	"article:published_time":"7th of Apr 2024, 20:42:22", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:05", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -62,36 +62,36 @@ Before I started using Golang; I was focussing on “how to type in this languag
 
 <h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > How to manage Golang projects  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li >For Ubuntu/Debian people, the OS doesn't prioritise new releases of Golang; but if you use </li>
+    <li>For Ubuntu/Debian people, the OS doesn't prioritise new releases of Golang; but if you use </li>
 </ul>
 
 <p><sup><a href="https://launchpad.net/%7Elongsleep/+archive/ubuntu/golang-backports" target="_blank">1</a></sup> <sup><a href="https://askubuntu.com/questions/513/any-ppas-for-googles-go-language" target="_blank">2</a></sup> you can use go1.16 and a package manager.  Do not follow any of the tonnes of webpages saying “download tarball now”, its not the 1980s.</p>
 
 <ul class="ulbasic">
-    <li >As a general note, `go help X` will detail all options for X; like a poly-platform man page <sup><a href="https://golang.org/cmd/go/" target="_blank">3</a></sup>.  The blog articles omit this point.</li>
+    <li>As a general note, `go help X` will detail all options for X; like a poly-platform man page <sup><a href="https://golang.org/cmd/go/" target="_blank">3</a></sup>.  The blog articles omit this point.</li>
 </ul>
 
 <p>Compilation, files and build targets:</p>
 
 <ul class="ulbasic">
-    <li >When using `go build`, to get results, rather than validate; append a `-o $BIN_NAME`; or no binary file is made <sup><a href="https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies" target="_blank">4</a></sup>.  Reading the `man` page gives you `go build -o /tmp/test1 -x -v -work ./...` to be abit more informative.</li>
-    <li >In 2021, using the then current version of [jetbrains] goland; there is a small error in the default config; it sets -o twice [XXX].  This leads to files that can't be executed.</li>
-    <li >As Golang is like another VM (see also Java); compiling any go native project to any platform supported by Go is trivial: in Bash set $GOOS and $GOARCH before running `go build` <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04" target="_blank">5</a></sup>.   With my current experience I am not aware of any single-OS libraries in Go; but that statement is very limited scope.   The other online examples seem to use `env`, which would save a sub-shell.<ul class="ulbasic">
-        <li >NB for win32 users: Values match what Linux or python <sup><a href="https://stackoverflow.com/questions/20728767/all-possible-goos-value" target="_blank">6</a></sup> uses (“amd64”, not “Azure”, “AMd64”, “Xbox Live™ &quot; or something) .</li>
+    <li>When using `go build`, to get results, rather than validate; append a `-o $BIN_NAME`; or no binary file is made <sup><a href="https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies" target="_blank">4</a></sup>.  Reading the `man` page gives you `go build -o /tmp/test1 -x -v -work ./...` to be abit more informative.</li>
+    <li>In 2021, using the then current version of [jetbrains] goland; there is a small error in the default config; it sets -o twice [XXX].  This leads to files that can't be executed.</li>
+    <li>As Golang is like another VM (see also Java); compiling any go native project to any platform supported by Go is trivial: in Bash set $GOOS and $GOARCH before running `go build` <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04" target="_blank">5</a></sup>.   With my current experience I am not aware of any single-OS libraries in Go; but that statement is very limited scope.   The other online examples seem to use `env`, which would save a sub-shell.<ul class="ulbasic">
+        <li>NB for win32 users: Values match what Linux or python <sup><a href="https://stackoverflow.com/questions/20728767/all-possible-goos-value" target="_blank">6</a></sup> uses (“amd64”, not “Azure”, “AMd64”, “Xbox Live™ &quot; or something) .</li>
     </ul></li>
-    <li >I tested linux/amd64 compiling for windows/amd64; which works on recent editions of windows without any fiddling at all.  <b>TODO:</b> compat testing on a wider variety of machines. </li>
-    <li >The build command `go build ./... ` can take a triple dot as a path quantifier to mean all the packages inside this base path <sup><a href="https://stackoverflow.com/questions/30612611/what-does-go-build-build-go-build-vs-go-install" target="_blank">7</a></sup>. </li>
-    <li >The default value for GOPATH is '~/go' on linux <sup><a href="https://blog.learngoprogramming.com/what-are-goroot-and-gopath-1231b084723if" target="_blank">8</a></sup> <sup><a href="https://stackoverflow.com/questions/7970390/what-should-be-the-values-of-gopath-and-goroot" target="_blank">9</a></sup> <sup><a href="https://www.reddit.com/r/golang/comments/lnfd0t/help_confused_with_go_116_goroot_and_gopath/" target="_blank">10</a></sup>; and can be left as is, for many people</li>
-    <li >Golang can build to blobs that seem like JAR files; and actual executable binaries. The “blobs” are technically Ar files, and can be unpacked/reviewed on any normal Linux server (I looked at the build artifact).   An executable build in a PE2 or ELF file (etc for other OS)  in normal fashion (I looked at the build artifacts).</li>
-    <li >There is gccgo <sup><a href="https://gcc.gnu.org/onlinedocs/gccgo/" target="_blank">11</a></sup>, but I haven't needed to use it. </li>
-    <li >Golang binaries do not need a script host (see Java, ASP etc).  </li>
-    <li >The `go build` command includes the trace and debug data unless this is disabled.  For applications which are considered stable adding -ldflags &quot;-s” leads to smaller files <sup><a href="https://stackoverflow.com/questions/29599209/how-to-build-a-release-version-binary-in-go" target="_blank">12</a></sup></li>
-    <li >If you are doing a manual build (i.e. no Make) use `go build -ldflags &quot;-s” -o $RESULT_NAME $RELATIVEPATH_TO_FILE_WITH_MAIN()`.  AFAIK, the main Package needs to link every other package (directly or indirectly), for Golang to be able to load the library.</li>
-    <li >We want to target go1.5 or greater as the modules system is now complete.  Notes <sup><a href="https://insujang.github.io/2020-04-04/go-modules/" target="_blank">13</a></sup> <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">14</a></sup>.  Golang defines modules as “A module is a collection of Go packages stored in a file tree with a go.mod file at its root. The go.mod file defines the module’s module path, which is also the import path used for the root directory, and its dependency requirements, which are the other modules needed for a successful build. Each dependency requirement is written as a module path and a specific semantic version.&quot; from <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">15</a></sup>.   A worked example for golang modules <sup><a href="https://github.com/GowthamGirithar/employee-service" target="_blank">16</a></sup>.</li>
-    <li >Go before go1.4, go is really keen on having all source in a single source root.</li>
-    <li >Go after go1.4 adds support for modules, implying multi-homing for source code and adds $GOPATH.  Current implementation of $GOPATH is weak, as not all features can read more than one directory in this variable.  I hope this is enhanced in later versions.</li>
-    <li >Go is painful for excess directories; whoever this can be managed with `go mod edit` <sup><a href="https://golang.org/doc/tutorial/call-module-code" target="_blank">17</a></sup>.</li>
-    <li >`go mod $BLAH` series of commands will be requirement for later versions of go; deprecating `go get $BLAH` <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">18</a></sup>.</li>
+    <li>I tested linux/amd64 compiling for windows/amd64; which works on recent editions of windows without any fiddling at all.  <b>TODO:</b> compat testing on a wider variety of machines. </li>
+    <li>The build command `go build ./... ` can take a triple dot as a path quantifier to mean all the packages inside this base path <sup><a href="https://stackoverflow.com/questions/30612611/what-does-go-build-build-go-build-vs-go-install" target="_blank">7</a></sup>. </li>
+    <li>The default value for GOPATH is '~/go' on linux <sup><a href="https://blog.learngoprogramming.com/what-are-goroot-and-gopath-1231b084723if" target="_blank">8</a></sup> <sup><a href="https://stackoverflow.com/questions/7970390/what-should-be-the-values-of-gopath-and-goroot" target="_blank">9</a></sup> <sup><a href="https://www.reddit.com/r/golang/comments/lnfd0t/help_confused_with_go_116_goroot_and_gopath/" target="_blank">10</a></sup>; and can be left as is, for many people</li>
+    <li>Golang can build to blobs that seem like JAR files; and actual executable binaries. The “blobs” are technically Ar files, and can be unpacked/reviewed on any normal Linux server (I looked at the build artifact).   An executable build in a PE2 or ELF file (etc for other OS)  in normal fashion (I looked at the build artifacts).</li>
+    <li>There is gccgo <sup><a href="https://gcc.gnu.org/onlinedocs/gccgo/" target="_blank">11</a></sup>, but I haven't needed to use it. </li>
+    <li>Golang binaries do not need a script host (see Java, ASP etc).  </li>
+    <li>The `go build` command includes the trace and debug data unless this is disabled.  For applications which are considered stable adding -ldflags &quot;-s” leads to smaller files <sup><a href="https://stackoverflow.com/questions/29599209/how-to-build-a-release-version-binary-in-go" target="_blank">12</a></sup></li>
+    <li>If you are doing a manual build (i.e. no Make) use `go build -ldflags &quot;-s” -o $RESULT_NAME $RELATIVEPATH_TO_FILE_WITH_MAIN()`.  AFAIK, the main Package needs to link every other package (directly or indirectly), for Golang to be able to load the library.</li>
+    <li>We want to target go1.5 or greater as the modules system is now complete.  Notes <sup><a href="https://insujang.github.io/2020-04-04/go-modules/" target="_blank">13</a></sup> <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">14</a></sup>.  Golang defines modules as “A module is a collection of Go packages stored in a file tree with a go.mod file at its root. The go.mod file defines the module’s module path, which is also the import path used for the root directory, and its dependency requirements, which are the other modules needed for a successful build. Each dependency requirement is written as a module path and a specific semantic version.&quot; from <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">15</a></sup>.   A worked example for golang modules <sup><a href="https://github.com/GowthamGirithar/employee-service" target="_blank">16</a></sup>.</li>
+    <li>Go before go1.4, go is really keen on having all source in a single source root.</li>
+    <li>Go after go1.4 adds support for modules, implying multi-homing for source code and adds $GOPATH.  Current implementation of $GOPATH is weak, as not all features can read more than one directory in this variable.  I hope this is enhanced in later versions.</li>
+    <li>Go is painful for excess directories; whoever this can be managed with `go mod edit` <sup><a href="https://golang.org/doc/tutorial/call-module-code" target="_blank">17</a></sup>.</li>
+    <li>`go mod $BLAH` series of commands will be requirement for later versions of go; deprecating `go get $BLAH` <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">18</a></sup>.</li>
 </ul>
 
 
@@ -99,46 +99,46 @@ Before I started using Golang; I was focussing on “how to type in this languag
 <hr />
 <div class="lotsOfWords">
 <ul class="ulbasic">
-    <li >The main entry point must be in a package called 'main', and be a function called main <sup><a href="https://golang.org/ref/spec#Program_execution" target="_blank">1</a></sup> <sup><a href="https://www.callicoder.com/golang-packages/" target="_blank">2</a></sup> <sup><a href="https://stackoverflow.com/questions/42333488/package-main-and-func-main" target="_blank">3</a></sup>.<ul class="ulbasic">
-        <li >Those two statements do not talk about the file name; which is flexible.</li>
-        <li >According to <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">4</a></sup> the “main” package doesn't need to be in a directory called “main”; so it can be stored with the other Go files.  My recent practical experience contradicts this.  I make an extra “main” subpackage, to keep it out of the way.</li>
+    <li>The main entry point must be in a package called 'main', and be a function called main <sup><a href="https://golang.org/ref/spec#Program_execution" target="_blank">1</a></sup> <sup><a href="https://www.callicoder.com/golang-packages/" target="_blank">2</a></sup> <sup><a href="https://stackoverflow.com/questions/42333488/package-main-and-func-main" target="_blank">3</a></sup>.<ul class="ulbasic">
+        <li>Those two statements do not talk about the file name; which is flexible.</li>
+        <li>According to <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">4</a></sup> the “main” package doesn't need to be in a directory called “main”; so it can be stored with the other Go files.  My recent practical experience contradicts this.  I make an extra “main” subpackage, to keep it out of the way.</li>
     </ul></li>
-    <li >A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">5</a></sup>.  I will update this  point with which one is best.</li>
-    <li >Golang files generally have .go as a suffix <sup><a href="https://stackoverflow.com/questions/25161774/what-are-conventions-for-filenames-in-go" target="_blank">6</a></sup>; I do not know if that is required anywhere.</li>
-    <li >There is nearly a standard file system layout <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">7</a></sup></li>
-    <li >In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">8</a></sup> <sup><a href="https://ednsquare.com/story/public-and-private-packages-functions-in-golang------KgKYKs" target="_blank">9</a></sup>.</li>
+    <li>A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">5</a></sup>.  I will update this  point with which one is best.</li>
+    <li>Golang files generally have .go as a suffix <sup><a href="https://stackoverflow.com/questions/25161774/what-are-conventions-for-filenames-in-go" target="_blank">6</a></sup>; I do not know if that is required anywhere.</li>
+    <li>There is nearly a standard file system layout <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">7</a></sup></li>
+    <li>In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">8</a></sup> <sup><a href="https://ednsquare.com/story/public-and-private-packages-functions-in-golang------KgKYKs" target="_blank">9</a></sup>.</li>
 </ul>
 
 <p>Dependencies:</p>
 
 <ul class="ulbasic">
-    <li >On my first simple test1; I did not run `go mod init`.  I think for a more realistic and larger project with dependencies I will need to; and the previous build steps may need adjusting.</li>
-    <li >On my second simple test2; I included a large middleware (iris <sup><a href="https://pkg.go.dev/github.com/kataras/iris#section-readme" target="_blank">10</a></sup>); and things seem to work without attention. </li>
-    <li >As of “time of print”; dependencies are added as source code via `go get $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">11</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">12</a></sup>.  This (after go1.3) adds a line to go.mod file; secondly downloading the source code to a appropriately named sub-directory of $GOROOT.</li>
-    <li >Dependencies can be removed via `go clean -i $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Remove_object_files_and_cached_files" target="_blank">13</a></sup>.  I think this was added in `go1.3`.</li>
-    <li >Dependencies can be upgraded with `go get -u $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">14</a></sup>.</li>
-    <li >The `go get` command can be appended with GIT hashes or release tag names for greater precision <sup><a href="https://golang.org/pkg/cmd/go/internal/get/" target="_blank">15</a></sup> <sup><a href="https://medium.com/faun/managing-dependency-and-module-versioning-using-go-modules-c7c6da00787a" target="_blank">16</a></sup>.</li>
-    <li >If a dependency is added before it is used; in go.mod it will be tagged with `/ /indirect` <sup><a href="https://golangbyexample.com/indirect-dependency-golang/" target="_blank">17</a></sup>.  Used dependencies (in the source code) are not.  </li>
-    <li >You can list/ verify dependencies with `go mod tidy -v`; to be able to reduce unneeded deps on your local disk <sup><a href="https://golang.org/cmd/go/#hdr-Maintaining_module_requirements" target="_blank">18</a></sup> <sup><a href="https://golangbyexample.com/go-mod-tidy/" target="_blank">19</a></sup>.</li>
-    <li >In the source files, dependencies are imported on the package level and using the keyword 'import' <sup><a href="https://golangdocs.com/import-in-golang" target="_blank">20</a></sup> <sup><a href="https://www.golangprograms.com/golang-import-struct-from-another-or-child-package.html" target="_blank">21</a></sup>. </li>
-    <li >The import can be an array or a scalar (which is better than most languages) <sup><a href="https://medium.com/golangspec/import-declarations-in-go-8de0fd3ae8ff" target="_blank">22</a></sup>.  Much faster than Java as there is no need to specify each class.  This can be tricky as C++ with many defines <sup><a href="https://developpaper.com/golang-import-local-package-and-import-related-details/" target="_blank">23</a></sup> </li>
-    <li >There is a compile constraint feature (like Pascal uses); this is written as a comment starting  `// +build `.  Some more detailed notes <sup><a href="https://www.jetbrains.com/help/go/configuring-build-constraints-and-vendoring.html#build-constraints" target="_blank">24</a></sup> <sup><a href="https://golang.org/pkg/cmd/go/internal/help/" target="_blank">25</a></sup> <sup><a href="https://www.kofo.dev/build-tags-in-golang" target="_blank">26</a></sup> </li>
-    <li >Notes on cross compilation <sup><a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5" target="_blank">27</a></sup></li>
-    <li >The Golang supports alias <sup><a href="https://golang.org/ref/spec#Import_declarations" target="_blank">28</a></sup> <sup><a href="https://www.golangprograms.com/golang-package-examples/how-to-import-and-use-packages-of-the-same-name.html" target="_blank">29</a></sup>; to be able to reference packages in a more convenient fashion. </li>
-    <li >NB: just like Node, there is a high rate of change on quite a few projects.</li>
-    <li >To support an CTO request; how-to link existing C++ code to a Golang runtime, a terse recipe: compile the C++ code as *SO, with exported symbols; put SO file in golang project root directory, with a *.syso  suffix; add build-constraints to the go code to say load the external binary.  This supports static and dynamic linking.  Links: <sup><a href="https://golang.org/cmd/link/" target="_blank">30</a></sup> <sup><a href="https://stackoverflow.com/questions/26418883/golang-how-to-link-c-objects-using-cgo-ofiles" target="_blank">31</a></sup> <sup><a href="https://github.com/vladimirvivien/go-cshared-examples" target="_blank">32</a></sup>.  Notes for run-time linking of the two binary formats <sup><a href="https://medium.com/learning-the-go-programming-language/calling-go-functions-from-other-languages-4c7d8bcc69bf" target="_blank">33</a></sup></li>
+    <li>On my first simple test1; I did not run `go mod init`.  I think for a more realistic and larger project with dependencies I will need to; and the previous build steps may need adjusting.</li>
+    <li>On my second simple test2; I included a large middleware (iris <sup><a href="https://pkg.go.dev/github.com/kataras/iris#section-readme" target="_blank">10</a></sup>); and things seem to work without attention. </li>
+    <li>As of “time of print”; dependencies are added as source code via `go get $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">11</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">12</a></sup>.  This (after go1.3) adds a line to go.mod file; secondly downloading the source code to a appropriately named sub-directory of $GOROOT.</li>
+    <li>Dependencies can be removed via `go clean -i $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Remove_object_files_and_cached_files" target="_blank">13</a></sup>.  I think this was added in `go1.3`.</li>
+    <li>Dependencies can be upgraded with `go get -u $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">14</a></sup>.</li>
+    <li>The `go get` command can be appended with GIT hashes or release tag names for greater precision <sup><a href="https://golang.org/pkg/cmd/go/internal/get/" target="_blank">15</a></sup> <sup><a href="https://medium.com/faun/managing-dependency-and-module-versioning-using-go-modules-c7c6da00787a" target="_blank">16</a></sup>.</li>
+    <li>If a dependency is added before it is used; in go.mod it will be tagged with `/ /indirect` <sup><a href="https://golangbyexample.com/indirect-dependency-golang/" target="_blank">17</a></sup>.  Used dependencies (in the source code) are not.  </li>
+    <li>You can list/ verify dependencies with `go mod tidy -v`; to be able to reduce unneeded deps on your local disk <sup><a href="https://golang.org/cmd/go/#hdr-Maintaining_module_requirements" target="_blank">18</a></sup> <sup><a href="https://golangbyexample.com/go-mod-tidy/" target="_blank">19</a></sup>.</li>
+    <li>In the source files, dependencies are imported on the package level and using the keyword 'import' <sup><a href="https://golangdocs.com/import-in-golang" target="_blank">20</a></sup> <sup><a href="https://www.golangprograms.com/golang-import-struct-from-another-or-child-package.html" target="_blank">21</a></sup>. </li>
+    <li>The import can be an array or a scalar (which is better than most languages) <sup><a href="https://medium.com/golangspec/import-declarations-in-go-8de0fd3ae8ff" target="_blank">22</a></sup>.  Much faster than Java as there is no need to specify each class.  This can be tricky as C++ with many defines <sup><a href="https://developpaper.com/golang-import-local-package-and-import-related-details/" target="_blank">23</a></sup> </li>
+    <li>There is a compile constraint feature (like Pascal uses); this is written as a comment starting  `// +build `.  Some more detailed notes <sup><a href="https://www.jetbrains.com/help/go/configuring-build-constraints-and-vendoring.html#build-constraints" target="_blank">24</a></sup> <sup><a href="https://golang.org/pkg/cmd/go/internal/help/" target="_blank">25</a></sup> <sup><a href="https://www.kofo.dev/build-tags-in-golang" target="_blank">26</a></sup> </li>
+    <li>Notes on cross compilation <sup><a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5" target="_blank">27</a></sup></li>
+    <li>The Golang supports alias <sup><a href="https://golang.org/ref/spec#Import_declarations" target="_blank">28</a></sup> <sup><a href="https://www.golangprograms.com/golang-package-examples/how-to-import-and-use-packages-of-the-same-name.html" target="_blank">29</a></sup>; to be able to reference packages in a more convenient fashion. </li>
+    <li>NB: just like Node, there is a high rate of change on quite a few projects.</li>
+    <li>To support an CTO request; how-to link existing C++ code to a Golang runtime, a terse recipe: compile the C++ code as *SO, with exported symbols; put SO file in golang project root directory, with a *.syso  suffix; add build-constraints to the go code to say load the external binary.  This supports static and dynamic linking.  Links: <sup><a href="https://golang.org/cmd/link/" target="_blank">30</a></sup> <sup><a href="https://stackoverflow.com/questions/26418883/golang-how-to-link-c-objects-using-cgo-ofiles" target="_blank">31</a></sup> <sup><a href="https://github.com/vladimirvivien/go-cshared-examples" target="_blank">32</a></sup>.  Notes for run-time linking of the two binary formats <sup><a href="https://medium.com/learning-the-go-programming-language/calling-go-functions-from-other-languages-4c7d8bcc69bf" target="_blank">33</a></sup></li>
 </ul>
 
 
 <h3 class="dontend" id="toc1"> Preferred Source tree referencing <sup><a href="https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md" target="_blank">34</a></sup></h3>
 <ul class="ulbasic">
-    <li >situation: I have business objectives to make a small app; I have half of the features in existing libraries.  I do not wish to upload non-compileable half typed code to git; but I need to do test builds.</li>
-    <li >solution: I start a new project dir; I create sub modules/ directories as seems appropriate; in the very small sub module that holds main(), I create a vendor with `go mod vendor`; I create a symlink from the current project root dir to a new same name directory symlink in the system lib dir. </li>
-    <li >This means I can test-compile/ and or build tests without uploading anything to the git server.</li>
-    <li >On completion of the module; upload it to git; and delete local symlink</li>
-    <li >Doing this needs a git ignore marker on the vendor directory.</li>
-    <li >It is probably simplest to put the main() in the project root.<ul class="ulbasic">
-        <li >A different solution is to have your own git server, and pull everything from there. </li>
+    <li>situation: I have business objectives to make a small app; I have half of the features in existing libraries.  I do not wish to upload non-compileable half typed code to git; but I need to do test builds.</li>
+    <li>solution: I start a new project dir; I create sub modules/ directories as seems appropriate; in the very small sub module that holds main(), I create a vendor with `go mod vendor`; I create a symlink from the current project root dir to a new same name directory symlink in the system lib dir. </li>
+    <li>This means I can test-compile/ and or build tests without uploading anything to the git server.</li>
+    <li>On completion of the module; upload it to git; and delete local symlink</li>
+    <li>Doing this needs a git ignore marker on the vendor directory.</li>
+    <li>It is probably simplest to put the main() in the project root.<ul class="ulbasic">
+        <li>A different solution is to have your own git server, and pull everything from there. </li>
     </ul></li>
 </ul>
 
@@ -178,7 +178,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T15:36:56">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2021-05-31T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >31st of May 2021</time> </span>
 					</span>
@@ -226,7 +226,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:22">7th of Apr 2024, 20:42:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:36:56">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:05">19th of May 2024, 12:07:05</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

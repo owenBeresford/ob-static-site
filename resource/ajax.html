@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ajax" />
 <meta property="og:description" content="If you need to use older technology, this 2007 library is a good piece of technology.  I discuss details on managing older JS processes..." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:51" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:03" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ajax" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Ajax library",
-	"article:published_time":"26th of Mar 2024, 12:19:51", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:03", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -60,30 +60,30 @@ TODO: magic tune selection against some index/DB -->
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Goals <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li >To harmonise between different web-browsers partial support;</li>
-    <li >To be usable inline of existing systems so need to support COOKIEs etc;</li>
-    <li >To provide a simple API;</li>
-    <li >To provide logging and error handling, so the above simple case was thorough and reliable;</li>
-    <li >Most importantly, support multiple requests concurrently; </li>
-    <li >Have sensible activities for text AJAX and XML AJAX, these are different cases;</li>
+    <li>To harmonise between different web-browsers partial support;</li>
+    <li>To be usable inline of existing systems so need to support COOKIEs etc;</li>
+    <li>To provide a simple API;</li>
+    <li>To provide logging and error handling, so the above simple case was thorough and reliable;</li>
+    <li>Most importantly, support multiple requests concurrently; </li>
+    <li>Have sensible activities for text AJAX and XML AJAX, these are different cases;</li>
 </ul>
 
 
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Use cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li >Be able to supply “auto complete entries” for input boxes;<ul class="ulbasic">
-        <li >This requires fast end2end processing, and a simple method to get the content onto user display, and the ability to abort, as the old auto-complete is replaced by more recent user typing.</li>
+    <li>Be able to supply “auto complete entries” for input boxes;<ul class="ulbasic">
+        <li>This requires fast end2end processing, and a simple method to get the content onto user display, and the ability to abort, as the old auto-complete is replaced by more recent user typing.</li>
     </ul></li>
-    <li >Be able to supply PAF lookup values for address capture;<ul class="ulbasic">
-        <li >This is much cleaner if you can inject data into forms transparently.</li>
+    <li>Be able to supply PAF lookup values for address capture;<ul class="ulbasic">
+        <li>This is much cleaner if you can inject data into forms transparently.</li>
     </ul></li>
-    <li >Be able to asynchronously download binaries for galleries;<ul class="ulbasic">
-        <li >Requires concurrent access, and a scheme to cache binary objects when they have go to the client.</li>
+    <li>Be able to asynchronously download binaries for galleries;<ul class="ulbasic">
+        <li>Requires concurrent access, and a scheme to cache binary objects when they have go to the client.</li>
     </ul></li>
-    <li >Be able to automatically poll URLs to build Javascript chat clients;<ul class="ulbasic">
-        <li >Requires polling.</li>
+    <li>Be able to automatically poll URLs to build Javascript chat clients;<ul class="ulbasic">
+        <li>Requires polling.</li>
     </ul></li>
-    <li >Fetching salts, so passwords may be encrypted on the client, and only handled in encrypted form.</li>
+    <li>Fetching salts, so passwords may be encrypted on the client, and only handled in encrypted form.</li>
 </ul>
 
 
@@ -100,15 +100,15 @@ TODO: magic tune selection against some index/DB -->
 There is a browser dependant maximum number of networking threads that you may open concurrently.  Any code may not exceed this.</p>
 
 <ul class="ulbasic">
-    <li >msie 6 and up<ul class="ulbasic">
-        <li >not tested on msie 9 or 10, as those <em>weren't available at the time</em>.</li>
+    <li>msie 6 and up<ul class="ulbasic">
+        <li>not tested on msie 9 or 10, as those <em>weren't available at the time</em>.</li>
     </ul></li>
-    <li >opera 6 and up<ul class="ulbasic">
-        <li >not tested on  opera 10 or 11, as those <em>weren't available at the time</em>.</li>
+    <li>opera 6 and up<ul class="ulbasic">
+        <li>not tested on  opera 10 or 11, as those <em>weren't available at the time</em>.</li>
     </ul></li>
-    <li >firefox 1.5 and up</li>
-    <li >NOT TESTED on chameleon and safari</li>
-    <li >Was written before Chrome was released, <em>need to test</em>.</li>
+    <li>firefox 1.5 and up</li>
+    <li>NOT TESTED on chameleon and safari</li>
+    <li>Was written before Chrome was released, <em>need to test</em>.</li>
 </ul>
 
 
@@ -120,10 +120,10 @@ There is a browser dependant maximum number of networking threads that you may o
 <p><strong>function get_res(url, callbacks, settings, headers)</strong></p>
 
 <ul class="ulbasic">
-    <li >The url is the URL you wish to GET</li>
-    <li >The callbacks are list of event you wish to listen to (see callbacks).  This will default, when omitted.</li>
-    <li >The settings are a load of config options for this request (see settings).  This will default, when omitted.</li>
-    <li >The headers are any custom headers you want for the request.  These are listed as a array hash, name=&gt; value, where the name is as it appears in the HTTP RFC.</li>
+    <li>The url is the URL you wish to GET</li>
+    <li>The callbacks are list of event you wish to listen to (see callbacks).  This will default, when omitted.</li>
+    <li>The settings are a load of config options for this request (see settings).  This will default, when omitted.</li>
+    <li>The headers are any custom headers you want for the request.  These are listed as a array hash, name=&gt; value, where the name is as it appears in the HTTP RFC.</li>
 </ul>
 
 <p>If you specify callbacks, the function will operate asynchronously, and return immediately.  As noted, omitting the callbacks means it applies the default set, which are good for my purposes.  If you specify an empty callbacks array, it will operate synchronously, and return the downloaded data, as a string.</p>
@@ -139,10 +139,10 @@ As get_res, but the 'freq' value is how often you want to poll.  This must be an
 <p>The callbacks argument is a hash array which may have the following values:</p>
 
 <ul class="ulbasic">
-    <li >'ontimeout'</li>
-    <li >'onconnected'</li>
-    <li >'onreceived'</li>
-    <li >'oncomplete'</li>
+    <li>'ontimeout'</li>
+    <li>'onconnected'</li>
+    <li>'onreceived'</li>
+    <li>'oncomplete'</li>
 </ul>
 
 <p>I may add an 'onerror' callback in later versions.<br />
@@ -156,37 +156,37 @@ Each callback is passed the AJAX object, and the settings array.</p>
 <p>The settings array is a hash array, which may contain the following options:</p>
 
 <ul class="ulbasic">
-    <li >callbacks<ul class="ulbasic">
-        <li >a second source for callbacks.</li>
+    <li>callbacks<ul class="ulbasic">
+        <li>a second source for callbacks.</li>
     </ul></li>
-    <li >dont-suppress-cache<ul class="ulbasic">
-        <li >By default the library adds a random param to the end of the URL, to make reduce likely-hood of cache hits.  This disables this option.</li>
+    <li>dont-suppress-cache<ul class="ulbasic">
+        <li>By default the library adds a random param to the end of the URL, to make reduce likely-hood of cache hits.  This disables this option.</li>
     </ul></li>
-    <li >method<ul class="ulbasic">
-        <li >HTTP method, i.e. GET or POST (or possibly the other values, but I can't see how to use them in AJAX)</li>
+    <li>method<ul class="ulbasic">
+        <li>HTTP method, i.e. GET or POST (or possibly the other values, but I can't see how to use them in AJAX)</li>
     </ul></li>
-    <li >timeout<ul class="ulbasic">
-        <li >The client side time out, how long to wait for responses, measured in seconds</li>
+    <li>timeout<ul class="ulbasic">
+        <li>The client side time out, how long to wait for responses, measured in seconds</li>
     </ul></li>
-    <li >chunkid</li>
-    <li >Used in my default event handlers, which DOM element gains the downloaded content.</li>
+    <li>chunkid</li>
+    <li>Used in my default event handlers, which DOM element gains the downloaded content.</li>
 </ul>
 
 <p>The system creates the following:</p>
 
 <ul class="ulbasic">
-    <li >id<ul class="ulbasic">
-        <li >the id of the AJAX object.</li>
+    <li>id<ul class="ulbasic">
+        <li>the id of the AJAX object.</li>
     </ul></li>
-    <li >url<ul class="ulbasic">
-        <li >cache of the param you passed, used in logging.</li>
+    <li>url<ul class="ulbasic">
+        <li>cache of the param you passed, used in logging.</li>
     </ul></li>
-    <li >dead<ul class="ulbasic">
-        <li >This is a flag, for logging completion of being killed.  This prevents any further events from being triggered.</li>
+    <li>dead<ul class="ulbasic">
+        <li>This is a flag, for logging completion of being killed.  This prevents any further events from being triggered.</li>
     </ul></li>
-    <li >abortHandle<ul class="ulbasic">
-        <li >A reference to the timer resource handle, so you can cancel the timer.</li>
-        <li >The system auto cancels on request completion.</li>
+    <li>abortHandle<ul class="ulbasic">
+        <li>A reference to the timer resource handle, so you can cancel the timer.</li>
+        <li>The system auto cancels on request completion.</li>
     </ul></li>
 </ul>
 
@@ -274,7 +274,7 @@ This is only valuable as an asset, if you are unable to use a normal JS framewor
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -331,7 +331,7 @@ This is only valuable as an asset, if you are unable to use a normal JS framewor
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:51">26th of Mar 2024, 12:19:51</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:03">19th of May 2024, 12:07:03</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

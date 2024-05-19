@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/vitest" />
 <meta property="og:description" content="A review of another JS test framework, called Vitest.  This outlines a list of useful features and a few issues to know about." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Apr 2024, 20:42:26" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:12" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/vitest" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Vitest",
-	"article:published_time":"7th of Apr 2024, 20:42:26", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:12", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -73,16 +73,16 @@ I find this test framework easier to build component tests with, <b>and test</b>
 <p>List of utility features:</p>
 
 <ul class="ulbasic">
-    <li >Vitest does have a visual mode <sup><a href="https://vitest.dev/guide/ui.html" target="_blank">24</a></sup> which I think is targeted at less experienced developers.  </li>
-    <li ><a href="https://vitest.dev/guide/features.html#type-testing-experimental" target="_blank">expectTypeOf</a>, </li>
-    <li ><a href="https://vitest.dev/guide/features.html#benchmarking-experimental" target="_blank">Benchmarking</a> ~ as in build a execution profile so differing implementations can be compared.  </li>
-    <li ><a href="https://vitest.dev/guide/cli.html#vitest-watch" target="_blank">watchmode</a> (yawn)</li>
-    <li ><a href="https://vitest.dev/guide/browser.html" target="_blank">Browsers</a> ~ as in load the browser in the test and control it from the test.   </li>
-    <li ><a href="https://vitest.dev/guide/snapshot.html" target="_blank">Snapshots</a> ~ I do not think snapshots tests are useful as they show little extra to <i>git diff</i>, but they are very fast.   </li>
-    <li ><a href="https://vitest.dev/api/mock.html" target="_blank">mock/ spy</a> ~ Mocks are a core feature of Vitest, rather than a necessary extension.    Simple tests from other test frameworks will probably work, with only a few config changes to look for the other filename suffix(es) <sup><a href="https://vitest.dev/guide/comparisons.html" target="_blank">25</a></sup>.  </li>
-    <li >For practical testing, the util suite offers <i>flushPromises()</i> <sup><a href="https://medium.com/heybooster/mastering-flush-promises-with-vue-test-utils-vitest-and-typescript-7384e4ec9946" target="_blank">26</a></sup>, which allows you to pretend the faster assync code is sync to make testing easier (use with <i>await</i>). </li>
-    <li >There is a watch (a sometime JS interpreter feature), accessed as <i>vi.spyOn()</i> which can be used to see if a Component function or variable has been modified or executed.  The spyOn() call can take three arguments <sup><a href="https://dev.to/jtoscani/til-stubbing-nested-global-properties-in-vitest-35o7" target="_blank">27</a></sup> <sup><a href="https://mayashavin.com/articles/testing-components-with-vitest#spy-on-and-mock-whatever-you-dont-need-to-test-or-have-tested-already" target="_blank">28</a></sup>. </li>
-    <li >Vitest supports HMR ~ Hot Module Reload ~ <sup><a href="https://dev.to/isiakaabd/beginner-guide-on-unit-testing-in-react-using-react-testing-library-and-vitest-4ifp" target="_blank">29</a></sup> but I thought this was common in modern JS.   HMR is desired by some developers, as they like to run tests automatically every time they hit save (when doing this style, use 'save all' to reduce noise test results).</li>
+    <li>Vitest does have a visual mode <sup><a href="https://vitest.dev/guide/ui.html" target="_blank">24</a></sup> which I think is targeted at less experienced developers.  </li>
+    <li><a href="https://vitest.dev/guide/features.html#type-testing-experimental" target="_blank">expectTypeOf</a>, </li>
+    <li><a href="https://vitest.dev/guide/features.html#benchmarking-experimental" target="_blank">Benchmarking</a> ~ as in build a execution profile so differing implementations can be compared.  </li>
+    <li><a href="https://vitest.dev/guide/cli.html#vitest-watch" target="_blank">watchmode</a> (yawn)</li>
+    <li><a href="https://vitest.dev/guide/browser.html" target="_blank">Browsers</a> ~ as in load the browser in the test and control it from the test.   </li>
+    <li><a href="https://vitest.dev/guide/snapshot.html" target="_blank">Snapshots</a> ~ I do not think snapshots tests are useful as they show little extra to <i>git diff</i>, but they are very fast.   </li>
+    <li><a href="https://vitest.dev/api/mock.html" target="_blank">mock/ spy</a> ~ Mocks are a core feature of Vitest, rather than a necessary extension.    Simple tests from other test frameworks will probably work, with only a few config changes to look for the other filename suffix(es) <sup><a href="https://vitest.dev/guide/comparisons.html" target="_blank">25</a></sup>.  </li>
+    <li>For practical testing, the util suite offers <i>flushPromises()</i> <sup><a href="https://medium.com/heybooster/mastering-flush-promises-with-vue-test-utils-vitest-and-typescript-7384e4ec9946" target="_blank">26</a></sup>, which allows you to pretend the faster assync code is sync to make testing easier (use with <i>await</i>). </li>
+    <li>There is a watch (a sometime JS interpreter feature), accessed as <i>vi.spyOn()</i> which can be used to see if a Component function or variable has been modified or executed.  The spyOn() call can take three arguments <sup><a href="https://dev.to/jtoscani/til-stubbing-nested-global-properties-in-vitest-35o7" target="_blank">27</a></sup> <sup><a href="https://mayashavin.com/articles/testing-components-with-vitest#spy-on-and-mock-whatever-you-dont-need-to-test-or-have-tested-already" target="_blank">28</a></sup>. </li>
+    <li>Vitest supports HMR ~ Hot Module Reload ~ <sup><a href="https://dev.to/isiakaabd/beginner-guide-on-unit-testing-in-react-using-react-testing-library-and-vitest-4ifp" target="_blank">29</a></sup> but I thought this was common in modern JS.   HMR is desired by some developers, as they like to run tests automatically every time they hit save (when doing this style, use 'save all' to reduce noise test results).</li>
 </ul>
 
 
@@ -95,10 +95,10 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 <p>Aside: The Vitest doc site is quite good, and if there is a middleware for component tests this isn't Vitest's problem, but for Vue3 the following information is hard to find:</p>
 
 <ul class="ulbasic">
-    <li >The extra modules that you add with <i>Vue3.add()</i> in an App become 'globals.plugins' items in the test Component <i>mount()</i> options.  If this specific detail is properly documented <sup><a href="https://test-utils.vuejs.org/api/" target="_blank">1</a></sup>, I can't find it.</li>
-    <li >In theory <i>test-utils</i> system allows you to see if a given DOM element is visible <sup><a href="https://test-utils.vuejs.org/api/#isVisible" target="_blank">2</a></sup> but the Vue-test extension doesn't seem to evaluate enough CSS so it doesn't work for me.   I was hoping to improve capacity on Storybook automation limits via this, but it doesn't seem to be practical.   The problem is the level of CSS interpretation by the fake DOM.    </li>
-    <li >Again Vue3, I suggest avoid using <i>provide/ inject</i> feature at the same time as Vitest for Component tests, as you need to mock the entire Component hierarchy, and this is time consuming.  The entire hierarchy is due to the fact the data needs to enter the object tree ~ via provide ~ at the same point. </li>
-    <li >The Vue3 feature 'watch' isn't supported or interpreted by any of the Vitest extension I mentioned.  I need to test this aspect of components via Jest or something.</li>
+    <li>The extra modules that you add with <i>Vue3.add()</i> in an App become 'globals.plugins' items in the test Component <i>mount()</i> options.  If this specific detail is properly documented <sup><a href="https://test-utils.vuejs.org/api/" target="_blank">1</a></sup>, I can't find it.</li>
+    <li>In theory <i>test-utils</i> system allows you to see if a given DOM element is visible <sup><a href="https://test-utils.vuejs.org/api/#isVisible" target="_blank">2</a></sup> but the Vue-test extension doesn't seem to evaluate enough CSS so it doesn't work for me.   I was hoping to improve capacity on Storybook automation limits via this, but it doesn't seem to be practical.   The problem is the level of CSS interpretation by the fake DOM.    </li>
+    <li>Again Vue3, I suggest avoid using <i>provide/ inject</i> feature at the same time as Vitest for Component tests, as you need to mock the entire Component hierarchy, and this is time consuming.  The entire hierarchy is due to the fact the data needs to enter the object tree ~ via provide ~ at the same point. </li>
+    <li>The Vue3 feature 'watch' isn't supported or interpreted by any of the Vitest extension I mentioned.  I need to test this aspect of components via Jest or something.</li>
 </ul>
 
 
@@ -136,7 +136,7 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T15:37:17">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2023-11-04T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >4th of Nov 2023</time> </span>
 					</span>
@@ -186,7 +186,7 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-04-07T20:42:26">7th of Apr 2024, 20:42:26</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T15:37:17">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:12">19th of May 2024, 12:07:12</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

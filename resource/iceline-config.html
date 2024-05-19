@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/iceline-config" />
 <meta property="og:description" content="Configuration for iceline." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:54" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:06" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/iceline-config" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Technical documentation for iceline",
-	"article:published_time":"26th of Mar 2024, 12:19:54", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:06", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -121,50 +121,50 @@ This list is just reproduced for reference.<br />
 <p>Items to be edited, per site</p>
 
 <ul class="ulbasic">
-    <li >site_language (default 'en_UK') ~ which resource set to use, if the web-client doesn't specify.  Use requires the chosen language is present in the res directory, as one of the options. </li>
-    <li >current_timezone (default 'Europe/London') ~ hopefully obvious.</li>
-    <li >network_protocol (default    'http') ~ 'http' or 'https'.</li>
-    <li >site_name ~ A string, will get added to various headers. Brandable</li>
-    <li >page_author ~ Default value for the page author, used in HTML headers.</li>
-    <li >cookie_domain    ~ '', where the cookies apply to.</li>
-    <li >cookie_lifetime ~ (default 20*60) How long should a session last (seconds)? After this point, the EU will need to log in again. </li>
-    <li >escape_urls (default 1) ~ the use of ASCII to entity conversion in embedded URLs, as an outbound filter. This makes the result HTML compliant to w3c spec.  Could cause errors in some awkward cases, so it is possible to turn it off.</li>
-    <li >markup_ascii_quotes (default 1) ~ convert all double quotes in wiki text to relevant smart quotes.  Could cause errors in some awkward cases, so it is possible to turn it off.</li>
-    <li >emit_log ~ Report the name of the current log file as a HTTP header 'X-transaction-reference'.  Only useful if you can copy files off the server.</li>
-    <li >404-text ~ text used in the HTTP header message. Brandable.</li>
-    <li >system_alert ~ add an optional alert message to the top of all web pages (this item is the text to display).  Brandable.</li>
-    <li >revision ~ a piece of text to prepend to resources with the status=INCOMPLETE flag set.  Brandable.</li>
-    <li >max_post_wait ~ the maximum time a csrf key is valid for.  After this point, the response will be rejected, for protect-csrf enabled forms.  Measured in seconds.</li>
+    <li>site_language (default 'en_UK') ~ which resource set to use, if the web-client doesn't specify.  Use requires the chosen language is present in the res directory, as one of the options. </li>
+    <li>current_timezone (default 'Europe/London') ~ hopefully obvious.</li>
+    <li>network_protocol (default    'http') ~ 'http' or 'https'.</li>
+    <li>site_name ~ A string, will get added to various headers. Brandable</li>
+    <li>page_author ~ Default value for the page author, used in HTML headers.</li>
+    <li>cookie_domain    ~ '', where the cookies apply to.</li>
+    <li>cookie_lifetime ~ (default 20*60) How long should a session last (seconds)? After this point, the EU will need to log in again. </li>
+    <li>escape_urls (default 1) ~ the use of ASCII to entity conversion in embedded URLs, as an outbound filter. This makes the result HTML compliant to w3c spec.  Could cause errors in some awkward cases, so it is possible to turn it off.</li>
+    <li>markup_ascii_quotes (default 1) ~ convert all double quotes in wiki text to relevant smart quotes.  Could cause errors in some awkward cases, so it is possible to turn it off.</li>
+    <li>emit_log ~ Report the name of the current log file as a HTTP header 'X-transaction-reference'.  Only useful if you can copy files off the server.</li>
+    <li>404-text ~ text used in the HTTP header message. Brandable.</li>
+    <li>system_alert ~ add an optional alert message to the top of all web pages (this item is the text to display).  Brandable.</li>
+    <li>revision ~ a piece of text to prepend to resources with the status=INCOMPLETE flag set.  Brandable.</li>
+    <li>max_post_wait ~ the maximum time a csrf key is valid for.  After this point, the response will be rejected, for protect-csrf enabled forms.  Measured in seconds.</li>
 </ul>
 
 
 <h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." >Software settings <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
-    <li >page_charset (default    'utf-8') ~ Hopefully obvious.</li>
-    <li >rendering_engine (default 2) ~ Which one to use, see renderers.</li>
-    <li >session_name ~ Name of session in cookies etc. </li>
-    <li >platform_name ~ A version string, used in reporting.</li>
-    <li >platform_edition ~ '2.0.0', do not adjust, this is a string with Linux style double dot.  Used to load the correct resource files.</li>
-    <li >log_verbosity ~ (default 8), controls the number of log messages written, see head of lib/Log for the options.  It is annoying that I can't use symbolic values, but this file is parsed before they are defined.</li>
-    <li >log_targets ~ (default 2) Please read lib/Log, it is annoying that I can't use my nice constants, but they are not compiled yet.</li>
-    <li >log_cache_size ~ (default 1024), How many messages to cache, before the buffer is flushed.  </li>
-    <li >error_template ~ (default 'report-error') What template to use for reporting errors.</li>
-    <li >safe_engine ~ (default 1), What is trusted to work, if options didn't.</li>
-    <li >page_sections_header (default 'Table of Contents'), text for the header.</li>
-    <li >resource_dir ~ (default '/resource/') Used in URLs.</li>
-    <li >external_dir ~ (default '/external/') Used in URLs.</li>
-    <li >asset_name ~ (default '/asset/') Used in URLs</li>
-    <li >wiki_render_format ~ (default 'Xhtml') item to configure the output language.</li>
-    <li >log_time_format ~ (default 'jS \o\f M, G:i:s'), what dates should look like in log files, see <a href="https://uk.php.net/manual/en/function.date.php" target="_blank">manual</a> for the details.</li>
-    <li >human_date ~ (default 'jS \o\f M, G:i:s'), what the date should look like, in HTML.  See above link for reference.</li>
-    <li >rss_date ~ A slightly different format needed to build RSS files with.  Don't edit this one, unless RSS changes.</li>
-    <li >session_dir ~ where session files are put.</li>
-    <li >log_dir ~ where logs are put.</li>
-    <li >site_baseurl ~ the URL of this site.</li>
-    <li >permit_syslog_leakage (default 0), should log message be allowed to leak to the HTML, if the normal account doesn't work. Probably want this off for live use.</li>
-    <li >post_should_wiki (default 0), should post responses be feed through a wiki interpreter?</li>
-    <li >show_all_errors ~ append *any and all* PHP errors to the clients warnings section.  Turn ON for testing, but OFF for production.  Most valuable for people edit the iceline itself.</li>
-    <li >extra_markers ~ Chunks that need to be merged into the f2 frames.  This is an array of names.</li>
+    <li>page_charset (default    'utf-8') ~ Hopefully obvious.</li>
+    <li>rendering_engine (default 2) ~ Which one to use, see renderers.</li>
+    <li>session_name ~ Name of session in cookies etc. </li>
+    <li>platform_name ~ A version string, used in reporting.</li>
+    <li>platform_edition ~ '2.0.0', do not adjust, this is a string with Linux style double dot.  Used to load the correct resource files.</li>
+    <li>log_verbosity ~ (default 8), controls the number of log messages written, see head of lib/Log for the options.  It is annoying that I can't use symbolic values, but this file is parsed before they are defined.</li>
+    <li>log_targets ~ (default 2) Please read lib/Log, it is annoying that I can't use my nice constants, but they are not compiled yet.</li>
+    <li>log_cache_size ~ (default 1024), How many messages to cache, before the buffer is flushed.  </li>
+    <li>error_template ~ (default 'report-error') What template to use for reporting errors.</li>
+    <li>safe_engine ~ (default 1), What is trusted to work, if options didn't.</li>
+    <li>page_sections_header (default 'Table of Contents'), text for the header.</li>
+    <li>resource_dir ~ (default '/resource/') Used in URLs.</li>
+    <li>external_dir ~ (default '/external/') Used in URLs.</li>
+    <li>asset_name ~ (default '/asset/') Used in URLs</li>
+    <li>wiki_render_format ~ (default 'Xhtml') item to configure the output language.</li>
+    <li>log_time_format ~ (default 'jS \o\f M, G:i:s'), what dates should look like in log files, see <a href="https://uk.php.net/manual/en/function.date.php" target="_blank">manual</a> for the details.</li>
+    <li>human_date ~ (default 'jS \o\f M, G:i:s'), what the date should look like, in HTML.  See above link for reference.</li>
+    <li>rss_date ~ A slightly different format needed to build RSS files with.  Don't edit this one, unless RSS changes.</li>
+    <li>session_dir ~ where session files are put.</li>
+    <li>log_dir ~ where logs are put.</li>
+    <li>site_baseurl ~ the URL of this site.</li>
+    <li>permit_syslog_leakage (default 0), should log message be allowed to leak to the HTML, if the normal account doesn't work. Probably want this off for live use.</li>
+    <li>post_should_wiki (default 0), should post responses be feed through a wiki interpreter?</li>
+    <li>show_all_errors ~ append *any and all* PHP errors to the clients warnings section.  Turn ON for testing, but OFF for production.  Most valuable for people edit the iceline itself.</li>
+    <li>extra_markers ~ Chunks that need to be merged into the f2 frames.  This is an array of names.</li>
 </ul>
 
 
@@ -201,7 +201,7 @@ This list is just reproduced for reference.<br />
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -253,7 +253,7 @@ This list is just reproduced for reference.<br />
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:54">26th of Mar 2024, 12:19:54</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:06">19th of May 2024, 12:07:06</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/dev-casestudy-03" />
 <meta property="og:description" content="Article outlining how priorities change of the course of a product development." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:53" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:04" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/dev-casestudy-03" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Case study 03, A spiral of development",
-	"article:published_time":"26th of Mar 2024, 12:19:53", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:04", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -58,10 +58,10 @@ TODO: magic tune selection against some index/DB -->
 
 <h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." >Business Summary  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li >Most of these points fit into 1 week sprints, with a clearly defined and testable deliverable at the end of each item.  As would be expected, the features that required less work where not in a sprint by themselves.</li>
-    <li >Items marked 'feature' are things you talk about to clients/leads.</li>
-    <li >Every item with time spend for 'performance' was to scale up to client expected data volumes, and not assume everyone is a patient developer.</li>
-    <li >Most items marked 'quality'; a) perform an observable thing for features b) reduce RAM used, so the product can be run on a wider variety of client machines c) increase readability, so later dev work is faster/ responsive and cheaper.</li>
+    <li>Most of these points fit into 1 week sprints, with a clearly defined and testable deliverable at the end of each item.  As would be expected, the features that required less work where not in a sprint by themselves.</li>
+    <li>Items marked 'feature' are things you talk about to clients/leads.</li>
+    <li>Every item with time spend for 'performance' was to scale up to client expected data volumes, and not assume everyone is a patient developer.</li>
+    <li>Most items marked 'quality'; a) perform an observable thing for features b) reduce RAM used, so the product can be run on a wider variety of client machines c) increase readability, so later dev work is faster/ responsive and cheaper.</li>
 </ul>
 
 <p>At the start I am adding features (which tends to slow the rate of change of user stories); at the end I am adding quality (which increases user stickyness, and reduces user churn).</p>
@@ -71,29 +71,29 @@ TODO: magic tune selection against some index/DB -->
 <p>At my current employer, I am responsible for making the GUIs, for UX decisions, for software doing client communication etc.   We have alot of numerical data, which is best presented as a graph (or just not presented).   My CTO is a physics grad, and “does graphs” as an academic accomplishment.   Talking about graphing, for the second product, I performed in chronological sequence:</p>
 
 <ul class="ulbasic">
-    <li >[FEATURE] Chose a graph library which supported RWD, as it was SVG.  Added enough code that it could render DB records.</li>
-    <li >[FEATURE] Added visual features, so that it complied to the CTOs “graphing rules” (e.g. unlike Excel, smart rounding rules on axis labels).</li>
-    <li >[QUALITY] At this point, everything relating to data was low quality and quick; add tests to my REST API code (and make changes), and report bugs to the C++ team, who where generating this data.</li>
-    <li >[PERFORMANCE] Most of the time cost to get a graph is extracting data from the DB.  Make REST API run faster by using more complex SQL.  Secondly leverage some more complex features on the DB schema.</li>
-    <li >[PERFORMANCE] Use REST library/ middleware better, so we can support longer periods, with a sensible execution delay.</li>
-    <li >[FEATURE] Add graphing for more types of data (same DB).   </li>
-    <li >[FEATURE] Add ability to update graph without remove/ adding it (used when changing report time). </li>
-    <li >[PERFORMANCE] In networking; change from every action fulfilment having its own queue; to a shared network queue.   Was unable to find OSS for this, so wrote entire feature.  This is a better architecture, and has much higher performance overall system.   Removes a class of network issues. </li>
-    <li >[QUALITY] As a feature of last point, deal with network timeouts (a frequent 'feature' of the RAM-starved VPN endpoint).  Implementation 1</li>
-    <li >[QUALITY] Actually design a colour scheme, add much better layout with CSS.</li>
-    <li >[QUALITY] Stop data coming out of the middleware in random orders, as this makes the graphs incorrect. Implementation 1</li>
-    <li >[PERFORMANCE] Juggle work inside the REST API (more tests), trimming another 10% off the execution delay.</li>
-    <li >[FEATURE] Add extra composite graph type, which shows trends very clearly; requires next change.</li>
-    <li >[QUALITY] Improve use of Models and Collections inside the client-side code. Side effects are its easier to read, uses less RAM, another graph type is possible and the logging is more coherent. </li>
-    <li >[QUALITY] Demonstrate current RWD in graphs (and slightly improve CSS to make this work nicely).</li>
-    <li >[QUALITY] Sort raw data at last possible point, as this stops a few edge cases occurring; at the expense of more RAM on the client.  Random order data implementation 2.</li>
-    <li >[FEATURE] Add 'print colour scheme', immediately to support the marketing team; although I can see the same work happening at a clients office.</li>
-    <li >[PERFORMANCE] Juggle code layout, so it uses permanent processes, and incidentally is faster. Also people from other dev languages think ObjectComposition is easier to read.</li>
-    <li >[QUALITY] Add another Service layer to graph generation; simplifying earlier code.  Secondly this improves persistence of state, with regards to user preferences in graphs.</li>
-    <li >[QUALITY] Add an extra layer of events to be able to spot a different set of network timeouts. Implementation 2.</li>
-    <li >[QUALITY] Create another layer of networking code, effectively making an “enterprise architecture” in-house (I was very busy that week).  Full state is cached on the client side, so everything seems faster.</li>
-    <li >[PERFORMANCE] Create more DB tables, holding denormalised data; so are faster for reads.</li>
-    <li >[QUALITY] Write a “data quality report” for technical clients; to look at the data they have. Incidentally showing results to devops team who improve the product.</li>
+    <li>[FEATURE] Chose a graph library which supported RWD, as it was SVG.  Added enough code that it could render DB records.</li>
+    <li>[FEATURE] Added visual features, so that it complied to the CTOs “graphing rules” (e.g. unlike Excel, smart rounding rules on axis labels).</li>
+    <li>[QUALITY] At this point, everything relating to data was low quality and quick; add tests to my REST API code (and make changes), and report bugs to the C++ team, who where generating this data.</li>
+    <li>[PERFORMANCE] Most of the time cost to get a graph is extracting data from the DB.  Make REST API run faster by using more complex SQL.  Secondly leverage some more complex features on the DB schema.</li>
+    <li>[PERFORMANCE] Use REST library/ middleware better, so we can support longer periods, with a sensible execution delay.</li>
+    <li>[FEATURE] Add graphing for more types of data (same DB).   </li>
+    <li>[FEATURE] Add ability to update graph without remove/ adding it (used when changing report time). </li>
+    <li>[PERFORMANCE] In networking; change from every action fulfilment having its own queue; to a shared network queue.   Was unable to find OSS for this, so wrote entire feature.  This is a better architecture, and has much higher performance overall system.   Removes a class of network issues. </li>
+    <li>[QUALITY] As a feature of last point, deal with network timeouts (a frequent 'feature' of the RAM-starved VPN endpoint).  Implementation 1</li>
+    <li>[QUALITY] Actually design a colour scheme, add much better layout with CSS.</li>
+    <li>[QUALITY] Stop data coming out of the middleware in random orders, as this makes the graphs incorrect. Implementation 1</li>
+    <li>[PERFORMANCE] Juggle work inside the REST API (more tests), trimming another 10% off the execution delay.</li>
+    <li>[FEATURE] Add extra composite graph type, which shows trends very clearly; requires next change.</li>
+    <li>[QUALITY] Improve use of Models and Collections inside the client-side code. Side effects are its easier to read, uses less RAM, another graph type is possible and the logging is more coherent. </li>
+    <li>[QUALITY] Demonstrate current RWD in graphs (and slightly improve CSS to make this work nicely).</li>
+    <li>[QUALITY] Sort raw data at last possible point, as this stops a few edge cases occurring; at the expense of more RAM on the client.  Random order data implementation 2.</li>
+    <li>[FEATURE] Add 'print colour scheme', immediately to support the marketing team; although I can see the same work happening at a clients office.</li>
+    <li>[PERFORMANCE] Juggle code layout, so it uses permanent processes, and incidentally is faster. Also people from other dev languages think ObjectComposition is easier to read.</li>
+    <li>[QUALITY] Add another Service layer to graph generation; simplifying earlier code.  Secondly this improves persistence of state, with regards to user preferences in graphs.</li>
+    <li>[QUALITY] Add an extra layer of events to be able to spot a different set of network timeouts. Implementation 2.</li>
+    <li>[QUALITY] Create another layer of networking code, effectively making an “enterprise architecture” in-house (I was very busy that week).  Full state is cached on the client side, so everything seems faster.</li>
+    <li>[PERFORMANCE] Create more DB tables, holding denormalised data; so are faster for reads.</li>
+    <li>[QUALITY] Write a “data quality report” for technical clients; to look at the data they have. Incidentally showing results to devops team who improve the product.</li>
 </ul>
 
 
@@ -130,7 +130,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2020-02-11T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >11th of Feb 2020</time> </span>
 					</span>
@@ -179,7 +179,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:53">26th of Mar 2024, 12:19:53</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:04">19th of May 2024, 12:07:04</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

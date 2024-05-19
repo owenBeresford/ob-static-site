@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/reactnative-developer" />
 <meta property="og:description" content="Another work log.  I built features for a very young startup.  I performed UX analysis and developed the UI." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:58" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:09" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/reactnative-developer" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "ReactNative developer",
-	"article:published_time":"26th of Mar 2024, 12:19:58", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:09", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -68,16 +68,16 @@ In this text, the term 'First contractor' is to denote work that was done before
 <p>There was substantial room for improvement.</p>
 
 <ul class="ulbasic">
-    <li >Ran live designs with realistic data; improved handling for this; some examples: allow users to have many 'friends', so they need to be able to scroll the friends list; allow users to have long names, newer design allows more space.</li>
-    <li >Made value and benefit of using the app more clear to users; by better signalling, and marginally better via more consistency in design.   Before my work, interface design was very ambiguous, I improved communication of app state to users; by adding labels, tooltips, feedback messages.  Improved quality of English. Started documentation on brochure site.  I made my first Interstitial.</li>
-    <li >Added a better layout for mobile, checked design against a group of test users (mostly ex-employees).  Improved utility of bottom 'nav bar', by adding extra options (now four).  </li>
-    <li >Added desktop view, as the director asked for it.  Desktop mode has less 'screens', and completely different journeys after logging in. </li>
-    <li >Added swipe as a more intuitive UI interaction on mobile version, replacing some buttons.</li>
-    <li >Reduced occurrence of “first 10 of X items”, modern phones have enough RAM for the whole list; and its easier to use if the entire range is loaded; and secondly makes it a faster app.</li>
-    <li >Improved ability to access data in the system; to see data in user profiles by better design; to see relevant login options; to see relevant users by better search; improved presentation of options, via menus.</li>
-    <li >Vastly improved “off platform messaging”, to improve user retention, and use.  This was mostly about the system sending notification emails to the user; and I planned SMS.  With an intern, added several features to the chat client to make it easier to use (add message read status, added last message date to UI, add scroll to chat area, tested other languages and charset support, blanked text input on send, planned message notification to chat logo outside of chat screen, wanted to add &lt;Enter&gt; key to send message).</li>
-    <li >Changed prominence of “logged in status”: from a hourly event; to a monthly event.  This is a trivial social app; not a banking app.  Coincidentally completed 'Reset password' feature, as undone when I started.</li>
-    <li >Vastly improved login journey, as making it emphasise relevant options to user history (i.e. on phone do not offer register prominently if there is a known account; and most strongly present relevant login technology, i.e. facebook; so it seems simpler for casual users).  Improved error feedback presence, clarity and relevance.   I made First contractor password rules visible to users. </li>
+    <li>Ran live designs with realistic data; improved handling for this; some examples: allow users to have many 'friends', so they need to be able to scroll the friends list; allow users to have long names, newer design allows more space.</li>
+    <li>Made value and benefit of using the app more clear to users; by better signalling, and marginally better via more consistency in design.   Before my work, interface design was very ambiguous, I improved communication of app state to users; by adding labels, tooltips, feedback messages.  Improved quality of English. Started documentation on brochure site.  I made my first Interstitial.</li>
+    <li>Added a better layout for mobile, checked design against a group of test users (mostly ex-employees).  Improved utility of bottom 'nav bar', by adding extra options (now four).  </li>
+    <li>Added desktop view, as the director asked for it.  Desktop mode has less 'screens', and completely different journeys after logging in. </li>
+    <li>Added swipe as a more intuitive UI interaction on mobile version, replacing some buttons.</li>
+    <li>Reduced occurrence of “first 10 of X items”, modern phones have enough RAM for the whole list; and its easier to use if the entire range is loaded; and secondly makes it a faster app.</li>
+    <li>Improved ability to access data in the system; to see data in user profiles by better design; to see relevant login options; to see relevant users by better search; improved presentation of options, via menus.</li>
+    <li>Vastly improved “off platform messaging”, to improve user retention, and use.  This was mostly about the system sending notification emails to the user; and I planned SMS.  With an intern, added several features to the chat client to make it easier to use (add message read status, added last message date to UI, add scroll to chat area, tested other languages and charset support, blanked text input on send, planned message notification to chat logo outside of chat screen, wanted to add &lt;Enter&gt; key to send message).</li>
+    <li>Changed prominence of “logged in status”: from a hourly event; to a monthly event.  This is a trivial social app; not a banking app.  Coincidentally completed 'Reset password' feature, as undone when I started.</li>
+    <li>Vastly improved login journey, as making it emphasise relevant options to user history (i.e. on phone do not offer register prominently if there is a known account; and most strongly present relevant login technology, i.e. facebook; so it seems simpler for casual users).  Improved error feedback presence, clarity and relevance.   I made First contractor password rules visible to users. </li>
 </ul>
 
 
@@ -85,28 +85,28 @@ In this text, the term 'First contractor' is to denote work that was done before
 <p>This is plain development in typescript and associated tooling.</p>
 
 <ul class="ulbasic">
-    <li >Created many React Components.  'First contractors' had not included a CSS framework; I focussed styling on use of React style blocks rather than setting each Text element directly like a ms-word file does.</li>
-    <li >Reduced use of useEffect() so screens loaded faster; specifically stop one useEffect() from feeding another, or cascading updates occur.   </li>
-    <li >Note that ReactNative tags are not HTML tags, and often omit accessibility and styling features.  I improved accessibility, for example adding an un-styled wrapping DIV, with a tooltip; I used inline SVG in places to allow better styling.   Improved amount of RWD in the design; as not all phones or laptops are same resolution.   I think the first app author for the ReactNative sections had only read the docs for the first version; newer versions of ReactNative have about as much CSS support as MSIE; there is no need to pay a 50byte surcharge per text element to set the style on each one directly. </li>
-    <li >I provided the director with the results on the mobile app; he also requested a desktop skin, mostly I think as he was demoing on a laptop.</li>
-    <li >Extended and managed SCSS to supply a professional level output.</li>
-    <li >Added a feature flag structure to each project; to control their release better.  Moved visible text into a JSON file that served as a PO file (this was started before I joined, but made the text storage more consistent).</li>
-    <li >Made search REST API work correctly; and work faster by better use of SQL, rather than ORM features.   Improved some details in Nestjs API config.  </li>
-    <li >Added new API with other return [typescript] types to meet front-end needs.</li>
-    <li >Extended API project to be able to run from bash CLI concurrently to accessing the real DB; for local testing.</li>
-    <li >Added pixel size limit to the selfie upload; as images larger than the average desktop resolution crash the React scroll module (and aren't that useful on an app designed for phones).</li>
+    <li>Created many React Components.  'First contractors' had not included a CSS framework; I focussed styling on use of React style blocks rather than setting each Text element directly like a ms-word file does.</li>
+    <li>Reduced use of useEffect() so screens loaded faster; specifically stop one useEffect() from feeding another, or cascading updates occur.   </li>
+    <li>Note that ReactNative tags are not HTML tags, and often omit accessibility and styling features.  I improved accessibility, for example adding an un-styled wrapping DIV, with a tooltip; I used inline SVG in places to allow better styling.   Improved amount of RWD in the design; as not all phones or laptops are same resolution.   I think the first app author for the ReactNative sections had only read the docs for the first version; newer versions of ReactNative have about as much CSS support as MSIE; there is no need to pay a 50byte surcharge per text element to set the style on each one directly. </li>
+    <li>I provided the director with the results on the mobile app; he also requested a desktop skin, mostly I think as he was demoing on a laptop.</li>
+    <li>Extended and managed SCSS to supply a professional level output.</li>
+    <li>Added a feature flag structure to each project; to control their release better.  Moved visible text into a JSON file that served as a PO file (this was started before I joined, but made the text storage more consistent).</li>
+    <li>Made search REST API work correctly; and work faster by better use of SQL, rather than ORM features.   Improved some details in Nestjs API config.  </li>
+    <li>Added new API with other return [typescript] types to meet front-end needs.</li>
+    <li>Extended API project to be able to run from bash CLI concurrently to accessing the real DB; for local testing.</li>
+    <li>Added pixel size limit to the selfie upload; as images larger than the average desktop resolution crash the React scroll module (and aren't that useful on an app designed for phones).</li>
 </ul>
 
 
 <h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Operational needs <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
-    <li >Basic management and work organising of some interns.  Did some pair coding with interns; and code reviews.  I wasn't doing much managing, as I was delivering code.</li>
-    <li ><b>Boring and basic devops</b> to support the main objects.<ul class="ulbasic">
-        <li >'In-housed' technical services to our cloud, and away from First contractor hosting.</li>
-        <li >Added basic security features such as DB access via SSL ident (omitted from prototype).</li>
-        <li >Made email sending infrastructure (as code and service setup), as First contractor's email process seemed to use localhost as relay.</li>
-        <li >Added service monitoring with datadog and cloudwatch.</li>
-        <li >Designed (but not built) app installer; for current tech stack.</li>
+    <li>Basic management and work organising of some interns.  Did some pair coding with interns; and code reviews.  I wasn't doing much managing, as I was delivering code.</li>
+    <li><b>Boring and basic devops</b> to support the main objects.<ul class="ulbasic">
+        <li>'In-housed' technical services to our cloud, and away from First contractor hosting.</li>
+        <li>Added basic security features such as DB access via SSL ident (omitted from prototype).</li>
+        <li>Made email sending infrastructure (as code and service setup), as First contractor's email process seemed to use localhost as relay.</li>
+        <li>Added service monitoring with datadog and cloudwatch.</li>
+        <li>Designed (but not built) app installer; for current tech stack.</li>
     </ul></li>
 </ul>
 
@@ -152,7 +152,7 @@ In this text, the term 'First contractor' is to denote work that was done before
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2022-02-07T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >7th of Feb 2022</time> </span>
 					</span>
@@ -204,7 +204,7 @@ In this text, the term 'First contractor' is to denote work that was done before
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:58">26th of Mar 2024, 12:19:58</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:09">19th of May 2024, 12:07:09</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

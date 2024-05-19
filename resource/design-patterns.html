@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/design-patterns" />
 <meta property="og:description" content="My use of PHP design patterns and Structures that I apply." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:53" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:04" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/design-patterns" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Design Patterns that I use",
-	"article:published_time":"26th of Mar 2024, 12:19:53", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:04", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -74,26 +74,26 @@ TODO: magic tune selection against some index/DB -->
 <p>Structures that I use in no particular order:</p>
 
 <ul class="ulbasic">
-    <li >Inside PHP I am targeting Symfony2+ as a framework (<strong>EDIT 2020</strong> Obviously newer version after 2014 are in use), I use <b>MVC</b> and related algorithms.  Inside Perl I use Catalyst.  I have created implementations of this algorithm previously from scratch. I have used <b>MVP</b> in places where there was too much rendering logic.  This algorithm is valuable as there are many frameworks for it.  It allows large amounts of work to be automated/ done by the libraries.   In comparison to tools like Wordpress, it doesn't constrain one to simple things.</li>
-    <li >At time of writing I have yet to build a proper <b>MVVM</b>, but that is a result of giving clients what they need, rather than lack of skill.  There are many companies that think it more important to hold decision making on the server (commercial common sense).</li>
-    <li >For most companies, construction as a <b>SOA</b> is most sensible, I have built a couple.</li>
-    <li >I always use ObjectComposition<a href="https://www.google.co.uk/search?q=ObjectComposition">?</a> rather than inheritance; since it became practical at PHP5.  In more flexible languages like Python or Perl, I used from first use.</li>
-    <li ><b>EDIT Jan 2015</b>, from <sup><a href="https://phptherightway.com/pages/Design-Patterns.html" target="_blank">1</a></sup> I note that there is a formal name for the single access point is <b>Front Side Controller</b>.  I have always used this, but not considered it a pattern, as it is barely an object; just reduces errors, and reduces costs.  I also have used <b>HMVC</b> where this is  relevant to the framework (repacking for multiple output formats is nice with this).  </li>
-    <li ><b>Singletons</b> are an item on GoF, but break many OO traits.  They are the standard way to build logging or resources that only make sense with a single item.  I use them for Logs, and frequently config objects.</li>
-    <li >I use <b>Transformers</b> and <b>Adaptors</b>.</li>
-    <li >I use <b>Factories</b>.  I am using this less than I used, due to DI being technically feasible in PHP.  I'm not sure if I should include this, as I haven't written a <b>DI</b> yet, but I use other peoples DI libraries.  Obviously using DI requires that I am using <b>IoC</b>.  I have built some IoC structures. </li>
-    <li >I make a variety of <b>Producers</b> and <b>Consumers</b>.</li>
-    <li >I use <b>Collections/Iterators</b> when it seems to make sense.  I prefer to use arrays in some situations, for performance.   Where I use data as a scalar, I am using <b>Entities</b>.</li>
-    <li >I use <b>Facade</b> classes, frequently over an array of implementations (single access point, correct behaviour depending on data supplied).</li>
-    <li >I have made alot of <b>Managers</b> and <b>Workers</b> for multiprocess applications.  This frequently has better performance than Threads on Unix platforms. </li>
-    <li >I use <b>Validation</b> libraries and Managers for them.  Do not know the Pattern for this, but its a common structure.  It is used in Symfony2, but the ones I was referencing I wrote from scratch.  </li>
-    <li >Output <b>Rasterisers</b>/ templating libraries.</li>
-    <li >Some of my work should be formalised as <b>Observer</b> and <b>Subject</b> pattern.  I copied this from graphics rendering pipelines, where it is abit altered.</li>
-    <li ></li>
-    <li >I have built quite a few OO tree structures, and some linked lists. </li>
-    <li >I have built many state machines, but am not sure if this is a design pattern or a function pointer array. </li>
-    <li >I tend to use SAX XML parsers, rather than DOM.  The business uses often have alot of data, so DOM would consume a massive amount of RAM.</li>
-    <li >Where the language allows I use flyweight classes where I need alot of a given object.  See the previous SAX parser as an example.</li>
+    <li>Inside PHP I am targeting Symfony2+ as a framework (<strong>EDIT 2020</strong> Obviously newer version after 2014 are in use), I use <b>MVC</b> and related algorithms.  Inside Perl I use Catalyst.  I have created implementations of this algorithm previously from scratch. I have used <b>MVP</b> in places where there was too much rendering logic.  This algorithm is valuable as there are many frameworks for it.  It allows large amounts of work to be automated/ done by the libraries.   In comparison to tools like Wordpress, it doesn't constrain one to simple things.</li>
+    <li>At time of writing I have yet to build a proper <b>MVVM</b>, but that is a result of giving clients what they need, rather than lack of skill.  There are many companies that think it more important to hold decision making on the server (commercial common sense).</li>
+    <li>For most companies, construction as a <b>SOA</b> is most sensible, I have built a couple.</li>
+    <li>I always use ObjectComposition<a href="https://www.google.co.uk/search?q=ObjectComposition">?</a> rather than inheritance; since it became practical at PHP5.  In more flexible languages like Python or Perl, I used from first use.</li>
+    <li><b>EDIT Jan 2015</b>, from <sup><a href="https://phptherightway.com/pages/Design-Patterns.html" target="_blank">1</a></sup> I note that there is a formal name for the single access point is <b>Front Side Controller</b>.  I have always used this, but not considered it a pattern, as it is barely an object; just reduces errors, and reduces costs.  I also have used <b>HMVC</b> where this is  relevant to the framework (repacking for multiple output formats is nice with this).  </li>
+    <li><b>Singletons</b> are an item on GoF, but break many OO traits.  They are the standard way to build logging or resources that only make sense with a single item.  I use them for Logs, and frequently config objects.</li>
+    <li>I use <b>Transformers</b> and <b>Adaptors</b>.</li>
+    <li>I use <b>Factories</b>.  I am using this less than I used, due to DI being technically feasible in PHP.  I'm not sure if I should include this, as I haven't written a <b>DI</b> yet, but I use other peoples DI libraries.  Obviously using DI requires that I am using <b>IoC</b>.  I have built some IoC structures. </li>
+    <li>I make a variety of <b>Producers</b> and <b>Consumers</b>.</li>
+    <li>I use <b>Collections/Iterators</b> when it seems to make sense.  I prefer to use arrays in some situations, for performance.   Where I use data as a scalar, I am using <b>Entities</b>.</li>
+    <li>I use <b>Facade</b> classes, frequently over an array of implementations (single access point, correct behaviour depending on data supplied).</li>
+    <li>I have made alot of <b>Managers</b> and <b>Workers</b> for multiprocess applications.  This frequently has better performance than Threads on Unix platforms. </li>
+    <li>I use <b>Validation</b> libraries and Managers for them.  Do not know the Pattern for this, but its a common structure.  It is used in Symfony2, but the ones I was referencing I wrote from scratch.  </li>
+    <li>Output <b>Rasterisers</b>/ templating libraries.</li>
+    <li>Some of my work should be formalised as <b>Observer</b> and <b>Subject</b> pattern.  I copied this from graphics rendering pipelines, where it is abit altered.</li>
+    <li></li>
+    <li>I have built quite a few OO tree structures, and some linked lists. </li>
+    <li>I have built many state machines, but am not sure if this is a design pattern or a function pointer array. </li>
+    <li>I tend to use SAX XML parsers, rather than DOM.  The business uses often have alot of data, so DOM would consume a massive amount of RAM.</li>
+    <li>Where the language allows I use flyweight classes where I need alot of a given object.  See the previous SAX parser as an example.</li>
 </ul>
 
 <p><b>I will write more on this subject in later articles.</b></p>
@@ -134,7 +134,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2022-05-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of May 2022</time> </span>
 					</span>
@@ -182,7 +182,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:53">26th of Mar 2024, 12:19:53</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:04">19th of May 2024, 12:07:04</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

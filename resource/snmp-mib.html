@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/snmp-mib" />
 <meta property="og:description" content="A missing manual for MIBs used in SNMP. This article is more narrow scope and advanced than most" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="26th of Mar 2024, 12:19:59" />
-<meta property="article:modified_time" content="26th of Mar 2024" />
+<meta property="article:published_time" content="19th of May 2024, 12:07:10" />
+<meta property="article:modified_time" content="19th of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/snmp-mib" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "SNMP MIB grammar",
-	"article:published_time":"26th of Mar 2024, 12:19:59", 
-    "article:modified_time":"26th of Mar 2024",
+	"article:published_time":"19th of May 2024, 12:07:10", 
+    "article:modified_time":"19th of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -56,31 +56,31 @@ TODO: magic tune selection against some index/DB -->
 <p>This is a list of bullet points on how to make MIBs, as the notes on line assume you know the grammar.  MIBs are from the 1980s, before the  interweb; and the cultural baseline has moved.  Details:</p>
 
 <ul class="ulbasic">
-    <li >Extend ASN1 syntax <sup><a href="https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One" target="_blank">1</a></sup> <sup><a href="https://www.itu.int/ITU-T/studygroups/com17/languages/" target="_blank">2</a></sup>.  </li>
-    <li >Are case sensitive (as C is)</li>
-    <li >Have a basic range of types [XXX], like C.</li>
-    <li >Types can be extended with defines, like C</li>
-    <li >Doesn't care about whitespace, and online samples have a weird tab length.</li>
-    <li >A comment starts -- (like SQL)</li>
-    <li >Like an SQL table definition, each item is defined by a name and its type, separated by a comma</li>
-    <li >The entire list of names is surrounded in parens { }  </li>
-    <li >There are common types defined in <sup><a href="https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol" target="_blank">3</a></sup>, [XXX]</li>
-    <li >Each SNMP packet is supposed to have at least one TRAP type.</li>
-    <li >Each TRAP is a type/typedef, and is not a value.</li>
-    <li >A number of TLV/ AVP may be attached to a TRAP.</li>
-    <li >Each set of TLV/ AVP must be grouped with a GROUP type.</li>
-    <li >As far as I note, sequence order of TLV/ AVP isn't important.</li>
+    <li>Extend ASN1 syntax <sup><a href="https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One" target="_blank">1</a></sup> <sup><a href="https://www.itu.int/ITU-T/studygroups/com17/languages/" target="_blank">2</a></sup>.  </li>
+    <li>Are case sensitive (as C is)</li>
+    <li>Have a basic range of types [XXX], like C.</li>
+    <li>Types can be extended with defines, like C</li>
+    <li>Doesn't care about whitespace, and online samples have a weird tab length.</li>
+    <li>A comment starts -- (like SQL)</li>
+    <li>Like an SQL table definition, each item is defined by a name and its type, separated by a comma</li>
+    <li>The entire list of names is surrounded in parens { }  </li>
+    <li>There are common types defined in <sup><a href="https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol" target="_blank">3</a></sup>, [XXX]</li>
+    <li>Each SNMP packet is supposed to have at least one TRAP type.</li>
+    <li>Each TRAP is a type/typedef, and is not a value.</li>
+    <li>A number of TLV/ AVP may be attached to a TRAP.</li>
+    <li>Each set of TLV/ AVP must be grouped with a GROUP type.</li>
+    <li>As far as I note, sequence order of TLV/ AVP isn't important.</li>
 </ul>
 
 <p>I advise use of a validator, which will report errors verbosely.  I used <sup><a href="https://www.muonics.com/Tools/smicheck.php" target="_blank">4</a></sup>.</p>
 
 <ul class="ulbasic">
-    <li >The most widely used version of SNMP is v2c. There is v1 and v3.  The first edition was too simple; and third edition requires complex authentication, which is hard to manage.</li>
-    <li >There is a numeric naming scheme, like MAC codes or IP6, to id every section of data inside SNMP.  The naming scheme is known as OID.  </li>
-    <li >There are published MIBs for many networking/ hardware vendors. These are frequently inside their own enterprise ID.  </li>
-    <li >Localised SNMP (i.e. specific to your company) should be inside an specific/ custom enterprise OID. </li>
-    <li >You can get a SNMP enterprise ID via <sup><a href="https://www.iana.org/assignments/enterprise-numbers/assignment/apply/" target="_blank">5</a></sup> more reading <sup><a href="https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml" target="_blank">6</a></sup> <sup><a href="https://www.ccontrols.com/pdf/Extv4n3.pdf" target="_blank">7</a></sup></li>
-    <li >The SNMP packets are sent via UDP, and are not acknowledged.</li>
+    <li>The most widely used version of SNMP is v2c. There is v1 and v3.  The first edition was too simple; and third edition requires complex authentication, which is hard to manage.</li>
+    <li>There is a numeric naming scheme, like MAC codes or IP6, to id every section of data inside SNMP.  The naming scheme is known as OID.  </li>
+    <li>There are published MIBs for many networking/ hardware vendors. These are frequently inside their own enterprise ID.  </li>
+    <li>Localised SNMP (i.e. specific to your company) should be inside an specific/ custom enterprise OID. </li>
+    <li>You can get a SNMP enterprise ID via <sup><a href="https://www.iana.org/assignments/enterprise-numbers/assignment/apply/" target="_blank">5</a></sup> more reading <sup><a href="https://www.iana.org/assignments/smi-numbers/smi-numbers.xhtml" target="_blank">6</a></sup> <sup><a href="https://www.ccontrols.com/pdf/Extv4n3.pdf" target="_blank">7</a></sup></li>
+    <li>The SNMP packets are sent via UDP, and are not acknowledged.</li>
 </ul>
 
 
@@ -117,7 +117,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>
+						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
 						</span>
 						<span>Created <time datetime="2017-02-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Feb 2017</time> </span>
 					</span>
@@ -164,7 +164,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-03-26T12:19:59">26th of Mar 2024, 12:19:59</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-03-26T12:19:46">26th of Mar 2024</time>.
+	<p> Page rendered <time datetime="2024-05-19T12:07:10">19th of May 2024, 12:07:10</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
