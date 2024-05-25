@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/mongodb-indexes" />
 <meta property="og:description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="19th of May 2024, 12:07:07" />
-<meta property="article:modified_time" content="19th of May 2024" />
+<meta property="article:published_time" content="23rd of May 2024, 17:14:44" />
+<meta property="article:modified_time" content="23rd of May 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/mongodb-indexes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "MongoDB indexes",
-	"article:published_time":"19th of May 2024, 12:07:07", 
-    "article:modified_time":"19th of May 2024",
+	"article:published_time":"23rd of May 2024, 17:14:44", 
+    "article:modified_time":"23rd of May 2024",
     "article:section":"technology",
 
     "author": {
@@ -55,7 +55,7 @@ TODO: magic tune selection against some index/DB -->
 <div class="halferWords">
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
-<p>With most databases, to have correct indexes is essential for reasonable performance.  There are more complications when you move to a multi-host model which is common in larger MongoDB installations.  If you have an RDBMS and you have replication, it is simpler as there is ACID consistency <sup><a href="https://en.wikipedia.org/wiki/ACID" target="_blank">1</a></sup>.  NoSQL architectures offer no such securities, to better support datasets that require an address space/ key space <sup><a href="https://en.wikipedia.org/wiki/Keyspace_%28distributed_data_store%29" target="_blank">2</a></sup> larger than any actual computer has.</p>
+<p>With most databases, to have correct indexes is essential for reasonable performance.  There are more complications when you move to a multi-host model which is common in larger MongoDB installations.  If you have an RDB and you have replication, it is simpler as there is ACID consistency <sup><a href="https://en.wikipedia.org/wiki/ACID" target="_blank">1</a></sup>.  NoSQL architectures offer no such securities, to better support datasets that require an address space/ key space <sup><a href="https://en.wikipedia.org/wiki/Keyspace_%28distributed_data_store%29" target="_blank">2</a></sup> larger than any actual computer has.</p>
 
 <p>The MongoDB v5 shell supports: <i>createIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/createIndexes/" target="_blank">3</a></sup> and <i>dropIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/dropIndexes/" target="_blank">4</a></sup>.  Note this version removes <i>ensureIndex()</i>.   Either of these commands can be run on the DB or the collection levels.  It is strongly not advisable to run either of these commands whilst the DB is in operational service, as changing indexes will lock the DB for while.   With practical observation, if a collection has less than a million documents and is completely hosted on a single server; the outage is a few seconds.  Compare this to your required uptime metrics.  Indexes created and used by Mongo do not normally use a auto-increment algorithm (like Postgres or MySQL uses), as sharded systems wouldn't know the largest previous value.  The official notes for auto-increment <sup><a href="https://www.mongodb.com/basics/mongodb-auto-increment" target="_blank">5</a></sup>.</p>
 
@@ -119,7 +119,7 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
+						<span>Edited <time datetime="2024-05-23T17:14:37">23rd of May 2024</time>
 						</span>
 						<span>Created <time datetime="2023-01-20T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Jan 2023</time> </span>
 					</span>
@@ -168,7 +168,7 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-05-19T12:07:07">19th of May 2024, 12:07:07</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
+	<p> Page rendered <time datetime="2024-05-23T17:14:44">23rd of May 2024, 17:14:44</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-23T17:14:37">23rd of May 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
