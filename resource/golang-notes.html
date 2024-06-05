@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/golang-notes" />
 <meta property="og:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="19th of May 2024, 12:07:05" />
-<meta property="article:modified_time" content="19th of May 2024" />
+<meta property="article:published_time" content="5th of Jun 2024, 9:25:19" />
+<meta property="article:modified_time" content="3rd of Jun 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/golang-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "How to make a Golang binary",
-	"article:published_time":"19th of May 2024, 12:07:05", 
-    "article:modified_time":"19th of May 2024",
+	"article:published_time":"5th of Jun 2024, 9:25:19", 
+    "article:modified_time":"3rd of Jun 2024",
     "article:section":"technology",
 
     "author": {
@@ -103,7 +103,7 @@ Before I started using Golang; I was focussing on “how to type in this languag
         <li>Those two statements do not talk about the file name; which is flexible.</li>
         <li>According to <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">4</a></sup> the “main” package doesn't need to be in a directory called “main”; so it can be stored with the other Go files.  My recent practical experience contradicts this.  I make an extra “main” subpackage, to keep it out of the way.</li>
     </ul></li>
-    <li>A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">5</a></sup>.  I will update this  point with which one is best.</li>
+    <li>A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">5</a></sup>.  I will update this point with which one is best.</li>
     <li>Golang files generally have .go as a suffix <sup><a href="https://stackoverflow.com/questions/25161774/what-are-conventions-for-filenames-in-go" target="_blank">6</a></sup>; I do not know if that is required anywhere.</li>
     <li>There is nearly a standard file system layout <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">7</a></sup></li>
     <li>In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">8</a></sup> <sup><a href="https://ednsquare.com/story/public-and-private-packages-functions-in-golang------KgKYKs" target="_blank">9</a></sup>.</li>
@@ -132,7 +132,7 @@ Before I started using Golang; I was focussing on “how to type in this languag
 
 <h3 class="dontend" id="toc1"> Preferred Source tree referencing <sup><a href="https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md" target="_blank">34</a></sup></h3>
 <ul class="ulbasic">
-    <li>situation: I have business objectives to make a small app; I have half of the features in existing libraries.  I do not wish to upload non-compileable half typed code to git; but I need to do test builds.</li>
+    <li>situation: I have business objectives to make a small app; I have half of the features in existing libraries.  I do not wish to upload non-compilable half typed code to git; but I need to do test builds.</li>
     <li>solution: I start a new project dir; I create sub modules/ directories as seems appropriate; in the very small sub module that holds main(), I create a vendor with `go mod vendor`; I create a symlink from the current project root dir to a new same name directory symlink in the system lib dir. </li>
     <li>This means I can test-compile/ and or build tests without uploading anything to the git server.</li>
     <li>On completion of the module; upload it to git; and delete local symlink</li>
@@ -178,7 +178,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
+						<span>Edited <time datetime="2024-06-03T21:58:59">3rd of Jun 2024</time>
 						</span>
 						<span>Created <time datetime="2021-05-31T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >31st of May 2021</time> </span>
 					</span>
@@ -226,7 +226,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div> 
-	<p> Page rendered <time datetime="2024-05-19T12:07:05">19th of May 2024, 12:07:05</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
+	<p> Page rendered <time datetime="2024-06-05T09:25:19">5th of Jun 2024, 9:25:19</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-06-03T21:58:59">3rd of Jun 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
