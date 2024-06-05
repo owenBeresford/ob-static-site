@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Golang toolkit</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="What tools are best to use when writing services in Golang, and best toolchain? Advantages in getting the latest Golang version." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Golang toolkit">
+<meta itemprop="description" content="What tools are best to use when writing services in Golang, and best toolchain? Advantages in getting the latest Golang version.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Golang toolkit">
+<meta name="twitter:description" content="What tools are best to use when writing services in Golang, and best toolchain? Advantages in getting the latest Golang version.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Golang toolkit" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/golang-toolkit" />
+<meta property="og:description" content="What tools are best to use when writing services in Golang, and best toolchain? Advantages in getting the latest Golang version." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="5th of Jun 2024, 12:41:07" />
+<meta property="article:modified_time" content="5th of Jun 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/golang-toolkit" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Golang toolkit",
+	"article:published_time":"5th of Jun 2024, 12:41:07", 
+    "article:modified_time":"5th of Jun 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples addReferences">
+<div class="halferWords">
+<p>This is a part of a quick range of “preferred tools” articles, setting up server-side languages.   This will need to updated in 2-3 years.    #boring! I'm starting to think I should add a snoring backtrack to these pages.   I do not have a “project starter” project / scripts for Golang the way I do for TS / JS projects.   So notes are here, as plan B...</p>
+
+
+<h5 id="toc0"> Language target</h5>
+<p>In June 2024, the current edition of Golang, fresh from the factory is 1.22.   As my dev desktop happens to be freshly updated, I can install this with little effort.   In four years this has climbed from Golang 1.14.   If the expected use includes the HTTP protocol or Crypto, it seems important to use the newest version, as these are having many security changes in the last few months.    <br />
+Referencing C++ with UTF-8 and POSIX &amp; win32 API; If I add a thread library to that problem spec; this is the sweet spot for Golang.   I definitely have a strong opinion that using Golang 1.15+ is desirable by any means needed.   This is when they published the complete better module spec, so code linking and loading is much less clumsy.</p>
+
+
+<h5 id="toc1"> Tools</h5>
+<ul class="ulbasic">
+    <li>An IDE: Goland (sorry Jetbrains ad again), VScode works with a plugin <sup><a href="https://code.visualstudio.com/docs/languages/go" target="_blank">1</a></sup>,  The go.dev site recommends vim <sup><a href="https://go.dev/doc/editors" target="_blank">2</a></sup>, with <sup><a href="https://github.com/fatih/vim-go" target="_blank">3</a></sup> <sup><a href="https://www.vim.org/scripts/" target="_blank">4</a></sup>. <ul class="ulbasic">
+        <li>Add IDE plugins...</li>
+    </ul></li>
+    <li>An online “playground” ~ as a compiled lang, there is no REPL ~ <a href="https://goplay.tools/" target="_blank">self-described better playground</a>, <a href="https://play.golang.com/" target="_blank">normal playground</a>, <a href="https://goplay.space/" target="_blank">transpile playground</a>, <a href="https://www.boot.dev/playground/go" target="_blank">web-assembly playground</a>, <a href="https://github.com/go-playground/" target="_blank">git</a>.</li>
+    <li>Package discovery via <a href="https://pkg.go.dev/" target="_blank">pkg</a> tool.</li>
+    <li>Package installation via supplied tools `go get` and `go mod` <sup><a href="https://go.dev/doc/modules/managing-dependencies" target="_blank">5</a></sup> <sup><a href="https://www.delftstack.com/howto/go/golang-install-package/" target="_blank">6</a></sup>.  For an external tool written in Golang, it can be installed with `go install` <sup><a href="https://linguinecode.com/post/golang-install-packages" target="_blank">7</a></sup> </li>
+</ul>
+
+
+<h5 id="toc2"> Common process </h5>
+<ul class="ulbasic">
+    <li>I don't know if there will be  shake down in future, or if actual free-standing OSS Golang is rare.   I see many corporate vendors, and no github account for a project (regardless of sponsors) which is what often happens in JS/TS/CSS projects.     </li>
+    <li>unit test: <a href="https://go.dev/doc/tutorial/add-a-test" target="_blank">docs</a>, longer <a href="https://www.digitalocean.com/community/tutorials/how-to-write-unit-tests-in-go-using-go-test-and-the-testing-package" target="_blank">docs</a> <a href="https://blog.jetbrains.com/go/2022/11/22/comprehensive-guide-to-testing-in-go/" target="_blank">docs</a> packages <i><a href="https://pkg.go.dev/testing" target="_blank">testing</a>, <a href="https://pkg.go.dev/github.com/stretchr/testify" target="_blank">testify</a></i>, or specialised ones <i><a href="https://pkg.go.dev/net/http/httptest" target="_blank">httptest</a></i>, the <i><a href="https://pkg.go.dev/github.com/gblach/cavalry" target="_blank">cavalry</a></i> and more. </li>
+    <li>lint: I think <i>Golangci-lint</i> <a href="https://github.com/golangci/golangci-lint" target="_blank">git</a> <a href="https://golangci-lint.run/" target="_blank">docs</a> is everything a project could need/want (look at included linters)</li>
+    <li>docs generator: <a href="https://go.dev/blog/godoc" target="_blank">docs</a> <a href="https://www.linkedin.com/pulse/how-generate-documentation-from-code-golang-alex-guidi/" target="_blank">docs</a> package <sup><a href="https://pkg.go.dev/golang.org/x/tools/cmd/godoc" target="_blank">8</a></sup> (a standard library) </li>
+    <li>Compilers: builtin, `go build`  <sup><a href="https://go.dev/doc/tutorial/compile-install" target="_blank">9</a></sup>.  A page of details for managing building <a href="https://owenberesford.me.uk/resource/golang-notes#">golang-notes</a> </li>
+    <li>The entire language is supporting packages of packages, so no extra tooling for this is needed.</li>
+</ul>
+
+<p>Golang seems to tend towards specs the way C++ does.  A few specs <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">10</a></sup> <sup><a href="https://github.com/golang/go/blob/master/doc/go_spec.html" target="_blank">11</a></sup> <sup><a href="https://go.dev/ref/spec" target="_blank">12</a></sup></p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"> <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog </a> </div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Golang toolkit</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-toolkit" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-toolkit" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-toolkit" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i></a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-toolkit&amp;t=Golang+toolkit"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i></a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-toolkit" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-06-05T09:44:24">5th of Jun 2024</time>
+						</span>
+						<span>Created <time datetime="2024-06-02T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >2nd of Jun 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fgolang-toolkit" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+	</div> 
+	<p> Page rendered <time datetime="2024-06-05T12:41:07">5th of Jun 2024, 12:41:07</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-06-05T09:44:24">5th of Jun 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer src="/asset/ob1.min.js" ></script>
+
+</body>
+</html>
