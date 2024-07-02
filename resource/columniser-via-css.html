@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/columniser-via-css" />
 <meta property="og:description" content="Modern CSS can automatically make columns, this will be much faster to run than JS adding and removing DOM nodes." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of May 2024, 17:14:40" />
-<meta property="article:modified_time" content="23rd of May 2024" />
+<meta property="article:published_time" content="1st of Jul 2024, 20:28:51" />
+<meta property="article:modified_time" content="1st of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/columniser-via-css" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Columniser via CSS",
-	"article:published_time":"23rd of May 2024, 17:14:40", 
-    "article:modified_time":"23rd of May 2024",
+	"article:published_time":"1st of Jul 2024, 20:28:51", 
+    "article:modified_time":"1st of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -68,7 +68,10 @@ I haven't looked at grid for article, as that will not apply columns to a large 
 <p>problems:</p>
 
 <ul class="ulbasic">
-    <li>need ability to link titles to content block. In theory the following link supplies a solution <sup><a href="https://stackoverflow.com/questions/28708741/how-do-i-select-an-element-based-on-the-state-of-another-element-in-the-page-wit" target="_blank">8</a></sup>, but it didn't work for my situation.</li>
+    <li>need ability to link titles to content block. In theory the following link supplies a solution <sup><a href="https://stackoverflow.com/questions/28708741/how-do-i-select-an-element-based-on-the-state-of-another-element-in-the-page-wit" target="_blank">8</a></sup>, but it didn't work for my situation.<ul class="ulbasic">
+        <li>I could do this if I avoid the Wiki library, by adding structural HTML elements.   That possible change would be far too expensive</li>
+    </ul></li>
+    <li>UPDATE: I have chaotic interaction between CSS columns and CSS position:absolute.   In theory, they are Non-overlapping magisteria ~ NOMA ~ a left field reference, maybe edit to remove the distraction <sup><a href="https://en.wikipedia.org/wiki/Non-overlapping_magisteria" target="_blank">9</a></sup>.   But browsers are very complex machines.  This is a long standing issue <sup><a href="https://stackoverflow.com/questions/38463687/how-can-i-prevent-an-absolutely-positioned-element-from-breaking-within-css-colu" target="_blank">10</a></sup> <sup><a href="https://stackoverflow.com/questions/33919420/absolute-positioning-within-css3-columns" target="_blank">11</a></sup> <sup><a href="https://stackoverflow.com/questions/7071212/css-add-and-position-a-div-without-disturbing-the-rest-of-the-document" target="_blank">12</a></sup>, I have applied palliatives which help abit.</li>
 </ul>
 
 
@@ -278,9 +281,9 @@ Tempus urna et pharetra pharetra massa massa ultricies mi. Morbi tristique senec
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research,images"> <p>Some similar articles in research </p>
-<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research </a> </div><p>Some similar articles in images </p>
-<div id="groupimages" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=images" aria-label="This article lists all items in images group.">All of <br />images </a> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" data-group="research,images" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles</a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div><p>Some similar articles in images </p>
+<div id="groupimages" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=images" aria-label="This article lists all items in images group.">All of <br />images<br /> articles</a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -307,7 +310,7 @@ Tempus urna et pharetra pharetra massa massa ultricies mi. Morbi tristique senec
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-05-23T17:14:37">23rd of May 2024</time>
+						<span>Edited <time datetime="2024-07-01T07:34:11">1st of Jul 2024</time>
 						</span>
 						<span>Created <time datetime="2022-07-26T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >26th of Jul 2022</time> </span>
 					</span>
@@ -317,7 +320,7 @@ Tempus urna et pharetra pharetra massa massa ultricies mi. Morbi tristique senec
 			<dialog id="popup" class="popup1 bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcolumniser-via-css" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcolumniser-via-css" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -353,14 +356,14 @@ Tempus urna et pharetra pharetra massa massa ultricies mi. Morbi tristique senec
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
-		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-05-23T17:14:40">23rd of May 2024, 17:14:40</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-23T17:14:37">23rd of May 2024</time>.
+	<p> Page rendered <time datetime="2024-07-01T20:28:51">1st of Jul 2024, 20:28:51</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-01T07:34:11">1st of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script src="/asset/ob1.min.js" ></script>
+<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
 <style>
 .testPage { z-index:1; clear:both; width:100%; margin-top:2em; margin-bottom:2em; }
 
@@ -374,18 +377,18 @@ Tempus urna et pharetra pharetra massa massa ultricies mi. Morbi tristique senec
 }
 
 </style>
-<script>
+<script type="module" defer>
+function pageStartup() { 
 // this is a hack, in that this does use JS; and if you resize it won't re-render
-let wholeBox = $('#JSfixor')[0].getBoundingClientRect();
-$('#JSfixor .dontend').each(( i, val) => {
+let wholeBox = document.querySelector('#JSfixor').getBoundingClientRect();
+document.querySelectorAll('#JSfixor .dontend').forEaqch( function(val, i) {
 	let tt=val.getBoundingClientRect();
 	if (tt.bottom +50 > wholeBox.bottom) {
 		val.style="margin-top:40px;";
 		console.log("Displace header, hopefully to next column");
 	}
-
 });
-
+}
 </script>
 </body>
 </html>

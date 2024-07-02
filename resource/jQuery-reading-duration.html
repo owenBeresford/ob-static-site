@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-reading-duration" />
 <meta property="og:description" content="Design article and research behind the reading time statistic." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="19th of May 2024, 12:07:06" />
-<meta property="article:modified_time" content="19th of May 2024" />
+<meta property="article:published_time" content="1st of Jul 2024, 20:28:53" />
+<meta property="article:modified_time" content="1st of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-reading-duration" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Reading time stat",
-	"article:published_time":"19th of May 2024, 12:07:06", 
-    "article:modified_time":"19th of May 2024",
+	"article:published_time":"1st of Jul 2024, 20:28:53", 
+    "article:modified_time":"1st of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -52,7 +52,7 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker">
-<p class="accessSrc" ><a href="https://github.com/owenBeresford/jquery-reading-duration" title="public location of the jQuery-reading-duration source." class="button"><i class="fa fa-github" aria-hidden="true"></i></a>  </p>
+<p class="accessSrc" ><a href="https://github.com/owenBeresford/extra-panda" title="public location of the jQuery-reading-duration source." class="button"><i class="fa fa-github" aria-hidden="true"></i></a>  </p>
 <div class="lotsOfWords addReferences">
 <p>I read advanced tech blogs, written by people similar to me.  I gain perspective on this.  I note that time to read the article is quite useful, so I have mocked up a JS tool to supply this.  This is the first iteration, I may add more metrics to the output in future.  My inspiration is <sup><a href="https://wedevs.com/blog/303752/how-to-show-estimated-post-reading-time-for-wordpress-blog-posts/" target="_blank">1</a></sup>, <sup><a href="https://martech.org/estimated-reading-times-increase-engagement/" target="_blank">2</a></sup> and <a href="https://medium.com/the-passion-of-christopher-pierznik-books-rhymes/longevity-and-losses-the-complicated-career-of-ll-cool-j" target="_blank">Medium</a> <sup><a href="https://medium.com/online-writing-101/7-minutes-thats-the-perfect-blog-lenght-on-medium-2cf4ea983e78" target="_blank">3</a></sup>, although I am sure there are more examples.<br />
 For authorship, I would advise using a article content-assistance tool, rather than my simple notes.  Some examples are <a href="https://hemingwayapp.com/" target="_blank">Hemingway App</a>, <a href="https://prowritingaid.com/?sscid=11k7_6o6k8&amp;amp;" target="_blank">Pro writing aid</a>, <a href="https://www.grammarly.com/" target="_blank">grammarly</a>.  These are a more general solution to not having spent fifteen years grinding out text everyday.  If you are using Wordpress, there is a plugin inside that framework.</p>
@@ -73,13 +73,14 @@ For authorship, I would advise using a article content-assistance tool, rather t
  + ($(root_element_for_text).find('img').length) * 12;
 </code></p>
 
-<p>This model currently doesn't measure page loading time.  That is very dependant on situation. Hopefully this never adds more than 2-3s to page viewing time.</p>
+<p>This model currently doesn't measure page loading time.  That is very dependant on situation. Hopefully this never adds more than 2s to page viewing time, even on a old phone. <br />
+<strong>UPDATE 2024</strong>: the code samples based on legacy jQuery are <b>samples</b>, the current code isn't using jQuery, but many people can read this notation.</p>
 
 
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Implementation for this simple JS tool <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
-<p>I am creating a <a href="https://github.com/owenBeresford/jquery-reading-duration" target="_blank">jQuery plugin</a>, hosted in github along with my other source code.  This plugin uses callbacks to make HTML, for better branding, same as my other plugins (or its not usable by anyone else).   Very quick implementation, so this text is short.</p>
+<p><del>I am creating a <a href="https://github.com/owenBeresford/jquery-reading-duration" target="_blank">jQuery plugin</a>, hosted in github along with my other source code.  This plugin uses callbacks to make HTML, for better branding, same as my other plugins (or its not usable by anyone else).   Very quick implementation, so this text is short.</del><ins>The legacy code is deprecated.  I am using normal JS on this site.  This article is left up, as the notes on behaviour haven't changed </ins></p>
 
-<p>API:</p>
+<p>DEPRECATED API:</p>
 
 <ul class="ulbasic">
     <li><i>readingDuration(opts);</i></li>
@@ -107,8 +108,8 @@ The opts hash may take the following:</p>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="legacy"> <p>Some similar articles in legacy </p>
-<div id="grouplegacy" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=legacy" aria-label="This article lists all items in legacy group.">All of <br />legacy </a> </div>
+	<div id="contentGroup" class="adjacentGroup" data-group="legacy" title="Use the first link to get the complete range of the group." > <p>Some similar articles in legacy </p>
+<div id="grouplegacy" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=legacy" aria-label="This article lists all items in legacy group.">All of <br />legacy<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
  </div>
 
   </div>
@@ -136,9 +137,9 @@ The opts hash may take the following:</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
+						<span>Edited <time datetime="2024-07-01T09:00:05">1st of Jul 2024</time>
 						</span>
-						<span>Created <time datetime="2015-11-25T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >25th of Nov 2015</time> </span>
+						<span>Created <time datetime="2015-11-25T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >25th of Nov 2015</time> </span>
 					</span>
 
 				</div>
@@ -146,7 +147,7 @@ The opts hash may take the following:</p>
 			<dialog id="popup" class="popup1 bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-reading-duration" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-reading-duration" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -182,14 +183,15 @@ The opts hash may take the following:</p>
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
-		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-05-19T12:07:06">19th of May 2024, 12:07:06</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
+	<p> Page rendered <time datetime="2024-07-01T20:28:53">1st of Jul 2024, 20:28:53</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-01T09:00:05">1st of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer src="/asset/ob1.min.js" ></script>
-
+<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<link rel="stylesheet" href="/asset/hljs.min.css" />
+<script defer type="module" src="/asset/highlight-js.mjs"></script>
 </body>
 </html>
