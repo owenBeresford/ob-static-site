@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/punit-implementation" />
 <meta property="og:description" content="Further notes on the development for punit.  I have less experience in Perl at scale, or writing code analysis tools in it" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="19th of May 2024, 12:07:09" />
-<meta property="article:modified_time" content="19th of May 2024" />
+<meta property="article:published_time" content="1st of Jul 2024, 20:28:56" />
+<meta property="article:modified_time" content="1st of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/punit-implementation" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Implementation notes for punit",
-	"article:published_time":"19th of May 2024, 12:07:09", 
-    "article:modified_time":"19th of May 2024",
+	"article:published_time":"1st of Jul 2024, 20:28:56", 
+    "article:modified_time":"1st of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,8 +51,8 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
-<p>This content continues from <a title="The first article, mostly requirements." href="https://owenberesford.me.uk/resource//punit">punit</a>.  The source is <a class="button" title="A public GIT repo of this project." href="https://github.com/owenBeresford/punit"><i class="fa fa-github" aria-hidden="true"></i></a> or <del class="button" >cpan</del></p>
+     <div class="blocker addBashSamples">
+<p class="accessSrc">This content continues from <a title="The first article, mostly requirements." href="https://owenberesford.me.uk/resource//punit">punit</a>.  The source is <a class="button" title="A public GIT repo of this project." href="https://github.com/owenBeresford/punit"><i class="fa fa-github" aria-hidden="true"></i></a> or <del class="button" >cpan</del></p>
 <div class="lotsOfWords">
 <sub>[Text continues from first article]</sub>
 <p>Although this code will create complete unit-tests as far as it is able; there are likely to be company specific things, or project specific things. For example some tests I wrote for the MVP edition of this tool (with which the current project shares no code) all needed DBIx::Class and a transaction library importing and instantiating.  In normal OO fashion there will be some empty methods defined that child classes of the skelgen may use to inject additional behaviour in a safe fashion.</p>
@@ -90,16 +90,13 @@ TODO: magic tune selection against some index/DB -->
 <hr />
 <div class="lotsOfWords">
 <p>I attach several samples in the Data directory.  According to my normal metrics, I need to split the IOAccess class as its too large.  I couldn't write this section as TDD, as I did not have a clue how I was making it at the start.  The code supports 2common assert formats, but I expect use will require additional '@assert parsing lines'.  When the code is run, getting a warning <i>“ADD MORE CODE HERE”</i> means that none of the existing parsers matched your @assert line.<br />
-    <br />
-       assert_true( ref $ret == &quot;&quot; );<br />
-    assert_true( length $ret &gt; 0);</p>
-
-<p><b>UPDATE April 2016</b>, I have now refactored that class, and added more unit tests.  I have added a <i>@NOTEST</i> flag to suppress test generation where you don't think its useful.  I added another unit test format from another Perl test library (see next).  <br />
-    @assert (1, 3) == 1<br />
+    ` assert_true( ref $ret == &quot;&quot; ); `<br />
+    ` assert_true( length $ret &gt; 0); `<br />
+<b>UPDATE April 2016</b>, I have now refactored that class, and added more unit tests.  I have added a <i>@NOTEST</i> flag to suppress test generation where you don't think its useful.  I added another unit test format from another Perl test library (see next).  <br />
+    `@assert (1, 3) == 1`<br />
 that is it just takes the params section in the invocation line, and the expected result.  I don't think this is as useful, as it stops you manipulating the return.   <br />
-On completion of this refactoring I note I should remove the B library section, as it dups the more relevant PPI.  This would make the RAM footprint smaller and probably make it faster.  As B is a core library it doesn't make any difference to dependencies.   I did a few hours work, and have completed this in April.</p>
-
-<p><b>UPDATE June 2016</b>, I have improved the output on the attached unit tests abit.  Pls note as this about test frameworks, some of these tests are supposed to fail, to show the fail code doesn't crash. I don't have a simple means to test the fail branch of a test framework, without doing what I did.<br />
+On completion of this refactoring I note I should remove the B library section, as it dups the more relevant PPI.  This would make the RAM footprint smaller and probably make it faster.  As B is a core library it doesn't make any difference to dependencies.   I did a few hours work, and have completed this in April.   <br />
+<b>UPDATE June 2016</b>, I have improved the output on the attached unit tests abit.  Pls note as this about test frameworks, some of these tests are supposed to fail, to show the fail code doesn't crash. I don't have a simple means to test the fail branch of a test framework, without doing what I did.<br />
 NB: don't forget you can't have several builds of the same unit test, it confuses the Perl class loader.</p>
 
 
@@ -107,27 +104,28 @@ NB: don't forget you can't have several builds of the same unit test, it confuse
 <p>From a module that looks like the following (not full class), <i>(an enterprise level docs would also syntax highlight the following code-snippets, but feature not built)</i></p>
 
 
-<pre class="codeblock"><code>
+<code class="highlight" lang="perl">
 # funcC ~ blither blither
 # remember this is test code, it doesn't do anything
 # @assert $obj-&gt;funcC() === $obj
-# @assert $obj-&gt;funcC() === $obj “a useful comment on what the test does”
-    sub funcC {
-        return $_[0];
-    }
-</code></pre>
+# @assert $obj-&gt;funcC() === $obj "a useful comment"
+sub funcC {
+   return $_[0];
+}
+</code>
+<p>would produce the following unit test (not full class):</p>
 
-would produce the following unit test (not full class):<br />
 
-<pre class="codeblock"><code>
+<code class="highlight" lang="perl">
 sub testfuncC {
-    my ($self)        = @_;
+  my ($self)		= @_;
 
-     assert_deep_equals($obj-&gt;funcC(), $obj, “punit::t::Data::SampleClass#35”);
-    assert_deep_equals($obj-&gt;funcC(), $obj, “a useful comment on what the test does”);
- 
-}</code></pre>
-
+  assert_deep_equals($obj-&gt;funcC(), $obj, 
+     "punit::t::Data::SampleClass#35");
+  assert_deep_equals($obj-&gt;funcC(), $obj, 
+     "a useful comment on what the test does");
+}
+</code>
 
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Q: Why do I think this is useful?   <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 
@@ -155,8 +153,8 @@ sub testfuncC {
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"> <p>Some similar articles in worklog </p>
-<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog </a> </div>
+	<div id="contentGroup" class="adjacentGroup" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
  </div>
 
   </div>
@@ -184,9 +182,9 @@ sub testfuncC {
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
+						<span>Edited <time datetime="2024-07-01T18:46:36">1st of Jul 2024</time>
 						</span>
-						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+						<span>Created <time datetime="2015-03-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
 
 				</div>
@@ -194,7 +192,7 @@ sub testfuncC {
 			<dialog id="popup" class="popup1 bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit-implementation" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpunit-implementation" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -233,14 +231,15 @@ sub testfuncC {
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
-		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-05-19T12:07:09">19th of May 2024, 12:07:09</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
+	<p> Page rendered <time datetime="2024-07-01T20:28:56">1st of Jul 2024, 20:28:56</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-01T18:46:36">1st of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer src="/asset/ob1.min.js" ></script>
-
+<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<link rel="stylesheet" href="/asset/hljs.min.css" />
+<script defer type="module" src="/asset/highlight-perl.mjs"></script>
 </body>
 </html>

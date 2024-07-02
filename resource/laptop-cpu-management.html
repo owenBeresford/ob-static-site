@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/laptop-cpu-management" />
 <meta property="og:description" content="Seven technical and orthogonal steps to suspend unneeded processes and features on laptops; which will make them quieter and make the battery charge last longer." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="19th of May 2024, 12:07:07" />
-<meta property="article:modified_time" content="19th of May 2024" />
+<meta property="article:published_time" content="1st of Jul 2024, 20:28:54" />
+<meta property="article:modified_time" content="1st of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/laptop-cpu-management" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Laptop CPU management",
-	"article:published_time":"19th of May 2024, 12:07:07", 
-    "article:modified_time":"19th of May 2024",
+	"article:published_time":"1st of Jul 2024, 20:28:54", 
+    "article:modified_time":"1st of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -82,8 +82,11 @@ This are low risk steps; but <strong>only use non-mainline kernels if necessary<
 modprobe coretemp
 apt install hardinfo; 
 apt install acpi;  
-# ACPI features were present in earlier versions of the kernel, do not know if this is precisely the same. 
-apt install linux-tools-common linux-tools-5.15.0-39-generic linux-tools-generic;
+# ACPI features were present in earlier versions of 
+# the kernel, do not know if this is precisely the 
+# same. 
+apt install linux-tools-5.15.0-39-generic; 
+apt install linux-tools-common linux-tools-generic;
 </code>
 </div>
 <hr />
@@ -103,7 +106,8 @@ less /proc/cpuinfo
 cat /proc/cpuinfo | grep 'model name'
  
 sensors-detect 
-# On Ubuntu this is installed by default, I think; check your local distribution
+# On Ubuntu this is installed by default, I think;
+     # check your local distribution
 acpi -b 
 cat /proc/acpi/toshiba/keys 
 cat /proc/acpi/toshiba/fan 
@@ -128,16 +132,18 @@ ls /sys/devices/system/cpu/
 
 <code lang="bash" class="highlight">
 less /proc/cpuinfo 
+cd /sys/devices/system/cpu
  
 # For the next three steps, change 'cpu2' as needed
-ls /sys/devices/system/cpu/cpu2/online
-cat /sys/devices/system/cpu/cpu2/online
-echo 0 &gt; /sys/devices/system/cpu/cpu2/online
+ls cpu2/online
+cat cpu2/online
+echo 0 &gt; cpu2/online
  
-# For the next three steps, change 'cpu0' and the bogoMIPs as needed
-ls -l /sys/devices/system/cpu/cpu0/cpufreq/
-cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+# For the next three steps, change 'cpu0' and 
+#   the bogoMIPs as needed
+ls -l cpu0/cpufreq/
+cat cpu0/cpufreq/scaling_max_freq
+echo 1700000 &gt; cpu0/cpufreq/scaling_max_freq
 </code>
 <ul class="ulbasic">
     <li>Remove sound, if not needed <sup><a href="https://docs.kernel.org/sound/designs/powersave.html" target="_blank">1</a></sup></li>
@@ -153,8 +159,8 @@ echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="research"> <p>Some similar articles in research </p>
-<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research </a> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" data-group="research" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles</a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -181,7 +187,7 @@ echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-05-19T12:07:00">19th of May 2024</time>
+						<span>Edited <time datetime="2024-07-01T16:45:51">1st of Jul 2024</time>
 						</span>
 						<span>Created <time datetime="2022-10-10T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >10th of Oct 2022</time> </span>
 					</span>
@@ -191,7 +197,7 @@ echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 			<dialog id="popup" class="popup1 bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Flaptop-cpu-management" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Flaptop-cpu-management" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -228,14 +234,15 @@ echo 1700000 &gt; /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
-		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-05-19T12:07:07">19th of May 2024, 12:07:07</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-19T12:07:00">19th of May 2024</time>.
+	<p> Page rendered <time datetime="2024-07-01T20:28:54">1st of Jul 2024, 20:28:54</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-01T16:45:51">1st of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script src="/asset/ob1.min.js" ></script>
-
+<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<link rel="stylesheet" href="/asset/hljs.min.css" />
+<script defer type="module" src="/asset/highlight-bash.mjs"></script>
 </body>
 </html>

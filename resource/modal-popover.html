@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/modal-popover" />
 <meta property="og:description" content="People use images to communicate. This article lists improvements across three decades of image in casual usage on the net. Sample implementation of image requirements along with existing and current image widgets." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="23rd of May 2024, 17:14:44" />
-<meta property="article:modified_time" content="23rd of May 2024" />
+<meta property="article:published_time" content="1st of Jul 2024, 20:28:54" />
+<meta property="article:modified_time" content="1st of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/modal-popover" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "modal popover",
-	"article:published_time":"23rd of May 2024, 17:14:44", 
-    "article:modified_time":"23rd of May 2024",
+	"article:published_time":"1st of Jul 2024, 20:28:54", 
+    "article:modified_time":"1st of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -155,6 +155,8 @@ I have never tested on (but for specific geo-markets should do):
     <li>By 2020, phones were released with bigger screens and had better CPUs, and general performance.   Doing most internet activity via your phone was common, outside of office-work activities.   Internet speeds have increased again, and everyone uses streaming media.  The JS libraries that are used for SPA architecture are common (React, Vue, Angular).   Technology has expanded with market size and maturity again, HTTP2 and HTTPS are used for everything, and most assets are held in a CDN or Edge network like Cloudflare.   Good Apps use images to fit the screen-size of the device being used, via various approaches.   </li>
 </ol>
 
+<p>UPDATE: For DIALOG elements, there is new CSS for backgrounds <i>::backdrop</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::backdrop" target="_blank">1</a></sup> so no glass pane container is needed anymore.</p>
+
 <p><i>Do we need an external modal popup library today? </i></p>
 
 
@@ -162,8 +164,8 @@ I have never tested on (but for specific geo-markets should do):
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="engineering"> <p>Some similar articles in engineering </p>
-<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering </a> </div> </div> 
+	<div id="contentGroup" class="adjacentGroup" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles</a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div> </div> 
   </div>
   <fieldset class="outer_menu articleHeader">
 	<legend></legend>
@@ -190,7 +192,7 @@ I have never tested on (but for specific geo-markets should do):
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-05-23T17:14:37">23rd of May 2024</time>
+						<span>Edited <time datetime="2024-07-01T09:29:39">1st of Jul 2024</time>
 						</span>
 						<span>Created <time datetime="2023-12-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Dec 2023</time> </span>
 					</span>
@@ -200,7 +202,7 @@ I have never tested on (but for specific geo-markets should do):
 			<dialog id="popup" class="popup1 bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmodal-popover" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmodal-popover" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -236,14 +238,14 @@ I have never tested on (but for specific geo-markets should do):
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
-		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-05-23T17:14:44">23rd of May 2024, 17:14:44</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-23T17:14:37">23rd of May 2024</time>.
+	<p> Page rendered <time datetime="2024-07-01T20:28:54">1st of Jul 2024, 20:28:54</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-01T09:29:39">1st of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script src="/asset/ob1.min.js" ></script>
+<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
 <style>
 ol { counter-reset: when 1980; } 
 ol li { text-indent:3em; }
@@ -257,58 +259,7 @@ details[open] { border:double 3px rgb(185, 185, 185); }
 .blocker:has( details[open] ) { --fgcontrast: 5; --bgcontrast:1; }
 details.singlePopup { --fgcontrast: 0.95; --bgcontrast:1; }
 
-</style>
-<script defer>
-/*
-  Generate UX niceites that are standardised across frameworks.
-*/
-
-function HTMLDetailsTrap(e) {
-	if (e.code === 'Escape' || e.key === 'Escape') {
-		const tt=$('details[open]');
-		if(tt.length) {
-			tt[0].open=false;
-		}
-	}
-	e.preventDefault();
-}
-function HTMLDetailsClick(e) {
-	const find=function(ele, target) {
-		if(ele.tagName===target) { return ele; }
-
-		while(ele.tagName!==target) {
-			// extra clause to allow links to exit this page
-			if(ele.tagName==="A") { return ele; }
-			if(ele.tagName==="BODY" ) { return undefined; }
-
-			ele=ele.parentElement;
-		}
-		return ele;
-	}
-
-	let act=find(e.target, "DETAILS");
-	if(act && act.tagName==="A") {
-		return true;
-	} else if(act && act.open) {
-		act.open=false;
-	} else if(act && !act.open) {
-		act.open=true;	
-	} else if(!act) {
-		const tt=document.querySelector('details[open]');
-		if(tt) {
-			tt.open=false;
-		}
-	}
-
-	e.preventDefault();
-}
-
-function exec() {
-	document.addEventListener('keydown', HTMLDetailsTrap);
-	document.addEventListener('click', HTMLDetailsClick);
-}
-
-$(document).ready(exec);
-</script>
+</style><link rel="stylesheet" href="/asset/hljs.min.css" />
+<script defer type="module" src="/asset/highlight-html.mjs"></script>
 </body>
 </html>

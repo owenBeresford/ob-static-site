@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/node-toolkit" />
 <meta property="og:description" content="What is the best toolchain for development in Node in March 2024? A look at today's Node as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="25th of May 2024, 9:07:42" />
-<meta property="article:modified_time" content="25th of May 2024" />
+<meta property="article:published_time" content="1st of Jul 2024, 20:28:54" />
+<meta property="article:modified_time" content="28th of Jun 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/node-toolkit" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Node toolchain",
-	"article:published_time":"25th of May 2024, 9:07:42", 
-    "article:modified_time":"25th of May 2024",
+	"article:published_time":"1st of Jul 2024, 20:28:54", 
+    "article:modified_time":"28th of Jun 2024",
     "article:section":"technology",
 
     "author": {
@@ -67,25 +67,25 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
         <li>IDE plugins...</li>
     </ul></li>
     <li>An online REPL <a href="https://onecompiler.com/nodejs" target="_blank">called compiler</a>, if you are on a win32 machine with no interpreter locally. </li>
-    <li>Package lists via <a href="https://www.npmjs.com/" target="_blank">npmjs</a> a few guides <sup><a href="https://dyte.io/blog/package-json/" target="_blank">18</a></sup> <sup><a href="https://www.encora.com/insights/a-developers-guide-to-package.json-best-practices-from-basics-to-mastery" target="_blank">19</a></sup></li>
-    <li>The command line tool is called `npm`, which is how many people add packages to the packages.json. This supports 'version logic', i.e. `somepackage==1.0.4`, or `somePackage&gt;=2.4`.  Use `npm -g` to have a global package installation (requires root).   </li>
-    <li>Run `npm i` in a directory will install the contents of a package.json.  Some of these files are in my github account, they are common.</li>
+    <li>Package listing and discovery via <a href="https://www.npmjs.com/" target="_blank">npmjs</a> a few guides <sup><a href="https://dyte.io/blog/package-json/" target="_blank">18</a></sup> <sup><a href="https://www.encora.com/insights/a-developers-guide-to-package.json-best-practices-from-basics-to-mastery" target="_blank">19</a></sup></li>
+    <li>The command line tool is called `npm`, which is how many people add packages to the packages.json.  This supports 'version logic', i.e. `somepackage==1.0.4`, or `somePackage&gt;=2.4`.  Use `npm -g` to have a global package installation (requires root).   </li>
+    <li>Run `npm i` in a directory will install the contents of any immediate <em>package.json</em>.  For Node, it is common to not statically link libraries, but to load at runtime.  Each installation is “built locally” to manage variance across Node versions and sometimes different versions of libraries depending on OS.  Some of these <em>package.json</em> files are in my github account, <em>they are common.</em></li>
     <li>Preferred unit test tools: <ul class="ulbasic">
         <li>Jest ~ many plugins, needs plugins to support TS. </li>
-        <li>Vitest <a href="https://owenberesford.me.uk/resource/vitest#">vitest</a> ~ for TS or JS, component tests, unit tests or behaviour tests</li>
-        <li>Storybook <a href="https://owenberesford.me.uk/resource/storybook#">storybook</a> ~ for TS or JS, for component tests</li>
-        <li><i>There are many test frameworks for JS</i>.  Some older people like Mocha</li>
+        <li>Vitest <a href="https://owenberesford.me.uk/resource/vitest#">vitest</a> ~ for TS or JS, component tests, unit tests or behaviour tests.</li>
+        <li>Storybook <a href="https://owenberesford.me.uk/resource/storybook#">storybook</a> ~ for TS or JS, for component tests.</li>
+        <li><i>There are many test frameworks for JS</i>.  Some older people like Mocha.</li>
     </ul></li>
     <li>Lint: <ul class="ulbasic">
         <li>eslint ~ this is a large project with many rules </li>
         <li>prettier ~ this is a formatter, but will report some errors</li>
-        <li>There are several static analysis tools <sup><a href="https://analysis-tools.dev/tag/typescript" target="_blank">20</a></sup> <sup><a href="https://portal.gitnation.org/contents/static-analysis-in-javascript-whats-easy-and-whats-hard" target="_blank">21</a></sup> ~ note the second link is supported by AI</li>
+        <li>There are several static analysis tools <sup><a href="https://analysis-tools.dev/tag/typescript" target="_blank">20</a></sup> <sup><a href="https://portal.gitnation.org/contents/static-analysis-in-javascript-whats-easy-and-whats-hard" target="_blank">21</a></sup> ~ note the second link is supported by AI.</li>
     </ul></li>
     <li>Docs generator:<ul class="ulbasic">
         <li>Jsdoc and others described <a href="https://owenberesford.me.uk/resource/docs-for-js-ts#">docs-for-js-ts</a></li>
     </ul></li>
-    <li>The Node compiler converts TS to JS. </li>
-    <li>Note, it is currently common to put JS modules with a file suffix 'mjs' <sup><a href="https://dmitripavlutin.com/ecmascript-modules-nodejs/" target="_blank">22</a></sup> <sup><a href="https://dev.to/nipu/js-cjs-and-mjs-defference-5f21" target="_blank">23</a></sup> <sup><a href="https://medium.com/@mohitgadhavi1/difference-between-js-and-mjs-extensions-15636d9c7f31" target="_blank">24</a></sup>.   For traditional no-modules, use a suffix of 'js'.  NOTE: This affects which deps loading style to use.</li>
+    <li>As TS is a quality improvement layer, its not used at runtime.   There is a compiler to convert TS back into to JS, potentially an old version of JS for older clients.   </li>
+    <li>Note, it is currently common to put JS modules with a file suffix 'mjs' <sup><a href="https://dmitripavlutin.com/ecmascript-modules-nodejs/" target="_blank">22</a></sup> <sup><a href="https://dev.to/nipu/js-cjs-and-mjs-defference-5f21" target="_blank">23</a></sup> <sup><a href="https://medium.com/@mohitgadhavi1/difference-between-js-and-mjs-extensions-15636d9c7f31" target="_blank">24</a></sup>.   For traditional no-modules, use a suffix of 'js'.   This affects which deps loading style to use, and modules sometimes come including both languages.   </li>
 </ul>
 
 <p>.</p>
@@ -95,8 +95,8 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" --data-group="worklog"> <p>Some similar articles in worklog </p>
-<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog </a> </div>
+	<div id="contentGroup" class="adjacentGroup" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
  </div>
 
   </div>
@@ -124,9 +124,9 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-05-25T07:42:24">25th of May 2024</time>
+						<span>Edited <time datetime="2024-06-28T11:08:11">28th of Jun 2024</time>
 						</span>
-						<span>Created <time datetime="2024-03-08T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >8th of Mar 2024</time> </span>
+						<span>Created <time datetime="2024-03-08T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >8th of Mar 2024</time> </span>
 					</span>
 
 				</div>
@@ -134,7 +134,7 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
 			<dialog id="popup" class="popup1 bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" --data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fnode-toolkit" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fnode-toolkit" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -168,14 +168,14 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
  <footer>
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
-		<a href="https://www.plainenglish.co.uk/services/webcheck.html" target="_blank" title="They, er, don't have a service for >170,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-05-25T09:07:42">25th of May 2024, 9:07:42</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-05-25T07:42:24">25th of May 2024</time>.
+	<p> Page rendered <time datetime="2024-07-01T20:28:54">1st of Jul 2024, 20:28:54</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-06-28T11:08:11">28th of Jun 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer src="/asset/ob1.min.js" ></script>
+<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
 
 </body>
 </html>
