@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/diverse-emoji" />
 <meta property="og:description" content="Another maquette" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="1st of Jul 2024, 20:28:52" />
-<meta property="article:modified_time" content="1st of Jul 2024" />
+<meta property="article:published_time" content="3rd of Jul 2024, 17:48:00" />
+<meta property="article:modified_time" content="3rd of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/diverse-emoji" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Diverse Emoji / Emoticon",
-	"article:published_time":"1st of Jul 2024, 20:28:52", 
-    "article:modified_time":"1st of Jul 2024",
+	"article:published_time":"3rd of Jul 2024, 17:48:00", 
+    "article:modified_time":"3rd of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -189,7 +189,7 @@ Optionally add another modifier:
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-07-01T07:34:55">1st of Jul 2024</time>
+						<span>Edited <time datetime="2024-07-03T17:22:01">3rd of Jul 2024</time>
 						</span>
 						<span>Created <time datetime="2023-06-01T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of Jun 2023</time> </span>
 					</span>
@@ -236,7 +236,7 @@ Optionally add another modifier:
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-07-01T20:28:52">1st of Jul 2024, 20:28:52</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-01T07:34:55">1st of Jul 2024</time>.
+	<p> Page rendered <time datetime="2024-07-03T17:48:00">3rd of Jul 2024, 17:48:00</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-03T17:22:01">3rd of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -259,6 +259,8 @@ Optionally add another modifier:
 }
 </style>
 <script type="module" defer>
+	import { hasBeenRun } from '/asset/ob1-202406.min.mjs';
+
 // this could be a standalone module, but its more together if I keep it here
 // this page took about 15h; far too much of that time was building this list of emoji
 // in a working env, I would; use a js framework, use components, some external libs/ deps, create tests
@@ -537,17 +539,17 @@ const EXTRAS=[
   "🤚",
   "🖐️",
   "✋",
-  "🖖",
-  "🫱",,
-  "🫲",,
-  "🫳",,
-  "🫴",,
+  "🖖", // add comma here
+  "🫱",
+  "🫲",
+  "🫳",
+  "🫴",
   "👌",
   "🤌",
   "🤏",
   "✌️",
   "🤞",
-  "🫰",,
+  "🫰",
   "🤟",
   "🤘",
   "🤙",
@@ -557,7 +559,7 @@ const EXTRAS=[
   "🖕",
   "👇",
   "☝️",
-  "🫵",,
+  "🫵",
   "👍",
   "👎",
   "✊",
@@ -637,7 +639,7 @@ function applyList(id, list) {
 	const TT=document.querySelector(id);
 	document.querySelector(id+' span').remove();
 	for(let ii in list ) {
-		let tt=document.createElement( "span") 
+		let tt=document.createElement( "span"); 
 		tt.setAttribute("class", "bigSmiles");		 
 		tt.append( list[ii] );
 		TT.append(tt);
@@ -814,9 +816,12 @@ function populate() {
 	}
 }
 
-function pageStartup() {
-	populate();
-}
+	if( hasBeenRun() === 0) {
+		document.pageStartup=() => { populate(); };
+	} else {
+		populate();	
+	}
+
 </script>
 </body>
 </html>
