@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/performance-guesser" />
 <meta property="og:description" content="This is between a spoof and a serious proposition. It guesses server resources needed" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="1st of Jul 2024, 20:28:55" />
-<meta property="article:modified_time" content="1st of Jul 2024" />
+<meta property="article:published_time" content="3rd of Jul 2024, 18:51:35" />
+<meta property="article:modified_time" content="3rd of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/performance-guesser" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Performance GuessR",
-	"article:published_time":"1st of Jul 2024, 20:28:55", 
-    "article:modified_time":"1st of Jul 2024",
+	"article:published_time":"3rd of Jul 2024, 18:51:35", 
+    "article:modified_time":"3rd of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -114,7 +114,7 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-07-01T07:45:34">1st of Jul 2024</time>
+						<span>Edited <time datetime="2024-07-03T18:44:35">3rd of Jul 2024</time>
 						</span>
 						<span>Created <time datetime="2017-04-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Apr 2017</time> </span>
 					</span>
@@ -160,13 +160,14 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-07-01T20:28:55">1st of Jul 2024, 20:28:55</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-01T07:45:34">1st of Jul 2024</time>.
+	<p> Page rendered <time datetime="2024-07-03T18:51:35">3rd of Jul 2024, 18:51:35</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-03T18:44:35">3rd of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
 <script defer type="module">
 "use strict";
+import { appendIsland, runFetch, hasBeenRun } from '/asset/ob1-202406.min.mjs'; 
 
 const techCosts={
 	php7:{ RAM:128, render:10, },
@@ -232,8 +233,13 @@ function pageStartup() {
 	document.querySelector('#btnSubmit' ).addEventListener('keypress', computeResources );
 }
 
-// vim: ts=4 syn=html
+if(hasBeenRun()===0) {
+	document.pageStartup=pageStartup;
+} else {
+	pageStartup();
+}
 
+// vim: ts=4 syn=html
 </script>
 </body>
 </html>
