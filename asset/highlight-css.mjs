@@ -174,19 +174,19 @@ function w(e2, { joinWith: t2 }) {
     return o2;
   }).map((e3) => `(${e3})`).join(t2);
 }
-const y = "[a-zA-Z]\\w*", x = "[a-zA-Z_]\\w*", k = "\\b\\d+(\\.\\d+)?", E = "(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)", _ = "\\b(0b[01]+)", v = { begin: "\\\\[\\s\\S]", relevance: 0 }, O = { scope: "string", begin: "'", end: "'", illegal: "\\n", contains: [v] }, N = { scope: "string", begin: '"', end: '"', illegal: "\\n", contains: [v] }, S = function(e2, t2, n2 = {}) {
+const y = "[a-zA-Z]\\w*", x = "[a-zA-Z_]\\w*", k = "\\b\\d+(\\.\\d+)?", E = "(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)", v = "\\b(0b[01]+)", _ = { begin: "\\\\[\\s\\S]", relevance: 0 }, O = { scope: "string", begin: "'", end: "'", illegal: "\\n", contains: [_] }, N = { scope: "string", begin: '"', end: '"', illegal: "\\n", contains: [_] }, S = function(e2, t2, n2 = {}) {
   const i2 = o({ scope: "comment", begin: e2, end: t2, contains: [] }, n2);
   i2.contains.push({ scope: "doctag", begin: "[ ]*(?=(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):)", end: /(TODO|FIXME|NOTE|BUG|OPTIMIZE|HACK|XXX):/, excludeBegin: true, relevance: 0 });
   const r2 = p("I", "a", "is", "so", "us", "to", "at", "if", "in", "it", "on", /[A-Za-z]+['](d|ve|re|ll|t|s|n)/, /[A-Za-z]+[-][a-z]+/, /[A-Za-z][a-z]{2,}/);
   return i2.contains.push({ begin: f(/[ ]+/, "(", r2, /[.]?[:]?([.][ ]|[ ])/, "){3}") }), i2;
-}, M = S("//", "$"), R = S("/\\*", "\\*/"), A = S("#", "$"), T = { scope: "number", begin: k, relevance: 0 }, j = { scope: "number", begin: E, relevance: 0 }, I = { scope: "number", begin: _, relevance: 0 }, L = { scope: "regexp", begin: /\/(?=[^/\n]*\/)/, end: /\/[gimuy]*/, contains: [v, { begin: /\[/, end: /\]/, relevance: 0, contains: [v] }] }, B = { scope: "title", begin: y, relevance: 0 }, C = { scope: "title", begin: x, relevance: 0 }, D = { begin: "\\.\\s*" + x, relevance: 0 };
-var P = Object.freeze({ __proto__: null, APOS_STRING_MODE: O, BACKSLASH_ESCAPE: v, BINARY_NUMBER_MODE: I, BINARY_NUMBER_RE: _, COMMENT: S, C_BLOCK_COMMENT_MODE: R, C_LINE_COMMENT_MODE: M, C_NUMBER_MODE: j, C_NUMBER_RE: E, END_SAME_AS_BEGIN: function(e2) {
+}, M = S("//", "$"), R = S("/\\*", "\\*/"), T = S("#", "$"), A = { scope: "number", begin: k, relevance: 0 }, j = { scope: "number", begin: E, relevance: 0 }, I = { scope: "number", begin: v, relevance: 0 }, L = { scope: "regexp", begin: /\/(?=[^/\n]*\/)/, end: /\/[gimuy]*/, contains: [_, { begin: /\[/, end: /\]/, relevance: 0, contains: [_] }] }, B = { scope: "title", begin: y, relevance: 0 }, C = { scope: "title", begin: x, relevance: 0 }, D = { begin: "\\.\\s*" + x, relevance: 0 };
+var P = Object.freeze({ __proto__: null, APOS_STRING_MODE: O, BACKSLASH_ESCAPE: _, BINARY_NUMBER_MODE: I, BINARY_NUMBER_RE: v, COMMENT: S, C_BLOCK_COMMENT_MODE: R, C_LINE_COMMENT_MODE: M, C_NUMBER_MODE: j, C_NUMBER_RE: E, END_SAME_AS_BEGIN: function(e2) {
   return Object.assign(e2, { "on:begin": (e3, t2) => {
     t2.data._beginMatch = e3[1];
   }, "on:end": (e3, t2) => {
     t2.data._beginMatch !== e3[1] && t2.ignoreMatch();
   } });
-}, HASH_COMMENT_MODE: A, IDENT_RE: y, MATCH_NOTHING_RE: /\b\B/, METHOD_GUARD: D, NUMBER_MODE: T, NUMBER_RE: k, PHRASAL_WORDS_MODE: { begin: /\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/ }, QUOTE_STRING_MODE: N, REGEXP_MODE: L, RE_STARTERS_RE: "!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~", SHEBANG: (e2 = {}) => {
+}, HASH_COMMENT_MODE: T, IDENT_RE: y, MATCH_NOTHING_RE: /\b\B/, METHOD_GUARD: D, NUMBER_MODE: A, NUMBER_RE: k, PHRASAL_WORDS_MODE: { begin: /\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/ }, QUOTE_STRING_MODE: N, REGEXP_MODE: L, RE_STARTERS_RE: "!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~", SHEBANG: (e2 = {}) => {
   const t2 = /^#![ ]*\//;
   return e2.binary && (e2.begin = f(t2, /.*\b/, e2.binary, /\b.*/)), o({ scope: "meta", begin: t2, end: /$/, relevance: 0, "on:begin": (e3, t3) => {
     0 !== e3.index && t3.ignoreMatch();
@@ -400,7 +400,7 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
         const o4 = E3.case_insensitive ? t3[0].toLowerCase() : t3[0], r4 = (i3 = o4, N3.keywords[i3]);
         if (r4) {
           const [e5, i4] = r4;
-          if (M2.addText(n2), n2 = "", l3[o4] = (l3[o4] || 0) + 1, l3[o4] <= 7 && (A2 += i4), e5.startsWith("_"))
+          if (M2.addText(n2), n2 = "", l3[o4] = (l3[o4] || 0) + 1, l3[o4] <= 7 && (T2 += i4), e5.startsWith("_"))
             n2 += t3[0];
           else {
             const n3 = E3.classNameAliases[e5] || e5;
@@ -424,7 +424,7 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
           e4 = w2(N3.subLanguage, R2, true, S2[N3.subLanguage]), S2[N3.subLanguage] = e4._top;
         } else
           e4 = y2(R2, N3.subLanguage.length ? N3.subLanguage : null);
-        N3.relevance > 0 && (A2 += e4.relevance), M2.__addSublanguage(e4._emitter, e4.language);
+        N3.relevance > 0 && (T2 += e4.relevance), M2.__addSublanguage(e4._emitter, e4.language);
       }() : c2(), R2 = "";
     }
     function u2(e4, t3) {
@@ -474,7 +474,7 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
       const r4 = N3;
       N3.endScope && N3.endScope._wrap ? (g2(), u2(n2, N3.endScope._wrap)) : N3.endScope && N3.endScope._multi ? (g2(), h2(N3.endScope, e4)) : r4.skip ? R2 += n2 : (r4.returnEnd || r4.excludeEnd || (R2 += n2), g2(), r4.excludeEnd && (R2 = n2));
       do {
-        N3.scope && M2.closeNode(), N3.skip || N3.subLanguage || (A2 += N3.relevance), N3 = N3.parent;
+        N3.scope && M2.closeNode(), N3.skip || N3.subLanguage || (T2 += N3.relevance), N3 = N3.parent;
       } while (N3 !== o4.parent);
       return o4.starts && f2(o4.starts, e4), r4.returnEnd ? 0 : n2.length;
     }
@@ -514,11 +514,11 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
       }
       return R2 += s3, s3.length;
     }
-    const E3 = _2(e3);
+    const E3 = v2(e3);
     if (!E3)
       throw J(s2.replace("{}", e3)), new Error('Unknown language: "' + e3 + '"');
-    const v3 = ie(E3);
-    let O3 = "", N3 = r3 || v3;
+    const _3 = ie(E3);
+    let O3 = "", N3 = r3 || _3;
     const S2 = {}, M2 = new d2.__emitter(d2);
     !function() {
       const e4 = [];
@@ -526,25 +526,25 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
         t3.scope && e4.unshift(t3.scope);
       e4.forEach((e5) => M2.openNode(e5));
     }();
-    let R2 = "", A2 = 0, T2 = 0, j2 = 0, I2 = false;
+    let R2 = "", T2 = 0, A2 = 0, j2 = 0, I2 = false;
     try {
       if (E3.__emitTokens)
         E3.__emitTokens(t2, M2);
       else {
         for (N3.matcher.considerAll(); ; ) {
-          j2++, I2 ? I2 = false : N3.matcher.considerAll(), N3.matcher.lastIndex = T2;
+          j2++, I2 ? I2 = false : N3.matcher.considerAll(), N3.matcher.lastIndex = A2;
           const e4 = N3.matcher.exec(t2);
           if (!e4)
             break;
-          const n2 = k3(t2.substring(T2, e4.index), e4);
-          T2 = e4.index + n2;
+          const n2 = k3(t2.substring(A2, e4.index), e4);
+          A2 = e4.index + n2;
         }
-        k3(t2.substring(T2));
+        k3(t2.substring(A2));
       }
-      return M2.finalize(), O3 = M2.toHTML(), { language: e3, value: O3, relevance: A2, illegal: false, _emitter: M2, _top: N3 };
+      return M2.finalize(), O3 = M2.toHTML(), { language: e3, value: O3, relevance: T2, illegal: false, _emitter: M2, _top: N3 };
     } catch (n2) {
       if (n2.message && n2.message.includes("Illegal"))
-        return { language: e3, value: ae(t2), illegal: true, relevance: 0, _illegalBy: { message: n2.message, index: T2, context: t2.slice(T2 - 100, T2 + 100), mode: n2.mode, resultSoFar: O3 }, _emitter: M2 };
+        return { language: e3, value: ae(t2), illegal: true, relevance: 0, _illegalBy: { message: n2.message, index: A2, context: t2.slice(A2 - 100, A2 + 100), mode: n2.mode, resultSoFar: O3 }, _emitter: M2 };
       if (a2)
         return { language: e3, value: ae(t2), illegal: false, relevance: 0, errorRaised: n2, _emitter: M2, _top: N3 };
       throw n2;
@@ -555,15 +555,15 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
     const n2 = function(e4) {
       const t3 = { value: ae(e4), illegal: false, relevance: 0, _top: l2, _emitter: new d2.__emitter(d2) };
       return t3._emitter.addText(e4), t3;
-    }(e3), o3 = t2.filter(_2).filter(O2).map((t3) => w2(t3, e3, false));
+    }(e3), o3 = t2.filter(v2).filter(O2).map((t3) => w2(t3, e3, false));
     o3.unshift(n2);
     const r3 = o3.sort((e4, t3) => {
       if (e4.relevance !== t3.relevance)
         return t3.relevance - e4.relevance;
       if (e4.language && t3.language) {
-        if (_2(e4.language).supersetOf === t3.language)
+        if (v2(e4.language).supersetOf === t3.language)
           return 1;
-        if (_2(t3.language).supersetOf === e4.language)
+        if (v2(t3.language).supersetOf === e4.language)
           return -1;
       }
       return 0;
@@ -577,10 +577,10 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
       t3 += e4.parentNode ? e4.parentNode.className : "";
       const n3 = d2.languageDetectRe.exec(t3);
       if (n3) {
-        const t4 = _2(n3[1]);
+        const t4 = v2(n3[1]);
         return t4 || (Q(s2.replace("{}", n3[1])), Q("Falling back to no-highlight mode for this block.", e4)), t4 ? n3[1] : "no-highlight";
       }
-      return t3.split(/\s+/).find((e5) => b2(e5) || _2(e5));
+      return t3.split(/\s+/).find((e5) => b2(e5) || v2(e5));
     }(e3);
     if (b2(n2))
       return;
@@ -602,16 +602,16 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
       return void (k2 = true);
     document.querySelectorAll(d2.cssSelector).forEach(x2);
   }
-  function _2(e3) {
+  function v2(e3) {
     return e3 = (e3 || "").toLowerCase(), i2[e3] || i2[o2[e3]];
   }
-  function v2(e3, { languageName: t2 }) {
+  function _2(e3, { languageName: t2 }) {
     "string" == typeof e3 && (e3 = [e3]), e3.forEach((e4) => {
       o2[e4.toLowerCase()] = t2;
     });
   }
   function O2(e3) {
-    const t2 = _2(e3);
+    const t2 = v2(e3);
     return t2 && !t2.disableAutodetect;
   }
   function N2(e3, t2) {
@@ -639,14 +639,14 @@ const ae = i, se = o, le = Symbol("nomatch"), ce = function(e2) {
         throw e3;
       J(e3), o3 = l2;
     }
-    o3.name || (o3.name = t2), i2[t2] = o3, o3.rawDefinition = n2.bind(null, e2), o3.aliases && v2(o3.aliases, { languageName: t2 });
+    o3.name || (o3.name = t2), i2[t2] = o3, o3.rawDefinition = n2.bind(null, e2), o3.aliases && _2(o3.aliases, { languageName: t2 });
   }, unregisterLanguage: function(e3) {
     delete i2[e3];
     for (const t2 of Object.keys(o2))
       o2[t2] === e3 && delete o2[t2];
   }, listLanguages: function() {
     return Object.keys(i2);
-  }, getLanguage: _2, registerAliases: v2, autoDetection: O2, inherit: se, addPlugin: function(e3) {
+  }, getLanguage: v2, registerAliases: _2, autoDetection: O2, inherit: se, addPlugin: function(e3) {
     !function(e4) {
       e4["before:highlightBlock"] && !e4["before:highlightElement"] && (e4["before:highlightElement"] = (t2) => {
         e4["before:highlightBlock"](Object.assign({ block: t2.el }, t2));
@@ -671,8 +671,8 @@ var ge = de;
 de.HighlightJS = de, de.default = de;
 const ue = e(ge), he = ["a", "abbr", "address", "article", "aside", "audio", "b", "blockquote", "body", "button", "canvas", "caption", "cite", "code", "dd", "del", "details", "dfn", "div", "dl", "dt", "em", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hgroup", "html", "i", "iframe", "img", "input", "ins", "kbd", "label", "legend", "li", "main", "mark", "menu", "nav", "object", "ol", "p", "q", "quote", "samp", "section", "span", "strong", "summary", "sup", "table", "tbody", "td", "textarea", "tfoot", "th", "thead", "time", "tr", "ul", "var", "video"], fe = ["any-hover", "any-pointer", "aspect-ratio", "color", "color-gamut", "color-index", "device-aspect-ratio", "device-height", "device-width", "display-mode", "forced-colors", "grid", "height", "hover", "inverted-colors", "monochrome", "orientation", "overflow-block", "overflow-inline", "pointer", "prefers-color-scheme", "prefers-contrast", "prefers-reduced-motion", "prefers-reduced-transparency", "resolution", "scan", "scripting", "update", "width", "min-width", "max-width", "min-height", "max-height"], pe = ["active", "any-link", "blank", "checked", "current", "default", "defined", "dir", "disabled", "drop", "empty", "enabled", "first", "first-child", "first-of-type", "fullscreen", "future", "focus", "focus-visible", "focus-within", "has", "host", "host-context", "hover", "indeterminate", "in-range", "invalid", "is", "lang", "last-child", "last-of-type", "left", "link", "local-link", "not", "nth-child", "nth-col", "nth-last-child", "nth-last-col", "nth-last-of-type", "nth-of-type", "only-child", "only-of-type", "optional", "out-of-range", "past", "placeholder-shown", "read-only", "read-write", "required", "right", "root", "scope", "target", "target-within", "user-invalid", "valid", "visited", "where"], be = ["after", "backdrop", "before", "cue", "cue-region", "first-letter", "first-line", "grammar-error", "marker", "part", "placeholder", "selection", "slotted", "spelling-error"], me = ["align-content", "align-items", "align-self", "all", "animation", "animation-delay", "animation-direction", "animation-duration", "animation-fill-mode", "animation-iteration-count", "animation-name", "animation-play-state", "animation-timing-function", "backface-visibility", "background", "background-attachment", "background-blend-mode", "background-clip", "background-color", "background-image", "background-origin", "background-position", "background-repeat", "background-size", "block-size", "border", "border-block", "border-block-color", "border-block-end", "border-block-end-color", "border-block-end-style", "border-block-end-width", "border-block-start", "border-block-start-color", "border-block-start-style", "border-block-start-width", "border-block-style", "border-block-width", "border-bottom", "border-bottom-color", "border-bottom-left-radius", "border-bottom-right-radius", "border-bottom-style", "border-bottom-width", "border-collapse", "border-color", "border-image", "border-image-outset", "border-image-repeat", "border-image-slice", "border-image-source", "border-image-width", "border-inline", "border-inline-color", "border-inline-end", "border-inline-end-color", "border-inline-end-style", "border-inline-end-width", "border-inline-start", "border-inline-start-color", "border-inline-start-style", "border-inline-start-width", "border-inline-style", "border-inline-width", "border-left", "border-left-color", "border-left-style", "border-left-width", "border-radius", "border-right", "border-right-color", "border-right-style", "border-right-width", "border-spacing", "border-style", "border-top", "border-top-color", "border-top-left-radius", "border-top-right-radius", "border-top-style", "border-top-width", "border-width", "bottom", "box-decoration-break", "box-shadow", "box-sizing", "break-after", "break-before", "break-inside", "caption-side", "caret-color", "clear", "clip", "clip-path", "clip-rule", "color", "column-count", "column-fill", "column-gap", "column-rule", "column-rule-color", "column-rule-style", "column-rule-width", "column-span", "column-width", "columns", "contain", "content", "content-visibility", "counter-increment", "counter-reset", "cue", "cue-after", "cue-before", "cursor", "direction", "display", "empty-cells", "filter", "flex", "flex-basis", "flex-direction", "flex-flow", "flex-grow", "flex-shrink", "flex-wrap", "float", "flow", "font", "font-display", "font-family", "font-feature-settings", "font-kerning", "font-language-override", "font-size", "font-size-adjust", "font-smoothing", "font-stretch", "font-style", "font-synthesis", "font-variant", "font-variant-caps", "font-variant-east-asian", "font-variant-ligatures", "font-variant-numeric", "font-variant-position", "font-variation-settings", "font-weight", "gap", "glyph-orientation-vertical", "grid", "grid-area", "grid-auto-columns", "grid-auto-flow", "grid-auto-rows", "grid-column", "grid-column-end", "grid-column-start", "grid-gap", "grid-row", "grid-row-end", "grid-row-start", "grid-template", "grid-template-areas", "grid-template-columns", "grid-template-rows", "hanging-punctuation", "height", "hyphens", "icon", "image-orientation", "image-rendering", "image-resolution", "ime-mode", "inline-size", "isolation", "justify-content", "left", "letter-spacing", "line-break", "line-height", "list-style", "list-style-image", "list-style-position", "list-style-type", "margin", "margin-block", "margin-block-end", "margin-block-start", "margin-bottom", "margin-inline", "margin-inline-end", "margin-inline-start", "margin-left", "margin-right", "margin-top", "marks", "mask", "mask-border", "mask-border-mode", "mask-border-outset", "mask-border-repeat", "mask-border-slice", "mask-border-source", "mask-border-width", "mask-clip", "mask-composite", "mask-image", "mask-mode", "mask-origin", "mask-position", "mask-repeat", "mask-size", "mask-type", "max-block-size", "max-height", "max-inline-size", "max-width", "min-block-size", "min-height", "min-inline-size", "min-width", "mix-blend-mode", "nav-down", "nav-index", "nav-left", "nav-right", "nav-up", "none", "normal", "object-fit", "object-position", "opacity", "order", "orphans", "outline", "outline-color", "outline-offset", "outline-style", "outline-width", "overflow", "overflow-wrap", "overflow-x", "overflow-y", "padding", "padding-block", "padding-block-end", "padding-block-start", "padding-bottom", "padding-inline", "padding-inline-end", "padding-inline-start", "padding-left", "padding-right", "padding-top", "page-break-after", "page-break-before", "page-break-inside", "pause", "pause-after", "pause-before", "perspective", "perspective-origin", "pointer-events", "position", "quotes", "resize", "rest", "rest-after", "rest-before", "right", "row-gap", "scroll-margin", "scroll-margin-block", "scroll-margin-block-end", "scroll-margin-block-start", "scroll-margin-bottom", "scroll-margin-inline", "scroll-margin-inline-end", "scroll-margin-inline-start", "scroll-margin-left", "scroll-margin-right", "scroll-margin-top", "scroll-padding", "scroll-padding-block", "scroll-padding-block-end", "scroll-padding-block-start", "scroll-padding-bottom", "scroll-padding-inline", "scroll-padding-inline-end", "scroll-padding-inline-start", "scroll-padding-left", "scroll-padding-right", "scroll-padding-top", "scroll-snap-align", "scroll-snap-stop", "scroll-snap-type", "scrollbar-color", "scrollbar-gutter", "scrollbar-width", "shape-image-threshold", "shape-margin", "shape-outside", "speak", "speak-as", "src", "tab-size", "table-layout", "text-align", "text-align-all", "text-align-last", "text-combine-upright", "text-decoration", "text-decoration-color", "text-decoration-line", "text-decoration-style", "text-emphasis", "text-emphasis-color", "text-emphasis-position", "text-emphasis-style", "text-indent", "text-justify", "text-orientation", "text-overflow", "text-rendering", "text-shadow", "text-transform", "text-underline-position", "top", "transform", "transform-box", "transform-origin", "transform-style", "transition", "transition-delay", "transition-duration", "transition-property", "transition-timing-function", "unicode-bidi", "vertical-align", "visibility", "voice-balance", "voice-duration", "voice-family", "voice-pitch", "voice-range", "voice-rate", "voice-stress", "voice-volume", "white-space", "widows", "width", "will-change", "word-break", "word-spacing", "word-wrap", "writing-mode", "z-index"].reverse();
 function we(e2 = document) {
-  e2.querySelectorAll('code[lang="css"]').forEach((e3) => {
-    console.log("WWW ", e3), ue.highlightElement(e3);
+  e2.querySelectorAll('code[lang="css"]').forEach((e3, t2) => {
+    ue.highlightElement(e3), e3.classList.contains("language-undefined") && (e3.innerHTML = ue.highlight(e3.innerText, { language: "css" }).value);
   });
 }
 ue.registerLanguage("css", (e2) => function(e3) {

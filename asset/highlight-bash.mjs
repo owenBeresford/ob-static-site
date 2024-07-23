@@ -223,20 +223,20 @@ const K = (e2, n2) => {
   Object.keys(e2).forEach((n3) => {
     delete e2[n3];
   }), e2.keywords = t2.keywords, e2.begin = f(t2.beforeMatch, g(t2.begin)), e2.starts = { relevance: 0, contains: [Object.assign(t2, { endsParent: true })] }, e2.relevance = 0, delete t2.beforeMatch;
-}, X = ["of", "and", "for", "in", "not", "or", "if", "then", "parent", "list", "value"], q = "keyword";
-function F(e2, n2, t2 = q) {
+}, X = ["of", "and", "for", "in", "not", "or", "if", "then", "parent", "list", "value"], F = "keyword";
+function Z(e2, n2, t2 = F) {
   const i2 = /* @__PURE__ */ Object.create(null);
   return "string" == typeof e2 ? s2(t2, e2.split(" ")) : Array.isArray(e2) ? s2(t2, e2) : Object.keys(e2).forEach(function(t3) {
-    Object.assign(i2, F(e2[t3], n2, t3));
+    Object.assign(i2, Z(e2[t3], n2, t3));
   }), i2;
   function s2(e3, t3) {
     n2 && (t3 = t3.map((e4) => e4.toLowerCase())), t3.forEach(function(n3) {
       const t4 = n3.split("|");
-      i2[t4[0]] = [e3, Z(t4[0], t4[1])];
+      i2[t4[0]] = [e3, q(t4[0], t4[1])];
     });
   }
 }
-function Z(e2, n2) {
+function q(e2, n2) {
   return n2 ? Number(n2) : function(e3) {
     return X.includes(e3.toLowerCase());
   }(e2) ? 0 : 1;
@@ -342,7 +342,7 @@ function ie(e2) {
       return a2;
     [C, G, te, K].forEach((e3) => e3(o2, r2)), e2.compilerExtensions.forEach((e3) => e3(o2, r2)), o2.__beforeBegin = null, [z, U, W].forEach((e3) => e3(o2, r2)), o2.isCompiled = true;
     let c2 = null;
-    return "object" == typeof o2.keywords && o2.keywords.$pattern && (o2.keywords = Object.assign({}, o2.keywords), c2 = o2.keywords.$pattern, delete o2.keywords.$pattern), c2 = c2 || /\w+/, o2.keywords && (o2.keywords = F(o2.keywords, e2.case_insensitive)), a2.keywordPatternRe = n2(c2, true), r2 && (o2.begin || (o2.begin = /\B|\b/), a2.beginRe = n2(a2.begin), o2.end || o2.endsWithParent || (o2.end = /\B|\b/), o2.end && (a2.endRe = n2(a2.end)), a2.terminatorEnd = u(a2.end) || "", o2.endsWithParent && r2.terminatorEnd && (a2.terminatorEnd += (o2.end ? "|" : "") + r2.terminatorEnd)), o2.illegal && (a2.illegalRe = n2(o2.illegal)), o2.contains || (o2.contains = []), o2.contains = [].concat(...o2.contains.map(function(e3) {
+    return "object" == typeof o2.keywords && o2.keywords.$pattern && (o2.keywords = Object.assign({}, o2.keywords), c2 = o2.keywords.$pattern, delete o2.keywords.$pattern), c2 = c2 || /\w+/, o2.keywords && (o2.keywords = Z(o2.keywords, e2.case_insensitive)), a2.keywordPatternRe = n2(c2, true), r2 && (o2.begin || (o2.begin = /\B|\b/), a2.beginRe = n2(a2.begin), o2.end || o2.endsWithParent || (o2.end = /\B|\b/), o2.end && (a2.endRe = n2(a2.end)), a2.terminatorEnd = u(a2.end) || "", o2.endsWithParent && r2.terminatorEnd && (a2.terminatorEnd += (o2.end ? "|" : "") + r2.terminatorEnd)), o2.illegal && (a2.illegalRe = n2(o2.illegal)), o2.contains || (o2.contains = []), o2.contains = [].concat(...o2.contains.map(function(e3) {
       return function(e4) {
         e4.variants && !e4.cachedVariants && (e4.cachedVariants = e4.variants.map(function(n3) {
           return s(e4, { variants: null }, n3);
@@ -675,7 +675,7 @@ function he(e2 = document) {
     de.highlightElement(e3);
   });
 }
-de.registerLanguage("sql", (e2) => function(e3) {
+de.registerLanguage("shell", (e2) => function(e3) {
   const n2 = e3.regex, t2 = {}, i2 = { begin: /\$\{/, end: /\}/, contains: ["self", { begin: /:-/, contains: [t2] }] };
   Object.assign(t2, { className: "variable", variants: [{ begin: n2.concat(/\$[\w\d#@][\w\d_]*/, "(?![\\w\\d])(?![$])") }, i2] });
   const s2 = { className: "subst", begin: /\$\(/, end: /\)/, contains: [e3.BACKSLASH_ESCAPE] }, o2 = { begin: /<<-?\s*(?=\w+)/, starts: { contains: [e3.END_SAME_AS_BEGIN({ begin: /(\w+)/, end: /(\w+)/, className: "string" })] } }, r2 = { className: "string", begin: /"/, end: /"/, contains: [e3.BACKSLASH_ESCAPE, t2, s2] };
