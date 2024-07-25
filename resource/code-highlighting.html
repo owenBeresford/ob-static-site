@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Project tracking: Code highlighter</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Specific examples and my tracking notes on code highlighter class and how it scales to modern internet of languages." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Project tracking: Code highlighter">
+<meta itemprop="description" content="Specific examples and my tracking notes on code highlighter class and how it scales to modern internet of languages.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Project tracking: Code highlighter">
+<meta name="twitter:description" content="Specific examples and my tracking notes on code highlighter class and how it scales to modern internet of languages.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Project tracking: Code highlighter" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/code-highlighting" />
+<meta property="og:description" content="Specific examples and my tracking notes on code highlighter class and how it scales to modern internet of languages." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="25th of Jul 2024, 6:48:08" />
+<meta property="article:modified_time" content="24th of Jul 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/code-highlighting" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Project tracking: Code highlighter",
+	"article:published_time":"25th of Jul 2024, 6:48:08", 
+    "article:modified_time":"24th of Jul 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>I once read a quite technical blog article whilst looking at SVG injection into HTML, where the images were in BMP format to demo SVG injection (if not technical, see footnote [1]).  I wish to avoid making that type of inconsistency error.   <br />
+Note: my old JS class “hilight” doesn't scale to modern internet editions of languages.<br />
+The author of the highlighting package says I could patch it ~ again ~  but dropping it and starting anew is <del>probab</del><ins>definite</ins>ly faster.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Current situation: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>To this old solution I have:</p>
+
+<ul class="ulbasic">
+    <li>updated PHP symbols</li>
+    <li>updated CSS symbols</li>
+    <li>added bash support</li>
+    <li>Made numbers in variable names work correctly</li>
+    <li>Stopped quotes parsing from mangling everything else</li>
+    <li>Stop comments parsing from eating CSS colours</li>
+    <li>now stopped function name and strings from colliding with comments parsing</li>
+    <li>Fixed a regex (occasional crash)</li>
+</ul>
+
+<p>To be current I need to:</p>
+
+<ul class="ulbasic">
+    <li>update the SQL support for recent SQL features, </li>
+    <li>update the PHP for PHP 7 and 8 languge features, </li>
+    <li>update the JS support for ES6 and newer features, </li>
+    <li>update CSS again for CSS 4 and 5 </li>
+    <li>add TS support</li>
+    <li>add some process so XML can be feed into the HTML parser</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Goals: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Use a new highlighter, that:</p>
+
+<ul class="ulbasic">
+    <li>doesn't fight Google PageSpeed;</li>
+    <li>supports current editions on relevant languages;</li>
+    <li>supports the longer range of server side languages that are used on my site;</li>
+</ul>
+
+<p>I was thinking about having a real JS modular solution, and load code to prettify each language separately, so its less to download per page.</p>
+
+
+<h5 id="toc3"> Possible solution sketch</h5>
+<ul class="ulbasic">
+    <li>It would be simple to write a function returns data from one of a) has local static data, b) pulls a remote JSON file c) pulls a remote JS file.  This data would be the keywords for the target language;</li>
+    <li>I can use Node.textContent to get all the text inside that Node element;</li>
+    <li>CSS has the ability to highlight sub-node amounts of text <sup><a href="https://www.bram.us/2024/02/18/custom-highlight-api-for-syntax-highlighting/" target="_blank">1</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::highlight" target="_blank">2</a></sup> ~ first link includes a basic implementation;</li>
+    <li>Discussion on advanced attrib selectors <sup><a href="https://lor.sh/@tennoseremel/110684294463710459" target="_blank">3</a></sup></li>
+    <li>Some maquettes <sup><a href="https://alvarotrigo.com/blog/css-highlight-text/" target="_blank">4</a></sup></li>
+    <li> </li>
+    <li>for each <i>CODE node</i>, tokenise the <i>textContent</i> to words and symbols, match the words to the loaded language keyword list and add highlighting if its a keyword;</li>
+    <li>keep track of occurrence of quote marks and number marks to change syntax to match those symbols;</li>
+    <li>highlight brackets as used by the current language, but syntax stuff is probably not needed;</li>
+    <li>simple and stupid parsing in JS, the results are CSS regions and CSS classes added to them;</li>
+</ul>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > 3rd party options <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Look at new options (this name space is confusing, and should not be done late at night)</p>
+
+<ul class="ulbasic">
+    <li><strong>highlight.js</strong> <a href="https://www.npmjs.com/package/highlight.js" target="_blank">npm</a>, <a href="https://github.com/highlightjs/highlight.js" target="_blank">git</a>, <a href="https://highlightjs.org/" target="_blank">docs</a>, BSD-3 licence, 5MB big, current updates and active community. </li>
+    <li><strong>jquery-highlight</strong>  <a href="https://www.npmjs.com/package/jquery-highlight" target="_blank">npm</a>, <a href="https://github.com/knownasilya/jquery-highlight" target="_blank">git</a>, <a href="https://bartaz.github.io/sandbox.js/jquery.highlight.html" target="_blank">docs</a>, MIT licence, last update was 5Y ago. Still has downloads each week</li>
+    <li><strong>hilight</strong> <a href="https://www.npmjs.com/package/hilight" target="_blank">npm</a>, <a href="https://github.com/clidejs/hilight" target="_blank">git</a>, MIT licence, no separate docs, 9y old, fairly dead  </li>
+    <li><strong>prismjs</strong> <a href="https://www.npmjs.com/package/prismjs" target="_blank">npm</a>, <a href="https://github.com/PrismJS/prism" target="_blank">git</a>, <a href="https://prismjs.com/" target="_blank">docs</a>, MIT licence, LOTS of weekly downloads, last update was 2Y ago</li>
+    <li>There are many projects that add highlighting capacity to some other framework.</li>
+    <li>I'm sure I could pull more projects from github.</li>
+</ul>
+
+
+<h5 id="toc5"> My site changes (BORING):</h5>
+<ul class="ulbasic">
+    <li>DONE remove old file hilight files and SCRIPT tags;</li>
+    <li>DONE Added “addBashSample” feature for ` ` [back tick single liners] short sections;</li>
+    <li>DONE Added “highlight” class for CODE blocks and “wide” to allow column breaking;</li>
+    <li>DONE one-line samples get an automatic '$' prefix, just like an actual bash shell;</li>
+    <li>DONE remove wiki CODE blocks, for HTML CODE blocks, as the CSS is controllable that way;</li>
+    <li>DONE port PRE to CODE for most articles, added pre CSS to CODE blocks;</li>
+    <li>DONE Change CSS class “references” to “addReferences” in 1 mad regex;</li>
+    <li>Possible extension, define “addHighLight” CSS container for easier reporting;</li>
+</ul>
+
+<hr />
+<p>Footnote:<br />
+[1] A BMP file, aka “bit map file” is a legacy ms-windows based raster image format.  It has poor compression and is not lossy.  It supports the colour spaces that were used between 1980 and 1990, so 8bit and 16bit.  I'm not sure it has a proper CLUT.  It has been superceded by WEBP, PNG, JPEG2000 and JPEG formats or even the also-ancient GIF format.   <br />
+A BMP is a poor choice as it's not web friendly due to its file size.  A BMP is a context error in a webpage about SVG, as any SVG image can be drawn easily with SVG... by definition.</p>
+
+<hr />
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="worklog,uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Project tracking: Code highlighter</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcode-highlighting" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcode-highlighting" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcode-highlighting" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i></a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcode-highlighting&amp;t=Project+tracking%3A+Code+highlighter"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i></a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcode-highlighting" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-07-24T18:02:22">24th of Jul 2024</time>
+						</span>
+						<span>Created <time datetime="2024-05-01T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of May 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcode-highlighting" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">Current situation:</a></li>
+<li class="h4_odd"><a href="#toc2">Goals:</a></li>
+<li><a href="#toc3">3rd party options</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>  
+	</div> 
+	<p> Page rendered <time datetime="2024-07-25T06:48:08">25th of Jul 2024, 6:48:08</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-24T18:02:22">24th of Jul 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+
+</body>
+</html>
