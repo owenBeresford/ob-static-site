@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/code-highlighting" />
 <meta property="og:description" content="Specific examples and my tracking notes on code highlighter class and how it scales to modern internet of languages." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="25th of Jul 2024, 6:48:08" />
-<meta property="article:modified_time" content="24th of Jul 2024" />
+<meta property="article:published_time" content="30th of Jul 2024, 19:22:41" />
+<meta property="article:modified_time" content="26th of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/code-highlighting" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Project tracking: Code highlighter",
-	"article:published_time":"25th of Jul 2024, 6:48:08", 
-    "article:modified_time":"24th of Jul 2024",
+	"article:published_time":"30th of Jul 2024, 19:22:41", 
+    "article:modified_time":"26th of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -64,25 +64,25 @@ The author of the highlighting package says I could patch it ~ again ~  but drop
 <p>To this old solution I have:</p>
 
 <ul class="ulbasic">
-    <li>updated PHP symbols</li>
-    <li>updated CSS symbols</li>
-    <li>added bash support</li>
-    <li>Made numbers in variable names work correctly</li>
+    <li>Updated PHP symbols</li>
+    <li>Updated CSS symbols</li>
+    <li>Added bash support</li>
+    <li>Stopped numbers in variable names from being numbers rather than the same variable name</li>
     <li>Stopped quotes parsing from mangling everything else</li>
-    <li>Stop comments parsing from eating CSS colours</li>
-    <li>now stopped function name and strings from colliding with comments parsing</li>
+    <li>Stopped comments parsing from eating CSS colours</li>
+    <li>Stopped function name and strings from colliding with comments parsing</li>
     <li>Fixed a regex (occasional crash)</li>
 </ul>
 
 <p>To be current I need to:</p>
 
 <ul class="ulbasic">
-    <li>update the SQL support for recent SQL features, </li>
-    <li>update the PHP for PHP 7 and 8 languge features, </li>
-    <li>update the JS support for ES6 and newer features, </li>
-    <li>update CSS again for CSS 4 and 5 </li>
-    <li>add TS support</li>
-    <li>add some process so XML can be feed into the HTML parser</li>
+    <li>Update the SQL support for recent SQL features, </li>
+    <li>Update the PHP for PHP 7 and 8 languge features, </li>
+    <li>Update the JS support for ES6 and newer features, </li>
+    <li>Update CSS again for CSS 4 and 5, </li>
+    <li>Add TS support,</li>
+    <li>Add some process so XML data can be feed into the HTML feature (infinite possible XML tags mean this is the only practical option),</li>
 </ul>
 
 
@@ -90,7 +90,7 @@ The author of the highlighting package says I could patch it ~ again ~  but drop
 <p>Use a new highlighter, that:</p>
 
 <ul class="ulbasic">
-    <li>doesn't fight Google PageSpeed;</li>
+    <li>doesn't fight Google PageSpeed (due to larger DOM);</li>
     <li>supports current editions on relevant languages;</li>
     <li>supports the longer range of server side languages that are used on my site;</li>
 </ul>
@@ -135,6 +135,7 @@ The author of the highlighting package says I could patch it ~ again ~  but drop
     <li>DONE remove wiki CODE blocks, for HTML CODE blocks, as the CSS is controllable that way;</li>
     <li>DONE port PRE to CODE for most articles, added pre CSS to CODE blocks;</li>
     <li>DONE Change CSS class “references” to “addReferences” in 1 mad regex;</li>
+    <li>DONE as part of JS rewrite moved to highlight.js</li>
     <li>Possible extension, define “addHighLight” CSS container for easier reporting;</li>
 </ul>
 
@@ -180,7 +181,7 @@ A BMP is a poor choice as it's not web friendly due to its file size.  A BMP is 
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-07-24T18:02:22">24th of Jul 2024</time>
+						<span>Edited <time datetime="2024-07-26T09:19:44">26th of Jul 2024</time>
 						</span>
 						<span>Created <time datetime="2024-05-01T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of May 2024</time> </span>
 					</span>
@@ -231,7 +232,7 @@ A BMP is a poor choice as it's not web friendly due to its file size.  A BMP is 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-07-25T06:48:08">25th of Jul 2024, 6:48:08</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-24T18:02:22">24th of Jul 2024</time>.
+	<p> Page rendered <time datetime="2024-07-30T19:22:41">30th of Jul 2024, 19:22:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-26T09:19:44">26th of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
