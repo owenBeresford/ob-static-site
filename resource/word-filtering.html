@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/word-filtering" />
 <meta property="og:description" content="On text cleaning, and the algorithms necessary. Within the context of word filtering; I look at goals, requirements, and one example. I analyse the notion of word filtering also during the practice in 2012." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="5th of Jul 2024, 9:51:10" />
-<meta property="article:modified_time" content="4th of Jul 2024" />
+<meta property="article:published_time" content="30th of Jul 2024, 19:22:44" />
+<meta property="article:modified_time" content="28th of Jul 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/word-filtering" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Word filtering",
-	"article:published_time":"5th of Jul 2024, 9:51:10", 
-    "article:modified_time":"4th of Jul 2024",
+	"article:published_time":"30th of Jul 2024, 19:22:44", 
+    "article:modified_time":"28th of Jul 2024",
     "article:section":"technology",
 
     "author": {
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker wordFilteringContainer">
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>This is a sketch of a solution.   The site currently has absolutely no need of this feature (without user submitted data a filter to ensure its hygienic is naif), and the security focussed clean up is more urgent.  To achieve reasonable features I intend to use external binaries, which will need managing.  I could write everything from raw; but duplication of source, just so it is in a single process isn't Unix practice or OSS practice.<br />
+<p>This is a sketch of a solution.   The site currently has absolutely no need of this feature (without user submitted data a filter to ensure its hygienic is naïve), and the security focussed clean up is more urgent.  To achieve reasonable features I intend to use external binaries, which will need managing.  I could write everything from raw; but duplication of source, just so it is in a single process isn't Unix practice or OSS practice.<br />
 This is to be used with a spellcheck, but isn't a combined feature.  Common sense says put the spellcheck as close to the user as possible; whereas word filtering this is part of processing.  It may be useful to run several batches of wordfiltering, to support contextual behaviour (i.e. any mentions to a certain footballs club mean the content gets a club strip branding style-sheet applied to it).   In terms of outcomes, much of this is similar to a Bayesian net spam filter.   By volume the use-case for this is swear filtering, although this not why the solution is interesting.</p>
 
 <p><em>Code like this is why I'm writing iceline.</em></p>
@@ -83,7 +83,7 @@ This is to be used with a spellcheck, but isn't a combined feature.  Common sens
 <tr class="even"><td class="">wtf</td><td class="">is aliased swearing, but could probably be left in, as it is encoded.  The system should understand that it means “what-the-fuck”.  Partial matches like this should be flagged depending on options, as it will fail language style guidelines.</td></tr>
 </table>
 
-<p>Please note the handling of 'feck' and 'fsck' is completely different, even though there is only one letter difference.  If the author was annoyed and wrote bhenchod out in Devengali, this script probably can't deal with this until we have Devengali dictionaries.  Likewise spelling word in regional extended ASCII, or UTF8 characters is likely to slide through niaf implementations.<br />
+<p>Please note the handling of 'feck' and 'fsck' is completely different, even though there is only one letter difference.  If the author was annoyed and wrote bhenchod out in Devengali, this script probably can't deal with this until we have Devengali dictionaries.  Likewise spelling word in regional extended ASCII, or UTF8 characters is likely to slide through naïve implementations.<br />
 In the rest of this document, I continue to mention “dictionaries”.  Human text is just an arbitrary sequence of letters attached to a meaning.  Different groups of people created different letter-cluster -&gt; meaning bindings.   None of this computable.  Arbitrary symbol replacements can be coded as a recipe (e.g. try adding a second set of words with all 'e' replaced for '3'), but are also not dynamically/ variably computable.  <br />
 Due to the requested complexities of the features in this, it may be required to have some sort of asynchronous processing.</p>
 
@@ -154,7 +154,7 @@ Due to the requested complexities of the features in this, it may be required to
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-07-04T16:34:52">4th of Jul 2024</time>
+						<span>Edited <time datetime="2024-07-28T10:20:16">28th of Jul 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -206,7 +206,7 @@ Due to the requested complexities of the features in this, it may be required to
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-07-05T09:51:10">5th of Jul 2024, 9:51:10</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-04T16:34:52">4th of Jul 2024</time>.
+	<p> Page rendered <time datetime="2024-07-30T19:22:44">30th of Jul 2024, 19:22:44</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-28T10:20:16">28th of Jul 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
