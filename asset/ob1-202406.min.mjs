@@ -93,14 +93,13 @@ function b(e2, n2, r2 = document) {
     if (null === r2)
       throw new Error("Oh no! No DOM object!!");
     const t2 = r2.createElement("template");
-    if (t2.innerHTML = n2, "string" != typeof e2)
-      return e2.append(t2.content);
-    {
+    if (t2.innerHTML = n2, "string" == typeof e2) {
       const n3 = r2.querySelector(e2);
       if (null === n3)
         throw new Error("Oh no! DOM element not found: " + e2);
-      n3.append(t2.content);
+      return n3.append(t2.content);
     }
+    return e2.append(t2.content);
   } catch (e3) {
     t("error", e3.toString());
   }
@@ -180,6 +179,8 @@ async function q(o2, i2 = document, a2 = location) {
     const e2 = i2.querySelector("#biblio");
     e2 && e2.setAttribute("style", ""), function(e3, t3 = document) {
       let n2 = e3.headers.get("last-modified");
+      if (!n2)
+        return;
       n2.indexOf("BST") > 0 && (n2 = n2.substring(0, n2.length - 4));
       const r2 = new Date(n2).getTime();
       r2 > 0 && b(".addReading .ultraSkinny", '<span>Links updated <time datetime="' + r2 + '" title="When this was last recompiled">' + new Date(r2).toLocaleDateString("en-GB", { hour12: false, dateStyle: "medium" }) + "</time> </span>", t3);
@@ -304,10 +305,10 @@ function U(e2, t2, n2, r2 = location) {
 }
 let F = {};
 function D(e2, t2, n2 = location) {
-  let r2 = n2.protocol + "//" + n2.host, o2 = n2.pathname.split("/");
-  o2 = o2.pop();
+  let r2 = n2.pathname.split("/"), o2 = "";
+  r2 = r2.pop();
   const i2 = new URLSearchParams(n2.search);
-  return "group-XXX" === o2 && i2.has("first") && (o2 = i2.get("first")), t2 ? i2.has("first") ? r2 += n2.pathname.replace("group-XXX", o2 + "-meta") : r2 += n2.pathname.replace(o2, e2 + "-meta") : r2 += n2.pathname.replace(o2, e2), r2 += n2.search + n2.hash, r2;
+  return "group-XXX" === r2 && i2.has("first") && (r2 = i2.get("first")), t2 ? i2.has("first") ? o2 += n2.pathname.replace("group-XXX", r2 + "-meta") : o2 += n2.pathname.replace(r2, e2 + "-meta") : o2 += n2.pathname.replace(r2, e2), o2 += n2.search + n2.hash, o2;
 }
 function P(e2, t2) {
   let n2 = "button";
