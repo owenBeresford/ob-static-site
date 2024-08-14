@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/3d-effects-maquette" />
 <meta property="og:description" content="A maquette looking at 3d animation via CSS.   Again this demo only uses HTML5 and CSS no JS.   It loads very quickly, as there is no frameworks to download." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="25th of Jul 2024, 6:48:08" />
-<meta property="article:modified_time" content="24th of Jul 2024" />
+<meta property="article:published_time" content="14th of Aug 2024, 16:20:49" />
+<meta property="article:modified_time" content="7th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/3d-effects-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "3D effects demo/ maquette",
-	"article:published_time":"25th of Jul 2024, 6:48:08", 
-    "article:modified_time":"24th of Jul 2024",
+	"article:published_time":"14th of Aug 2024, 16:20:49", 
+    "article:modified_time":"7th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -55,92 +55,152 @@ TODO: magic tune selection against some index/DB -->
 <div class="halferWords popOverWidget">
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Ambition <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>I looked a company website, and they are highly committed to using JS for animation.   As a maquette, I thought I try to repeat what they had in CSS.   I know precisely how to do this transform in not-browser tools.  Also, after a few iterations I could build it in OpenGL (the end of 90s version OpenGL has less sophisticated curve surfaces, so it woulds take be a bit longer to get curves and blends).   I need to add some fake spotlights to the reflection effect is reflecting something. <br />
+<p>I looked a company website, and they are highly committed to using JS for animation.   As a maquette, I thought I try to repeat what they had in CSS.   I know precisely how to do this transform in tools that are not a browser.  Also, after a few iterations I could build it in OpenGL (the end of 90s version OpenGL has less sophisticated curve surfaces, so it would take be a bit longer to get curves and blends).   I need to add some fake spotlights to the reflection effect is reflecting something. <br />
 This maquette is also a trial run for the twisting infinity “please hold” I would like to achieve just using CSS, and maybe SVG.</p>
 
 
 
 <div class="fancyLogo">
 <ul class="toolBar">
-<li> <label title="Apply a Slow rotation to the cube."><input type="checkbox" value="rotation" /> Rotation</label></li>
+<li> <label title="Apply a Slow rotation to the cube."><input type="checkbox" value="rotation" />2D Rotation</label></li>
 <li> <label title="Apply a colour blends to the cube, which slightly look like reflection."><input type="checkbox" value="blend" /> Blends</label></li>
 <li> <label title="Apply some colour blends to the background behind the logo."><input type="checkbox" value="bg-blend" /> Defusing background</label></li>
 <li> <label title="Apply a sheer or twisting effect to the cube."><input type="checkbox" value="sheer" /> Twisting</label></li>
 </ul>
 <br />
 <figure id="fig1">
-<figcaption>Version 1: flat polys</figcaption>
+<figcaption>Version 1: 2d animation </figcaption>
 <span>
-<svg class="logo alive" viewBox="0 0 900 750" version="1.0" >
-  <defs>
-{ animation: shiftBlend var(--sped) linear infinite; }
+<svg class="logo alive" height="512" width="512" 
+	baseProfile="full" version="1.1" viewBox="-0.5 -0.5 1.0 1.0" 
+	xmlns="http://www.w3.org/2000/svg" 
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xlink="http://www.w3.org/1999/xlink" >
+	<defs><clipPath id="clip1">
+		<rect height="1.5" width="1.5" x="-0.75" y="-0.75" />
+	</clipPath>
+    <radialGradient id="bg2" cx:0.25; cy:0.25;  >
+      <stop offset="5%" stop-color="#dd0000" />
+      <stop offset="95%" stop-color="#dddd00" />
+    </radialGradient>
     <linearGradient id="bg1" gradientTransform="rotate(90)">
       <stop offset="5%" stop-color="#dd0000" />
-      <stop offset="95%" stop-color="#aaaaaa" />
+      <stop offset="95%" stop-color="#0000dd" />
     </linearGradient>
-  </defs>
-  <g id="layer1" transform="translate(-57.012 -308.68)" class="root">
-    <g class="lines" id="g3178" >
-      <g id="g3156" >
-        <path id="path2160" d="m76.986 498.08v402.85" />
-        <path id="path3134" d="m487.14 498.08v402.85" />
-        <path id="path3140" d="m487.14 498.08h-402.85" />
-        <path id="path3142" d="m487.14 900.93h-402.85" />
-      </g>
-      <path id="path3154" d="m798.41 727.45l-303.02 174.95" />
-      <g id="g3162" transform="translate(303.42 -173.55)" >
-        <path id="path3164" d="m76.986 498.08v402.85" />
-        <path id="path3166" d="m487.14 498.08v402.85" />
-        <path id="path3168" d="m487.14 498.08h-402.85" />
-        <path id="path3170" d="m487.14 900.93h-402.85" />
-      </g>
-      <path id="path3172" d="m789.93 322.43l-303.03 174.95" />
-      <path id="path3173" d="m373.79 322.43l-303.03 174.95" />
-      <path id="path3176" d="m381.83 727.45l-303.03 174.95" />
-    </g>
-  </g>
+	</defs>
+	<g clip-path="url(#clip1)" class="root" >
+		<polygon class="lines" points="-0.0,0.38774 -0.14531,-0.10378 0.37235,-0.04509" />
+		<polygon class="lines" points="-0.0,-0.41374 0.37235,-0.04509 -0.14531,-0.10378" />
+		<polygon class="lines" points="-0.0,0.38774 -0.40348,0.04886 -0.14531,-0.10378" />
+		<polygon class="lines" points="-0.0,-0.41374 -0.14531,-0.10378 -0.40348,0.04886" />
+		<polygon class="lines" points="-0.0,0.38774 0.37235,-0.04509 0.17669,0.1262" />
+		<polygon class="lines" points="-0.0,-0.41374 0.17669,0.1262 0.37235,-0.04509" />
+		<polygon class="lines" points="-0.0,0.38774 0.17669,0.1262 -0.40348,0.04886" />
+		<polygon class="lines" points="-0.0,-0.41374 -0.40348,0.04886 0.17669,0.1262" />
+	</g>
+</svg>
 </svg>
 </span>
 </figure>
 <br />
-
 <figure id="fig2">
-<figcaption><strike>version 2: Bézier polys</strike> </figcaption>
+<figcaption>Version 2: 3d animation</figcaption>
 <span>
-<svg class="logo" viewBox="0 0 900 750" version="1.0" >
-  <defs>
-{ animation: shiftBlend var(--sped) linear infinite; }
-    <linearGradient id="bg1" gradientTransform="rotate(90)">
-      <stop offset="5%" stop-color="#dd0000" />
-      <stop offset="95%" stop-color="#aaaaaa" />
-    </linearGradient>
-  </defs>
-  <g id="layer1" transform="translate(-57.012 -308.68)" class="root">
-    <g class="lines" id="g3178" >
-      <g id="g3156" >
-        <path id="path2160" d="m76.986 498.08v402.85" />
-        <path id="path3134" d="m487.14 498.08v402.85" />
-        <path id="path3140" d="m487.14 498.08h-402.85" />
-        <path id="path3142" d="m487.14 900.93h-402.85" />
-      </g>
-      <path id="path3154" d="m798.41 727.45l-303.02 174.95" />
-      <g id="g3162" transform="translate(303.42 -173.55)" >
-        <path id="path3164" d="m76.986 498.08v402.85" />
-        <path id="path3166" d="m487.14 498.08v402.85" />
-        <path id="path3168" d="m487.14 498.08h-402.85" />
-        <path id="path3170" d="m487.14 900.93h-402.85" />
-      </g>
-      <path id="path3172" d="m789.93 322.43l-303.03 174.95" />
-      <path id="path3173" d="m373.79 322.43l-303.03 174.95" />
-      <path id="path3176" d="m381.83 727.45l-303.03 174.95" />
-    </g>
+<svg class="logo alive" width="256" height="256" 
+ baseProfile="full" version="1.1" viewBox="-2.5 -0.5 1.0 1.0"
+	xmlns="http://www.w3.org/2000/svg" >
+	<defs>
+		<animateTransform id="rot1" attributeName="transform" attributeType="xml" type="rotate" repeatCount="indefinite"
+			from="0 60 70" to="360 60 70" dur="5s" />
+	    <radialGradient id="bg2" cx="0.15" cy="0.25"  >
+    	  <stop offset="5%" stop-color="#dd0000" />
+	      <stop offset="95%" stop-color="#dddd00" />
+	    </radialGradient>
+	    <linearGradient id="bg1" gradientTransform="rotate(45)">
+	      <stop offset="5%" stop-color="#dd0000" />
+	      <stop offset="95%" stop-color="#0000dd" />
+	    </linearGradient>
+	</defs>
+<g class="root" id="cube_static" >
+	<polygon class="lines" points="-2.14048,-0.34969 -1.64069,-0.30613 -1.65535,0.21017 -2.13503,0.14324" />
+	<polygon class="lines" points="-2.37116,0.31622 -2.38822,-0.23674 -2.14048,-0.34969 -2.13503,0.14324" />
+	<polygon class="lines" points="-2.37116,0.31622 -1.83828,0.40255 -1.65535,0.21017 -2.13503,0.14324" />
+	<polygon class="lines" points="-2.38822,-0.23674 -1.8304,-0.17992 -1.64069,-0.30613 -2.14048,-0.34969" />
+	<polygon class="lines" points="-1.83828,0.40255 -1.8304,-0.17992 -1.64069,-0.30613 -1.65535,0.21017" />
+	<polygon class="lines" points="-2.38822,-0.23674 -1.8304,-0.17992 -1.83828,0.40255 -2.37116,0.31622" />
+</g>
+<g class="root" id="cube_motile">
+	<polygon class="lines" points="-2.14048,-0.34969 -1.64069,-0.30613 -1.65535,0.21017 -2.13503,0.14324" />
+	<polygon class="lines" points="-2.37116,0.31622 -2.38822,-0.23674 -2.14048,-0.34969 -2.13503,0.14324" />
+	<polygon class="lines" points="-2.37116,0.31622 -1.83828,0.40255 -1.65535,0.21017 -2.13503,0.14324" />
+	<polygon class="lines" points="-2.38822,-0.23674 -1.8304,-0.17992 -1.64069,-0.30613 -2.14048,-0.34969" />
+	<polygon class="lines" points="-1.83828,0.40255 -1.8304,-0.17992 -1.64069,-0.30613 -1.65535,0.21017" />
+	<polygon class="lines" points="-2.38822,-0.23674 -1.8304,-0.17992 -1.83828,0.40255 -2.37116,0.31622" style="fill: #ff0000;" />
+	<animateTransform id="rot2" attributeName="transform" type="rotate" repeatCount="indefinite"
+			from="0 60" to="360 50" begin="0s" dur="5s" additive="sum"  />
+</g>
+</svg>
+</span>
+</figure>
+<br />
+<figure id="fig3">
+<figcaption><strike>version 3: Bézier polys</strike> </figcaption>
+<span title="The CSS attached to this span cunningly works when I have broken the CSS on the SVG structure. ">
+<svg class="logo alive" width="100" height="100" 
+viewBox="0 0 100 100" version="1.1" baseProfile="full">
+  <g id="train">
+     <rect x="0" y="10" width="50" height="10" fill="orange"></rect>
+     <circle cx="10" cy="15" r="7" fill="blue"></circle>
+     <animateTransform
+       attributeName="transform"
+       type="rotate"
+   repeatCount="indefinite" 
+	  
+     from="-50 10 0"
+       to="150 10 0"
+     begin="0s"
+       dur="5s"
+    
+  		/>
   </g>
+
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="icon-spinner" viewBox="0 0 32 32">
+      <path d="M12 4c0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4s-4-1.791-4-4zM20.485 7.515c0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4s-4-1.791-4-4zM26 16c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2zM22.485 24.485c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2zM14 28c0 0 0 0 0 0 0-1.105 0.895-2 2-2s2 0.895 2 2c0 0 0 0 0 0 0 1.105-0.895 2-2 2s-2-0.895-2-2zM5.515 24.485c0 0 0 0 0 0 0-1.105 0.895-2 2-2s2 0.895 2 2c0 0 0 0 0 0 0 1.105-0.895 2-2 2s-2-0.895-2-2zM4.515 7.515c0 0 0 0 0 0 0-1.657 1.343-3 3-3s3 1.343 3 3c0 0 0 0 0 0 0 1.657-1.343 3-3 3s-3-1.343-3-3zM1.75 16c0-1.243 1.007-2.25 2.25-2.25s2.25 1.007 2.25 2.25c0 1.243-1.007 2.25-2.25 2.25s-2.25-1.007-2.25-2.25z"></path>
+    </symbol>
+  </defs>
+</svg>
+<div class="container">
+  <svg aria-hidden="true" focusable="false" class="icon icon-spinner">
+    <use xlink:href="#icon-spinner" />
+    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 0 0" to="360 0 0" dur="3s" begin="0s" repeatCount="indefinite" />
+  </svg>
+
+  <svg aria-hidden="true" focusable="false" class="icon icon-spinner">
+    <use xlink:href="#icon-spinner" />
+    <animateTransform attributeName="transform" type="scale" from="1 1" to="2 2" begin="0s" dur="2s" repeatCount="indefinite" />
+  </svg>
+
+  <svg aria-hidden="true" focusable="false" class="icon icon-spinner">
+    <use xlink:href="#icon-spinner" />
+    <animateTransform attributeName="transform" type="translate" from="0 0" to="150 20" begin="0s" dur="2s" repeatCount="indefinite" />
+  </svg>
+</div>
+<svg version="1.1" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+  <g>
+    <rect id="Rectangle-1" fill="#3C81C1" sketch:type="MSShapeGroup" x="0" y="0" width="100" height="125">
+      <animateTransform attributeName="transform" type="scale" from="1 1" to="3 1.25" begin="0s" dur="2s" repeatCount="indefinite" />
+    </rect>
+    <animateTransform attributeName="transform" type="translate" from="0 0" to="150 20" begin="0s" dur="2s" repeatCount="indefinite" />
+  </g>
+</svg>
 </svg>
 </span>
 </figure>
 
 </div>
-<details class="singlePopup">
+<details class="singlePopup withScroll">
 <summary>
 <h4 id="toc1">Technical Notes </h4>
 </summary>
@@ -150,13 +210,27 @@ This maquette is also a trial run for the twisting infinity “please hold” I 
     <li>The CSS is in included in this page </li>
     <li>This demo here is quite quickly written, I need to add a better layout for small screens. </li>
     <li>I may rewrite the Radios as sliders in future, to set the ranges and rates. </li>
+    <li>To keep CSS volume sensible choose “2D SVG”, <strong>OR</strong> “3D SVG” at the start</li>
 </ul>
 
 
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
-    <li>ATTRIBUTION: The v1 cube is from <a href="https://freesvg.org/necker-cube" target="_blank">FreeSVG</a>.  I will replace it, with a cube in 3d space, or I can't animate it properly</li>
-    <li><a class="cleanimage" href="https://prideout.net/blog/svg_wireframes/" target="_blank">https://prideout.net/blog/svg_wireframes/</a> <a class="cleanimage" href="https://github.com/prideout/svg3d" target="_blank">https://github.com/prideout/svg3d</a>  </li>
+    <li>ATTRIBUTION: The v1 cube is from <a href="https://freesvg.org/necker-cube" target="_blank">FreeSVG</a>. 2d SVG. <strong>Removed from article.</strong></li>
+    <li>ATTRIBUTION: The v2 polys are the basic project from Philip Rideout's <a href="https://github.com/prideout/svg3d" target="_blank">git</a>, <a href="https://prideout.net/blog/" target="_blank">blog</a>, <a href="https://prideout.net/blog/svg_wireframes/filmstrip.svg" target="_blank">prerendered sample</a>.  This is 3d SVG.  I used this for n both the triangle based thing and the cube.   </li>
+    <li>I was doing 1 change at the time, to ensure all the tech stacked up without unexpected problems.</li>
+    <li>I have now built 2 of the “CSS only for actions” button bars, I need to libraryise the bar, it takes too long to do it from scratch each time.   Standard CSS frameworks do not work with label + radio “buttons”.</li>
+    <li>Actual 3d SVG editors are harder to find than I was expecting</li>
+    <li>Current ideation for 3d rotation: duplicate shape &amp; hide the other one.  Would like to hide via edge of SVG clipping</li>
+    <li><a class="cleanimage" href="https://macsvg.org/user-guide/macsvg-user-interface/plug-in-editors/animatetransform-element-editor/" target="_blank">https://macsvg.org/user-guide/macsvg-user-interface/plug-in-editors/animatetransform-element-editor/</a></li>
+    <li><a class="cleanimage" href="https://stackoverflow.com/questions/78736461/is-it-possible-to-disable-svgs-animate-element-for-prefers-reduced-motion-media" target="_blank">https://stackoverflow.com/questions/78736461/is-it-possible-to-disable-svgs-animate-element-for-prefers-reduced-motion-media</a></li>
+    <li><a class="cleanimage" href="https://stackoverflow.com/questions/68491362/how-to-position-svg-clip-path-using-css-and-only-clip-one-edge-of-clipped-elemen" target="_blank">https://stackoverflow.com/questions/68491362/how-to-position-svg-clip-path-using-css-and-only-clip-one-edge-of-clipped-elemen</a> </li>
+    <li><a class="cleanimage" href="https://www.w3.org/Graphics/SVG/Test/20110816/" target="_blank">https://www.w3.org/Graphics/SVG/Test/20110816/</a>  official TEST images for SVG sec compliance</li>
+    <li><a class="cleanimage" href="http://www.datypic.com/sc/svg11/" target="_blank">http://www.datypic.com/sc/svg11/</a> spec but forcably HTMLised, so cant use it in tools</li>
+    <li><a class="cleanimage" href="https://daily-dev-tips.com/posts/svg-animatetransform/" target="_blank">https://daily-dev-tips.com/posts/svg-animatetransform/</a></li>
+    <li><a class="cleanimage" href="https://trycatchdebug.net/news/1327045/disable-svg-animation" target="_blank">https://trycatchdebug.net/news/1327045/disable-svg-animation</a> TEST this, it means I can drop the duplicate Cube</li>
+    <li><a class="cleanimage" href="https://stackoverflow.com/questions/22071952/svg-rotation-anchorpoint" target="_blank">https://stackoverflow.com/questions/22071952/svg-rotation-anchorpoint</a></li>
+    <li>Validation tools for SVG are primitive.  The best I can find is <a class="cleanimage" href="https://validator.w3.org/check" target="_blank">https://validator.w3.org/check</a></li>
     <li><a class="cleanimage" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths" target="_blank">https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths</a></li>
     <li>replace toolbar layout css with a grid</li>
     <li><a href="https://css-tricks.com/almanac/properties/t/transform/" target="_blank">transform</a></li>
@@ -164,7 +238,6 @@ This maquette is also a trial run for the twisting infinity “please hold” I 
     <li><a href="https://svg-path-visualizer.netlify.app/#M140%2020C73%2020%2020%2074%2020%20140c0%20135%20136%20170%20228%20303%2088-132%20229-173%20229-303%200-66-54-120-120-120-48%200-90%2028-109%2069-19-41-60-69-108-69z" target="_blank">path visualiser</a></li>
     <li><a href="https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/" target="_blank">SVG backgrounds</a></li>
     <li>&lt;radialGradient&gt; for BG</li>
-    <li>Note to self: stop hand making these buttons )see v2_</li>
     <li>Currently the blends are not working, probably will do by monday</li>
     <li><strong>[WTB]</strong> CSS selector based on char length of text node</li>
     <li>I need a way to combined transforms without using JS.  I can solve this by vast duplication, but would prefer not to.</li>
@@ -207,7 +280,7 @@ This maquette is also a trial run for the twisting infinity “please hold” I 
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-07-24T08:06:48">24th of Jul 2024</time>
+						<span>Edited <time datetime="2024-08-07T10:23:20">7th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2024-06-20T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Jun 2024</time> </span>
 					</span>
@@ -258,7 +331,7 @@ This maquette is also a trial run for the twisting infinity “please hold” I 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-07-25T06:48:08">25th of Jul 2024, 6:48:08</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-24T08:06:48">24th of Jul 2024</time>.
+	<p> Page rendered <time datetime="2024-08-14T16:20:49">14th of Aug 2024, 16:20:49</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-07T10:23:20">7th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -279,13 +352,24 @@ details summary h4 { display: inline-block; }
 .fancyLogo span:has( svg )::before { z-index:2; line-height:0.70; color:red; position:absolute; border:red 2px solid; content:" 🗙 "; font-size:8em; padding:0.1em; border-radius:40%; margin-top: 0.5em; margin-left: 0.15em; padding-bottom: 0.25em; }
 .fancyLogo span:has( svg.alive )::before { border:inherit; content:""; }
 
-.fancyLogo .root { fill-opacity:0; fill:none; /* opacity:0; */ }
-.fancyLogo .lines path { stroke:#000000; stroke-linecap:square; stroke-width:5; fill:none; fill-opacity:1; }
+.fancyLogo .root { fill-opacity:0; fill:none; }
+.fancyLogo .lines path, 
+.fancyLogo polygon.lines 
+{ stroke:#000000; stroke-linecap:round; stroke-width:0.01; fill:#ffffff; fill-opacity:0.74; }
 
-.fancyLogo:has( input[value="rotation"]:checked ) svg.logo.alive { animation: rotating var(--sped) linear infinite; }
-.fancyLogo:has( input[value="blend"]:checked ) svg.logo.alive path { stroke:url(#bg1);  } 
-.fancyLogo:has( input[value="bg-blend"]:checked ) svg.logo.alive .root { fill: url('#bg1'); fill-opacity:1; }
+.fancyLogo #fig2 svg.logo.alive #cube_motile { transform:translateX( 500px ); }
+.fancyLogo:has( input[value="rotation"]:checked ) #fig1 svg.logo.alive { animation: rotating var(--sped) linear infinite; }
+.fancyLogo:has( input[value="rotation"]:checked ) #fig2 svg.logo.alive #cube_static { transform:translateX( 500px ); }
+.fancyLogo:has( input[value="rotation"]:checked ) #fig2 svg.logo.alive #cube_motile { transform:translateX( 0px ); }
+.fancyLogo:has( input[value="blend"]:checked ) svg.logo.alive path,
+	.fancyLogo:has( input[value="blend"]:checked ) svg.logo.alive polygon 
+    { stroke:url(#bg1); stroke-width:0.02; } 
+.fancyLogo:has( input[value="bg-blend"]:checked ) svg.logo.alive polygon,
+	.fancyLogo:has( input[value="bg-blend"]:checked ) svg.logo.alive path 
+	{ fill: url('#bg2'); fill-opacity:0.6; }
 .fancyLogo:has( input[value="sheer"]:checked ) svg.logo.alive { animation: shiftTwist var(--sped) linear infinite; }
+
+.fancyLogo svg * { transform-box: fill-box; }
 
 /* replace with 3d animation */
 @keyframes rotating {
@@ -297,27 +381,14 @@ details summary h4 { display: inline-block; }
     }
 }
 
-/*
-@keyframes shiftBlend {
+@keyframes rotating3d {
     from {
-      color:linear-gradient(0.01turn, #3f87a6, #ebf8e1, #f69d3c); 
-		stroke:#ccccff;
+        transform: rotateX(0deg);    
     }
     to {
-		stroke:#ffcccc;
-	  color:linear-gradient(0.50turn, #3f87a6, #ebf8e1, #f69d3c); 
+        transform: rotateX(360deg);  
     }
 }
-
-@keyframes shiftBGBlend {
-    from {
-      background-color:linear-gradient( #999, #ccc );
-    }
-    to {
-      background-color:linear-gradient( #ccc, #999 );
-    }
-}
-*/
 
 @keyframes shiftTwist {
     from {
@@ -335,14 +406,12 @@ details summary h4 { display: inline-block; }
     }
 }
 
-
 .fancyLogo .toolBar2 label { background:var(--attentionbg); }
 .fancyLogo .toolBar2 label>input[type="checkbox"] { display:none; }
 .fancyLogo .toolBar2 label:has( :checked ):before { content:"✔"; color:green; font-size:2em; }
 .fancyLogo .toolBar2 { display:flex; flex-flow:row nowrap; justify-content:center; align-content:center;  }
-.fancyLogo .toolBar2  li { margin-left:0.8em; }
-.fancyLogo .toolBar2  li:first-child { margin-left:0em; }
-
+.fancyLogo .toolBar2 li { margin-left:0.8em; }
+.fancyLogo .toolBar2 li:first-child { margin-left:0em; }
 
 </style>
 </body>
