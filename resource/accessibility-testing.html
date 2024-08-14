@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/accessibility-testing" />
 <meta property="og:description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="25th of Jul 2024, 10:45:25" />
-<meta property="article:modified_time" content="25th of Jul 2024" />
+<meta property="article:published_time" content="14th of Aug 2024, 20:47:52" />
+<meta property="article:modified_time" content="14th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/accessibility-testing" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "The importance of Accessibility Testing",
-	"article:published_time":"25th of Jul 2024, 10:45:25", 
-    "article:modified_time":"25th of Jul 2024",
+	"article:published_time":"14th of Aug 2024, 20:47:52", 
+    "article:modified_time":"14th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -91,7 +91,7 @@ There are many documents on creating accessible content inside the gov.uk struct
     <li><a href="https://www.qualitylogic.com/testing-solutions/wcag-compliance-testing-certification/" target="_blank">QualityLogic</a> ~ a rentable service operated by visually impaired software engineers.   If they do revisions rather than just testing, they will need a while per client.  They do not quote a price in a place I can find.  This is a very US centric.</li>
     <li><a href="https://softwaretesthelp.com/Visit-QASource" target="_blank">QASource</a> ~ rentable service, uses some manual testing, but mostly ML and AL to test.  They directly claim that every client is different, and so cannot give general quotes. This is a very US centric.</li>
     <li>If you a looking at a template/comp/wireframe, using Visbug <a href="https://addons.mozilla.org/en-GB/firefox/addon/visbug/?utm_source=addons.mozilla.org&amp;amp;utm_medium=referral&amp;amp;utm_content=search" target="_blank">FireFox</a> <a href="https://chrome.google.com/webstore/detail/visbug/cdockenadnadldjbbgcallicgledbeoc/" target="_blank">chrome</a> is a nice dev experience <sup><a href="https://web.dev/testing-web-design-color-contrast/" target="_blank">2</a></sup>.  It doesn't test your site, it gives you a good look at your current design so you can edit it now (this includes editing-tools).  </li>
-    <li>For manual accessibility testing, Chrome have a <i>“Accessibility Tree” in Chromium dev</i> if you enable it.  Note from <a href="https://fosstodon.org/deck/@sarajw@front-end.social/112834943997174297" target="_blank">Sarah joy</a>, <sup><a href="https://developer.chrome.com/blog/full-accessibility-tree/" target="_blank">3</a></sup>, [] this supplies detailed data on page rendering.</li>
+    <li>For manual accessibility testing, Chrome have a <i>“Accessibility Tree” in Chromium dev</i> if you enable it.  Note from <a href="https://fosstodon.org/deck/@sarajw@front-end.social/112834943997174297" target="_blank">Sarah joy</a>, <sup><a href="https://developer.chrome.com/blog/full-accessibility-tree/" target="_blank">3</a></sup>, this supplies detailed data on page rendering.</li>
     <li>Less targeted tools:</li>
     <li><a href="https://wave.webaim.org/extension/" target="_blank">WAVE</a> ~ a client side only testing browser plugin, run by webAIM.    Running since 2001 from the Utah state University; much of this tools marketing is targeting older web trends.  Note as a browser plugin this can be run inside firewalls or security hobbles, so it is worth remembering as a backup test tool.   <strong>UPDATE</strong> I tried installing this, it does give reports, but it is very hard to work out which HTML element it is complaining about.  Also it doesn't read the whole of the CSS, so some of the objections are are wrong.   Thirdly, it doesn't assume that people with limited vision could have adapted their entire machine to have a larger font-size <sup><a href="https://www.makeuseof.com/how-to-increase-font-size-in-browser/" target="_blank">4</a></sup> <sup><a href="https://www.thewindowsclub.com/change-the-default-font-in-your-browser" target="_blank">5</a></sup>; so every site has to do it for them separately (my font-sizes are <strong>relative</strong>, so if you have limited focusing ability you are still supported).   Fourthly, it reports elements which are <i>display:none</i> as being small/ poorly coloured.</li>
     <li><a href="https://www.freedomscientific.com/Products/Blindness/JAWS" target="_blank">JAWS</a> ~ this is an established text to speech tool that sits on-top of webpages, or ms Word etc; also supports Braille.  They currently have a  video talking about 20year history, I know this, as I met them doing my second degree.   This should be used for 1 user journey “supporting blind people, who are using common blind-support tooling” as it is the most widely used website reader AFAIK.</li>
@@ -127,19 +127,21 @@ There are many documents on creating accessible content inside the gov.uk struct
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
-						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
 						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i> </a>
-						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i></a>
-						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i></a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing&amp;t=The+importance+of+Accessibility+Testing"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i></a>
-						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i> </a>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i>><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing&amp;t=The+importance+of+Accessibility+Testing"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-07-25T08:08:10">25th of Jul 2024</time>
+						<span>Edited <time datetime="2024-08-14T20:47:19">14th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2023-04-27T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >27th of Apr 2023</time> </span>
 					</span>
@@ -157,7 +159,7 @@ There are many documents on creating accessible content inside the gov.uk struct
 			</dialog>
 
 <fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Technical definition</a></li>
 <li><a href="#toc1">What are the EU legal requirements?</a></li>
@@ -188,9 +190,9 @@ There are many documents on creating accessible content inside the gov.uk struct
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>  
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-07-25T10:45:25">25th of Jul 2024, 10:45:25</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-25T08:08:10">25th of Jul 2024</time>.
+	<p> Page rendered <time datetime="2024-08-14T20:47:52">14th of Aug 2024, 20:47:52</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T20:47:19">14th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
