@@ -93,14 +93,13 @@ function b(e2, n2, r2 = document) {
     if (null === r2)
       throw new Error("Oh no! No DOM object!!");
     const t2 = r2.createElement("template");
-    if (t2.innerHTML = n2, "string" != typeof e2)
-      return e2.append(t2.content);
-    {
+    if (t2.innerHTML = n2, "string" == typeof e2) {
       const n3 = r2.querySelector(e2);
       if (null === n3)
         throw new Error("Oh no! DOM element not found: " + e2);
-      n3.append(t2.content);
+      return n3.append(t2.content);
     }
+    return e2.append(t2.content);
   } catch (e3) {
     t("error", e3.toString());
   }
@@ -180,6 +179,8 @@ async function q(o2, i2 = document, a2 = location) {
     const e2 = i2.querySelector("#biblio");
     e2 && e2.setAttribute("style", ""), function(e3, t3 = document) {
       let n2 = e3.headers.get("last-modified");
+      if (!n2)
+        return;
       n2.indexOf("BST") > 0 && (n2 = n2.substring(0, n2.length - 4));
       const r2 = new Date(n2).getTime();
       r2 > 0 && b(".addReading .ultraSkinny", '<span>Links updated <time datetime="' + r2 + '" title="When this was last recompiled">' + new Date(r2).toLocaleDateString("en-GB", { hour12: false, dateStyle: "medium" }) + "</time> </span>", t3);
@@ -232,7 +233,7 @@ HTTP_ERROR, no valid file called ${n2}-references.json found.
 function T(e2, t2 = document) {
   const n2 = S(true, t2);
   t2.querySelectorAll("article a").forEach(function(r2) {
-    "git" === u(r2).trim().toLowerCase() && (r2.textContent = "", b(r2, '<i class="fa fa-github" aria-hidden="true"></i>', t2), e2 ? (r2.setAttribute("aria-label", function(e3) {
+    "git" === u(r2).trim().toLowerCase() && (r2.textContent = "", b(r2, '<i class="fa fa-github" aria-hidden="true"></i> \n		 <span class="sr-only">git</span>', t2), e2 ? (r2.setAttribute("aria-label", function(e3) {
       const t3 = new URL(e3);
       let n3 = "[anon dev]", r3 = "";
       if (t3.username && (n3 = t3.username), t3.pathname) {
@@ -304,10 +305,10 @@ function U(e2, t2, n2, r2 = location) {
 }
 let F = {};
 function D(e2, t2, n2 = location) {
-  let r2 = n2.protocol + "//" + n2.host, o2 = n2.pathname.split("/");
-  o2 = o2.pop();
+  let r2 = n2.pathname.split("/"), o2 = "";
+  r2 = r2.pop();
   const i2 = new URLSearchParams(n2.search);
-  return "group-XXX" === o2 && i2.has("first") && (o2 = i2.get("first")), t2 ? i2.has("first") ? r2 += n2.pathname.replace("group-XXX", o2 + "-meta") : r2 += n2.pathname.replace(o2, e2 + "-meta") : r2 += n2.pathname.replace(o2, e2), r2 += n2.search + n2.hash, r2;
+  return "group-XXX" === r2 && i2.has("first") && (r2 = i2.get("first")), t2 ? i2.has("first") ? o2 += n2.pathname.replace("group-XXX", r2 + "-meta") : o2 += n2.pathname.replace(r2, e2 + "-meta") : o2 += n2.pathname.replace(r2, e2), o2 += n2.search + n2.hash, o2;
 }
 function P(e2, t2) {
   let n2 = "button";
@@ -532,7 +533,7 @@ function Q() {
   T(p2, r2), function(e2, t2 = document) {
     const n3 = S(true, t2);
     t2.querySelectorAll("article a").forEach(function(r3) {
-      "docs" === u(r3).trim().toLowerCase() && (r3.textContent = "", b(r3, '<i class="fa fa-book-open" aria-hidden="true"></i>', t2), r3.setAttribute(e2 ? "aria-label" : "title", "Link to the project docs; it may be a git page, or a separate webpage. "), e2 && k(r3, n3));
+      "docs" === u(r3).trim().toLowerCase() && (r3.textContent = "", b(r3, '<i class="fa fa-book-open" aria-hidden="true"></i>\n		 <span class="sr-only">docs</span>', t2), r3.setAttribute(e2 ? "aria-label" : "title", "Link to the project docs; it may be a git page, or a separate webpage. "), e2 && k(r3, n3));
     });
   }(p2, r2), function(e2 = document) {
     const t2 = e2.querySelectorAll(".addArrow");
@@ -553,10 +554,10 @@ function Q() {
     const r3 = "body, .annoyingBody { font-family: " + n3.ft + "; font-size: " + n3.fs + "; direction:" + n3.dn + "; }", o3 = e2.createElement("style");
     o3.setAttribute("id", "client-set-css"), o3.innerText = r3, e2.getElementsByTagName("head")[0].append(o3);
   }(r2), function(e2 = document) {
-    const t2 = Array.from(e2.querySelectorAll(".popOverWidget details"));
-    t2.length && t2.forEach(function(e3) {
-      e3.addEventListener("keydown", W), e3.addEventListener("click", K);
-    });
+    const n3 = Array.from(e2.querySelectorAll(".popOverWidget details"));
+    n3.length && (t("info", "Modal widget found, extra UI features added"), n3.forEach(function(e3) {
+      e3.addEventListener("click", K);
+    }), e2.body.addEventListener("keydown", W));
   }(r2), !R(r2, o2) && "/resource/home" !== o2.pathname && r2.querySelectorAll(".reading").length < 2 && function(n3, r3 = document) {
     const o3 = /[ \t\n\r.(),~]/g, i2 = Object.assign({}, { timeFormat: "m", dataLocation: ".blocker", target: "#shareGroup", wordPerMin: 275, codeSelector: "code", refresh: false, debug: e() }, n3), a3 = i2.dataLocation + " img, " + i2.dataLocation + " picture, " + i2.dataLocation + " object";
     let s3 = u(r3.querySelector(i2.dataLocation)).split(o3).filter((e2) => e2).length / i2.wordPerMin;
@@ -616,6 +617,7 @@ function Q() {
 export {
   b as appendIsland,
   Q as hasBeenRun,
+  R as isMobile,
   t as log,
   l as runFetch
 };

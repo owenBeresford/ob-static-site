@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-retrieval-augmented-generation" />
 <meta property="og:description" content="A focus on LLM algorithms and how to build solutions with AI. I originally sought the info I present you here for a bout three days' worth of research, and it wasn't easy to find, even for me being a dev. Thought that having this data in one easy access was needed." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="30th of Jul 2024, 19:25:45" />
-<meta property="article:modified_time" content="30th of Jul 2024" />
+<meta property="article:published_time" content="14th of Aug 2024, 21:19:41" />
+<meta property="article:modified_time" content="14th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-retrieval-augmented-generation" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "AI RAG coding",
-	"article:published_time":"30th of Jul 2024, 19:25:45", 
-    "article:modified_time":"30th of Jul 2024",
+	"article:published_time":"14th of Aug 2024, 21:19:41", 
+    "article:modified_time":"14th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -57,11 +57,11 @@ TODO: magic tune selection against some index/DB -->
 
 
 <p class="buttonBar"> 
-<a href="/resource/ai-llm" class="button" title="An article looking at the LLM algorithm, its best practices, and common implementations." >LLM Notes</a>
+<a href="/resource/ai-llm" class="button" title="An article looking at the LLM algorithm, its best practices, and common implementations." ><strike>LLM Notes</strike> </a>
 <span href="/resource/ai-rag" class="button disabled" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</span>
-<a href="/resource/ai-vector-store" class="button" title="An article examining the specialised storage needed for LLM data..">Vector stores</a>
-<a href="/resource/ai-testing" class="button" title="TBC."> AI testing</a>
-<a href="/resource/ai-tune-llm" class="button" title="TBC."> Tuning LLM</a>
+<a href="/resource/ai-vector-store" class="button" title="An article examining the specialised storage needed for LLM data.."><strike> Vector stores</strike> </a>
+<a href="/resource/ai-testing" class="button" title="TBC."><strike>  AI testing</strike> </a>
+<a href="/resource/ai-tune-llm" class="button" title="TBC."><strike>  Tuning LLM</strike> </a>
 </p>
 </div>
 <div class="lotsOfWords">
@@ -73,7 +73,7 @@ TODO: magic tune selection against some index/DB -->
 
 <ul class="ulbasic">
     <li><strong>RAG, aka “Retrieval-Augmented Generation”</strong>: defined in <sup><a href="https://arxiv.org/abs/2005.11401" target="_blank">2</a></sup>, where LLM created data is enhanced with plain data derived from search <sup><a href="https://www.freecodecamp.org/news/retrieval-augmented-generation-rag-handbook/" target="_blank">3</a></sup> <sup><a href="https://research.ibm.com/blog/retrieval-augmented-generation-RAG" target="_blank">4</a></sup>. </li>
-    <li><strong>LLM</strong> aka <strong>“Large Language Model”</strong>: Please see the ai-llm<a class="" href="">?</a> article ~ I have moved the LLM specific terms there to make everything clearer.</li>
+    <li><strong>LLM</strong> aka <strong>“Large Language Model”</strong>: Please see the ai-llm<a href="">?</a> article ~ I have moved the LLM specific terms there to make everything clearer.</li>
     <li><strong>“Prompt”</strong>: the question, the request, the triggering event.  Normally the human entered text, but should include vocal samples.</li>
     <li><strong>“Token</strong>&quot;: the smallest section from the prompt that makes sense <sup><a href="https://medium.com/@cloudswarup/the-building-blocks-of-llms-vectors-tokens-and-embeddings-1cd61cd20e35" target="_blank">5</a></sup> ~ often a whole word ~ but not always e.g. “could”, vs [“could”, “n't”].  Cohere use 4 bytes per token, on average <sup><a href="https://cohere.com/blog/llm-parameters-best-outputs-language-ai" target="_blank">6</a></sup> ~ this would be 1 big5 ideogram (traditional chinese), or a short word in US english,</li>
     <li><strong>“Vector”</strong>: A vector is a float, or list of floats when used in AI context.   A prompt is converted into vectors to make handing easier.  This <i>should</i> apply to speech and text.  For an idea of the scale of data: 2 short 4-word-sentences map to 1,500 vectors with recent Python libraries.</li>
@@ -169,19 +169,21 @@ A nice article describing risk areas and mitigation strategies whilst using ML <
 				<div id="shareGroup" class="bibbles row addReading">
 					<span class="allButtons"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
-						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i> </a> 
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
 						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i> </a>
-						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i></a>
-						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i></a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation&amp;t=AI+RAG+coding"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i></a>
-						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i> </a>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation&amp;t=AI+RAG+coding"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-retrieval-augmented-generation" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-07-30T19:03:56">30th of Jul 2024</time>
+						<span>Edited <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2024-07-23T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >23rd of Jul 2024</time> </span>
 					</span>
@@ -199,7 +201,7 @@ A nice article describing risk areas and mitigation strategies whilst using ML <
 			</dialog>
 
 <fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i> </span></legend>
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Theory / maths</a></li>
 <li><a href="#toc1">Value prop</a></li>
@@ -230,9 +232,9 @@ A nice article describing risk areas and mitigation strategies whilst using ML <
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>  
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-07-30T19:25:45">30th of Jul 2024, 19:25:45</time>, Copyright &copy; 2022 Owen Beresford, <a class="" href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-07-30T19:03:56">30th of Jul 2024</time>.
+	<p> Page rendered <time datetime="2024-08-14T21:19:41">14th of Aug 2024, 21:19:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
