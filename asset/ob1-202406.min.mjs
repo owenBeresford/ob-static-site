@@ -233,7 +233,7 @@ HTTP_ERROR, no valid file called ${n2}-references.json found.
 function T(e2, t2 = document) {
   const n2 = S(true, t2);
   t2.querySelectorAll("article a").forEach(function(r2) {
-    "git" === u(r2).trim().toLowerCase() && (r2.textContent = "", b(r2, '<i class="fa fa-github" aria-hidden="true"></i>', t2), e2 ? (r2.setAttribute("aria-label", function(e3) {
+    "git" === u(r2).trim().toLowerCase() && (r2.textContent = "", b(r2, '<i class="fa fa-github" aria-hidden="true"></i> \n		 <span class="sr-only">git</span>', t2), e2 ? (r2.setAttribute("aria-label", function(e3) {
       const t3 = new URL(e3);
       let n3 = "[anon dev]", r3 = "";
       if (t3.username && (n3 = t3.username), t3.pathname) {
@@ -533,7 +533,7 @@ function Q() {
   T(p2, r2), function(e2, t2 = document) {
     const n3 = S(true, t2);
     t2.querySelectorAll("article a").forEach(function(r3) {
-      "docs" === u(r3).trim().toLowerCase() && (r3.textContent = "", b(r3, '<i class="fa fa-book-open" aria-hidden="true"></i>', t2), r3.setAttribute(e2 ? "aria-label" : "title", "Link to the project docs; it may be a git page, or a separate webpage. "), e2 && k(r3, n3));
+      "docs" === u(r3).trim().toLowerCase() && (r3.textContent = "", b(r3, '<i class="fa fa-book-open" aria-hidden="true"></i>\n		 <span class="sr-only">docs</span>', t2), r3.setAttribute(e2 ? "aria-label" : "title", "Link to the project docs; it may be a git page, or a separate webpage. "), e2 && k(r3, n3));
     });
   }(p2, r2), function(e2 = document) {
     const t2 = e2.querySelectorAll(".addArrow");
@@ -554,10 +554,10 @@ function Q() {
     const r3 = "body, .annoyingBody { font-family: " + n3.ft + "; font-size: " + n3.fs + "; direction:" + n3.dn + "; }", o3 = e2.createElement("style");
     o3.setAttribute("id", "client-set-css"), o3.innerText = r3, e2.getElementsByTagName("head")[0].append(o3);
   }(r2), function(e2 = document) {
-    const t2 = Array.from(e2.querySelectorAll(".popOverWidget details"));
-    t2.length && t2.forEach(function(e3) {
-      e3.addEventListener("keydown", W), e3.addEventListener("click", K);
-    });
+    const n3 = Array.from(e2.querySelectorAll(".popOverWidget details"));
+    n3.length && (t("info", "Modal widget found, extra UI features added"), n3.forEach(function(e3) {
+      e3.addEventListener("click", K);
+    }), e2.body.addEventListener("keydown", W));
   }(r2), !R(r2, o2) && "/resource/home" !== o2.pathname && r2.querySelectorAll(".reading").length < 2 && function(n3, r3 = document) {
     const o3 = /[ \t\n\r.(),~]/g, i2 = Object.assign({}, { timeFormat: "m", dataLocation: ".blocker", target: "#shareGroup", wordPerMin: 275, codeSelector: "code", refresh: false, debug: e() }, n3), a3 = i2.dataLocation + " img, " + i2.dataLocation + " picture, " + i2.dataLocation + " object";
     let s3 = u(r3.querySelector(i2.dataLocation)).split(o3).filter((e2) => e2).length / i2.wordPerMin;
@@ -617,6 +617,7 @@ function Q() {
 export {
   b as appendIsland,
   Q as hasBeenRun,
+  R as isMobile,
   t as log,
   l as runFetch
 };
