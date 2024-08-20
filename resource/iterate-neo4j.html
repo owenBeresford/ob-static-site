@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Iterating Neo4J</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Notes extracted from Learning Neo4J and website materials that analyse the features of Neo4J DB and the relevant language to access it." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Iterating Neo4J">
+<meta itemprop="description" content="Notes extracted from Learning Neo4J and website materials that analyse the features of Neo4J DB and the relevant language to access it.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Iterating Neo4J">
+<meta name="twitter:description" content="Notes extracted from Learning Neo4J and website materials that analyse the features of Neo4J DB and the relevant language to access it.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Iterating Neo4J" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/iterate-neo4j" />
+<meta property="og:description" content="Notes extracted from Learning Neo4J and website materials that analyse the features of Neo4J DB and the relevant language to access it." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="19th of Aug 2024, 8:37:21" />
+<meta property="article:modified_time" content="17th of Aug 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/iterate-neo4j" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Iterating Neo4J",
+	"article:published_time":"19th of Aug 2024, 8:37:21", 
+    "article:modified_time":"17th of Aug 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples addReferences">
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Neo4J <a href="https://en.wikipedia.org/wiki/Neo4j" target="_blank">wiki</a> is an established graph DB <a href="https://en.wikipedia.org/wiki/Graph_database" target="_blank">wiki</a>.    Unlike some NoSQL, Neo4J is ACID compliant (this is claimed in multiple places <sup><a href="https://neo4j.com/" target="_blank">1</a></sup>, but the test suite would be the best reference).   It can be used under GPL v3 <sup><a href="https://neo4j.com/licensing/" target="_blank">2</a></sup>, there are also commercial versions.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Learning <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>The <a href="https://go.neo4j.com/rs/710-RRC-335/images/LearningNeo4j_eBook.pdf" target="_blank">Neo4J book</a>.   Neo4J is normally interacted via language called <i>Cypher</i>, a cheatsheet for this <sup><a href="https://neo4j.com/docs/cypher-cheat-sheet/5/neo4j-community/" target="_blank">3</a></sup>, a tut article <sup><a href="https://www.graphable.ai/blog/neo4j-cypher-tutorial/" target="_blank">4</a></sup> <sup><a href="https://guides.neo4j.com/cypher" target="_blank">5</a></sup>.  If a Cypher script is stored separately to another programming language, the suffix seems to be <i>cql</i> <sup><a href="https://stackoverflow.com/questions/43648512/how-to-load-cypher-file-into-neo4j" target="_blank">6</a></sup> (there are other options).</li>
+    <li>There is a suite of functions that extends Cypher called APOC <a href="https://github.com/neo4j/apoc" target="_blank">git</a>, <sup><a href="https://medium.com/neo4j/cypher-sleuthing-how-to-find-property-data-types-in-neo4j-9eaece644d79" target="_blank">7</a></sup>.   APOC is “Awesome Procedures on Cypher” <sup><a href="https://neo4j.com/labs/apoc/" target="_blank">8</a></sup>.   The full version isn't installed by default <sup><a href="https://stackoverflow.com/questions/42740355/how-to-install-apoc-for-neo4j" target="_blank">9</a></sup>, but I see it available from <a href="https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/" target="_blank">git</a> ~ <i>link edited so it won't rot quickly</i>.   To-date I am unable to find why the full version of APOC isn't installed by default.</li>
+    <li>There is an easy list of connectors that allow data ingress from other systems <a href="https://github.com/neo4j-contrib" target="_blank">git</a>.  </li>
+    <li>The aggregate functions seem to be written the same as plain SQL <sup><a href="https://neo4j.com/docs/cypher-manual/current/functions/aggregating/" target="_blank">10</a></sup>.  To make Sets operations make sense, there are constraints <sup><a href="https://neo4j.com/developer/kb/understanding-aggregations-on-zero-rows/" target="_blank">11</a></sup>, but I'd need to look quite closely to see this being different to Postgres.   There are some auxillary functions <i>APOC.agg</i> in <sup><a href="https://neo4j.com/docs/apoc/current/overview/apoc.agg/" target="_blank">12</a></sup>, but also see <sup><a href="https://neo4j.com/labs/apoc/5/overview/apoc.agg/" target="_blank">13</a></sup> ~ different version?</li>
+    <li>Like all sensible DB, Neo4J supports transactions <sup><a href="https://neo4j.com/docs/java-reference/current/transaction-management/" target="_blank">14</a></sup> <sup><a href="https://neo4j.com/docs/javascript-manual/current/" target="_blank">15</a></sup>. </li>
+    <li>Neo4J supports StorProc structures <sup><a href="https://neo4j.com/docs/java-reference/current/extending-neo4j/procedures/" target="_blank">16</a></sup>, and as Neo4J uses a JVM <sup><a href="https://www.jexp.de/blog/html/neo4j_stored_procedures.html" target="_blank">17</a></sup> <sup><a href="https://neo4j.com/developer-blog/lets-write-a-stored-procedure-in-neo4j-part-i/" target="_blank">18</a></sup> <sup><a href="https://maxdemarzi.com/2020/04/17/stored-procedures-in-neo4j-are-not-evil/" target="_blank">19</a></sup> it is easier to manage the StorProc than other DBs.  The most common strategy for StorProc seems to be writing some Java classes to the correct interfaces and pack them and add them to the relevant $CLASSPATH dir.   All the data members should be tagged with <i>@Context</i> decorator to pass Neo4J structures into the class.  This approach is strong as you can use all the standard <a href="https://owenberesford.me.uk/resource/java-toolkit#">Java tools</a>. Storproc ere added in Neo4J v3.0 <sup><a href="https://stackoverflow.com/a/35817309" target="_blank">20</a></sup>.  Given [Oracle Inc's] Java internecine battles with Redhat RHEL's licensing, there would be a time cost to use both platforms at the same time.  <i> <b>TODO</b> find out if these have better performance than an APOC aggregate func</i>.</li>
+    <li>The equivalent to `psql` in Neo4J is `cypher-shell` <sup><a href="https://neo4j.com/docs/operations-manual/current/tools/cypher-shell/" target="_blank">21</a></sup>.   The project calls the interaction language “cypher”, as first glance this is similar to ElasticSearch script.   This is a fairly well documented project <sup><a href="https://opencypher.org/references/" target="_blank">22</a></sup>, with academic references.  OpenCypher is now an ISO spec <sup><a href="https://www.gqlstandards.org/" target="_blank">23</a></sup>.    </li>
+    <li>It is also possible to write an extension in Java that supplies additional security protocols <sup><a href="https://neo4j.com/docs/java-reference/current/extending-neo4j/security-plugins/" target="_blank">24</a></sup>.  I can see this being attractive to Enterprise users. </li>
+    <li>Neo4J have a blog <sup><a href="https://medium.com/neo4j" target="_blank">25</a></sup> that is very focussed on GenAI.   I presume this is its current dominant use-case.  </li>
+    <li>I cannot find a benchmark comparing VectorDB vs GraphDB (like Neo4J) that includes any numbers.  There are many advertorials by DB vendors comparing them as prose match.   I would like a careful ‡, balanced ‡, well thoughtout ‡ demo git-repo that compares the storage formats, just like language performance is compared.  Correct data storage performance will have more impact than hosting language in most cases.  NB, items with ‡ are difficult, which is why I was hoping to import this. </li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Language setup notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Because I have SQL as a dev language article on this site, I am answering the same points in this article. These tools / processes are for managing Cypher scripts.</p>
+
+<ul class="ulbasic">
+    <li>A REPL for testing syntax <sup><a href="https://neo4j.com/sandbox/?ref=developer-ex-data" target="_blank">26</a></sup>, <i>this creates a temp account, and is time limited.  Check terms before use.</i></li>
+    <li>IDE support is limited to plugins, as Neo4J is rather niche.  However, Jetbrains ad <a href="https://github.com/neueda/jetbrains-plugin-graph-database-support" target="_blank">git</a> <sup><a href="https://neo4j.com/blog/jetbrains-ide-plugin-graph-database/" target="_blank">27</a></sup> - this supports autocompleting, type checking and param checking so it's fairly feature complete (doesnt mention REPL that I saw).  Likewise VScode has a plugin <sup><a href="https://marketplace.visualstudio.com/items?itemName=adamcowley.neo4j-vscode" target="_blank">28</a></sup> <sup><a href="https://neo4j.com/developer-blog/run-cypher-without-leaving-your-ide-with-neo4j-vscode-extension/" target="_blank">29</a></sup> ~ published by an dev advocate for Neo4J ~ which seems to run a client shell to the DB, so has full shell features available.  Or try <sup><a href="https://marketplace.visualstudio.com/items?itemName=AnthonyJGatlin.vscode-cypher-query-language-tools" target="_blank">30</a></sup>.    <ul class="ulbasic">
+        <li>There is a package called “cypher-editor” written in TS <a href="https://github.com/neo4j/cypher-editor/tree/main" target="_blank">git</a> <a href="https://www.npmjs.com/search?q=cypher-editor" target="_blank">npm</a> ~ and related searches.  </li>
+    </ul></li>
+    <li>Unit-testing can be done via <ul class="ulbasic">
+        <li>NoSQLUnit <a href="https://github.com/lordofthejars/nosql-unit" target="_blank">git</a> notes <sup><a href="http://www.lordofthejars.com/2013/" target="_blank">31</a></sup> </li>
+        <li>Testing for ETL is documented at <sup><a href="https://neo4j.com/labs/etl-tool/1.5.0/testing/" target="_blank">32</a></sup>, a query builder <a href="https://github.com/neo4j/cypher-builder" target="_blank">git</a></li>
+    </ul></li>
+    <li>There are packages in adjacent languages, i.e. Python, but I can't find anyone publishing projects just in cypher.  This section exists in the languages group of articles, as setting up a package manager in a programming language gives you leverage.  Python <sup><a href="https://pypi.org/project/neo4j/" target="_blank">33</a></sup>, R <sup><a href="https://cran.r-project.org/web/packages/neo4jshell/index.html" target="_blank">34</a></sup> <a href="https://cran.r-project.org/web/packages/neo4jshell/neo4jshell.pdf" target="_blank">docs</a>, Haskell <sup><a href="https://hackage.haskell.org/package/cypher-0.8.1/docs/Database-Cypher.html" target="_blank">35</a></sup> <a href="https://hackage.haskell.org/package/haskell-neo4j-client-0.3.2.4/docs/Database-Neo4j.html" target="_blank">docs</a>, Rust <sup><a href="https://crates.io/keywords/neo4j" target="_blank">36</a></sup>, Golang <a href="https://pkg.go.dev/github.com/neo4j/neo4j-go-driver/v5/neo4j" target="_blank">git</a>, PHP <sup><a href="https://packagist.org/search/?tags=cypher" target="_blank">37</a></sup>, JS/TS <sup><a href="https://www.npmjs.com/search?q=cypher" target="_blank">38</a></sup> options </li>
+    <li>Lint / prettier tools for Cypher are rare, but I did find <a href="https://github.com/cleishm/libcypher-parser" target="_blank">git</a>.  </li>
+    <li>As an interpreted language, Cypher doesn't have compile tools.  You can run statements via your languages Neo4J driver.  Likewise, I couldn't find any dedicated doc generators ~ noting that your standard doc-gen could be used on the function that runs the Cypher command.  I normally check peripheral data against these tools (e.g. file name suffix), but here this will be hard.</li>
+</ul>
+
+
+</div>
+<br />
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Recipe <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>I'm not sure this section is valuable to read.   It represents just scrapping blog articles and the Neo4J manual.</p>
+
+<ul class="ulbasic">
+    <li>The comprehensive manual <sup><a href="https://neo4j.com/docs/operations-manual/current/" target="_blank">1</a></sup>.</li>
+    <li>Install bundle via your platforms package manager (varied).  This can probably be done via the Neo4J project.  Debian and Ubuntu have a custom repo for Neo4J, add this to your apt sources as described <sup><a href="https://www.linode.com/docs/guides/installing-and-configuring-neo4j-on-ubuntu-2204/" target="_blank">2</a></sup>.  </li>
+    <li><i>TODO: Add screenshots for msWindows people (as that is their standard format)</i>.</li>
+    <li>Remember to set an admin password first, same as Postgres, or MongoDB</li>
+    <li>It looks like most maintainers are excitedly building LLM (or something), and have ignored maintenance on more basic things.  Template import script <sup><a href="https://github.com/JMHReif/graph-demo-datasets/blob/main/northwind/load-data.cypher" target="_blank">3</a></sup>.  A corrected URL to the default “Northwind” test database <sup><a href="https://github.com/neo4j-contrib/northwind-neo4j/tree/master" target="_blank">4</a></sup>.  There are several further demo sources <sup><a href="https://neo4j.com/docs/getting-started/appendix/example-data/" target="_blank">5</a></sup> <sup><a href="https://github.com/JMHReif/graph-demo-datasets/tree/main" target="_blank">6</a></sup> <sup><a href="https://github.com/neo4-js/neo4-js/tree/master/examples" target="_blank">7</a></sup> and a generator <sup><a href="https://www.dominickumar.com/blog/generate-demo-dataset-in-neo4j-using-neo4j-faker/" target="_blank">8</a></sup> </li>
+    <li>I will make a local alias to `neosql`, as this is not an encryption suite (eg <sup><a href="https://www.npmjs.com/package/node-cipher" target="_blank">9</a></sup>), and I may not remember &quot;Neo4J access = cypher”.  All the other DBA shells that I can think of include the DB name in some fashion.</li>
+    <li>User accounts in Neo4J <sup><a href="https://neo4j.com/docs/operations-manual/current/authentication-authorization/manage-users/" target="_blank">10</a></sup>, look fairly similar to other DB.  Commands for privileges <sup><a href="https://neo4j.com/docs/operations-manual/current/authentication-authorization/built-in-roles/" target="_blank">11</a></sup>.   Note they advertise SSO loudly <sup><a href="https://neo4j.com/docs/operations-manual/current/tutorial/tutorial-sso-configuration/" target="_blank">12</a></sup> - for the DB?</li>
+</ul>
+
+
+<div class="pullout">
+<p>If you had all the necessary GIS data in a Neo4J DB, it would be less effort to write an extractor via Neo4J, than Pandas, and Pandas is faster than other general programming language solutions.   I think it would be informative if an Excel with VBA and necessary GIS data was compared for “dev” performance (i.e. time to type, not time to execute).  Source of questions to solve is @opencage@en.osm.town mastodon account tagged #fridaygeotrivia,</p>
+
+
+</div>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="research,worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Iterating Neo4J: DB features</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fiterate-neo4j" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fiterate-neo4j" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fiterate-neo4j" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fiterate-neo4j&amp;t=Iterating+Neo4J"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fiterate-neo4j" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-08-17T17:03:28">17th of Aug 2024</time>
+						</span>
+						<span>Created <time datetime="2024-08-10T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >10th of Aug 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fiterate-neo4j" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">Learning</a></li>
+<li class="h4_odd"><a href="#toc2">Language setup notes</a></li>
+<li><a href="#toc3">Recipe</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+	</div> 
+	<p> Page rendered <time datetime="2024-08-19T08:37:21">19th of Aug 2024, 8:37:21</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-17T17:03:28">17th of Aug 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+
+</body>
+</html>
