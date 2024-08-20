@@ -2,28 +2,28 @@
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
-<title>The importance of Accessibility Testing</title>
+<title>Accessibility Testing</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test" />
+<meta name="Description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="The importance of Accessibility Testing">
-<meta itemprop="description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test">
+<meta itemprop="name" content="Accessibility Testing">
+<meta itemprop="description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test.">
 <meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="The importance of Accessibility Testing">
-<meta name="twitter:description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test">
+<meta name="twitter:title" content="Accessibility Testing">
+<meta name="twitter:description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test.">
 <meta name="twitter:creator" content="@channelOwen">
-<meta property="og:title" content="The importance of Accessibility Testing" />
+<meta property="og:title" content="Accessibility Testing" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/accessibility-testing" />
-<meta property="og:description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test" />
+<meta property="og:description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Aug 2024, 21:19:41" />
-<meta property="article:modified_time" content="14th of Aug 2024" />
+<meta property="article:published_time" content="20th of Aug 2024, 9:16:11" />
+<meta property="article:modified_time" content="20th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/accessibility-testing" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -34,9 +34,9 @@ TODO: magic tune selection against some index/DB -->
   {
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
-    "name": "The importance of Accessibility Testing",
-	"article:published_time":"14th of Aug 2024, 21:19:41", 
-    "article:modified_time":"14th of Aug 2024",
+    "name": "Accessibility Testing",
+	"article:published_time":"20th of Aug 2024, 9:16:11", 
+    "article:modified_time":"20th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -60,20 +60,21 @@ TODO: magic tune selection against some index/DB -->
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Technical definition <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 A very common blog tactic is to define many words.  In this case “what should accessibility tests cover” is critical for compliance, and seems to be “implement the WCAG specs”, there are several releases to this.   There are three grades of strictness for compliance: “A”, “AA” and “AAA” <sup><a href="https://www.w3.org/WAI/WCAG2AAA-Conformance" target="_blank">1</a></sup>, although no-one has defined the term, I assume the A is short for accessibility.  Requirements for these levels are discussed in <sup><a href="https://www.allaccessible.org/wcag-level-a-aa-and-aaa-whats-the-difference/" target="_blank">2</a></sup> <sup><a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank">3</a></sup>.<br />
 Matching the rest of W3C publications, they have numbered edition labels, <a href="https://www.w3.org/TR/WCAG20/" target="_blank">WCAG 2.0</a> released 2008, <a href="https://www.w3.org/TR/WCAG21/" target="_blank">WCAG 2.1</a> released 2018 and a draft WCAG 2.2 published Sept 2022.  Newer versions are more relevant to modern problems, I'm entirely ignoring WCAG1, but I think everyone else does also.   The WCAG defines four design principals, to show their document is complete.  A website should be: perceivable, operable, understandable, and robust [US english, but it works]; which roughly maps to each of the functional activities that a human needs to do to read something inside a data system.   The US government uses a slight simplification <sup><a href="https://accessibility.18f.gov/checklist/" target="_blank">4</a></sup>.   To read more about specific fonts, please read <a href="https://owenberesford.me.uk/resource/readable-fonts#">readable-fonts</a>.<br />
+UPDATE 2023: The newer edition (2.2) is now completed, and concentrates new interactions that the older versions didn't mention <sup><a href="https://abilitynet.org.uk/news-blogs/wcag-22-what-you-need-know" target="_blank">5</a></sup> <sup><a href="https://medium.com/design-ibm/assessing-components-and-patterns-for-wcag-2-2-47ee3f0f468e" target="_blank">6</a></sup> <br />
  <p>Boring sidebar: I added a HTML strictness tag to my boring website in 2010, as I was trying to show that I was using HTML correctly.  I think semantic HTML is a valuable non-functional objective, as it makes it easier to use the HTML for any other work.   Wordpress doesn't make this claim, we are different dev teams.   Between Q4 2022 and Q2 2023 I redeveloped up-to site template v4; I have verified and updated all accessibility compliance for today, I need to update the compliance tag.  I am now thinking I should remove the HTML correctness and WCAG tag from the non-index pages as its not globally relevant.</p>
 
 
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > What are the EU legal requirements? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
-<p>After June 2022, EU states must enshrine European Accessibility Act aka “EAA”, which covers access to services be it Cashpoints, taxis, sports on your phone or a random e-commerce website/ app.  Quoting <sup><a href="https://www.forbes.com/sites/forbesbusinesscouncil/2022/05/11/the-european-accessibility-act-everything-you-need-to-know/" target="_blank">5</a></sup> “The EAA was derived from the UN Convention on the Rights of Persons with Disabilities (UNCRPD).&quot;, the UNCRPD can be accessed as <sup><a href="https://ec.europa.eu/social/main.jsp?catId=1138&amp;amp;langId=en" target="_blank">6</a></sup>.   The full text for EAA can be accessed via <sup><a href="https://ec.europa.eu/social/main.jsp?catId=1202" target="_blank">7</a></sup> and replaces the older Web Accessibility Directive aka WAD <sup><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016L2102&amp;amp;from=EN" target="_blank">8</a></sup>.   There is an official cover page <sup><a href="https://digital-strategy.ec.europa.eu/en/policies/web-accessibility" target="_blank">9</a></sup> with access to translations and summaries.   Similar cover page for WAD <sup><a href="https://digital-strategy.ec.europa.eu/en/policies/web-accessibility-directive-standards-and-harmonisation" target="_blank">10</a></sup>.   The EU states this may incur a transition cost, but it is beneficial as: you have a broader market including 135 million disabled or old people in the EU which is about 30%; the single standard makes cross EU state trade easier and faster; in future lower operational costs.  Wiki claim EAA is in effect from 2019 <sup><a href="https://en.wikipedia.org/wiki/European_Accessibility_Act" target="_blank">11</a></sup>, but it is a large scale process to apply to the whole of Europe.   Another acronym is European Harmonized Accessibility Standards aka EHAS <sup><a href="https://accessibility.civicactions.com/guide/glossary" target="_blank">12</a></sup> <sup><a href="https://en.wikipedia.org/wiki/EN_301_549" target="_blank">13</a></sup> but this seems to be officialese for supporting WCAG.    <br />
-From the perspective of webapps, supporting Web Content Accessibility Guidelines aka WCAG spec <sup><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank">14</a></sup> <sup><a href="https://www.w3.org/TR/WCAG21/" target="_blank">15</a></sup> is a strong step to being correct for EEA.   The second link is a detailed breakdown of suggested behaviours.   As EEA is still being rolled out across EU states, and being defined in practical terms, the best practice is still being defined.   It is nice when W3C can agree with EU governance. Some more targeted notes are <a href="https://media-and-learning.eu/type/featured-articles/what-you-really-need-to-know-about-eu-accessibility-legislation/" target="_blank">EU vs US</a>, <a href="https://www.w3.org/WAI/older-users/" target="_blank">targeting older users</a> and <a href="https://www.w3.org/WAI/tips/designing/" target="_blank">accessible design</a>.<br />
+<p>After June 2022, EU states must enshrine European Accessibility Act aka “EAA”, which covers access to services be it Cashpoints, taxis, sports on your phone or a random e-commerce website/ app.  Quoting <sup><a href="https://www.forbes.com/sites/forbesbusinesscouncil/2022/05/11/the-european-accessibility-act-everything-you-need-to-know/" target="_blank">7</a></sup> “The EAA was derived from the UN Convention on the Rights of Persons with Disabilities (UNCRPD).&quot;, the UNCRPD can be accessed as <sup><a href="https://ec.europa.eu/social/main.jsp?catId=1138&amp;amp;langId=en" target="_blank">8</a></sup>.   The full text for EAA can be accessed via <sup><a href="https://ec.europa.eu/social/main.jsp?catId=1202" target="_blank">9</a></sup> and replaces the older Web Accessibility Directive aka WAD <sup><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016L2102&amp;amp;from=EN" target="_blank">10</a></sup>.   There is an official cover page <sup><a href="https://digital-strategy.ec.europa.eu/en/policies/web-accessibility" target="_blank">11</a></sup> with access to translations and summaries.   Similar cover page for WAD <sup><a href="https://digital-strategy.ec.europa.eu/en/policies/web-accessibility-directive-standards-and-harmonisation" target="_blank">12</a></sup>.   The EU states this may incur a transition cost, but it is beneficial as: you have a broader market including 135 million disabled or old people in the EU which is about 30%; the single standard makes cross EU state trade easier and faster; in future lower operational costs.  Wiki claim EAA is in effect from 2019 <sup><a href="https://en.wikipedia.org/wiki/European_Accessibility_Act" target="_blank">13</a></sup>, but it is a large scale process to apply to the whole of Europe.   Another acronym is European Harmonized Accessibility Standards aka EHAS <sup><a href="https://accessibility.civicactions.com/guide/glossary" target="_blank">14</a></sup> <sup><a href="https://en.wikipedia.org/wiki/EN_301_549" target="_blank">15</a></sup> but this seems to be officialese for supporting WCAG.    <br />
+From the perspective of webapps, supporting Web Content Accessibility Guidelines aka WCAG spec <sup><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank">16</a></sup> <sup><a href="https://www.w3.org/TR/WCAG21/" target="_blank">17</a></sup> is a strong step to being correct for EEA.   The second link is a detailed breakdown of suggested behaviours.   As EEA is still being rolled out across EU states, and being defined in practical terms, the best practice is still being defined.   It is nice when W3C can agree with EU governance. Some more targeted notes are <a href="https://media-and-learning.eu/type/featured-articles/what-you-really-need-to-know-about-eu-accessibility-legislation/" target="_blank">EU vs US</a>, <a href="https://www.w3.org/WAI/older-users/" target="_blank">targeting older users</a> and <a href="https://www.w3.org/WAI/tips/designing/" target="_blank">accessible design</a>.<br />
 Note ~ the EAA has a carve-out for tiny organisations of less than €2M/Y or less than 10 staff; so can ignore EAA if needed.</p>
 
 
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > What are the UK legal requirements in 2023?  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>I'm expecting there will be a cascade of changes as a side effect of the politicians not needing to follow the EU.  <br />
-In the UK, the legal requirements are the UK Equality Act aka UEA <sup><a href="https://www.accessibilitychecker.org/guides/uk-equality-act/" target="_blank">16</a></sup> <sup><a href="https://www.gov.uk/government/news/new-disability-action-plan-confirmed-for-2023-as-minister-meets-paralympians-and-opens-pioneering-lab-at-olympic-park" target="_blank">17</a></sup>.  Concurrently the Equality Act 2010 <sup><a href="https://www.citizensadvice.org.uk/law-and-courts/discrimination/check-what-type-of-discrimination-youve-experienced/duty-to-make-reasonable-adjustments-for-disabled-people/" target="_blank">18</a></sup> or the Disability Discrimination Act (DDA) <sup><a href="https://codemantra.com/digital-accessibility-laws-uk/" target="_blank">19</a></sup> is quoted as still being in-effect.  Some guidance rather than laws is published as <sup><a href="https://userway.org/blog/uk-accessibility-laws/" target="_blank">20</a></sup> <sup><a href="https://www.gov.uk/service-manual/helping-people-to-use-your-service/making-your-service-accessible-an-introduction" target="_blank">21</a></sup> <sup><a href="https://www.gov.uk/guidance/publishing-accessible-documents" target="_blank">22</a></sup><br />
+In the UK, the legal requirements are the UK Equality Act aka UEA <sup><a href="https://www.accessibilitychecker.org/guides/uk-equality-act/" target="_blank">18</a></sup> <sup><a href="https://www.gov.uk/government/news/new-disability-action-plan-confirmed-for-2023-as-minister-meets-paralympians-and-opens-pioneering-lab-at-olympic-park" target="_blank">19</a></sup>.  Concurrently the Equality Act 2010 <sup><a href="https://www.citizensadvice.org.uk/law-and-courts/discrimination/check-what-type-of-discrimination-youve-experienced/duty-to-make-reasonable-adjustments-for-disabled-people/" target="_blank">20</a></sup> or the Disability Discrimination Act (DDA) <sup><a href="https://codemantra.com/digital-accessibility-laws-uk/" target="_blank">21</a></sup> is quoted as still being in-effect.  Some guidance rather than laws is published as <sup><a href="https://userway.org/blog/uk-accessibility-laws/" target="_blank">22</a></sup> <sup><a href="https://www.gov.uk/service-manual/helping-people-to-use-your-service/making-your-service-accessible-an-introduction" target="_blank">23</a></sup> <sup><a href="https://www.gov.uk/guidance/publishing-accessible-documents" target="_blank">24</a></sup><br />
 Similar to the EAA, the UEA maps WCAG guidance.  I would guess that the same benefits apply to the UK implementation of WCAG, although the number of disabled / elderly would be smaller.  I see a quote of 20% with at least 1 limitation in several places (in previous links).   <br />
-There are many documents on creating accessible content inside the gov.uk structure, for example <sup><a href="https://accessibility.blog.gov.uk/2023/01/06/a-new-accessibility-strategy-for-the-gov-uk-design-system/" target="_blank">23</a></sup> <sup><a href="https://www.gov.uk/guidance/accessibility-requirements-for-public-sector-websites-and-apps" target="_blank">24</a></sup> but that is off topic.</p>
+There are many documents on creating accessible content inside the gov.uk structure, for example <sup><a href="https://accessibility.blog.gov.uk/2023/01/06/a-new-accessibility-strategy-for-the-gov-uk-design-system/" target="_blank">25</a></sup> <sup><a href="https://www.gov.uk/guidance/accessibility-requirements-for-public-sector-websites-and-apps" target="_blank">26</a></sup> but that is off topic.</p>
 
 
 </div>
@@ -135,13 +136,13 @@ There are many documents on creating accessible content inside the gov.uk struct
 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing&amp;t=The+importance+of+Accessibility+Testing"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing&amp;t=Accessibility+Testing"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
 
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2023-04-27T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >27th of Apr 2023</time> </span>
 					</span>
@@ -153,8 +154,8 @@ There are many documents on creating accessible content inside the gov.uk struct
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Faccessibility-testing" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
-					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
 
@@ -192,11 +193,11 @@ There are many documents on creating accessible content inside the gov.uk struct
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-08-14T21:19:41">14th of Aug 2024, 21:19:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-08-20T09:16:11">20th of Aug 2024, 9:16:11</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
 
 </body>
 </html>
