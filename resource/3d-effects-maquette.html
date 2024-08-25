@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/3d-effects-maquette" />
 <meta property="og:description" content="A maquette looking at 3d animation via CSS.   Again this demo only uses HTML5 and CSS no JS.   It loads very quickly, as there is no frameworks to download." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Aug 2024, 21:19:41" />
-<meta property="article:modified_time" content="14th of Aug 2024" />
+<meta property="article:published_time" content="24th of Aug 2024, 23:07:40" />
+<meta property="article:modified_time" content="24th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/3d-effects-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "3D effects demo/ maquette",
-	"article:published_time":"14th of Aug 2024, 21:19:41", 
-    "article:modified_time":"14th of Aug 2024",
+	"article:published_time":"24th of Aug 2024, 23:07:40", 
+    "article:modified_time":"24th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -55,31 +55,28 @@ TODO: magic tune selection against some index/DB -->
 <div class="halferWords popOverWidget">
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Ambition <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>I looked a company website, and they are highly committed to using JS for animation.   As a maquette, I thought I try to repeat what they had in CSS.   I know precisely how to do this transform in tools that are not a browser.  Also, after a few iterations I could build it in OpenGL (the end of 90s version OpenGL has less sophisticated curve surfaces, so it would take be a bit longer to get curves and blends).   I need to add some fake spotlights to the reflection effect is reflecting something. <br />
+<p>I looked a company website, and they are highly committed to using JS for animation.   As a maquette, I thought I try to repeat what they had in CSS.   I know precisely how to do this transform in tools that are not a browser.  Also, after a few iterations I could build it in OpenGL (the end of 90s version OpenGL has less sophisticated curve surfaces, so it would take be a bit longer to get curves and blends).   To make most 3d game engine tests, I ought to add some light sources, and have reflections.   I think this is outside of capacity for CSS at present. <br />
 This maquette is also a trial run for the twisting infinity “please hold” I would like to achieve just using CSS, and maybe SVG.</p>
 
 
 
 <div class="fancyLogo">
-<ul class="toolBar">
+<ul class="toolBar2">
 <li> <label title="Apply a Slow rotation to the cube."><input type="checkbox" value="rotation" />2D Rotation</label></li>
 <li> <label title="Apply a colour blends to the cube, which slightly look like reflection."><input type="checkbox" value="blend" /> Blends</label></li>
 <li> <label title="Apply some colour blends to the background behind the logo."><input type="checkbox" value="bg-blend" /> Defusing background</label></li>
-<li> <label title="Apply a sheer or twisting effect to the cube."><input type="checkbox" value="sheer" /> Twisting</label></li>
+<li> <label title="Apply a sheer or twisting effect to the cube."><input type="checkbox" value="sheer" /> Deforming</label></li>
 </ul>
 <br />
 <figure id="fig1">
 <figcaption>Version 1: 2d animation </figcaption>
-<span>
+<div title="A basic shape that is controlled by CSS.">
 <svg class="logo alive" height="512" width="512" 
-	baseProfile="full" version="1.1" viewBox="-0.5 -0.5 1.0 1.0" 
-	xmlns="http://www.w3.org/2000/svg" 
-	xmlns:ev="http://www.w3.org/2001/xml-events" 
-	xmlns:xlink="http://www.w3.org/1999/xlink" >
+	baseProfile="full" version="1.1" viewBox="-0.5 -0.5 1.0 1.0" >
 	<defs><clipPath id="clip1">
 		<rect height="1.5" width="1.5" x="-0.75" y="-0.75" />
 	</clipPath>
-    <radialGradient id="bg2" cx:0.25; cy:0.25;  >
+    <radialGradient id="bg2" cx="0.25" cy="0.25"  >
       <stop offset="5%" stop-color="#dd0000" />
       <stop offset="95%" stop-color="#dddd00" />
     </radialGradient>
@@ -99,29 +96,26 @@ This maquette is also a trial run for the twisting infinity “please hold” I 
 		<polygon class="lines" points="-0.0,-0.41374 -0.40348,0.04886 0.17669,0.1262" />
 	</g>
 </svg>
-</svg>
-</span>
+</div>
 </figure>
 <br />
 <figure id="fig2">
 <figcaption>Version 2: 3d animation</figcaption>
-<span>
-<svg class="logo alive" width="256" height="256" 
- baseProfile="full" version="1.1" viewBox="-2.5 -0.5 1.0 1.0"
-	xmlns="http://www.w3.org/2000/svg" >
+<div title="A spinning cube made from SVG.  Note text doesn't spin with SVG as its not part of the SVG.">
+<h5>TeST TExT</h5>
+<svg class="logo alive" height="512" width="512" 
+version="1.1" viewBox="-2.5 -0.5 1.0 1.0" xmlns="http://www.w3.org/2000/svg">
 	<defs>
-		<animateTransform id="rot1" attributeName="transform" attributeType="xml" type="rotate" repeatCount="indefinite"
-			from="0 60 70" to="360 60 70" dur="5s" />
-	    <radialGradient id="bg2" cx="0.15" cy="0.25"  >
+	    <radialGradient id="bg3" cx="0.15" cy="0.25">
     	  <stop offset="5%" stop-color="#dd0000" />
 	      <stop offset="95%" stop-color="#dddd00" />
 	    </radialGradient>
-	    <linearGradient id="bg1" gradientTransform="rotate(45)">
+	    <linearGradient id="bg4" gradientTransform="rotate(45)">
 	      <stop offset="5%" stop-color="#dd0000" />
 	      <stop offset="95%" stop-color="#0000dd" />
 	    </linearGradient>
 	</defs>
-<g class="root" id="cube_static" >
+<g class="root" id="cube_static">
 	<polygon class="lines" points="-2.14048,-0.34969 -1.64069,-0.30613 -1.65535,0.21017 -2.13503,0.14324" />
 	<polygon class="lines" points="-2.37116,0.31622 -2.38822,-0.23674 -2.14048,-0.34969 -2.13503,0.14324" />
 	<polygon class="lines" points="-2.37116,0.31622 -1.83828,0.40255 -1.65535,0.21017 -2.13503,0.14324" />
@@ -129,80 +123,28 @@ This maquette is also a trial run for the twisting infinity “please hold” I 
 	<polygon class="lines" points="-1.83828,0.40255 -1.8304,-0.17992 -1.64069,-0.30613 -1.65535,0.21017" />
 	<polygon class="lines" points="-2.38822,-0.23674 -1.8304,-0.17992 -1.83828,0.40255 -2.37116,0.31622" />
 </g>
-<g class="root" id="cube_motile">
-	<polygon class="lines" points="-2.14048,-0.34969 -1.64069,-0.30613 -1.65535,0.21017 -2.13503,0.14324" />
-	<polygon class="lines" points="-2.37116,0.31622 -2.38822,-0.23674 -2.14048,-0.34969 -2.13503,0.14324" />
-	<polygon class="lines" points="-2.37116,0.31622 -1.83828,0.40255 -1.65535,0.21017 -2.13503,0.14324" />
-	<polygon class="lines" points="-2.38822,-0.23674 -1.8304,-0.17992 -1.64069,-0.30613 -2.14048,-0.34969" />
-	<polygon class="lines" points="-1.83828,0.40255 -1.8304,-0.17992 -1.64069,-0.30613 -1.65535,0.21017" />
-	<polygon class="lines" points="-2.38822,-0.23674 -1.8304,-0.17992 -1.83828,0.40255 -2.37116,0.31622" style="fill: #ff0000;" />
-	<animateTransform id="rot2" attributeName="transform" type="rotate" repeatCount="indefinite"
-			from="0 60" to="360 50" begin="0s" dur="5s" additive="sum"  />
-</g>
 </svg>
-</span>
+</div>
 </figure>
 <br />
 <figure id="fig3">
-<figcaption><strike>version 3: Bézier polys</strike> </figcaption>
-<span title="The CSS attached to this span cunningly works when I have broken the CSS on the SVG structure. ">
-<svg class="logo alive" width="100" height="100" 
-viewBox="0 0 100 100" version="1.1" baseProfile="full">
-  <g id="train">
-     <rect x="0" y="10" width="50" height="10" fill="orange"></rect>
-     <circle cx="10" cy="15" r="7" fill="blue"></circle>
-     <animateTransform
-       attributeName="transform"
-       type="rotate"
-   repeatCount="indefinite" 
-	  
-     from="-50 10 0"
-       to="150 10 0"
-     begin="0s"
-       dur="5s"
-    
-  		/>
-  </g>
-
-<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs>
-    <symbol id="icon-spinner" viewBox="0 0 32 32">
-      <path d="M12 4c0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4s-4-1.791-4-4zM20.485 7.515c0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4 4s-4-1.791-4-4zM26 16c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2zM22.485 24.485c0-1.105 0.895-2 2-2s2 0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2zM14 28c0 0 0 0 0 0 0-1.105 0.895-2 2-2s2 0.895 2 2c0 0 0 0 0 0 0 1.105-0.895 2-2 2s-2-0.895-2-2zM5.515 24.485c0 0 0 0 0 0 0-1.105 0.895-2 2-2s2 0.895 2 2c0 0 0 0 0 0 0 1.105-0.895 2-2 2s-2-0.895-2-2zM4.515 7.515c0 0 0 0 0 0 0-1.657 1.343-3 3-3s3 1.343 3 3c0 0 0 0 0 0 0 1.657-1.343 3-3 3s-3-1.343-3-3zM1.75 16c0-1.243 1.007-2.25 2.25-2.25s2.25 1.007 2.25 2.25c0 1.243-1.007 2.25-2.25 2.25s-2.25-1.007-2.25-2.25z"></path>
-    </symbol>
-  </defs>
-</svg>
-<div class="container">
-  <svg aria-hidden="true" focusable="false" class="icon icon-spinner">
-    <use xlink:href="#icon-spinner" />
-    <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 0 0" to="360 0 0" dur="3s" begin="0s" repeatCount="indefinite" />
-  </svg>
-
-  <svg aria-hidden="true" focusable="false" class="icon icon-spinner">
-    <use xlink:href="#icon-spinner" />
-    <animateTransform attributeName="transform" type="scale" from="1 1" to="2 2" begin="0s" dur="2s" repeatCount="indefinite" />
-  </svg>
-
-  <svg aria-hidden="true" focusable="false" class="icon icon-spinner">
-    <use xlink:href="#icon-spinner" />
-    <animateTransform attributeName="transform" type="translate" from="0 0" to="150 20" begin="0s" dur="2s" repeatCount="indefinite" />
-  </svg>
+<figcaption>Version 3: 3d animation via HTML</figcaption>
+<div class="cheetRoot" title="A spinning cube made from HTML elements, note text is also in the same projection tree.">
+  <div class="face front"> </div>
+  <div class="face back"> </div>
+  <div class="face right"> </div>
+  <div class="face left"> </div>
+  <div class="face top"> </div>
+  <div class="face bottom"> </div>
+  <h5>TeST TExT</h5>
 </div>
-<svg version="1.1" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-  <g>
-    <rect id="Rectangle-1" fill="#3C81C1" sketch:type="MSShapeGroup" x="0" y="0" width="100" height="125">
-      <animateTransform attributeName="transform" type="scale" from="1 1" to="3 1.25" begin="0s" dur="2s" repeatCount="indefinite" />
-    </rect>
-    <animateTransform attributeName="transform" type="translate" from="0 0" to="150 20" begin="0s" dur="2s" repeatCount="indefinite" />
-  </g>
-</svg>
-</svg>
-</span>
 </figure>
-
+<br />
+<br />
 </div>
 <details class="singlePopup withScroll">
 <summary>
-<h4 id="toc1">Technical Notes </h4>
+<h4 id="toc5">Technical Notes </h4>
 </summary>
 
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Status/ Todo <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
@@ -210,37 +152,33 @@ viewBox="0 0 100 100" version="1.1" baseProfile="full">
     <li>The CSS is in included in this page </li>
     <li>This demo here is quite quickly written, I need to add a better layout for small screens. </li>
     <li>I may rewrite the Radios as sliders in future, to set the ranges and rates. </li>
-    <li>To keep CSS volume sensible choose “2D SVG”, <strong>OR</strong> “3D SVG” at the start</li>
+    <li>When writing these, to keep CSS volume sensible choose “2D SVG”, <strong>OR</strong> “3D SVG” at the start</li>
 </ul>
 
 
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li>ATTRIBUTION: The v1 cube is from <a href="https://freesvg.org/necker-cube" target="_blank">FreeSVG</a>. 2d SVG. <strong>Removed from article.</strong></li>
-    <li>ATTRIBUTION: The v2 polys are the basic project from Philip Rideout's <a href="https://github.com/prideout/svg3d" target="_blank">git</a>, <a href="https://prideout.net/blog/" target="_blank">blog</a>, <a href="https://prideout.net/blog/svg_wireframes/filmstrip.svg" target="_blank">prerendered sample</a>.  This is 3d SVG.  I used this for n both the triangle based thing and the cube.   </li>
-    <li>I was doing 1 change at the time, to ensure all the tech stacked up without unexpected problems.</li>
+    <li>ATTRIBUTION: The v2 polys are the basic project from Philip Rideout's <a href="https://github.com/prideout/svg3d" target="_blank">git</a>, <a href="https://prideout.net/blog/" target="_blank">blog</a>, <a href="https://prideout.net/blog/svg_wireframes/filmstrip.svg" target="_blank">prerendered sample</a>.  This is 3d SVG.  I used this for both the triangle based thing and the cube.   </li>
+    <li>ATTRIBUTION: The third cube marked “html” is derived from the MDN manual page <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style" target="_blank">1</a></sup>.   The CSS in effect is completely different on this article.</li>
+    <li>There is no object collision detection, there is back-plane clipping (and transparency).   Please note: the SVG transform stack is isolated from the CSS transform stack.</li>
+    <li>According to <a href="https://codepen.io/MackFitz/pen/RwBLdXq" target="_blank">a demo</a> I should make the buttons look like haptic UI. </li>
+    <li>As the result of quite a long list of test iterations, animation via SVG tags ONLY works when you have a full file, not inline to the DOM.   The full separate SVG file also requires you to make a separate style sheet.  Having te separate file breaks my other requirements for this demo. </li>
     <li>I have now built 2 of the “CSS only for actions” button bars, I need to libraryise the bar, it takes too long to do it from scratch each time.   Standard CSS frameworks do not work with label + radio “buttons”.</li>
     <li>Actual 3d SVG editors are harder to find than I was expecting</li>
-    <li>Current ideation for 3d rotation: duplicate shape &amp; hide the other one.  Would like to hide via edge of SVG clipping</li>
-    <li><a class="cleanimage" href="https://macsvg.org/user-guide/macsvg-user-interface/plug-in-editors/animatetransform-element-editor/" target="_blank">https://macsvg.org/user-guide/macsvg-user-interface/plug-in-editors/animatetransform-element-editor/</a></li>
-    <li><a class="cleanimage" href="https://stackoverflow.com/questions/78736461/is-it-possible-to-disable-svgs-animate-element-for-prefers-reduced-motion-media" target="_blank">https://stackoverflow.com/questions/78736461/is-it-possible-to-disable-svgs-animate-element-for-prefers-reduced-motion-media</a></li>
-    <li><a class="cleanimage" href="https://stackoverflow.com/questions/68491362/how-to-position-svg-clip-path-using-css-and-only-clip-one-edge-of-clipped-elemen" target="_blank">https://stackoverflow.com/questions/68491362/how-to-position-svg-clip-path-using-css-and-only-clip-one-edge-of-clipped-elemen</a> </li>
-    <li><a class="cleanimage" href="https://www.w3.org/Graphics/SVG/Test/20110816/" target="_blank">https://www.w3.org/Graphics/SVG/Test/20110816/</a>  official TEST images for SVG sec compliance</li>
-    <li><a class="cleanimage" href="http://www.datypic.com/sc/svg11/" target="_blank">http://www.datypic.com/sc/svg11/</a> spec but forcably HTMLised, so cant use it in tools</li>
-    <li><a class="cleanimage" href="https://daily-dev-tips.com/posts/svg-animatetransform/" target="_blank">https://daily-dev-tips.com/posts/svg-animatetransform/</a></li>
-    <li><a class="cleanimage" href="https://trycatchdebug.net/news/1327045/disable-svg-animation" target="_blank">https://trycatchdebug.net/news/1327045/disable-svg-animation</a> TEST this, it means I can drop the duplicate Cube</li>
-    <li><a class="cleanimage" href="https://stackoverflow.com/questions/22071952/svg-rotation-anchorpoint" target="_blank">https://stackoverflow.com/questions/22071952/svg-rotation-anchorpoint</a></li>
-    <li>Validation tools for SVG are primitive.  The best I can find is <a class="cleanimage" href="https://validator.w3.org/check" target="_blank">https://validator.w3.org/check</a></li>
-    <li><a class="cleanimage" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths" target="_blank">https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths</a></li>
-    <li>replace toolbar layout css with a grid</li>
-    <li><a href="https://css-tricks.com/almanac/properties/t/transform/" target="_blank">transform</a></li>
-    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/repeating-linear-gradient" target="_blank">linear</a></li>
-    <li><a href="https://svg-path-visualizer.netlify.app/#M140%2020C73%2020%2020%2074%2020%20140c0%20135%20136%20170%20228%20303%2088-132%20229-173%20229-303%200-66-54-120-120-120-48%200-90%2028-109%2069-19-41-60-69-108-69z" target="_blank">path visualiser</a></li>
-    <li><a href="https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/" target="_blank">SVG backgrounds</a></li>
-    <li>&lt;radialGradient&gt; for BG</li>
-    <li>Currently the blends are not working, probably will do by monday</li>
+    <li>I can use the CSS <i>transform-play-state</i>, bur I'm not sure this will work with the SVG transforms.   Note the matrix() and rotate3D() CSS transforms include zero coordinates.</li>
+    <li>Example notes on nesting SVG for more complex outcomes <sup><a href="https://www.sarasoueidan.com/blog/nesting-svgs/#site-header" target="_blank">2</a></sup></li>
+    <li>A solution without SVG <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style" target="_blank">3</a></sup>, for so-so 3D projection.  The process for the so-so 3D projection are explained better at the end of <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin" target="_blank">4</a></sup>.</li>
+    <li>To actually twist distort a <i>flat poly SVG</i>, I think I need to have two half cubes close together, set the transform point to be the extreme faces and apply clockwork rotation to one end, and invert rotation to the other.  It won't stretch like a mesh unless I adjust the perspective.   </li>
+    <li>I need away to build Beizer curves, and address the values in them.  Logically some of the nodes could share values or computations of values.  This will need to be written in a top-down style, and careful planning.</li>
+    <li>A walk-through for the SVG approach <sup><a href="https://oreillymedia.github.io/Using_SVG/extras/ch11-3d.html" target="_blank">5</a></sup></li>
+    <li>The references on SVG transforms, and CSS transforms are quite easy to find, so I haven't listed them (MDN is your friend). </li>
+    <li>A walk-through for using HTML and CSS for 3d animation <sup><a href="https://dev.to/martinp/how-to-do-stunning-3d-with-pure-htmlcss-ah" target="_blank">6</a></sup>, not used in this article.</li>
+    <li>Magic maths to merge a series of 3D transforms <sup><a href="https://stackoverflow.com/questions/15207351/rotate3d-shorthand" target="_blank">7</a></sup> <sup><a href="https://stackoverflow.com/questions/44044339/using-3d-rotations-in-css3" target="_blank">8</a></sup>, now automated <sup><a href="https://www.cssportal.com/css-3d-transform-generator/" target="_blank">9</a></sup> </li>
+    <li>As I have hand edited the SVG, I was looking for an SVG validator. This <sup><a href="https://toolplaza.app/en/tools/validate/svg" target="_blank">10</a></sup> doesn't say anything, this code beautifier <sup><a href="https://codebeautify.org/svg-formatter-beautifier" target="_blank">11</a></sup> shows it as an image, a third tool <sup><a href="https://svg.enshrined.co.uk/" target="_blank">12</a></sup>,  As SVG is XML, if I had a SVG schema as a schema file, I should be able to use business XML validation tools to vet the SVG.  SVG Spec <sup><a href="http://www.datypic.com/sc/svg11/" target="_blank">13</a></sup>.  Official TEST images for SVG spec compliance <sup><a href="https://www.w3.org/Graphics/SVG/Test/20110816/" target="_blank">14</a></sup>.  The best working solution I can find is <sup><a href="https://validator.w3.org/check" target="_blank">15</a></sup>.</li>
+    <li>.</li>
     <li><strong>[WTB]</strong> CSS selector based on char length of text node</li>
-    <li>I need a way to combined transforms without using JS.  I can solve this by vast duplication, but would prefer not to.</li>
+    <li>A tool using SVG animation <sup><a href="https://maxwellito.github.io/vivus-instant/" target="_blank">16</a></sup></li>
 </ul>
 
 
@@ -282,7 +220,7 @@ viewBox="0 0 100 100" version="1.1" baseProfile="full">
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-24T23:05:59">24th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2024-06-20T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Jun 2024</time> </span>
 					</span>
@@ -294,8 +232,8 @@ viewBox="0 0 100 100" version="1.1" baseProfile="full">
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2F3d-effects-maquette" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
-					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
 
@@ -333,48 +271,93 @@ viewBox="0 0 100 100" version="1.1" baseProfile="full">
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-14T21:19:41">14th of Aug 2024, 21:19:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-08-24T23:07:40">24th of Aug 2024, 23:07:40</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-24T23:05:59">24th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<div>
 <style>
- body { --sped:8s; }
+/* normalise */
+body { --sped:8s; }
 details summary h4 { display: inline-block; }
 
-.fancyLogo .toolBar  { padding-left:0; margin-left:0; display:block; }
-.fancyLogo .toolBar li { display:inline-block; max-width:25%; min-width:24%; vertical-align:top; height:max-content; }
-.fancyLogo .toolBar label { height:3em; line-height:0.9; margin:0.5em; padding:1em; text-align:center; }
-.fancyLogo .toolBar label:hover { background: #C0DEED; }
-.fancyLogo .toolBar label>input[type="checkbox"] { display:none; }
-.fancyLogo .toolBar label:has( :checked ) { background:var(--scroll1); }
+/* config for buttons */
+.fancyLogo .toolBar2 label { background:rgb(2, 76, 137); padding:1em; text-align:center; color:#fff; }
+.fancyLogo .toolBar2 li:has( :checked ) label { padding:0.15em 0.2em;  }
+.fancyLogo .toolBar2 label>input[type="checkbox"] { display:none; }
+.fancyLogo .toolBar2 label:has( :checked ):before { content:"✔"; color:green; font-size:2em; vertical-align:middle; margin-right:0.2em; }
+.fancyLogo .toolBar2 li:nth-of-type(3) label:has( :checked ):before { margin-right:0em; }
+.fancyLogo .toolBar2 { display:flex; flex-flow:row nowrap; justify-content:center; align-content:center;  }
+.fancyLogo .toolBar2 li { margin-left:0.8em; flex-basis: max-content; min-width: 25%; } 
+.fancyLogo .toolBar2 li:first-child { margin-left:0em; }
 
 .fancyLogo figcaption { font-size:120%; display:block; }
+
+/* setup for the later effects  */
 .fancyLogo svg.logo { display:inline-block; height:200px; width:200px; margin:3em auto 0 auto; }
 .fancyLogo span:has( svg )::before { z-index:2; line-height:0.70; color:red; position:absolute; border:red 2px solid; content:" 🗙 "; font-size:8em; padding:0.1em; border-radius:40%; margin-top: 0.5em; margin-left: 0.15em; padding-bottom: 0.25em; }
 .fancyLogo span:has( svg.alive )::before { border:inherit; content:""; }
 
+.fancyLogo svg * { transform-box: fill-box; }
 .fancyLogo .root { fill-opacity:0; fill:none; }
 .fancyLogo .lines path, 
-.fancyLogo polygon.lines 
-{ stroke:#000000; stroke-linecap:round; stroke-width:0.01; fill:#ffffff; fill-opacity:0.74; }
+   .fancyLogo polygon.lines 
+   { stroke:#000000; stroke-linecap:round; stroke-width:0.01; fill:#ffffff; fill-opacity:0.74; }
 
-.fancyLogo #fig2 svg.logo.alive #cube_motile { transform:translateX( 500px ); }
-.fancyLogo:has( input[value="rotation"]:checked ) #fig1 svg.logo.alive { animation: rotating var(--sped) linear infinite; }
-.fancyLogo:has( input[value="rotation"]:checked ) #fig2 svg.logo.alive #cube_static { transform:translateX( 500px ); }
-.fancyLogo:has( input[value="rotation"]:checked ) #fig2 svg.logo.alive #cube_motile { transform:translateX( 0px ); }
+/* //////////////////////////////////////////////////////////////////////// */
+.cheetRoot {
+  width: 100px; height: 100px; margin: 3em auto 0 auto; transform-style: preserve-3d; transform: rotate3d(1, 1, 1, -20deg);
+
+.face { width: 100%; height: 100%; position: absolute; backface-visibility: inherit; border: 2px black solid; border-radius:10%; background: rgba(255, 255, 255, 0.75 ); margin:0px; }
+
+.front  { transform: translateZ(50px); }
+.back   { transform: rotateY(180deg) translateZ(50px); background:transparent; }
+.right  { transform: rotateY(90deg) translateZ(50px); }
+.left   { transform: rotateY(-90deg) translateZ(50px); }
+.top    { transform: rotateX(90deg) translateZ(50px); }
+.bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+}
+/* //////////////////////////////////////////////////////////////////////// */
+
+/* action */
+.fancyLogo:has( input[value="rotation"]:checked ) #fig1 .logo.alive { animation: rotating2d var(--sped) linear infinite; }
+.fancyLogo:has( input[value="rotation"]:checked ) #fig2 .logo.alive,
+	.fancyLogo:has( input[value="rotation"]:checked ) #fig3 .cheetRoot 
+	{ animation: rotating3d calc( var(--sped) * 2 ) linear infinite; }
+
+.fancyLogo:has( input[value="rotation"]:checked ) #fig2 
+	{ perspective:300px; transform-style: preserve-3d; transform-origin:center; }
+
+/* I like like to combine this with a contemt declaration, but I suspect the browser would hate me. */
+.fancyLogo:has( input[value="rotation"]:checked ) #fig2 h5 { transform-style: preserve-3d; 
+   transform: rotateX(0deg) rotateZ(30deg) translateY(1em) translateX(15em); 
+   background: transparent; font-family: san-serif; z-index: 10; position: absolute; }  
+
 .fancyLogo:has( input[value="blend"]:checked ) svg.logo.alive path,
 	.fancyLogo:has( input[value="blend"]:checked ) svg.logo.alive polygon 
     { stroke:url(#bg1); stroke-width:0.02; } 
+.fancyLogo:has( input[value="blend"]:checked ) #fig3 .face  
+		{ border-image: linear-gradient(to bottom, #dd0000 5%, #0000dd 95%) 1; border-image-width:5px; }  
+
 .fancyLogo:has( input[value="bg-blend"]:checked ) svg.logo.alive polygon,
 	.fancyLogo:has( input[value="bg-blend"]:checked ) svg.logo.alive path 
-	{ fill: url('#bg2'); fill-opacity:0.6; }
-.fancyLogo:has( input[value="sheer"]:checked ) svg.logo.alive { animation: shiftTwist var(--sped) linear infinite; }
+	{ fill: url('#bg2'); fill-opacity:1.0; }
+.fancyLogo:has( input[value="bg-blend"]:checked ) #fig3 .face { background: radial-gradient(#dd0000 5%, #ddd000 95%);  }
+.fancyLogo:has( input[value="sheer"]:checked ) #fig1 svg.logo.alive { animation: shiftTwist var(--sped) linear infinite; }
+.fancyLogo:has( input[value="sheer"]:checked ) #fig2 svg.logo.alive { animation: sheer2 var(--sped) linear infinite; }
+.fancyLogo:has( input[value="sheer"]:checked ) #fig3 .cheetRoot { animation: sheer2 var(--sped) linear infinite; }
 
-.fancyLogo svg * { transform-box: fill-box; }
+
+.fancyLogo:has( input[value="sheer"]:checked ):has( input[value="rotation"]:checked ) #fig1 .logo.alive, 
+.fancyLogo:has( input[value="sheer"]:checked ):has( input[value="rotation"]:checked ) #fig2 .logo.alive 
+	{ animation: merged3d var(--sped) linear infinite; }
+.fancyLogo:has( input[value="sheer"]:checked ):has( input[value="rotation"]:checked ) #fig3 .cheetRoot 
+	{ animation: merged3d var(--sped) linear infinite; }
 
 /* replace with 3d animation */
-@keyframes rotating {
+@keyframes rotating2d {
     from {
         transform: rotate(0deg);    
     }
@@ -383,13 +366,24 @@ details summary h4 { display: inline-block; }
     }
 }
 
+@keyframes merged3d {
+    from { transform: rotate3d(0, 0, 1, 0deg)   scale(1, 1)     rotate3d(1, 1, 1, -20deg); }
+	50%  { transform: rotate3d(0, 0, 1, 180deg) scale(0.8, 1.3) rotate3d(1, 1, 1, -50deg); }
+    to   { transform: rotate3d(0, 0, 1, 360deg) scale(1, 1)     rotate3d(1, 1, 1, -20deg); }
+}
+
 @keyframes rotating3d {
-    from {
-        transform: rotateX(0deg);    
-    }
-    to {
-        transform: rotateX(360deg);  
-    }
+    from { transform: rotate3d(0, 0, 1, 0deg)   rotate3d(1, 1, 1, -20deg); }
+	25%  { transform: rotate3d(0, 0, 1, 180deg) rotate3d(1, 1, 1, -50deg); }
+    50%  { transform: rotate3d(0, 0, 1, 0deg)   rotate3d(1, 1, 1, -20deg); }
+	75%  { transform: rotate3d(1, 0, 0, 180deg) rotate3d(1, 1, 1, -50deg); }
+    to   { transform: rotate3d(1, 0, 0, 360deg) rotate3d(1, 1, 1, -20deg); }
+}
+
+@keyframes sheer2 {
+	from { transform: scale(1, 1) rotate3d(1, 1, 1, -20deg); }
+	50% { transform: scale(0.8, 1.3) rotate3d(1, 1, 1, 0deg); }
+	to { transform: scale(1, 1) rotate3d(1, 1, 1, -20deg); }
 }
 
 @keyframes shiftTwist {
@@ -407,14 +401,7 @@ details summary h4 { display: inline-block; }
 		transform:skew(0);
     }
 }
-
-.fancyLogo .toolBar2 label { background:var(--attentionbg); }
-.fancyLogo .toolBar2 label>input[type="checkbox"] { display:none; }
-.fancyLogo .toolBar2 label:has( :checked ):before { content:"✔"; color:green; font-size:2em; }
-.fancyLogo .toolBar2 { display:flex; flex-flow:row nowrap; justify-content:center; align-content:center;  }
-.fancyLogo .toolBar2 li { margin-left:0.8em; }
-.fancyLogo .toolBar2 li:first-child { margin-left:0em; }
-
 </style>
+</div>
 </body>
 </html>
