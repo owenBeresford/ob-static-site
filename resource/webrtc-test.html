@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/webrtc-test" />
 <meta property="og:description" content="A maquette looking at current webRTC, which was designed for peer to peer architecture, in normal browsers, with lists libraries to install." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Aug 2024, 9:16:18" />
-<meta property="article:modified_time" content="20th of Aug 2024" />
+<meta property="article:published_time" content="27th of Aug 2024, 19:32:50" />
+<meta property="article:modified_time" content="27th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/webrtc-test" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Web RTC test",
-	"article:published_time":"20th of Aug 2024, 9:16:18", 
-    "article:modified_time":"20th of Aug 2024",
+	"article:published_time":"27th of Aug 2024, 19:32:50", 
+    "article:modified_time":"27th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -68,11 +68,11 @@ It is suggested to import a compatibility layer/ HAL to harmonise the different 
 <p>This article isn't about lists of libraries, but the technology...</p>
 
 <ul class="ulbasic">
-    <li>JS features <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices" target="_blank">MediaDevices</a> <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStream" target="_blank">MediaStream</a> <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack" target="_blank">MediaStreamTrack</a> <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackSettings" target="_blank">MediaTrackSettings</a>. </li>
+    <li>JS features <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices" target="_blank">MediaDevices</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStream" target="_blank">MediaStream</a>,  <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack" target="_blank">MediaStreamTrack</a>,  <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackSettings" target="_blank">MediaTrackSettings</a>. </li>
     <li>Some sample code <sup><a href="https://www.antopiras.dev/blog/2021-05-15-using-the-mediastream-web-api-to-record-screen-camera-and-audio/" target="_blank">4</a></sup></li>
     <li>Exposed features where software can control settings: tracks (see MediaStreamTrack) can be paused via the enabled flag; creating a gainNode from AudioContext.createGain allows setting a adaptor on the volume example <sup><a href="https://stackoverflow.com/a/42049877/2375161" target="_blank">5</a></sup>;  Video streams can be halted with the stop() call, but must obey temporal constraints.    </li>
     <li><i>Realtime</i> streaming has limited time-shift capacity (i.e. skip forwards/ skip backwards), for reasons I hope are obvious.   Video <sup><a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Video_and_audio_content" target="_blank">6</a></sup> settings for non-RTC videos are simple and get confused in with RTC search results.   Getting the correct screen size is done by “device” selection (this includes current rendered size of a browser tab).   I haven't been able to find a screen-size scaling feature, but I can see this being a high value interconnect service, which is present in other AV services (for example watching Netflix on your phone then your home-cinema desktop).</li>
-    <li>Note since the 2000s there was a feature of IP6 called multicast <sup><a href="https://en.wikipedia.org/wiki/IP_multicast" target="_blank">7</a></sup>, see RFCs in top of link.  There are some streaming solutions that use multicast, and if all the switches have been upgraded, can easily support an audience of thousands efficiently.  IP6 is being rolled out <i>VERY slowly</i> in the middle layer infra (...its 25-30Y later).  WebRTC doesn't seem to use this for scaling, unlike VoiP.</li>
+    <li><b>Note:</b> since the 2000s there was a feature of IP6 called multicast <sup><a href="https://en.wikipedia.org/wiki/IP_multicast" target="_blank">7</a></sup>, see RFCs in top of link.  There are some streaming solutions that use multicast, and if all the switches have been upgraded, can easily support an audience of thousands efficiently.  IP6 is being rolled out <i>VERY slowly</i> in the middle layer infra (...its 25-30Y later).  WebRTC doesn't seem to use this for scaling, unlike VoiP.</li>
 </ul>
 
 
@@ -83,6 +83,40 @@ It is suggested to import a compatibility layer/ HAL to harmonise the different 
 </ul>
 </details>
 <br />
+<fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
+<ul class="ulbasic">
+<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-edge"></i> win32/Edge </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari </li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> ✔ <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
+</ul>
+
+<details class="singlePopup">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser (erm Ok, not this one)</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset>
 </div>
 </div>
     </article>
@@ -118,7 +152,7 @@ It is suggested to import a compatibility layer/ HAL to harmonise the different 
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-27T19:26:36">27th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2023-06-19T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Jun 2023</time> </span>
 					</span>
@@ -165,7 +199,7 @@ It is suggested to import a compatibility layer/ HAL to harmonise the different 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-20T09:16:18">20th of Aug 2024, 9:16:18</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-08-27T19:32:50">27th of Aug 2024, 19:32:50</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-27T19:26:36">27th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

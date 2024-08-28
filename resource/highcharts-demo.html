@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/highcharts-demo" />
 <meta property="og:description" content="An evaluation and analysis for highcharts graphing library. A highcharts demo." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Aug 2024, 9:16:14" />
-<meta property="article:modified_time" content="20th of Aug 2024" />
+<meta property="article:published_time" content="27th of Aug 2024, 19:32:48" />
+<meta property="article:modified_time" content="27th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/highcharts-demo" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Highcharts graphing library demo",
-	"article:published_time":"20th of Aug 2024, 9:16:14", 
-    "article:modified_time":"20th of Aug 2024",
+	"article:published_time":"27th of Aug 2024, 19:32:48", 
+    "article:modified_time":"27th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -52,32 +52,77 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker addReferences">
-<div class="lotsOfWords">
-<p>This is a highcharts demo <sup><a href="https://www.highcharts.com/docs/index" target="_blank">1</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Highcharts" target="_blank">2</a></sup>, as this seems a popular graph library.   Highcharts is another library that builds SVG graphs, so they are fairly easy to style and encourage to be responsive.   I made a test page similar to this at Hoptroff for several graphing libraries, but that is company source.   The first render of this graph only took a short while; I am focussing on branding things not on the data; which is why I used data from the library documentation.  <br />
-As I have quickly built this demo, and I don't think this code was hard or impressive.   I don't perceive risk in starting a role that uses this graph library rather than the one I used at Hoptroff.  <br />
-As a second feature on the demo; as far as I can see all the animation effects are just applying the data that you already have onto the screen <sup><a href="https://www.highcharts.com/blog/tutorials/animated-charts-with-highcharts/" target="_blank">3</a></sup> <sup><a href="https://www.highcharts.com/blog/products/highcharts/animated-charts/" target="_blank">4</a></sup> <sup><a href="https://worthalook.home.blog/2019/09/13/heartbeat-highcharts-animation-example/" target="_blank">5</a></sup>.  Therefore in order to do useful updates the traditional solution using setIntervail(), or another event stream will be needed.   This now has colour blend support, Highcharts integrates the LinearGradient tag <sup><a href="https://www.highcharts.com/docs/chart-design-and-style/colors" target="_blank">6</a></sup>.  The visible text on the graph isn't copied and pasted from a German language website; I typed the new labels directly, and ran a spell check.</p>
-
-<ul class="ulbasic">
-    <li>Highcharts is mostly just a graphing library in JS, so will score low on my standardised feature comparison list (see <a href="https://owenberesford.me.uk/resource/data-visualisation-epic#">data-visualisation-epic</a> ).  There are many articles using python as a data-source for highcharts; I cannot see anything that lets you build highcharts graphs from the python interpreter.  Highcharts is fairly mature and currently supports <sup><a href="https://api.highcharts.com/highcharts/plotOptions" target="_blank">7</a></sup>:<ul class="ulbasic">
-        <li>arcdiagram, area, arearange, areaspline, areasplinerange, bar, bellcurve, boxplot, bubble, bullet, column, columnpyramid, columnrange, cylinder, dependencywheel, dumbbell, errorbar, funnel, funnel3d, gauge, heatmap, histogram, item, line, lollipop, networkgraph, organization, packedbubble, pareto, pie, polygon, pyramid, pyramid3d, sankey, scatter, scatter3d, series, solidgauge, spline, streamgraph, sunburst, tilemap, timeline, treemap, variablepie, variwide, vector, venn, waterfall, windbarb, wordcloud, xrang</li>
-        <li>use of graphing libraries will lead to knowledge on what the abbreviations mean; for other readers, these terms are defined in the preceding link.</li>
-    </ul></li>
-    <li>Highcharts has a middleware (like grafana) <sup><a href="https://www.highcharts.com/blog/tutorials/highcharts-cloud-for-diy-interactive-charts/" target="_blank">8</a></sup> , but its expected data source is Excel.  Look at the diagram on here <sup><a href="https://www.highcharts.com/blog/tutorials/use-highcharts-cloud-api/" target="_blank">9</a></sup> if unclear about architecture.  UPDATE: in 2020 they renamed the API to <a href="https://www.highcharts.com/blog/everviz/" target="_blank">Everviz</a>.   I have searched online, I have not seen a reason as to why use the API; I guess if your output is presented on a small phone, creating the graphs on static/ fixed power supply is better experience.  It would be cheaper to use Node on your own server; then render and save the graphs as static assets.  All my work involving graphs has been dynamic data, or least fairly-short shelf-life data; so managing caching on the static assets would be important.  </li>
-    <li>Highcharts supports time-series graphs, as demonstrated in <sup><a href="https://www.highcharts.com/demo/line-time-series" target="_blank">10</a></sup>.  It also has a long list of other rendering output formats (left menu on same link) example, non-GIS heatmap <sup><a href="https://www.highcharts.com/demo/heatmap-canvas" target="_blank">11</a></sup> honeycomb plot <sup><a href="https://www.highcharts.com/demo/honeycomb-usa" target="_blank">12</a></sup>.   The zoom feature is easier to use than other graphing libraries; unless you want data at different granularities per zoom (first link shows this).</li>
-    <li>As a graphing library, Highcharts only supports graphs; but can be used with any DB if you create some middleware.  Highcharts has plugin support, and a list of user created plugins <sup><a href="https://www.highcharts.com/blog/add-ons/" target="_blank">13</a></sup>.</li>
-    <li>As is typical, Highcharts supports style overloads via extra CSS <sup><a href="https://www.highcharts.com/demo/styled-mode-column" target="_blank">14</a></sup>,  When used with other software (e.g. the middleware, or Odoo <sup><a href="https://www.cybrosys.com/blog/create-dashboard-using-highchart-js" target="_blank">15</a></sup> ) Highcharts can create dashboards; the tools blog has a PNG of a dashboard but no blurb, so I don't think this a feature that they emphasise.  </li>
-    <li>Highcharts doesn't export alerts; but you could access the render cycle, and create your own <sup><a href="https://api.highcharts.com/highcharts/chart.events.render" target="_blank">16</a></sup> or do this in the data sourcing API, which is better data architecture.   Highcharts doesn't have monitoring features, but can be used for monitoring.   Various people have created utilities, however I haven't seen any specific maths libraries for Highcharts; example <sup><a href="https://github.com/highcharts/highcharts-utils" target="_blank">17</a></sup> <sup><a href="https://github.com/highcharts/highcharts/blob/master/ts/Core/Utilities.ts" target="_blank">18</a></sup>.  Highcharts has mapping output format <sup><a href="https://www.highcharts.com/demo/maps" target="_blank">19</a></sup>, but isn't a GIS.  Likewise it has no NLP or data projection (i.e. future data)</li>
-</ul>
+<div class="halferWords">
+<p>This is a highcharts demo <sup><a href="https://www.highcharts.com/docs/index" target="_blank">1</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Highcharts" target="_blank">2</a></sup>, as this seems a popular graph library.   I made a test page similar to this at Hoptroff for several graphing libraries, but that is company source.   The first render of this graph only took a short while; I am focussing on branding things not on the data; which is why I used data from the library documentation.</p>
 
 <p><b>Pls watch for more than 5s </b>   Maybe I should add a count-down timer.</p>
 
 
 </div>
-<br />
-<figcaption id="fig1">Most basic chart from docs, but rebranded/ reskinned.</figcaption>
+<div class="maquetteContainer">
+<div class="maquette">
+<figcaption id="fig1">Most basic chart from docs, but rebranded/ reskinned. <span class="button" id="max">Maximise</span></figcaption>
 <figure id="graph1" class="graphBox" >
 </figure>
-I may add more demos to this later, hence numbering.
+</div>
+<details class="singlePopup withScroll addReferences docs">
+<summary>
+<h4 id="toc0">Technical Notes </h4>
+</summary>
+<p>Highcharts is another library that builds SVG graphs, so they are fairly easy to style and encourage to be responsive.  As I have quickly built this demo, and I don't think this code was hard or impressive.   I don't perceive risk in starting a role that uses this graph library rather than the one I used at Hoptroff.  <br />
+As a second feature on the demo; as far as I can see all the animation effects are just applying the data that you already have onto the screen <sup><a href="https://www.highcharts.com/blog/tutorials/animated-charts-with-highcharts/" target="_blank">1</a></sup> <sup><a href="https://www.highcharts.com/blog/products/highcharts/animated-charts/" target="_blank">2</a></sup> <sup><a href="https://worthalook.home.blog/2019/09/13/heartbeat-highcharts-animation-example/" target="_blank">3</a></sup>.  Therefore in order to do useful updates the traditional solution using setIntervail(), or another event stream will be needed.   This now has colour blend support, Highcharts integrates the LinearGradient tag <sup><a href="https://www.highcharts.com/docs/chart-design-and-style/colors" target="_blank">4</a></sup>.  The visible text on the graph isn't copied and pasted from a German language website; I typed the new labels directly, and ran a spell check.</p>
+
+<ul class="ulbasic">
+    <li>Highcharts is mostly just a graphing library in JS, so will score low on my standardised feature comparison list (see <a href="https://owenberesford.me.uk/resource/data-visualisation-epic#">data-visualisation-epic</a> ).  There are many articles using python as a data-source for highcharts; I cannot see anything that lets you build highcharts graphs from the python interpreter.  Highcharts is fairly mature and currently supports <sup><a href="https://api.highcharts.com/highcharts/plotOptions" target="_blank">5</a></sup>:<ul class="ulbasic">
+        <li>arcdiagram, area, arearange, areaspline, areasplinerange, bar, bellcurve, boxplot, bubble, bullet, column, columnpyramid, columnrange, cylinder, dependencywheel, dumbbell, errorbar, funnel, funnel3d, gauge, heatmap, histogram, item, line, lollipop, networkgraph, organization, packedbubble, pareto, pie, polygon, pyramid, pyramid3d, sankey, scatter, scatter3d, series, solidgauge, spline, streamgraph, sunburst, tilemap, timeline, treemap, variablepie, variwide, vector, venn, waterfall, windbarb, wordcloud, xrang</li>
+        <li>use of graphing libraries will lead to knowledge on what the abbreviations mean; for other readers, these terms are defined in the preceding link.</li>
+    </ul></li>
+    <li>Highcharts has a middleware (like grafana) <sup><a href="https://www.highcharts.com/blog/tutorials/highcharts-cloud-for-diy-interactive-charts/" target="_blank">6</a></sup> , but its expected data source is Excel.  Look at the diagram on here <sup><a href="https://www.highcharts.com/blog/tutorials/use-highcharts-cloud-api/" target="_blank">7</a></sup> if unclear about architecture.  UPDATE: in 2020 they renamed the API to <a href="https://www.highcharts.com/blog/everviz/" target="_blank">Everviz</a>.   I have searched online, I have not seen a reason as to why use the API; I guess if your output is presented on a small phone, creating the graphs on static/ fixed power supply is better experience.  It would be cheaper to use Node on your own server; then render and save the graphs as static assets.  All my work involving graphs has been dynamic data, or least fairly-short shelf-life data; so managing caching on the static assets would be important.  </li>
+    <li>Highcharts supports time-series graphs, as demonstrated in <sup><a href="https://www.highcharts.com/demo/line-time-series" target="_blank">8</a></sup>.  It also has a long list of other rendering output formats (left menu on same link) example, non-GIS heatmap <sup><a href="https://www.highcharts.com/demo/heatmap-canvas" target="_blank">9</a></sup> honeycomb plot <sup><a href="https://www.highcharts.com/demo/honeycomb-usa" target="_blank">10</a></sup>.   The zoom feature is easier to use than other graphing libraries; unless you want data at different granularities per zoom (first link shows this).</li>
+    <li>As a graphing library, Highcharts only supports graphs; but can be used with any DB if you create some middleware.  Highcharts has plugin support, and a list of user created plugins <sup><a href="https://www.highcharts.com/blog/add-ons/" target="_blank">11</a></sup>.</li>
+    <li>As is typical, Highcharts supports style overloads via extra CSS <sup><a href="https://www.highcharts.com/demo/styled-mode-column" target="_blank">12</a></sup>,  When used with other software (e.g. the middleware, or Odoo <sup><a href="https://www.cybrosys.com/blog/create-dashboard-using-highchart-js" target="_blank">13</a></sup> ) Highcharts can create dashboards; the tools blog has a PNG of a dashboard but no blurb, so I don't think this a feature that they emphasise.  </li>
+    <li>Highcharts doesn't export alerts; but you could access the render cycle, and create your own <sup><a href="https://api.highcharts.com/highcharts/chart.events.render" target="_blank">14</a></sup> or do this in the data sourcing API, which is better data architecture.   Highcharts doesn't have monitoring features, but can be used for monitoring.   Various people have created utilities, however I haven't seen any specific maths libraries for Highcharts; example <sup><a href="https://github.com/highcharts/highcharts-utils" target="_blank">15</a></sup> <sup><a href="https://github.com/highcharts/highcharts/blob/master/ts/Core/Utilities.ts" target="_blank">16</a></sup>.  Highcharts has mapping output format <sup><a href="https://www.highcharts.com/demo/maps" target="_blank">17</a></sup>, but isn't a GIS.  Likewise it has no NLP or data projection (i.e. future data)</li>
+</ul>
+
+
+
+<fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
+<ul class="ulbasic">
+<li> ✔ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔ <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari </li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
+</ul>
+
+<details class="singlePopup">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser (erm Ok, not this one)</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset>
+
+</details>
+</div>
 </div>
     </article>
    </main>
@@ -110,7 +155,7 @@ I may add more demos to this later, hence numbering.
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-27T19:25:59">27th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2022-07-21T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Jul 2022</time> </span>
 					</span>
@@ -130,6 +175,7 @@ I may add more demos to this later, hence numbering.
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Technical Notes</a></li>
 </menu>
 <br />
 
@@ -156,7 +202,7 @@ I may add more demos to this later, hence numbering.
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class-"sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-20T09:16:14">20th of Aug 2024, 9:16:14</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-08-27T19:32:48">27th of Aug 2024, 19:32:48</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-27T19:25:59">27th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -207,7 +253,15 @@ function injectContent2() {
 	CHART.render();
 }
 
+function maxim() {
+	document.querySelector('#graph1').classList.add('bigger');
+	document.querySelector('#max').setAttribute('disabled', 'disabled');
+	document.querySelector('.maquetteContainer').setAttribute('style', 'height:30em;');
+}
+
 function injectContent() {
+	document.querySelector('#max').addEventListener('click', maxim);
+
 // I ought to pull the UI strings out into a separate hash
 	const DATA=[
 			{
@@ -272,9 +326,10 @@ if(hasBeenRun()===0) {
 #fig1::before { content:'#1 '; font-size:400%; font-weight:bold; color:rgba(67, 67, 72, 0.4); border-bottom:10px rgba(67, 67, 72, 0.3 ) solid; padding-bottom:4px; }  
 .displace { transform: translate( 200px, -350px ); }
 .highcharts-container g.highcharts-legend.highcharts-no-tooltip > g { transform: translate( 200px, -350px ); }
+.maquetteContainer .maquette figure.bigger { z-index:5; display:block; position:fixed; left: 10%; top: 10%; width:80%; }
 
 .graphBox { margin-top:1em; margin-bottom:2em; min-width:600px; max-width:90%; margin-left:auto; margin-right:auto; } 
-figcaption { margin-left:1em; border-bottom:2px  rgba(67, 67, 72, 0.3 ) solid; max-width:50%; white-space:nowrap; min-width:20em; }
+figcaption { margin-left:1em; border-bottom:2px rgba(67, 67, 72, 0.3 ) solid; max-width:50%; white-space:nowrap; min-width:20em; }
 
 @media screen and (min-resolution: 150dpi) {
 	.graphBox { display:block; clear:both; min-width:auto; max-width:auto; width:calc( 100% - 20px ); margin-left:10px; margin-right:10px; } 

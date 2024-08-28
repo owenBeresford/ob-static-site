@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/form-no-js-maquette" />
 <meta property="og:description" content="A tech demo detailing how much user interface can be built without using JS.  This has validation for user input." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Aug 2024, 21:19:44" />
-<meta property="article:modified_time" content="14th of Aug 2024" />
+<meta property="article:published_time" content="28th of Aug 2024, 7:21:25" />
+<meta property="article:modified_time" content="27th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/form-no-js-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Forms with only HTML+CSS",
-	"article:published_time":"14th of Aug 2024, 21:19:44", 
-    "article:modified_time":"14th of Aug 2024",
+	"article:published_time":"28th of Aug 2024, 7:21:25", 
+    "article:modified_time":"27th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -52,82 +52,16 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker popOverWidget">
-<p class="accessSrc">
-<a class="button" href="#demoHere" title="Scroll down page to the demo."> Jump to demo</a>
-</p>
 <div class="halferWords">
 
 <h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
-<p>This is an oversized form.   I have included a full range of HTML widgets / components to show what I could build without using any JS.  This is just a maquette, please see <a href="https://owenberesford.me.uk/resource/better-ux-forms#">better-ux-forms</a> for notes on other options.  As a demo of what <em>can be done</em> via CSS, there are no useful library imports, and I needed to write all the CSS.   If I keep working this idea, I will see what can be imported.   It currently supports two screen widths, 1300px+ and 600-800px.   Most of this tech has been available for a while.   Items with a purple outline <i>are using JS</i>.   I could make a sparkly edition. <br />
-<strong>GDPR Note:</strong> this data isn't sent to any servers, it's just a tech demo.</p>
+<p>This is an oversized form.   I included a full range of HTML and CSS widgets / components to demonstrate what I can build without using any JS.  This is just a maquette, please see <a href="https://owenberesford.me.uk/resource/better-ux-forms#">better-ux-forms</a> for notes.  As a demo of what <em>can be done</em> via HTML+CSS, there are no useful library imports, and I needed to write all of the CSS.   It currently supports two screen widths, 1300px+ and 600-800px.   Most of this tech has been available for a while.   Items with a purple outline <i>are using JS</i>.   <br />
+<strong>GDPR Note:</strong> this data isn't sent to any servers, it's just a UI demo.</p>
 
 
-<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Benefits: Why interact with this page? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
-<p>This form is equivalent to a narrow purpose app.   Until I get enough time to polish the resource, its a rough demo.</p>
-
-<ul class="ulbasic">
-    <li>This page including prose comes to 25KB, uncompressed ~ less in transit.  I haven't seen an app at less than a few meg in size. <ul class="ulbasic">
-        <li>the assets and JS in the page template can be ignored as they aren't used in the demo. </li>
-    </ul></li>
-    <li>This page has instant loading, admittedly on my Wifi.  When I have stopped editing it, I will benchmark this.</li>
-    <li>This supports a wide range of devices, as I cautiously didn't use partially supported CSS.  It is slower and more expensive to deliver this with other tooling, although React is good for wide support.</li>
-    <li>If you happen to be in a bad network area, this demo will still work (its only 25kb).  This is easy to cache.   Heavier frameworks can't deliver around a bad network connection.   </li>
-    <li>This uses *very* little CPU and battery power.  Compared to Electron apps, this article can 'fly to the moon' on the power needed to show the loading screen in Electron.  </li>
-    <li>The cost to move this to another locale is quite small compared to other tech options.  </li>
-</ul>
-
-
-<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Liabilities <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
-<ul class="ulbasic">
-    <li>Note this is primarily a form demo, I am adding in standard design elements (which I normally get from a framework).</li>
-    <li>With this technique, I cannot add social logins/ OAuth.</li>
-    <li>A more featured demo would upload any selfies to S3 or equivalent service (again JS).</li>
-    <li>I need to overwork the CSS.  If I had used a targeted framework for doing this, it would be much easier/ faster.   The major negative about using the framework is that I need to rely on all these features being present.</li>
-    <li>More work still needed.</li>
-</ul>
-
-
-<br />
-<fieldset class="browserTestingContainer">
-<legend> This feature has been tested on:</legend>
-<ul class="ulbasic">
-<li>This was testing for the <i>interaction</i> features.  I really need more time to do the less innovative layouts.</li>
-<li> ✔  <i class="fa fa-chrome"></i> win32/chrome </li>
-<li> ✔  <i class="fa fa-edge"></i> win32/Edge </li>
-<li> ✔  <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
-<li>There are some sizing issues on the big buttons at the top.</li>
-<li> ✔ <i class="fa fa-safari"></i> mac x/safari  </li>
-<li>Safari 12 is not supported (inc by Apple I think)</li>
-<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
-<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
-<li> &nbsp;-&nbsp; <i class="fa fa-firefox"></i> droid/firefox </li>
-<li> &nbsp;-&nbsp; <i class="fa fa-safari"></i> iphone/safari (untested) </li>
-<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
-<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
-</ul>
-<details class="singlePopup">
-<summary>Other browsers</Summary>
-I am not testing on the following, as they use the Chrome code-base as a starting point:
-<ul class="ulbasic">
-<li> Samsung Internet </li>
-<li> Opera </li>
-<li> Brave </li>
-<li> Blackberry browser (erm Ok, not this one)</li>
-<li> MSIE (or this one)</li>
-</ul>
-I have never tested on (but for specific geo-markets should do):
-<ul class="ulbasic">
-<li> Vivaldi </li>
-<li> Kameleo</li>
-<li> Yandex</li>
-<li> QQ</li>
-<li> Soque Explorer</li>
-</ul>
-</details>
-</fieldset>
 </div>
-
-<br />
+<div class="maquetteContainer">
+<div class="maquette">
 <form class="outsizeFormContainer" action="" method="post" encoding="multipart/form-data; charset=utf8" >
 <p><a name="demoHere"></a> Please supply your details (takes about 1-2min from desktop, about 5min from a phone):
 <fieldset class="formTab">
@@ -272,56 +206,124 @@ This is free text, I applied no validation rules. </span>
 </div>
 </fieldset>
 <div class="clear annoying">
-* https://css-tricks.com/css-target-for-off-screen-designs/
-* https://ishadeed.com/article/css-container-query-guide
-* https://github.com/karlgroves/overlayfactsheet/pull/1189
 <input id="txt21" class="button f1 JSassist" type="submit" name="txt21" value="Review and save" />
 </div>
 </form>
-<br />
-<br />
-<br />
-<details class="halferWords">
-<summary>Some notes I made during progress [long and rambly] </summary>
-<p>To deliver this, I needed to use JS for a few details.   I was expecting to use JS for form POST, but sigh.   'Making a form' is not a thing to demo, normally.   If somehow the CSS goes missing, there is still a functioning form present, but not as nice.   If the JS goes missing, and the server can accept legacy formats, it would work.</p>
+</div>
 
+<details class=" withScroll docs">
+<summary><h2>Technical notes</h2> </summary>
 
-<h5 id="toc3"> CSS extra details:</h5>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Benefits: Why build this page? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This form is equivalent to a narrow purpose app.</p>
+
 <ul class="ulbasic">
-    <li>In this demo z-index 3 is for notices, z-index 2 is layers, z-index 1 is for masks (currently unused).  Obviously most elements are z-index 0.   For a bigger system, I would use a larger number range;</li>
-    <li>Dynamic just-CSS tab count markers.   LIMITATION: I don't seem to be able to make the total count a CSS variable;</li>
-    <li>Successfully made form help-prompts as you enter data (and only as you enter, and with no layout shifts);</li>
-    <li>Without using JS, it will take a long dev-time to get support for “in this case use this date picker, in that case use that date picker”.   I spent 6h trying to chew through the problem, most version of Safari and all of FF do not support input[type=“month”] which is best for CC forms;   </li>
-    <li><del>I do not have a media query to group recent Safari and FF and not Chrome, to be able to build smart-and-clean handing on input[type=month] ~ which is absent from Safari and FF </del></li>
-    <li>The screen titles need to be in the same DOM sub-tree as the screen content, so this took abit longer to layout than if they were just connected by an ID, like I would for JS;</li>
-    <li>Due to this being a tech demo (not a design demo), there is no specific support for mobile landscape layout.   I think for that layout, I would push the form screens to the right/ “after” of the tabs; </li>
-    <li>Decorations saying form sections have valid data (not the same as correct data, but I can't vet that);</li>
-    <li>Can't use CSS content on INPUTs, I needed to add extra SPANs;</li>
-    <li>Not using accesskeys, as they don't match forms very much, and I find them harder to use a multiple platform fashion;</li>
-    <li>I need to not use input[type=url], as I was adding the protocol for the user; </li>
-    <li>Its not ideal that the green and blue in the screen header are about the same colour intensity.  This is bad for colour blind people. TOPO: Fix the green before adopting for real use; </li>
-    <li>I dare not use the traditional inch marker (&quot;) by the shoe inputs in this as people will assume its a typo in some code;</li>
-    <li>I hope that 50 chars is enough letters for a persons full name ~ I need more example data here;</li>
-    <li>I am not using a flex layout in the tab titles, as I wanted it to be clear that the GUI Sigils were just CSS; </li>
-    <li>I need a different unit for input screen sizes, as em or rem doesn't seem to match anything that the user enters (especially for number inputs);</li>
+    <li>This page including prose comes to 25KB, uncompressed ~ less in transit.  I haven't seen an app with less than a few meg in size. <ul class="ulbasic">
+        <li>The assets and JS in the page template can be ignored as they aren't used in the demo. </li>
+    </ul></li>
+    <li>This page has instant loading, admittedly on my Wifi.  When I have stopped editing it, I will benchmark this.</li>
+    <li>This supports a wide range of devices, as I cautiously didn't use partially supported CSS.  It is slower and more expensive to deliver this with other tooling, although React is good for wide support.</li>
+    <li>If you happen to be in a bad network area, this demo will still work (it's only 25kb).  This is easy to cache.   Heavier frameworks can't deliver around a bad network connection.   </li>
+    <li>This uses *very* little CPU and battery power.  Compared to Electron apps, this article can 'fly to the moon' on the power needed to show the loading screen in Electron.  </li>
+    <li>The cost to move this to another locale is quite small compared to other tech options.  </li>
 </ul>
 
 
-<h5 id="toc4"> JS is essential for:</h5>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Liabilities <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li>LULN validation (in theory can be CSS, but that would be hUUUUUge code volume, and an arse to test);</li>
+    <li>Note this is primarily a form demo, I am adding in standard design elements (which I normally get from a framework).   </li>
+</ul>
+
+<p>Developing like so is very expensive, costs would be smaller if I hadn't tried to maximise the no scripting, so writing everything myself.   If scripting is used, it's best to slap the huge framework back in again, and so I show nothing.   Making a second “liteApp” from this baseline tech demo, would be a more normal cost.</p>
+
+<ul class="ulbasic">
+    <li>I didn't have a clear view on design, just interactions when I started.   I ought to redo this with better use of grids.</li>
+    <li>I now have done a number of tests with this approach (several browsers).  For production code a second BDD / interaction test suite needs to be maintained.  This suite doesn't exist to date.</li>
+    <li>With this technique, I cannot add social logins / OAuth.   I also have no session at all, networking is just one HTTRPS request.   Local form-caching is decided by the browser and your settings.</li>
+    <li>A more featured demo would upload any selfies to S3 or equivalent service (again JS).</li>
+    <li>I need to overwork the CSS.  To do this technique now, means some CSS is specific to this [unique] form.  If I had used a targeted CSS framework for doing this, it would be much easier / faster.   The major negative about using the framework is that I need to rely on all these lesser used features being present.</li>
+    <li>Until I get enough time to polish the resource, it's a rough demo. </li>
+    <li>More work still needed.</li>
+</ul>
+
+<p>To deliver the maquette, I needed to use JS for a few details.   I was expecting to use JS for form POST, but sigh.   'Making a form' is not a thing to demo, normally.   If somehow the CSS goes missing, there is still a functioning form present, but not as nice.   If the JS goes missing, and the server can accept legacy formats, it would work.</p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > CSS details / Architecture: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>In this demo z-index 3 is for notices, z-index 2 is layers, z-index 1 is for masks (currently unused).  Obviously most elements are z-index 0.   For a bigger system, I would use a larger number range;</li>
+    <li>Dynamic just-CSS tab count markers.   LIMITATION: I don't seem to be able to make the total count as a CSS variable;</li>
+    <li>Successfully made form help-prompts as you enter data (and only as you enter, and with no layout shifts);</li>
+    <li>Without using JS, it will take a long dev-time to get support for “in this case use this date picker, in that case use that date picker”.   I spent six hours trying to chew through the problem, most versions of Safari and all of FF do not support input[type=“month”] which is best for CC forms;   </li>
+    <li><del>I do not have a media query to group recent Safari and FF and not Chrome, to be able to build smart-and-clean handing on input[type=month] ~ which is absent from Safari and FF </del></li>
+    <li>The screen titles need to be in the same DOM sub-tree as the screen content, so this took abit longer to layout than if they were just connected by an ID, like I would do for JS;</li>
+    <li>Due to this being a tech demo (not a design demo), there is no specific support for mobile landscape layout.   I think for that layout, I would push the form screens to the right / “after” of the tabs; </li>
+    <li>Decorations saying form sections have valid data (not the same as correct data, but I can't vet that);</li>
+    <li>Can't use CSS content on INPUTs, so I needed to add extra SPANs;</li>
+    <li>Not using accesskeys, as they don't match forms very much.   I find them harder to use in a multiple platform fashion;</li>
+    <li>I need to not apply input[type=url], as I added the protocol for the user; </li>
+    <li>It's not ideal that the green and blue in the screen header are about the same colour intensity.  This is bad for colour blind people. TOPO: Fix the green before adopting for real use; </li>
+    <li>I dare not use the traditional inch marker (&quot;) by the shoe inputs in this as people will assume its a typo in some code;</li>
+    <li>I hope that 50 chars is enough letters for a person's full name ~ <strong>TODO</strong> include more example data here;</li>
+    <li>I am not using a flex layout in the tab titles, as I wanted it to be clear that the GUI Sigils were just CSS; </li>
+    <li>I need a different unit for input screen sizes, as 'em' or 'rem' doesn't seem to match anything that the user enters (especially for number inputs);</li>
+</ul>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > JS is essential for: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>LULN validation (the validation could be CSS, but that would be a hUUUUUge code volume, and an arse to test.  And there is no means to access the user input);</li>
     <li>Email validation, probably via server (i.e. talk to internet to see if the address works);</li>
     <li>URL validation, probably via server (i.e. talk to the internet to see if the address works).   I added and removed a regex to look at the URL, but as modern URLs are quite flexible, so this would be A LOT of regex;</li>
-    <li>Form packing (i.e. convert to JSON and Fetch/ Axios it);</li>
-    <li>Drop files onto form to upload has to be done via JS;</li>
+    <li>Form packing (i.e. convert to JSON and Fetch / Axios it);</li>
+    <li>Support to drop files onto form to upload has to be done via JS;</li>
     <li>You can't see chosen values of SELECT via CSS, so adding JS to automate that step ;</li>
     <li>Tap to empty an INPUT field;</li>
 </ul>
 
 
+
+<fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
+<ul class="ulbasic">
+<li>This was testing for the <i>interaction</i> features.  I really need more time to do the less innovative layouts.</li>
+<li> ✔  <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔  <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔  <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li>There are some sizing issues on the big buttons at the top.</li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari  </li>
+<li>Safari 12 is not supported (inc by Apple I think)</li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
+</ul>
+<details class="singlePopup">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser (erm Ok, not this one)</li>
+<li> MSIE (or this one)</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
 </details>
-<br />
+</fieldset>
 </div>
+
+<br />
+</details>
     </article>
    </main>
 	<div id="contentGroup" class="adjacentGroup" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
@@ -355,7 +357,7 @@ This is free text, I applied no validation rules. </span>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-27T22:36:05">27th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2024-03-20T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Mar 2024</time> </span>
 					</span>
@@ -367,8 +369,8 @@ This is free text, I applied no validation rules. </span>
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
-					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
 
@@ -376,8 +378,11 @@ This is free text, I applied no validation rules. </span>
 <legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Intro</a></li>
-<li><a href="#toc1">Benefits: Why interact with this page?</a></li>
+<li><a href="#toc1">Benefits: Why build this page?</a></li>
 <li class="h4_odd"><a href="#toc2">Liabilities</a></li>
+<li><a href="#toc3">CSS details / Architecture:</a></li>
+<li class="h4_odd"><a href="#toc4">JS is essential for:</a></li>
+<li><a href="#toc5">Technical notes</a></li>
 </menu>
 <br />
 
@@ -405,20 +410,38 @@ This is free text, I applied no validation rules. </span>
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-14T21:19:44">14th of Aug 2024, 21:19:44</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-08-28T07:21:25">28th of Aug 2024, 7:21:25</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-27T22:36:05">27th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
 <style>
 /* in this text added to the left of the form item should be assumed added by the server,
            text added to the right is a guide for the user 
+           comments added the input below should give context
 
-  .outsizeFormContainer .formTab:nth-child(1)   is a P, and ignored in the form
+	SECURITY: CSS cannot change form content, or read it
+	NOTICE: I cannot use nested CSS v4 statements yet, as only 80 something percent support them
 
-https://www.amitmerchant.com/dynamic-progress-bars-using-css/
-https://stackoverflow.com/questions/952861/targeting-only-firefox-with-css 
+    .outsizeFormContainer .formTab:nth-child(1)   is a P, and ignored in the form
+
+* https://www.amitmerchant.com/dynamic-progress-bars-using-css/
+* https://stackoverflow.com/questions/952861/targeting-only-firefox-with-css 
+* https://css-tricks.com/css-target-for-off-screen-designs/
+* https://ishadeed.com/article/css-container-query-guide
+* https://github.com/karlgroves/overlayfactsheet/pull/1189
  */
+.maquetteContainer .maquette { width:1300px; } 
+.maquetteContainer .docs { max-width:inherit; }
+.maquetteContainer details summary h2 { display:inline; } 
+@media screen and (min-width: 1040px) {
+.popOverWidget .maquetteContainer details.docs[open] {
+	width:80%; min-width:350px; max-width:inherit; margin-left: 10%;
+}
+}
+.maquetteContainer {
+    align-items: center;
+}
 
 .outsizeFormContainer { display:block; padding-bottom:3em; height:40em; counter-reset: tab; --noTabs:4; --hardfg: #eee; --actionbg:green; accent-color:#eee; }
 .outsizeFormContainer .formTab { display:inline-block; padding:0.1em; padding-bottom:0; height:calc(100% - 4em); }
