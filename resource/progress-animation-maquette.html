@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/progress-animation-maquette" />
 <meta property="og:description" content="Overview for progress animations/ busy-wait animations; lists some existing options for professional and business use.   A look at maquettes as an example of different progress or wait animations." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Aug 2024, 21:19:47" />
-<meta property="article:modified_time" content="14th of Aug 2024" />
+<meta property="article:published_time" content="26th of Aug 2024, 21:34:28" />
+<meta property="article:modified_time" content="26th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/progress-animation-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Progress animations",
-	"article:published_time":"14th of Aug 2024, 21:19:47", 
-    "article:modified_time":"14th of Aug 2024",
+	"article:published_time":"26th of Aug 2024, 21:34:28", 
+    "article:modified_time":"26th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,11 +51,60 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker addReferences popOverWidget">
+     <div class="blocker popOverWidget">
 <div class="halferWords">
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
-<p>A popular UI interaction is the progress marker.  Thinking from a usability perspective, I do not think they are a good feature.   Everyone would prefer a fast system to one that says <i>“please hold”</i> all the time; and the animation foregrounds the fact that they are waiting.  If you have an average speed system, there may be a short blip while something loads, but a <i>“please hold”</i> notification for 0.5-1s is disruptive to concentration more than supporting.  <br />
+<p>A popular UI interaction is the progress marker.  Thinking from a usability perspective, I do not think they are a good feature.   Everyone would prefer a fast system to one that says <i>“please hold”</i> all the time; and the animation foregrounds the fact that they are waiting.  If you have an average speed system, there may be a short blip while something loads, but a <i>“please hold”</i> notification for 0.5-1s is disruptive to concentration more than supporting.</p>
+
+
+</div>
+<div class="maquetteContainer">
+<div class="maquette">
+	<div class="solidLine">
+	<span class="build1 displacement spin"> A </span>
+	<span class="build2 displacement spin"> B </span>
+	<span class="build3 displacement spin"> C </span>
+	<span class="build4 displacement spin"> <span class="build4inner displacement spinBack"> D </span> </span>
+    </div>
+	<div class="solidLine">	
+	<span class="build1 displacement spinVary"> E </span>
+	<span class="build1 displacement spinBetter"> F </span>
+	<span class="build1 displacement spinVary2X"> G </span>
+	<span class="build1 displacement spinVary10X"> H </span>
+
+	</div>
+	<div class="solidLine">
+	<span class="build5 displacement toneShift"> I </span>
+	<span class="build5 displacement toneShift2"> J </span>
+	<span class="build5 displacement toneShift3"> K </span>
+	<!-- span class="displacement"> <span class="build6"> L </span> </span -->
+	<span class="fixPosition displacement" style="font-size:3em; top:0.35em;">
+	⌛
+	</span>
+	</div> 
+	<div class="solidLine">
+	<span class="fixPosition displacement">M
+	<span class="import1 lightBorder" title="This is using border-image-slice, which stops border-radius from working "> </span>
+	</span> 
+	<span class="fixPosition displacement">N
+	<span class="import2 lightBorder" title="With border-image-slice, but the ::before isn't, so half of it is circular. "> N </span>
+	</span>
+	<span class="fixPosition displacement"> O
+	<span class="import3 lightBorder3" title="With border-image-slice, but the ::before isn't, is using a large border-width.  Animation is based on the angle entry in linear-gradient. "> O </span>
+	</span> 
+	<span class="fixPosition displacement"> P
+	<span class="import4 lightBorder4" title="With border-image-slice, but the ::before isn't; animation based on mutating the colours "> P </span>
+	</span>
+
+</div>
+</div>
+
+<details class="singlePopup withScroll addReferences docs">
+<summary>
+<h4 id="toc0">Technical Notes </h4>
+</summary>
+<p>The legacy-tech <a href="https://www.compart.com/en/unicode/U+231B" target="_blank">hourglass symbol</a> <br />
 If you are designing the UI in a big system, careful use of caching and multi step API can minimise the delays, so there are not that may of them.   A browser on a recent phone or laptop should be able to do most things with little delay.  The most common delays on websites are the negotiation process for displaying adverts, and downloading large frameworks/ images/ sound files.  The ad servers are generally fast, but if there is a bidding process between 20-50 different companies for who wants that user's impression the most, this is iterative process and why it is slower.   None of my employers have gotten revenue from advertising, and it seems bad UX to force users to wait for the adverts that they do not want, YMMV.   For the assets mal-feature, taking Asana as a case study: they have little 3rd party advertising. When you login, the browser blocks for 5-30s to start the interactive GUI.   The delay is greater on slow internet machines, or machines with little RAM.  <br />
 Writing as a UX centric person, if using a ORM slows down your UI, so you need progress indicators; just use/ learn SQL, its pretty much a functional language.</p>
 
@@ -83,7 +132,6 @@ With an adaptive interface, delays could be shown with changing colours, if that
 <b>As this is a maquette, all the code is in this file</b>, for better visibility and portability.   Some handy references <sup><a href="https://css-tricks.com/gradient-borders-in-css/" target="_blank">12</a></sup> <sup><a href="https://codyhouse.co/nuggets/css-gradient-borders" target="_blank">13</a></sup> <sup><a href="https://stackoverflow.com/a/7066176" target="_blank">14</a></sup> <sup><a href="https://stackoverflow.com/questions/23441060/how-to-animate-gradients-using-css" target="_blank">15</a></sup> <sup><a href="https://dev.to/gmeben/animating-gradients-with-pure-css-3bi8" target="_blank">16</a></sup></p>
 
 <p><b>Note:</b> I am just using a circle, as it is easy and light/ few bytes to download.  The animation could be applied to a logo if the preferred visual was a tradition hourglass.   For production use, these should also set the mouse cursor.</p>
-
 
 
 <fieldset class="browserTestingContainer">
@@ -122,41 +170,10 @@ I have never tested on (but for specific geo-markets should do):
 </ul>
 </details>
 </fieldset>
-<div class="solidLine">
-<span class="build1 displacement spin"> A </span>
-<span class="build2 displacement spin"> B </span>
-<span class="build3 displacement spin"> C </span>
-<span class="build4 displacement spin"> <span class="build4inner displacement spinBack"> D </span> </span>
-<span class="build1 displacement spinVary"> E </span>
-<span class="build1 displacement spinBetter"> F </span>
-<span class="build1 displacement spinVary2X"> G </span>
-<span class="build1 displacement spinVary10X"> H </span>
-
-</div>
-<div class="solidLine">
-<span class="build5 displacement toneShift"> I </span>
-<span class="build5 displacement toneShift2"> J </span>
-<span class="build5 displacement toneShift3"> K </span>
-<!-- span class="displacement"> <span class="build6"> L </span> </span -->
-<span class="fixPosition displacement">M
-<span class="import1 lightBorder" title="This is using border-image-slice, which stops border-radius from working "> </span>
-</span> 
-<span class="fixPosition displacement">N
-<span class="import2 lightBorder" title="With border-image-slice, but the ::before isn't, so half of it is circular. "> N </span>
-</span>
-<span class="fixPosition displacement"> O
-<span class="import3 lightBorder3" title="With border-image-slice, but the ::before isn't, is using a large border-width.  Animation is based on the angle entry in linear-gradient. "> O </span>
-</span> 
-<span class="fixPosition displacement"> P
-<span class="import4 lightBorder4" title="With border-image-slice, but the ::before isn't; animation based on mutating the colours "> P </span>
-</span>
-
-<br />The last-but-one version doesn't work in FF, expired MSIE, or old Safari.
+</details>
 </div>
 
-<br />
-I was hoping to do a twist, so the circle looked like the infinity sign.  I can do this via SVG 3d animation, but I can't see how to do this with current CSS4.
-</div>
+
 </div>
 <style>
 /* 
@@ -167,6 +184,7 @@ dev time: english prose 2h, css 3h I think; extra row of CSS reviews +10h
 .solidLine {  text-align: center; white-space:nowrap; overflow-y:clip; overflow-x:scroll; height:7em; }
 .displacement { margin-right:2em; } 
 .displacement:last-child { margin-right:0px; }
+.fixPosition.displacement { margin-right:1.3em; }
 
 .build1 { display:inline-block; width:3em; height:3em; border:black 2px solid; border-radius:50%; border-top-width:6px; }
 .build2 { display:inline-block; width:3em; height:3em; border:black 2px solid; border-radius:50%; border-top-width:6px; border-bottom-width:0px; }
@@ -363,7 +381,7 @@ dev time: english prose 2h, css 3h I think; extra row of CSS reviews +10h
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-26T18:51:06">26th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2023-06-16T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >16th of Jun 2023</time> </span>
 					</span>
@@ -375,8 +393,8 @@ dev time: english prose 2h, css 3h I think; extra row of CSS reviews +10h
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fprogress-animation-maquette" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
-					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
 
@@ -386,6 +404,7 @@ dev time: english prose 2h, css 3h I think; extra row of CSS reviews +10h
 <li class="h4_odd"><a href="#toc0">Context</a></li>
 <li><a href="#toc1">Existing options for work</a></li>
 <li class="h4_odd"><a href="#toc2">Maquette</a></li>
+<li><a href="#toc3">Technical Notes</a></li>
 </menu>
 <br />
 
@@ -413,11 +432,11 @@ dev time: english prose 2h, css 3h I think; extra row of CSS reviews +10h
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-14T21:19:47">14th of Aug 2024, 21:19:47</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-08-26T21:34:28">26th of Aug 2024, 21:34:28</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-26T18:51:06">26th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
 
 </body>
 </html>
