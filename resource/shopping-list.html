@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/shopping-list" />
 <meta property="og:description" content="Maquette, to play with JS/TS tooling" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Aug 2024, 21:19:48" />
-<meta property="article:modified_time" content="14th of Aug 2024" />
+<meta property="article:published_time" content="28th of Aug 2024, 7:21:27" />
+<meta property="article:modified_time" content="27th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/shopping-list" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Shopping list hack",
-	"article:published_time":"14th of Aug 2024, 21:19:48", 
-    "article:modified_time":"14th of Aug 2024",
+	"article:published_time":"28th of Aug 2024, 7:21:27", 
+    "article:modified_time":"27th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -66,9 +66,10 @@ TODO: magic tune selection against some index/DB -->
     <li>Prefer, to be able to host server in LAN only, and have app run in offline mode in the journey and shop.</li>
     <li>Be able to swap lists with my partner.</li>
     <li>Prefer system to be isolated from supermarket systems, as I am unaware of any supermarket system that lets you wander between merchants without friction.</li>
+    <li>After using a standard list tool on my phone, have decent <i>find</i> feature for items in long lists, and <i>find</i> across lists.</li>
     <li>Stretch: to access current floor plan from supermarket, so items can be ordered in “shop order” automatically.</li>
     <li>Stretch: to be able to read barcodes from empty packets, via phone camera.</li>
-    <li>Stretch: have some sort of “list A purchased on $date, check these $items for expiry” view</li>
+    <li>Stretch: have some sort of &quot;$list purchased on $date, check these $items for expiry” view</li>
     <li>❌ Not a goal: stock control for dwelling.</li>
     <li>❌ Not a goal: chat client or selfie interaction. </li>
     <li>❌ Not a goal: user logins.  This is LAN only.  </li>
@@ -85,18 +86,18 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 <h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Aggregated updates <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
     <li><b>UPDATE (will get edited)</b>: I have the basic two screens and a menu; data loads and saves locally; edit, add and delete item work; the swipe interactions work; the design is OK on recent phones that have a larger screen.  It has a persistence API, and state sharing.   I wrote a maquette install script.</li>
-    <li><b>UPDATE start 2023</b>: This has been frozen for a while.  I am adding <i>vitest</i> TDD scripts, as this is the recommended build process, and that I now have to work.   I am also building <a href="https://owenberesford.me.uk/resource/vitest#">vitest</a> Component tests, please see link for details on test framework experience.   It is fairly trivial to convert Jest or Mocha scripts to Vitest ones.  I previously had been doing some hacks on class loading to get around weak JS module in Node, with Vitest and a recent version of Node, I have removed these.</li>
+    <li><b>UPDATE start 2023</b>: This has been frozen for a while.  I am adding <i>vitest</i> unit-tests see <a href="https://owenberesford.me.uk/resource/vitest#">vitest</a>, as this is the recommended build process, and that I now have to work.   I am also building <a href="https://owenberesford.me.uk/resource/storybook#">storybook</a> Component tests, please see link for details on test framework experience.   It is fairly trivial to convert Jest or Mocha scripts to Vitest ones.  I previously had been doing some hacks on class loading to get around weak JS modules in Node, but with Vitest and a recent version of Node, I have removed these.</li>
 </ul>
 
 
 <h2 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." >Retrospective <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
-    <li>In order to complete this project, I have done a survey of build tools (see end).   <del>Tooling for <i>Vue3.2 + typescript</i> is immature and fragile. </del><ins>A bit later, I have tooling for vue3 and Typescript, I did think it was odd that I couldn't get a build process to work on the recommended tool chain</ins>  It is now stable for <i>Vue X and Typescript</i> or <i>React X and Typescript</i>. </li>
-    <li>I added a state library relatively late in the dev process, as I initially didn't have state.  I think I should assume I will get state, so just add <i>vuex</i> etc at the start.</li>
+    <li>In order to complete this project, I have done a survey of build tools (see end).   <del>Tooling for <i>Vue3.2 + typescript</i> is immature and fragile. </del><ins>I have tooling for vue3 and Typescript, I did think it was odd that I couldn't get a build process to work on the recommended tool chain</ins>  It is now stable for <i>Vue X and Typescript</i> or <i>React X and Typescript</i>. </li>
+    <li>I added a state library relatively late in the dev process, as I initially didn't have state.   I think I should assume I will get state, so just add <i>vuex</i> etc at the start.</li>
     <li>I think my 'small project' single CSS file is a sensible process.  Previously where I wasn't the first developer, I was amending SCSS inside SCF files (either Vue or React), but this didn't seem to add anything for the code/ project at hand.   Components that have not been written to be reusable aren't worth trying to reuse.   If you want your app to comply to widely-used presentation standards, there is less need to have tightly localised CSS, e.g. use a colour scheme imported from the user global profile.  </li>
     <li>I am getting experience managing JS of different generations inside the same project.  In this project I am trying to maximise library use, and have more generic things that can be pulled from wide age range of libraries; so am having problems like build tool failures more frequently.</li>
     <li>Some step in the build process, or render process mangles UTF-8 chars in JSX.  If you keep the UTF8 in JS strings they are not mangled; this means UTF8 prose needs by added via “v-html”.</li>
-    <li>I need to better describing PWA process (the English words).</li>
+    <li>I need to be better describing PWA process (the English words).</li>
     <li>As this is opensource, the completed product will have tidy naming.  </li>
     <li>As we have been playing with interaction design on this project; the other massive benefit is that we can hold shopping lists for shops that we visit once every six-months, at low admin cost compared to paper.</li>
     <li>I have no intent to support small-screen phones like an iPhone5, as not needed by target user-group.  That phone was released in 2012 <sup><a href="https://screenrant.com/iphone-apple-release-chronological-order-smartphone/" target="_blank">1</a></sup></li>
@@ -135,8 +136,8 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
     <li>I am building this with a common framework based CSS, an architecture choice.  IMO “the best button styling” is likely to be common to many business problems; and getting it to behave consistently across a heterogeneous browser population is not a dev cost to repeat for each button.  IMO “private CSS per component” only seems to be useful when the CSS is very different from generic business features.  For example if you have a Vue component that renders SVG graphs, it would have many CSS statements correct labeling on axis, and the values on the axis; that other business features will not need, or will contradict.  These atypical Components need private style sheets; most of my components are about data, and have boring CSS.</li>
     <li>A value I was aiming at was better control on swipe events/ swipe code.  I think it would be useful for more mobile centric work in future.   I wanted to get a demo done before I started Swyvl on this; but didn't have time.  </li>
     <li>I would like a /install button, as an example of “clear and simple” UI.  I can build this using cacheStorage, but that forces me to make this a HTTPS service.  </li>
-    <li>As modern JS supports UTF8 and therefore other charsets; I am tending to write “variables with generic software engineering names” in not-English; so it doesn't clash with the keywords which are in English.   If this was a commercial project, I would organise the rest of the dev team to have a language that we held in common.  I think “série:string” is much better than the average US solution of “MyString:string”.  Note IDEs and typed languages are convenient here.   </li>
-    <li>For development, I am using the snakeOil cert that is supplied with vite project.   As it asks you to confirm the cert each time, this is not a complete solution.</li>
+    <li>As modern JS supports UTF-8 and therefore other charsets; I am tending to write “variables with generic software engineering names” in not-English; so it doesn't clash with the keywords which are in English.   If this was a commercial project, I would organise the rest of the dev team to have a language that we held in common.  I think “série:string” is much better than the average US solution of “MyString:string”.  Note IDEs and typed languages are convenient here.   </li>
+    <li>For development, I am using the snakeOil cert that is supplied with Vite project.   As it asks you to confirm the cert each time, this is not a complete solution.</li>
     <li>I tried to remove the default export from the Vue components for aesthetics; but when I do this rollup generated code doesn't work; so I have to use export default.</li>
 </ul>
 
@@ -146,22 +147,21 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 <summary>Discussion on tools, vue3 + typescript</summary>
 <ul class="ulbasic">
     <li>I don't normally foreground a long list of my failures.  However I think these are important notes.</li>
-    <li>I came back to this, I updated <i>vite</i> and <i>vitejs/plugin-vue</i>, added <i>vite-plugin-ts</i> and made a new config.  I now have compilation with tree shaking.  <em>Like a normal person.</em>   My unit-test include a reference count to be able to check number of objects made, and so that trees were shook.  This means I deprecate <em>rollup</em> in this project.   </li>
-    <li>It seems necessary to avoid some older packages, as they do not follow modern conventions.   I am using Typescript as I think that JS needs Types for the scale of development that React and Vue are designed to accommodate.  This exaggerates the need for software engineering process.   </li>
+    <li>I came back to this, I updated <i>vite</i> and <i>vitejs/plugin-vue</i>, added <i>vite-plugin-ts</i> and made a new config.  This is the tool recommended by Ethan You @youyuxi.   I now have compilation with tree shaking <em>like a normal person.</em>   My unit-test include a reference count to be able to check number of objects made, and so that trees were shook.   This means I deprecate the stand-alone <em>rollup</em> for this project.   </li>
+    <li>It seems necessary to avoid some older packages, as they do not follow modern packaging conventions.   I am using Typescript as I think that JS needs Types for the scale of development that React and Vue are designed to accommodate.   This exaggerates the need for software engineering process.   </li>
     <li> .</li>
-    <li><i>vue-cli</i> tooling works; but forces vue2. This uses <i>babel</i>, automagically.</li>
-    <li><i>vite</i> tooling ~ recommended by Ethan You @youyuxi ~  has less features, <del>doesn't seem to like <i>babel</i> or <i>webpack</i> so much</del></li>
-    <li>No <i>ts*</i> tool wants to touch *.vue SCF files.</li>
+    <li><i>vue-cli</i> tooling works; but forces vue2. This uses <i>babel</i> automagically.</li>
+    <li>No <i>ts*</i> tool wants to touch *.vue SCF files ~ in 2022.</li>
     <li><i>vue-tsc</i> exists, but doesn't want to write any JS files. I'm using it to build the d.ts type outline files.</li>
     <li>Tried using <i>tslint</i>, </li>
-    <li>tried <i>browserify, typescriptifier</i>, but the second one was making empty files without anything other than static loader.</li>
+    <li>Tried <i>browserify, typescriptifier</i>, but the second one was making empty files without anything other than static loader.</li>
     <li>Went back to <i>eslint</i> as it supplies better output &amp; have all the linting correct.  </li>
     <li>I have half a solution with <i>esbuild</i>, but still need a thing to convert the SCF files. </li>
-    <li>To compile the Vue files, I have tried <i>vue-template-compiler @vue/compiler-sfc vue-loader@next vue-loader/vueify</i> and <i>vue3-sfc-loader</i>.</li>
+    <li>To compile the Vue files, I have tried <i>vue-template-compiler, @vue/compiler-sfc vue-loader@next, vue-loader/vueify</i> and <i>vue3-sfc-loader</i>.</li>
     <li>Remove esbuild.  To compile *.vue files with typescript and vue3.2, I try <i>rollup</i>, and official plugins.  This fails as it feeds typescript into the JS interpreter.  Iterate on each of the available plugins and config file settings.</li>
     <li>Try again with <i>rollup and rollup-plugin-typescript2</i> (which is not the official plugin). </li>
     <li>Rollup.js is framework for compiling and a bundling.  I'm only using it to transpile/compile the SCF; as it doesn't crash like other tools do.  I'm telling it not to include deps <sup><a href="https://docs.w3cub.com/cheatsheets/rollup.html" target="_blank">1</a></sup>; Rollup.js plugins cannot process “ts-json-object” as that library builds exports.default in a weird ~ but valid ~ fashion.</li>
-    <li>I adjusted the import path, so the bundler didn't complain; however it is now leaving out the class though.</li>
+    <li>I adjusted the import path, so the bundler didn't complain; however it is now leaving out the <i>ts-json-object</i>  class out though.</li>
     <li>I added <i>rollup-plugin-legacy</i> to manipulate the legacy JS code packaging, and <i>@rollup/plugin-replace</i> to edit strings.</li>
     <li>Its not possible to use <i>plugin-replace</i> in the output.plugins; so I tried <i>rollup-plugin-postprocess</i>.</li>
     <li>With the old <i>vue-cli</i>, files named .vue are converted to JS before any other steps are applied (and import paths remapped).   Other tooling keeps fighting this standard. </li>
@@ -171,7 +171,7 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
     <li>To get the server code to link properly, I have added <i>--es-module-specifier-resolution=node</i> to the npm script, and <i>“type”: “module”</i>.</li>
     <li>I was using rollup to covert TS Vue SCF into JS files, as separate files; then doing a second build step to merge everything.  I am having RAM limit crashes on the Node process doing transpilation.  I have increased the heap limit <i>node --max_old_space_size=8184</i>; and its still doing it.  I will change the build process to merge and build; aside from the Vue files; as that will also speed things up; and should side-step 70% of the crashes.</li>
     <li>In order to reduce the heap size crashes, I am doing the services files in a different rollup process.</li>
-    <li>I spent two weeks trying to engineer a solution to get tree shaking to work; during linking/ bundling. I have no solution, I am hand linking so I have a executable, but this is not a solution.</li>
+    <li>@@--I spent two weeks trying to engineer a solution to get tree shaking to work; during linking/ bundling. I have no solution, I am hand linking so I have a executable, but this is not a solution.@@</li>
     <li></li>
 </ul>
 
@@ -184,17 +184,17 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 <ul class="ulbasic">
     <li>I think this book is good <sup><a href="https://www.typescriptlang.org/docs/handbook/2/classes.html" target="_blank">1</a></sup></li>
     <li>A reasonable excuse to limit use of arrow functions in code-to-be-reused <sup><a href="https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1" target="_blank">2</a></sup>. </li>
-    <li>A reasonable excuse to limit default exports <sup><a href="https://www.npmjs.com/package/rollup-plugin-terser" target="_blank">3</a></sup>.   I mostly only do that with components, but hadn't thought about it very much.  This (explicit import encouraged) follows common practice on MVC frameworks in other languages including Perl.   It is safer to not export everything by default; as there are ls likely to be clashes or overwrites (which one depends on import semantics); and in the minima, these will be more visible (<i>I see import blah, so that is why I get “blah defined twice error”</i>)</li>
+    <li>A reasonable excuse to limit default exports <sup><a href="https://www.npmjs.com/package/rollup-plugin-terser" target="_blank">3</a></sup>.   I mostly only do that with components, but hadn't thought about it very much.  This (explicit import encouraged) follows common practice on MVC frameworks in other languages including Perl.   It is safer to not export everything by default; as there are less likely to be clashes or overwrites (which one depends on import semantics); and in the minima, these will be more visible (<i>I see import blah, so that is why I get “blah defined twice error”</i>)</li>
     <li>A better breakdown on unit tests in components.</li>
     <li>Clear use of JS modules; but that is shallow results if you have used Python or something.</li>
     <li>A very simple reference State feature, which on top of JS modules is trivial, but historically didn't work (see other languages again).  I am using Vuex (think like Redux), for larger variables; and to be more standard with common convention.</li>
     <li>Use of arrow functions to not need to use “this” when its not needed (i.e. pure functions which didn't reference local state).</li>
-    <li>Nestjs uses many decorators; these are not technically function calls, and do not want a semi-colon, or have a return value.  Decorators must be turned ON in the tsconfig.json.  </li>
+    <li>Nestjs uses many decorators; in JS these are not technically function calls, and do not want a semi-colon, or have a return value.  Decorators must be turned ON in the tsconfig.json.  </li>
     <li>I have added a few interfaces purely for the TS typing analysis and testing (the source was expecting to run inside a JS engine so doesn't have them).</li>
     <li>As I add unit tests, I am splitting functions abit, and reorganising to avoid any circular dependencies (purely created as I was dumping everything in too few files).</li>
     <li>Operational deployment for Mocha (fast to do), Jest (fairly fast).  “dev-dep” is much larger than would be normal in a commercial project. <b>UPDATE:</b> I am moving these to Vitest to reduce the number of deps.  </li>
     <li>I have pulled serving the front-end code into the API project; to reduce management overheads abit.</li>
-    <li>I have common interfaces like I am a real developer.  I have basic factories to instantiate objects.</li>
+    <li>After more time, I have common interfaces like I am a real OO developer.  I have expanded to basic Factories to instantiate objects.</li>
     <li>I would like to show that I can use an Enum, but haven't worked out where to add this. </li>
     <li>I have added a variodic function.</li>
     <li>I have added a forward declared function. </li>
@@ -236,7 +236,7 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-27T21:49:37">27th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2021-03-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Mar 2021</time> </span>
 					</span>
@@ -248,8 +248,8 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fshopping-list" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
-					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
 
@@ -286,11 +286,11 @@ Writing this code is optional/ doesn't led to employment, but is a useful maquet
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class-"sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-14T21:19:48">14th of Aug 2024, 21:19:48</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-08-28T07:21:27">28th of Aug 2024, 7:21:27</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-27T21:49:37">27th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
 
 </body>
 </html>
