@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/3d-effects-maquette" />
 <meta property="og:description" content="A maquette looking at 3d animation via CSS.   Again this demo only uses HTML5 and CSS no JS.   It loads very quickly, as there is no frameworks to download." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="24th of Aug 2024, 23:07:40" />
-<meta property="article:modified_time" content="24th of Aug 2024" />
+<meta property="article:published_time" content="26th of Aug 2024, 21:34:26" />
+<meta property="article:modified_time" content="26th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/3d-effects-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "3D effects demo/ maquette",
-	"article:published_time":"24th of Aug 2024, 23:07:40", 
-    "article:modified_time":"24th of Aug 2024",
+	"article:published_time":"26th of Aug 2024, 21:34:26", 
+    "article:modified_time":"26th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,20 +51,22 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
-<div class="halferWords popOverWidget">
+     <div class="blocker popOverWidget">
+<div class="halferWords">
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Ambition <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>I looked a company website, and they are highly committed to using JS for animation.   As a maquette, I thought I try to repeat what they had in CSS.   I know precisely how to do this transform in tools that are not a browser.  Also, after a few iterations I could build it in OpenGL (the end of 90s version OpenGL has less sophisticated curve surfaces, so it would take be a bit longer to get curves and blends).   To make most 3d game engine tests, I ought to add some light sources, and have reflections.   I think this is outside of capacity for CSS at present. <br />
 This maquette is also a trial run for the twisting infinity “please hold” I would like to achieve just using CSS, and maybe SVG.</p>
 
 
+</div>
 
-<div class="fancyLogo">
+<div class="maquetteContainer">
+<div class="maquette fancyLogo">
 <ul class="toolBar2">
-<li> <label title="Apply a Slow rotation to the cube."><input type="checkbox" value="rotation" />2D Rotation</label></li>
+<li> <label title="Apply a Slow rotation to the cube."><input type="checkbox" value="rotation" /> Rotation</label></li>
 <li> <label title="Apply a colour blends to the cube, which slightly look like reflection."><input type="checkbox" value="blend" /> Blends</label></li>
-<li> <label title="Apply some colour blends to the background behind the logo."><input type="checkbox" value="bg-blend" /> Defusing background</label></li>
+<li> <label title="Apply some colour blends to the background behind the logo."><input type="checkbox" value="bg-blend" /> Background</label></li>
 <li> <label title="Apply a sheer or twisting effect to the cube."><input type="checkbox" value="sheer" /> Deforming</label></li>
 </ul>
 <br />
@@ -142,7 +144,8 @@ version="1.1" viewBox="-2.5 -0.5 1.0 1.0" xmlns="http://www.w3.org/2000/svg">
 <br />
 <br />
 </div>
-<details class="singlePopup withScroll">
+
+<details class="singlePopup withScroll addReferences docs">
 <summary>
 <h4 id="toc5">Technical Notes </h4>
 </summary>
@@ -161,9 +164,10 @@ version="1.1" viewBox="-2.5 -0.5 1.0 1.0" xmlns="http://www.w3.org/2000/svg">
     <li>ATTRIBUTION: The v1 cube is from <a href="https://freesvg.org/necker-cube" target="_blank">FreeSVG</a>. 2d SVG. <strong>Removed from article.</strong></li>
     <li>ATTRIBUTION: The v2 polys are the basic project from Philip Rideout's <a href="https://github.com/prideout/svg3d" target="_blank">git</a>, <a href="https://prideout.net/blog/" target="_blank">blog</a>, <a href="https://prideout.net/blog/svg_wireframes/filmstrip.svg" target="_blank">prerendered sample</a>.  This is 3d SVG.  I used this for both the triangle based thing and the cube.   </li>
     <li>ATTRIBUTION: The third cube marked “html” is derived from the MDN manual page <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style" target="_blank">1</a></sup>.   The CSS in effect is completely different on this article.</li>
+    <li>I will add the Bézier edition in the next iteration</li>
     <li>There is no object collision detection, there is back-plane clipping (and transparency).   Please note: the SVG transform stack is isolated from the CSS transform stack.</li>
     <li>According to <a href="https://codepen.io/MackFitz/pen/RwBLdXq" target="_blank">a demo</a> I should make the buttons look like haptic UI. </li>
-    <li>As the result of quite a long list of test iterations, animation via SVG tags ONLY works when you have a full file, not inline to the DOM.   The full separate SVG file also requires you to make a separate style sheet.  Having te separate file breaks my other requirements for this demo. </li>
+    <li>As the result of quite a long list of test iterations, animation via SVG tags ONLY works when you have a full file, not inline to the DOM.   The full separate SVG file also requires you to make a separate style sheet.  Having a separate file breaks my other requirements for this demo. </li>
     <li>I have now built 2 of the “CSS only for actions” button bars, I need to libraryise the bar, it takes too long to do it from scratch each time.   Standard CSS frameworks do not work with label + radio “buttons”.</li>
     <li>Actual 3d SVG editors are harder to find than I was expecting</li>
     <li>I can use the CSS <i>transform-play-state</i>, bur I'm not sure this will work with the SVG transforms.   Note the matrix() and rotate3D() CSS transforms include zero coordinates.</li>
@@ -182,6 +186,41 @@ version="1.1" viewBox="-2.5 -0.5 1.0 1.0" xmlns="http://www.w3.org/2000/svg">
 </ul>
 
 
+<br /><br />
+<fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
+<ul class="ulbasic">
+<li> ✔ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔ <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari </li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> ✖ <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> ✖ <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
+</ul>
+
+<details class="singlePopup">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser (erm Ok, not this one)</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset>
 </details>
 </div>
 </div>
@@ -220,7 +259,7 @@ version="1.1" viewBox="-2.5 -0.5 1.0 1.0" xmlns="http://www.w3.org/2000/svg">
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-24T23:05:59">24th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-26T15:07:45">26th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2024-06-20T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >20th of Jun 2024</time> </span>
 					</span>
@@ -271,7 +310,7 @@ version="1.1" viewBox="-2.5 -0.5 1.0 1.0" xmlns="http://www.w3.org/2000/svg">
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-24T23:07:40">24th of Aug 2024, 23:07:40</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-24T23:05:59">24th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-08-26T21:34:26">26th of Aug 2024, 21:34:26</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-26T15:07:45">26th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -305,7 +344,6 @@ details summary h4 { display: inline-block; }
    .fancyLogo polygon.lines 
    { stroke:#000000; stroke-linecap:round; stroke-width:0.01; fill:#ffffff; fill-opacity:0.74; }
 
-/* //////////////////////////////////////////////////////////////////////// */
 .cheetRoot {
   width: 100px; height: 100px; margin: 3em auto 0 auto; transform-style: preserve-3d; transform: rotate3d(1, 1, 1, -20deg);
 
@@ -317,9 +355,7 @@ details summary h4 { display: inline-block; }
 .left   { transform: rotateY(-90deg) translateZ(50px); }
 .top    { transform: rotateX(90deg) translateZ(50px); }
 .bottom { transform: rotateX(-90deg) translateZ(50px); }
-
 }
-/* //////////////////////////////////////////////////////////////////////// */
 
 /* action */
 .fancyLogo:has( input[value="rotation"]:checked ) #fig1 .logo.alive { animation: rotating2d var(--sped) linear infinite; }
@@ -349,7 +385,6 @@ details summary h4 { display: inline-block; }
 .fancyLogo:has( input[value="sheer"]:checked ) #fig2 svg.logo.alive { animation: sheer2 var(--sped) linear infinite; }
 .fancyLogo:has( input[value="sheer"]:checked ) #fig3 .cheetRoot { animation: sheer2 var(--sped) linear infinite; }
 
-
 .fancyLogo:has( input[value="sheer"]:checked ):has( input[value="rotation"]:checked ) #fig1 .logo.alive, 
 .fancyLogo:has( input[value="sheer"]:checked ):has( input[value="rotation"]:checked ) #fig2 .logo.alive 
 	{ animation: merged3d var(--sped) linear infinite; }
@@ -358,12 +393,8 @@ details summary h4 { display: inline-block; }
 
 /* replace with 3d animation */
 @keyframes rotating2d {
-    from {
-        transform: rotate(0deg);    
-    }
-    to {
-        transform: rotate(360deg);  
-    }
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
 }
 
 @keyframes merged3d {
@@ -382,24 +413,15 @@ details summary h4 { display: inline-block; }
 
 @keyframes sheer2 {
 	from { transform: scale(1, 1) rotate3d(1, 1, 1, -20deg); }
-	50% { transform: scale(0.8, 1.3) rotate3d(1, 1, 1, 0deg); }
-	to { transform: scale(1, 1) rotate3d(1, 1, 1, -20deg); }
+	50%  { transform: scale(0.8, 1.3) rotate3d(1, 1, 1, 0deg); }
+	to   { transform: scale(1, 1) rotate3d(1, 1, 1, -20deg); }
 }
 
 @keyframes shiftTwist {
-    from {
-		transform:skew(0);
-    }
-	33% {
-		transform:skew(12.5deg, 0);
-	}
-	66% {
-		transform:skew(-12.5deg, 0);
-	}
-
-    to {
-		transform:skew(0);
-    }
+    from { transform:skew(0); }
+	33%  { transform:skew(12.5deg, 0); }
+	66%  { transform:skew(-12.5deg, 0); }
+    to   { transform:skew(0); }
 }
 </style>
 </div>
