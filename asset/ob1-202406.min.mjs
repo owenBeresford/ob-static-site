@@ -265,7 +265,7 @@ function X(e2, t2 = document, n2 = location) {
   const r2 = t2.querySelector("#shareMenu");
   return r2 && !r2.classList.replace("shareMenuOpen", "shareMenu") && r2.classList.replace("shareMenu", "shareMenuOpen"), false;
 }
-function x(e2, n2 = document, r2 = location, o2 = window) {
+function M(e2, n2 = document, r2 = location, o2 = window) {
   const i2 = n2.querySelector("#mastodonserver");
   let a2 = i2.value;
   const s2 = i2.getAttribute("data-url");
@@ -275,7 +275,7 @@ function x(e2, n2 = document, r2 = location, o2 = window) {
     throw Error("Test passed, for " + a2);
   return n2.querySelector("#popup").close(), o2.open(a2, "_blank"), E(n2, r2) && X(0, n2, r2), false;
 }
-function M(e2 = document, t2 = location, n2 = window) {
+function x(e2 = document, t2 = location, n2 = window) {
   let r2 = e2.querySelector("#shareMenu #mastoTrigger");
   r2 && U(r2, N, e2), r2 = e2.querySelector("#shareGroup .allButtons #mastoTrigger");
   const o2 = function(e3, t3 = "display", n3 = window) {
@@ -285,7 +285,7 @@ function M(e2 = document, t2 = location, n2 = window) {
   }(r2, "display", n2);
   o2 && "none" !== o2 && (r2.addEventListener("click", (t3) => N(t3, e2)), r2.addEventListener("keypress", (t3) => N(t3, e2))), r2 = e2.querySelector("#copyURL"), r2 && U(r2, j, t2), function(e3, t3, n3, r3 = location, o3 = window) {
     e3.addEventListener("click", (e4) => (t3(e4, n3, r3, o3), false)), e3.addEventListener("touch", (e4) => (t3(e4, n3, r3, o3), false)), e3.addEventListener("keypress", (e4) => (t3(e4, n3, r3, o3), false));
-  }(e2.querySelector("#popup #sendMasto"), x, e2, t2, n2);
+  }(e2.querySelector("#popup #sendMasto"), M, e2, t2, n2);
   const i2 = Array.from(e2.querySelectorAll("#shareMenuTrigger, #shareClose"));
   for (const n3 in i2)
     F(i2[n3], X, e2, t2);
@@ -450,14 +450,15 @@ async function G(r2, i2 = document, a2 = location) {
     b(_.gainingElement, e2, i2), t("warn", "Unable to get meta data " + f(_.referencesCache, a2), JSON.stringify(Array.from(u2.headers.entries())));
   }
 }
+const Y = { recent: (/* @__PURE__ */ new Date()).getTime() };
 function K(e2, t2 = document) {
-  if ("Escape" === e2.code || "Escape" === e2.key) {
+  if (console.log("look at this", Y.recent), "Escape" === e2.code || "Escape" === e2.key) {
     const e3 = t2.querySelectorAll("details[open]");
     e3.length && (e3[0].open = false);
   }
   return e2.preventDefault(), false;
 }
-function Y(e2, t2 = document) {
+function V(e2, t2 = document) {
   const n2 = function(e3, t3) {
     if (e3.tagName === t3)
       return e3;
@@ -472,20 +473,25 @@ function Y(e2, t2 = document) {
   }(e2.target, "DETAILS");
   if (n2 && "A" === n2.tagName)
     return true;
-  if (n2) {
-    const e3 = n2;
-    e3 && e3.open ? e3.open = false : e3.open = true;
+  if (e2.preventDefault(), e2.stopPropagation(), n2) {
+    const t3 = n2;
+    if (t3 && t3.open) {
+      if ("SUMMARY" !== e2.target.tagName && null !== t3.querySelector("code"))
+        return false;
+      t3.open = false;
+    } else
+      t3.open = true;
   } else {
     const e3 = t2.querySelector("details[open]");
     e3 && (e3.open = false);
   }
-  return e2.preventDefault(), false;
+  return false;
 }
-let V = { pageInitRun: 0 };
-function z(e2, t2) {
+let z = { pageInitRun: 0 };
+function Q(e2, t2) {
   e2.addEventListener("click", t2), e2.addEventListener("touch", t2), e2.addEventListener("keypress", t2);
 }
-function Q(e2, n2 = document) {
+function Z(e2, n2 = document) {
   let r2 = null, o2 = "";
   if ("string" == typeof e2)
     o2 = e2, r2 = n2.querySelector(e2);
@@ -507,20 +513,20 @@ function Q(e2, n2 = document) {
   const [s2] = n2.querySelectorAll(".tabs-content " + o2);
   s2.classList.add("is-active"), s2.setAttribute("aria-hidden", "false"), r2.parentNode.classList.add("is-active"), r2.setAttribute("aria-hidden", "false");
 }
-function Z() {
-  return V.pageInitRun;
+function ee() {
+  return z.pageInitRun;
 }
 !async function(n2, r2 = document, o2 = location, a2 = window) {
-  V = Object.assign(V, {}, n2);
+  z = Object.assign(z, {}, n2);
   const s2 = e();
-  if (V.pageInitRun)
+  if (z.pageInitRun)
     return void t("warn", "Extra panda should not be run more than once per page");
-  V.pageInitRun = 1;
+  z.pageInitRun = 1;
   const d2 = r2.querySelectorAll(".noJS");
   for (let e2 = 0; e2 < d2.length; e2++)
     d2[e2].classList.remove("noJS");
   const f2 = r2.querySelector("#pageMenu");
-  f2 ? z(f2, (e2) => function(e3 = ".burgerMenu", t2 = document) {
+  f2 ? Q(f2, (e2) => function(e3 = ".burgerMenu", t2 = document) {
     const n3 = t2.querySelector(e3), r3 = t2.querySelector("#pageMenu i");
     n3.getAttribute("data-state") ? (n3.classList.remove("burgerMenuOpen"), n3.setAttribute("data-state", ""), r3.classList.add("fa-ob1burger"), r3.classList.remove("fa-cancel")) : (n3.classList.add("burgerMenuOpen"), n3.setAttribute("data-state", "1"), r3.classList.remove("fa-ob1burger"), r3.classList.add("fa-cancel"));
   }(".burgerMenu", r2)) : t("info", "This URL '" + o2.pathname + "' has no burger menu"), function(e2 = document, t2 = window) {
@@ -540,7 +546,7 @@ function Z() {
       t3.classList.remove("bigScreenOnly"), n3.push("<li>"), n3.push(t3.outerHTML), n3.push("</li>"), o3[e3].getAttribute("id") && o3[e3].setAttribute("id", "old" + o3[e3].getAttribute("id"));
     }
     n3.unshift('<nav><div class="shareMenu" id="shareMenu"><menu id="mobileMenu">'), n3.push("</menu></div></nav>"), b("#navBar", n3.join("\n"), e2);
-  }(r2, o2), M(r2, o2, a2);
+  }(r2, o2), x(r2, o2, a2);
   const p2 = null !== r2.querySelector(".addReferences");
   O(p2, r2), function(e2, t2 = document) {
     const n3 = S(true, t2);
@@ -568,8 +574,8 @@ function Z() {
   }(r2), function(e2 = document) {
     const n3 = Array.from(e2.querySelectorAll(".popOverWidget details"));
     n3.length && (t("info", "Modal widget found, extra UI features added"), n3.forEach(function(e3) {
-      e3.addEventListener("click", Y);
-    }), e2.body.addEventListener("keydown", K));
+      e3.addEventListener("click", V);
+    }), e2.body.addEventListener("click", V), e2.body.addEventListener("keydown", K));
   }(r2), L(1040, r2, o2, a2), !E(r2, o2) && "/resource/home" !== o2.pathname && r2.querySelectorAll(".reading").length < 2 && function(n3, r3 = document) {
     const o3 = /[ \t\n\r.(),~]/g, i2 = Object.assign({}, { timeFormat: "m", dataLocation: ".blocker", target: "#shareGroup", wordPerMin: 275, codeSelector: "code", refresh: false, debug: e() }, n3), a3 = i2.dataLocation + " img, " + i2.dataLocation + " picture, " + i2.dataLocation + " object";
     let s3 = u(r3.querySelector(i2.dataLocation)).split(o3).filter((e2) => e2).length / i2.wordPerMin;
@@ -594,7 +600,7 @@ function Z() {
     for (let t2 = 0; t2 < e2.length; t2++) {
       const n3 = e2[t2].querySelectorAll(".tab-title a");
       for (let e3 = 0; e3 < n3.length; e3++)
-        z(n3[e3], Q);
+        Q(n3[e3], Z);
     }
   }
   if (o2.pathname.match("group-")) {
@@ -611,9 +617,9 @@ function Z() {
       }
       throw new Error("KLAXON, KLAXON, I do not know how to build an adjacent list for " + t2.href);
     }(null, o2, r2);
-    e2 && await W({ group: e2, debug: s2, runFetch: "adjacentRunFetch" in V ? V.adjacentRunFetch : l }, r2, o2);
+    e2 && await W({ group: e2, debug: s2, runFetch: "adjacentRunFetch" in z ? z.adjacentRunFetch : l }, r2, o2);
   } else {
-    E(r2, o2) ? await G({ debug: s2, renumber: 1, runFetch: "mobileRunFetch" in V ? V.mobileRunFetch : l }, r2, o2) : await T({ debug: s2, runFetch: "desktopRunFetch" in V ? V.desktopRunFetch : l, renumber: 1 }, r2, o2);
+    E(r2, o2) ? await G({ debug: s2, renumber: 1, runFetch: "mobileRunFetch" in z ? z.mobileRunFetch : l }, r2, o2) : await T({ debug: s2, runFetch: "desktopRunFetch" in z ? z.desktopRunFetch : l, renumber: 1 }, r2, o2);
     const e2 = function(e3, t2 = document) {
       let n3 = t2.querySelector(e3);
       return n3 ? (n3 = n3.getAttribute("data-group"), n3 ? (n3 = n3.split(","), n3 = n3.map((e4, t3) => e4.trim()), "XXX" === n3[0] && n3.shift(), [...n3]) : []) : [];
@@ -622,13 +628,13 @@ function Z() {
       t("info", "This URL '" + o2.pathname + "' has no Adjacent groups defined.");
     else
       for (let t2 = 0; t2 < e2.length; t2++)
-        await W({ group: e2[t2], debug: s2, iteration: t2, count: e2.length, runFetch: "adjacentRunFetch" in V ? V.adjacentRunFetch : l }, r2, o2);
+        await W({ group: e2[t2], debug: s2, iteration: t2, count: e2.length, runFetch: "adjacentRunFetch" in z ? z.adjacentRunFetch : l }, r2, o2);
   }
   "function" == typeof document.pageStartup ? document.pageStartup() : t("info", "No article specific scripting found, (it may load manually ATF)");
 }();
 export {
   b as appendIsland,
-  Z as hasBeenRun,
+  ee as hasBeenRun,
   E as isMobile,
   t as log,
   l as runFetch
