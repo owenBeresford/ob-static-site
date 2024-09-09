@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/better-ux-forms" />
 <meta property="og:description" content="What epitomises excellent UX forms? This maquette delves into form interactions as an experience with an analysis of good forms, along with dark UX patterns. Finally, I propose that forms are built with CSS to improve accessibility." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Aug 2024, 21:19:42" />
-<meta property="article:modified_time" content="14th of Aug 2024" />
+<meta property="article:published_time" content="6th of Sep 2024, 12:46:20" />
+<meta property="article:modified_time" content="28th of Aug 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/better-ux-forms" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Better UX forms",
-	"article:published_time":"14th of Aug 2024, 21:19:42", 
-    "article:modified_time":"14th of Aug 2024",
+	"article:published_time":"6th of Sep 2024, 12:46:20", 
+    "article:modified_time":"28th of Aug 2024",
     "article:section":"technology",
 
     "author": {
@@ -150,12 +150,13 @@ If there is a bidding UI, supplying the user with fresh information about availa
         <li>` body { --extraInput:“none”; } ` </li>
         <li>` select.withOther option[value=“other”]:selected { --extraInput:“block”; } `</li>
         <li>` input.withOther, label.withOther { display:var(--extraInput);  } `</li>
+        <li><strong>DISFUNCTIONAL</strong>: CSS isn't allowed to access or modify user input for security reasons.</li>
         <li>“Paranoia first development” says to add and remove a “disabled” flag on the text input, but I can't do that via CSS <sup><a href="https://medium.com/@hayavuk/disabling-form-controls-in-html-5451e81bb1a8" target="_blank">9</a></sup>.   The disabled flag would stop the input being sent to the server, so allowing the server logic to be simpler and hopefully with less errors.</li>
     </ul></li>
     <li>CSS selector to style-up form uploads <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/::file-selector-button" target="_blank">10</a></sup> <sup><a href="https://dbushell.com/2024/03/10/css-button-styles-you-might-not-know/" target="_blank">11</a></sup><ul class="ulbasic">
         <li>` input[type=“file”]::file-selector-button `  </li>
         <li>Please set <i>input[type=file].accept</i> it means the UI is more informative</li>
-        <li>I think JS to allow drag and drop files is acceptable, if its not the exclusive access path .  Also, the demo at the end of <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file" target="_blank">12</a></sup> is nice for desktop peoples.  </li>
+        <li>I think JS to allow drag and drop files is acceptable, if its not the exclusive access path .  Also, the demo at the end of <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file" target="_blank">12</a></sup> is nice for desktop users.  </li>
     </ul></li>
     <li>A CSS based form blocker, to be in effect until everything is filled in.  In practice the plain HTML attributes should deliver this effect, but CSS extras allows branding to be applied <sup><a href="https://uxpickle.com/disable-the-submit-button-if-form-validation-is-incomplete/" target="_blank">13</a></sup> <sup><a href="https://ux.stackexchange.com/questions/73728/should-form-continue-button-be-disabled-if-validation-is-incomplete" target="_blank">14</a></sup>, the control on the submit button was innovated via <sup><a href="https://www.codewithfaraz.com/questions/10/how-can-css-variables-be-used-to-dynamically-generate-attribute-selectors" target="_blank">15</a></sup><ul class="ulbasic">
         <li>` body { --formEnabled:“notAForm”; } `</li>
@@ -167,11 +168,12 @@ If there is a bidding UI, supplying the user with fresh information about availa
         <li>and disable mouse interaction with `pointer-events:none `</li>
     </ul></li>
     <li>I have looked but been unable to build a formatting instruction to apply gaps into text for credit card numbers.  Obviously this can be done via JS, probably standard widgets .<ul class="ulbasic">
-        <li>A traditional solution (ie 2005 era) is to use multiple text inputs, but then there needs to be a thing to automatically jump to the next input ~ JS.</li>
+        <li>A traditional solution (i.e. 2005 era) is to use multiple text inputs, but then there needs to be a thing to automatically jump to the next input ~ JS.</li>
         <li><strong>TEST THIS</strong>. A list of CSS features that I can't currently apply to solve the problem <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-fill" target="_blank">16</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing" target="_blank">17</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/hyphenate-limit-chars" target="_blank">18</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow?" target="_blank">19</a></sup> </li>
     </ul></li>
     <li>A selector to display a card vendor logo, based on the first 3 digits of the card.  <ul class="ulbasic">
         <li>` form input.credit[value^=“44”]:before { content:“Visa &quot;; } `</li>
+        <li><strong>DISFUNCTIONAL</strong>: CSS isn't allowed to access or modify user input for security reasons.</li>
         <li>Add further card vendors, and add further details to style up the card logo, paying attention to its width.  A nice site that lists banks that are on the credit card exchange <sup><a href="https://www.creditcardvalidator.org/" target="_blank">20</a></sup>, a list of vendors 'in English' <sup><a href="https://www.forbes.com/uk/advisor/credit-cards/credit-card-companies/" target="_blank">21</a></sup>.   A list of US vendors <sup><a href="https://www.chargeflow.io/blog/bank-identification-numbers-bin-the-backbone-of-payment-processing" target="_blank">22</a></sup> <sup><a href="https://medium.com/@nitinfication/behind-the-digits-understanding-the-structure-of-credit-card-numbers-fbd845c9d632" target="_blank">23</a></sup>, CC are most common in the US, and they invented them.   The second link describes the Luln verification, but I don't think that is practical in CSS.  Ok, I could <sup><a href="https://css-tricks.com/logical-operations-with-css-variables/" target="_blank">24</a></sup>, but I think that is misplaced effort.</li>
     </ul></li>
 </ul>
@@ -215,7 +217,7 @@ If there is a bidding UI, supplying the user with fresh information about availa
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>
+						<span>Edited <time datetime="2024-08-28T08:11:08">28th of Aug 2024</time>
 						</span>
 						<span>Created <time datetime="2024-03-07T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >7th of Mar 2024</time> </span>
 					</span>
@@ -227,8 +229,8 @@ If there is a bidding UI, supplying the user with fresh information about availa
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbetter-ux-forms" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
-					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
 
@@ -264,11 +266,11 @@ If there is a bidding UI, supplying the user with fresh information about availa
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-14T21:19:42">14th of Aug 2024, 21:19:42</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-09-06T12:46:20">6th of Sep 2024, 12:46:20</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-28T08:11:08">28th of Aug 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
 
 </body>
 </html>
