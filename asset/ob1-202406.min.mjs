@@ -137,7 +137,7 @@ function L(e2 = 1040, t2 = document, n2 = location, r2 = window) {
   }(n2, r2) > e2) {
     const e3 = Array.from(t2.querySelectorAll(".maquetteContainer details"));
     for (let t3 = 0; t3 < e3.length; t3++)
-      e3[t3].classList.contains("singlePopup") || (e3[t3].open = true);
+      e3[t3].classList.contains("singlePopup") || e3[t3].classList.contains("screenDocs") || (e3[t3].open = true);
   }
 }
 function R(e2) {
@@ -410,7 +410,7 @@ async function G(r2, i2 = document, a2 = location) {
   const u2 = await _.runFetch(f(_.referencesCache, a2), false);
   if (u2.ok && Array.isArray(u2.body)) {
     const e2 = function(e3) {
-      let t2 = '<ol class="mobileBiblio">';
+      let t2 = '<aside role="footnote"><ol class="mobileBiblio">';
       for (const n2 in e3)
         t2 += `<li>
 <a href="${e3[n2].url}"> 
@@ -420,7 +420,7 @@ async function G(r2, i2 = document, a2 = location) {
 </a>
 </li>
 `;
-      return t2 += "</ol>", t2;
+      return t2 += "</ol></aside>", t2;
     }(function(e3) {
       const t2 = ["[No author]", "Resource doesn't set a description tag.", "[No date]"], n2 = [];
       for (const r3 in e3) {
@@ -450,15 +450,14 @@ async function G(r2, i2 = document, a2 = location) {
     b(_.gainingElement, e2, i2), t("warn", "Unable to get meta data " + f(_.referencesCache, a2), JSON.stringify(Array.from(u2.headers.entries())));
   }
 }
-const Y = { recent: (/* @__PURE__ */ new Date()).getTime() };
-function K(e2, t2 = document) {
-  if (console.log("look at this", Y.recent), "Escape" === e2.code || "Escape" === e2.key) {
-    const e3 = t2.querySelectorAll("details[open]");
-    e3.length && (e3[0].open = false);
+function Y(e2, t2 = document) {
+  if ("Escape" === e2.code || "Escape" === e2.key) {
+    const n2 = t2.querySelectorAll("details[open]");
+    return n2.length && (n2[0].open = false), e2.preventDefault(), false;
   }
-  return e2.preventDefault(), false;
+  return true;
 }
-function V(e2, t2 = document) {
+function K(e2, t2 = document) {
   const n2 = function(e3, t3) {
     if (e3.tagName === t3)
       return e3;
@@ -467,31 +466,35 @@ function V(e2, t2 = document) {
         return e3;
       if ("BODY" === e3.tagName)
         return;
+      if (e3.classList.contains("maquette"))
+        return;
       e3 = e3.parentElement;
     }
     return e3;
   }(e2.target, "DETAILS");
   if (n2 && "A" === n2.tagName)
     return true;
-  if (e2.preventDefault(), e2.stopPropagation(), n2) {
+  if (n2) {
     const t3 = n2;
-    if (t3 && t3.open) {
+    if (e2.preventDefault(), e2.stopPropagation(), t3 && t3.open) {
       if ("SUMMARY" !== e2.target.tagName && null !== t3.querySelector("code"))
         return false;
       t3.open = false;
     } else
       t3.open = true;
   } else {
-    const e3 = t2.querySelector("details[open]");
-    e3 && (e3.open = false);
+    const n3 = t2.querySelector("details[open]");
+    if (!n3)
+      return true;
+    e2.preventDefault(), e2.stopPropagation(), n3.open = false;
   }
   return false;
 }
-let z = { pageInitRun: 0 };
-function Q(e2, t2) {
+let V = { pageInitRun: 0 };
+function z(e2, t2) {
   e2.addEventListener("click", t2), e2.addEventListener("touch", t2), e2.addEventListener("keypress", t2);
 }
-function Z(e2, n2 = document) {
+function Q(e2, n2 = document) {
   let r2 = null, o2 = "";
   if ("string" == typeof e2)
     o2 = e2, r2 = n2.querySelector(e2);
@@ -513,20 +516,20 @@ function Z(e2, n2 = document) {
   const [s2] = n2.querySelectorAll(".tabs-content " + o2);
   s2.classList.add("is-active"), s2.setAttribute("aria-hidden", "false"), r2.parentNode.classList.add("is-active"), r2.setAttribute("aria-hidden", "false");
 }
-function ee() {
-  return z.pageInitRun;
+function Z() {
+  return V.pageInitRun;
 }
 !async function(n2, r2 = document, o2 = location, a2 = window) {
-  z = Object.assign(z, {}, n2);
+  V = Object.assign(V, {}, n2);
   const s2 = e();
-  if (z.pageInitRun)
+  if (V.pageInitRun)
     return void t("warn", "Extra panda should not be run more than once per page");
-  z.pageInitRun = 1;
+  V.pageInitRun = 1;
   const d2 = r2.querySelectorAll(".noJS");
   for (let e2 = 0; e2 < d2.length; e2++)
     d2[e2].classList.remove("noJS");
   const f2 = r2.querySelector("#pageMenu");
-  f2 ? Q(f2, (e2) => function(e3 = ".burgerMenu", t2 = document) {
+  f2 ? z(f2, (e2) => function(e3 = ".burgerMenu", t2 = document) {
     const n3 = t2.querySelector(e3), r3 = t2.querySelector("#pageMenu i");
     n3.getAttribute("data-state") ? (n3.classList.remove("burgerMenuOpen"), n3.setAttribute("data-state", ""), r3.classList.add("fa-ob1burger"), r3.classList.remove("fa-cancel")) : (n3.classList.add("burgerMenuOpen"), n3.setAttribute("data-state", "1"), r3.classList.remove("fa-ob1burger"), r3.classList.add("fa-cancel"));
   }(".burgerMenu", r2)) : t("info", "This URL '" + o2.pathname + "' has no burger menu"), function(e2 = document, t2 = window) {
@@ -574,8 +577,8 @@ function ee() {
   }(r2), function(e2 = document) {
     const n3 = Array.from(e2.querySelectorAll(".popOverWidget details"));
     n3.length && (t("info", "Modal widget found, extra UI features added"), n3.forEach(function(e3) {
-      e3.addEventListener("click", V);
-    }), e2.body.addEventListener("click", V), e2.body.addEventListener("keydown", K));
+      e3.addEventListener("click", K);
+    }), e2.body.addEventListener("click", K), e2.body.addEventListener("keydown", Y));
   }(r2), L(1040, r2, o2, a2), !E(r2, o2) && "/resource/home" !== o2.pathname && r2.querySelectorAll(".reading").length < 2 && function(n3, r3 = document) {
     const o3 = /[ \t\n\r.(),~]/g, i2 = Object.assign({}, { timeFormat: "m", dataLocation: ".blocker", target: "#shareGroup", wordPerMin: 275, codeSelector: "code", refresh: false, debug: e() }, n3), a3 = i2.dataLocation + " img, " + i2.dataLocation + " picture, " + i2.dataLocation + " object";
     let s3 = u(r3.querySelector(i2.dataLocation)).split(o3).filter((e2) => e2).length / i2.wordPerMin;
@@ -600,7 +603,7 @@ function ee() {
     for (let t2 = 0; t2 < e2.length; t2++) {
       const n3 = e2[t2].querySelectorAll(".tab-title a");
       for (let e3 = 0; e3 < n3.length; e3++)
-        Q(n3[e3], Z);
+        z(n3[e3], Q);
     }
   }
   if (o2.pathname.match("group-")) {
@@ -617,9 +620,9 @@ function ee() {
       }
       throw new Error("KLAXON, KLAXON, I do not know how to build an adjacent list for " + t2.href);
     }(null, o2, r2);
-    e2 && await W({ group: e2, debug: s2, runFetch: "adjacentRunFetch" in z ? z.adjacentRunFetch : l }, r2, o2);
+    e2 && await W({ group: e2, debug: s2, runFetch: "adjacentRunFetch" in V ? V.adjacentRunFetch : l }, r2, o2);
   } else {
-    E(r2, o2) ? await G({ debug: s2, renumber: 1, runFetch: "mobileRunFetch" in z ? z.mobileRunFetch : l }, r2, o2) : await T({ debug: s2, runFetch: "desktopRunFetch" in z ? z.desktopRunFetch : l, renumber: 1 }, r2, o2);
+    E(r2, o2) ? await G({ debug: s2, renumber: 1, runFetch: "mobileRunFetch" in V ? V.mobileRunFetch : l }, r2, o2) : await T({ debug: s2, runFetch: "desktopRunFetch" in V ? V.desktopRunFetch : l, renumber: 1 }, r2, o2);
     const e2 = function(e3, t2 = document) {
       let n3 = t2.querySelector(e3);
       return n3 ? (n3 = n3.getAttribute("data-group"), n3 ? (n3 = n3.split(","), n3 = n3.map((e4, t3) => e4.trim()), "XXX" === n3[0] && n3.shift(), [...n3]) : []) : [];
@@ -628,13 +631,13 @@ function ee() {
       t("info", "This URL '" + o2.pathname + "' has no Adjacent groups defined.");
     else
       for (let t2 = 0; t2 < e2.length; t2++)
-        await W({ group: e2[t2], debug: s2, iteration: t2, count: e2.length, runFetch: "adjacentRunFetch" in z ? z.adjacentRunFetch : l }, r2, o2);
+        await W({ group: e2[t2], debug: s2, iteration: t2, count: e2.length, runFetch: "adjacentRunFetch" in V ? V.adjacentRunFetch : l }, r2, o2);
   }
   "function" == typeof document.pageStartup ? document.pageStartup() : t("info", "No article specific scripting found, (it may load manually ATF)");
 }();
 export {
   b as appendIsland,
-  ee as hasBeenRun,
+  Z as hasBeenRun,
   E as isMobile,
   t as log,
   l as runFetch

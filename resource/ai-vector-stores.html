@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Vector stores for LLM / AI</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="The article compiles as much information as I can cram about Vector stores and Vector DB.  This text has a focus on architectures and algorithms, so that the article remains relevant." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Vector stores for LLM / AI">
+<meta itemprop="description" content="The article compiles as much information as I can cram about Vector stores and Vector DB.  This text has a focus on architectures and algorithms, so that the article remains relevant.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Vector stores for LLM / AI">
+<meta name="twitter:description" content="The article compiles as much information as I can cram about Vector stores and Vector DB.  This text has a focus on architectures and algorithms, so that the article remains relevant.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Vector stores for LLM / AI" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ai-vector-stores" />
+<meta property="og:description" content="The article compiles as much information as I can cram about Vector stores and Vector DB.  This text has a focus on architectures and algorithms, so that the article remains relevant." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="17th of Sep 2024, 14:43:40" />
+<meta property="article:modified_time" content="17th of Sep 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/ai-vector-stores" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Vector stores for LLM / AI",
+	"article:published_time":"17th of Sep 2024, 14:43:40", 
+    "article:modified_time":"17th of Sep 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences">
+<div class="halferWords">
+<p class="buttonBar"> 
+<span href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithm, its best practices, and common implementations." ><strike>LLM Notes</strike> </span>
+<a href="/resource/ai-retrieval-augmented-generation" class="button" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</a>
+<span href="/resource/ai-vector-stores" class="button disabled" title="This article. Examines the specialised storage needed for LLM data.">Vector stores </span>
+<a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
+<span href="/resource/ai-tune-llm" class="button" title="TBC.">Tuning LLM </span>
+</p>
+</div>
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro &amp; theory <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>If you start with loose data made by a human, and you need to search with it or against it, then a traditional RDB isn't great technology.   But if you spend more time on loading the data into a VectorDB, better grade of search can be achieved.  Quite a few search engines built a version of vector search a long time ago.<br />
+To service these, there is a large group of data storage engines that I currently am learning about, so I am discovering.   In this article and the attached ones, it is necessary to avoid articles made via AI #leSigh.   These are currently used for LLM-based Chatbots (etc).   In the following paragraph Types are capitalised, if I make them italic as in other articles, most of the paragraph would be in italic.   A Vector-store is just software to store Vectors dot dot dot.   A Vector ~ when used for AI ~ is an Array of Floats <sup><a href="https://www.ibm.com/topics/vector-database" target="_blank">1</a></sup> ~ <sub>this doc is long, but has no internal ids, so I can't reference “pages”</sub>.   Each Float represents a position in a Dimension, and is supposed to model the meaning of the source text, in a fashion that associates random letter / Char Strings which are similar things ~ e.g., a car is similar to a taxi and a truck <sup><a href="https://thenewstack.io/how-large-language-models-fuel-the-rise-of-vector-databases/" target="_blank">2</a></sup>, but textual based analysis can't tell you that.   Notes say the only valuable Vectors are non-zero and are Dense.   I guess they must be a SparseArray, or it wouldn't be possible not to store the zeros, OR the Dimensions are set in advance, and it's a large Struct.   TODO: I should read source code to confirm this.<br />
+According to <sup><a href="https://www.ciopages.com/vector-databases/" target="_blank">3</a></sup> Vector DB are sometimes used for 3D model data, or geometric information.  They also state fraud detection, but graph databases are a better structure for that.  They do not mention any dedicated Vector stores, favouring pgVector, MongoDB arrays and similar.   The long text <sup><a href="https://www.ibm.com/topics/vector-database" target="_blank">4</a></sup> offers LLM backing and search indices.   According to <sup><a href="https://myscale.com/blog/vector-store-vs-vector-database-comparison-guide/" target="_blank">5</a></sup>, there are Vector DB and Vector Stores <sup><a href="https://myscale.com/blog/vector-store-vs-vector-database-comparison-guide/" target="_blank">6</a></sup> <sup><a href="https://learn.microsoft.com/en-us/azure/search/vector-store" target="_blank">7</a></sup> <sup><a href="https://medium.com/predict/vector-store-anlysis-exploring-popular-solutions-63eba05f27a7" target="_blank">8</a></sup>, and most people will want the DB as they gain from the extra features.  Simplicity will help the remaining users as the need <del>giga-scale</del><ins>tera-scale</ins> operations (same principal as ColumnDB).   <sup><a href="https://malaikannan.github.io/2024/08/31/VectorDB/" target="_blank">9</a></sup> observes that “capacity” for Vector searches isn't the same quality as “built and optimised for” Vector searches ~ although the PG team release slowly and optimise a lot.</p>
+
+
+<div class="pullout">
+<p>SIDE TRACK: There is an old service called Wordnet that had some scheme to map words to more generic versions, like a hierarchical database.   <a href="http://wordnetweb.princeton.edu/perl/webwn" target="_blank">wordnet</a> ~ warn HTTP link <sup><a href="https://wordnet.princeton.edu/" target="_blank">1</a></sup> <sup><a href="https://direct.mit.edu/books/edited-volume/1928/WordNetAn-Electronic-Lexical-Database" target="_blank">2</a></sup> <sup><a href="http://wordnet-online.com/" target="_blank">3</a></sup>.   Official releases of Wordnet <sup><a href="https://wordnet.princeton.edu/download/current-version" target="_blank">4</a></sup>, and there will probably be a wrapper library in your favourite scripting language.  This project has been running since 1985, initially in en_US, but now supports 200 languages (ref: jump to wiki below).   The first edition was written in Perl, and I see L Wall's / T Christiansen's style all over this project.   People who like words-about-words will be very happy with this <a href="https://en.wikipedia.org/wiki/WordNet" target="_blank">wiki</a> article.   The data in Wordnet is put into a framework with a rigid high-level Semantic Structure.   Every physical object word extends Object eventually.   Every adjective is eventually forming an aspect of a generic base opposing pair (e.g. hot &lt;==&gt; cold etc).   Verbs are also stored in specificness Trees <sup><a href="https://wordnet.princeton.edu/" target="_blank">5</a></sup>, but they didn't mention how many root nodes (UPDATE a `grep` shows 15 base Verbs).</p>
+
+<p>I don't think Wordnet is used for Vectorisation.</p>
+
+
+</div>
+<p>Approximate matching for Floats is less advanced than for Strings.  Vector stores generically use an NNS <sup><a href="https://en.wikipedia.org/wiki/Nearest_neighbor_search" target="_blank">1</a></sup>.   Semantic matching via the Vectors is expressed numerically as the numbers of each vector being similar to each other <sup><a href="https://thenewstack.io/how-large-language-models-fuel-the-rise-of-vector-databases/" target="_blank">2</a></sup>.   Faster databases favour ANN <sup><a href="https://arxiv.org/html/2404.19284v2" target="_blank">3</a></sup> <sup><a href="https://www.elastic.co/blog/understanding-ann" target="_blank">4</a></sup> <sup><a href="https://ieeexplore.ieee.org/document/9942356/metrics#metrics" target="_blank">5</a></sup> to cull the irrelevant data faster.   A better level of detail, described in <sup><a href="https://zilliz.com/learn/advanced-querying-techniques-in-vector-databases" target="_blank">6</a></sup> <sup><a href="https://www.codesmith.io/blog/vector-databases-deep-dive" target="_blank">7</a></sup> is HNSW (Hierarchical navigable small world) <sup><a href="https://en.wikipedia.org/wiki/Hierarchical_navigable_small_world" target="_blank">8</a></sup>, IVF (Inverted File Index) <sup><a href="https://towardsdatascience.com/similarity-search-with-ivfpq-9c6348fd4db3" target="_blank">9</a></sup>, ANNOY (Approximate Nearest Neighbours Oh Yeah) <sup><a href="https://www.activeloop.ai/resources/glossary/annoy-approximate-nearest-neighbors-oh-yeah/" target="_blank">10</a></sup>.   A comparison list of algorithms <sup><a href="https://medium.com/kx-systems/how-vector-databases-search-by-similarity-a-comprehensive-primer-c4b80d13ce63" target="_blank">11</a></sup> <sup><a href="https://medium.com/@serkan_ozal/vector-similarity-search-53ed42b951d9" target="_blank">12</a></sup>.   One of the optimisation strategies is to organise the data via a BSP <sup><a href="https://en.wikipedia.org/wiki/Binary_space_partitioning" target="_blank">13</a></sup> ~ which for me is a well-known work-in-advance algorithm from the 80-90s.   I saw a lecture on Gaussian splatting <sup><a href="https://en.wikipedia.org/wiki/Gaussian_splatting" target="_blank">14</a></sup> as a faster approximation than BSP ~ which was designed as a pre-process step.   One of the common algorithms for comparing batches of Vectors e.g. <sup><a href="https://rdrr.io/cran/conText/man/nns_ratio.html" target="_blank">15</a></sup> <sup><a href="https://www.nieveconsulting.com/blog/demystifying-semantic-search-step-by-step-semantic-search-engine-implementation/" target="_blank">16</a></sup> is Cosine similarity.   This has many names, please see <sup><a href="https://en.wikipedia.org/wiki/Cosine_similarity" target="_blank">17</a></sup>. A similar algorithm that could be used is Jaccard <sup><a href="https://en.wikipedia.org/wiki/Jaccard_index" target="_blank">18</a></sup>, which was discovered several times before the internet was common, so has several names.  None of the examples that I see online include negative numbers, BUT if you are using cosine curves, 50% of the “number volume” is negative, discussed in <sup><a href="https://www.quora.com/What-should-I-do-if-I-got-negative-values-for-vectors" target="_blank">19</a></sup>.   I think the average representation of a Vector is disingenuous, the scalar of each dimension is shown, but the vector isn't (in the most simple model, it would be a array offset).  If you have an 100 item array and the first 30 items are unused for “king of hearts card”, the empty slots are needed to differentiate from “oyster farm” which has 30 empty slots at the end of the storage array, regardless about when the used slots have the same values.<br />
+Vector DBs often can automatically tokenise a query string into Vectors performing a search.  According to <sup><a href="https://stackoverflow.blog/2023/10/09/from-prototype-to-production-vector-databases-in-generative-ai-applications/" target="_blank">20</a></sup>, Vector DB often supplements the Vector search with traditional textual / lexical searches.   Getting data on how VectorDBs work <sup><a href="https://malaikannan.github.io/2024/08/31/VectorDB/" target="_blank">21</a></sup> <sup><a href="https://www.ibm.com/topics/vector-search" target="_blank">22</a></sup> mentions that VectorDB have different indexes:  For a high-granularity low-level review of comparing numbers ~ measuring speed ~ some process to precisely understand the hardware being used is essential, some discussion on register types <br />
+<sup><a href="https://stackoverflow.com/questions/2550281/floating-point-vs-integer-calculations-on-modern-hardware" target="_blank">23</a></sup> <sup><a href="https://superuser.com/questions/1121419/why-separate-floating-point-registers-intel-x64-processors" target="_blank">24</a></sup>.  As a more advanced discussion on hardware, some algorithms are fast as they align with the design of hardware <sup><a href="https://medium.com/@kumon/similarity-search-scann-and-4-bit-pq-ab98766b32bd" target="_blank">25</a></sup> specifically SIMD <sup><a href="https://en.wikipedia.org/wiki/Single_instruction,_multiple_data" target="_blank">26</a></sup>.   When the VectorDB needs to compare <del>millions</del><ins>trillions</ins> of numbers (Vectors) to return the adjacent ones, the registers will have large impact.  During 2020 Google released some OSS with an implementation for ScaNN Vector search <a href="https://github.com/google-research/google-research/blob/master/scann/docs/algorithms.md" target="_blank">git</a> <sup><a href="https://research.google/blog/announcing-scann-efficient-vector-similarity-search/" target="_blank">27</a></sup> <sup><a href="https://research.google/blog/soar-new-algorithms-for-even-faster-vector-search-with-scann/" target="_blank">28</a></sup> which they claim is a newer tweak for fast search.  This statically posterises the Vector space into areas / cells ~ compare to BSP ~  and performs a faster but more vague search against every cell's indexes first to reduce computation needed.  There an algorithm called NGT (Neighbourhood Graph and Tree) <sup><a href="https://github.com/yahoojapan/NGT/wiki/Command-Quick-Referenc" target="_blank">29</a></sup> <sup><a href="https://opensource.com/article/19/10/ngt-open-source-library" target="_blank">30</a></sup>, which is a better edition of ANN.   There are many other tree-based indexes used in a PG DB <sup><a href="https://www.postgresql.org/docs/16/indexes-types.html" target="_blank">31</a></sup> <sup><a href="https://learnpostgres.dev/article/PostgreSQL_Indexes_A_Complete_Guide.html" target="_blank">32</a></sup>, Oracle <sup><a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/CREATE-INDEX.html" target="_blank">33</a></sup> (reference has images to describe each index)  or a generic DB <sup><a href="https://en.wikipedia.org/wiki/Database_index" target="_blank">34</a></sup> index algorithm: <sup><a href="https://en.wikipedia.org/wiki/B-tree" target="_blank">35</a></sup><br />
+It looks like all the useful VectorDB systems use several different algorithms depending on scale and density of the data <sup><a href="https://www.codesmith.io/blog/vector-databases-deep-dive" target="_blank">36</a></sup>, <sup><a href="https://lantern.dev/blog/vectordb" target="_blank">37</a></sup>, <sup><a href="https://zilliz.com/learn/advanced-querying-techniques-in-vector-databases" target="_blank">38</a></sup> ~ this would match my expectations, as PG does this.  The databases optimised for looser data types (VectorDB, GraphDB, GISDB, FullText DB) tend to consume more RAM than an RDB.   A survey comparing VectorDB <sup><a href="https://arxiv.org/html/2402.01763v2" target="_blank">39</a></sup>, for a more advanced reading level, see contents of this biblio.   It is benchmarking available software in versions released between 2020 and 2023.</p>
+
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Useful search algorithms <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+These are all multistage, and <em>return results</em>, not allow faster access to data<br />
+<dl>
+    <dt>ScaNN (Scalable Nearest Neighbour)</dt>
+        <dd>Created by Google, first published in 2020, notes <sup><a href="https://research.google/blog/announcing-scann-efficient-vector-similarity-search/" target="_blank">1</a></sup>, <sup><a href="https://research.google/blog/soar-new-algorithms-for-even-faster-vector-search-with-scann/" target="_blank">2</a></sup>, <sup><a href="https://cloud.google.com/blog/products/databases/understanding-the-scann-index-in-alloydb" target="_blank">3</a></sup> an engineering breakdown <sup><a href="https://medium.com/@DataPlayer/scalable-approximate-nearest-neighbour-search-using-googles-scann-and-facebook-s-faiss-3e84df25ba" target="_blank">4</a></sup>. ScaNN uses LSH, and some Trees.</dd>
+    <dt>NGT (Neighbourhood Graph and Tree)</dt>
+        <dd>Yahoo Japan, the earliest commit in the repo is Sept 2016 <sup><a href="https://github.com/yahoojapan/NGT/" target="_blank">5</a></sup>.  Described in <sup><a href="https://www.analyticsvidhya.com/blog/2024/06/ann-algorithms-in-vector-databases/" target="_blank">6</a></sup>, <sup><a href="https://morioh.com/a/8d5d9bece470/ngt-the-future-of-nearest-neighbor-search-in-high-dimensional-spaces" target="_blank">7</a></sup>.  Quoting “Fast Approximate k-Nearest Neighbour Search” <sup><a href="https://medium.com/geekculture/vald-a-highly-scalable-distributed-fast-approximate-nearest-neighbour-dense-vector-search-engine-af1946a4a37" target="_blank">8</a></sup>.</dd>
+    <dt>ANNOY (Approximate Nearest Neighbours Oh Yeah)</dt>
+        <dd>Created by Erik Bernhardsson in 2015 whilst at Spotify <sup><a href="https://sds-aau.github.io/M3Port19/portfolio/ann/" target="_blank">9</a></sup>.   Recursively binary-partitions the data space and then builds a 'forest of trees' <sup><a href="https://medium.com/@abdullahsamilguser/approximate-nearest-neighbor-methods-713dcfa8518f" target="_blank">10</a></sup>.  See `sptag` in Python <sup><a href="https://www.algolia.com/blog/ai/what-is-vector-search/" target="_blank">11</a></sup>.  A case-study repeating Bernhardsson steps<sup><a href="https://medium.com/gsi-technology/ann-benchmarks-a-data-scientists-journey-to-billion-scale-performance-db191f043a27" target="_blank">12</a></sup>.</dd>
+    <dt>FAISS (Facebook’s AI Similarity Search)</dt>
+        <dd>I think FAISS was used from 2016 internally, but released as OSS in 2019 <sup><a href="https://arxiv.org/pdf/2401.08281" target="_blank">13</a></sup>.   It includes quantisation, a lot of pre-calculation (and creating several IVF indexes), Vector dimension simplification, HNSW, NNS <sup><a href="https://towardsdatascience.com/understanding-faiss-619bb6db2d1a" target="_blank">14</a></sup> <sup><a href="https://medium.com/@DataPlayer/scalable-approximate-nearest-neighbour-search-using-googles-scann-and-facebook-s-faiss-3e84df25ba" target="_blank">15</a></sup>.</dd>
+</dl>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Indexes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This list of Indexes is written in Sept 2024, it will age as lots of people would like a faster search.  I have dropped a few toy indexes which do not seem to be used in practice, but are easy to diagram / explain, so they are part of “intro notes” ~ probably made by a LLM-AI.  It's possible that different companies publish notes with different names on purpose, so same algorithms but called differently, so they can claim they haven't copied any ones else's property ~ not all these index ideas are complex.  Different terminology leads to duplicate items.</p>
+
+<dl>
+    <dt>HNSW (hierarchical navigable small world)</dt>
+        <dd>A multi-layered graph approach for determining similarity <sup><a href="https://arxiv.org/abs/1603.09320" target="_blank">16</a></sup>.  First published at Similarity Search and Applications (SISAP) conference in 2012 <sup><a href="https://en.wikipedia.org/wiki/Hierarchical_navigable_small_world" target="_blank">17</a></sup> ~ pull the authors' list from link ~ a large group of authors.</dd>
+    <dt>FANNS (Fast Approximate Nearest Neighbour Search)</dt>
+        <dd>Relevant paper <sup><a href="https://dl.acm.org/doi/abs/10.5555/3504035.3505114" target="_blank">18</a></sup>.   According to <sup><a href="https://spcl.inf.ethz.ch/Publications/.pdf/wenqi_fanns_slides.pdf" target="_blank">19</a></sup> FANNS uses dedicated hardware (FPGA) to support the FANNS speed increment <sup><a href="https://dl.acm.org/doi/10.1145/3581784.3607045" target="_blank">20</a></sup>.</dd>
+    <dt>“4-bit PQ” (Product Quantisation)</dt>
+        <dd>Described in <sup><a href="https://lantern.dev/blog/pq" target="_blank">21</a></sup>.  Limiting the number range to 4bits, or 16 values is brutal compression, which will shrink the state space a lot, but give more approximate results.  This achieves these outcomes <sup><a href="https://www.pinecone.io/learn/series/faiss/product-quantization/" target="_blank">22</a></sup>.  There are obviously other values for the number range.   There are many quantisation based recipes.</dd>
+    <dt>LSH (Locality-sensitive hashing)</dt>
+        <dd>A fuzzy hashing technique <sup><a href="https://en.wikipedia.org/wiki/Locality-sensitive_hashing" target="_blank">23</a></sup> <sup><a href="https://github.com/FALCONN-LIB/FALCONN/wiki/LSH-Primer" target="_blank">24</a></sup></dd>
+    <dt>kNN (k-nearest neighbours)</dt>
+        <dd>An algorithm that uses proximity to categorise for grouping <sup><a href="https://opensearch.org/docs/latest/search-plugins/knn/knn-vector-quantization/" target="_blank">25</a></sup></dd>
+    <dt>KD Tree (K-Dimension tree)</dt>
+        <dd>It was created by Jon Louis Bentley in 1975 <sup><a href="https://en.wikipedia.org/wiki/K-d_tree" target="_blank">26</a></sup>. KD trees are a special case of binary space partitioning trees. See <sup><a href="https://ieeexplore.ieee.org/document/8807277" target="_blank">27</a></sup></dd>
+    <dt>Ball Trees</dt>
+        <dd>A more common algorithm than I thought <sup><a href="https://medium.com/@ravuri.saitarun/kd-tree-ball-tree-algorithms-83271c4d1cd0" target="_blank">28</a></sup> <sup><a href="https://medium.com/@polkamnithyasri/kd-tree-and-ball-tree-algorithms-aa99dfad4ceb" target="_blank">29</a></sup>.  The earliest reference I found was 1989.</dd>
+    <dt>Spill Trees</dt>
+        <dd>The earliest I found is a 2004 paper <sup><a href="https://proceedings.neurips.cc/paper_files/paper/2004/file/1102a326d5f7c9e04fc3c89d0ede88c9-Paper.pdf" target="_blank">30</a></sup> but this doesn't describe Spill Trees as new.  They are so named as data can be in more than 1 cell ~ hence “spilled”.   The “ancestor algorithm” is a Metric Tree that was first described in 1991 by Uhlmann <sup><a href="https://project.inria.fr/gudhi/files/2017/04/clement-jamin.pdf" target="_blank">31</a></sup>.  A interesting patent from Google in 2006 <sup><a href="https://patents.google.com/patent/US7539657" target="_blank">32</a></sup>, which does more steps in parallel.</dd>
+    <dt>RDB B-tree</dt>
+        <dd><i>Comparative entry</i>, a generic boolean partition algorithm that makes self balancing Trees, and is fairly fast.  Works best with integers, but is viable with strings.  <i>When combined with an SQL engine, this is a multi-stage search</i>.</dd>
+</dl>
+
+<ul class="ulbasic">
+    <li>I have a large gap in publications as I see nothing from the large Chinese internet based corporations, who must have all these processes.  I see many Mandarin names (written in EN, with the paper in EN) as authors on journal articles, so there are software engineers doing work in that area.  I also didn't find any authors from languages spoken in India/Bharat, but India has a strong search market as expected for the world's most populous country ~ see <a href="https://owenberesford.me.uk/resource/external-search#">external-search</a>.   As nearly all this work in my article is “post internet”, this is concerning.   I think “word2vec for Mandarin” would be interesting, and if Vector heaps were portable, so zh-CN Vectors could be used for EN structures, doubly so.   </li>
+    <li>A useful article listing best index per data scale <sup><a href="https://thesequence.substack.com/p/guest-post-choosing-the-right-vector" target="_blank">33</a></sup>.</li>
+    <li>“Fast” is a silent word, as “newer design which exists to improve previous design that is slower than desired” is a description for a large amount of the internet.</li>
+    <li>Architecture note ~ as two maths concepts, a Tree is a directed Graph.  A Tree is a structure suited to being used as an Index, and most [realistic] Indexes are Trees.  A large hash-based system may be implemented with Trees if it is too large to fit in memory.   A common example for that is a file-system.  </li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Query structures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Due to the more “knowledge-based search” approach of a VectorDB, the query languages seem to be simpler (compared to “data-based search” of an RDB).   Unlike traditional RDB, it's advisable to have a terminate-early structure on queries (like a recursion-algo break-clause, or a SQL LIMIT clause), as there is an indeterminate list of values that match the query.</p>
+
+<ul class="ulbasic">
+    <li>All the Index entries that mention 'search' are presented as a software library with a class API rather than a language REPL.   There isn't that much interaction difference between a REPL and an API, but this is definitely a culture change.   A naïve guess would be that the earlier tools written in C were including a REPL to make usage easier, but I think this seems wrong as many of the more modern projects were C++, with the same usage.</li>
+    <li>The following set of examples is quite boring, as this looks like a commodity market.   If they are mostly the same, the following list of supported indexes will help differentiate them <sup><a href="https://medium.com/the-ai-forum/which-vector-database-should-you-use-choosing-the-best-one-for-your-needs-5108ec7ba133" target="_blank">34</a></sup>.</li>
+    <li>If all the DB communicate via HTTP rather than a faster protocol, I hope they support all the HTTP optimisations.  This seems an ideal situation for Protobuf <sup><a href="https://en.wikipedia.org/wiki/Protocol_Buffers" target="_blank">35</a></sup>.   Other [older] DB have a binary protocol, which supports higher transfer rates than HTTP.</li>
+    <li>Pinecone <sup><a href="https://docs.pinecone.io/guides/data/query-data" target="_blank">36</a></sup> has an access library for a list of languages, and supports full CRUD.   As a DBaaS ~ this option isn't opensource ~ it includes some pre-trained models, but these are PAYG <sup><a href="https://docs.pinecone.io/models/overview" target="_blank">37</a></sup>.</li>
+    <li>Milvus <sup><a href="https://milvus.io/docs/v2.3.x/query.md" target="_blank">38</a></sup> <sup><a href="https://milvus.io/docs/get-and-scalar-query.md" target="_blank">39</a></sup> has an access library for a list of languages.  </li>
+    <li>Qdrant <sup><a href="https://api.qdrant.tech/master/api-reference/search/query-points" target="_blank">40</a></sup> seems currently to only offer a REST API.   Although, they also say <sup><a href="https://qdrant.tech/articles/hybrid-search/" target="_blank">41</a></sup> which is a class API.</li>
+    <li>Chroma has a HTTP and asyncHTTP libraries <sup><a href="https://docs.trychroma.com/guides" target="_blank">42</a></sup>, and supports JS and Python clients.</li>
+    <li>Weaviate <sup><a href="https://weaviate.io/developers/weaviate/tutorials/query" target="_blank">43</a></sup> seems to include some SQL features <sup><a href="https://weaviate.io/developers/weaviate/search/similarity" target="_blank">44</a></sup>. </li>
+    <li>This list is not complete, but it highlights that the choice of VectorDB shouldn't depend on the access client as the client libraries are very similar.  </li>
+</ul>
+
+<p>All the demo projects could easily be hosted in any modern RDB ~ possibly even IndexDB in your browser ~ as an index range of 10^6 is trivial on modern hardware.  But clearly, the small demo is to show structures so larger and more meaningful systems could be built. <br />
+There is a VectorDB bench project for comparing search via VectorDB <sup><a href="https://zilliz.com/learn/open-source-vector-database-benchmarking-your-way" target="_blank">45</a></sup> <sup><a href="https://zilliz.com/learn/benchmark-vector-database-performance-techniques-and-insights" target="_blank">46</a></sup> ~ note it is made by one of the DB manufacturers <a href="https://github.com/zilliztech/VectorDBBench" target="_blank">git</a>, or <a href="https://github.com/erikbern/ann-benchmarks/" target="_blank">git</a>.</p>
+
+<hr />
+<p>Most successful DB projects can do a Vector index these days, and there are some niche ones that only store Vectors.   Note content did not include libraries to convert user input to Vectors for the vector matching.  I pulled some performance graphs for the different DB <sup><a href="https://github.com/zilliztech/VectorDBBench?tab=readme-ov-file" target="_blank">47</a></sup> <sup><a href="https://jina.ai/news/benchmark-vector-search-databases-with-one-million-data/" target="_blank">48</a></sup> <sup><a href="https://redis.io/blog/benchmarking-results-for-vector-databases/" target="_blank">49</a></sup> <sup><a href="https://qdrant.tech/benchmarks/" target="_blank">50</a></sup> ~ note the last two are made by a Vendor.   When basic speed is your highest value metric, I think Redis will always win, and definitely questions <i>why pay for a niche DB</i>.   Although journal articles are the best sources for this subject, for lighter intensity, get a Medium account as it has many articles on this subject area.  <strong>There is no conclusion.</strong></p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Vector stores for LLM / AI</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-vector-stores" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-vector-stores" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-vector-stores" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-vector-stores&amp;t=Vector+stores+for+LLM+%2F+AI"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-vector-stores" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-09-17T13:59:19">17th of Sep 2024</time>
+						</span>
+						<span>Created <time datetime="2024-08-30T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >30th of Aug 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-vector-stores" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Intro &amp; theory</a></li>
+<li><a href="#toc1">Useful search algorithms</a></li>
+<li class="h4_odd"><a href="#toc2">Indexes</a></li>
+<li><a href="#toc3">Query structures</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+	</div> 
+	<p> Page rendered <time datetime="2024-09-17T14:43:40">17th of Sep 2024, 14:43:40</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-17T13:59:19">17th of Sep 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+
+</body>
+</html>
