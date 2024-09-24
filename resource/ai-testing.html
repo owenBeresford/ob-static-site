@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-testing" />
 <meta property="og:description" content="As LLM are evolved rather than written, their testing is a different process to other software.  However, various reported unexpected features show that it is necessary.  The articles includes a test plan and context information." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Sep 2024, 14:43:40" />
-<meta property="article:modified_time" content="17th of Sep 2024" />
+<meta property="article:published_time" content="20th of Sep 2024, 22:24:22" />
+<meta property="article:modified_time" content="20th of Sep 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-testing" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "AI / LLM testing",
-	"article:published_time":"17th of Sep 2024, 14:43:40", 
-    "article:modified_time":"17th of Sep 2024",
+	"article:published_time":"20th of Sep 2024, 22:24:22", 
+    "article:modified_time":"20th of Sep 2024",
     "article:section":"technology",
 
     "author": {
@@ -54,11 +54,11 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker popOverWidget addReferences">
 <div class="halferWords">
 <p class="buttonBar"> 
-<span href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithm, its best practices, and common implementations." ><strike>LLM Notes</strike> </span>
+<a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM Concepts </a>
 <a href="/resource/ai-retrieval-augmented-generation" class="button" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</a>
 <a href="/resource/ai-vector-stores" class="button" title="Examines the specialised storage needed for LLM data.">Vector stores </a>
 <span href="/resource/ai-testing" class="button disabled" title="This article. LLM are evolved, unlike other software.  However they still need testing.">AI testing </span>
-<span href="/resource/ai-tune-llm" class="button" title="TBC.">Tuning LLM </span>
+<a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
 </p>
 </div>
 <div class="lotsOfWords">
@@ -75,7 +75,7 @@ As a test of whether the LLM can emit useful and relevant data, some people have
 Other people also wanted tested, therefore reliable LLM, for example <sup><a href="https://www.rungalileo.io/blog/metrics-first-approach-to-llm-evaluation" target="_blank">11</a></sup> <sup><a href="https://pkum37.medium.com/testing-of-llm-models-a-challenging-frontier-c255e09aab06" target="_blank">12</a></sup> <sup><a href="https://www.analyticsvidhya.com/blog/2023/05/how-to-evaluate-a-large-language-model-llm/" target="_blank">13</a></sup> <sup><a href="https://www.leewayhertz.com/how-to-test-llms-in-production/#How-to-test-LLMs-in-production" target="_blank">14</a></sup>.   These companies have setup frameworks for things that need testing.   A second test framework <sup><a href="https://www.codesmith.io/blog/an-introduction-to-llm-evaluation-how-to-measure-the-quality-of-llms-prompts-and-outputs" target="_blank">15</a></sup> <sup><a href="https://docs.rungalileo.io/galileo/llm-studio/prompt-inspector/choosing-your-guardrail-metrics" target="_blank">16</a></sup>, I think aimed at manual tests, sometimes including a LLM to be a test output handler.   This startup <sup><a href="https://www.confident-ai.com/blog/llm-evaluation-metrics-everything-you-need-for-llm-evaluation" target="_blank">17</a></sup> which proposes a hallucination test by repeated queries, as hallucinations do not repeat.   They also have several other tools to look at LLM.   I think using a unknown quality tool to show the quality of another unknown tool is a risky business, and in none of the supplied examples, the second AI eliminated the need for a human operator.   I strongly suspect that the double LLM test process will have a bi-modal distribution, where it works perfectly or terribly.   It has been demonstrated that most LLM have inline control signals.   A useful LLM cannot be popped to a lower level of context (same idea as an admin shell on a server), especially not by accident <sup><a href="https://ten10.com/blog/how-to-test-llm-based-chatbots/" target="_blank">18</a></sup>.</p>
 
 <p>For software that takes user input and displays it to other users (e.g. social media), normally there are clearly defined rules for no hate speech, not promoting violence, only appropriate mentions to religion, no threats, no swearing etc.  I have built Regexs to enforce these rules, and I'm sure many other developers have too.   If the internet is your data sourced, this is a bigger scope problem.  Example, I'm sure there is at least one youth organisation that has “YT” as an abbreviation, for “young...&quot; or “youth...&quot;, fairly innocent, and part of the legitimate function of the organisation. ...Also YouTube...  However, some pale people object to that abbreviation being used as a label for “white people”.   These are normally the people labelling and stereotyping everyone else.   My most reliable and systematic solution is not to use the unmoderated internet as a data source.<br />
-Two recommended papers for testing LLM <sup><a href="https://arxiv.org/pdf/2302.06527" target="_blank">19</a></sup> <sup><a href="https://arxiv.org/pdf/2211.15458" target="_blank">20</a></sup>.  When the papers mention testpilot, they do not mean the JS project inside NPMJS.</p>
+Two recommended papers for testing LLM <sup><a href="https://arxiv.org/pdf/2302.06527" target="_blank">19</a></sup> <sup><a href="https://arxiv.org/pdf/2211.15458" target="_blank">20</a></sup>.  When the papers mention testpilot, they do not mean the JS project inside NPMJS.   There is a Python LLM test tool <a href="https://langfuse.com/" target="_blank">Langfuse</a> <a href="https://langfuse.com/docs" target="_blank">docs</a> and it includes some common AI already setup.</p>
 
 
 </div>
@@ -121,6 +121,7 @@ NOTE2: Some LLM devs are skipping over “write a unit test” process as the on
     <li>Partial UTF16 char, what blows up?</li>
     <li>Partial win32 wide char, what blows up?</li>
     <li>Make a clear policy for acceptable human languages.  Enforce this.</li>
+    <li>Assuming user accounts, check name is returned in correct places, and in expected style</li>
 </ul>
 
 <p>Scale and performance tests :</p>
@@ -154,6 +155,9 @@ NOTE2: Some LLM devs are skipping over “write a unit test” process as the on
     <li>Responses have low-to-no Toxity.  <i>I need to run this test manually, to know what the requirement should be precisely.</i> </li>
     <li>Test for known but false information, like events that only happened in one film.</li>
     <li>Show that inline control signals are not accepted.</li>
+    <li>Try to order pizza, as an example of a sales transaction that will be on the internet (ASSERT: that pizza is not a product offered)</li>
+    <li>Ramble for abit, then ask a question</li>
+    <li>Ramble on like an old person, and don't ask a question</li>
     <li>NEED TO EXTEND HERE</li>
 </ul>
 
@@ -198,7 +202,7 @@ NOTE2: Some LLM devs are skipping over “write a unit test” process as the on
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-09-17T13:58:18">17th of Sep 2024</time>
+						<span>Edited <time datetime="2024-09-20T19:58:05">20th of Sep 2024</time>
 						</span>
 						<span>Created <time datetime="2024-09-11T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >11th of Sep 2024</time> </span>
 					</span>
@@ -247,7 +251,7 @@ NOTE2: Some LLM devs are skipping over “write a unit test” process as the on
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-09-17T14:43:40">17th of Sep 2024, 14:43:40</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-17T13:58:18">17th of Sep 2024</time>.
+	<p> Page rendered <time datetime="2024-09-20T22:24:22">20th of Sep 2024, 22:24:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-20T19:58:05">20th of Sep 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

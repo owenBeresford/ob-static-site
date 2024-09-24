@@ -215,8 +215,8 @@ async function T(o2, i2 = document, a2 = location) {
     !function(e3, t3 = document) {
       const n2 = S(true, t3);
       let o3 = 1;
-      const i3 = t3.querySelectorAll(r);
-      for (const t4 in e3)
+      const i3 = Array.from(t3.querySelectorAll(r));
+      for (let t4 = 0; t4 < e3.length; t4++)
         i3[t4].setAttribute("aria-label", "" + e3[t4]), k(i3[t4], n2), v.renumber && (i3[t4].textContent = "" + o3), o3++;
       if (i3.length > e3.length) {
         let t4 = e3.length;
@@ -315,8 +315,8 @@ function U(e2, t2, n2 = document) {
 function F(e2, t2, n2, r2 = location) {
   e2.addEventListener("click", (e3) => (t2(e3, n2, r2), false)), e2.addEventListener("touch", (e3) => (t2(e3, n2, r2), false)), e2.addEventListener("keypress", (e3) => (t2(e3, n2, r2), false));
 }
-let P = {};
-function D(e2, t2, n2 = location) {
+let D = {};
+function P(e2, t2, n2 = location) {
   let r2 = n2.pathname.split("/"), o2 = "";
   r2 = r2.pop();
   const i2 = new URLSearchParams(n2.search);
@@ -333,8 +333,8 @@ function H(e2) {
   return e2.split("/").pop();
 }
 function $(e2 = location) {
-  let t2 = P.group;
-  if ("XXX" === P.group) {
+  let t2 = D.group;
+  if ("XXX" === D.group) {
     const n2 = new URLSearchParams(e2.search);
     n2.has("first") && (t2 = n2.get("first"));
   }
@@ -343,17 +343,17 @@ function $(e2 = location) {
   return t2;
 }
 function J(e2, t2, n2, r2, o2) {
-  return P.name === "group-" + P.group || (t2 === e2 && (o2 = r2), r2 > 0 && o2 > 0 && n2 > 0 && r2 >= n2 - 1 && (r2 = 0)), [o2, n2, r2];
+  return D.name === "group-" + D.group || (t2 === e2 && (o2 = r2), r2 > 0 && o2 > 0 && n2 > 0 && r2 >= n2 - 1 && (r2 = 0)), [o2, n2, r2];
 }
 async function W(n2, r2 = document, o2 = location) {
-  if (P = Object.assign(P, { name: d(o2), meta: D(P.group, ".json", o2), perRow: 10, titleLimit: 40, rendered: false, iteration: 0, group: "system", count: 1, debug: e(), runFetch: l }, n2), "system" === P.group)
+  if (D = Object.assign(D, { name: d(o2), meta: P(D.group, ".json", o2), perRow: 10, titleLimit: 40, rendered: false, iteration: 0, group: "system", count: 1, debug: e(), runFetch: l }, n2), "system" === D.group)
     throw new Error("Must set the article group, and not to 'system'.");
-  P.meta = D(P.group, ".json", o2);
-  const i2 = "group-XXX" === P.name || P.name === "group-" + P.group, a2 = "group" + P.group;
+  D.meta = P(D.group, ".json", o2);
+  const i2 = "group-XXX" === D.name || D.name === "group-" + D.group, a2 = "group" + D.group;
   if (E(r2, o2) && !i2)
     1 === r2.querySelectorAll(".adjacentGroup .adjacentItem").length && (r2.querySelector(".adjacentGroup p").style.display = "none"), b("#" + a2, "<p>As mobile View, use the full page link to the left</p>", r2);
   else {
-    const e2 = await P.runFetch(P.meta, false);
+    const e2 = await D.runFetch(D.meta, false);
     if (!e2.ok || !Array.isArray(e2.body))
       return t("info", "There doesn't seem to be a group meta data file."), void b("#" + a2, "<p>Internal error. Hopefully this will be fixed shortly. </p>", r2);
     if (i2) {
@@ -374,17 +374,17 @@ async function W(n2, r2 = document, o2 = location) {
       }($(o2), r2);
     } else {
       const t2 = function(e3) {
-        let t3 = -1, n3 = P.perRow, r3 = [], o3 = 0, i3 = 0;
-        for ([t3, n3, o3] = J(H(e3[0].url), P.name, e3.length, o3, t3); o3 < e3.length; o3++) {
+        let t3 = -1, n3 = D.perRow, r3 = [], o3 = 0, i3 = 0;
+        for ([t3, n3, o3] = J(H(e3[0].url), D.name, e3.length, o3, t3); o3 < e3.length; o3++) {
           const a3 = e3[o3].title;
           if (a3 && t3 >= 0 && n3 > 0) {
-            r3[i3] = { auth: e3[o3].auth, date: m(e3[o3].date, "[Unknown time]", true), url: e3[o3].url, offset: o3, title: e3[o3].title.substr(0, P.titleLimit), desc: e3[o3].desc }, a3.length > P.titleLimit && (r3[i3].title += "...");
+            r3[i3] = { auth: e3[o3].auth, date: m(e3[o3].date, "[Unknown time]", true), url: e3[o3].url, offset: o3, title: e3[o3].title.substr(0, D.titleLimit), desc: e3[o3].desc }, a3.length > D.titleLimit && (r3[i3].title += "...");
             const t4 = e3[o3].desc;
             t4.length > 235 && (r3[i3].desc = t4.substr(0, 235) + "..."), n3--, i3++;
           }
-          if ([t3, n3, o3] = J(H(e3[o3].url), P.name, n3, o3, t3), r3.length === e3.length)
+          if ([t3, n3, o3] = J(H(e3[o3].url), D.name, n3, o3, t3), r3.length === e3.length)
             break;
-          if (r3.length >= P.perRow)
+          if (r3.length >= D.perRow)
             break;
         }
         return r3;
