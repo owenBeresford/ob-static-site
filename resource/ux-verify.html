@@ -8,22 +8,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="An UI and UX test library to be run in the browser, to assist usability and branding tests.  Can be linked into Jasmine, Mocha, or Jest." />
+<meta name="Description" content="An UI and UX test library to be run in the browser, to assist usability and branding tests.  As a library to simplify your tests, and increase developer performance, this can be linked into Vitest, Playwright, Jasmine, Mocha, or Jest." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="UX verify notes">
-<meta itemprop="description" content="An UI and UX test library to be run in the browser, to assist usability and branding tests.  Can be linked into Jasmine, Mocha, or Jest.">
+<meta itemprop="description" content="An UI and UX test library to be run in the browser, to assist usability and branding tests.  As a library to simplify your tests, and increase developer performance, this can be linked into Vitest, Playwright, Jasmine, Mocha, or Jest.">
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="UX verify notes">
-<meta name="twitter:description" content="An UI and UX test library to be run in the browser, to assist usability and branding tests.  Can be linked into Jasmine, Mocha, or Jest.">
+<meta name="twitter:description" content="An UI and UX test library to be run in the browser, to assist usability and branding tests.  As a library to simplify your tests, and increase developer performance, this can be linked into Vitest, Playwright, Jasmine, Mocha, or Jest.">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="UX verify notes" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ux-verify" />
-<meta property="og:description" content="An UI and UX test library to be run in the browser, to assist usability and branding tests.  Can be linked into Jasmine, Mocha, or Jest." />
+<meta property="og:description" content="An UI and UX test library to be run in the browser, to assist usability and branding tests.  As a library to simplify your tests, and increase developer performance, this can be linked into Vitest, Playwright, Jasmine, Mocha, or Jest." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Aug 2024, 9:16:18" />
-<meta property="article:modified_time" content="20th of Aug 2024" />
+<meta property="article:published_time" content="7th of Oct 2024, 23:17:42" />
+<meta property="article:modified_time" content="7th of Oct 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ux-verify" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "UX verify notes",
-	"article:published_time":"20th of Aug 2024, 9:16:18", 
-    "article:modified_time":"20th of Aug 2024",
+	"article:published_time":"7th of Oct 2024, 23:17:42", 
+    "article:modified_time":"7th of Oct 2024",
     "article:section":"technology",
 
     "author": {
@@ -74,8 +74,9 @@ TODO: magic tune selection against some index/DB -->
 <p>In 2017, I am using Mocha as my primary test tool in JS.  It can be run as BDD or a TDD, so there is less tool management.<br />
 Mocha can be run in browser <sup><a href="https://medium.com/dailyjs/running-mocha-tests-as-native-es6-modules-in-a-browser-882373f2ecb0" target="_blank">5</a></sup> <sup><a href="https://stackoverflow.com/questions/42857778/how-do-you-run-mocha-tests-in-the-browser" target="_blank">6</a></sup>.  I have not found a extension like Swarm <sup><a href="https://libraries.io/npm/swarm-js/0.1.21" target="_blank">7</a></sup> for Mocha, but Jenkins <sup><a href="https://stackoverflow.com/questions/30458114/running-jenkins-job-with-multiple-browsers" target="_blank">8</a></sup> would work as a substitute.  This article isn't about distributed testing, but Swarm seems like a good idea, good enough to be used for testing jQuery releases <sup><a href="https://github.com/jquery/testswarm/wiki" target="_blank">9</a></sup>.  For forking and parallel running, Jasmine is a better organised tool <sup><a href="https://www.seleniumeasy.com/protractor-angularjs-tutorials/run-tests-on-multiple-browsers-parallel" target="_blank">10</a></sup>. <br />
 Also look at <sup><a href="https://www.npmjs.com/package/@testing-library/jest-dom" target="_blank">11</a></sup><br />
-<b>UPDATE</b> In 2021 or later, MSIE is no more and I have changed my target edition of JS, so I am using different tools.  For traditional unit-tests, I use Jest for its vast array of plugins.  For visual and Component tests, I am using <a href="https://owenberesford.me.uk/resource/storybook#">storybook</a> and <a href="https://owenberesford.me.uk/resource/vitest#">vitest</a>.  I normally run tests inside a browser as knowing about actual browser issues is important, and <del>many test frameworks</del><ins>all the test frameworks that I know about</ins> fail to implement the whole of CSS.   I push as many visual features into CSS as it normally uses less RAM, it runs smoother, and this leaves your <em>sole thread</em> for data related processing.   Even using Jest, there is value being able to read normalised units, including after all the StyleCascade has been resolved.   So I will keep using my library described below. <br />
-Further TODO:: <a href="https://owenberesford.me.uk/resource/css-palette-extractor#">A pallete/ swatch builder</a>.  If your CSS and JS should make all the CTA buttons sky-blue-pink, but what happens if there is a browser spec compliance issue on CSS rounding, and they show up black (cough, Safari)?  A swatch run in each browser is time saving step.   This must be run inside the browser(s).</p>
+<b>UPDATE</b> In 2021 or later, MSIE is no more and I have changed my target edition of JS, so I am using different tools.  For traditional unit-tests, I use Jest for its vast array of plugins, or <a href="https://owenberesford.me.uk/resource/vitest#">Vitest</a>.  For visual and Component tests, I am using <a href="https://owenberesford.me.uk/resource/storybook#">storybook</a>.  I normally run some tests inside a browser as knowing about actual browser issues is important, and <del>many test frameworks</del><ins>all the test frameworks that I know about</ins> fail to implement the whole of CSS.   I push as many visual features into CSS as it normally uses less RAM, it runs smoother, and this leaves your <em>sole thread</em> for data related processing.   Even using Jest, there is value being able to read normalised units, including after all the StyleCascade has been resolved.   So I will keep using my library described below. <br />
+Further TODO:: <a href="https://owenberesford.me.uk/resource/css-palette-extractor#">A pallete/ swatch builder</a>.  If your CSS and JS should make all the CTA buttons sky-blue-pink, but what happens if there is a browser spec compliance issue on CSS mumber rounding, and they show up black (cough, Safari)?  A swatch run in each browser is time saving step.   This must be run inside the browser(s).   <br />
+Extra selectors for Aria-roles will be useful for showing better support for text2speech tools.</p>
 
 
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Literature search on test tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
@@ -116,6 +117,7 @@ This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcc
     <li>check if “on screen”/ get co-ordinates</li>
     <li>detect visual overlaps</li>
     <li>all 'label' elements are properly populated</li>
+    <li>aria-roles are created appropriately </li>
     <li>HTML5 elements are present to support semantics and screen readers etc</li>
     <li>content movement.  As UX, I hate page re-flows, I don't need your advertising; I really don't want to wait for the advertising to load 6 different JS frameworks. [I could add an example, but I'm sure you know what I'm talking about]</li>
     <li>page load speed (as noted, use a different tool)</li>
@@ -176,6 +178,9 @@ This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcc
         <li>Apply current object location</li>
         <li>return whether values are outside of a bounding box that is that browser size</li>
     </ul></li>
+    <li>check aria is present</li>
+    <li>select by role</li>
+    <li>also test should check tag of role makes sense</li>
     <li>detect visual overlaps<ul class="ulbasic">
         <li>Takes two element ids</li>
         <li>Apply current object location</li>
@@ -193,7 +198,7 @@ This feature is exposed as <i>pageRenderMetricsStart()</i> and <i>pageMetricsAcc
 </ul>
 
 <p>My initial plan is to provide methods that take a HTML selector, and return the value of the named metric, in a normalised form.  I am really fortunate that querySelector() is widely supported <sup><a href="https://caniuse.com/#feat=queryselector" target="_blank">15</a></sup>.  <br />
-NB: tools must be made with older JS to supply higher reliability in older or awkward browsers, so no 'class' keyword.</p>
+<del>NB: tools must be made with older JS to supply higher reliability in older or awkward browsers, so no 'class' keyword.</del><ins> Since MSIE fell from the MSFT value chain, I can use JS classes and modules if I wish.</ins></p>
 
 
 </div>
@@ -218,10 +223,10 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 					<span class="allButtons"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
-						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
                         <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fux-verify" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
@@ -231,7 +236,7 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>
+						<span>Edited <time datetime="2024-10-07T23:15:06">7th of Oct 2024</time>
 						</span>
 						<span>Created <time datetime="2019-01-22T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >22nd of Jan 2019</time> </span>
 					</span>
@@ -249,7 +254,7 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 			</dialog>
 
 <fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Context</a></li>
 <li><a href="#toc1">Literature search on test tools</a></li>
@@ -282,7 +287,7 @@ NB: tools must be made with older JS to supply higher reliability in older or aw
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-20T09:16:18">20th of Aug 2024, 9:16:18</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-10-07T23:17:42">7th of Oct 2024, 23:17:42</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-07T23:15:06">7th of Oct 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

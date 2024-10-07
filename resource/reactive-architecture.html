@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/reactive-architecture" />
 <meta property="og:description" content="Notes about how to make code more resilient and also Message driven. There a variety of options for reactive systems." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Aug 2024, 21:19:48" />
-<meta property="article:modified_time" content="14th of Aug 2024" />
+<meta property="article:published_time" content="7th of Oct 2024, 22:21:01" />
+<meta property="article:modified_time" content="21st of Sep 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/reactive-architecture" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Reactive Architecture",
-	"article:published_time":"14th of Aug 2024, 21:19:48", 
-    "article:modified_time":"14th of Aug 2024",
+	"article:published_time":"7th of Oct 2024, 22:21:01", 
+    "article:modified_time":"21st of Sep 2024",
     "article:section":"technology",
 
     "author": {
@@ -54,7 +54,7 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker addReferences">
 <div class="lotsOfWords">
 <p><b>This article is not about React.js</b> (or Vue.js, or other rendering libraries).  I read random professional articles online.  There was another Node guy trying to claim he invented sliced bread, or rather “exciting new ThinBread (tm), so much easier than all those bread bricks”. <br />
-This describes an architecture (not pattern) that they called reactive <sup><a href="https://en.wikipedia.org/wiki/Reactive_programming" target="_blank">1</a></sup> <sup><a href="https://www.infoq.com/presentations/reactive-programming-evolution" target="_blank">2</a></sup> <sup><a href="https://blog.redelastic.com/what-is-reactive-programming-bc9fa7f4a7fc" target="_blank">3</a></sup>, the article referenced the first link. At least one artist is involved reactive development, as they have a manifesto <sup><a href="https://www.reactivemanifesto.org/" target="_blank">4</a></sup>, to summarise to the point of triteness a reactive system is one that is Responsive, Resilient, Elastic, and Message Driven.  The “enterprise” Java culture seems to be buying the idea of Reactive architectures <sup><a href="https://www.lightbend.com/blog/architect-reactive-design-patterns" target="_blank">5</a></sup> <sup><a href="https://www.theserverside.com/podcast/Are-reactive-systems-the-future-of-software-architecture" target="_blank">6</a></sup> <sup><a href="https://dzone.com/articles/what-are-reactive-streams-in-java" target="_blank">7</a></sup> <sup><a href="https://academy.realm.io/posts/gotocph-mattias-kappler-reactive-architecture-android/" target="_blank">8</a></sup>. The last link is SoundClouds architecture.   It seems to be a common Haskell structure <sup><a href="https://wiki.haskell.org/Reactive" target="_blank">9</a></sup> <sup><a href="https://wiki.haskell.org/Reactive/Tutorial/A_FPS_display" target="_blank">10</a></sup> <sup><a href="https://hackage.haskell.org/package/reactive-banana" target="_blank">11</a></sup>, for a while <sup><a href="https://stackoverflow.com/questions/6675683/haskell-frp-reactive-parsec" target="_blank">12</a></sup>, that links work from 2011.   UPDATE 2023: whist looking for other things, <sup><a href="https://dev.to/ninjin/designing-the-ideal-reactivity-system-3i4o" target="_blank">13</a></sup> is a handy explainer focussed on JS.<br />
+This describes an architecture (not pattern) that they called reactive <sup><a href="https://en.wikipedia.org/wiki/Reactive_programming" target="_blank">1</a></sup> <sup><a href="https://www.infoq.com/presentations/reactive-programming-evolution" target="_blank">2</a></sup> <sup><a href="https://blog.redelastic.com/what-is-reactive-programming-bc9fa7f4a7fc" target="_blank">3</a></sup>, the article referenced the first link. At least one artist is involved reactive development, as they have a manifesto <sup><a href="https://www.reactivemanifesto.org/" target="_blank">4</a></sup>, to summarise to the point of triteness a reactive system is one that is Responsive, Resilient, Elastic, and Message Driven.  The “enterprise” Java culture seems to be buying the idea of Reactive architectures <sup><a href="https://www.lightbend.com/blog/architect-reactive-design-patterns" target="_blank">5</a></sup> <sup><a href="https://www.theserverside.com/podcast/Are-reactive-systems-the-future-of-software-architecture" target="_blank">6</a></sup> <sup><a href="https://dzone.com/articles/what-are-reactive-streams-in-java" target="_blank">7</a></sup> <sup><a href="https://www.reddit.com/r/androiddev/comments/3qvdzl/going_reactive_an_android_architectural_journey/" target="_blank">8</a></sup>. The last link is SoundClouds architecture.   It seems to be a common Haskell structure <sup><a href="https://wiki.haskell.org/Reactive" target="_blank">9</a></sup> <sup><a href="https://wiki.haskell.org/Reactive/Tutorial/A_FPS_display" target="_blank">10</a></sup> <sup><a href="https://hackage.haskell.org/package/reactive-banana" target="_blank">11</a></sup>, for a while <sup><a href="https://stackoverflow.com/questions/6675683/haskell-frp-reactive-parsec" target="_blank">12</a></sup>, that links work from 2011.   UPDATE 2023: whist looking for other things, <sup><a href="https://dev.to/ninjin/designing-the-ideal-reactivity-system-3i4o" target="_blank">13</a></sup> is a handy explainer focussed on JS.<br />
 <div class="pullout">
 <p><b>UPDATE 2023</b> New buzz-word to match “12 factor” Apps <sup><a href="https://medium.com/@kayamuhammet/the-twelve-factor-app-methodology-explained-1-2149b4360c95" target="_blank">1</a></sup> <sup><a href="https://www.divio.com/blog/12-factor-methodology-beginner-guide/" target="_blank">2</a></sup> <sup><a href="https://www.redhat.com/architect/12-factor-app" target="_blank">3</a></sup>.  This has a very high concept overlap with Reactive Architecture, but is more implementation focused.</p>
 
@@ -146,10 +146,10 @@ It should be already.  Messaging is a more stable, scalable to later requirement
 					<span class="allButtons"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
-						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
                         <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freactive-architecture" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freactive-architecture" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freactive-architecture" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
@@ -159,7 +159,7 @@ It should be already.  Messaging is a more stable, scalable to later requirement
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>
+						<span>Edited <time datetime="2024-09-21T22:10:21">21st of Sep 2024</time>
 						</span>
 						<span>Created <time datetime="2018-01-28T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Jan 2018</time> </span>
 					</span>
@@ -171,13 +171,13 @@ It should be already.  Messaging is a more stable, scalable to later requirement
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freactive-architecture" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<span id="sendMasto" class="button masto" href="#" title="Share article to *your* mastodon server">Share article now</span>
-					<span class="button trimmed" id="hideMasto" href="#" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
 
 <fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Implementations</a></li>
 <li><a href="#toc1">Plan</a></li>
@@ -208,11 +208,11 @@ It should be already.  Messaging is a more stable, scalable to later requirement
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-14T21:19:48">14th of Aug 2024, 21:19:48</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-14T21:19:37">14th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-10-07T22:21:01">7th of Oct 2024, 22:21:01</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-21T22:10:21">21st of Sep 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script defer type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
 
 </body>
 </html>

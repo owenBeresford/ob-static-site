@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/golang-notes" />
 <meta property="og:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Sep 2024, 14:43:41" />
-<meta property="article:modified_time" content="14th of Sep 2024" />
+<meta property="article:published_time" content="7th of Oct 2024, 22:21:00" />
+<meta property="article:modified_time" content="21st of Sep 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/golang-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Golang binary",
-	"article:published_time":"17th of Sep 2024, 14:43:41", 
-    "article:modified_time":"14th of Sep 2024",
+	"article:published_time":"7th of Oct 2024, 22:21:00", 
+    "article:modified_time":"21st of Sep 2024",
     "article:section":"technology",
 
     "author": {
@@ -101,7 +101,7 @@ Before I started using Golang; I was focussing on “how to type in this languag
     <li>A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">5</a></sup>.  I will update this point with which one is best.</li>
     <li>Golang files generally have .go as a suffix <sup><a href="https://stackoverflow.com/questions/25161774/what-are-conventions-for-filenames-in-go" target="_blank">6</a></sup>; I do not know if that is required anywhere.</li>
     <li>There is nearly a standard file system layout <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">7</a></sup></li>
-    <li>In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">8</a></sup> <sup><a href="https://ednsquare.com/story/public-and-private-packages-functions-in-golang------KgKYKs" target="_blank">9</a></sup>.</li>
+    <li>In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">8</a></sup> <sup><a href="https://medium.com/@yardenlaif/accessing-private-functions-methods-types-and-variables-in-go-951acccc05a6" target="_blank">9</a></sup>.</li>
 </ul>
 
 <p>Dependencies:</p>
@@ -117,7 +117,7 @@ Before I started using Golang; I was focussing on “how to type in this languag
     <li>You can list/ verify dependencies with `go mod tidy -v`; to be able to reduce unneeded deps on your local disk <sup><a href="https://golang.org/cmd/go/#hdr-Maintaining_module_requirements" target="_blank">18</a></sup> <sup><a href="https://golangbyexample.com/go-mod-tidy/" target="_blank">19</a></sup>.</li>
     <li>In the source files, dependencies are imported on the package level and using the keyword 'import' <sup><a href="https://golangdocs.com/import-in-golang" target="_blank">20</a></sup> <sup><a href="https://www.golangprograms.com/golang-import-struct-from-another-or-child-package.html" target="_blank">21</a></sup>. </li>
     <li>The import can be an array or a scalar (which is better than most languages) <sup><a href="https://medium.com/golangspec/import-declarations-in-go-8de0fd3ae8ff" target="_blank">22</a></sup>.  Much faster than Java as there is no need to specify each class.  This can be tricky as C++ with many defines <sup><a href="https://developpaper.com/golang-import-local-package-and-import-related-details/" target="_blank">23</a></sup> </li>
-    <li>There is a compile constraint feature (like Pascal uses); this is written as a comment starting  `// +build `.  Some more detailed notes <sup><a href="https://www.jetbrains.com/help/go/configuring-build-constraints-and-vendoring.html#build-constraints" target="_blank">24</a></sup> <sup><a href="https://golang.org/pkg/cmd/go/internal/help/" target="_blank">25</a></sup> <sup><a href="https://www.kofo.dev/build-tags-in-golang" target="_blank">26</a></sup> </li>
+    <li>There is a compile constraint feature (like Pascal uses); this is written as a comment starting  `// +build `.  Some more detailed notes <sup><a href="https://www.jetbrains.com/help/go/configuring-build-constraints-and-vendoring.html#build-constraints" target="_blank">24</a></sup> <sup><a href="https://golang.org/pkg/cmd/go/internal/help/" target="_blank">25</a></sup> <sup><a href="https://dev.to/jacktt/go-build-in-advance-4o8n" target="_blank">26</a></sup> </li>
     <li>Notes on cross compilation <sup><a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5" target="_blank">27</a></sup></li>
     <li>The Golang supports alias <sup><a href="https://golang.org/ref/spec#Import_declarations" target="_blank">28</a></sup> <sup><a href="https://www.golangprograms.com/golang-package-examples/how-to-import-and-use-packages-of-the-same-name.html" target="_blank">29</a></sup>; to be able to reference packages in a more convenient fashion. </li>
     <li>NB: just like Node, there is a high rate of change on quite a few projects.</li>
@@ -137,7 +137,7 @@ Before I started using Golang; I was focussing on “how to type in this languag
     </ul></li>
 </ul>
 
-<p>Some assorted links for writing Go code (not covered in article) <sup><a href="https://golang.org/doc/code.html" target="_blank">35</a></sup> <sup><a href="https://marcofranssen.nl/start-on-your-first-golang-project/" target="_blank">36</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">37</a></sup> <sup><a href="https://thenewstack.io/understanding-golang-type-system/" target="_blank">38</a></sup> <sup><a href="https://golang.org/doc/gopath_code.html" target="_blank">39</a></sup> <sup><a href="https://github.com/kataras/iris" target="_blank">40</a></sup> <sup><a href="https://www.iris-go.com/docs/#/" target="_blank">41</a></sup> <sup><a href="https://docs.iris-go.com/iris/mvc/mvc-quickstart" target="_blank">42</a></sup> <sup><a href="https://github.com/iris-contrib/examples/blob/master/mvc/basic/main.go" target="_blank">43</a></sup> <sup><a href="https://github.com/ybkuroki/go-webapp-sample" target="_blank">44</a></sup> <sup><a href="https://hacked.work/blog/writing-simple-http2-server-go/" target="_blank">45</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">46</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">47</a></sup> <sup><a href="https://www.iris-go.com/docs/#/?id=template-rendering" target="_blank">48</a></sup> <sup><a href="https://golang.org/pkg/html/template/" target="_blank">49</a></sup> <sup><a href="https://bitfieldconsulting.com/golang/map-string-interface" target="_blank">50</a></sup> <sup><a href="https://golangdocs.com/interfaces-in-golang" target="_blank">51</a></sup> <sup><a href="https://stackoverflow.com/questions/41884806/how-to-parse-query-strings-in-iris" target="_blank">52</a></sup> <br />
+<p>Some assorted links for writing Go code (not covered in article) <sup><a href="https://golang.org/doc/code.html" target="_blank">35</a></sup> <sup><a href="https://marcofranssen.nl/start-on-your-first-golang-project/" target="_blank">36</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">37</a></sup> <sup><a href="https://thenewstack.io/understanding-golang-type-system/" target="_blank">38</a></sup> <sup><a href="https://golang.org/doc/gopath_code.html" target="_blank">39</a></sup> <sup><a href="https://github.com/kataras/iris" target="_blank">40</a></sup> <sup><a href="https://www.iris-go.com/docs/#/" target="_blank">41</a></sup> <sup><a href="https://docs.iris-go.com/iris/mvc/mvc-quickstart" target="_blank">42</a></sup> <sup><a href="https://github.com/iris-contrib/examples/blob/master/mvc/basic/main.go" target="_blank">43</a></sup> <sup><a href="https://github.com/ybkuroki/go-webapp-sample" target="_blank">44</a></sup> <sup><a href="https://prog.world/we-write-http-1-1-http-2-client-and-server-on-golang/" target="_blank">45</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">46</a></sup> <sup><a href="https://golangdocs.com/structs-in-golang" target="_blank">47</a></sup> <sup><a href="https://www.iris-go.com/docs/#/?id=template-rendering" target="_blank">48</a></sup> <sup><a href="https://golang.org/pkg/html/template/" target="_blank">49</a></sup> <sup><a href="https://bitfieldconsulting.com/golang/map-string-interface" target="_blank">50</a></sup> <sup><a href="https://golangdocs.com/interfaces-in-golang" target="_blank">51</a></sup> <sup><a href="https://stackoverflow.com/questions/41884806/how-to-parse-query-strings-in-iris" target="_blank">52</a></sup> <br />
 Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_blank">53</a></sup> <sup><a href="https://github.com/go-playground/assert/" target="_blank">54</a></sup></p>
 
 
@@ -173,7 +173,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-09-14T20:08:57">14th of Sep 2024</time>
+						<span>Edited <time datetime="2024-09-21T15:05:23">21st of Sep 2024</time>
 						</span>
 						<span>Created <time datetime="2021-05-31T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >31st of May 2021</time> </span>
 					</span>
@@ -221,7 +221,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class-"sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-09-17T14:43:41">17th of Sep 2024, 14:43:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-14T20:08:57">14th of Sep 2024</time>.
+	<p> Page rendered <time datetime="2024-10-07T22:21:00">7th of Oct 2024, 22:21:00</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-21T15:05:23">21st of Sep 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

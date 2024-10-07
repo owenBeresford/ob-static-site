@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/vitest" />
 <meta property="og:description" content="A review of another JS test framework, called Vitest.  This article outlines a list of useful features and a few issues to know about." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Aug 2024, 9:16:18" />
-<meta property="article:modified_time" content="20th of Aug 2024" />
+<meta property="article:published_time" content="7th of Oct 2024, 22:21:02" />
+<meta property="article:modified_time" content="25th of Sep 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/vitest" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Vitest",
-	"article:published_time":"20th of Aug 2024, 9:16:18", 
-    "article:modified_time":"20th of Aug 2024",
+	"article:published_time":"7th of Oct 2024, 22:21:02", 
+    "article:modified_time":"25th of Sep 2024",
     "article:section":"technology",
 
     "author": {
@@ -83,11 +83,13 @@ I find this test framework easier to build component tests with, <b>and test</b>
     <li>For practical testing, the util suite offers <i>flushPromises()</i> <sup><a href="https://medium.com/heybooster/mastering-flush-promises-with-vue-test-utils-vitest-and-typescript-7384e4ec9946" target="_blank">26</a></sup>, which allows you to pretend the faster assync code is sync to make testing easier (use with <i>await</i>). </li>
     <li>There is a watch (a sometime JS interpreter feature), accessed as <i>vi.spyOn()</i> which can be used to see if a Component function or variable has been modified or executed.  The spyOn() call can take three arguments <sup><a href="https://dev.to/jtoscani/til-stubbing-nested-global-properties-in-vitest-35o7" target="_blank">27</a></sup> <sup><a href="https://mayashavin.com/articles/testing-components-with-vitest#spy-on-and-mock-whatever-you-dont-need-to-test-or-have-tested-already" target="_blank">28</a></sup>. </li>
     <li>Vitest supports HMR ~ Hot Module Reload ~ <sup><a href="https://dev.to/isiakaabd/beginner-guide-on-unit-testing-in-react-using-react-testing-library-and-vitest-4ifp" target="_blank">29</a></sup> but I thought this was common in modern JS.   HMR is desired by some developers, as they like to run tests automatically every time they hit save (when doing this style, use 'save all' to reduce noise test results).</li>
+    <li>This test framework is designed for Node <sup><a href="https://github.com/vitest-dev/vitest/discussions/23" target="_blank">30</a></sup> (Antfu is the engineer who wrote a large amount of the code in this framework), there are “UI” features, but they convert the output driver to a browser tab, the unit-under-test is still executed inside Node.  </li>
+    <li>Vitest does support integration with Playwright <sup><a href="https://playwright.dev/docs/intro" target="_blank">31</a></sup>, which will steers the browser and executes code inside it.</li>
 </ul>
 
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Limitations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>According to <sup><a href="https://www.sobyte.net/post/2023-02/vitest/" target="_blank">30</a></sup>, Vitest tests can use variables such as _ _dirname/ _ _filename which are not actually in recent versions of Node.  There are some surprising things about filename globbing <sup><a href="https://stackoverflow.com/questions/76179780/vitest-loading-absolute-path-working-for-some-components-but-not-all" target="_blank">31</a></sup> (I have seen awkward bits like this also).<br />
+<p>According to <sup><a href="https://www.sobyte.net/post/2023-02/vitest/" target="_blank">32</a></sup>, Vitest tests can use variables such as _ _dirname/ _ _filename which are not actually in recent versions of Node.  There are some surprising things about filename globbing <sup><a href="https://stackoverflow.com/questions/76179780/vitest-loading-absolute-path-working-for-some-components-but-not-all" target="_blank">33</a></sup> (I have seen awkward bits like this also).<br />
 Vitest is a well designed tool, I can not find many things to put on this list.</p>
 
 
@@ -125,10 +127,10 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 					<span class="allButtons"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
-						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
                         <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvitest" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvitest" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fvitest" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
@@ -138,7 +140,7 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>
+						<span>Edited <time datetime="2024-09-25T17:14:49">25th of Sep 2024</time>
 						</span>
 						<span>Created <time datetime="2023-11-04T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >4th of Nov 2023</time> </span>
 					</span>
@@ -156,7 +158,7 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 			</dialog>
 
 <fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Warp-speed Intro</a></li>
 <li><a href="#toc1">Features/ Use-cases</a></li>
@@ -188,7 +190,7 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-20T09:16:18">20th of Aug 2024, 9:16:18</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-10-07T22:21:02">7th of Oct 2024, 22:21:02</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-25T17:14:49">25th of Sep 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

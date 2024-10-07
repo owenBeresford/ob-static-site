@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Testing Prompts</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Article focused on tool to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot based product as a sample." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Testing Prompts">
+<meta itemprop="description" content="Article focused on tool to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot based product as a sample.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Testing Prompts">
+<meta name="twitter:description" content="Article focused on tool to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot based product as a sample.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Testing Prompts" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ai-test-prompt" />
+<meta property="og:description" content="Article focused on tool to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot based product as a sample." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="7th of Oct 2024, 23:34:35" />
+<meta property="article:modified_time" content="7th of Oct 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/ai-test-prompt" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Testing Prompts",
+	"article:published_time":"7th of Oct 2024, 23:34:35", 
+    "article:modified_time":"7th of Oct 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p class="buttonBar"> 
+<a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM Concepts </a>
+<a href="/resource/ai-dictionary" class="button" title="All the atypical language pulled out into one location, to make the other test read better." > DICTIONARY </a>
+<a href="/resource/ai-retrieval-augmented-generation" class="button" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</a>
+<a href="/resource/ai-vector-stores" class="button" title="Examines the specialised storage needed for LLM data.">Vector stores </a>
+<a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
+<a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic data </a>
+<span href="/resource/ai-test-prompt" class="button disabled" title="This article. Article to supply data on managing and testing prompts.">Test prompt </span>
+<a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
+</p>
+<div class="lotsOfWords addReferences">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>A useful system needs to have every LLM step reviewed carefully.  A systematic set of test prompts is  good baseline to showing compliance to various laws, and will show areas where the base data for the LLM was sparse.   It is essential that this area of testing involves domain experts, but their involvement can be done with a UI of their choice (I guess Excel would be a common answer).  As an off-the-cuff validation, I would execute each domain area multiple times to see if there was extra hidden associations that the LLM was storing.<br />
+As a separate batch of testing, whilst the LLM is under training, some products/ projects have a tweak step, where feedback is given to the LLM about its current answers, so later editions will be more useful.  This version of testing is to catch noise responses that are obviously irrelevant trash (earlier in product life-cycle means cheaper, see graph on <sup><a href="https://machine-learning-made-simple.scribe.rip/how-to-build-unit-tests-for-llms-using-prompt-testing-f59c3826ed0e" target="_blank">1</a></sup> ).   As LLM are a series of layers, the extra “dweighting” of noise responses could be an extra layer of evaluation ~ doing this alteration is easy and modular. <br />
+Thirdly some products have improved reasoning skills, this was achieved after a large volume of intermediate tests.  This process isn't covered in this section, but is a thing that would need to happen.   <br />
+If I am testing something, I start by defining the limits of the requirements, ideally before I write the software.  So I wrote this outline, which in the absence of the product project is pointless.  For a plain App with less crunching on user input, I may be less picky about boundary cases on the input.<br />
+The three items I marked as paranoia are not reported in media if present, but seem a useful backstop.<br />
+NOTE: Some LLM devs are skipping over “write a unit test” process as the only important thing is the test Fixture.   But then you loose all the background support features, like duration reporting, the ability to measure RAM used, bulk scheduling etc, so I would discourage skipping the unit-test.   These smaller details are cheap and often library features.</p>
+
+<p>Due to LLM ingesting a large amount of random text made by humans, <i>note that human attention isn't even</i>.   When I was a small child it was quoted “Eskimo have 17 words for snow” as an annoying factoid before cheap internet was available.   Stepping round who is an 'eater of raw fish' term ~ many prefer Inuit ~ a quick search has a number closer to 50 words for frozen water <sup><a href="https://www.caslt.org/en/blog-discovering-languages-inuktut/" target="_blank">2</a></sup> <sup><a href="https://metro.co.uk/2024/05/03/inuits-50-words-snow-british-equivalent-20764599/" target="_blank">3</a></sup>.   The important point is that is not words for “snow”, it is words for frozen water.   There are many different states of frozen water that may kill you, and detailed knowledge and being able to communicate about the frozen water is necessary for survival in the Arctic.   Arctic people have this level of precision as it helps them, but it will not help some office dweller in a more southern city.  For me, my words for snow are nearly completely talking about fake-snow ~ like animation effects ~ as it doesn't snow near London.   A challenge for older UK people: list how many words you have for damp/ water logged ground ~ this will cross 17 quite quickly.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Test libraries <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>A structures look at managing and testing prompts <sup><a href="https://www.helicone.ai/blog/prompt-engineering-tools" target="_blank">4</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Prompt_engineering" target="_blank">5</a></sup>.  A discussion about test tools, in terms of the interactions, rather than a listicle <sup><a href="https://scribe.rip/the-modern-scientist/best-prompt-techniques-for-best-llm-responses-24d2ff4f6bca" target="_blank">6</a></sup>.  Content for “why have a test suit?&quot;, but couched in terms of releasing an LLM <sup><a href="https://machine-learning-made-simple.scribe.rip/how-to-build-unit-tests-for-llms-using-prompt-testing-f59c3826ed0e" target="_blank">7</a></sup>.  Prompt management can be complex, here is a tool to manage prompts for medical images <sup><a href="https://arxiv.org/abs/2410.01573" target="_blank">8</a></sup>.<br />
+A thorough set of notes for how to make a good set of test prompts <sup><a href="https://www.multimodal.dev/post/llm-prompting" target="_blank">9</a></sup>, I try to limit duplicating the references, and its not that complex.  Another reference from a company with more experience than me <sup><a href="https://circleci.com/blog/prompt-engineering/" target="_blank">10</a></sup>.</p>
+
+<p>The following are from <sup><a href="https://testsigma.com/blog/prompt-engineering-for-testers/" target="_blank">11</a></sup>, and seem to be BDD templates::</p>
+
+<ul class="ulbasic">
+    <li>APE (Action, Purpose, Expectation)</li>
+    <li>RACE (Role, Action, Context, Expectation) </li>
+    <li>COAST (Context, Objective, Actions, Scenario, Task)</li>
+    <li>RISE (Role, Input, Steps, Expectation)</li>
+</ul>
+
+<p>The source ~ TestSigma ~ is a tool, and supports manual and automated tests for prompts and LLM <sup><a href="https://thectoclub.com/tools/testsigma-review/" target="_blank">12</a></sup>.  It is a paid-for tool, and I am unaware of a data export capacity, which is essential for third party hosted tests.  It has strong NLP features which will support the human interaction to make tests ~ “tests in plain english”.   As this is for prompts, its the same idea as Selenium, but completely different interactions.   There are competitors to TestSigma, try TestRigor<a href="https://www.google.co.uk/search?q=TestRigor">?</a> <sup><a href="https://testrigor.com/" target="_blank">13</a></sup> reviewed <sup><a href="https://www.repeato.app/testsigma-vs-testrigor/" target="_blank">14</a></sup> <sup><a href="https://testrigor.com/blog/vision-ai-and-how-testrigor-uses-it/" target="_blank">15</a></sup>.</p>
+
+<p>More test tooling</p>
+
+<ul class="ulbasic">
+    <li><b><a href="https://humanloop.com/" target="_blank">Humanloop</a></b> <sup><a href="https://humanloop.com/blog/evaluating-llm-apps" target="_blank">16</a></sup> referencing <sup><a href="https://arxiv.org/abs/2202.03286" target="_blank">17</a></sup> </li>
+    <li><b><a href="https://langfuse.com" target="_blank">Langfuse</a></b> intro <sup><a href="https://langfuse.com/blog/2024-04-introducing-langfuse-2.0" target="_blank">18</a></sup> <sup><a href="https://scribe.rip/@annemsony.137/what-is-langfuse-efd9f50d7c6f" target="_blank">19</a></sup>, <a href="https://github.com/langfuse/langfuse" target="_blank">git</a>  </li>
+    <li><b><a href="https://www.langchain.com/" target="_blank">Langchain</a></b>, mentions reasoning, into <sup><a href="https://www.elastic.co/blog/langchain-tutorial" target="_blank">20</a></sup> <sup><a href="https://scribe.rip/@zilliz_learn/ultimate-guide-to-getting-started-with-langchain-b9a87cb340f8" target="_blank">21</a></sup> <a href="https://github.com/langchain-ai/langchain" target="_blank">git</a></li>
+    <li><b><a href="https://agenta.ai/" target="_blank">Agenta</a></b>, into <sup><a href="https://agenta.ai/blog/introducing-agenta-platform" target="_blank">22</a></sup> <sup><a href="https://www.antler.co/blog/why-we-invested-in-agenta" target="_blank">23</a></sup> <sup><a href="https://docs.agenta.ai/getting_started/quick-start" target="_blank">24</a></sup> <a href="https://github.com/Agenta-AI/agenta" target="_blank">git</a></li>
+    <li><b><a href="https://pezzo.ai/" target="_blank">Pezzo</a></b>, intro <sup><a href="https://hackernoon.com/how-pezzo-ai-is-simplifying-ai-adoption-for-developers" target="_blank">25</a></sup> <sup><a href="https://www.toolify.ai/ai-news/revolutionize-your-llm-management-with-pezzoai-399048" target="_blank">26</a></sup> <sup><a href="https://dev.to/pezzo/developers-add-ai-to-your-toolkit-in-10-minutes-mdn" target="_blank">27</a></sup> <a href="https://github.com/pezzolabs/pezzo" target="_blank">git</a></li>
+    <li><b><a href="https://jfrog.com/jfrog-ml" target="_blank">Jfrog</a></b> intro <sup><a href="https://portal.microfocus.com/s/article/KM000033216?language=en_US" target="_blank">28</a></sup> <sup><a href="https://scribe.rip/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34" target="_blank">29</a></sup> <sup><a href="https://jfrog.com/blog/jfrog-to-acquire-qwak-to-streamline-ai-models/" target="_blank">30</a></sup> <a href="https://github.com/jfrog" target="_blank">git</a> </li>
+    <li><b><a href="https://www.statsig.com/" target="_blank">Statsig</a></b> <sup><a href="https://www.statsig.com/blog/ai-prompt-experiments" target="_blank">31</a></sup> <a href="https://github.com/statsig-io" target="_blank">git</a></li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Value prop <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>A retailable product needs to meet legal requirements.  A framework is needed for covering the complex problem domain, as to do this manually is far to expensive.  Here are several and several software frameworks to reduce the cost of this quality step.</p>
+
+
+</div>
+<hr />
+<div class="halferWords addReferences">
+<details class="singlePopup withScroll">
+<summary><h3> Test plan for a chatbot </h3></summary>
+<p>Test preconditions that need to exist:</p>
+
+<ul class="ulbasic">
+    <li>A correctly setup websocket based comms layer</li>
+    <li>Some sort of GUI that can communicate with users [NOT IN TEST]</li>
+    <li>A correctly setup logging system, for auditing, under a different user account to the LLM</li>
+    <li>The “service under test” correctly setup, that will read data from the websocket, and respond</li>
+    <li>A correctly setup knowledge base linked to the chatbot (knowledge of “our” products)</li>
+    <li>SHOULD have API access to local stock control, so the chatbot only sells things that exist</li>
+    <li>If a medical product, there are several sets of medical data process that need complying to <sup><a href="https://en.wikipedia.org/wiki/Personal_data" target="_blank">1</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Protected_health_information" target="_blank">2</a></sup> </li>
+    <li>[PARANOIA] The knowledge base also holds relevant legal constraints</li>
+    <li>[PARANOIA] The knowledge base also holds relevant tax process constraints</li>
+    <li>[PARANOIA] The knowledge base also holds “common knowledge” of competitors</li>
+</ul>
+
+<p>Context boundary tests :</p>
+
+<ul class="ulbasic">
+    <li>If the chatbot was a human, the 'call' would be logged, demonstrate that logging is happening correctly</li>
+    <li>Idle connection, or very slow input (a low power DoS)</li>
+    <li>If the input is very large, being sensible (...trim?)</li>
+    <li>If locales are set, knowing a client has wrong locale, and aborting </li>
+    <li>If the input is in a unrecognised charset, </li>
+    <li>Check no extra behaviour as a side effect of users name</li>
+    <li>Handling for inconsistent data (e.g. account number and passphrase don't match) </li>
+    <li>Handling for expired data (e.g. account number for a closed account)</li>
+    <li>Handling for unknown account ids </li>
+    <li>Handling XYZ layers of user identification</li>
+    <li>Diplomatic handling for “bad words”</li>
+    <li>Knowing when a prompt is too expensive, and aborting</li>
+    <li>Change the charset in requests, is this accepted?</li>
+    <li>Partial UTF8 char, what blows up?</li>
+    <li>Partial UTF16 char, what blows up?</li>
+    <li>Partial win32 wide char, what blows up?</li>
+    <li>Make a clear policy for acceptable human languages.  Enforce this.</li>
+    <li>Assuming user accounts, check name is returned in correct places, and in expected style</li>
+</ul>
+
+<p>Scale and performance tests :</p>
+
+<ul class="ulbasic">
+    <li>How many concurrent requests are stable?</li>
+    <li>How fast is standard-query-1 (repeat for each test fixture)?</li>
+    <li>How stable is a big input again?</li>
+    <li>Are there are any subjects where the queries get slow, as the original source was much more verbose (see snow above)?</li>
+</ul>
+
+<p>Generative content LLM tests :</p>
+
+<ul class="ulbasic">
+    <li>Check can sell current own stock</li>
+    <li>Check can't sell previous stock</li>
+    <li>Check can correctly sell projected but not currently available stock</li>
+    <li>Check can offer correct product from a good match</li>
+    <li>Check can offer correct product from a weak match, maybe a range</li>
+    <li>Check can offer correct product from a description of competitors product</li>
+    <li>Check can't sell competitors stock</li>
+    <li>Ensure that all offers are inside tax codes</li>
+    <li>Ensure that all offers are inside legal codes (e.g. no alcohol to children)</li>
+    <li>Can offer RMA correctly</li>
+    <li>Can offer refund correctly</li>
+    <li>Show that Responses are complete (suggest: needs internal debug data)</li>
+    <li>Show that Responses are relevant, outside of above product display tests (suggest: needs internal debug data)</li>
+    <li>Doesn't make things awkward with inappropriate stereotyping</li>
+    <li>When fed random data, behaves normally</li>
+    <li>Show that the legally required PII filters work</li>
+    <li>Show that US PHR laws are complied with (very relevant to AI) and HIPAA, maybe relevant to AI.  </li>
+    <li>For the EU, show compliance to German privacy laws (strict)</li>
+    <li>Masking/suppressing for injection prompts </li>
+    <li>Show that inline control signals are not accepted from the end users (where different to previous). </li>
+    <li>Responses have low-to-no Toxity.  <i>I need to run this test manually, to know what the requirement should be precisely.</i> </li>
+    <li>Test for known but false information, like events that only happened in one film.</li>
+    <li>Try to order pizza, as an example of a sales transaction that will be on the internet (ASSERT: that pizza is not a product offered)</li>
+    <li>Ramble for abit, then ask a question</li>
+    <li>Ramble on like an old person, and don't ask a question</li>
+    <li>NEED TO EXTEND HERE</li>
+</ul>
+
+<p>I think a complete and useful “initial state prompt” would read like a normal program.  Some of the tests can be generated by using one of the tools listed halfway down <sup><a href="https://www.analyticsvidhya.com/blog/2023/05/how-to-evaluate-a-large-language-model-llm/" target="_blank">3</a></sup>.  The way some people describe the LLM makes it similar [XXX] to a mass of <i>if statements</i> ~ this input has this output ~ but <i>if statements</i> that do not have many/ any tests.</p>
+
+
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Testing for your AI prompts</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt&amp;t=Testing+Prompts"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-10-07T23:25:45">7th of Oct 2024</time>
+						</span>
+						<span>Created <time datetime="2024-10-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Oct 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Context</a></li>
+<li><a href="#toc1">Test libraries</a></li>
+<li class="h4_odd"><a href="#toc2">Value prop</a></li>
+<li><a href="#toc3">Test plan for a chatbot</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<p> Page rendered <time datetime="2024-10-07T23:34:35">7th of Oct 2024, 23:34:35</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-07T23:25:45">7th of Oct 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<style>
+.halferWords details summary h3 { display:inline-block; }
+
+</style>
+</body>
+</html>

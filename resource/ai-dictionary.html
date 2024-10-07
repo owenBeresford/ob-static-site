@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Dictionary</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A comprehensive list of algorithms for LLM based AI and related technologies. Also includes definitions of each terms for AI context, and 19 tuning algorithms to improve LLM." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Dictionary">
+<meta itemprop="description" content="A comprehensive list of algorithms for LLM based AI and related technologies. Also includes definitions of each terms for AI context, and 19 tuning algorithms to improve LLM.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Dictionary">
+<meta name="twitter:description" content="A comprehensive list of algorithms for LLM based AI and related technologies. Also includes definitions of each terms for AI context, and 19 tuning algorithms to improve LLM.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Dictionary" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ai-dictionary" />
+<meta property="og:description" content="A comprehensive list of algorithms for LLM based AI and related technologies. Also includes definitions of each terms for AI context, and 19 tuning algorithms to improve LLM." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="7th of Oct 2024, 22:20:59" />
+<meta property="article:modified_time" content="6th of Oct 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/ai-dictionary" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Dictionary",
+	"article:published_time":"7th of Oct 2024, 22:20:59", 
+    "article:modified_time":"6th of Oct 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences">
+<p class="buttonBar"> 
+<a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM concepts </a>
+<span href="/resource/ai-dictionary" class="button disabled" title="This article. All the atypical language pulled out into one location, to make the other test read better." > DICTIONARY </span>
+<a href="/resource/ai-retrieval-augmented-generation" class="button" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</a>
+<a href="/resource/ai-vector-stores" class="button" title="An article examining the specialised storage needed for LLM data.">Vector stores </a>
+<a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
+<a href="/resource/ai-test-prompt" class="button" title="Article to supply data on managing and testing prompts.">Test prompt </a>
+<a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic </a>
+<a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products.">Tuning LLM </a>
+</p>
+<div class="halferWords">
+<p>This is all the rare words used to describe structures in AI and LLM as one URL.  I pulled this out, as the list got too long for the intro.  Please use the browser search feature to find your term (for windows people, control and f keys).</p>
+
+
+</div>
+<div class="quiteWide">
+<dl>
+    <dt><strong>LLM (Large Language Model)</strong></dt>
+        <dd>[algorithm] The name of the algorithm and process to make the current attempt at AI.  In a self-explanatory fashion, it uses large amount of data and forms a language model.</dd>
+    <dt><strong>RAG (Retrieval-Augmented Generation)</strong></dt>
+        <dd>[algorithm] Defined in <sup><a href="https://arxiv.org/abs/2005.11401" target="_blank">1</a></sup>, where LLM created data is enhanced with plain data derived from search <sup><a href="https://www.freecodecamp.org/news/retrieval-augmented-generation-rag-handbook/" target="_blank">2</a></sup> <sup><a href="https://research.ibm.com/blog/retrieval-augmented-generation-RAG" target="_blank">3</a></sup>.</dd>
+    <dt><strong>NLP, (natural language processing)</strong></dt>
+        <dd>[algorithm] ~ not part of AI ~ it refers to algorithms to extract the meaning of what a human meant by a stream of text <sup><a href="https://arxiv.org/abs/2212.05773" target="_blank">4</a></sup> <sup><a href="https://arxiv.org/abs/2307.02503" target="_blank">5</a></sup>.  There are quite a few NLP packages in Python.</dd>
+    <dt><strong>Transformers</strong></dt>
+        <dd>[algorithm] Neural architecture that forms the basis of most LLMs <sup><a href="https://en.wikipedia.org/wiki/Transformer_%28deep_learning_architecture%29" target="_blank">6</a></sup>.  Made from layers of their neural networks, just like Tensorflow.</dd>
+    <dt><strong>Chain of Note</strong></dt>
+        <dd>[algorithm] A further extension to RAG, aimed at improving results <sup><a href="https://www.rungalileo.io/blog/mastering-rag-llm-prompting-techniques-for-reducing-hallucinations" target="_blank">7</a></sup> <sup><a href="https://arxiv.org/abs/2311.09210" target="_blank">8</a></sup>. Sometimes called “Chain of Thought”.</dd>
+    <dt><strong>Gradient Clipping</strong></dt>
+        <dd>[algorithm] The rate that a LLM correlates with training data, this a scalar magnitude. This prevents “exploding gradients and stabilizes the training process” <sup><a href="https://scribe.rip/@rtales/tuning-parameters-to-train-llms-large-language-models-8861bbc11971" target="_blank">9</a></sup>.  I <em>think</em> this is quadratic or higher power.  Term used for Back propagation.</dd>
+    <dt><strong>Back propagation</strong></dt>
+        <dd>[algorithm] An algorithm from ML that guesses gradients <sup><a href="https://en.wikipedia.org/wiki/Backpropagation" target="_blank">10</a></sup>, this is used to make Neural nets work.  Often used with Gradient descent, and it's sometimes called “stochastic gradient descent”.</dd>
+    <dt><strong>Stop Sequences</strong></dt>
+        <dd>[algorithm] Roughly an algorithm, it defines the desired last token in the output.  It is likely to either be a string of &quot;.&quot; OR an enum value 2 which specifies a paragraph.   Unsure about scope for this item, but it's found in <sup><a href="https://symbl.ai/developers/blog/a-guide-to-llm-hyperparameters/" target="_blank">11</a></sup>.</dd>
+    <dt><strong>Attention</strong></dt>
+        <dd>[algorithm] A weighting of a token compared to the others in the prompt.  This helps make better responses, and first used in <sup><a href="https://arxiv.org/abs/1706.03762" target="_blank">12</a></sup>.  Mostly used to setup RAG.  Note the structural similarity with Google's backlinks algorithm.</dd>
+    <dt><strong>Rerank, Reranking</strong></dt>
+        <dd>[algorithm] Resorting your current Resultset to match fresh data from a RAG <sup><a href="https://scribe.rip/llamaindex-blog/using-llms-for-retrieval-and-reranking-23cf2d3a14b6" target="_blank">13</a></sup>.</dd>
+    <dt><strong>Vector store</strong>, or <strong>VectorDB</strong></dt>
+        <dd>[service] Software to <a href="https://owenberesford.me.uk/resource/ai-vector-stores#">store</a> and to retrieve vectors at scale.  These are unstructured data heaps, so although databases can be used, its performance needs to be measured.</dd>
+    <dt><strong>Learning Rate Scheduling</strong></dt>
+        <dd>[algorithm] Self-explanatory, a metric for reducing learning rate.  Can be linear or exponential decay.</dd>
+    <dt><strong>Epochs</strong></dt>
+        <dd>[query option] Are also known as “training iterations”, similar to previous ML and tensor flow workflows <sup><a href="https://scribe.rip/@rtales/tuning-parameters-to-train-llms-large-language-models-8861bbc11971" target="_blank">14</a></sup>.  As iterative computation, to translate the entire source data, to extract meaning.</dd>
+    <dt><strong>Temperature</strong></dt>
+        <dd>[query option] A setting for an LLM, that sets how tightly clustered the selected response data is (sets the width / distribution of a stats bell curve) <sup><a href="https://ai.stackexchange.com/questions/32477/what-is-the-temperature-in-the-gpt-models" target="_blank">15</a></sup>.</dd>
+    <dt><strong>Frequency</strong> penalty</dt>
+        <dd>[query option] A setting to avoid a particular Vector repeating in results, by requesting a diverse vocab <sup><a href="https://symbl.ai/developers/blog/a-guide-to-llm-hyperparameters/" target="_blank">16</a></sup>.</dd>
+    <dt>Regularization</dt>
+        <dd>[query option] Common process like 'dropout' <sup><a href="https://towardsdatascience.com/simplified-math-behind-dropout-in-deep-learning-6d50f3f47275" target="_blank">17</a></sup> or 'weight decay' <sup><a href="https://machinelearningmastery.com/how-to-reduce-overfitting-in-deep-learning-with-weight-regularization/" target="_blank">18</a></sup> <sup><a href="https://ar5iv.labs.arxiv.org/html/2310.04415" target="_blank">19</a></sup>.</dd>
+    <dt><strong>Presence</strong> penalty</dt>
+        <dd>[query option] A setting this mechanically reduces duplication of a Vector.</dd>
+    <dt><strong>Top-K sampling</strong></dt>
+        <dd>[query option] A filter applied to vectors to constrain results a linear minimum value of K <sup><a href="https://symbl.ai/developers/blog/a-guide-to-llm-hyperparameters/" target="_blank">20</a></sup>.  Filtering is on discrete probability of the next Vector, from the population.</dd>
+    <dt><strong>Top-P sampling</strong></dt>
+        <dd>[query option] A filter applied to the sum of K values to finish the sample, see Top-K.  There will be multiple possible matches.</dd>
+    <dt><strong>Batch</strong> (size/ count)</dt>
+        <dd>[query option] A param to manage over-fitting and under-fitting flaws <sup><a href="https://scribe.rip/@mccartni/implications-of-batch-size-on-llm-training-and-inference-3320cb48d610" target="_blank">21</a></sup>.  Smaller batch sizes generate more stochastic updates, and larger batch sizes supply more useful generalization <sup><a href="https://scribe.rip/@rtales/tuning-parameters-to-train-llms-large-language-models-8861bbc11971" target="_blank">22</a></sup>.</dd>
+    <dt><strong>Learning Rate</strong></dt>
+        <dd>[query option] Which stats to use to keep the 'shape' of the current training data.  Common options are Time-based decay, Step decay, Exponential decay.</dd>
+    <dt><strong>Hallucination</strong></dt>
+        <dd>[description] Technical people advise not to use this term, as it's poor modelling of the software.  However it's common usage.  Some results of a LLM are just a <i>probable answer</i> <sup><a href="https://www.rungalileo.io/blog/mastering-rag-llm-prompting-techniques-for-reducing-hallucinations" target="_blank">23</a></sup>, and have no basis in reality.</dd>
+    <dt><strong>Model</strong></dt>
+        <dd>[description] Models are the output of an algorithm that has been applied to a dataset <sup><a href="https://www.ibm.com/topics/ai-model" target="_blank">24</a></sup>.  This is the official definition and not very useful.</dd>
+    <dt>Gradient</dt>
+        <dd>[description] The maths of a slope, a gradient transforms like a vector under change of basis of the space of variables <sup><a href="https://en.wikipedia.org/wiki/Gradient" target="_blank">25</a></sup>.  Used in Vector calculus and many other places.</dd>
+    <dt>Smoothed N-gram Model</dt>
+        <dd>[algorithm] Legacy tech from 2000's.  No current use or value.</dd>
+    <dt>ML (machine learning)</dt>
+        <dd>[algorithm] This is more of a process than an algorithm, but a method to derive conclusions from data at scale <sup><a href="https://en.wikipedia.org/wiki/Machine_learning" target="_blank">26</a></sup> <sup><a href="https://www.datacamp.com/tutorial/multilayer-perceptrons-in-machine-learning" target="_blank">27</a></sup>.  In theory this has lower rate of bias than direct data entry, but that depends on the data capture process.</dd>
+    <dt>Logistic Regression</dt>
+        <dd>[algorithm] A type of machine learning that is quite easy to setup <sup><a href="https://en.wikipedia.org/wiki/Logistic_regression" target="_blank">28</a></sup> (see wiki for maths)</dd>
+    <dt>Naive Bayes</dt>
+        <dd>[algorithm] Standard Bayes <sup><a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier" target="_blank">29</a></sup></dd>
+    <dt>Neural networks</dt>
+        <dd>[algorithm] A piece of software that makes decisions <sup><a href="https://en.wikipedia.org/wiki/Neural_network_%28machine_learning%29" target="_blank">30</a></sup> and simulates how mammalian nervous systems work.</dd>
+    <dt>Neural scaling law</dt>
+        <dd>[description] Describes how NN are affected by scaling <sup><a href="https://en.wikipedia.org/wiki/Neural_scaling_law" target="_blank">31</a></sup>.  Wiki supplies maths.</dd>
+    <dt>BPE (Byte pair encoding)</dt>
+        <dd>[algorithm] aka Digram coding.  This encodes test strings into a table/ hash for modeling “downstream” <sup><a href="https://en.wikipedia.org/wiki/Byte_pair_encoding" target="_blank">32</a></sup>.</dd>
+    <dt>DEPS (Describe, Explain, Plan and Select) method</dt>
+        <dd>[algorithm] A process to allow software Agents to  act intelligently <sup><a href="https://arxiv.org/pdf/2302.01560v2" target="_blank">33</a></sup>.</dd>
+    <dt>Reflexion method</dt>
+        <dd>[algorithm] An approach to change behaviour when observing results of previous actions.   Word is correct spelling in German (de_DE).   An implementation with the same name <sup><a href="https://github.com/AaronWard/generative-ai-workbook/discussions/19" target="_blank">34</a></sup>.</dd>
+    <dt>Rectified flow</dt>
+        <dd>[description] An analysis used in Diffusion modelling <sup><a href="https://en.wikipedia.org/wiki/Diffusion_model#Rectified_flow" target="_blank">35</a></sup>.  This is very confusing, as if you build a canal you rectify the flow of water, and manage water motion, which can diffuse through the edges of the canal or river.   In AI this is exactly the same terms, the wiki link has some maths.</dd>
+    <dt>Flow Matching</dt>
+        <dd>[description] More maths relating to Diffusion modelling <sup><a href="https://en.wikipedia.org/wiki/Diffusion_model#Score_matching" target="_blank">36</a></sup>.</dd>
+    <dt>Monte Carlo tree search</dt>
+        <dd>[algorithm] A heuristic search <sup><a href="https://en.wikipedia.org/wiki/Monte_Carlo_tree_search" target="_blank">37</a></sup>.</dd>
+    <dt>Inverse Temperature / Thermodynamic beta</dt>
+        <dd>[description] aka coldness. A maths thing, the mathematical opposite of temperature metric <sup><a href="https://en.wikipedia.org/wiki/Thermodynamic_beta" target="_blank">38</a></sup>.</dd>
+    <dt>Convolutional</dt>
+        <dd>[description] A maths terms for applying changes to multiple functions that generate a third combined function <sup><a href="https://en.wikipedia.org/wiki/Convolution" target="_blank">39</a></sup>, please see wiki for maths.</dd>
+    <dt>Stochastic</dt>
+        <dd>[description] 'olde englisc' word meaning “pertaining to conjecturing” (printed 1662) or guessing in normal english.  Term has been borrowed into maths for probability <sup><a href="https://en.wikipedia.org/wiki/Stochastic" target="_blank">40</a></sup>, and the “Markov process”, so used in AI.</dd>
+    <dt>Recurrent</dt>
+        <dd>[description] A thing that repeats, “recurrence” is a term used in many contexts, there are extra nuances available.  Some relevant maths <sup><a href="https://en.wikipedia.org/wiki/Mathematical_induction" target="_blank">41</a></sup>.</dd>
+    <dt>Deterministic</dt>
+        <dd>[description] means for a single input value, the same output is always produced <sup><a href="https://en.wikipedia.org/wiki/Deterministic_algorithm" target="_blank">42</a></sup>.</dd>
+    <dt>KL divergence</dt>
+        <dd>[algorithm] The KL is Kullback-Leibler, this is also known as <i>relative entropy</i>.  More maths <sup><a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence" target="_blank">43</a></sup>.</dd>
+    <dt>Gaussian Distribution</dt>
+        <dd>aka Normal distribution, see maths for longer definition <sup><a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank">44</a></sup>.</dd>
+    <dt>Cosine similarity</dt>
+        <dd>[description] a method to work out distance between two vectors <sup><a href="https://en.wikipedia.org/wiki/Cosine_similarity" target="_blank">45</a></sup>.</dd>
+    <dt>Vector</dt>
+        <dd>[description] A mystic process to make words in $english easier for the computer to understand, by converting them to numbers <sup><a href="https://scribe.rip/building-the-open-data-stack/a-vector-primer-understanding-the-basics-of-generative-ai-28ff4c1934a7" target="_blank">46</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Vector_notation" target="_blank">47</a></sup>.</dd>
+    <dt>Gaussian splatting</dt>
+        <dd>[algorithm] Used in graphics to draw volumes without using polygons.  Used in AI for factoring vectors <sup><a href="https://en.wikipedia.org/wiki/Gaussian_splatting" target="_blank">48</a></sup>.</dd>
+    <dt>IVF (Inverted File Index)</dt>
+        <dd>[algorithm] aka postings list, postings file, or inverted file.  A hash of content word to filename <sup><a href="https://en.wikipedia.org/wiki/Inverted_index" target="_blank">49</a></sup> <sup><a href="https://towardsdatascience.com/similarity-search-with-ivfpq-9c6348fd4db3" target="_blank">50</a></sup>.</dd>
+    <dt>ANN (Approximate Nearest Neighbours)</dt>
+        <dd>[algorithm] Chakrabarti and Regev proved that the approximate nearest neighbor search problem on the Hamming cube using polynomials <sup><a href="https://en.wikipedia.org/wiki/Cell-probe_model#Approximate_Nearest_Neighbor_Searching" target="_blank">51</a></sup> <sup><a href="https://arxiv.org/html/2404.19284v2" target="_blank">52</a></sup> <sup><a href="https://www.elastic.co/blog/understanding-ann" target="_blank">53</a></sup> <sup><a href="https://ieeexplore.ieee.org/document/9942356/metrics#metrics" target="_blank">54</a></sup>.</dd>
+    <dt>HNSW (Hierarchical navigable small world)</dt>
+        <dd>[algorithm] An approximate k-nearest neighbor search which scales logarithmically <sup><a href="https://en.wikipedia.org/wiki/Hierarchical_navigable_small_world" target="_blank">55</a></sup>.</dd>
+    <dt>ANNOY (Approximate Nearest Neighbours Oh Yeah)</dt>
+        <dd>[algorithm] Created by Erik Bernhardsson in 2015 whilst at Spotify <sup><a href="https://sds-aau.github.io/M3Port19/portfolio/ann/" target="_blank">56</a></sup>.   Recursively binary-partitions the data space and then builds a 'forest of trees' <sup><a href="https://medium.com/@abdullahsamilguser/approximate-nearest-neighbor-methods-713dcfa8518f" target="_blank">57</a></sup>.  See `sptag` in Python <sup><a href="https://www.algolia.com/blog/ai/what-is-vector-search/" target="_blank">58</a></sup>.  A case-study repeating Bernhardsson steps<sup><a href="https://medium.com/gsi-technology/ann-benchmarks-a-data-scientists-journey-to-billion-scale-performance-db191f043a27" target="_blank">59</a></sup>.</dd>
+    <dt>ScaNN<a href="https://www.google.co.uk/search?q=ScaNN">?</a> (Scalable Nearest Neighbour)</dt>
+        <dd>[algorithm] Created by Google, first published in 2020, notes <sup><a href="https://research.google/blog/announcing-scann-efficient-vector-similarity-search/" target="_blank">60</a></sup>, <sup><a href="https://research.google/blog/soar-new-algorithms-for-even-faster-vector-search-with-scann/" target="_blank">61</a></sup>, <sup><a href="https://cloud.google.com/blog/products/databases/understanding-the-scann-index-in-alloydb" target="_blank">62</a></sup> an engineering breakdown <sup><a href="https://medium.com/@DataPlayer/scalable-approximate-nearest-neighbour-search-using-googles-scann-and-facebook-s-faiss-3e84df25ba" target="_blank">63</a></sup>. ScaNN uses LSH, and some Trees.</dd>
+    <dt>FAISS (Facebook’s AI Similarity Search)</dt>
+        <dd>[algorithm] I think FAISS was used from 2016 internally, but released as OSS in 2019 <sup><a href="https://arxiv.org/pdf/2401.08281" target="_blank">64</a></sup>.   It includes quantisation, a lot of pre-calculation (and creating several IVF indexes), Vector dimension simplification, HNSW, NNS <sup><a href="https://towardsdatascience.com/understanding-faiss-619bb6db2d1a" target="_blank">65</a></sup> <sup><a href="https://medium.com/@DataPlayer/scalable-approximate-nearest-neighbour-search-using-googles-scann-and-facebook-s-faiss-3e84df25ba" target="_blank">66</a></sup>.</dd>
+    <dt>NGT (Neighbourhood Graph and Tree)</dt>
+        <dd>[algorithm] A better edition of ANN <sup><a href="https://github.com/yahoojapan/NGT/wiki/Command-Quick-Referenc" target="_blank">67</a></sup> <sup><a href="https://opensource.com/article/19/10/ngt-open-source-library" target="_blank">68</a></sup></dd>
+    <dt>FANNS (Fast Approximate Nearest Neighbour Search)</dt>
+        <dd>[algorithm] Relevant paper <sup><a href="https://dl.acm.org/doi/abs/10.5555/3504035.3505114" target="_blank">69</a></sup>.   According to <sup><a href="https://spcl.inf.ethz.ch/Publications/.pdf/wenqi_fanns_slides.pdf" target="_blank">70</a></sup> FANNS uses dedicated hardware (FPGA) to support the FANNS speed increment <sup><a href="https://dl.acm.org/doi/10.1145/3581784.3607045" target="_blank">71</a></sup>.</dd>
+    <dt>Hamming Distance</dt>
+        <dd>[algorithm] A mostly historic algorithm to compute similarity, and was used for compression <sup><a href="https://en.wikipedia.org/wiki/Hamming_distance" target="_blank">72</a></sup>.</dd>
+    <dt>Inner Product</dt>
+        <dd>[algorithm] I used <sup><a href="https://en.wikipedia.org/wiki/Frobenius_inner_product" target="_blank">73</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Dot_product" target="_blank">74</a></sup> basic maths in graphics previously.  Wiki favours <sup><a href="https://en.wikipedia.org/wiki/Inner_product_space" target="_blank">75</a></sup></dd>
+    <dt>Mahalanobis Distance</dt>
+        <dd>[algorithm] Historic algorithm for computing distance <sup><a href="https://en.wikipedia.org/wiki/Mahalanobis_distance" target="_blank">76</a></sup></dd>
+    <dt>“4-bit PQ” (Product Quantisation)</dt>
+        <dd>[algorithm] Described in <sup><a href="https://lantern.dev/blog/pq" target="_blank">77</a></sup>.  Limiting the number range to 4bits, or 16 values is brutal compression, which will shrink the state space a lot, but give more approximate results.  This achieves these outcomes <sup><a href="https://www.pinecone.io/learn/series/faiss/product-quantization/" target="_blank">78</a></sup>.  There are obviously other values for the number range.   There are many quantisation based recipes.</dd>
+    <dt>LSH (Locality-sensitive hashing)</dt>
+        <dd>[algorithm] Is a fuzzy hashing technique that hashes similar input items into the same “buckets” with high probability <sup><a href="https://en.wikipedia.org/wiki/Locality-sensitive_hashing" target="_blank">79</a></sup></dd>
+    <dt>KD Tree (K-Dimension tree)</dt>
+        <dd>[algorithm] This was created by Jon Louis Bentley in 1975 <sup><a href="https://en.wikipedia.org/wiki/K-d_tree" target="_blank">80</a></sup>. KD trees are a special case of binary space partitioning trees. See <sup><a href="https://ieeexplore.ieee.org/document/8807277" target="_blank">81</a></sup></dd>
+    <dt>Ball Trees</dt>
+        <dd>[algorithm] wiki <sup><a href="https://en.wikipedia.org/wiki/Ball_tree" target="_blank">82</a></sup> A more common algorithm than I thought <sup><a href="https://medium.com/@ravuri.saitarun/kd-tree-ball-tree-algorithms-83271c4d1cd0" target="_blank">83</a></sup> <sup><a href="https://medium.com/@polkamnithyasri/kd-tree-and-ball-tree-algorithms-aa99dfad4ceb" target="_blank">84</a></sup>.  The earliest reference I found was 1989.</dd>
+    <dt>Spill Trees</dt>
+        <dd>[algorithm] The earliest I found is a 2004 paper <sup><a href="https://proceedings.neurips.cc/paper_files/paper/2004/file/1102a326d5f7c9e04fc3c89d0ede88c9-Paper.pdf" target="_blank">85</a></sup> but this doesn't describe Spill Trees as new.  They are so named as data can be in more than 1 cell ~ hence “spilled”.   The “ancestor algorithm” is a Metric Tree that was first described in 1991 by Uhlmann <sup><a href="https://project.inria.fr/gudhi/files/2017/04/clement-jamin.pdf" target="_blank">86</a></sup>.  A interesting patent from Google in 2006 <sup><a href="https://patents.google.com/patent/US7539657" target="_blank">87</a></sup>, which does more steps in parallel.</dd>
+    <dt>RDB B-tree</dt>
+        <dd>[algorithm] A basic tree used widely <sup><a href="https://en.wikipedia.org/wiki/B%2B_tree" target="_blank">88</a></sup> <sup><a href="https://en.wikipedia.org/wiki/B-tree" target="_blank">89</a></sup></dd>
+    <dt>Distributionally Robust Optimization (DRO)</dt>
+        <dd>[description] A type of optimisation <sup><a href="https://en.wikipedia.org/wiki/Robust_optimization" target="_blank">90</a></sup> that is also Normal (see Gaussian above) I think.  Is a widely used term <sup><a href="https://arxiv.org/abs/2410.00690" target="_blank">91</a></sup> <sup><a href="https://arxiv.org/abs/2406.16571" target="_blank">92</a></sup> <sup><a href="https://arxiv.org/abs/2401.14655" target="_blank">93</a></sup>.</dd>
+    <dt>Continuous (time)</dt>
+        <dd>[description] Continuous variables like temperature <sup><a href="https://en.wikipedia.org/wiki/Continuous_function" target="_blank">94</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Discrete_time_and_continuous_time" target="_blank">95</a></sup> are not discrete (like financial values, no partial pennies).  Important for Integration and Calculus.</dd>
+    <dt>Markov chain</dt>
+        <dd>[description] Part of probability, this is the maths model of “stuff happening” <sup><a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank">96</a></sup>.</dd>
+    <dt>Wasserstein metric</dt>
+        <dd>[description] More maths, aka Kantorovich–Rubinstein metric “the earth movers distance” <sup><a href="https://en.wikipedia.org/wiki/Wasserstein_metric" target="_blank">97</a></sup>.</dd>
+    <dt>Uniform</dt>
+        <dd>[description] Probability again <sup><a href="https://en.wikipedia.org/wiki/Uniform_convergence_in_probability" target="_blank">98</a></sup>.</dd>
+    <dt>Sigmoid function</dt>
+        <dd>[description] A function <sup><a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank">99</a></sup> whose output resembles a logistic function <sup><a href="https://en.wikipedia.org/wiki/Logistic_function" target="_blank">100</a></sup>.  Applies to real numbers, the output will be between 0 and 1.</dd>
+    <dt>Variational Inference</dt>
+        <dd>[description] In maths, approximating intractable integrals <sup><a href="https://en.wikipedia.org/wiki/Variational_Bayesian_methods" target="_blank">101</a></sup>.   Used in AI as reparameterisation <sup><a href="https://en.wikipedia.org/wiki/Reparameterization_trick#Variational_inference" target="_blank">102</a></sup>.</dd>
+    <dt>Backbone (AI software term)</dt>
+        <dd>[algorithm] Backbone is a term used in DeepLab models/papers to refer to the feature extractor network <sup><a href="https://stackoverflow.com/questions/59868132/what-does-backbone-mean-in-a-neural-network#" target="_blank">103</a></sup>.</dd>
+    <dt>Forward process</dt>
+        <dd>[algorithm] Part of Diffusion modelling, see maths <sup><a href="https://en.wikipedia.org/wiki/Diffusion_model#Forward_diffusion_process" target="_blank">104</a></sup></dd>
+    <dt>Backward process</dt>
+        <dd>[algorithm] Part of Diffusion modelling, the invert of forward (see above).  See maths <sup><a href="https://en.wikipedia.org/wiki/Diffusion_model#Backward_diffusion_process_2" target="_blank">105</a></sup></dd>
+    <dt>Fokker-Planck</dt>
+        <dd>[equation] See maths <sup><a href="https://en.wikipedia.org/wiki/Fokker%E2%80%93Planck_equation" target="_blank">106</a></sup> probability density against time</dd>
+    <dt>Wiener process</dt>
+        <dd>[equation] See maths <sup><a href="https://en.wikipedia.org/wiki/Wiener_process" target="_blank">107</a></sup> a single variable Brownian motion <sup><a href="https://en.wikipedia.org/wiki/Brownian_motion" target="_blank">108</a></sup>, real-valued continuous-time stochastic process.</dd>
+    <dt>Langevin equation</dt>
+        <dd>[equation] Describes motion in fluids <sup><a href="https://en.wikipedia.org/wiki/Langevin_equation" target="_blank">109</a></sup>.</dd>
+    <dt>Laplace operator</dt>
+        <dd>[description] Probability distribution <sup><a href="https://en.wikipedia.org/wiki/Laplace_operator" target="_blank">110</a></sup></dd>
+    <dt>Discrete (maths)</dt>
+        <dd>[description] The type of maths <sup><a href="https://en.wikipedia.org/wiki/Discrete_mathematics" target="_blank">111</a></sup> that doesn't like fractions/ decimals. See accountancy</dd>
+    <dt>Linear (maths)</dt>
+        <dd>[description] Maths a step in one variable has a proportional step in a second <sup><a href="https://en.wikipedia.org/wiki/Linearity" target="_blank">112</a></sup></dd>
+    <dt>Multimodal</dt>
+        <dd>[description] Word used in UI for AI for “uses more than one media type”.  General options are: Text/ audio/ images/ video/ binary streams.</dd>
+    <dt>Positional encoding</dt>
+        <dd>[description] An AI term <sup><a href="https://www.blopig.com/blog/2023/10/understanding-positional-encoding-in-transformers/" target="_blank">113</a></sup> <sup><a href="https://ahmad-mustapha.scribe.rip/transformers-well-explained-positional-encoding-c8350904444f" target="_blank">114</a></sup> <sup><a href="https://scribe.rip/thedeephub/positional-encoding-explained-a-deep-dive-into-transformer-pe-65cfe8cfe10b" target="_blank">115</a></sup></dd>
+    <dt>(GRU) Gated Recurrent Units</dt>
+        <dd>[algorithm] A simpler/ faster version of LSTM <sup><a href="https://en.wikipedia.org/wiki/Gated_recurrent_unit" target="_blank">116</a></sup>.   The wiki article is confused between code and maths.</dd>
+    <dt>Nonlinear (maths)</dt>
+        <dd>[description] Every possible relationship between any two variables that is not linear.  As those words are defined (so quadratic, cubic, exponential etc).</dd>
+    <dt>Tweedie's formula</dt>
+        <dd>[equation] Distribution/ probability, the person <sup><a href="https://en.wikipedia.org/wiki/Maurice_Tweedie" target="_blank">117</a></sup>, the specific maths is probably Inverse Gaussian <sup><a href="https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution" target="_blank">118</a></sup>, second link for maths.</dd>
+    <dt>Maxwell–Boltzmann distribution</dt>
+        <dd>[description] Maths to model gas in physics <sup><a href="https://en.wikipedia.org/wiki/Maxwell%E2%80%93Boltzmann_statistics" target="_blank">119</a></sup>, applies to AI as more probability</dd>
+    <dt>Brownian motion, Brownian walker</dt>
+        <dd>[description] Important maths model of motion of many systems <sup><a href="https://en.wikipedia.org/wiki/Brownian_motion" target="_blank">120</a></sup>.</dd>
+    <dt>Variational inference</dt>
+        <dd>[algorithm] Maths for probability that I lack skill at english to write <sup><a href="https://en.wikipedia.org/wiki/Variational_Bayesian_methods" target="_blank">121</a></sup> <sup><a href="https://arxiv.org/abs/2401.12418" target="_blank">122</a></sup></dd>
+    <dt>Hyvärinen scoring rule</dt>
+        <dd>[equation] For Bayesian models <sup><a href="https://en.wikipedia.org/wiki/Scoring_rule#Hyv%C3%A4rinen_scoring_rule" target="_blank">123</a></sup>.  A scoring rule is an evaluation metric for decision theory.</dd>
+    <dt>Annealing</dt>
+        <dd>[algorithm] Trying to move to a global optimisation, please read maths <sup><a href="https://en.wikipedia.org/wiki/Simulated_annealing" target="_blank">124</a></sup> related theory for materials <sup><a href="https://en.wikipedia.org/wiki/Annealing_%28materials_science%29" target="_blank">125</a></sup>.</dd>
+    <dt>Euler–Maruyama method</dt>
+        <dd>[equation] An approximation <sup><a href="https://en.wikipedia.org/wiki/Euler%E2%80%93Maruyama_method" target="_blank">126</a></sup> of Stochastic Differential equation, the wiki includes math and Python source</dd>
+    <dt>Noisy Channel model</dt>
+        <dd>[algorithm] Maybe a model not an algorithm <sup><a href="https://en.wikipedia.org/wiki/Noisy_channel_model" target="_blank">127</a></sup></dd>
+    <dt>Labelling</dt>
+        <dd>[description] I often use “tagging”, but the process of categorising plain meta-data free content.  This is important to training your AI software.  Most AI projects try to label everything via software as it costs less to operate, and scales better.  See also 1 question feedback forms that are normally displayed with emoji.</dd>
+    <dt><strong>Token</strong></dt>
+        <dd>[description] The smallest section from the prompt thatmakes sense <sup><a href="https://scribe.rip/@cloudswarup/the-building-blocks-of-llms-vectors-tokens-and-embeddings-1cd61cd20e35" target="_blank">128</a></sup> ~ often a whole word ~ but not always e.g. “could”, vs [“could”, “n't”].  Cohere ltd uses 4 bytes per token, on average <sup><a href="https://cohere.com/blog/llm-parameters-best-outputs-language-ai" target="_blank">129</a></sup> ~ this would be 1 big5 ideogram (traditional Chinese), or a short word in en-US.   A token is used as “converted into a vector via looking up from a word embedding table” <sup><a href="https://en.wikipedia.org/wiki/Transformer_%28deep_learning_architecture%29" target="_blank">130</a></sup>.</dd>
+    <dt><strong>Vector</strong></dt>
+        <dd>[description] A vector is a float, or list of floats when used in an AI context.  Vectors have a real number range.   A prompt and the original data population are converted into vectors to make handing easier.  This <i>should</i> apply to speech, video and text.  For an idea of the scale of data: 2 short 4-word-sentences map to 1,500 vectors with recent Python libraries.</dd>
+    <dt><strong>Embeddings</strong></dt>
+        <dd>[description] A larger collection of vectors.   Embeddings are useful vectors <sup><a href="https://byronsalty.scribe.rip/my-growing-list-of-ai-and-llm-terminology-26d8b109a14f" target="_blank">131</a></sup>.  An article used the term trained data.</dd>
+    <dt><strong>Parametric / parameterised</strong></dt>
+        <dd>[description] A statistical model <sup><a href="https://en.wikipedia.org/wiki/Parametric_model" target="_blank">132</a></sup> that records the distribution of probabilities.  Knowing the distribution means better prompt responses can be created <sup><a href="https://www.freecodecamp.org/news/retrieval-augmented-generation-rag-handbook/#2-2-parametric-vs-non-parametric-memory" target="_blank">133</a></sup> <sup><a href="https://lagstill.scribe.rip/rag-analytics-explored-8d389978880f" target="_blank">134</a></sup>.  Not used by itself.</dd>
+    <dt><strong>Context Window</strong></dt>
+        <dd>[description] The data that is carried along with the user query, so the LLM can make better responses. Analogous to a person's short term memory <sup><a href="https://scribe.rip/@crskilpatrick807/context-windows-the-short-term-memory-of-large-language-models-ab878fc6f9b5" target="_blank">135</a></sup>.  Sizes of window for some common AI <sup><a href="https://swimm.io/learn/large-language-models/llm-context-windows-basics-examples-and-prompting-best-practices" target="_blank">136</a></sup></dd>
+    <dt><strong>Early Stopping</strong></dt>
+        <dd>[description] Not using vast numbers of Epochs, to reduce Overfitting.  See nice graphs in here <sup><a href="https://towardsai.net/p/data-science/pause-for-performance-the-guide-to-using-early-stopping-in-ml-and-dl-model-training" target="_blank">137</a></sup>, term also used in Tensorflow.</dd>
+    <dt><strong>Overfit</strong></dt>
+        <dd>[description] Applying the control levers on an Epoch too tightly (see learning rate), so later responses very tightly match training data.   Examples <sup><a href="https://betterprogramming.pub/large-language-model-knowledge-graph-store-yes-by-fine-tuning-llm-with-kg-f88b556959e6" target="_blank">138</a></sup>.   This limits usefulness of the LLM, as noise in the original data is outputted.</dd>
+    <dt><strong>Underfit</strong></dt>
+        <dd>[description] When the LLM isn't learning from a training sample, the antonym is above 'overfit'.</dd>
+    <dt><strong>Fine-Tuning</strong></dt>
+        <dd>[description] Refers to small changes rather than big ones <sup><a href="https://en.wikipedia.org/wiki/Fine-tuning_%28deep_learning%29" target="_blank">139</a></sup>, computationally this is a smaller change.  Not sure on boundary between large tuning and fine tuning.   According to <sup><a href="https://news.ycombinator.com/item?id=35666201" target="_blank">140</a></sup>, fine-tuning is not recommended for adding new knowledge into an LLM, but adjusting the output style.</dd>
+    <dt><strong>One-Shot</strong></dt>
+        <dd>[description] A style of prompting, to steer the results <sup><a href="https://www.whytryai.com/p/zero-shot-one-shot-few-shot-prompting" target="_blank">141</a></sup>.</dd>
+    <dt><strong>Few-shot</strong></dt>
+        <dd>[description] Similar to one shot, but higher cardinality.  Few shot prompts allow more reliable generation of more complex responses.</dd>
+    <dt>Max Output Tokens</dt>
+        <dd>A limit to the size of the generated output.</dd>
+    <dt><strong>Weights</strong></dt>
+        <dd>A standard stats concept that attaches a relative importance to each value in a list, so the most important one has most impact on the result computation.</dd>
+    <dt><strong>Quantization</strong></dt>
+        <dd>[algorithm] Arts people would say posterisation, quantisation is reducing the range of possible values in a uniform fashion. ..maybe 4bit / 16 value..</dd>
+    <dt><strong>AGI</strong> or <strong>Artificial General Intelligence</strong></dt>
+        <dd>A distant ambition that we currently do not have even a whisper of.   Marketing people sometimes get excited and claim this already.</dd>
+    <dt>Meta-cognition</dt>
+        <dd>Maybe in some distant Star trek themed future... (Term means thinking about thinking, this is mostly achieved by humans trying to build a useful LLM)</dd>
+    <dt>GPT (Generative Pre-trained Transformer)</dt>
+        <dd>i.e. the technical end of chatGPT, the rest of this document is the explanation.</dd>
+    <dt><strong>Prompt</strong></dt>
+        <dd>[input] The question, the request, the triggering event.  Normally the human-entered text, but should include vocal samples.</dd>
+    <dt>✨✨</dt>
+        <dd><strong>✨✨  The following is a batch of tuning algorithms ✨✨ </strong></dd>
+    <dt><strong>RLHF, (Reinforcement Learning with Human Feedback)</strong></dt>
+        <dd>[algorithm] Used in ML, deep learning, LLM and now RAG.  Basically it adds a feedback path so less good answers can be made less common.</dd>
+    <dt><strong>BPE (Byte-Pair Encoding)</strong></dt>
+        <dd>[algorithm] A high value algorithm, which started out to compress data <sup><a href="https://datascience.fm/understanding-byte-pair-encoding-bpe-in-large-language-models-llms/" target="_blank">142</a></sup>.  This simplifies neural nets, and supports extending with fresh data.</dd>
+    <dt><strong> KD (Knowledge Distillation)</strong></dt>
+        <dd>[algorithm] A technique in which a large language model transfers its knowledge <sup><a href="https://arxiv.org/pdf/2306.08543v1" target="_blank">143</a></sup> to a smaller model to achieve similar performance with reduced computational resources.</dd>
+    <dt><strong>Transfer Learning</strong></dt>
+        <dd>[algorithm] Borrowing the config from a large dataset to your smaller one.</dd>
+    <dt><strong>Knowledge graph</strong></dt>
+        <dd>[algorithm] A method for storing data and known facts.  The Graph should increase the rate that LLM make useful answers, rather than answers <sup><a href="https://betterprogramming.pub/large-language-model-knowledge-graph-store-yes-by-fine-tuning-llm-with-kg-f88b556959e6" target="_blank">144</a></sup>.  Article lists several different GraphDB syntaxes.</dd>
+    <dt><strong>GloVe (Global Vectors for Word Representation)</strong></dt>
+        <dd>[algorithm] An unsupervised learning algorithm for obtaining vector representations for words <sup><a href="https://nlp.stanford.edu/projects/glove/" target="_blank">145</a></sup> ~ used for NLP.</dd>
+    <dt><strong>RNN (Recurrent Neural Networks)</strong></dt>
+        <dd>[algorithm] A neural network with weights and an internal state <sup><a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" target="_blank">146</a></sup>.</dd>
+    <dt><strong>CNN (Convolutional Neural Networks)</strong></dt>
+        <dd>[algorithm] A regularized type of feed-forward neural network that learns features by itself <sup><a href="https://en.wikipedia.org/wiki/Convolutional_neural_network" target="_blank">147</a></sup>.   Also known as 'Shift Invariant' or 'Space Invariant artificial Neural networks'.</dd>
+    <dt><strong>LSTM (Long-Short-Term-Memory)</strong> network</dt>
+        <dd>[algorithm] A type of RNN aimed at dealing with the vanishing gradient problem present in other RNN <sup><a href="https://en.wikipedia.org/wiki/Long_short-term_memory" target="_blank">148</a></sup>.</dd>
+    <dt><strong>PEFT (Parameter-Efficient Fine-Tuning)</strong></dt>
+        <dd>[algorithm] A label for a group of methods to improve performance in LLM with training <sup><a href="https://www.ibm.com/think/topics/parameter-efficient-fine-tuning" target="_blank">149</a></sup>.  See also 'Prompt Tuning', 'LoRA (Low-Rank Adaptation)', and 'Prefix Tuning', also listed.</dd>
+    <dt><strong>LoRA (Low Rank Adaptation)</strong></dt>
+        <dd>[algorithm] Applies small alterations to the cross-attention layers of Stable Diffusion models <sup><a href="https://wiki.civitai.com/wiki/Low-Rank_Adaptation" target="_blank">150</a></sup>.  However, not big enough to have its own wiki page <sup><a href="https://en.wikipedia.org/wiki/Fine-tuning_%28deep_learning%29#Low-rank_adaptation" target="_blank">151</a></sup>.   See also QLoRA or Quantised LoRA.</dd>
+    <dt><strong>Prefix tuning</strong></dt>
+        <dd>[algorithm] Created for natural language generation (NLG), this prepends a task-specific vector.</dd>
+    <dt><strong>Prompt tuning</strong></dt>
+        <dd>[algorithm] Injects tailored prompts into the input or training data to improve responses.  Soft prompts, generated by the AI from known data have the best accomplishments.</dd>
+    <dt><strong>BERT (Bidirectional Encoder Representations from Transformers)</strong></dt>
+        <dd>[algorithm] Invented by Google Inc, BERT is an encoder-only Transformer architecture <sup><a href="https://en.wikipedia.org/wiki/BERT_%28language_model%29" target="_blank">152</a></sup>.  There are various sizes of data set which will support different LLM outcomes.</dd>
+    <dt><strong>MoE (Mixture of Experts)</strong></dt>
+        <dd>[algorithm] Splits a large subject area into smaller experts, each prompt will probably only be answered by one expert <sup><a href="https://en.wikipedia.org/wiki/Mixture_of_experts" target="_blank">153</a></sup>.  Wiki has a maths description.</dd>
+    <dt><strong>STP (Step-back Prompting)</strong></dt>
+        <dd>[algorithm] Gets the platform to edit the prompt to a higher level abstract query to derive high-level concepts and first principle <sup><a href="https://blog.svenson.ai/step-back-prompting-a-new-technique-for-abstraction-and-reasoning-in-large-language-models" target="_blank">154</a></sup>.</dd>
+    <dt><strong>RoPE (Rotary Positional Embedding)</strong></dt>
+        <dd>[algorithm] Whilst doing Vector generation, RoPE remembers the position of a word in a sentence <sup><a href="https://scribe.rip/ai-insights-cobet/rotary-positional-embeddings-a-detailed-look-and-comprehensive-understanding-4ff66a874d83" target="_blank">155</a></sup>, this reference offers several algorithms for the offset, suited to different sizes of prompt text.</dd>
+    <dt><strong>ULMFiT (Universal Language Model Fine-Tuning)</strong></dt>
+        <dd>[algorithm] Dedicated NLP algorithm, Quote It involves a 3-layer AWD-LSTM architecture for its representations. The training consists of three steps:</dd>
+</dl>
+
+<ol>
+    <li>general language model pre-training on a Wikipedia-based text, </li>
+    <li>fine-tuning the language model on a target task, and </li>
+    <li>fine-tuning the classifier on the target task. <sup><a href="https://paperswithcode.com/method/ulmfit" target="_blank">156</a></sup></li>
+</ol>
+
+<dl>
+    <dt><strong>XLNet</strong></dt>
+        <dd>[algorithm] Complicated, please read reference <sup><a href="https://paperswithcode.com/method/xlnet" target="_blank">157</a></sup></dd>
+</dl>
+
+<p>A view to the future <sup><a href="https://epochai.org/blog/will-we-run-out-of-data-limits-of-llm-scaling-based-on-human-generated-data" target="_blank">158</a></sup> <sup><a href="https://arxiv.org/pdf/2211.04325" target="_blank">159</a></sup>.   A nice article, where people are addicted to stats <sup><a href="https://www.fast.ai/posts/2023-09-04-learning-jumps/" target="_blank">160</a></sup>.   Some general 'SEO articles' selected as comparative to this article <sup><a href="https://www.coursera.org/collections/llms-terms" target="_blank">161</a></sup> <sup><a href="https://byronsalty.scribe.rip/my-growing-list-of-ai-and-llm-terminology-26d8b109a14f" target="_blank">162</a></sup> <sup><a href="https://toloka.ai/blog/history-of-llms/" target="_blank">163</a></sup>.   An example of LLM gone bad <sup><a href="https://www.meetgrit.com/s/articles/a06Qp00000C09dtIAB/a-compact-guide-to-large-language-models-defining-llms-and-their-role-in-ai" target="_blank">164</a></sup> <sup><a href="https://scribe.rip/@rtales/tuning-parameters-to-train-llms-large-language-models-8861bbc11971" target="_blank">165</a></sup>.  If you have a medium account, try <sup><a href="https://scribe.rip/@msayef/llm-terminologies-decoded-a-beginners-quick-reference-guide-925f35794198" target="_blank">166</a></sup> <sup><a href="https://scribe.rip/tales-of-tomorrow/a-quiet-revolution-mistral-ai-releases-sensational-new-ai-model-c17c663287f0" target="_blank">167</a></sup> <sup><a href="https://towardsdatascience.com/gpt-3-rnns-and-all-that-deep-dive-into-language-modelling-7f67658ba0d5" target="_blank">168</a></sup> <sup><a href="https://ai.plainenglish.io/fine-tuning-large-language-models-for-decision-support-a-comprehensive-guide-c1ef4c06abc6" target="_blank">169</a></sup>.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>AI/LLM dictionary</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-dictionary" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-dictionary" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-dictionary" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-dictionary&amp;t=Dictionary"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-dictionary" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-10-06T14:04:08">6th of Oct 2024</time>
+						</span>
+						<span>Created <time datetime="2024-10-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Oct 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-dictionary" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<menu class="h4_lean">
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<p> Page rendered <time datetime="2024-10-07T22:20:59">7th of Oct 2024, 22:20:59</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-06T14:04:08">6th of Oct 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<style>
+.halferWords ul { margin-left:30%; }
+
+ol { counter-reset: points 0; } 
+@media screen and (min-width:800px) {
+	ol { margin-left:30%; } 
+}
+ol li::before { counter-increment: points 1;  content:counter(points) ")";  }
+
+/* custom styling, as this list is too hardcore for the general framework. */
+@media screen and (min-width:1024px ) {
+	.quiteWide { width:70em; margin-left:auto; margin-right:auto; }	
+	 dl dt { display: inline-block; width: 20%; min-width: 8em; text-align: center; vertical-align: text-top; }
+	 dl dd { display: inline-block; max-width: 79%; text-align: left; vertical-align: text-top; min-width: 75%; }
+}
+@media screen and (max-width:1024px ) and (min-width:600px ) {
+	.quiteWide { width:70em; margin-left:auto; margin-right:auto; }	
+	 dl dt { display: inline-block; width: 20%; min-width: 8em; text-align: center; vertical-align: text-top; }
+	 dl dd { display: inline-block; max-width: 79%; text-align: left; vertical-align: text-top; min-width: 75%; }
+}
+@media screen and (max-width:600px ) {
+	.quiteWide { width:100vw; height:100vh; overflow-y:scroll; }	
+	 dl dt { display: block; min-width: 8em; text-align: center; }
+	 dl dd { text-align: left; }
+}
+</style>
+</body>
+</html>
