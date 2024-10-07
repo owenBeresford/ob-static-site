@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/react18-notes" />
 <meta property="og:description" content="Detailed article on React 18 Architecture to act as a single page cheat-sheet. Target audience: Software engineers who have used many frameworks. Written by a software engineer on how React18 works; and what features got in the completed edition.  I explain all 15 React Hooks; 23 React18 methods and 3 built-in tags." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Aug 2024, 9:16:16" />
-<meta property="article:modified_time" content="20th of Aug 2024" />
+<meta property="article:published_time" content="7th of Oct 2024, 22:21:01" />
+<meta property="article:modified_time" content="21st of Sep 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/react18-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "React 18 Architecture",
-	"article:published_time":"20th of Aug 2024, 9:16:16", 
-    "article:modified_time":"20th of Aug 2024",
+	"article:published_time":"7th of Oct 2024, 22:21:01", 
+    "article:modified_time":"21st of Sep 2024",
     "article:section":"technology",
 
     "author": {
@@ -102,11 +102,11 @@ It would be an extremely heretical statement; but this architecture can be achie
         <li>const [state, setState] = useState(initialState);</li>
         <li>package: React</li>
     </ul></li>
-    <li><b>useEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-effect.html" target="_blank">3</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useeffect" target="_blank">4</a></sup> COMMON ~ Place a function that will get executed when a value of data changes.  It is designed for expensive function calls (...networking).  USE CAREFULLY, be aware of recursive effects, and update cascades if multiple useEffect() are created.  The function is executed with the item in data as params.  This is triggered after render() <sup><a href="https://stackoverflow.com/a/68201925/2375161" target="_blank">5</a></sup>, which is why re-triggering is problematic. <ul class="ulbasic">
+    <li><b>useEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-effect.html" target="_blank">3</a></sup> <sup><a href="https://react.dev/reference/react/useEffect#useeffect" target="_blank">4</a></sup> COMMON ~ Place a function that will get executed when a value of data changes.  It is designed for expensive function calls (...networking).  USE CAREFULLY, be aware of recursive effects, and update cascades if multiple useEffect() are created.  The function is executed with the item in data as params.  This is triggered after render() <sup><a href="https://stackoverflow.com/a/68201925/2375161" target="_blank">5</a></sup>, which is why re-triggering is problematic. <ul class="ulbasic">
         <li>useEffect(()=&gt;()=&gt;void, [data*])</li>
         <li>package: React</li>
     </ul></li>
-    <li><b>useMemo()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#usememo" target="_blank">6</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Memoization" target="_blank">7</a></sup> COMMON ~ Computes a value, triggered by changes in params.  This is executed during the render(), if there is a change <sup><a href="https://stackoverflow.com/questions/71925654/difference-between-useeffect-and-usememo" target="_blank">8</a></sup>,  <ul class="ulbasic">
+    <li><b>useMemo()</b> <sup><a href="https://react.dev/reference/react/useMemo#usememo" target="_blank">6</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Memoization" target="_blank">7</a></sup> COMMON ~ Computes a value, triggered by changes in params.  This is executed during the render(), if there is a change <sup><a href="https://stackoverflow.com/questions/71925654/difference-between-useeffect-and-usememo" target="_blank">8</a></sup>,  <ul class="ulbasic">
         <li>const memoizedValue = useMemo(() =&gt; computeExpensiveValue(a, b), [a, b]);</li>
         <li>package: React</li>
     </ul></li>
@@ -139,7 +139,7 @@ It would be an extremely heretical statement; but this architecture can be achie
         <li>useImperativeHandle(ref, createHandle, [deps]);</li>
         <li>package: React</li>
     </ul></li>
-    <li><b>useLayoutEffect()</b> <sup><a href="https://reactjs.org/docs/hooks-reference.html#uselayouteffect" target="_blank">24</a></sup> <sup><a href="https://blog.logrocket.com/useeffect-vs-uselayouteffect-examples/" target="_blank">25</a></sup> ~ Note same signature as useEffect (preceeding); but this one fires after render/ *any* changes to the DOM, rather than params. <ul class="ulbasic">
+    <li><b>useLayoutEffect()</b> <sup><a href="https://react.dev/reference/react/useLayoutEffect" target="_blank">24</a></sup> <sup><a href="https://blog.logrocket.com/useeffect-vs-uselayouteffect-examples/" target="_blank">25</a></sup> ~ Note same signature as useEffect (preceeding); but this one fires after render/ *any* changes to the DOM, rather than params. <ul class="ulbasic">
         <li>useLayoutEffect(()=&gt;()=&gt;void, [data*]); </li>
         <li>package: React</li>
     </ul></li>
@@ -267,7 +267,7 @@ It would be an extremely heretical statement; but this architecture can be achie
     <li><b>Suspense</b> <sup><a href="https://reactjs.org/docs/react-api.html#suspense" target="_blank">39</a></sup>, used to FP style supply a loading screen without branching, needs createRoot() to be active <sup><a href="https://blog.bitsrc.io/quick-walkthrough-to-suspenselist-in-react-b930d1ece892" target="_blank">40</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">41</a></sup>.  <a href="https://dev.to/vaukalak/react-18-suspense-minimal-example-3j0k" target="_blank">Minimal sample</a>.    <ul class="ulbasic">
         <li>project: React</li>
     </ul></li>
-    <li><b>StrictMode</b> <sup><a href="https://reactjs.org/docs/strict-mode.html" target="_blank">42</a></sup> This is only for dev builds; enables more detailed error reporting.  In some code you get effects <sup><a href="https://blog.ag-grid.com/avoiding-react-18-double-mount/" target="_blank">43</a></sup> <sup><a href="https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode" target="_blank">44</a></sup>.  <a href="https://medium.com/nmc-techblog/wait-youre-not-using-react-strictmode-a9713927a33b" target="_blank">Minimal example</a> <ul class="ulbasic">
+    <li><b>StrictMode</b> <sup><a href="https://reactjs.org/docs/strict-mode.html" target="_blank">42</a></sup> This is only for dev builds; enables more detailed error reporting.  In some code you get effects <sup><a href="https://medium.com/@sahil90085/useeffect-double-mounting-in-strict-mode-1beb339f1919" target="_blank">43</a></sup> <sup><a href="https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode" target="_blank">44</a></sup>.  <a href="https://medium.com/nmc-techblog/wait-youre-not-using-react-strictmode-a9713927a33b" target="_blank">Minimal example</a> <ul class="ulbasic">
         <li>project: React</li>
     </ul></li>
     <li><del> SuspenseList</del> <sup><a href="https://yagmurcetintas.com/journal/whats-new-in-react-18" target="_blank">45</a></sup> Basically the same idea as previous, for a list of items.  ONLY EXISTS IN VERY EARLY VERSIONS OF React18, DO NOT USE <a href="https://www.programcreek.com/typescript/?api=react.SuspenseList" target="_blank">Minimal samples</a><ul class="ulbasic">
@@ -315,10 +315,10 @@ It would be an extremely heretical statement; but this architecture can be achie
 					<span class="allButtons"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
-						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
                         <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact18-notes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span></a>
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact18-notes" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit</span></a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact18-notes" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span></a>
 						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact18-notes&amp;t=React+18+Architecture"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span></a>
@@ -326,7 +326,7 @@ It would be an extremely heretical statement; but this architecture can be achie
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>
+						<span>Edited <time datetime="2024-09-21T22:07:58">21st of Sep 2024</time>
 						</span>
 						<span>Created <time datetime="2022-08-01T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of Aug 2022</time> </span>
 					</span>
@@ -344,7 +344,7 @@ It would be an extremely heretical statement; but this architecture can be achie
 			</dialog>
 
 <fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<legend><span id="pageMenu" aria-haspopup="menu" ><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Architecture prefix</a></li>
 <li><a href="#toc1">React18 hooks</a></li>
@@ -376,7 +376,7 @@ It would be an extremely heretical statement; but this architecture can be achie
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class-"sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-08-20T09:16:16">20th of Aug 2024, 9:16:16</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-10-07T22:21:01">7th of Oct 2024, 22:21:01</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-21T22:07:58">21st of Sep 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

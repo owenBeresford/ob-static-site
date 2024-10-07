@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-retrieval-augmented-generation" />
 <meta property="og:description" content="LLM algorithms and how to build solutions with AI. I originally sought the info I present you here for about three days' worth of research, and it wasn't easy to find, even for me being a dev. Having this data in one easy access was needed." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Sep 2024, 22:24:22" />
-<meta property="article:modified_time" content="20th of Sep 2024" />
+<meta property="article:published_time" content="7th of Oct 2024, 22:20:59" />
+<meta property="article:modified_time" content="7th of Oct 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-retrieval-augmented-generation" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "AI RAG coding",
-	"article:published_time":"20th of Sep 2024, 22:24:22", 
-    "article:modified_time":"20th of Sep 2024",
+	"article:published_time":"7th of Oct 2024, 22:20:59", 
+    "article:modified_time":"7th of Oct 2024",
     "article:section":"technology",
 
     "author": {
@@ -52,20 +52,18 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker addReferences">
-<div class="halferWords">
-<p>Atypically I am not making a <i>listicle</i> of AI tools, as they are well advertised, and findable.</p>
-
-
 <p class="buttonBar"> 
 <a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM Concepts </a>
+<a href="/resource/ai-dictionary" class="button" title="All the atypical language pulled out into one location, to make the other test read better." > DICTIONARY </a>
 <span href="/resource/ai-retrieval-augmented-generation" class="button disabled" title="This article. An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</span>
 <a href="/resource/ai-vector-stores" class="button" title="An article examining the specialised storage needed for LLM data.">Vector stores </a>
+<a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic </a>
+<a href="/resource/ai-test-prompt" class="button" title="Article to supply data on managing and testing prompts.">Test prompt </a>
 <a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
 <a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products.">Tuning LLM </a>
 </p>
-</div>
 <div class="lotsOfWords">
-<p>Context: Here RAG is not red-amber-green, as used in strict TDD <sup><a href="https://martinfowler.com/bliki/TestDrivenDevelopment.html" target="_blank">1</a></sup> .  Or any of the definitions in <a href="https://www.acronymfinder.com/RAG.html" target="_blank">acronym finder</a>.   I am fitting current hype on LLM tech into an automated decision-making continuity and applying standard engineering processes to LLM.   Everyone selling LLM products needs to have these processes in place.   Over Xmas 2023, I saw a LLM made entirely in Postgres commands [XXX #leSigh], hype and peta-scale data isn't needed, although the peta data allows a more general set of responses.   This article is not very end-user focused.   I am focusing on algorithms, and how to build solutions.  I have moved the terminology to the abstract/ first article, not yet complete.</p>
+<p>Context: Here RAG is not red-amber-green, as used in strict TDD <sup><a href="https://martinfowler.com/bliki/TestDrivenDevelopment.html" target="_blank">1</a></sup> .  Or any of the definitions in <a href="https://www.acronymfinder.com/RAG.html" target="_blank">acronym finder</a>.   I am fitting current hype on LLM tech into an automated decision-making continuity and applying standard engineering processes to LLM.   Everyone selling LLM products needs to have these processes in place.   Over Xmas 2023, I saw a LLM made entirely in Postgres commands [XXX #leSigh], hype and peta-scale data isn't needed, although the peta data allows a more general set of responses.   This article is not very end-user focused, I am focusing on algorithms, and how to build solutions.</p>
 
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Theory / maths <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
@@ -95,14 +93,15 @@ Apparently Vector stores are not the same thing as DB (without fiddling with sto
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Value prop <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Nearly all recent features or products using an LLM need to include RAG (or similar algorithms) as it reduces occurrences of hallucinations, and it allows visibility on original data source so improving trust in the response <sup><a href="https://www.k2view.com/blog/rag-hallucination/#AI-Hallucination-vs-RAG-Hallucination" target="_blank">8</a></sup>.   This algorithm reflects academic practice in Europe since 800CE (biblio/ references / reading lists).  Some published papers state that training an LLM on data including LLM output leads to generation quality collapse <sup><a href="https://www.nature.com/articles/s41586-024-07566-y" target="_blank">9</a></sup> <sup><a href="https://arxiv.org/abs/2305.17493" target="_blank">10</a></sup> ~ both links are the same work.   Midpoint is the name of an AI image generator, and the response an LLM creates is a most highly likely mid-point. <br />
 The features that are most often built with LLM+RAG seem to be <strong>chat bots</strong>.   AI retailers are selling the dream of less staff to respond to customers and potential new customers as a business plan.   For somethings conversational UI are more useful for humans, especially doing low commitment activities ~ eg “Mobile, guess the weather tomorrow”.   It's odd that Siri ~ created and sold by Apple ~  has existed for quite a few years, is a voice prompt for this effect <sup><a href="https://en.wikipedia.org/wiki/Siri" target="_blank">11</a></sup>, but not included in the general AI hype.   <br />
-A nice article describing risk areas and mitigation strategies whilst using ML <sup><a href="https://towardsdatascience.com/machine-learning-a-practical-guide-to-managing-risk-52624cf03f3a" target="_blank">12</a></sup>, I would suggest that a similar process is used for LLM+RAG.</p>
+A nice article describing risk areas and mitigation strategies whilst using ML <sup><a href="https://towardsdatascience.com/machine-learning-a-practical-guide-to-managing-risk-52624cf03f3a" target="_blank">12</a></sup>, I would suggest that a similar process is used for LLM+RAG. <br />
+Other terms graphRAG, vectorRAG, hybridRAG</p>
 
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Solutions (Python) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>OpenAI is an influential company <a href="https://platform.openai.com/docs/overview" target="_blank">docs</a> <a href="https://platform.openai.com/docs/api-reference/introduction" target="_blank">docs</a> <ul class="ulbasic">
         <li><strong>chatGPTpy</strong>  <a href="https://pypi.org/project/chatgptpy/" target="_blank">pipy</a> <a href="https://github.com/cobinrox/chatgptpy" target="_blank">git</a> (docs in first link)  MIT licence, last update 2022</li>
-        <li><strong>ChatGPT-python</strong> <a href="https://pypi.org/project/chatgpt-python/" target="_blank">pipy</a> <a href="https://github.com/dylanmeca/ChatGPT-Python" target="_blank">git</a> (docs in first link) This is designed to run on a GPU, is Apache2 licence, and uses Colossal-AI despite name and RLHF, see <sup><a href="https://hpc-ai.com/blog/colossal-ai-chatgpt" target="_blank">13</a></sup></li>
+        <li><strong>ChatGPT-python</strong> <a href="https://pypi.org/project/chatgpt-python/" target="_blank">pipy</a> <a href="https://github.com/dylanmeca/ChatGPT-Python" target="_blank">git</a> (docs in first link) This is designed to run on a GPU, is Apache2 licence, and uses Colossal-AI despite name and RLHF, see <sup><a href="https://chat.colossalai.org/" target="_blank">13</a></sup> <a href="https://github.com/hpcaitech/ColossalAI" target="_blank">git</a></li>
         <li>There are probably more, but general articles <sup><a href="https://medium.com/geekculture/a-simple-guide-to-chatgpt-api-with-python-c147985ae28" target="_blank">14</a></sup> <sup><a href="https://mikulskibartosz.name/chatgpt-api-with-python" target="_blank">15</a></sup></li>
     </ul></li>
     <li><strong>Langchain</strong> <a href="https://github.com/langchain-ai/langchain" target="_blank">git</a> <a href="https://python.langchain.com/v0.2/docs/tutorials/rag/" target="_blank">docs</a> is a wide credited implementation, in Python.  Good composability.  Notes <sup><a href="https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/" target="_blank">16</a></sup> <sup><a href="https://realpython.com/build-llm-rag-chatbot-with-langchain/" target="_blank">17</a></sup> <sup><a href="https://towardsdatascience.com/retrieval-augmented-generation-rag-from-theory-to-langchain-implementation-4e9bd5f6a4f2" target="_blank">18</a></sup> MIT licence</li>
@@ -159,7 +158,7 @@ A nice article describing risk areas and mitigation strategies whilst using ML <
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-09-20T19:57:06">20th of Sep 2024</time>
+						<span>Edited <time datetime="2024-10-07T21:24:35">7th of Oct 2024</time>
 						</span>
 						<span>Created <time datetime="2024-07-23T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >23rd of Jul 2024</time> </span>
 					</span>
@@ -208,9 +207,9 @@ A nice article describing risk areas and mitigation strategies whilst using ML <
   <div class="h4_footer"> 
 	<div class="leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-09-20T22:24:22">20th of Sep 2024, 22:24:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-20T19:57:06">20th of Sep 2024</time>.
+	<p> Page rendered <time datetime="2024-10-07T22:20:59">7th of Oct 2024, 22:20:59</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-07T21:24:35">7th of Oct 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

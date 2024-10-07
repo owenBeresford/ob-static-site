@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Search features</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Internal search against company assets I performed in my roles." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Search features">
+<meta itemprop="description" content="Internal search against company assets I performed in my roles.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Search features">
+<meta name="twitter:description" content="Internal search against company assets I performed in my roles.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Search features" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/internal-search" />
+<meta property="og:description" content="Internal search against company assets I performed in my roles." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="7th of Oct 2024, 22:21:00" />
+<meta property="article:modified_time" content="7th of Oct 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/internal-search" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Search features",
+	"article:published_time":"7th of Oct 2024, 22:21:00", 
+    "article:modified_time":"7th of Oct 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>I am mostly an App developer and REST API creator.  However, I have fairly large experience in search tools and information retrieval, listed below<br />
+</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Work log for search: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>My first degree dissertation was on information retrieval using four value logic where I extended a PhD students work, and the second degree dissertation would use many information retrieval features inside a different UI for a virtual world simulation.   </li>
+    <li>I have improved search and information retrieval features at many companies I have worked for ::    </li>
+    <li>(&lt;400,000 requests during the hot last working day of the month, then untouched for the next 28days) I have built information retrieval for billing systems, that was mostly only used for a few hours per month, but reported on the entire enterprise's activities.   From this ISP, the data displayed customers' internet usage, with traffic breakdown.   Much of the retrieval was pre-built into summaries across the month, but the final breakdown was ~100Kb Excel file per user, and the business processed over 1/3 million monthly receipts from end users.   The starting raw data was ~1,000,000 rows per hour, this is the limit that those 2007 edition servers could handle (32bit CPU) and I implemented sharding on the timestamp.  MurphX.</li>
+    <li>( &lt;1,000 request per day) I have used standard RDB instances and optimised the schema mostly adding indexes.   Small features at Matatiro solutions, Hoptroff, and assorted contacts.</li>
+    <li>My boring website has integration with a search engine, to help users find content on it.</li>
+    <li>(&lt;100,000 requests per day, noting bursty usage) I used standard RDB instances, optimised the schema to the point of adding denormalised caches.   The traffic monitoring showed that most users were within a couple of hours between 17:00 and 20:00.  The data was displayed as heatmaps, frequency across time or location.   MotorTRAK</li>
+    <li>(HOPEFULLY &lt;1000 requests per day) Search feature to support incoming calls on standard RDB with data volume in the order of 100,000 accounts.   RDB wasn't stressed, but also used for other business activities.   Identified accounts from ~10 possible identifiers, speed of results, and speed of comprehension was essential.   FairFX</li>
+    <li>(&lt;1000 requests per day, but that was before users)  Prominent search feature at a startup, displayed complicated search results across a possible input of 10 variables, on  a mostly static dataset of 500,000 documents.  One search limit was the current location, I organised the API to return some results quickly then retrieve more data on a bigger radius if the location wasn't moving.   This was supplying useful data whilst on the tube, as real-world testing.   My technology was better than the achievements of the sales team.  Venue10.</li>
+    <li>(&lt;100 user sessions per day, each user session may be a 100 graphs to a very large number for wall displays).   “Predictable search” for data aggregation to draw real-time graphs.   Useful graphs are an hour or a day in duration, but my platform could do up to monthly graphs.   Several clients had wall displays permanently running.  Sub-sampling so all data displayed could be seen, just like AirBnB.   Average graph load time was ~1s unless browser was in a different continent to the DB server.   MongoDB cluster, with each client being held as isolated data.   Each continent's accounts was held on a cluster nearer to them.  Hoptroff.   </li>
+    <li>(&lt;100 requests per day) Monthly compliance report, that aggregated an entire month's activities.   Mostly only used 1 day per month, and outside of working hours, as it was heavy reporting.   The report ran about 100 aggregate calls, that each would impede normal business (data logging) operation.    Aggregated data source was about ~60,000,000 new documents per month. Elastic Search cluster, with geographic-based horizontal-scaling again.    </li>
+    <li>Repeat last feature, but in a different product, and MongoDB cluster running at ~20,000,000 new documents per month.  </li>
+    <li>Prototype built with Redis and Kafka, in case we had an international scale client, was running smoothly with 100,000,000 new documents per month, but needed to change the schema to suit Redis.</li>
+    <li>(I saw &lt;1000 requests per day, but that was before the service was live with users)  Most frequent user interaction, a search feature, hosted on RDS. I rewrote an earlier version of this as it locked the tables. ~6 input variables.  Swyvl</li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Datastore articles <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This list will expand</p>
+
+<ul class="ulbasic">
+    <li><a href="https://owenberesford.me.uk/resource/iterate-neo4j#">iterate-neo4j</a></li>
+    <li><del>Elastic search</del></li>
+    <li><a href="https://owenberesford.me.uk/resource/why-mongo#">why-mongo</a>, <a href="https://owenberesford.me.uk/resource/scaling-mongo#">scaling-mongo</a>, <a href="https://owenberesford.me.uk/resource/mongodb-indexes#">mongodb-indexes</a></li>
+    <li><del>Redis</del>, <a href="https://owenberesford.me.uk/resource/redis-timeseries#">redis-timeseries</a></li>
+    <li><a href="https://owenberesford.me.uk/resource/ai-vector-stores#">VectorDB comparison</a></li>
+    <li><del>Current version of SQL</del>, rather than SQL92 covered in degrees   </li>
+    <li>...</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Search against company data assets</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Finternal-search" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Finternal-search" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Finternal-search" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Finternal-search&amp;t=Search+features"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Finternal-search" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-10-07T22:15:14">7th of Oct 2024</time>
+						</span>
+						<span>Created <time datetime="2024-08-25T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >25th of Aug 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Finternal-search" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Work log for search:</a></li>
+<li><a href="#toc1">Datastore articles</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+	</div> 
+	<p> Page rendered <time datetime="2024-10-07T22:21:00">7th of Oct 2024, 22:21:00</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-07T22:15:14">7th of Oct 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+
+</body>
+</html>
