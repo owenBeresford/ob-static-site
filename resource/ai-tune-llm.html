@@ -8,22 +8,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="A research and analysis of 12 techniques to fine tune and improve an LLM in order to obtain a creative and generative product creation process." />
+<meta name="Description" content="A research and analysis of 12 techniques to fine-tune and improve an LLM in order to obtain a creative and generative product-making process." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="Tune LLM">
-<meta itemprop="description" content="A research and analysis of 12 techniques to fine tune and improve an LLM in order to obtain a creative and generative product creation process.">
+<meta itemprop="description" content="A research and analysis of 12 techniques to fine-tune and improve an LLM in order to obtain a creative and generative product-making process.">
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="Tune LLM">
-<meta name="twitter:description" content="A research and analysis of 12 techniques to fine tune and improve an LLM in order to obtain a creative and generative product creation process.">
+<meta name="twitter:description" content="A research and analysis of 12 techniques to fine-tune and improve an LLM in order to obtain a creative and generative product-making process.">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="Tune LLM" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-tune-llm" />
-<meta property="og:description" content="A research and analysis of 12 techniques to fine tune and improve an LLM in order to obtain a creative and generative product creation process." />
+<meta property="og:description" content="A research and analysis of 12 techniques to fine-tune and improve an LLM in order to obtain a creative and generative product-making process." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Oct 2024, 22:20:59" />
-<meta property="article:modified_time" content="7th of Oct 2024" />
+<meta property="article:published_time" content="9th of Oct 2024, 14:16:41" />
+<meta property="article:modified_time" content="8th of Oct 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-tune-llm" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Tune LLM",
-	"article:published_time":"7th of Oct 2024, 22:20:59", 
-    "article:modified_time":"7th of Oct 2024",
+	"article:published_time":"9th of Oct 2024, 14:16:41", 
+    "article:modified_time":"8th of Oct 2024",
     "article:section":"technology",
 
     "author": {
@@ -64,7 +64,7 @@ TODO: magic tune selection against some index/DB -->
 </p>
 <div class="lotsOfWords">
 <div class="pullout">
-<p>This text is very focused on “product creation”.  If that is not your current goal, this is a large volume of maths to no gain (this is an LLM study).</p>
+<p>This text is very focused on “product creation”.  If that is your current goal, this contains a large volume of maths  (as part of my LLM study).</p>
 
 
 </div>
@@ -72,14 +72,14 @@ TODO: magic tune selection against some index/DB -->
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context / intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>As a statement about software interactions, a LLM-based platform can: measure, predict, recommend, create (I am roughly quoting a lecture by OSDC pulled from Youtube).   The basic approach has different levels of ability at each behaviour.  Some hype by an AI company <sup><a href="https://situational-awareness.ai/from-gpt-4-to-agi/" target="_blank">1</a></sup> ~ I would be interested in the same output with a constant amount of hardware, to show the software improvements, rather than budget improvements.   Power-scaling notes with good graphs <sup><a href="https://angelxuanchang.github.io/nlp-class/assets/lecture-slides/scaling.pdf" target="_blank">2</a></sup> ~ this is a 50 page PDF &amp; it loads slowly.   To set expectations, learning is not a smooth rate of change in many situations <sup><a href="https://www.fast.ai/posts/2023-09-04-learning-jumps/" target="_blank">3</a></sup> <sup><a href="https://arxiv.org/abs/1712.09913" target="_blank">4</a></sup>.   A systematic review of LLM and handling of them (43 pages) <sup><a href="https://arxiv.org/pdf/2402.06196" target="_blank">5</a></sup>. <br />
 When you buy access to an off-the-shelf LLM, it will likely need tuning.   The process to build an LLM is composed of vast amounts of Vector building from source content, but OpenAI seem to use less productisation than I would use.   There are more dedicated and contextual AI, which seems a more valuable route to go along.  Organisations with deep pockets can make their own LLM, but that does seem a very large investment (roughly the same a building your own roads, rather than using the national ones).   According to <sup><a href="https://scalexm.ai/storage/2023/10/White-Paper-LLM.pdf" target="_blank">6</a></sup>, OpenAI have spent over 100,000,000.00 USD on renting cloud servers (this number wasn't given with a timespan).  There is a leaked breakdown <sup><a href="https://medium.com/version-1/running-your-own-dedicated-openai-instance-60a93555dbd0" target="_blank">7</a></sup> with time.   <br />
-From a standard LLM, obviously there are a list of techniques that have been developed to improve relevance of the output.   Depending on your AI vendor, these will already be present.   However, an LLM will need configuration to align with your product.   This article is listing hyperparamters but they do not use that term <sup><a href="https://cohere.com/blog/llm-parameters-best-outputs-language-ai" target="_blank">8</a></sup>, referenced as the diagrams are good.  Probably the first technical process is adding <a href="https://owenberesford.me.uk/resource/ai-testing#">unit tests</a> on the LLM, but that is outside of scope for this document.   The outputs can be adjusted by appending to the “known data” for the initial generation, adding a <a href="https://owenberesford.me.uk/resource/ai-retrieval-augmented-generation#">RAG</a> as a parallel data source or thirdly by adjusting the operating context.   I think the first option requires renting your own LLM instance (not cheap) from the LLM vendor.   Or theoretically buying the Vendor (as you are Microsoft) would also work.  <br />
-Hopefully it is clear that “prompting” isn't “training” <sup><a href="https://towardsdatascience.com/different-ways-of-training-llms-c57885f388ed" target="_blank">9</a></sup> ~ I adsorbed this from the maths, but want to be clear.  The difference between self-directed learning and directed learning (the second requires a human observer) is important.   <strong>The majority of the technical steps listed above can be downloaded from Pipyi, or Jupyterlabs</strong>, but it's “left as an exercise for the reader” to check that the data-flow lines up with your current iteration.</p>
+From a standard LLM, there is a list of techniques that have been developed to improve relevance of the output.   Depending on your AI vendor, these will already be present.   However, an LLM will need configuration to align with your product.   I analyse a number of hyperparameters, however Cohere do not use that term <sup><a href="https://cohere.com/blog/llm-parameters-best-outputs-language-ai" target="_blank">8</a></sup>, but reference diagrams are good.  Probably the first technical process is adding <a href="https://owenberesford.me.uk/resource/ai-testing#">unit tests</a> on the LLM, but that is outside of scope for this document.   The outputs can be adjusted by appending to the “known data” for the initial generation, adding a <a href="https://owenberesford.me.uk/resource/ai-retrieval-augmented-generation#">RAG</a> as a parallel data source or thirdly by adjusting the operating context.   I think the first option requires renting your own LLM software model (not cheap) from the LLM vendor.   Or theoretically buying the Vendor (as you are Microsoft) would also work.  <br />
+Hopefully it is clear that “prompting” isn't “training” <sup><a href="https://towardsdatascience.com/different-ways-of-training-llms-c57885f388ed" target="_blank">9</a></sup> ~ I absorbed this from the maths, and want to be clear.  The difference between self-directed learning and directed learning (the second requires a human observer) is important.   <strong>The majority of the technical steps listed above can be downloaded from Pipyi, or Jupyterlabs</strong>, but it's “left as an exercise for the reader” to check that the data-flow lines up with your current iteration.</p>
 
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Techniques to take <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Techniques available <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 
 <div class="pullout2">
-<p>Loud note: this is a fast moving field, old notes published before 2023 do not reflect today's products.   See some nice graphs <sup><a href="https://artificialanalysis.ai/models/gpt-4o-2024-08-06" target="_blank">1</a></sup> .</p>
+<p>Loud note: this is a fast moving field, notes published before 2023 do not reflect today's products.  See some nice graphs <sup><a href="https://artificialanalysis.ai/models/gpt-4o-2024-08-06" target="_blank">1</a></sup></p>
 
 
 </div>
@@ -105,13 +105,13 @@ Hopefully it is clear that “prompting” isn't “training” <sup><a href="ht
 </div>
 <br /><hr /><br />
 <div class="lotsOfWords">
-<p>Note mobiles have had “generate the next word in a text/SMS” for a long time, and they achieved this initially on very sparse hardware.   Siri by Apple inc uses a remote voice-clip to text process, but again have been running this for many years.   These are examples of simple and narrow “AI”, that people don't notice.   Whilst I was trying to work out how to tune an LLM, I pulled up the following intro references: an obvious long list of business sectors that could use a tuned LLM <sup><a href="https://www.turing.com/resources/finetuning-large-language-models" target="_blank">1</a></sup>.   For people with no experience building integrations, this <sup><a href="https://writer.com/blog/how-to-evaluate-generative-ai-llm-vendors/" target="_blank">2</a></sup> covers the administration needed to build a successful business process, although it is formatted to fit in power point slides.  <br />
+<p>Note: mobiles have had “generate the next word in a text/SMS” for a long time, and they achieved this initially on very sparse hardware.   Siri by Apple inc uses a remote voice-clip to process text, and has been running this for many years.   These are examples of simple and narrow “AI”, that people don't notice.   Whilst I was trying to work out how to tune an LLM, I pulled up the following intro references: an obvious long list of business sectors that could use a tuned LLM <sup><a href="https://www.turing.com/resources/finetuning-large-language-models" target="_blank">1</a></sup>.   For people with no experience building integrations, this <sup><a href="https://writer.com/blog/how-to-evaluate-generative-ai-llm-vendors/" target="_blank">2</a></sup> covers the administration needed to build a successful business process, although it is formatted to fit in power point slides.  <br />
 Apple have released a proper OSS LLM (that is, it includes its source data) <sup><a href="https://machinelearning.apple.com/research/openelm" target="_blank">3</a></sup> <sup><a href="https://arxiv.org/html/2404.14619v2" target="_blank">4</a></sup> <sup><a href="https://venturebeat.com/ai/apple-shows-off-open-ai-prowess-new-models-outperform-mistral-and-hugging-face-offerings/" target="_blank">5</a></sup> <a href="https://huggingface.co/collections/apple/core-ml-gallery-models-666b66ca4e6657b7d179bc42" target="_blank">src</a>.   A second OSS LLM library <sup><a href="https://llm.datasette.io/en/stable/" target="_blank">6</a></sup> (This second one doesn't have data attached).   List some processes that people have used to tune an LLM <sup><a href="https://arxiv.org/html/2408.13296v1" target="_blank">7</a></sup>.   Feature generation <sup><a href="https://arxiv.org/pdf/2406.03505" target="_blank">8</a></sup>.</p>
 
-<p>I have made software that will emit a random response a percentage of the time, from a fixed list of options, to make it less dull to use.  This is NOT AI but better UX, and increases delight in tired people.   If you take the title “prompt engineer”, I think some learning in Psychology is important.</p>
+<p>I have made software that will emit a random response a percentage of the time, from a fixed list of options, to make it less dull to use.  This is NOT AI but better UX, and increases delight for tired people.   If you take the title “prompt engineer”, I think some learning in Psychology is important.</p>
 
 <hr />
-<p>[1] NLP is sometimes 'natural language programming', 'natural language processing' and 'natural language parsing', but these are covering the same area.</p>
+<p>[1] NLP is sometimes 'natural language programming', 'natural language processing' and 'natural language parsing', but these cover the same area.</p>
 
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Value prop  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
@@ -155,7 +155,7 @@ An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" t
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-10-07T21:38:42">7th of Oct 2024</time>
+						<span>Edited <time datetime="2024-10-08T13:34:42">8th of Oct 2024</time>
 						</span>
 						<span>Created <time datetime="2024-09-14T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >14th of Sep 2024</time> </span>
 					</span>
@@ -176,7 +176,7 @@ An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" t
 <legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
 <li class="h4_odd"><a href="#toc0">Context / intro</a></li>
-<li><a href="#toc1">Techniques to take</a></li>
+<li><a href="#toc1">Techniques available</a></li>
 <li class="h4_odd"><a href="#toc2">Value prop</a></li>
 </menu>
 <br />
@@ -205,7 +205,7 @@ An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" t
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-10-07T22:20:59">7th of Oct 2024, 22:20:59</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-07T21:38:42">7th of Oct 2024</time>.
+	<p> Page rendered <time datetime="2024-10-09T14:16:41">9th of Oct 2024, 14:16:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-08T13:34:42">8th of Oct 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>

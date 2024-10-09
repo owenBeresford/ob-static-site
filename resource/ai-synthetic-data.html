@@ -8,22 +8,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="Conceptual analysis of data generation for testing, I also list a range of algorithmic options for generating data." />
+<meta name="Description" content="Conceptual analysis and discussion on how to make data, of data generation for testing via synthetic data, I also list a range of algorithmic options for generating data." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="Synthetic">
-<meta itemprop="description" content="Conceptual analysis of data generation for testing, I also list a range of algorithmic options for generating data.">
+<meta itemprop="description" content="Conceptual analysis and discussion on how to make data, of data generation for testing via synthetic data, I also list a range of algorithmic options for generating data.">
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="Synthetic">
-<meta name="twitter:description" content="Conceptual analysis of data generation for testing, I also list a range of algorithmic options for generating data.">
+<meta name="twitter:description" content="Conceptual analysis and discussion on how to make data, of data generation for testing via synthetic data, I also list a range of algorithmic options for generating data.">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="Synthetic" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-synthetic-data" />
-<meta property="og:description" content="Conceptual analysis of data generation for testing, I also list a range of algorithmic options for generating data." />
+<meta property="og:description" content="Conceptual analysis and discussion on how to make data, of data generation for testing via synthetic data, I also list a range of algorithmic options for generating data." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Oct 2024, 22:20:59" />
-<meta property="article:modified_time" content="7th of Oct 2024" />
+<meta property="article:published_time" content="9th of Oct 2024, 14:16:41" />
+<meta property="article:modified_time" content="8th of Oct 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-synthetic-data" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Synthetic",
-	"article:published_time":"7th of Oct 2024, 22:20:59", 
-    "article:modified_time":"7th of Oct 2024",
+	"article:published_time":"9th of Oct 2024, 14:16:41", 
+    "article:modified_time":"8th of Oct 2024",
     "article:section":"technology",
 
     "author": {
@@ -63,20 +63,20 @@ TODO: magic tune selection against some index/DB -->
 <a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
 </p>
 <div class="lotsOfWords addReferences">
-<p>There are several different situations where a library is used to make data.  Read the intro on <sup><a href="https://huggingface.co/blog/synthetic-data-save-costs" target="_blank">1</a></sup> as a clear metric for actual costings and benefits for Synthetic data.   This article is different to other pages on the internet, as I offer a number of relevant outbound links and no screenshots.</p>
+<p>There are several different situations where a library is used to make data.  Read the intro on <sup><a href="https://huggingface.co/blog/synthetic-data-save-costs" target="_blank">1</a></sup> as a clear metric for actual costings and benefits for Synthetic data.   This article is different to other pages on the internet: why is it useful to create synthetic data? I also offer a number of relevant outbound links and no screenshots.</p>
 
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Data generation for users <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>End user visible content creation.   These tools are easy to drive, and mostly make no guaranteed on what is created.  Some are paid-for and some are open access.<br />
+<p>End-user visible content creation tools.   These tools are easy to drive, and mostly make no guarantee on what is created.  Some are paid-for and some are open access.<br />
 TODO: Add some end user tools</p>
 
 
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Data generation for testing <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>Systematic data testing is needed to show compliance to various laws.   A common process to do this uses synthetic data tools, to follow the same process with fresh data-made-by-humans would be incredibly expensive.   Data generation tools for testing are building a population of data, rather than a single artifact.   A review of the challenges for AI in US medicine <sup><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9345230/" target="_blank">2</a></sup> <sup><a href="https://arstechnica.com/information-technology/2023/04/gpt-4-will-hunt-for-trends-in-medical-records-thanks-to-microsoft-and-epic/" target="_blank">3</a></sup>, and a framework for analysing the best synthetic generator for your situation <sup><a href="https://arxiv.org/pdf/2404.08866" target="_blank">4</a></sup> ~ published 2024, please review the graphs.   Synthetic data needs to be used cautiously ~ and labelled ~ as just merging it with your other data could lead to model collapse <sup><a href="https://arxiv.org/abs/2402.10379" target="_blank">5</a></sup>. <br />
+<p>Systematic data testing is needed to show compliance to various laws.   A common process to do this uses synthetic data tools. To follow the same process with fresh data-made-by-humans would be incredibly expensive.   Data generation tools for testing are building a population of data, rather than a single artifact.   A review of the challenges for AI in US medicine <sup><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9345230/" target="_blank">2</a></sup> <sup><a href="https://arstechnica.com/information-technology/2023/04/gpt-4-will-hunt-for-trends-in-medical-records-thanks-to-microsoft-and-epic/" target="_blank">3</a></sup>, and a framework for analysing the best synthetic generator for your situation <sup><a href="https://arxiv.org/pdf/2404.08866" target="_blank">4</a></sup> ~ published 2024, please review the graphs.   Synthetic data needs to be used cautiously ~ and labelled ~ as just merging it with your other data could lead to model collapse <sup><a href="https://arxiv.org/abs/2402.10379" target="_blank">5</a></sup>. <br />
 Having labels / tagging on the dataset is an important step for data used at scale by the rest of the software.   Labelling is often done with a Classifier, see <a href="https://owenberesford.me.uk/resource/ai-testing#">next section</a> ~ content may get moved.   Real data isn't automatically tagged, although EXIF data <sup><a href="https://en.wikipedia.org/wiki/Exif" target="_blank">6</a></sup> from a camera phone can be used for some metrics.<br />
 As a workflow, synthetic data is discussed to support the need for this “new oil” <sup><a href="https://syntheticus.ai/blog/leveraging-safe-synthetic-data-to-overcome-scarcity-in-ai-llm-projects" target="_blank">7</a></sup>, a second link with code samples in addition <sup><a href="https://www.unite.ai/full-guide-on-llm-synthetic-data-generation/" target="_blank">8</a></sup>.   A release note from Meta, for the new version of Llama, from Sept 2024 <sup><a href="https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/" target="_blank">9</a></sup>, the newer version is more customisable, adds support for images and claim it will fit on a high-end phone.   Argilla <sup><a href="https://argilla.io/blog/synthetic-data/" target="_blank">10</a></sup> describe how to use Synthetic data for fine-tuning, and offer a test framework <sup><a href="https://github.com/argilla-io/distilabel" target="_blank">11</a></sup>.   Alternatively Tuna <sup><a href="https://blog.langchain.dev/introducing-tuna-a-tool-for-rapidly-generating-synthetic-fine-tuning-datasets/" target="_blank">12</a></sup> can be used for similar purposes, but claims to be no-code.</p>
 
-There are a range of algorithmic options for generating data: <br />
+History of algorithmic options for generating data: <br />
 <dl>
     <dt>A Simple Cheat</dt>
         <dd>For text datasets, just use a machine translation service to another human language, and then translate it back to the first language.   This approach doesn't work for data like names, but is valid for prompts.</dd>
@@ -85,20 +85,20 @@ There are a range of algorithmic options for generating data: <br />
     <dt>Variational Auto Encoders (VAE)</dt>
         <dd><sup><a href="https://www.datacamp.com/tutorial/variational-autoencoders" target="_blank">26</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Variational_autoencoder" target="_blank">27</a></sup> <sup><a href="https://medium.com/@weidagang/demystifying-neural-networks-variational-autoencoders-6a44e75d0271" target="_blank">28</a></sup> are only useful on some datasets (see first reference).  They were first mentioned in 2013 at a conference and can predictably be extended with some evolved changes ~ CVAE (Conditional Variational Auto-encoders) <sup><a href="https://arxiv.org/html/2311.17970" target="_blank">29</a></sup>, Beta-VAE (aka Disentangled Variational Auto-encoders), AAE (Adversarial Auto-encoders), VRAE (Variational Recurrent Auto-encoders), CAE (Convolutional Auto-encoder), RAE (Sequence-to-Sequence Autoencoder / Recurrent Auto-encoder), CLS (Continuous Latent Space), TVAE (Tabular VAE) and HVAE (Hierarchical Variational Auto-encoders).   VAE are useful for “reconstructing data with missing or noisy parts”, recommender systems and are used for synthetic time series data.  According to <sup><a href="https://medium.com/cloudnloud/unveiling-the-world-of-vaes-c2c5802b5830" target="_blank">30</a></sup>, Spotify uses VAE for recommendations, and some OpenAI systems use it.  This is a petty demo <a href="https://xnought.github.io/vae-explainer/" target="_blank">git</a> <sup><a href="https://arxiv.org/abs/2409.09011" target="_blank">31</a></sup></dd>
     <dt>Generative adversarial networks (GAN)</dt>
-        <dd>Is from 2014, was often used to make images <sup><a href="https://upcommons.upc.edu/bitstream/handle/2117/391260/Generation%20of%20product%20design%20using%20GAN%20based%20on%20customer%27s%20kansei%20evaluation.pdf?sequence=1&amp;amp;isAllowed=y" target="_blank">32</a></sup> ~ published 2022 <sup><a href="https://neptune.ai/blog/generative-adversarial-networks-gan-applications" target="_blank">33</a></sup>, or <sup><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9345230/" target="_blank">34</a></sup> ~ published 2022.   I haven't seen use of GAN after Diffusion was available.   I think it has a problem with straight lines.   Predictably, there are algorithmic tweaks to make it perform better (slightly different names WGAN, CGAN (Convolutional GAN), DCGAN (Deep convolutional GAN), SAGAN (Self-attention GAN), VAEGAN (Variational autoencoder GAN), TransGAN (Transformer GAN), Flow-GAN, Conditional GAN / Pix2Pix GAN, CycleGAN, StackedGAN, CTGAN (Conditional tabular GAN).   As this older algorithm has less commercial impact, the notes are more detailed and less marketing centric.   A longer text should include a paper introducing each of those GAN variants, but as it is superceded, I'm not sure of the value of doing this today.</dd>
+        <dd>from 2014, was often used to make images <sup><a href="https://upcommons.upc.edu/bitstream/handle/2117/391260/Generation%20of%20product%20design%20using%20GAN%20based%20on%20customer%27s%20kansei%20evaluation.pdf?sequence=1&amp;amp;isAllowed=y" target="_blank">32</a></sup> ~ published in 2022 <sup><a href="https://neptune.ai/blog/generative-adversarial-networks-gan-applications" target="_blank">33</a></sup>, or <sup><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9345230/" target="_blank">34</a></sup>.   I haven't seen any use of GAN after Diffusion was available.   I think it has a problem with straight lines.   Predictably, there are algorithmic tweaks to make it perform better (slightly different names WGAN, CGAN (Convolutional GAN), DCGAN (Deep convolutional GAN), SAGAN (Self-attention GAN), VAEGAN (Variational autoencoder GAN), TransGAN (Transformer GAN), Flow-GAN, Conditional GAN / Pix2Pix GAN, CycleGAN, StackedGAN, CTGAN (Conditional tabular GAN).   As this older algorithm has less commercial impact, the notes are more detailed and less marketing centric.   A longer text should include a paper introducing each of those GAN variants, but as it is superceded, I'm not sure of the value of doing this today.</dd>
     <dt>Gaussian Copula</dt>
         <dd>Used for discrete distribution models <sup><a href="https://en.wikipedia.org/wiki/Copula_%28statistics%29" target="_blank">35</a></sup>.  Discussed in <sup><a href="https://www.sciencedirect.com/science/article/pii/S2090447924004350" target="_blank">36</a></sup>.</dd>
     <dt>Transformers</dt>
-        <dd>As of 2022 and GPT3, Transformers <sup><a href="https://arxiv.org/pdf/2304.10557" target="_blank">37</a></sup> are now the most influential generative algorithm, architecture summary <sup><a href="https://en.wikipedia.org/wiki/Generative_pre-trained_transformer" target="_blank">38</a></sup>. Transformers were first used in 2017, and that is when “Attention is all you need” was published <sup><a href="https://arxiv.org/abs/1706.03762" target="_blank">39</a></sup>.  Transformers are used at scale in OpenAI, and in a list of other places <sup><a href="https://texploration.blog/2024/04/10/understanding-transformers-a-powerful-neural-network-architecture-for-ai/" target="_blank">40</a></sup>.   Their algorithm is mostly used to make text <sup><a href="https://www.ft.com/content/37bb01af-ee46-4483-982f-ef3921436a50" target="_blank">41</a></sup>, but can be applied to other data types.    A variant is DiT (Diffusion Transformer model), but there doesn't seem to be many documented.   There are quite a few articles on how to make one from scratch, but the Model would be more useful.   To deliver from source code, the entire process would need to be followed, and that uses many more GPUs than fit in a domestic premise.</dd>
+        <dd>As of 2022 and GPT3, Transformers <sup><a href="https://arxiv.org/pdf/2304.10557" target="_blank">37</a></sup> are now the most influential generative algorithm, architecture summary <sup><a href="https://en.wikipedia.org/wiki/Generative_pre-trained_transformer" target="_blank">38</a></sup>. Transformers were first used in 2017, and that is when “Attention is all you need” was published <sup><a href="https://arxiv.org/abs/1706.03762" target="_blank">39</a></sup>.  Transformers are used at scale in OpenAI, and in a list of other places <sup><a href="https://texploration.blog/2024/04/10/understanding-transformers-a-powerful-neural-network-architecture-for-ai/" target="_blank">40</a></sup>.   Their algorithm is mostly used to make text <sup><a href="https://www.ft.com/content/37bb01af-ee46-4483-982f-ef3921436a50" target="_blank">41</a></sup>, but can be applied to other data types.    A variant is DiT (Diffusion Transformer model), but there doesn't seem to be many variants documented.   There are quite a few articles on how to make one from scratch, the Model would be more useful.   To deliver from source code, the entire process would need to be followed, and that uses many more GPUs than fit in a domestic premise.</dd>
 </dl>
 
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Value prop <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>This is a way to create all the test data that your new product will need.  Without this it will need to be made by hand, or you cannot show legal compliance.  The list of tools that I found todate, it is not a comprehensive list, and I will try to improve it.</p>
+<p>The value of testing LLM: it's cheaper to run all the tests with synthetic data. To create all the test data that your new product will need. Without this, it will need to be made by hand, or you cannot show legal compliance. The list of historal algorithmic data was aimed to make the test article shorter. The next paragraph lists the tools I found. It is not a comprehensive list, I will improve it.</p>
 
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Solutions <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>The list of history above aimed to make the test article shorter.   In Sept 2024, the following are usable to create synthetic test data:</p>
+<p>In Sept 2024, the following are usable to create synthetic test data:</p>
 
 <ul class="ulbasic">
     <li>Building a solution with <strong>Mixtral-8x7B-Instruct-v0.1</strong>, will supply instructional type english text <a href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1" target="_blank">src</a>,  <a href="https://huggingface.co/blog/cosmopedia" target="_blank">Cosmopedia</a> <a href="https://github.com/huggingface/cosmopedia" target="_blank">git</a> this uses Mixtral, Llama2, datatrove, nanotron and lighteval</li>
@@ -146,7 +146,7 @@ There are a range of algorithmic options for generating data: <br />
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-10-07T21:27:32">7th of Oct 2024</time>
+						<span>Edited <time datetime="2024-10-08T13:34:42">8th of Oct 2024</time>
 						</span>
 						<span>Created <time datetime="2024-10-01T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of Oct 2024</time> </span>
 					</span>
@@ -197,7 +197,7 @@ There are a range of algorithmic options for generating data: <br />
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-10-07T22:20:59">7th of Oct 2024, 22:20:59</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-07T21:27:32">7th of Oct 2024</time>.
+	<p> Page rendered <time datetime="2024-10-09T14:16:41">9th of Oct 2024, 14:16:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-08T13:34:42">8th of Oct 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
