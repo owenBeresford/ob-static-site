@@ -8,22 +8,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="Article focused on tool to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot based product as a sample." />
+<meta name="Description" content="A Focus on tools available to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot-based product as a sample." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="Testing Prompts">
-<meta itemprop="description" content="Article focused on tool to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot based product as a sample.">
+<meta itemprop="description" content="A Focus on tools available to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot-based product as a sample.">
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="Testing Prompts">
-<meta name="twitter:description" content="Article focused on tool to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot based product as a sample.">
+<meta name="twitter:description" content="A Focus on tools available to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot-based product as a sample.">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="Testing Prompts" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-test-prompt" />
-<meta property="og:description" content="Article focused on tool to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot based product as a sample." />
+<meta property="og:description" content="A Focus on tools available to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot-based product as a sample." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Oct 2024, 23:34:35" />
-<meta property="article:modified_time" content="7th of Oct 2024" />
+<meta property="article:published_time" content="9th of Oct 2024, 14:16:41" />
+<meta property="article:modified_time" content="8th of Oct 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-test-prompt" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Testing Prompts",
-	"article:published_time":"7th of Oct 2024, 23:34:35", 
-    "article:modified_time":"7th of Oct 2024",
+	"article:published_time":"9th of Oct 2024, 14:16:41", 
+    "article:modified_time":"8th of Oct 2024",
     "article:section":"technology",
 
     "author": {
@@ -66,18 +66,18 @@ TODO: magic tune selection against some index/DB -->
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>A useful system needs to have every LLM step reviewed carefully.  A systematic set of test prompts is  good baseline to showing compliance to various laws, and will show areas where the base data for the LLM was sparse.   It is essential that this area of testing involves domain experts, but their involvement can be done with a UI of their choice (I guess Excel would be a common answer).  As an off-the-cuff validation, I would execute each domain area multiple times to see if there was extra hidden associations that the LLM was storing.<br />
-As a separate batch of testing, whilst the LLM is under training, some products/ projects have a tweak step, where feedback is given to the LLM about its current answers, so later editions will be more useful.  This version of testing is to catch noise responses that are obviously irrelevant trash (earlier in product life-cycle means cheaper, see graph on <sup><a href="https://machine-learning-made-simple.scribe.rip/how-to-build-unit-tests-for-llms-using-prompt-testing-f59c3826ed0e" target="_blank">1</a></sup> ).   As LLM are a series of layers, the extra “dweighting” of noise responses could be an extra layer of evaluation ~ doing this alteration is easy and modular. <br />
-Thirdly some products have improved reasoning skills, this was achieved after a large volume of intermediate tests.  This process isn't covered in this section, but is a thing that would need to happen.   <br />
-If I am testing something, I start by defining the limits of the requirements, ideally before I write the software.  So I wrote this outline, which in the absence of the product project is pointless.  For a plain App with less crunching on user input, I may be less picky about boundary cases on the input.<br />
-The three items I marked as paranoia are not reported in media if present, but seem a useful backstop.<br />
+As a separate batch of testing, whilst the LLM is under training, some products / projects have a tweak step, where feedback is given to the LLM about its current answers, so later editions will be more useful.  This version of testing is to catch noise responses that are obviously irrelevant trash (earlier in product life-cycle means cheaper, see graph on <sup><a href="https://machine-learning-made-simple.scribe.rip/how-to-build-unit-tests-for-llms-using-prompt-testing-f59c3826ed0e" target="_blank">1</a></sup> ).   As LLM are a series of layers, the extra “de-weighting” of noise responses could be an extra layer of evaluation ~ this alteration is easy and modular. <br />
+Thirdly, some products have improved reasoning skills, this was achieved after a large volume of intermediate tests.  This process isn't covered in this section, but is a step that would need to happen.   <br />
+When testing, I start by defining the limits of the requirements, ideally before I write the software.  So I wrote this outline, which in the absence of the product project is pointless.  For a plain App with less crunching on user input, I may be less picky about boundary cases on the input.<br />
+The three items I marked as paranoia are,  if present, not reported in media, but seem a useful backstop.<br />
 NOTE: Some LLM devs are skipping over “write a unit test” process as the only important thing is the test Fixture.   But then you loose all the background support features, like duration reporting, the ability to measure RAM used, bulk scheduling etc, so I would discourage skipping the unit-test.   These smaller details are cheap and often library features.</p>
 
-<p>Due to LLM ingesting a large amount of random text made by humans, <i>note that human attention isn't even</i>.   When I was a small child it was quoted “Eskimo have 17 words for snow” as an annoying factoid before cheap internet was available.   Stepping round who is an 'eater of raw fish' term ~ many prefer Inuit ~ a quick search has a number closer to 50 words for frozen water <sup><a href="https://www.caslt.org/en/blog-discovering-languages-inuktut/" target="_blank">2</a></sup> <sup><a href="https://metro.co.uk/2024/05/03/inuits-50-words-snow-british-equivalent-20764599/" target="_blank">3</a></sup>.   The important point is that is not words for “snow”, it is words for frozen water.   There are many different states of frozen water that may kill you, and detailed knowledge and being able to communicate about the frozen water is necessary for survival in the Arctic.   Arctic people have this level of precision as it helps them, but it will not help some office dweller in a more southern city.  For me, my words for snow are nearly completely talking about fake-snow ~ like animation effects ~ as it doesn't snow near London.   A challenge for older UK people: list how many words you have for damp/ water logged ground ~ this will cross 17 quite quickly.</p>
+<p>Due to LLM ingesting a large amount of random text made by humans, <i>note that human attention isn't even</i>.   When I was a small child it was quoted “Eskimos have 17 words for snow” as an annoying factoid before cheap internet was available.   Stepping round who is an 'eater of raw fish' term ~ many prefer Inuit ~ a quick search has a number closer to 50 words for frozen water <sup><a href="https://www.caslt.org/en/blog-discovering-languages-inuktut/" target="_blank">2</a></sup> <sup><a href="https://metro.co.uk/2024/05/03/inuits-50-words-snow-british-equivalent-20764599/" target="_blank">3</a></sup>.   The important point is that they are not words for “snow”, but words for frozen water.   There are many different states of frozen water that may kill you, and detailed knowledge and being able to communicate about the frozen water is necessary for survival in the Arctic.   Arctic people have this level of precision as it helps them, but it will not help some office dweller in a more southern city.  For me, my words for snow are nearly completely talking about fake-snow ~ like animation effects ~ as it doesn't snow near London.   A challenge for older UK people: list how many words you have for damp / water logged ground ~ this will cross 17 quite quickly.</p>
 
 
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Test libraries <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>A structures look at managing and testing prompts <sup><a href="https://www.helicone.ai/blog/prompt-engineering-tools" target="_blank">4</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Prompt_engineering" target="_blank">5</a></sup>.  A discussion about test tools, in terms of the interactions, rather than a listicle <sup><a href="https://scribe.rip/the-modern-scientist/best-prompt-techniques-for-best-llm-responses-24d2ff4f6bca" target="_blank">6</a></sup>.  Content for “why have a test suit?&quot;, but couched in terms of releasing an LLM <sup><a href="https://machine-learning-made-simple.scribe.rip/how-to-build-unit-tests-for-llms-using-prompt-testing-f59c3826ed0e" target="_blank">7</a></sup>.  Prompt management can be complex, here is a tool to manage prompts for medical images <sup><a href="https://arxiv.org/abs/2410.01573" target="_blank">8</a></sup>.<br />
-A thorough set of notes for how to make a good set of test prompts <sup><a href="https://www.multimodal.dev/post/llm-prompting" target="_blank">9</a></sup>, I try to limit duplicating the references, and its not that complex.  Another reference from a company with more experience than me <sup><a href="https://circleci.com/blog/prompt-engineering/" target="_blank">10</a></sup>.</p>
+<p>Structures look at managing and testing prompts <sup><a href="https://www.helicone.ai/blog/prompt-engineering-tools" target="_blank">4</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Prompt_engineering" target="_blank">5</a></sup>.  A discussion about test tools, in terms of the interactions, rather than a listicle <sup><a href="https://scribe.rip/the-modern-scientist/best-prompt-techniques-for-best-llm-responses-24d2ff4f6bca" target="_blank">6</a></sup>.  Content for “why have a test suit?&quot;, but couched in terms of releasing an LLM <sup><a href="https://machine-learning-made-simple.scribe.rip/how-to-build-unit-tests-for-llms-using-prompt-testing-f59c3826ed0e" target="_blank">7</a></sup>.  Prompt management can be complex, here is a tool to manage prompts for medical images <sup><a href="https://arxiv.org/abs/2410.01573" target="_blank">8</a></sup>.<br />
+A thorough set of notes for how to make a good set of test prompts <sup><a href="https://www.multimodal.dev/post/llm-prompting" target="_blank">9</a></sup>, I try to limit duplicating the references, and it isn't that complex.  Another reference from a company with more experience than me <sup><a href="https://circleci.com/blog/prompt-engineering/" target="_blank">10</a></sup>.</p>
 
 <p>The following are from <sup><a href="https://testsigma.com/blog/prompt-engineering-for-testers/" target="_blank">11</a></sup>, and seem to be BDD templates::</p>
 
@@ -104,7 +104,7 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
 
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Value prop <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>A retailable product needs to meet legal requirements.  A framework is needed for covering the complex problem domain, as to do this manually is far to expensive.  Here are several and several software frameworks to reduce the cost of this quality step.</p>
+<p>The reason why you need to test is because, with the above tools, the fact that a retailable product needs to meet legal requirements.  A framework is needed for covering the complex problem domain, as to do this manually is far too expensive.  Here are several software frameworks to reduce the cost of this quality-adding step.</p>
 
 
 </div>
@@ -120,7 +120,7 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
     <li>A correctly setup logging system, for auditing, under a different user account to the LLM</li>
     <li>The “service under test” correctly setup, that will read data from the websocket, and respond</li>
     <li>A correctly setup knowledge base linked to the chatbot (knowledge of “our” products)</li>
-    <li>SHOULD have API access to local stock control, so the chatbot only sells things that exist</li>
+    <li>It SHOULD have API access to local stock control, so the chatbot only sells things that exist</li>
     <li>If a medical product, there are several sets of medical data process that need complying to <sup><a href="https://en.wikipedia.org/wiki/Personal_data" target="_blank">1</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Protected_health_information" target="_blank">2</a></sup> </li>
     <li>[PARANOIA] The knowledge base also holds relevant legal constraints</li>
     <li>[PARANOIA] The knowledge base also holds relevant tax process constraints</li>
@@ -156,18 +156,18 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
     <li>How many concurrent requests are stable?</li>
     <li>How fast is standard-query-1 (repeat for each test fixture)?</li>
     <li>How stable is a big input again?</li>
-    <li>Are there are any subjects where the queries get slow, as the original source was much more verbose (see snow above)?</li>
+    <li>Are there are any subjects where the queries get slow, as the original source was much more verbose (see the snow example above)?</li>
 </ul>
 
-<p>Generative content LLM tests :</p>
+<p>Generative content LLM tests need to :</p>
 
 <ul class="ulbasic">
-    <li>Check can sell current own stock</li>
+    <li>Check can sell owned stock currently available</li>
     <li>Check can't sell previous stock</li>
     <li>Check can correctly sell projected but not currently available stock</li>
     <li>Check can offer correct product from a good match</li>
     <li>Check can offer correct product from a weak match, maybe a range</li>
-    <li>Check can offer correct product from a description of competitors product</li>
+    <li>Check can offer correct product from a description of a competitor's product</li>
     <li>Check can't sell competitors stock</li>
     <li>Ensure that all offers are inside tax codes</li>
     <li>Ensure that all offers are inside legal codes (e.g. no alcohol to children)</li>
@@ -182,15 +182,15 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
     <li>For the EU, show compliance to German privacy laws (strict)</li>
     <li>Masking/suppressing for injection prompts </li>
     <li>Show that inline control signals are not accepted from the end users (where different to previous). </li>
-    <li>Responses have low-to-no Toxity.  <i>I need to run this test manually, to know what the requirement should be precisely.</i> </li>
+    <li>Responses have low-to-no Toxity.  <i>I need to run this test manually, to know what the requirement should precisely be.</i> </li>
     <li>Test for known but false information, like events that only happened in one film.</li>
     <li>Try to order pizza, as an example of a sales transaction that will be on the internet (ASSERT: that pizza is not a product offered)</li>
-    <li>Ramble for abit, then ask a question</li>
+    <li>Ramble for a bit, then ask a question</li>
     <li>Ramble on like an old person, and don't ask a question</li>
     <li>NEED TO EXTEND HERE</li>
 </ul>
 
-<p>I think a complete and useful “initial state prompt” would read like a normal program.  Some of the tests can be generated by using one of the tools listed halfway down <sup><a href="https://www.analyticsvidhya.com/blog/2023/05/how-to-evaluate-a-large-language-model-llm/" target="_blank">3</a></sup>.  The way some people describe the LLM makes it similar [XXX] to a mass of <i>if statements</i> ~ this input has this output ~ but <i>if statements</i> that do not have many/ any tests.</p>
+<p>A complete and useful “initial state prompt” would read like a normal program.  Some of the tests can be generated by using one of the tools listed halfway down <sup><a href="https://www.analyticsvidhya.com/blog/2023/05/how-to-evaluate-a-large-language-model-llm/" target="_blank">3</a></sup>.  The way some people describe the LLM makes it similar [XXX] to a mass of <i>if statements</i> that normaly are ~ this input has this output ~ but unfortunately <i>if statements</i> here don't have many / any tests.</p>
 
 
 </details>
@@ -209,7 +209,7 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
 		<div id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
-					<header><h1>Testing for your AI prompts</h1></header>
+					<header><h1>Testing for the AI prompts</h1></header>
 			    	<p role="status" class="bigScreenOnly">    </p>
 				</div>
 				<div id="shareGroup" class="bibbles row addReading">
@@ -229,7 +229,7 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-10-07T23:25:45">7th of Oct 2024</time>
+						<span>Edited <time datetime="2024-10-08T16:38:05">8th of Oct 2024</time>
 						</span>
 						<span>Created <time datetime="2024-10-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Oct 2024</time> </span>
 					</span>
@@ -280,7 +280,7 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-10-07T23:34:35">7th of Oct 2024, 23:34:35</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-07T23:25:45">7th of Oct 2024</time>.
+	<p> Page rendered <time datetime="2024-10-09T14:16:41">9th of Oct 2024, 14:16:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-08T16:38:05">8th of Oct 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
