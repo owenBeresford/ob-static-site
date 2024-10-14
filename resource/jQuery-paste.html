@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-paste" />
 <meta property="og:description" content="An analysis of details for getting paste to work cleanly in JS." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Oct 2024, 22:21:00" />
-<meta property="article:modified_time" content="21st of Sep 2024" />
+<meta property="article:published_time" content="14th of Oct 2024, 12:01:24" />
+<meta property="article:modified_time" content="14th of Oct 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-paste" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "jQuery-paste",
-	"article:published_time":"7th of Oct 2024, 22:21:00", 
-    "article:modified_time":"21st of Sep 2024",
+	"article:published_time":"14th of Oct 2024, 12:01:24", 
+    "article:modified_time":"14th of Oct 2024",
     "article:section":"technology",
 
     "author": {
@@ -108,7 +108,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-09-21T15:16:28">21st of Sep 2024</time>
+						<span>Edited <time datetime="2024-10-14T11:48:32">14th of Oct 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -155,7 +155,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class-"sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-10-07T22:21:00">7th of Oct 2024, 22:21:00</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-21T15:16:28">21st of Sep 2024</time>.
+	<p> Page rendered <time datetime="2024-10-14T12:01:24">14th of Oct 2024, 12:01:24</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-14T11:48:32">14th of Oct 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -167,17 +167,17 @@ let trigger=null;
 function f2() {
 	let reqt=document.querySelector('#txt').value.trim();
 	if(reqt.length > 5 ) {
-		appendIsland('#status', "<li>Sending your request to a search now.</li>\n");
+		appendIsland('#status', "<li>Sending your request to a search now.</li>\n", document);
 		document.querySelector('#txt').value="";
 	
 		window.open("https://duckduckgo.com/?q="+ encodeURIComponent( reqt )+"&ai=web", "results");
 	} else {
-		appendIsland('#status', "<li>Content abit short, add another few more letters.</li>\n");
+		appendIsland('#status', "<li>Content abit short, add another few more letters.</li>\n", document);
 	}
 	return false;
 }
 // I'm starting to think i need a dynamic window
-const WAIT_DELAY=isMobile()?1000:500;
+const WAIT_DELAY=isMobile(document, location, window )?1000:500;
 
 function f3(e) {
 	if(e.which ==13 || e.which==9 || e.which==32) {
