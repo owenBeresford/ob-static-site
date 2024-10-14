@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>MB, MQ</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Libraries and protocols to pass information between processes: Message brokers, message queues, event buses" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="MB, MQ">
+<meta itemprop="description" content="Libraries and protocols to pass information between processes: Message brokers, message queues, event buses">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="MB, MQ">
+<meta name="twitter:description" content="Libraries and protocols to pass information between processes: Message brokers, message queues, event buses">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="MB, MQ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/message-passing" />
+<meta property="og:description" content="Libraries and protocols to pass information between processes: Message brokers, message queues, event buses" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Oct 2024, 9:00:49" />
+<meta property="article:modified_time" content="13th of Oct 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/message-passing" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "MB, MQ",
+	"article:published_time":"14th of Oct 2024, 9:00:49", 
+    "article:modified_time":"13th of Oct 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences">
+<div class="halferWords">
+<p>An article for the boring category.  I lead with the terminology as RabbitMQ gets called a MessageBroker these days and implements AMPQ, even though the name contains MessageQueue.   As the terminology in common use is badly factored, I add examples of usage, with aim for clarity.   As a developer I use each of these ~ when they are the best solution ~ rather than just reaching for a brand label.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Architectures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+
+</div>
+<div class="quiteWide">
+This list includes data structures and mechanisms.<br />
+<dl>
+    <dt>Event</dt>
+        <dd>[terminology] A notification that something happened <sup><a href="https://en.wikipedia.org/wiki/Event_%28computing%29" target="_blank">1</a></sup>, e.g. a mouse-click event.   Used in many languages and frameworks.   In higher level languages like JS this is an object with simple state.  I'm not sure if the networking stack poll() <sup><a href="https://www.unix.com/man-page/debian/2/poll/" target="_blank">2</a></sup> emits events or messages.   Events can have multiple receivers, and are async.  SQL transactions cam be modeled as Events.</dd>
+    <dt>Signal</dt>
+        <dd>[terminology] An event, but you are writing in C <sup><a href="https://en.wikipedia.org/wiki/C_%28programming_language%29" target="_blank">3</a></sup> on POSIX <sup><a href="https://en.wikipedia.org/wiki/POSIX" target="_blank">4</a></sup>, so it's just one integer and a compiler type. Or an library API compatible with C.   For Linux, the traditional 1-31 range of Signals has been extended to include buffered signals <sup><a href="https://liujunming.top/2018/12/29/Understanding-the-Linux-Kernel-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-Signals/" target="_blank">5</a></sup>. The value of this is multiple 1-31 signal events may get merged into 1 function callback, but the buffered ones do not, and are also known as real-time signals <sup><a href="https://www.nxp.com/docs/en/white-paper/CWLNXRTOSWP.pdf" target="_blank">6</a></sup>.</dd>
+    <dt>Message</dt>
+        <dd>[terminology] Like an event <sup><a href="https://scribe.rip/@aparnagadgil/events-vs-messages-in-event-driven-architecture-26620c6a2574" target="_blank">7</a></sup>, but with named receivers, a sequence and a time-stamp.   An implementation example is Email messages.</dd>
+    <dt>Data / stream</dt>
+        <dd>[terminology] Sometimes used to pass data to another process.   This is just data and expresses no state, sequence or timing.   Events and messages can be encoded inside a data stream as a second layer of protocol.   Example ~ when you watch Netflix ~ you have a stream with the media server.   A session of HTTP transactions isn't a stream, and is likely to be mixed with other transactions to other servers.</dd>
+    <dt>Microservice</dt>
+        <dd>[terminology] I prefer 'µsrv', but that is a more limited audience expression.   A common means to allow sporadic development better against a service by making each feature an isolated lump <sup><a href="https://microservices.io/" target="_blank">8</a></sup> <sup><a href="https://middleware.io/blog/microservices-architecture/" target="_blank">9</a></sup> <sup><a href="https://dev.to/jackynote/message-brokers-pros-cons-and-their-crucial-role-in-microservices-56pi" target="_blank">10</a></sup>.  This suggests that the dev team keep their work tidier, and should allow each component to be deployed when it's ready, rather than blockaded by the rest of the service.   Probably the most famous µsrv platform is Netflix itself.</dd>
+    <dt>CORBA</dt>
+        <dd>[ancient] Some history <sup><a href="https://en.wikipedia.org/wiki/Common_Object_Request_Broker_Architecture" target="_blank">11</a></sup>, AFAIK</dd>
+    <dt>AMQP</dt>
+        <dd>[algorithm] A big complicated middleware specification, which includes rich message primitives <sup><a href="https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol" target="_blank">12</a></sup> <sup><a href="https://www.cloudamqp.com/blog/what-is-amqp-and-why-is-it-used-in-rabbitmq.html" target="_blank">13</a></sup>.  It uses the opposite design approach to REST.  As JPMorgan-Chase organised this spec to exist, I believe they are using it.  TODO: find out current usage</dd>
+    <dt>OMQ</dt>
+        <dd>[algorithm]  aka Open Message Queue <sup><a href="https://en.wikipedia.org/wiki/Open_Message_Queue" target="_blank">14</a></sup>.  This was supposed to be a open extendable version of previous corporate property to improve interaction <sup><a href="https://scribe.rip/@sudacgb/message-queue-a-complete-guide-aa956ada2e98" target="_blank">15</a></sup>.  The technical review <sup><a href="https://javaee.github.io/glassfish/doc/4.0/mq-tech-over.pdf" target="_blank">16</a></sup>.  The standard seems to be strongly used in the Java domain.</dd>
+    <dt>NetBIOS</dt>
+        <dd>[ancient] aka Network Basic Input/Output System, a legacy networking technology created for LANs <sup><a href="https://en.wikipedia.org/wiki/NetBIOS" target="_blank">17</a></sup>.  Listed as it has features like a MessageQueue.</dd>
+    <dt>Message streams</dt>
+        <dd>Like a MessageQueue, but adds message persistence and single receipt <sup><a href="https://scribe.rip/@naveencse.mits/message-queues-vs-message-streams-understanding-asynchronous-communication-539a6d6f987a" target="_blank">18</a></sup>.  The most well-known implementation of a MessageStream is TCP <sup><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol" target="_blank">19</a></sup>.   Amusingly there is a MS feature built into Wiki, so people can stream <i>Jira ticket</i> updates to Wiki, but they deprecate this <sup><a href="https://forum.xwiki.org/t/future-of-message-stream-feature/14511/2" target="_blank">20</a></sup> ~ I guess this was added by Atlassian.</dd>
+    <dt>Spinlocks / Mutexes / Semaphores</dt>
+        <dd>[terminology] An in-memory message used for thread and process synchronisation <sup><a href="https://amjad.alsharafi.dev/en/posts/operating-system/spinlocks/" target="_blank">21</a></sup> <sup><a href="https://os.cs.luc.edu/mutualexclusion.html" target="_blank">22</a></sup> <sup><a href="https://www.guru99.com/mutex-vs-semaphore.html" target="_blank">23</a></sup>.   Due to the threads, it will have variable speed to execute.   Must be in a single process memory space, but this can be any number of theads.  Mutexes and semaphores are passed to child processes, but spinlocks are not <sup><a href="https://stackoverflow.com/questions/39812676/do-pthread-mutexes-in-a-single-threaded-process-need-to-be-re-initialized-on-for" target="_blank">24</a></sup>.  These are very narrow messages about timing.  They are used in most larger software.   Much complexity is needed by the user of these features, but they are simple to make.</dd>
+    <dt>file lock</dt>
+        <dd>[terminology] An empty file is used to enforce single process availability in many *nix services <sup><a href="https://man7.org/linux/man-pages/man3/lockf.3.html" target="_blank">25</a></sup>.  Very simple, very fast, very reliable. Limited to single file-system (not machine, kernel or process), and if the file-system is slow, this may cause performance issues.  This is an even more narrow purpose message than a spinlock.</dd>
+    <dt>Pipe</dt>
+        <dd>[terminology] A simple OS mechanism <sup><a href="https://en.wikipedia.org/wiki/Pipeline_%28software%29" target="_blank">26</a></sup> which can be used in sync or async modes.   Offers guaranteed delivery until process termination, and it is fast.   Any data can be put into a pipe, including messages, but is also unicast and the recipient must be inside the same kernel address space.   Not suitable for time-shifting.   Is part of POSIX <sup><a href="https://en.wikipedia.org/wiki/Pipeline_%28Unix%29" target="_blank">27</a></sup>, and is used by some email servers.</dd>
+    <dt>Event Bus</dt>
+        <dd>[algorithm] Another term for the PubSub <sup><a href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern" target="_blank">28</a></sup> pattern.  Comparison with brokers <sup><a href="https://scribe.rip/@sadegh.dehghani1992/how-it-works-eventbus-cef03ac2a12f" target="_blank">29</a></sup> <sup><a href="https://scribe.rip/@dugguRK/understanding-eventbus-with-kotlin-flow-6c43340bdde5" target="_blank">30</a></sup>.  This attempts guaranteed delivery, but could fail with an error.  The sender and receiver can be setup with sync or async modes, but if latency is important sync receivers are a good idea.   As a software service, this often supports multicast and unicast.   Some notes on queuing management <sup><a href="https://en.wikipedia.org/wiki/Common_Object_Request_Broker_Architecture" target="_blank">31</a></sup>.</dd>
+    <dt>Message Bus</dt>
+        <dd>[algorithm] Same idea <sup><a href="https://housingprototypes.org/what-is-message-bus-architecture/" target="_blank">32</a></sup>.</dd>
+    <dt>Message Queue</dt>
+        <dd>[algorithm] Again very easy to confuse with an Event Bus, aside from the data type <sup><a href="https://en.wikipedia.org/wiki/Message_queue" target="_blank">33</a></sup>.  This is also called a Mailbox.</dd>
+    <dt>Message Broker</dt>
+        <dd>[algorithm] The most complex and featured item on this list. Same general goals as the other processes, but MB <sup><a href="https://en.wikipedia.org/wiki/Message_broker" target="_blank">34</a></sup> <sup><a href="https://scribe.rip/practice-in-public/decoding-message-brokers-a-practical-guide-to-implementation-4642f1d8c4e1" target="_blank">35</a></sup> includes real-time semantics <sup><a href="https://piyushguptaece.scribe.rip/building-realtime-messaging-infrastructure-for-50m-concurrent-users-with-sub-second-latency-741d0ea04235" target="_blank">36</a></sup>, multicast, has guaranteed delivery, full store-and-forward capacity.  Some message brokers manipulate the message in transit, offering translation features.  Message brokers are useful for problem where <sup><a href="https://aws.scribe.rip/understanding-message-brokers-and-queues-7813f0883e9e" target="_blank">37</a></sup>: anything async handling; each message leads to a large amount of computation, so fast reply is not possible; a message that leads to activity on several different machines; Or activity in a different dev language or framework <sup><a href="https://hevodata.com/learn/message-brokers/" target="_blank">38</a></sup>.</dd>
+    <dt>Enterprise Service Bus</dt>
+        <dd>[algorithm] Terms from 2000's, a software service <sup><a href="https://en.wikipedia.org/wiki/Enterprise_service_bus" target="_blank">39</a></sup> to link differing sections of a SOA <sup><a href="https://en.wikipedia.org/wiki/Service-oriented_architecture" target="_blank">40</a></sup>.   Each of the client interactions doesn't need to match the rest of the service bus.   This is a multilayered 2000's XML backed enterprise tool <sup><a href="https://dev.to/gem_corporation/enterprise-service-bus-overview-3-key-components-and-role-in-digital-transformation-4a8c" target="_blank">41</a></sup> (pls read the first link).</dd>
+</dl>
+
+
+</div>
+<div class="lotsOfWords">
+<p>If I was writing an App with a strong adoption of a MessageBroker library, and I had <i>confidence in my security process</i>, I would be tempted to have the GraphQL client write straight to the MessageBroker.  The message broker can be setup to drop malformed requests, and perform necessary translation steps.  MessageBrokers are designed to be scalable and resilient.  Not doing a HTTP POST to the server avoids the extra layer of form elements that do nothing (causes no performance impact, but it's ugly).   Not using any “security by ignorance” shouldn't affect your security protocol, which is hopefully based on Maths.  There may still need to be a HTML form to login, to generate tokens for access to the MessageBroker.  There is a market for ESBs <sup><a href="https://quadrantsystems.co.za/blog/what-is-esb-services/" target="_blank">1</a></sup>.</p>
+
+<p>This above list of technology mechanisms is list of how a differing processes can communicate with each other.   As I am not selling anything, my list is longer than most advertorials.  <br />
+The most important feature of the comms mechanism should select your mechanism used.   All of the in-process options are massively faster than an extra process, regardless of what advertising says.   The options that are not visible or accessible outside of the machine are generally more secure than solutions going over the internet.   I reference the <a href="https://boringtechnology.club/" target="_blank">boring technology club</a>.   I'm not sure a billion POSIX signals per day is a noteworthy, although it may indicate that your architecture is extreme.<br />
+Redis seems to be an entry in every data centric article I have written recently <sup><a href="https://stackoverflow.com/questions/23307864/redis-pubsub-vs-blocking-operations" target="_blank">2</a></sup>.  So having a Redis node may save money as a large number of other tools can be deprecated to Redis.</p>
+
+
+<h5 id="toc1"> Comparison Metrics</h5>
+<ul class="ulbasic">
+    <li>scale of transactions/ time</li>
+    <li>security capacity</li>
+    <li>delivery is (guaranteed)?</li>
+    <li>delivery is (multicast/ unicast)?</li>
+    <li>supported message formats</li>
+    <li>acquisition cost</li>
+    <li>operational cost</li>
+    <li>constraints?</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Software products <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li><b><a href="https://redis.io/" target="_blank">Redis</a></b> licence is complicated <sup><a href="https://github.com/RedisLabsModules/licenses/blob/master/REDIS-SOURCE-AVAILABLE-LICENSE.txt" target="_blank">3</a></sup>, Redis <a href="https://github.com/orgs/RedisLabsModules/repositories?type=all&amp;amp;q=redis" target="_blank">git</a>, extensions by same team <a href="https://github.com/RedisLabsModules/redex" target="_blank">git</a>.   Redis can be used as a MessageQueue <sup><a href="https://dev.to/chanh_le/setting-up-redis-as-a-message-queue-a-step-by-step-guide-5gj0" target="_blank">4</a></sup>  ✔ Active community.</li>
+    <li><b><a href="https://kafka.apache.org/" target="_blank">Kafka</a></b> <a href="https://github.com/apache/kafka" target="_blank">git</a>  <sup><a href="https://www.pluralsight.com/resources/blog/ai-and-data/what-is-apache-kafka" target="_blank">5</a></sup> project initially started by Linkedin <sup><a href="https://estafet.com/simple-guide-to-message-brokers/" target="_blank">6</a></sup> [apache]   ✔ Active community.</li>
+    <li><b><a href="https://www.rabbitmq.com/release-information" target="_blank">RabbitMQ</a></b> <a href="https://github.com/rabbitmq" target="_blank">git</a>, note: company has 256 public repos. Comparison with Kafka <sup><a href="https://thenewstack.io/choosing-between-message-queues-and-event-streams/" target="_blank">7</a></sup>  ✔ Active community </li>
+    <li><b><a href="https://docs.redhat.com/en/documentation/red_hat_fuse/7.13" target="_blank">Red Hat JBoss Fuse</a></b> <sup><a href="https://en.wikipedia.org/wiki/Fuse_ESB" target="_blank">8</a></sup> <a href="https://github.com/jboss-fuse/fuse" target="_blank">git</a>   ✔ Allows joining several different clouds together <sup><a href="https://en.wikipedia.org/wiki/Red_Hat_Fuse" target="_blank">9</a></sup> ~ although I hope better than a HTTP connection.</li>
+    <li><strong><a href="https://pulsar.apache.org/" target="_blank">Pulsar</a></strong> <a href="https://github.com/apache/pulsar" target="_blank">git</a> [apache] details on features <sup><a href="https://hevodata.com/learn/pulsar-vs-kafka/" target="_blank">10</a></sup></li>
+    <li>AWS services (<b><a href="https://docs.aws.amazon.com/sqs/" target="_blank">SQS</a></b> <sup><a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html" target="_blank">11</a></sup> <sup><a href="https://scribe.rip/@vava_silva/understanding-aws-sqs-and-sns-common-questions-best-use-cases-and-pros-cons-fd5015bead77" target="_blank">12</a></sup>, also mentioning Kinesis but its not a message broker).  ✗ As a hosted service, no public source.  Review of features in SQS and Kinesis <sup><a href="https://dzone.com/articles/evaluating-message-brokers" target="_blank">13</a></sup></li>
+    <li><b><a href="https://blogs.mulesoft.com/news/anypoint-code-builder-october-2024-release/" target="_blank">MuleSoft’s Anypoint Platform</a></b> <a href="https://github.com/mulesoft/mule" target="_blank">git</a>.  Inbound marketing for Mulesoft isn't very specific <sup><a href="https://topapps.ai/blog/mulesoft-review/" target="_blank">14</a></sup>, the same benefits could be applied to many products.   </li>
+    <li><b><a href="https://www.ibm.com/docs/en/integration-bus/10.0?topic=overview-integration-bus-introduction" target="_blank">IBM Integration Bus (IIB)</a></b> <sup><a href="https://www.ibm.com/docs/en/integration-bus/10.0?topic=overview-integration-bus-technical" target="_blank">15</a></sup> <sup><a href="https://solidity.com.ua/en/articles/what-is-ibm-integration-bus/" target="_blank">16</a></sup> ✗ IBM have &gt;3000 repos, but I can't find IIB <a href="https://github.com/orgs/IBM/repositories" target="_blank">git</a>.  According to <sup><a href="https://www.techzert.com/blog/ibm-app-connect-vs-iib" target="_blank">17</a></sup>, this can be used for debugging, as it has replay.</li>
+    <li><strong><a href="https://servicemix.apache.org/" target="_blank">Apache ServiceMix</a></strong>  <a href="https://github.com/apache/servicemix" target="_blank">git</a> [apache]  ✗ Note repo doesn't seem to have much activity for 7 years.</li>
+    <li><b><a href="https://eval.tibco.com/storefront/eval/tibco-activematrix-businessworks/prod10001.html" target="_blank">TIBCO ActiveMatrix BusinessWorks</a></b> ✗ I can't find the BusinessWorks repo <a href="https://github.com/orgs/TIBCOSoftware/repositories" target="_blank">git</a>  a FAQ <sup><a href="https://eval.tibco.com/storefront/faq.ep" target="_blank">18</a></sup></li>
+</ul>
+
+<p>It is possible all the main frame facing vendors are sat on long term supply contracts, and are happy as they are, but in my industry that is how older companies get replaced.</p>
+
+
+<aside class="pullout">
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Web History <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>In terms of “time on the internet”, a generation is ~3 Y, so 35 Y is roughly equivalent to 1700s in <em>human time</em>.  At the start of the 90s and late 80s a majority of <em>web sites</em> were run by university departments.   This was a research project on information spaces.  There was no HTTPS, no e-commerce, little-to-no JS and UX wasn't really a discipline yet as “the web” was too small.   The University depts liked the idea of non-commercial software, and tended towards a Unix (with 32bits) as win3.1 is not a <em>server OS</em>.   As part of information space research, a project called Apache was popular.   The name is a corruption of “a patchy server”, due to its creation by students emailing the project owner with code patches in patch format.   Most code sharing and management tools hadn't been invented as there was no scale for code sharing yet.<br />
+Since that date, <strong>Apache has become a foundation</strong> and has respectability for “internet things”.   The foundation has become an organisation that looks after server-side software.  Many of the tools in this list started as a RnD project at a large corporation, then migrated to Apache.  The web is not the internet, but many people confabulate the terms.</p>
+
+
+</aside>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="research" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Message brokers etc.</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmessage-passing" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmessage-passing" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmessage-passing" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmessage-passing&amp;t=MB%2C+MQ"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmessage-passing" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-10-13T19:15:43">13th of Oct 2024</time>
+						</span>
+						<span>Created <time datetime="2024-10-05T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >5th of Oct 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmessage-passing" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Architectures</a></li>
+<li><a href="#toc1">Software products</a></li>
+<li class="h4_odd"><a href="#toc2">Web History</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+	</div> 
+	<p> Page rendered <time datetime="2024-10-14T09:00:49">14th of Oct 2024, 9:00:49</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-13T19:15:43">13th of Oct 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+
+</body>
+</html>

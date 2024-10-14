@@ -1,34 +1,4 @@
-function e(e2 = location) {
-  return new URLSearchParams(e2.search).has("debug");
-}
-function t(e2, ...t2) {
-  e2 in console ? console[e2](`[${e2.toUpperCase()}] ${t2.join(", ")}`) : console.log(`[${e2.toUpperCase()}] ${t2.join(", ")}`);
-}
-const n = ".addReferences", r = n + " sup a", o = "https://owenberesford.me.uk/", i = "appearance", a = 16, s = 180;
-async function l(n2, r2) {
-  const o2 = function() {
-    if ("undefined" != typeof window)
-      return window.fetch;
-    if ("function" == typeof fetch)
-      return fetch;
-    throw t("error", "Please stop using old versions of node."), new Error("Please stop using old versions of Node");
-  }(), i2 = e();
-  try {
-    const e2 = await o2(n2, { credentials: "same-origin" });
-    if (!e2.ok) {
-      if (i2 && t("warn", "Failed to communicate with " + n2), r2)
-        return { body: "nothing", headers: {}, ok: false };
-      throw new Error("ERROR getting asset " + n2);
-    }
-    let a2 = "";
-    return a2 = e2.headers.get("content-type").toLowerCase().startsWith("application/json") ? await e2.json() : await e2.text(), i2 && t("info", "Successful JSON transaction " + n2), { body: a2, headers: e2.headers, ok: true };
-  } catch (e2) {
-    if (i2 && t("error", "KLAXON, KLAXON failed: " + n2 + " " + e2.toString()), r2)
-      return { body: "nothing", headers: {}, ok: false };
-    throw new Error("ERROR getting asset " + n2);
-  }
-}
-class c {
+class e {
   set(e2, t2, n2) {
     let r2 = "";
     if (n2) {
@@ -45,7 +15,41 @@ class c {
     }), n2;
   }
 }
-function u(e2) {
+function t(e2) {
+  return new URLSearchParams(e2.search).has("debug");
+}
+function n(e2, ...t2) {
+  e2 in console ? console[e2](`[${e2.toUpperCase()}] ${t2.join(", ")}`) : console.log(`[${e2.toUpperCase()}] ${t2.join(", ")}`);
+}
+const r = ".addReferences", o = r + " sup a", a = "https://owenberesford.me.uk/", i = "appearance", s = 16, l = "showBiblioErrors", c = 180;
+async function u(e2, r2, o2) {
+  const a2 = function() {
+    if ("undefined" != typeof window)
+      return window.fetch;
+    if ("function" == typeof fetch)
+      return fetch;
+    throw n("error", "Please stop using old versions of node."), new Error("Please stop using old versions of Node");
+  }(), i2 = t(o2);
+  try {
+    const t2 = await a2(e2, { credentials: "same-origin" });
+    if (!t2.ok) {
+      if (i2 && n("warn", "Failed to communicate with " + e2), r2)
+        return { body: "nothing", headers: {}, ok: false };
+      throw new Error("ERROR getting asset " + e2);
+    }
+    if ( 404 === t2.status) {
+console.log("SFSDFSDFS ", t2.headers, t2.status );
+      throw new Error("got HTTP 404");
+	}
+    let o3 = "";
+    return o3 = t2.headers.get("content-type").toLowerCase().startsWith("application/json") ? await t2.json() : await t2.text(), i2 && n("info", "Successful JSON transaction " + e2), { body: o3, headers: t2.headers, ok: true };
+  } catch (t2) {
+    if (i2 && n("error", "KLAXON, KLAXON failed: " + e2 + " " + t2.toString()), r2)
+      return { body: "nothing", headers: {}, ok: false };
+    throw new Error("ERROR getting asset " + e2 + " " + t2.toString());
+  }
+}
+function d(e2) {
   if (e2) {
     if ("textContent" in e2)
       return e2.textContent;
@@ -55,17 +59,17 @@ function u(e2) {
   }
   throw new Error("No element for text found");
 }
-function d(e2 = location) {
+function f(e2) {
   return e2.pathname.split("/").pop() || "<name>";
 }
-function f(e2, t2 = location) {
+function h(e2, t2) {
   let n2 = [];
   return n2 = t2.pathname.split("/"), e2.replace(/XXX/, n2.pop());
 }
-function h(e2) {
+function p(e2) {
   return !(!e2.startsWith("192.168.") && "127.0.0.1" !== e2 && "::1" !== e2 && "0:0:0:0:0:0:0:1" !== e2 && "localhost" !== e2);
 }
-function p(e2, t2 = 80, n2 = "↩") {
+function g(e2, t2 = 80, n2 = "↩") {
   if (!e2 || e2.length < t2)
     return "" + e2;
   let r2 = 0, o2 = [];
@@ -73,63 +77,58 @@ function p(e2, t2 = 80, n2 = "↩") {
     r2 + t2 > e2.length ? o2.push(e2.substring(r2, r2 + t2)) : o2.push(e2.substring(r2, r2 + t2) + n2), r2 += t2;
   return o2.join("\n");
 }
-function g(e2) {
+function m(e2) {
   let t2 = String(e2);
   if (0 === e2 || e2 < 1)
     throw new Error("Value passed must be a counting number above 0");
   return 1 === t2.length && (t2 = "0" + t2), t2;
 }
-function m(e2, t2, n2 = true) {
+function b(e2, t2, n2 = true) {
   let r2 = "";
   if (r2 = Number(e2) === e2 && e2 % 1 == 0 ? 0 === e2 ? "[No date]" : e2 < 1e10 ? new Date(1e3 * e2) : new Date(e2) : t2, "string" != typeof r2) {
     const e3 = ["", "Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
     let t3;
-    t3 = r2.getHours() ? g(r2.getHours()) : "00", r2 = " " + g(r2.getDate()) + "-" + (n2 ? e3[r2.getMonth() + 1] : g(r2.getMonth() + 1)) + "-" + r2.getUTCFullYear() + " " + (n2 ? "" : t3 + ":00");
+    t3 = r2.getHours() ? m(r2.getHours()) : "00", r2 = " " + m(r2.getDate()) + "-" + (n2 ? e3[r2.getMonth() + 1] : m(r2.getMonth() + 1)) + "-" + r2.getUTCFullYear() + " " + (n2 ? "" : t3 + ":00");
   }
   return r2;
 }
-function b(e2, n2, r2 = document) {
+function y(e2, t2, r2) {
   try {
     if (null === r2)
       throw new Error("Oh no! No DOM object!!");
-    const t2 = r2.createElement("template");
-    if (t2.innerHTML = n2, "string" == typeof e2) {
-      const n3 = r2.querySelector(e2);
-      if (null === n3)
+    const n2 = r2.createElement("template");
+    if (n2.innerHTML = t2, "string" == typeof e2) {
+      const t3 = r2.querySelector(e2);
+      if (null === t3)
         throw new Error("Oh no! DOM element not found: " + e2);
-      return n3.append(t2.content);
+      return t3.append(n2.content);
     }
-    return e2.append(t2.content);
+    return e2.append(n2.content);
   } catch (e3) {
-    t("error", e3.toString());
+    n("error", e3.toString());
   }
 }
-function y() {
-  let e2;
-  return e2 = "object" == typeof _window ? Object.getOwnPropertyDescriptor(_window, "window")?.get?.toString().includes("[native code]") : Object.getOwnPropertyDescriptor(window, "window")?.get?.toString().includes("[native code]"), !("boolean" != typeof e2 || !e2);
+function S(e2) {
+  if (void 0 === e2)
+    return false;
+  const t2 = e2.getComputedStyle.toString().includes("[native code]");
+  return !("boolean" != typeof t2 || !t2);
 }
-function w(e2, n2) {
+function w(e2, t2, r2) {
   try {
-    if (!y())
+    if (!S(r2))
       return -1;
-    return e2.getBoundingClientRect()[n2];
+    return e2.getBoundingClientRect()[t2];
   } catch (e3) {
-    return t("error", "Missing data:" + e3), -1;
+    return n("error", "Missing data:" + e3), -1;
   }
-}
-function S(e2, t2 = document) {
-  const r2 = t2.querySelector(n);
-  if (!r2)
-    return -1;
-  const o2 = Math.round(w(r2, "width"));
-  return e2 ? o2 - 32 * a : o2;
 }
 function A(e2, t2) {
   const n2 = e2.getBoundingClientRect();
   return [Math.round(t2.scrollY + n2.top), Math.round(t2.scrollX + n2.left)];
 }
-function L(e2 = 1040, t2 = document, n2 = location, r2 = window) {
-  if (t2.querySelector(".maquetteContainer") && function(e3 = location, t3 = window) {
+function L(e2 = 1040, t2, n2, r2) {
+  if (t2.querySelector(".maquetteContainer") && function(e3, t3) {
     const n3 = new URLSearchParams(e3.search);
     if (n3.has("width"))
       return parseInt(n3.get("width"), 10);
@@ -147,105 +146,107 @@ function R(e2) {
     return false;
   throw new Error("Unknown data " + e2);
 }
-function E(e2 = document, n2 = location, r2 = window) {
-  const o2 = new URLSearchParams(n2.search);
+function E(e2, t2, r2) {
+  const o2 = new URLSearchParams(t2.search);
   try {
     e2.createEvent("TouchEvent");
-    return o2.has("mobile") ? R(o2.get("mobile")) : function(e3 = document, n3 = window) {
+    return o2.has("mobile") ? R(o2.get("mobile")) : function(e3, t3) {
       try {
-        const t2 = e3.createElement("div");
-        t2.setAttribute("style", "width:1in;"), e3.body.appendChild(t2);
-        const r3 = t2.offsetWidth * n3.devicePixelRatio;
-        return t2.remove(), r3;
+        const n2 = e3.createElement("div");
+        n2.setAttribute("style", "width:1in;"), e3.body.appendChild(n2);
+        const r3 = n2.offsetWidth * t3.devicePixelRatio;
+        return n2.remove(), r3;
       } catch (e4) {
-        return t("error", "ERROR " + e4.toString()), -1;
+        return n("error", "ERROR " + e4.toString()), -1;
       }
-    }(e2, r2) > s;
+    }(e2, r2) > c;
   } catch (e3) {
     return !(!o2.has("mobile") || !R(o2.get("mobile")));
   }
 }
-let v = {};
-function q(e2) {
+let q = {};
+function v(e2) {
   const t2 = "HTTP_ERROR, Site admin: recompile this meta file, as this is a new link.";
-  return "Reference popup for link [" + (e2 + 1) + "]\n\nHTTP_ERROR, Site admin: recompile this meta file, as this is a new link.\n " + m(+/* @__PURE__ */ new Date("07-June-2024"), "not used", true) + "\n\n" + t2;
+  return "Reference popup for link [" + (e2 + 1) + "]\n\nHTTP_ERROR, Site admin: recompile this meta file, as this is a new link.\n " + b(+/* @__PURE__ */ new Date("07-June-2024"), "not used", true) + "\n\n" + t2;
 }
 function k(e2, t2) {
-  const n2 = w(e2, "left"), r2 = w(e2, "bottom");
+  const n2 = w(e2, "left", t2), r2 = w(e2, "bottom", t2);
   if (-1 === n2 && -1 === r2)
     return;
-  n2 > t2 && e2.classList.add("leanIn");
   let o2 = e2.parentNode;
-  const i2 = ["LI", "SUP", "UL", "OL", "SPAN", "P"];
-  for (; i2.includes(o2.tagName); )
+  const a2 = ["LI", "SUP", "UL", "OL", "SPAN", "P"];
+  for (; a2.includes(o2.tagName); )
     o2 = o2.parentNode;
-  r2 > w(o2, "height") - 3 * a && e2.classList.add("leanUp");
+  n2 > Math.round(w(o2, "width", t2)) - 30 * s && e2.classList.add("leanIn");
+  r2 > w(o2, "height", t2) - 3 * s && e2.classList.add("leanUp");
 }
-async function T(o2, i2 = document, a2 = location) {
-  if (v = Object.assign({ indexUpdated: 0, gainingElement: "#biblio", referencesCache: "/resource/XXX-references", renumber: 1, maxAuthLen: 65, debug: e(), runFetch: l }, o2), 0 === i2.querySelectorAll(n).length)
-    return void t("info", "This URL '" + a2.pathname + "' isn't marked-up for references, so skipped");
-  const s2 = await v.runFetch(f(v.referencesCache, a2), false);
-  if (s2.ok && Array.isArray(s2.body)) {
-    if (i2.querySelectorAll(r).length < s2.length)
-      throw new Error("Recompile the meta data for  " + a2.pathname);
-    const e2 = i2.querySelector("#biblio");
-    e2 && e2.setAttribute("style", ""), function(e3, t3 = document) {
-      let n2 = e3.headers.get("last-modified");
+async function T(e2, a2, i2, s2) {
+  if (q = Object.assign({ indexUpdated: 0, gainingElement: "#biblio", referencesCache: "/resource/XXX-references", renumber: 1, maxAuthLen: 65, debug: t(i2), runFetch: u }, e2), 0 === a2.querySelectorAll(r).length)
+    return void n("info", "This URL '" + i2.pathname + "' isn't marked-up for references, so skipped");
+  const c2 = await q.runFetch(h(q.referencesCache, i2), false, i2);
+  if (c2.ok && Array.isArray(c2.body)) {
+    if (a2.querySelectorAll(o).length < c2.length)
+      throw new Error("Recompile the meta data for  " + i2.pathname);
+    const e3 = a2.querySelector("#biblio");
+    e3 && e3.setAttribute("style", ""), function(e4, t3) {
+      let n2 = e4.headers.get("last-modified");
       if (!n2)
         return;
       n2.indexOf("BST") > 0 && (n2 = n2.substring(0, n2.length - 4));
       const r2 = new Date(n2).getTime();
-      r2 > 0 && b(".addReading .ultraSkinny", '<span>Links updated <time datetime="' + r2 + '" title="When this was last recompiled">' + new Date(r2).toLocaleDateString("en-GB", { hour12: false, dateStyle: "medium" }) + "</time> </span>", t3);
-    }(s2);
-    const t2 = function(e3) {
+      r2 > 0 && y(".addReading .ultraSkinny", '<span>Links updated <time datetime="' + r2 + '" title="When this was last recompiled">' + new Date(r2).toLocaleDateString("en-GB", { hour12: false, dateStyle: "medium" }) + "</time> </span>", t3);
+    }(c2, a2);
+    const t2 = function(e4) {
       const t3 = ["[No author]", "Resource doesn't set a description tag.", "[No date]"], n2 = [];
-      for (let r2 = 0; r2 < e3.length; r2++) {
-        if (null === e3[r2]) {
-          n2.push(q(r2));
+      for (let r2 = 0; r2 < e4.length; r2++) {
+        if (null === e4[r2]) {
+          n2.push(v(r2));
           continue;
         }
-        const o3 = m(e3[r2].date, t3[2], true);
-        let i3 = e3[r2].title + "", a3 = e3[r2].desc;
-        a3 = p(a3, 80), i3 = i3.replace(".", ". "), i3 = p(i3, 80);
-        let s3 = e3[r2].auth || t3[0];
-        "unknown" === e3[r2].auth && (s3 = t3[0]), s3.length > v.maxAuthLen && (s3 = s3.substring(0, v.maxAuthLen)), n2.push("Reference popup for link [" + (r2 + 1) + "]\n\n" + i3 + "\n" + s3 + " " + o3 + "\n\n" + a3);
+        const o2 = b(e4[r2].date, t3[2], true);
+        let a3 = e4[r2].title + "", i3 = e4[r2].desc;
+        i3 = g(i3, 80), a3 = a3.replace(".", ". "), a3 = g(a3, 80);
+        let s3 = e4[r2].auth || t3[0];
+        "unknown" === e4[r2].auth && (s3 = t3[0]), s3.length > q.maxAuthLen && (s3 = s3.substring(0, q.maxAuthLen)), n2.push("Reference popup for link [" + (r2 + 1) + "]\n\n" + a3 + "\n" + s3 + " " + o2 + "\n\n" + i3);
       }
       return n2;
-    }(s2.body);
-    !function(e3, t3 = document) {
-      const n2 = S(true, t3);
-      let o3 = 1;
-      const i3 = Array.from(t3.querySelectorAll(r));
-      for (let t4 = 0; t4 < e3.length; t4++)
-        i3[t4].setAttribute("aria-label", "" + e3[t4]), k(i3[t4], n2), v.renumber && (i3[t4].textContent = "" + o3), o3++;
-      if (i3.length > e3.length) {
-        let t4 = e3.length;
-        for (; t4 < i3.length; ) {
-          const e4 = q(t4);
-          i3[t4].setAttribute("aria-label", "" + e4), k(i3[t4], n2), v.renumber && (i3[t4].textContent = "" + (t4 + 1)), t4++;
+    }(c2.body);
+    !function(e4, t3, n2) {
+      let a3 = 1;
+      const i3 = Array.from(t3.querySelectorAll(o));
+      if (e4.length > i3.length)
+        throw t3.querySelector(r).classList.add(l), t3.querySelector("p[role=status]").textContent += "Recompile meta data", new Error("Too many references in meta-data for this article, pls recompile.");
+      for (let t4 = 0; t4 < e4.length; t4++)
+        i3[t4].setAttribute("aria-label", "" + e4[t4]), k(i3[t4], n2), q.renumber && (i3[t4].textContent = "" + a3), a3++;
+      if (i3.length > e4.length) {
+        t3.querySelector("p[role=status]").textContent += "Recompile meta data";
+        let r2 = e4.length;
+        for (; r2 < i3.length; ) {
+          const e5 = v(r2);
+          i3[r2].setAttribute("aria-label", "" + e5), k(i3[r2], n2), q.renumber && (i3[r2].textContent = "" + (r2 + 1)), r2++;
         }
       }
-    }(t2, i2), i2.querySelector(n).classList.add("showBiblioErrors");
+    }(t2, a2, s2), a2.querySelector(r).classList.add(l);
   } else {
-    !function(e3 = document, t2 = location) {
-      const n2 = d(t2), o3 = e3.querySelectorAll(r);
-      for (let e4 = 0; e4 < o3.length; e4++) {
-        const t3 = `Reference popup for link [${1 + e4}]
+    !function(e4, t2) {
+      const n2 = f(t2), a3 = e4.querySelectorAll(o);
+      for (let e5 = 0; e5 < a3.length; e5++) {
+        const t3 = `Reference popup for link [${1 + e5}]
 ERROR: No valid biblio file found.
 site admin, today
 HTTP_ERROR, no valid file called ${n2}-references.json found.
 `;
-        o3[e4].setAttribute("aria-label", "" + t3);
+        a3[e5].setAttribute("aria-label", "" + t3);
       }
-    }(i2, a2);
-    const e2 = '<p class="error">Unable to get bibliographic data for this article.</p>';
-    b(v.gainingElement, e2, i2), t("warn", "Unable to get meta data " + f(v.referencesCache, a2), JSON.stringify(Array.from(s2.headers.entries())));
+      e4.querySelector(r).classList.add(l);
+    }(a2, i2);
+    const e3 = '<p class="error">Unable to get bibliographic data for this article.</p>';
+    y(q.gainingElement, e3, a2), n("warn", "Unable to get meta data " + h(q.referencesCache, i2), JSON.stringify(Array.from(c2.headers.entries())));
   }
 }
-function O(e2, t2 = document) {
-  const n2 = S(true, t2);
+function x(e2, t2, n2) {
   t2.querySelectorAll("article a").forEach(function(r2) {
-    "git" === u(r2).trim().toLowerCase() && (r2.textContent = "", b(r2, '<i class="fa fa-github" aria-hidden="true"></i> \n		 <span class="sr-only">git</span>', t2), e2 ? (r2.setAttribute("aria-label", function(e3) {
+    "git" === d(r2).trim().toLowerCase() && (r2.textContent = "", y(r2, '<i class="fa fa-github" aria-hidden="true"></i> \n		 <span class="sr-only">git</span>', t2), e2 ? (r2.setAttribute("aria-label", function(e3) {
       const t3 = new URL(e3);
       let n3 = "[anon dev]", r3 = "";
       if (t3.username && (n3 = t3.username), t3.pathname) {
@@ -259,82 +260,82 @@ function O(e2, t2 = document) {
     }(r2.getAttribute("href"))), k(r2, n2)) : r2.setAttribute("title", "Link to a github project."));
   });
 }
-function X(e2, t2 = document, n2 = location) {
-  if (!h(n2.host) && !E(t2, n2))
+function X(e2, t2, n2, r2) {
+  if (!p(n2.host) && !E(t2, n2, r2))
     return false;
-  const r2 = t2.querySelector("#shareMenu");
-  return r2 && !r2.classList.replace("shareMenuOpen", "shareMenu") && r2.classList.replace("shareMenu", "shareMenuOpen"), false;
+  const o2 = t2.querySelector("#shareMenu");
+  return o2 && !o2.classList.replace("shareMenuOpen", "shareMenu") && o2.classList.replace("shareMenu", "shareMenuOpen"), false;
 }
-function M(e2, n2 = document, r2 = location, o2 = window) {
-  const i2 = n2.querySelector("#mastodonserver");
-  let a2 = i2.value;
-  const s2 = i2.getAttribute("data-url");
-  if ("" === a2 || null === a2)
+function M(e2, t2, r2, o2) {
+  const a2 = t2.querySelector("#mastodonserver");
+  let i2 = a2.value;
+  const s2 = a2.getAttribute("data-url");
+  if ("" === i2 || null === i2)
     return false;
-  if (a2 = "https://" + a2 + "/share?text=I+think+this+is+important+" + s2, t("info", "Trying to open mastodon server, " + a2), !y())
-    throw Error("Test passed, for " + a2);
-  return n2.querySelector("#popup").close(), o2.open(a2, "_blank"), E(n2, r2) && X(0, n2, r2), false;
+  if (i2 = "https://" + i2 + "/share?text=I+think+this+is+important+" + s2, n("info", "Trying to open mastodon server, " + i2), !S(o2))
+    throw Error("Test passed, for " + i2);
+  return t2.querySelector("#popup").close(), o2.open(i2, "_blank"), E(t2, r2, o2) && X(0, t2, r2, o2), false;
 }
-function x(e2 = document, t2 = location, n2 = window) {
+function O(e2, t2, n2) {
   let r2 = e2.querySelector("#shareMenu #mastoTrigger");
-  r2 && U(r2, N, e2), r2 = e2.querySelector("#shareGroup .allButtons #mastoTrigger");
+  r2 && j(r2, C, e2, n2), r2 = e2.querySelector("#shareGroup .allButtons #mastoTrigger");
   const o2 = function(e3, t3 = "display", n3 = window) {
     let r3 = "";
     e3 && e3.computedStyleMap ? r3 = e3.computedStyleMap()[t3] : e3 && (r3 = n3.getComputedStyle(e3, null).getPropertyValue(t3));
     return r3;
   }(r2, "display", n2);
-  o2 && "none" !== o2 && (r2.addEventListener("click", (t3) => N(t3, e2)), r2.addEventListener("keypress", (t3) => N(t3, e2))), r2 = e2.querySelector("#copyURL"), r2 && U(r2, j, t2), function(e3, t3, n3, r3 = location, o3 = window) {
-    e3.addEventListener("click", (e4) => (t3(e4, n3, r3, o3), false)), e3.addEventListener("touch", (e4) => (t3(e4, n3, r3, o3), false)), e3.addEventListener("keypress", (e4) => (t3(e4, n3, r3, o3), false));
-  }(e2.querySelector("#popup #sendMasto"), M, e2, t2, n2);
-  const i2 = Array.from(e2.querySelectorAll("#shareMenuTrigger, #shareClose"));
-  for (const n3 in i2)
-    F(i2[n3], X, e2, t2);
-  U(e2.querySelector("#hideMasto"), C, e2);
+  o2 && "none" !== o2 && (r2.addEventListener("click", (t3) => C(t3, e2, n2)), r2.addEventListener("keypress", (t3) => C(t3, e2, n2))), r2 = e2.querySelector("#copyURL"), r2 && function(e3, t3, n3) {
+    e3.addEventListener("click", (e4) => (t3(e4, n3), false)), e3.addEventListener("touch", (e4) => (t3(e4, n3), false)), e3.addEventListener("keypress", (e4) => (t3(e4, n3), false));
+  }(r2, U, t2), F(e2.querySelector("#popup #sendMasto"), M, e2, t2, n2);
+  const a2 = Array.from(e2.querySelectorAll("#shareMenuTrigger, #shareClose"));
+  for (const r3 in a2)
+    F(a2[r3], X, e2, t2, n2);
+  j(e2.querySelector("#hideMasto"), N, e2, n2);
 }
-function N(e2, t2 = document) {
-  return y() && t2.querySelector("#popup").showModal(), t2.querySelector("#popup input").focus(), false;
+function C(e2, t2, n2) {
+  return S(n2) && t2.querySelector("#popup").showModal(), t2.querySelector("#popup input").focus(), false;
 }
-function C(e2, t2 = document) {
-  return y() && t2.querySelector("#popup").close(), false;
+function N(e2, t2, n2) {
+  return S(n2) && t2.querySelector("#popup").close(), false;
 }
-function j(e2 = location, n2 = window) {
+function U(e2, t2) {
   try {
-    if (!n2.navigator.clipboard)
+    if (!t2.navigator.clipboard)
       throw new Error("No clipboard available");
-    n2.navigator.clipboard.writeText(e2.url).then(() => {
+    t2.navigator.clipboard.writeText(e2.url).then(() => {
     }, (e3) => {
-      t("error", "FAILED: copy URL " + e3);
+      n("error", "FAILED: copy URL " + e3);
     });
   } catch (e3) {
-    t("error", "FAILED: copy URL feature borked " + e3 + "\nIt will fail on a HTTP site.");
+    n("error", "FAILED: copy URL feature borked " + e3 + "\nIt will fail on a HTTP site.");
   }
 }
-function U(e2, t2, n2 = document) {
-  e2.addEventListener("click", (e3) => (t2(e3, n2), false)), e2.addEventListener("touch", (e3) => (t2(e3, n2), false)), e2.addEventListener("keypress", (e3) => (t2(e3, n2), false));
-}
-function F(e2, t2, n2, r2 = location) {
+function j(e2, t2, n2, r2) {
   e2.addEventListener("click", (e3) => (t2(e3, n2, r2), false)), e2.addEventListener("touch", (e3) => (t2(e3, n2, r2), false)), e2.addEventListener("keypress", (e3) => (t2(e3, n2, r2), false));
 }
-let D = {};
-function P(e2, t2, n2 = location) {
+function F(e2, t2, n2, r2, o2) {
+  e2.addEventListener("click", (e3) => (t2(e3, n2, r2, o2), false)), e2.addEventListener("touch", (e3) => (t2(e3, n2, r2, o2), false)), e2.addEventListener("keypress", (e3) => (t2(e3, n2, r2, o2), false));
+}
+let P = {};
+function D(e2, t2, n2) {
   let r2 = n2.pathname.split("/"), o2 = "";
   r2 = r2.pop();
-  const i2 = new URLSearchParams(n2.search);
-  return "group-XXX" === r2 && i2.has("first") && (r2 = i2.get("first")), t2 ? i2.has("first") ? o2 += n2.pathname.replace("group-XXX", r2 + "-meta") : o2 += n2.pathname.replace(r2, e2 + "-meta") : o2 += n2.pathname.replace(r2, e2), o2 += n2.search + n2.hash, o2;
+  const a2 = new URLSearchParams(n2.search);
+  return "group-XXX" === r2 && a2.has("first") && (r2 = a2.get("first")), t2 ? a2.has("first") ? o2 += n2.pathname.replace("group-XXX", r2 + "-meta") : o2 += n2.pathname.replace(r2, e2 + "-meta") : o2 += n2.pathname.replace(r2, e2), o2 += n2.search + n2.hash, o2;
 }
 function I(e2, t2) {
   let n2 = "button";
   return e2 && (n2 += " lower"), n2;
 }
-function B(e2, t2) {
+function H(e2, t2) {
   return t2 + "" + e2.replace(/[^a-zA-Z0-9_]/g, "_");
 }
-function H(e2) {
+function B(e2) {
   return e2.split("/").pop();
 }
-function $(e2 = location) {
-  let t2 = D.group;
-  if ("XXX" === D.group) {
+function $(e2) {
+  let t2 = P.group;
+  if ("XXX" === P.group) {
     const n2 = new URLSearchParams(e2.search);
     n2.has("first") && (t2 = n2.get("first"));
   }
@@ -343,121 +344,121 @@ function $(e2 = location) {
   return t2;
 }
 function J(e2, t2, n2, r2, o2) {
-  return D.name === "group-" + D.group || (t2 === e2 && (o2 = r2), r2 > 0 && o2 > 0 && n2 > 0 && r2 >= n2 - 1 && (r2 = 0)), [o2, n2, r2];
+  return P.name === "group-" + P.group || (t2 === e2 && (o2 = r2), r2 > 0 && o2 > 0 && n2 > 0 && r2 >= n2 - 1 && (r2 = 0)), [o2, n2, r2];
 }
-async function W(n2, r2 = document, o2 = location) {
-  if (D = Object.assign(D, { name: d(o2), meta: P(D.group, ".json", o2), perRow: 10, titleLimit: 40, rendered: false, iteration: 0, group: "system", count: 1, debug: e(), runFetch: l }, n2), "system" === D.group)
+async function W(e2, r2, o2, a2) {
+  if (P = Object.assign(P, { name: f(o2), meta: D(P.group, ".json", o2), perRow: 10, titleLimit: 40, rendered: false, iteration: 0, group: "system", count: 1, debug: t(o2), runFetch: u }, e2), "system" === P.group)
     throw new Error("Must set the article group, and not to 'system'.");
-  D.meta = P(D.group, ".json", o2);
-  const i2 = "group-XXX" === D.name || D.name === "group-" + D.group, a2 = "group" + D.group;
-  if (E(r2, o2) && !i2)
-    1 === r2.querySelectorAll(".adjacentGroup .adjacentItem").length && (r2.querySelector(".adjacentGroup p").style.display = "none"), b("#" + a2, "<p>As mobile View, use the full page link to the left</p>", r2);
+  P.meta = D(P.group, ".json", o2);
+  const i2 = "group-XXX" === P.name || P.name === "group-" + P.group, s2 = "group" + P.group;
+  if (E(r2, o2, a2) && !i2)
+    1 === r2.querySelectorAll(".adjacentGroup .adjacentItem").length && (r2.querySelector(".adjacentGroup p").style.display = "none"), y("#" + s2, "<p>As mobile View, use the full page link to the left</p>", r2);
   else {
-    const e2 = await D.runFetch(D.meta, false);
-    if (!e2.ok || !Array.isArray(e2.body))
-      return t("info", "There doesn't seem to be a group meta data file."), void b("#" + a2, "<p>Internal error. Hopefully this will be fixed shortly. </p>", r2);
+    const e3 = await P.runFetch(P.meta, false, o2);
+    if (!e3.ok || !Array.isArray(e3.body))
+      return n("info", "There doesn't seem to be a group meta data file."), void y("#" + s2, "<p>Internal error. Hopefully this will be fixed shortly. </p>", r2);
     if (i2) {
-      const t2 = function(e3, t3, n3 = document, r3 = location) {
-        let o3 = "";
-        for (const i3 in e3) {
-          const a3 = B(i3, t3), s2 = E(n3, r3) ? "<br />" : "";
-          let l2 = e3[i3].desc;
-          l2.length > 235 && (l2 = l2.substr(0, 235) + "..."), o3 += '<a class="adjacentItem" href="' + e3[i3].url + '" title="' + l2 + '">' + e3[i3].title + ' <span class="button">' + e3[i3].title + '</span><p id="adjacent' + a3 + '" >Author: ' + e3[i3].auth + " &nbsp; &nbsp; &nbsp;" + s2 + "  Last edit: " + m(e3[i3].date, "Unknown time", true) + " <br />Description: " + l2 + " </p></a>\n";
+      const t2 = function(e4, t3, n2, r3, o3) {
+        let a3 = "";
+        for (const i3 in e4) {
+          const s3 = H(i3, t3), l2 = E(n2, r3, o3) ? "<br />" : "";
+          let c2 = e4[i3].desc;
+          c2.length > 235 && (c2 = c2.substr(0, 235) + "..."), a3 += '<a class="adjacentItem" href="' + e4[i3].url + '" title="' + c2 + '">' + e4[i3].title + ' <span class="button">' + e4[i3].title + '</span><p id="adjacent' + s3 + '" >Author: ' + e4[i3].auth + " &nbsp; &nbsp; &nbsp;" + l2 + "  Last edit: " + b(e4[i3].date, "Unknown time", true) + " <br />Description: " + c2 + " </p></a>\n";
         }
-        return o3;
-      }(e2.body, a2, r2, o2);
-      b("#groupXXX", t2, r2), function(e3, t3 = document) {
-        const n3 = t3.querySelectorAll(".top-bar.fullWidth header h1");
-        n3.length && (n3[0].textContent.includes("whatsmyname") || n3[0].textContent.includes("XXX")) && (n3[0].textContent = "Group " + e3);
+        return a3;
+      }(e3.body, s2, r2, o2, a2);
+      y("#groupXXX", t2, r2), function(e4, t3) {
+        const n2 = t3.querySelectorAll(".top-bar.fullWidth header h1");
+        n2.length && (n2[0].textContent.includes("whatsmyname") || n2[0].textContent.includes("XXX")) && (n2[0].textContent = "Group " + e4);
         const r3 = t3.querySelectorAll(".adjacentGroup p");
-        r3.length && r3[0].textContent.includes("XXX") && (r3[0].textContent = "Some similar articles in " + e3);
+        r3.length && r3[0].textContent.includes("XXX") && (r3[0].textContent = "Some similar articles in " + e4);
       }($(o2), r2);
     } else {
-      const t2 = function(e3) {
-        let t3 = -1, n3 = D.perRow, r3 = [], o3 = 0, i3 = 0;
-        for ([t3, n3, o3] = J(H(e3[0].url), D.name, e3.length, o3, t3); o3 < e3.length; o3++) {
-          const a3 = e3[o3].title;
-          if (a3 && t3 >= 0 && n3 > 0) {
-            r3[i3] = { auth: e3[o3].auth, date: m(e3[o3].date, "[Unknown time]", true), url: e3[o3].url, offset: o3, title: e3[o3].title.substr(0, D.titleLimit), desc: e3[o3].desc }, a3.length > D.titleLimit && (r3[i3].title += "...");
-            const t4 = e3[o3].desc;
-            t4.length > 235 && (r3[i3].desc = t4.substr(0, 235) + "..."), n3--, i3++;
+      const t2 = function(e4) {
+        let t3 = -1, n2 = P.perRow, r3 = [], o3 = 0, a3 = 0;
+        for ([t3, n2, o3] = J(B(e4[0].url), P.name, e4.length, o3, t3); o3 < e4.length; o3++) {
+          const i3 = e4[o3].title;
+          if (i3 && t3 >= 0 && n2 > 0) {
+            r3[a3] = { auth: e4[o3].auth, date: b(e4[o3].date, "[Unknown time]", true), url: e4[o3].url, offset: o3, title: e4[o3].title.substr(0, P.titleLimit), desc: e4[o3].desc }, i3.length > P.titleLimit && (r3[a3].title += "...");
+            const t4 = e4[o3].desc;
+            t4.length > 235 && (r3[a3].desc = t4.substr(0, 235) + "..."), n2--, a3++;
           }
-          if ([t3, n3, o3] = J(H(e3[o3].url), D.name, n3, o3, t3), r3.length === e3.length)
+          if ([t3, n2, o3] = J(B(e4[o3].url), P.name, n2, o3, t3), r3.length === e4.length)
             break;
-          if (r3.length >= D.perRow)
+          if (r3.length >= P.perRow)
             break;
         }
         return r3;
-      }(e2.body);
-      b("#" + a2, function(e3, t3) {
-        let n3 = '<ul class="adjacentList">\n';
-        for (const r3 in e3) {
-          const o3 = B(r3, t3), i3 = I(e3[r3].desc.length > 110), a3 = "Title: " + e3[r3].title + "\nAuthor: " + e3[r3].auth + " &nbsp; &nbsp; Last edit: " + e3[r3].date + "\nDescription: " + e3[r3].desc;
-          n3 += '<li> <a id="link' + o3 + '" class="' + i3 + '" href="' + e3[r3].url + '" aria-label="' + a3 + '" >' + e3[r3].title + "</a> </li>\n";
+      }(e3.body);
+      y("#" + s2, function(e4, t3) {
+        let n2 = '<ul class="adjacentList">\n';
+        for (const r3 in e4) {
+          const o3 = H(r3, t3), a3 = I(e4[r3].desc.length > 110), i3 = "Title: " + e4[r3].title + "\nAuthor: " + e4[r3].auth + " &nbsp; &nbsp; Last edit: " + e4[r3].date + "\nDescription: " + e4[r3].desc;
+          n2 += '<li> <a id="link' + o3 + '" class="' + a3 + '" href="' + e4[r3].url + '" aria-label="' + i3 + '" >' + e4[r3].title + "</a> </li>\n";
         }
-        return 0 === e3.length ? n3 += "<li> Article doesn't seem setup correctly.</li></ul>" : n3 += '<li><a class="adjacentItem button" href="/resource/group-XXX?first=' + t3 + '" aria-label="This article lists all items in worklog group."> See full list </a></li></ul>', n3;
+        return 0 === e4.length ? n2 += "<li> Article doesn't seem setup correctly.</li></ul>" : n2 += '<li><a class="adjacentItem button" href="/resource/group-XXX?first=' + t3 + '" aria-label="This article lists all items in worklog group."> See full list </a></li></ul>', n2;
       }(t2, $(o2)), r2);
     }
   }
 }
-let _ = {};
-async function G(r2, i2 = document, a2 = location) {
-  const s2 = { referencesCache: "/resource/XXX-references", gainingElement: "#biblio", losingElement: ".addReferences", renumber: 1, forceToEnd: 1, maxDescripLen: 230, maxAuthLen: 65, debug: e(), runFetch: l };
-  if (_ = Object.assign(s2, r2), 0 === i2.querySelectorAll(n).length)
-    return void t("info", "URL '" + a2.pathname + "' isn't marked-up for references, so skipped");
-  const c2 = i2.querySelector("#biblio");
-  c2 && c2.setAttribute("style", ""), i2.querySelector(_.gainingElement + " *").replaceChildren([]), b(_.gainingElement, '<h2 class="biblioSection">References (for mobile UI)</h2> \n<p>The references embedded in the text are displayed here. </p>', i2);
-  const u2 = await _.runFetch(f(_.referencesCache, a2), false);
-  if (u2.ok && Array.isArray(u2.body)) {
-    const e2 = function(e3) {
+let G = {};
+async function _(e2, o2, i2) {
+  const s2 = { referencesCache: "/resource/XXX-references", gainingElement: "#biblio", losingElement: ".addReferences", renumber: 1, forceToEnd: 1, maxDescripLen: 230, maxAuthLen: 65, debug: t(i2), runFetch: u };
+  if (G = Object.assign(s2, e2), 0 === o2.querySelectorAll(r).length)
+    return void n("info", "URL '" + i2.pathname + "' isn't marked-up for references, so skipped");
+  const l2 = o2.querySelector("#biblio");
+  l2 && l2.setAttribute("style", ""), o2.querySelector(G.gainingElement + " *").replaceChildren([]), y(G.gainingElement, '<h2 class="biblioSection">References (for mobile UI)</h2> \n<p>The references embedded in the text are displayed here. </p>', o2);
+  const c2 = await G.runFetch(h(G.referencesCache, i2), false, i2);
+  if (c2.ok && Array.isArray(c2.body)) {
+    const e3 = function(e4) {
       let t2 = '<aside role="footnote"><ol class="mobileBiblio">';
-      for (const n2 in e3)
+      for (const n2 in e4)
         t2 += `<li>
-<a href="${e3[n2].url}"> 
-<h5>${e3[n2].title}</h5>
-<span>${e3[n2].desc}</span>
-<span>by ${e3[n2].auth} on ${e3[n2].date}</span>
+<a href="${e4[n2].url}"> 
+<h5>${e4[n2].title}</h5>
+<span>${e4[n2].desc}</span>
+<span>by ${e4[n2].auth} on ${e4[n2].date}</span>
 </a>
 </li>
 `;
       return t2 += "</ol></aside>", t2;
-    }(function(e3) {
+    }(function(e4) {
       const t2 = ["[No author]", "Resource doesn't set a description tag.", "[No date]"], n2 = [];
-      for (const r3 in e3) {
-        if (null === e3[r3]) {
-          n2.push({ auth: "[No author]", date: "[No date]", desc: "HTTP_ERROR, Site admin: recompile this meta file, as this is a new link.", offset: parseInt(r3, 10), title: "HTTP_ERROR, Site admin: recompile this meta file, as this is a new link.", url: o });
+      for (const r2 in e4) {
+        if (null === e4[r2]) {
+          n2.push({ auth: "[No author]", date: "[No date]", desc: "HTTP_ERROR, Site admin: recompile this meta file, as this is a new link.", offset: parseInt(r2, 10), title: "HTTP_ERROR, Site admin: recompile this meta file, as this is a new link.", url: a });
           continue;
         }
-        const i3 = m(e3[r3].date, t2[2], true);
-        let a3 = e3[r3].title + "";
-        a3 = a3.replace(".", ".  ");
-        let s3 = e3[r3].desc + "";
-        s3.length > _.maxDescripLen && (s3 = s3.substring(0, _.maxDescripLen));
-        let l2 = e3[r3].auth || t2[0];
-        "unknown" === e3[r3].auth && (l2 = t2[0]), l2.length > _.maxAuthLen && (l2 = l2.substring(0, _.maxAuthLen)), n2.push({ auth: l2, date: i3, desc: s3, offset: parseInt(r3, 10), title: a3, url: e3[r3].url });
+        const o3 = b(e4[r2].date, t2[2], true);
+        let i3 = e4[r2].title + "";
+        i3 = i3.replace(".", ".  ");
+        let s3 = e4[r2].desc + "";
+        s3.length > G.maxDescripLen && (s3 = s3.substring(0, G.maxDescripLen));
+        let l3 = e4[r2].auth || t2[0];
+        "unknown" === e4[r2].auth && (l3 = t2[0]), l3.length > G.maxAuthLen && (l3 = l3.substring(0, G.maxAuthLen)), n2.push({ auth: l3, date: o3, desc: s3, offset: parseInt(r2, 10), title: i3, url: e4[r2].url });
       }
       return n2;
-    }(u2.body));
-    !function(e3, t2 = document) {
-      if (!_.renumber)
+    }(c2.body));
+    !function(e4, t2) {
+      if (!G.renumber)
         return;
-      const n2 = t2.querySelectorAll(_.losingElement + " sup a");
-      for (let e4 = 0; e4 < n2.length; e4++)
-        n2[e4].textContent = "" + (e4 + 1), _.forceToEnd && (n2[e4].href = "#biblio");
-    }(u2.body, i2), b(_.gainingElement, e2, i2);
+      const n2 = t2.querySelectorAll(G.losingElement + " sup a");
+      for (let e5 = 0; e5 < n2.length; e5++)
+        n2[e5].textContent = "" + (e5 + 1), G.forceToEnd && (n2[e5].href = "#biblio");
+    }(c2.body, o2), y(G.gainingElement, e3, o2);
   } else {
-    const e2 = '<p class="error">Unable to get bibliographic data for this article.</p>';
-    b(_.gainingElement, e2, i2), t("warn", "Unable to get meta data " + f(_.referencesCache, a2), JSON.stringify(Array.from(u2.headers.entries())));
+    const e3 = '<p class="error">Unable to get bibliographic data for this article.</p>';
+    y(G.gainingElement, e3, o2), n("warn", "Unable to get meta data " + h(G.referencesCache, i2), JSON.stringify(Array.from(c2.headers.entries())));
   }
 }
-function Y(e2, t2 = document) {
+function Y(e2, t2) {
   if ("Escape" === e2.code || "Escape" === e2.key) {
     const n2 = t2.querySelectorAll("details[open]");
     return n2.length && (n2[0].open = false), e2.preventDefault(), false;
   }
   return true;
 }
-function K(e2, t2 = document) {
+function K(e2, t2) {
   const n2 = function(e3, t3) {
     if (e3.tagName === t3)
       return e3;
@@ -494,151 +495,154 @@ let V = { pageInitRun: 0 };
 function z(e2, t2) {
   e2.addEventListener("click", t2), e2.addEventListener("touch", t2), e2.addEventListener("keypress", t2);
 }
-function Q(e2, n2 = document) {
+function Q(t2) {
+  const n2 = ("undefined" != typeof document ? new e() : { set(e2, t3, n3) {
+  }, get(e2) {
+  } }).get(i);
+  if (!n2)
+    return;
+  const r2 = JSON.parse(n2);
+  if (!r2.ft || !r2.fs)
+    return;
+  const o2 = "body, .annoyingBody { font-family: " + r2.ft + "; font-size: " + r2.fs + "; direction:" + r2.dn + "; }", a2 = t2.createElement("style");
+  a2.setAttribute("id", "client-set-css"), a2.innerText = o2, t2.getElementsByTagName("head")[0].append(a2);
+}
+function Z(e2, t2) {
   let r2 = null, o2 = "";
   if ("string" == typeof e2)
-    o2 = e2, r2 = n2.querySelector(e2);
+    o2 = e2, r2 = t2.querySelector(e2);
   else {
-    const t2 = e2.target;
-    r2 = n2.querySelector("#" + t2.id), o2 = "" + r2.getAttribute("href");
+    const n2 = e2.target;
+    r2 = t2.querySelector("#" + n2.id), o2 = "" + r2.getAttribute("href");
   }
   if (!r2)
-    return void t("ERROR", "Malconfigured tabs!! " + e2 + " matches nothing");
-  let i2 = n2.querySelectorAll(".tab-title");
-  for (let e3 = 0; e3 < i2.length; e3++)
-    i2[e3].classList.remove("is-active");
-  i2 = n2.querySelectorAll(".tab-title>a");
-  for (let e3 = 0; e3 < i2.length; e3++)
-    i2[e3].setAttribute("aria-hidden", "true");
-  const a2 = n2.querySelectorAll(".tabs-content .tabs-panel");
+    return void n("ERROR", "Malconfigured tabs!! " + e2 + " matches nothing");
+  let a2 = t2.querySelectorAll(".tab-title");
   for (let e3 = 0; e3 < a2.length; e3++)
-    a2[e3].classList.remove("is-active"), a2[e3].setAttribute("aria-hidden", "true");
-  const [s2] = n2.querySelectorAll(".tabs-content " + o2);
+    a2[e3].classList.remove("is-active");
+  a2 = t2.querySelectorAll(".tab-title>a");
+  for (let e3 = 0; e3 < a2.length; e3++)
+    a2[e3].setAttribute("aria-hidden", "true");
+  const i2 = t2.querySelectorAll(".tabs-content .tabs-panel");
+  for (let e3 = 0; e3 < i2.length; e3++)
+    i2[e3].classList.remove("is-active"), i2[e3].setAttribute("aria-hidden", "true");
+  const [s2] = t2.querySelectorAll(".tabs-content " + o2);
   s2.classList.add("is-active"), s2.setAttribute("aria-hidden", "false"), r2.parentNode.classList.add("is-active"), r2.setAttribute("aria-hidden", "false");
 }
-function Z() {
+function ee() {
   return V.pageInitRun;
 }
-!async function(n2, r2 = document, o2 = location, a2 = window) {
-  V = Object.assign(V, {}, n2);
-  const s2 = e();
+!async function(e2, r2, o2, a2) {
+  V = Object.assign(V, {}, e2);
+  const i2 = t(o2);
   if (V.pageInitRun)
-    return void t("warn", "Extra panda should not be run more than once per page");
+    return void n("warn", "Extra panda should not be run more than once per page");
   V.pageInitRun = 1;
-  const d2 = r2.querySelectorAll(".noJS");
-  for (let e2 = 0; e2 < d2.length; e2++)
-    d2[e2].classList.remove("noJS");
-  const f2 = r2.querySelector("#pageMenu");
-  f2 ? z(f2, (e2) => function(e3 = ".burgerMenu", t2 = document) {
-    const n3 = t2.querySelector(e3), r3 = t2.querySelector("#pageMenu i");
-    n3.getAttribute("data-state") ? (n3.classList.remove("burgerMenuOpen"), n3.setAttribute("data-state", ""), r3.classList.add("fa-ob1burger"), r3.classList.remove("fa-cancel")) : (n3.classList.add("burgerMenuOpen"), n3.setAttribute("data-state", "1"), r3.classList.remove("fa-ob1burger"), r3.classList.add("fa-cancel"));
-  }(".burgerMenu", r2)) : t("info", "This URL '" + o2.pathname + "' has no burger menu"), function(e2 = document, t2 = window) {
-    e2.querySelector("body").setAttribute("style", "--offset-height: 0;");
-    const n3 = e2.querySelectorAll(".lotsOfWords, .halferWords, .fewWords");
-    for (let e3 = 0; e3 < n3.length; e3++)
-      n3[e3].setAttribute("style", "--offset-height: " + A(n3[e3], t2)[0] + "px;");
-  }(r2, a2), function(e2 = document, t2 = location) {
-    if (!h(t2.host) && !E(e2, t2))
+  const s2 = r2.querySelectorAll(".noJS");
+  for (let e3 = 0; e3 < s2.length; e3++)
+    s2[e3].classList.remove("noJS");
+  const l2 = r2.querySelector("#pageMenu");
+  l2 ? z(l2, (e3) => function(e4 = ".burgerMenu", t2) {
+    const n2 = t2.querySelector(e4), r3 = t2.querySelector("#pageMenu i");
+    n2.getAttribute("data-state") ? (n2.classList.remove("burgerMenuOpen"), n2.setAttribute("data-state", ""), r3.classList.add("fa-ob1burger"), r3.classList.remove("fa-cancel")) : (n2.classList.add("burgerMenuOpen"), n2.setAttribute("data-state", "1"), r3.classList.remove("fa-ob1burger"), r3.classList.add("fa-cancel"));
+  }(".burgerMenu", r2)) : n("info", "This URL '" + o2.pathname + "' has no burger menu"), function(e3, t2) {
+    e3.querySelector("body").setAttribute("style", "--offset-height: 0;");
+    const n2 = e3.querySelectorAll(".lotsOfWords, .halferWords, .fewWords");
+    for (let e4 = 0; e4 < n2.length; e4++)
+      n2[e4].setAttribute("style", "--offset-height: " + A(n2[e4], t2)[0] + "px;");
+  }(r2, a2), function(e3, t2, n2) {
+    const r3 = E(e3, t2, n2);
+    if (!p(t2.host) && !r3)
       return;
-    E(e2, t2) && (e2.querySelector("#sendMasto").textContent = "Share article");
-    const n3 = ['<li id="shareClose"> <i class="fa fa-cancel" aria-hidden="true"></i> </li>	<li> <a class="hunchUp" id="copyURL"><i class="fa fa-copy" aria-hidden="true"></i><span class="hunchUp"> copy<br /> URL</span> </a> </li>'], r3 = ["shareMenuTrigger", "siteChartLink", "rssLink"], o3 = Array.from(e2.querySelectorAll(".allButtons a"));
-    for (const e3 in o3) {
-      if (r3.includes(o3[e3].id))
+    r3 && (e3.querySelector("#sendMasto").textContent = "Share article");
+    const o3 = ['<li id="shareClose"> <i class="fa fa-cancel" aria-hidden="true"></i> </li>	<li> <a class="hunchUp" id="copyURL"><i class="fa fa-copy" aria-hidden="true"></i><span class="hunchUp"> copy<br /> URL</span> </a> </li>'], a3 = ["shareMenuTrigger", "siteChartLink", "rssLink"], i3 = Array.from(e3.querySelectorAll(".allButtons a"));
+    for (const e4 in i3) {
+      if (a3.includes(i3[e4].id))
         continue;
-      const t3 = o3[e3].cloneNode(true);
-      t3.classList.remove("bigScreenOnly"), n3.push("<li>"), n3.push(t3.outerHTML), n3.push("</li>"), o3[e3].getAttribute("id") && o3[e3].setAttribute("id", "old" + o3[e3].getAttribute("id"));
+      const t3 = i3[e4].cloneNode(true);
+      t3.classList.remove("bigScreenOnly"), o3.push("<li>"), o3.push(t3.outerHTML), o3.push("</li>"), i3[e4].getAttribute("id") && i3[e4].setAttribute("id", "old" + i3[e4].getAttribute("id"));
     }
-    n3.unshift('<nav><div class="shareMenu" id="shareMenu"><menu id="mobileMenu">'), n3.push("</menu></div></nav>"), b("#navBar", n3.join("\n"), e2);
-  }(r2, o2), x(r2, o2, a2);
-  const p2 = null !== r2.querySelector(".addReferences");
-  O(p2, r2), function(e2, t2 = document) {
-    const n3 = S(true, t2);
+    o3.unshift('<nav><div class="shareMenu" id="shareMenu"><menu id="mobileMenu">'), o3.push("</menu></div></nav>"), y("#navBar", o3.join("\n"), e3);
+  }(r2, o2, a2), O(r2, o2, a2);
+  const c2 = null !== r2.querySelector(".addReferences");
+  x(c2, r2, a2), function(e3, t2, n2) {
     t2.querySelectorAll("article a").forEach(function(r3) {
-      "docs" === u(r3).trim().toLowerCase() && (r3.textContent = "", b(r3, '<i class="fa fa-book-open" aria-hidden="true"></i>\n		 <span class="sr-only">docs</span>', t2), r3.setAttribute(e2 ? "aria-label" : "title", "Link to the project docs; it may be a git page, or a separate webpage. "), e2 && k(r3, n3));
+      "docs" === d(r3).trim().toLowerCase() && (r3.textContent = "", y(r3, '<i class="fa fa-book-open" aria-hidden="true"></i>\n		 <span class="sr-only">docs</span>', t2), r3.setAttribute(e3 ? "aria-label" : "title", "Link to the project docs; it may be a git page, or a separate webpage. "), e3 && k(r3, n2));
     });
-  }(p2, r2), function(e2 = document) {
-    const t2 = e2.querySelectorAll(".addArrow");
-    for (let n3 = 0; n3 < t2.length; n3++)
-      b(t2[n3].parentElement, '<i class="fa fa-play specialPointer" aria-hidden="true"></i>', e2);
-  }(r2), function(e2 = document) {
-    const t2 = new RegExp("`([^`]+)`", "g"), n3 = new RegExp("/ /", "g"), r3 = e2.querySelectorAll(".addBashSamples");
+  }(c2, r2, a2), function(e3) {
+    const t2 = e3.querySelectorAll(".addArrow");
+    for (let n2 = 0; n2 < t2.length; n2++)
+      y(t2[n2].parentElement, '<i class="fa fa-play specialPointer" aria-hidden="true"></i>', e3);
+  }(r2), function(e3) {
+    const t2 = new RegExp("`([^`]+)`", "g"), n2 = new RegExp("/ /", "g"), r3 = e3.querySelectorAll(".addBashSamples");
     if (r3.length > 0)
-      for (let e3 = 0; e3 < r3.length; e3++)
-        r3[e3].innerHTML = r3[e3].innerHTML.replaceAll(t2, '<code class="bashSample" title="Quote from a bash; will add copy button">$1</code>').replaceAll(n3, "//");
-  }(r2), function(e2 = document) {
-    const t2 = new c().get(i);
-    if (!t2)
-      return;
-    const n3 = JSON.parse(t2);
-    if (!n3.ft || !n3.fs)
-      return;
-    const r3 = "body, .annoyingBody { font-family: " + n3.ft + "; font-size: " + n3.fs + "; direction:" + n3.dn + "; }", o3 = e2.createElement("style");
-    o3.setAttribute("id", "client-set-css"), o3.innerText = r3, e2.getElementsByTagName("head")[0].append(o3);
-  }(r2), function(e2 = document) {
-    const n3 = Array.from(e2.querySelectorAll(".popOverWidget details"));
-    n3.length && (t("info", "Modal widget found, extra UI features added"), n3.forEach(function(e3) {
-      e3.addEventListener("click", K);
-    }), e2.body.addEventListener("click", K), e2.body.addEventListener("keydown", Y));
-  }(r2), L(1040, r2, o2, a2), !E(r2, o2) && "/resource/home" !== o2.pathname && r2.querySelectorAll(".reading").length < 2 && function(n3, r3 = document) {
-    const o3 = /[ \t\n\r.(),~]/g, i2 = Object.assign({}, { timeFormat: "m", dataLocation: ".blocker", target: "#shareGroup", wordPerMin: 275, codeSelector: "code", refresh: false, debug: e() }, n3), a3 = i2.dataLocation + " img, " + i2.dataLocation + " picture, " + i2.dataLocation + " object";
-    let s3 = u(r3.querySelector(i2.dataLocation)).split(o3).filter((e2) => e2).length / i2.wordPerMin;
-    if (s3 += r3.querySelectorAll(a3).length / 5, i2.codeSelector && r3.querySelectorAll(i2.codeSelector)) {
-      let e2 = 0;
-      r3.querySelectorAll(i2.codeSelector).forEach(function(t2) {
-        e2 += u(t2).split(o3).filter((e3) => e3).length;
-      }), e2 && (s3 += 3 * e2 / i2.wordPerMin);
+      for (let e4 = 0; e4 < r3.length; e4++)
+        r3[e4].innerHTML = r3[e4].innerHTML.replaceAll(t2, '<code class="bashSample" title="Quote from a bash; will add copy button">$1</code>').replaceAll(n2, "//");
+  }(r2), Q(r2), function(e3) {
+    const t2 = Array.from(e3.querySelectorAll(".popOverWidget details"));
+    t2.length && (n("info", "Modal widget found, extra UI features added"), t2.forEach(function(e4) {
+      e4.addEventListener("click", K);
+    }), e3.body.addEventListener("click", K), e3.body.addEventListener("keydown", Y));
+  }(r2), L(1040, r2, o2, a2), !E(r2, o2, a2) && "/resource/home" !== o2.pathname && r2.querySelectorAll(".reading").length < 2 && function(e3, r3, o3) {
+    const a3 = /[ \t\n\r.(),~]/g, i3 = Object.assign({}, { timeFormat: "m", dataLocation: ".blocker", target: "#shareGroup", wordPerMin: 275, codeSelector: "code", refresh: false, debug: t(o3) }, e3), s3 = i3.dataLocation + " img, " + i3.dataLocation + " picture, " + i3.dataLocation + " object";
+    let l3 = d(r3.querySelector(i3.dataLocation)).split(a3).filter((e4) => e4).length / i3.wordPerMin;
+    if (l3 += r3.querySelectorAll(s3).length / 5, i3.codeSelector && r3.querySelectorAll(i3.codeSelector)) {
+      let e4 = 0;
+      r3.querySelectorAll(i3.codeSelector).forEach(function(t2) {
+        e4 += d(t2).split(a3).filter((e5) => e5).length;
+      }), e4 && (l3 += 3 * e4 / i3.wordPerMin);
     }
-    if (s3 < 1)
-      return void t("info", "No reading time displayed for this article");
-    if (i2.refresh) {
-      const e2 = r3.querySelector(i2.target + " a.reading");
-      e2 && e2.parentNode.removeChild(e2);
+    if (l3 < 1)
+      return void n("info", "No reading time displayed for this article");
+    if (i3.refresh) {
+      const e4 = r3.querySelector(i3.target + " a.reading");
+      e4 && e4.parentNode.removeChild(e4);
     }
-    s3 = Math.round(s3);
-    const l2 = '<a class="reading" title="See longer version of this reading guide." href="/resource/jQuery-reading-duration">To read: ' + s3 + i2.timeFormat + "</a>";
-    b(i2.target, l2, r3);
-  }({ dataLocation: "#main", target: ".addReading", debug: s2, refresh: true }, r2);
+    l3 = Math.round(l3);
+    const c3 = '<a class="reading" title="See longer version of this reading guide." href="/resource/jQuery-reading-duration">To read: ' + l3 + i3.timeFormat + "</a>";
+    y(i3.target, c3, r3);
+  }({ dataLocation: "#main", target: ".addReading", debug: i2, refresh: true }, r2, o2);
   {
-    const e2 = r2.querySelectorAll(".tabComponent");
-    for (let t2 = 0; t2 < e2.length; t2++) {
-      const n3 = e2[t2].querySelectorAll(".tab-title a");
-      for (let e3 = 0; e3 < n3.length; e3++)
-        z(n3[e3], Q);
+    const e3 = r2.querySelectorAll(".tabComponent");
+    for (let t2 = 0; t2 < e3.length; t2++) {
+      const n2 = e3[t2].querySelectorAll(".tab-title a");
+      for (let e4 = 0; e4 < n2.length; e4++)
+        z(n2[e4], Z);
     }
   }
   if (o2.pathname.match("group-")) {
-    const e2 = function(e3, t2 = location, n3 = document) {
+    const e3 = function(e4, t2, n2) {
       const r3 = t2.pathname.split("/group-");
       if (Array.isArray(r3) && r3.length > 1 && "XXX" !== r3[1])
         return r3[1];
       const o3 = new URLSearchParams(t2.search);
       if (o3.has("first"))
         return o3.get("first");
-      if (e3 && e3.getAttribute("data-group")) {
-        let t3 = e3.getAttribute("data-group");
-        return t3 = t3.trim(), t3.split(",").map((e4, t4) => e4.trim())[0];
+      if (e4 && e4.getAttribute("data-group")) {
+        let t3 = e4.getAttribute("data-group");
+        return t3 = t3.trim(), t3.split(",").map((e5, t4) => e5.trim())[0];
       }
       throw new Error("KLAXON, KLAXON, I do not know how to build an adjacent list for " + t2.href);
-    }(null, o2, r2);
-    e2 && await W({ group: e2, debug: s2, runFetch: "adjacentRunFetch" in V ? V.adjacentRunFetch : l }, r2, o2);
+    }(null, o2);
+    e3 && await W({ group: e3, debug: i2, runFetch: "adjacentRunFetch" in V ? V.adjacentRunFetch : u }, r2, o2);
   } else {
-    E(r2, o2) ? await G({ debug: s2, renumber: 1, runFetch: "mobileRunFetch" in V ? V.mobileRunFetch : l }, r2, o2) : await T({ debug: s2, runFetch: "desktopRunFetch" in V ? V.desktopRunFetch : l, renumber: 1 }, r2, o2);
-    const e2 = function(e3, t2 = document) {
-      let n3 = t2.querySelector(e3);
-      return n3 ? (n3 = n3.getAttribute("data-group"), n3 ? (n3 = n3.split(","), n3 = n3.map((e4, t3) => e4.trim()), "XXX" === n3[0] && n3.shift(), [...n3]) : []) : [];
+    E(r2, o2, a2) ? await _({ debug: i2, renumber: 1, runFetch: "mobileRunFetch" in V ? V.mobileRunFetch : u }, r2, o2) : await T({ debug: i2, renumber: 1, runFetch: "desktopRunFetch" in V ? V.desktopRunFetch : u }, r2, o2);
+    const e3 = function(e4, t2 = document) {
+      let n2 = t2.querySelector(e4);
+      return n2 ? (n2 = n2.getAttribute("data-group"), n2 ? (n2 = n2.split(","), n2 = n2.map((e5, t3) => e5.trim()), "XXX" === n2[0] && n2.shift(), [...n2]) : []) : [];
     }("div#contentGroup", r2);
-    if (0 === e2.length)
-      t("info", "This URL '" + o2.pathname + "' has no Adjacent groups defined.");
+    if (0 === e3.length)
+      n("info", "This URL '" + o2.pathname + "' has no Adjacent groups defined.");
     else
-      for (let t2 = 0; t2 < e2.length; t2++)
-        await W({ group: e2[t2], debug: s2, iteration: t2, count: e2.length, runFetch: "adjacentRunFetch" in V ? V.adjacentRunFetch : l }, r2, o2);
+      for (let t2 = 0; t2 < e3.length; t2++)
+        await W({ group: e3[t2], debug: i2, iteration: t2, count: e3.length, runFetch: "adjacentRunFetch" in V ? V.adjacentRunFetch : u }, r2, o2);
   }
-  "function" == typeof document.pageStartup ? document.pageStartup() : t("info", "No article specific scripting found, (it may load manually ATF)");
-}();
+  "undefined" != typeof document && "function" == typeof document.pageStartup ? document.pageStartup() : n("info", "No article specific scripting found, (it may load manually ATF)");
+}({}, document, location, window);
 export {
-  b as appendIsland,
-  Z as hasBeenRun,
+  y as appendIsland,
+  ee as hasBeenRun,
   E as isMobile,
-  t as log,
-  l as runFetch
+  n as log,
+  u as runFetch
 };
