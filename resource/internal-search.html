@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/internal-search" />
 <meta property="og:description" content="Internal search against company assets I performed in my roles." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Oct 2024, 22:21:00" />
-<meta property="article:modified_time" content="7th of Oct 2024" />
+<meta property="article:published_time" content="15th of Oct 2024, 19:44:57" />
+<meta property="article:modified_time" content="15th of Oct 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/internal-search" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Search features",
-	"article:published_time":"7th of Oct 2024, 22:21:00", 
-    "article:modified_time":"7th of Oct 2024",
+	"article:published_time":"15th of Oct 2024, 19:44:57", 
+    "article:modified_time":"15th of Oct 2024",
     "article:section":"technology",
 
     "author": {
@@ -53,25 +53,26 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="halferWords">
-<p>I am mostly an App developer and REST API creator.  However, I have fairly large experience in search tools and information retrieval, listed below<br />
+<p>I am mostly an App developer and REST API creator.  I have fairly large experience in making search tools and information retrieval, which I pull out into one article as this has come up in discusions.  The list is time sorted at present.  The scale factors at the start of the items show that I have most experience in micro-startups.  I think good use of data is also important, and add features to support it.   <br />
 </p>
 
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Work log for search: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Worklog for search: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li>My first degree dissertation was on information retrieval using four value logic where I extended a PhD students work, and the second degree dissertation would use many information retrieval features inside a different UI for a virtual world simulation.   </li>
-    <li>I have improved search and information retrieval features at many companies I have worked for ::    </li>
-    <li>(&lt;400,000 requests during the hot last working day of the month, then untouched for the next 28days) I have built information retrieval for billing systems, that was mostly only used for a few hours per month, but reported on the entire enterprise's activities.   From this ISP, the data displayed customers' internet usage, with traffic breakdown.   Much of the retrieval was pre-built into summaries across the month, but the final breakdown was ~100Kb Excel file per user, and the business processed over 1/3 million monthly receipts from end users.   The starting raw data was ~1,000,000 rows per hour, this is the limit that those 2007 edition servers could handle (32bit CPU) and I implemented sharding on the timestamp.  MurphX.</li>
-    <li>( &lt;1,000 request per day) I have used standard RDB instances and optimised the schema mostly adding indexes.   Small features at Matatiro solutions, Hoptroff, and assorted contacts.</li>
+    <li>My first degree dissertation was on information retrieval using four value logic where I extended a PhD student's work, and the second degree dissertation would use many information retrieval features inside a different UI for a virtual world simulation.   </li>
+    <li>I have improved search and information retrieval features at many companies I have worked for.  Note across time, capacity for larger numbers is easier as cloud services, and as PC hardware is generally faster.  Please review the year in each case ::    </li>
+    <li>(&lt;400,000 requests during the hot last working day of the month, then untouched for the next 28 days) I built information retrieval for billing systems that was mostly only used for a few hours per month, but reported on the entire enterprise's activities.   From this ISP, the data displayed customers' internet usage, with traffic breakdown.   Much of the retrieval was pre-built into summaries across the month, and the business processed over 1/3 million monthly receipts from end users.   The starting raw data was ~1,000,000 rows per hour, this is the limit that those 2007 edition servers could handle (32bit CPU) and I implemented sharding on the time-stamp.  The output was a short Excel file with many numbers translated into “human values” (e.g. “streaming video”, rather than a TCP port and a UDP port).  System offered an aggregation on “long tails” feature (think Bell curves), to merge all the small values. MurphX.</li>
+    <li>( &lt;1,000 request per day) I used standard RDB instances and optimised the schema mostly adding indexes.   Small features at Matatiro solutions, Hoptroff, and assorted contacts.</li>
     <li>My boring website has integration with a search engine, to help users find content on it.</li>
-    <li>(&lt;100,000 requests per day, noting bursty usage) I used standard RDB instances, optimised the schema to the point of adding denormalised caches.   The traffic monitoring showed that most users were within a couple of hours between 17:00 and 20:00.  The data was displayed as heatmaps, frequency across time or location.   MotorTRAK</li>
-    <li>(HOPEFULLY &lt;1000 requests per day) Search feature to support incoming calls on standard RDB with data volume in the order of 100,000 accounts.   RDB wasn't stressed, but also used for other business activities.   Identified accounts from ~10 possible identifiers, speed of results, and speed of comprehension was essential.   FairFX</li>
-    <li>(&lt;1000 requests per day, but that was before users)  Prominent search feature at a startup, displayed complicated search results across a possible input of 10 variables, on  a mostly static dataset of 500,000 documents.  One search limit was the current location, I organised the API to return some results quickly then retrieve more data on a bigger radius if the location wasn't moving.   This was supplying useful data whilst on the tube, as real-world testing.   My technology was better than the achievements of the sales team.  Venue10.</li>
-    <li>(&lt;100 user sessions per day, each user session may be a 100 graphs to a very large number for wall displays).   “Predictable search” for data aggregation to draw real-time graphs.   Useful graphs are an hour or a day in duration, but my platform could do up to monthly graphs.   Several clients had wall displays permanently running.  Sub-sampling so all data displayed could be seen, just like AirBnB.   Average graph load time was ~1s unless browser was in a different continent to the DB server.   MongoDB cluster, with each client being held as isolated data.   Each continent's accounts was held on a cluster nearer to them.  Hoptroff.   </li>
-    <li>(&lt;100 requests per day) Monthly compliance report, that aggregated an entire month's activities.   Mostly only used 1 day per month, and outside of working hours, as it was heavy reporting.   The report ran about 100 aggregate calls, that each would impede normal business (data logging) operation.    Aggregated data source was about ~60,000,000 new documents per month. Elastic Search cluster, with geographic-based horizontal-scaling again.    </li>
-    <li>Repeat last feature, but in a different product, and MongoDB cluster running at ~20,000,000 new documents per month.  </li>
-    <li>Prototype built with Redis and Kafka, in case we had an international scale client, was running smoothly with 100,000,000 new documents per month, but needed to change the schema to suit Redis.</li>
-    <li>(I saw &lt;1000 requests per day, but that was before the service was live with users)  Most frequent user interaction, a search feature, hosted on RDS. I rewrote an earlier version of this as it locked the tables. ~6 input variables.  Swyvl</li>
+    <li>(&lt;100,000 requests per day, noting bursty usage) I used standard RDB instances, optimised the schema to the point of adding denormalised caches.   The traffic monitoring showed that most users were between 17:00 and 20:00.  The data was displayed as heatmaps, frequency across time or location.  I ideated with slider inputs for numerical range data before I saw sliders in many mobile apps in 2012.  MotorTRAK</li>
+    <li>(HOPEFULLY &lt;1000 requests per day) Search feature to support incoming calls on standard RDB with data volume in the order of 100,000 accounts.   RDB wasn't stressed and was used for other business activities.   The search identified accounts from ~10 possible identifiers.  The focus on speed of results, and speed of comprehension was essential (as live phone call).  I added a few extra “rich” indexes to allow the fairly large number of queries per user input to work promptly.  These indexes included email domains-only, and a normalisation process for phone numbers.  I had plans for a GIS lookup but this proved unnecessary.  Search needed consideration for “safety” in terms of GDPR 2014, FairFX</li>
+    <li>(&lt;1000 requests per day, but that was <i>before users</i>)  Prominent search feature at a startup, displayed complicated search results across a possible input of 10 variables, against a mostly static dataset of 500,000 documents.  One search limit was the current location, either address or long/lat from a phone.   I organised the API to return some results quickly then retrieve more data on a bigger radius if the location wasn't moving.   Many other filters were effectively array matching subqueries per document, where the underlying data included a list of values (eg multiple cuisine types per document).  My time included improving the data population in many places.   This service was supplying useful data whilst browsing on the tube, as real-world testing.   My technology was better than the achievements of the sales team.  2015, Venue10.</li>
+    <li>(&lt;100 user sessions per day, each user session may be a 100 graphs to a very large number for wall displays).   “Predictable search” for data aggregation to draw real-time graphs.   Useful graphs are an hour or a day in duration, but my platform could do up to monthly graphs.   Several clients had wall displays permanently running.  Sub-sampling so all data displayed could be seen, just like AirBnB.   Average graph load time was ~1s unless browser was in a different continent to the DB server.   MongoDB cluster, with each client being held as isolated data.   Each continent's accounts was held on a cluster nearer to them.  Hoptroff. </li>
+    <li>For the same user-journeys on an RDB, the multiple tabs saturated the DB and there was many DB locks lasting longer than desirable.   To avoid the locks, I added an extra de-normalised cache table.  Data existed in this cache for an hour, then removed.   This cache, and some better queue management on the client side, reduced a worst case cold-start page-load from 30s down to 3s from the user perspective.  The queue management meant that data users could see arrived first.  Hoptroff.</li>
+    <li>Prototype built with Redis and Kafka, in case we had an international scale client, was running smoothly with 100,000,000+ new documents per month, but needed to change the schema to suit Redis.</li>
+    <li>(&lt;100 requests per day) Monthly compliance report, that aggregated an entire month's activities.   Mostly only used 1 day per month, and outside of working hours, as it was heavy reporting.   The report ran about 100 aggregate calls, that each would impede normal business (data logging) operation.    Aggregated data source was about ~60,000,000 new documents per month. Elastic Search cluster, with geography-based horizontal-scaling again.   Known as product3, at Hoptroff.    </li>
+    <li>Repeat last feature, but in a different product, and MongoDB cluster running at ~20,000,000 new documents per month.  Known as product1, Hoptroff.</li>
+    <li>(I saw &lt;1000 requests per day, <i>before the service was published</i>).  Most frequent user interaction, a search feature, hosted on RDS.  I rewrote an earlier version of this as it locked the tables. ~6 input variables.  To scale better, it needs to be data architecture, but that is in the future,  Swyvl.</li>
 </ul>
 
 
@@ -80,7 +81,7 @@ TODO: magic tune selection against some index/DB -->
 
 <ul class="ulbasic">
     <li><a href="https://owenberesford.me.uk/resource/iterate-neo4j#">iterate-neo4j</a></li>
-    <li><del>Elastic search</del></li>
+    <li><del>Elastic search aggregates</del></li>
     <li><a href="https://owenberesford.me.uk/resource/why-mongo#">why-mongo</a>, <a href="https://owenberesford.me.uk/resource/scaling-mongo#">scaling-mongo</a>, <a href="https://owenberesford.me.uk/resource/mongodb-indexes#">mongodb-indexes</a></li>
     <li><del>Redis</del>, <a href="https://owenberesford.me.uk/resource/redis-timeseries#">redis-timeseries</a></li>
     <li><a href="https://owenberesford.me.uk/resource/ai-vector-stores#">VectorDB comparison</a></li>
@@ -124,7 +125,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-10-07T22:15:14">7th of Oct 2024</time>
+						<span>Edited <time datetime="2024-10-15T17:59:44">15th of Oct 2024</time>
 						</span>
 						<span>Created <time datetime="2024-08-25T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >25th of Aug 2024</time> </span>
 					</span>
@@ -144,7 +145,7 @@ TODO: magic tune selection against some index/DB -->
 <fieldset class="h4_menu column bigScreenOnly ">
 <legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
 <menu class="h4_lean">
-<li class="h4_odd"><a href="#toc0">Work log for search:</a></li>
+<li class="h4_odd"><a href="#toc0">Worklog for search:</a></li>
 <li><a href="#toc1">Datastore articles</a></li>
 </menu>
 <br />
@@ -173,7 +174,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-10-07T22:21:00">7th of Oct 2024, 22:21:00</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-07T22:15:14">7th of Oct 2024</time>.
+	<p> Page rendered <time datetime="2024-10-15T19:44:57">15th of Oct 2024, 19:44:57</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-15T17:59:44">15th of Oct 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
