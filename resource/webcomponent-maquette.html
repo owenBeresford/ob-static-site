@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>WebComponent.mjs</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A demo / maquette for a browser feature "web components".  A discusion of context to buikld it, and accessability ideas, which often absent from React." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="WebComponent.mjs">
+<meta itemprop="description" content="A demo / maquette for a browser feature "web components".  A discusion of context to buikld it, and accessability ideas, which often absent from React.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="WebComponent.mjs">
+<meta name="twitter:description" content="A demo / maquette for a browser feature "web components".  A discusion of context to buikld it, and accessability ideas, which often absent from React.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="WebComponent.mjs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/webcomponent-maquette" />
+<meta property="og:description" content="A demo / maquette for a browser feature "web components".  A discusion of context to buikld it, and accessability ideas, which often absent from React." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="20th of Nov 2024, 19:55:38" />
+<meta property="article:modified_time" content="20th of Nov 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/webcomponent-maquette" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "WebComponent.mjs",
+	"article:published_time":"20th of Nov 2024, 19:55:38", 
+    "article:modified_time":"20th of Nov 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker popOverWidget">
+<div class="halferWords">
+<p>Some people think that using a 3rd party framework like React is the best process to build an App.  There are a vast number of libraries available in NPM for React.   Other people, often those doing long term planning, favour the smallest number of libraries and components possible inside software quality.   More loudly for React than other SPA, there will be less security updates if you use less React.  This is just a maquette / demo, to show a realistic amount of code.   Note:</p>
+
+<ul class="ulbasic">
+    <li>A React based App can be spammed together very quickly. </li>
+    <li>A carefully planned App would use a bigger range of technology, will last longer, run faster, and be easier to update.  The native-feature browser App is likely to consume less power ~ and assuming software updates are installed ~ will run correctly on older phones.</li>
+</ul>
+
+
+</div>
+<div class="maquetteContainer">
+<div class="maquette">
+<p>This is a maquette menu, made with a WebComponent.  Includes animation without JS, which is atypical for similar components in NPMJS.  BLAH BLAH BLah Blaj bojao fhfhss hsfhsf hg.</p>
+<skinnable-menu id="fancyHTML" class="errorNoJs" data-flag="4">
+<!-- [
+{ "type":"a", "href":"/", "display":"< home", "title":":Look at the article listed on the home page, and my ugly mug."}, 
+{ "type":"a", "href":"/resource/search", "display":"Search 🔍", "title":"Find an article on this site via the search tool"}, 
+{ "type":"a", "href":"/resource/appearance", "display":"Appearance", "title":"Edit the way the site looks, this link includes medical needs planning"}, 
+{ "type":"a", "href":"/resource/contact-me", "display":"Contact me 📩", "title":"Send me a message."} 
+] --></skinnable-menu>
+<p>BLAH BLAH BLah Blaj bojao fhfhss hsfhsf hg</p>
+</div>
+<details class="singlePopup withScroll docs">
+<summary>
+<h4 id="toc0">Technical Notes </h4>
+</summary>
+
+<h5 id="toc0"> This is a demo ~ not production code ~ the animation for the most complex version seems sporadic in Chrome.  As you are likely to be a dev, please use FF for full effect.</h5>
+<p>I do not expect to learn very much here for the JS.   But knowing what breaks ahead of trying it in a sprint is a good idea.   I will aim to keep all the code in this file if it is still readable.<br />
+I like this <a href="https://mdn.github.io/web-components-examples/" target="_blank">list of examples</a>.</p>
+
+<p>I have ideas about doing things with a Radial.   I suspect that the golden mean spiral (yes that spiral) will be better and more scalable than an actual circle.   I think it would be nice to add a “shake to unspiral”, like browsers have “put phone down should go back” interaction, and the official Gmap App has “shake to report error”, which unfortunately triggers whilst I am running.   The best washing machine UI is a part mechanical rotating selector, as people can use it in low light, or with poor vision, or impaired coordination.   It is still clear what state the washing machine is in, if there is a power cut, or similar.  #TODO find that UX article again<br />
+There are few Radial UI elements in the interwebs, as they do not pack well, and were not practical before 2012.  <br />
+If the technique shown here was used at scale, it would lead to smaller SPA.  The information density of the JSON blob to make the menu with is much higher than the flat HTML or worse, a React blob.   To balance the cost of downloading the extra couple of KB of the JS class, the JS class would need to be widely reusable, and includes a mature CSS structure.  That exceeds the scope for a demo.  I could make the Component much smaller if I didn't make it support several render approaches concurrently.</p>
+
+<p>For good #A11y it should be possible to disable this render mode / style.  Note the new sub document doesn't automatically import the CSS context of the main page (just like SVG, but here both halves are HTML).  This demo loads work into the CSS engine, as a contrast to most React components.</p>
+
+<p>The objective of this demo is an inline skinnable UI, where I can change it without the recompile-and-re-upload step.  I'm not sure this is useful outside of branding for a demo.  It is useful for inline support for accessibility.   Current behaviour is :</p>
+
+<ul class="ulbasic">
+    <li>load most advanced option</li>
+    <li>unless value is overridden in the HTML </li>
+    <li>unless value is set in URL param (key is 'flag')</li>
+    <li>if small screen, have small screen version (currently missing required CSS, and dedicated interactions)</li>
+    <li>if browser is setup for no-motion, go to plainer version</li>
+    <li>if browser detects shaking, go to plainer version TODO</li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Existing work. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>I normally do a trawl of NPMJS to see what exists already with tests.  As this maquette is a browser feature, this may be less useful in this case.  However:</p>
+
+<ul class="ulbasic">
+    <li>the spec polyfills ~ I assume for very old browsers <a href="https://www.npmjs.com/package/@webcomponents/webcomponentsjs" target="_blank">npm</a> <a href="https://github.com/webcomponents/polyfills" target="_blank">git</a>.   This has a couple of sub projects, for different related features.</li>
+    <li>Useful to some projects: a lint plugin <strong>eslint-plugin-wc</strong> <a href="https://www.npmjs.com/package/eslint-plugin-wc" target="_blank">npm</a>.</li>
+</ul>
+
+<p>Given that I convert the string of HTML to a HTMLIsland of HTML via TEMPLATE element, I am not sure of the value of this demo.   Using the TEMPLATE is much more concise that issusing DOM calls to set each HTML attribute as a JS instruction.  <br />
+The mobile view would be more useful if it supported the pull-down to open and swipe to retreat interactions.  Flag=4 will be terrible packing on mobile, don't do that.</p>
+
+
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="worklog, uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Web Component Maquette</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fwebcomponent-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fwebcomponent-maquette" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fwebcomponent-maquette" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fwebcomponent-maquette&amp;t=WebComponent.mjs"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fwebcomponent-maquette" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-11-20T19:47:25">20th of Nov 2024</time>
+						</span>
+						<span>Created <time datetime="2024-11-16T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >16th of Nov 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fwebcomponent-maquette" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">Existing work.</a></li>
+<li><a href="#toc1">Technical Notes</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<p> Page rendered <time datetime="2024-11-20T19:55:38">20th of Nov 2024, 19:55:38</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-11-20T19:47:25">20th of Nov 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module">
+import { log,  hasBeenRun, currentSize, calcScreenDPI } from '/asset/ob1-202406.min.mjs';
+
+/**
+SAMPLE USAGE
+<skinnable-menu class="errorNoJs" data-flag=2>
+<!-- ["< home", "search >", "appearance", "contact-me >"] -->
+</skinnable-menu>
+
+<skinnable-menu class="errorNoJs" data-flag=2>
+<!-- [
+{ type:"a", href="/", display:"< home", title:"look at the article listed on the homw page, and my ugly mug."}, 
+{ type:"a", href="/resource/search", display:"search 🔍", title:"dfgdgd"}, 
+{ type:"a", href="/resource/appearance", display:"Appearance", title:"dfgdgd"}, 
+{ type:"a", href="/resource/contact-me", display:"Contact me 📩", title:"dfgdgd"}, 
+] --></skinnable-menu>
+*/
+
+const TEMPLATE1 = [`<div>`, `<div>THING!</div>`, `</div>`];
+const TEMPLATE2 = [
+  `<span id="pageMenu" aria-haspopup="menu"> <i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span> open <menu>`,
+  '<li title="${title}"><a href="${href}">${display}</a></li>',
+  `</menu>`,
+];
+// oh look, some JS just went missing.
+const TEMPLATE3 = [
+  `<details> <summary id="pageMenu" aria-haspopup="menu"><span> <i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span></span> </summary> <menu>`,
+  '<li title="${title}"><a href="${href}">${display}</a></li>',
+  `</menu> </details>`,
+];
+// add super 'leet radial CSS
+const TEMPLATE4 = [
+  `<details class="redialMenu"> <summary id="pageMenu" aria-haspopup="menu"><span> ⚙ </span> <span class="sr-only">Menu</span> </summary> <menu>`,
+  '<li style="--offset:${offset};" title="${title}"><a href="${href}">${display}</a></li>',
+  `</menu> </details>`,
+];
+
+// add context switch for other outputs
+
+/**
+ * ChangeableMenu
+ * A test component, this will be better OO later in life
+ 
+ * @public
+ */
+class ChangeableMenu extends HTMLElement {
+  /////// static consts
+  static get WANTED_FIELDS() {
+    return ["type", "href", "display", "title", "cssClass", "offset" ];
+  }
+
+  ////// private vars
+  #mode; // :number
+  #children; // :string
+  #ourDom; // :ShadowDom
+
+  /**
+	* constructor
+    * the con'tor
+ 
+	* @public
+	*/
+  constructor() {
+    super();
+    this.#children = "" + this.innerHTML;
+    this.#ourDom = this.attachShadow({ mode: "open" });
+  }
+
+  /**
+   * render
+   * Map the values to actual HTML
+ 
+   * @param {Document =document} dom 
+   * @public
+   * @returns {void}
+   */
+  render(dom = document, loc=location) {
+    let struct = dom.createElement("template");
+    struct.innerHTML = this.#mergeHTML(
+      this.#setActiveTemplate(this.#mapFlag(loc) ),
+      this.#parseChildren(
+        this.#children,
+        this.#blob2list,
+        this.#map,
+        this.#defaultValues,
+      ),
+    );
+    this.#ourDom.replaceChildren(struct.content);
+  }
+
+	/**
+     * setActiveTemplate
+ 	 * [This function go reduced by other code]
+     * Internal function to validate the render style
+ 
+     * @param {number} flag
+     * @throws Error if the value is invalid
+     * @private
+     * @returns {string}
+     */
+  #setActiveTemplate(flag) {
+    if ( flag < 1) {
+      throw new Error("Unsupported value for RenderMode flag " + flag);
+    }
+    this.#mode = flag;
+    switch (this.#mode) {
+      case 1:
+        return TEMPLATE1;
+      case 2:
+        return TEMPLATE2;
+      case 3:
+        return TEMPLATE3;
+      case 4:
+        return TEMPLATE4;
+      default:
+        return TEMPLATE1;
+    }
+  }
+
+  /**
+    * mapFlag
+    * Pull value from various places
+	* PURE
+ 
+	* @throws - if the located data isn't a valid int.
+    * @param {Location} loc - passed in for the search param
+    * @private
+    * @returns {number}
+    */
+	#mapFlag( loc) {
+		let ret=4;
+		if('data-flag' in this.attributes ) {
+			ret=parseInt(this.attributes['data-flag'].value, 10);
+		}
+		let uu=new URLSearchParams(loc.search);
+		if(uu.has('flag')) {
+			ret=parseInt(uu.get('flag'), 10);
+		}
+		if(Number.isNaN(ret)) {
+			throw new Error("data-flag must be a counting number");
+		}
+		return ret;
+	}
+
+	/**
+     * mergeHTML
+     * Convert supplied template to actual HTML text
+ 
+     * @param {Array<string>} template
+     * @param {Array<object>} children - no interfaces its JS, results of parsing JSON in element middle
+     * @private
+     * @returns {string}
+     */
+  #mergeHTML(template, children) {
+    let ret = [];
+    ret.push(template[0]);
+    for (let i in children) {
+		children[i].offset=i;
+      ret.push(this.#template(template[1], children[i]));
+    }
+    ret.push(template[3]);
+	let assets=`<link rel="stylesheet" href="/asset/ob1.min.css"> 
+<style>/* custom CSS for this demo, no planned re-use, so not in main file */ 
+ details:has( #pageMenu ) summary::marker { content:""; } 
+ details:has( #pageMenu ) summary { padding:0.5em; } 
+ details:has( #pageMenu ) { width:20em; } 
+ details:has( #pageMenu ) summary>span { padding:0.6em 1em; }
+ details[open] { background:var(--scroll1); }
+ details[open] menu { border:solid 1px var(--scroll1); background:white; padding-left:0.1em; margin-top:0.2em; } 
+ details.redialMenu[open] menu { background:var(--scroll1); } 
+ details[open] menu li { margin-left:0.5em; list-style:none; font-size:1.3em; }
+ details[open] menu li a { padding:0.3em 1em; display:block; }
+ details[open] menu li a:hover { background:yellow; }
+ span#pageMenu { margin-right: initial; }
+
+/* CSS to make menu state more clear */
+ details:not( [open] ) summary span:has( .fa-ob1burger ):after { content:">>"; font-size:2em; line-height:0.7; position: relative; top: 5px; } 
+ details[open] summary span:has( .fa-ob1burger ):before { content:"<<"; font-size:2em; line-height:0.7; margin-bottom:-0.5em; position: relative; top: 5px; } 
+ details:not( [open] ) summary span:has( .fa-ob1burger ):before { content:""; } 
+ details[open] summary span:has( .fa-ob1burger ):after { content:""; }
+
+/* the redial bit */
+ .redialMenu[open] li { transform-origin: -20% -20%; transform: translatex(100px) rotateZ( calc( var(--offset) * 11deg ) ) translateX(20px); background:white; border-bottom: solid 1px var(--scroll2); transition: transform 1s ease-in-out; will-change: transform; }
+ .redialMenu { perspective: 1000px; transform-style: preserve-3d; -webkit-transform: perspective(1000px); }
+ details.redialMenu summary span:nth-child(1) { font-size:2em; font-weight:bold; }
+
+/*
+.testWidget details[open] summary::before { transform:rotate(135deg); border-width:2px;  }
+  .testWidget details summary:before { transition: transform 1s ease-in-out; } 
+  .testWidget details[open] summary::before { transition: transform 1s ease-in-out, border-width 1s ease-out; }
+*/
+
+/* localised logo for the menu: a cog */
+ details.redialMenu[open] summary span:nth-child(1) { font-size:3em; }
+ details.redialMenu[open] summary span:nth-child(1):after { font-size:1em; color:var( --attentionbg ); content:" + "; position:relative; left:-0.95em; }
+ details.redialMenu[open] summary span:nth-child(1):before { font-size:1em; color:white; content:" + "; position:relative; top:-0.07em; left:1em; }
+ details.redialMenu[open] summary span:nth-child(1) { transition: font-size 1s; } 
+ details.redialMenu[open] summary span:nth-child(1):hover { transition: font-size 1s; font-size:2.9em; } 
+
+   </style>`;
+    return assets+ret.join("");
+  }
+
+  /**
+    * template
+    * Exec a string template at runtime, just like Python
+    * WARN: do not have a variable that is also a JS keyword, or the error is really obscure
+ 	* TODO add a cache of previously created functions, as it will be the same function 
+
+	* @see [https://stackoverflow.com/a/52818076]
+    * @param {string} str
+    * @param {Object} vars - the values
+    * @private
+    * @returns {string}
+    */
+  #template(str, vars) {
+    let func = new Function(...Object.keys(vars), 'return `' + str + '`;');
+    return func(...Object.values(vars));
+  }
+
+  /**
+    * parseChildren
+    * A higher level function that coverts a DOM TextNode to a useful array
+	* PURE 
+
+    * @param {string} txt - the unparsed text from the middle
+    * @param {Function} func1 - this bit would be much better in TS
+    * @param {Function} func2
+    * @param {Function} func3
+	* @throws Error - in case of no JSON
+    * @private
+    * @returns {Array<Object>}
+    */
+  #parseChildren(txt, func1, func2, func3) {
+    let ret = [];
+    let obj = func1(txt);
+    if (typeof obj[0] == "object") {
+      for (let i in obj) {
+        ret.push( func2(obj[i], ChangeableMenu.WANTED_FIELDS, func3( ChangeableMenu.WANTED_FIELDS) ) );
+      }
+    } else {
+      // my code is less functional, as I assume the option of errors
+      // and respond appropriately
+      throw new Error("At present, not supporting flat string option.");
+    }
+    return ret;
+  }
+
+  /**
+    * blob2list
+    * Extract value from DOM TextNode
+	* PURE
+ 
+    * @param {string} txt - the text of the TextNode
+    * @private
+    * @returns {Object} - from JSON.parse
+    */
+  #blob2list(txt) {
+    txt = txt.replace("<!--", "").replace("-->", "");
+    txt = txt.trim();
+
+    let obj = JSON.parse(txt);
+    if (!Array.isArray(obj) || obj.length == 0) {
+      throw new Error("Need an array of options");
+    }
+    return obj;
+  }
+
+  /**
+    * map
+    * Overwrites initial value with values in first param
+	* PURE
+ 
+    * @param {Object} objIn
+    * @param {Array<string>} names - fields that are expected
+    * @param {Object} initial - object to have same keys as names
+    * @private
+    * @returns {Object}
+    */
+  #map(objIn, names, initial) {
+    for (let i in names) {
+		if( names[i] in objIn ) {
+      		initial[names[i]] = objIn[names[i]];
+		}
+    }
+    return initial;
+  }
+
+  /**
+    * defaultValues
+    * Convert an array of strings into an object. SHOULD BE IN A LIBRARY
+	* PURE
+ 
+    * @param {Array<string>} names
+    * @private
+    * @returns {Object}
+    */
+  #defaultValues(names) {
+    let out = {};
+    for (let k in names) {
+      out[ names[k] ] = "";
+    }
+    return out;
+  }
+
+  connectedCallback() {
+    log("info", "Connected Event");
+    this.render();
+	document.querySelector('.errorNoJs').classList.remove('errorNoJs');
+  }
+
+  disconnectedCallback() {
+    log("info", "Disconnected Event");
+  }
+
+  attributeChangedCallback(naam, alt, nu) {
+    log("info", `Attribute ${naam} has changed from ${alt} to ${nu}.`);
+    if (naam === "data-flag") {
+      this.render();
+    }
+  }
+
+	static get observedAttributes() {
+    return ['data-flag'];
+  }
+}
+
+// https://natclark.com/tutorials/javascript-reduced-motion/
+function init() {
+	window.customElements.define("skinnable-menu", ChangeableMenu);
+
+	const isReduced = (window.matchMedia('(prefers-reduced-motion: reduce)') === true ||
+	 window.matchMedia('(prefers-reduced-motion: reduce)').matches === true);
+	if(isReduced ) {
+		let comp=document.querySelector('#fancyHTML');
+		if('data-flag' in comp.attributes && comp.attributes['data-flag'].value >3) {
+			comp.setAttribute( 'data-flag', '3');
+		}
+	}
+	if( calcScreenDPI( document, window)>150 ) {
+		let comp=document.querySelector('#fancyHTML');
+		comp.setAttribute( 'data-flag', '2');
+	}
+// IOIO add shake detection
+}
+
+if(hasBeenRun()) {
+	init();
+} else {
+	window.pageStartup=init;
+}
+
+</script>
+<style>
+@media screen and (min-width:1560px) {
+	.maquetteContainer .maquette { margin-left:5%; margin-top:5%; }
+}
+.errorNoJs  { height: 12em; display: block; }
+.errorNoJs::before { z-index:2; line-height:0.70; position:absolute; border:red 2px solid; content:" 🗙 "; font-size:8em; padding:0.1em; border-radius:40%; margin-top: 0.3em; margin-left: 0.15em; padding-bottom: 0.25em; pointer-events: none; color:red; }
+</style>
+</body>
+</html>

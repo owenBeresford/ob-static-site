@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-nation-live-notes" />
 <meta property="og:description" content="JS remote 2020 conference, with info on 12 new-to-me libraries; some notes made aduring the event." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="7th of Oct 2024, 22:21:01" />
-<meta property="article:modified_time" content="21st of Sep 2024" />
+<meta property="article:published_time" content="7th of Nov 2024, 16:49:34" />
+<meta property="article:modified_time" content="6th of Nov 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-nation-live-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "12 recent JS libraries from the JS conference 2020",
-	"article:published_time":"7th of Oct 2024, 22:21:01", 
-    "article:modified_time":"21st of Sep 2024",
+	"article:published_time":"7th of Nov 2024, 16:49:34", 
+    "article:modified_time":"6th of Nov 2024",
     "article:section":"technology",
 
     "author": {
@@ -57,7 +57,7 @@ TODO: magic tune selection against some index/DB -->
 So it has many less references.  At the point you read this, please consult the products' current documentation located in a link under each entry, for recent updates.   This page lists 12 newer projects, then some lesser-known OSS projects. Click on each entry to get the notes.  To reduce the wall of text effect, I have put it in a HTML details / summary list.  If you are using a speech-reader, this should be fine as everything is present at the page load and inside semantic markup. 
 </p>
 <div class="aCol">
-<details>
+<details class="singlePopup">
 <summary>Guest lecture on FaunaDB with GraphQL </summary> 
 <p>The FaunaDB service has the same user stories as Heroko with MongoDB and a DB front end, or Magento, or WooCommerce. <br />
 It is a commodified tool kit; but this is another “no code solution that you manage by writing code” (FaunaDB API, or graphQL normally).  I assume it's not written in JS; it's not adding more features than normal DB, aside from having the management platform as a required dependency.  <br />
@@ -68,7 +68,7 @@ They claimed it was distributed architecture like MongoDB is; but more SQL flavo
 
 
 </details>
-<details>
+<details class="singlePopup" >
 <summary>Cypress </summary> 
 <p>Cypress is an in-browser test library for E2E web app testing.   I am not making use of it, as it cannot support MSIE or Safari; for the well-documented reasons for which I need a test tool to support tests in those browsers.  As a fairly normal test tool, it supports extensions; and the speaker kept resolving people's issues by mentioning another plugin.  Cypress does modify the stack of the tested code (to be able to see what's happening), so it can't really do performance testing. <br />
 Cypress can be used to test things like hovers, and hidden content.  It has a mature “retry test” <sup><a href="https://docs.cypress.io/guides/core-concepts/retry-ability" target="_blank">1</a></sup> capacity, to manage the widely observed fact that some tests will hit a small deadlock/bad sequencing and sometimes take a lot longer to execute than expected.  The presenter claimed in the video that it was possible to “create tests” by using the website as a user (I do not have a clue how automatic creation of assert() would work). <br />
@@ -76,7 +76,7 @@ Please read other docs, Cypress seems to have enough of them.</p>
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>Fastify </summary>
 <p>I missed this presentation, due to UX issues.  This is like a fast version of Express, with a managed number of middlewares.  I do not value really fast middleware; as the slowdown is nearly always the DB (for the type of apps that I write, DB query time is about 80% of E2E execution time ).</p>
 
@@ -85,7 +85,7 @@ He says I could link C SO files into a NodeJS process if I need to.   I think No
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>Announce of Other tools </summary>
 <ul class="ulbasic">
     <li>As food for thought: not a tool, but please read <sup><a href="https://acko.net/blog/apis-are-about-policy/" target="_blank">1</a></sup>. This line of reason is why i tried to get away from making REST API a few year ago, as that work seemed about to be automated away.</li>
@@ -101,13 +101,13 @@ He says I could link C SO files into a NodeJS process if I need to.   I think No
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>MUX </summary> 
 <p>The following doc describes this library quite well <sup><a href="https://www.dropbox.com/s/6n5ldb2ancxj5ts/JS%20Nation%20-%20Build%20your%20own%20live%20streaming%20platform.pdf?dl=0" target="_blank">1</a></sup>.  NB: Mux are a sponsor.</p>
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>Guest lecture on JS architecture </summary>
 <p>Presenter defined 'architecture' in the context of quite a few companies under cash flow pressure due to Covid19 disruption.  Described how job roles (with reduced headcount) were merging to stop companies folding.  To maintain cash flow companies could also deliver more things to buy, as a another solution.<br />
 The lecturer proposed using Monorepos to increase velocity to deliver faster.  In the context of JS, all operations run faster when there is only 1 node_modules directory (this statement doesn't apply to other languages/platforms).   Outlined two tools “Lerna” and “NX”, which were opensource are getting more features which make them more useful.  Being able to treat code repos in the same organisation structure as business units is worth some value.  This seemed it would be a better solution in the future, as setting up tooling isn't a business objective, but a process.<br />
@@ -118,7 +118,7 @@ He also advertised GraphQL, but supplied a much better 'why use GraphQL?' than t
 </div>
 
 <div class="aCol">
-<details>
+<details class="singlePopup" >
 <summary> Notes on Unicode in JS</summary>
 <p>I haven't had time to look at this previously in any coordinated fashion.</p>
 
@@ -141,7 +141,7 @@ He also advertised GraphQL, but supplied a much better 'why use GraphQL?' than t
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>Announce Vue3 </summary>
 <p>Here, the presenter announced new features in Vue3, which was currently in Beta (so of no value to people making commercial code). They stated they were not currently deprecated any older API, even though they think there are some wonky ones.  <br />
 The presenter described Mixins...(also documented elsewhere); and some normal things about software engineering.  Then described Slots (also documented elsewhere), but notes slots are slower.<br />
@@ -152,7 +152,7 @@ She couldn't announce a release date for Vue3 not being beta (unfortunately); sh
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>Project tracking notes on TS </summary>
 <p>This talk was presented by a MSFT employee.  He was mostly talking about policy and vision.  Apparently Vue3 is built using TS.  Microsoft are strong backers for TS as a) PR for MSFT; b) TS assists MSFT do large projects.  TS is changing use of expression features.<br />
 He mentioned that TS39 were a group of people (not all are MSFT employees) and they controlled the path of JS-the-language.  TS isn't that committee; but do feed them ideas.  He stated that although MSFT had a tradition of making compilers, and trying to control markets; this didn't work NOW for JS.  There were several other JS runtimes (flow, heggle, closure script); closed source compilers are now a very hard proposition (e.g. look at Deno)<br />
@@ -160,7 +160,7 @@ He mentioned jsdocs as a standard (like javadoc, but for JS); which is managed b
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>Releases for Angular </summary>
 <p>Started with breakdown of hierarchy in Angular.   The presenter announced Angular v10rc is released, I assume written in TS; spoke about warning on type-warnings.<br />
 There is a scale of predictable code vs flexible code; Angular has moved across the range of options.</p>
@@ -176,14 +176,14 @@ New version has: es5 support flag, common js flag, strict typescript, zero overh
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>Poser </summary>
 <p>This was presented at the end; as an errata. The developer/ presenter had made a tool to extract “joints” from MPG4 video of people (with ML I assume).  She was modelling with 17 joints per human, in a kind of [pure maths term] graph. She then was matching the joint graph against an earlier  joint graph and video; made by a professional dancer.<br />
 She expressed some problems normalising data (i.e. if the captured on the phone was from a child, obviously the arms and legs are different sizes to adults; and depth from camera). This was in interesting project, but not the kind of work I would be using in the future.</p>
 
 
 </details>
-<details>
+<details class="singlePopup">
 <summary>Alpine </summary>
 <p>This is like angular, but less bureaucracy. <br />
 The presenter did a walk through of the nouns he supports; but this content is available as <sup><a href="https://github.com/alpinejs/alpine/" target="_blank">1</a></sup>; so there isn't any reason to retype it.<br />
@@ -191,7 +191,7 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 
 
 </details>
-<details>
+<details class="singlePopup withScroll">
 <summary>Collection of useful URLs</summary>
 <p>One of the organisers had extracted all the useful URLs from the lecture notes, and gave us a combined list, so the attendees can find stuff</p>
 
@@ -257,7 +257,7 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-09-21T15:56:06">21st of Sep 2024</time>
+						<span>Edited <time datetime="2024-11-06T19:13:18">6th of Nov 2024</time>
 						</span>
 						<span>Created <time datetime="2020-06-19T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >19th of Jun 2020</time> </span>
 					</span>
@@ -304,7 +304,7 @@ He stated, as this is just evaluating JS, it could access external objects</p>
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >190,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class-"sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-10-07T22:21:01">7th of Oct 2024, 22:21:01</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-21T15:56:06">21st of Sep 2024</time>.
+	<p> Page rendered <time datetime="2024-11-07T16:49:34">7th of Nov 2024, 16:49:34</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-11-06T19:13:18">6th of Nov 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
