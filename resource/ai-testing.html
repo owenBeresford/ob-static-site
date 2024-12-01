@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-testing" />
 <meta property="og:description" content="As LLMs are evolved rather than written, their testing is a different process to other software.  However, various reported and unexpected features show that testing is necessary.  The articles includes a LLM test plan and context information." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="3rd of Nov 2024, 19:07:29" />
-<meta property="article:modified_time" content="30th of Oct 2024" />
+<meta property="article:published_time" content="1st of Dec 2024, 20:33:37" />
+<meta property="article:modified_time" content="1st of Dec 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-testing" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "LLM testing",
-	"article:published_time":"3rd of Nov 2024, 19:07:29", 
-    "article:modified_time":"30th of Oct 2024",
+	"article:published_time":"1st of Dec 2024, 20:33:37", 
+    "article:modified_time":"1st of Dec 2024",
     "article:section":"technology",
 
     "author": {
@@ -59,6 +59,7 @@ TODO: magic tune selection against some index/DB -->
 <a href="/resource/ai-vector-stores" class="button" title="Examines the specialised storage needed for LLM data.">Vector stores </a>
 <span href="/resource/ai-testing" class="button disabled" title="This article. LLM are evolved, unlike other software.  However they still need testing.">AI testing </span>
 <a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic data </a>
+<a href="/resource/ai-classifiers" class="button" title=" About a data management feature called classifiers, testing them and relevant algorithms.">Classifiers </a>
 <a href="/resource/ai-test-prompt" class="button" title="Article to supply data on managing and testing prompts.">Test prompt </a>
 <a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
 </p>
@@ -69,11 +70,22 @@ TODO: magic tune selection against some index/DB -->
 As a zeroth question, why does common LLM tech ingest and keep random and variable data?   LLMs shouldn't treat the whole of the internet as a single flat address space.   For non-AI pieces of software, it is common practice to discard useless data.  If there was an LLM with knowledge of $english, but <em>facts</em> were only taken from the knowledge base, yes the chatbot can't recite Shakespeare to you, but is that a limitation?   If the LLM doesn't reference the internet, it won't know “there are no countries in Africa that start with a K” (Kenya exists), is this a limitation?   If the LLM doesn't know how law cases happen in US TV dramas, which are just fictional, (so it reads real case histories, like legal staff are supposed to) is this a limitation?   If it doesn't know that people claim they stick cheese to pizza with glue, is that a limitation?   I write $english as you may want your chatbot to speak the local Swahili not actual English.<br />
 A human who 'just says things' in a work environment isn't very useful.   Neither is software that does that.   I don't know if operating chatbots have some broader context data ~ the way humans do ~ but to replace a human staff, chatbots do need to work inside a useful context.   There would need to be logic to add information from the knowledge base, but this would negatively annotate topics that contradict a filter.   For actual business process, as a human, I can talk with the US website version of a business, but I am not a US person.   I need to pay local taxes on purchases and prefer goods transacted to comply with various local safety or copyright laws.   The US company doesn't [most of the time] need to comply with my local laws, but to its local laws.   If the US goes more authoritarian on religion, and declares that no sales may occur on Sunday, the chatbot would need to know this.   But that law doesn't affect <em>me</em>.   As far as I am aware, the basic structures popularised by OpenAI do not do this type of computation.  <br />
 It is vital for successful commercial delivery that stakeholders are clear about goals.  A predictable (a marketing team may override me) and reliable support agent is a good thing, and expected comms are goal driven in either direction.   There are large numbers of professions that I wouldn't have a random conversation with during their working time.   If the human is swapped for an agent, I'm still not chatting.   But a different AI agent, for example, an “anti-loneliness agent” (with no access to contracts or money) would be better with a higher unpredictability / creativity score.   <br />
-From discussion on the internet, I see that LLM products are generally less useful when possible users prefer to use a language that isn't American (ISO code en-US).   Iceland being a clear example, there are less than half a million <em>íslenskur</em> speakers ~ not all of whom are exporting their culture to the internet ~ and so no LLM knows <em>íslenskur</em> (ISO code ISL).   This is particularly jarring against the adverts touting voice as an input and output mechanism.   <strong>UPDATE:</strong> Some corporations do not think that a fairly rich country with 27 million people is a big enough target <img class="cleanimage" src="https://cdn.fosstodon.org/media_attachments/files/113/389/564/703/321/166/original/d6b122e8914d942a.png" alt="3" title="3" /><!-- 3 --> ~ Australia is the ~50th most populous country.   If you don't support dialects of english, are you actually serving random US people who use their dialect rather than a “standardised english” ~ a process feels more like Mandarin than the “no ruleZ 'ere guv'&quot; approach that english uses. <br />
-In the UK to date, the use of AI isn't mentioned by legislation, but this may change soon <sup><a href="https://www.shoosmiths.com/insights/articles/catch-me-if-you-can-the-impact-of-chatgpt-and-how-uk-ai-regulation-might-deal-with-generative-ai" target="_blank">4</a></sup> <sup><a href="https://blogs.law.ox.ac.uk/oblb/blog-post/2023/03/regulating-chatgpt-and-other-large-generative-ai-models" target="_blank">5</a></sup>.  This Science opinion paper <sup><a href="https://www.sciencedirect.com/science/article/pii/S0268401223000233" target="_blank">6</a></sup> states there is no tailoring of output ~ and the paper includes an AI summary feature in the online text.<br />
+From discussion on the internet, I see that LLM products are generally less useful when possible users prefer to use a language that isn't American (ISO code en-US).   Iceland being a clear example, there are less than half a million <em>íslenskur</em> speakers ~ not all of whom are exporting their culture to the internet ~ and so no LLM knows <em>íslenskur</em> (ISO code ISL).   This is particularly jarring against the adverts touting voice as an input and output mechanism.</p>
+
+
+<figure id="imageBlock" >
+<img src="https://cdn.fosstodon.org/media_attachments/files/113/389/564/703/321/166/original/d6b122e8914d942a.png" alt="Screenshot of Siri support in Australia" loading="lazy" />
+<figcaption > 
+<strong>UPDATE:</strong> Some corporations do not think that a fairly rich country with 27 million people is a big enough target 
+Source of image: Mastodon </a> <span class="button bigScreenOnly" id="biggerBtn">Expand image</span>
+</figcaption>
+</figure> <br />
+<p>~ Australia is the ~50th most populous country.   If you don't support dialects of english, are you actually serving random US people who use their dialect rather than a “standardised english” ~ a process feels more like Mandarin than the “no ruleZ 'ere guv'&quot; approach that english uses. <br />
+In the UK to date, the use of AI isn't mentioned by legislation, but this may change soon <sup><a href="https://www.shoosmiths.com/insights/articles/catch-me-if-you-can-the-impact-of-chatgpt-and-how-uk-ai-regulation-might-deal-with-generative-ai" target="_blank">1</a></sup> <sup><a href="https://blogs.law.ox.ac.uk/oblb/blog-post/2023/03/regulating-chatgpt-and-other-large-generative-ai-models" target="_blank">2</a></sup>.  This Science opinion paper <sup><a href="https://www.sciencedirect.com/science/article/pii/S0268401223000233" target="_blank">3</a></sup> states there is no tailoring of output ~ and the paper includes an AI summary feature in the online text.<br />
 Deterministic systems are much easier to test, so maximising deterministic steps on your AI should increase quality without extra dev cost.  In the extreme, this will minimise the “AI” of an AI product.</p>
 
-<p>A breakdown of areas to test (referencing <sup><a href="https://github.blog/ai-and-ml/llms/the-architecture-of-todays-llm-applications/" target="_blank">7</a></sup>).  To thoroughly test a current AI platform:</p>
+<p>A breakdown of areas to test (referencing <sup><a href="https://github.blog/ai-and-ml/llms/the-architecture-of-todays-llm-applications/" target="_blank">4</a></sup>).  To thoroughly test a current AI platform:</p>
+
 
 
 <div class="row">
@@ -142,11 +154,16 @@ Other people also wanted tested, therefore reliable LLM, for example <sup><a hre
     <li>Python <b><a href="https://argilla.io/blog/synthetic-data/" target="_blank">Argilla</a></b> offer a test framework <sup><a href="https://github.com/argilla-io/distilabel" target="_blank">20</a></sup>. </li>
     <li>Alternatively Tuna <sup><a href="https://blog.langchain.dev/introducing-tuna-a-tool-for-rapidly-generating-synthetic-fine-tuning-datasets/" target="_blank">21</a></sup> <sup><a href="https://scribe.rip/langchain-what-is-tuna-and-how-is-it-used-to-generate-synthetic-fine-tuning-datasets-quickly-86f2802ca593" target="_blank">22</a></sup> test framework in Python and web languages and claims to be no-code.  </li>
     <li>Testing with data-centric-tests is much cheaper and easier with a handy source of data e.g. <a href="https://owenberesford.me.uk/resource/ai-synthetic-data#">synthetic data</a>.  The last two platforms offer synthetic data.</li>
+    <li><strong><a href="https://www.pangram.com/our-model/how-it-works" target="_blank">Pangram</a></strong> A platform that offers aspects of testing, I suspect they will get more features in future, </li>
+    <li>A long list of lots of test tools and benchmarks <sup><a href="https://www.evidentlyai.com/llm-guide/llm-benchmarks" target="_blank">23</a></sup> </li>
 </ul>
 
-<p>*adding section on classifiers*<br />
-*add section for embeddings*<br />
-*add section for model testers*</p>
+<p>Please see further articles on testing via the link bar at the top</p>
+
+<ul class="ulbasic">
+    <li>IOIO TODO add section for embeddings*</li>
+    <li>IOIO TODO add section for model testers*</li>
+</ul>
 
 
 </div>
@@ -180,13 +197,13 @@ Other people also wanted tested, therefore reliable LLM, for example <sup><a hre
 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-testing" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-testing" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-testing&amp;t=LLM+testing"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-testing&amp;t=LLM+testing"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
 
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-testing" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-10-30T18:09:17">30th of Oct 2024</time>
+						<span>Edited <time datetime="2024-12-01T18:47:04">1st of Dec 2024</time>
 						</span>
 						<span>Created <time datetime="2024-09-11T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >11th of Sep 2024</time> </span>
 					</span>
@@ -236,7 +253,7 @@ Other people also wanted tested, therefore reliable LLM, for example <sup><a hre
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-11-03T19:07:29">3rd of Nov 2024, 19:07:29</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-30T18:09:17">30th of Oct 2024</time>.
+	<p> Page rendered <time datetime="2024-12-01T20:33:37">1st of Dec 2024, 20:33:37</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-01T18:47:04">1st of Dec 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
@@ -245,6 +262,43 @@ Other people also wanted tested, therefore reliable LLM, for example <sup><a hre
 .column { padding-left:initial; padding-right:initial; break-inside:avoid; }
 .row .column ul li { display:inline-block; height:3em; text-align:center; width:100%; vertical-align:middle; align-self: center; align-items: center; }
 .row .column ul li:nth-of-type(even) { background:white; }
+
+.fullScreen { background-color:rgb(240, 255, 255); border:#333 1px solid;  display:block; position:absolute; top:10%; left:calc( 50% - 500px ); right:calc( 50% - 500px ); min-height:500px; max-height:100%; z-index:1; }
+@media screen and (min-resolution: 150dpi) {
+	.fullScreen { left:5%; right:5%; min-height:300px; top:5%; } 	
+}
+.fullScreen figcaption { text-align:center; }
+.fullScreen figcaption span { margin-left:1em; }
+
 </style>
+<script type="module">
+import { appendIsland, runFetch, hasBeenRun } from '/asset/ob1-202406.min.mjs'; 
+
+function bigger() {
+	const TMP=document.querySelector('#imageBlock');
+	const TMP2=document.querySelector('#biggerBtn');
+	if( TMP.classList.contains('fullScreen') ) {
+		TMP.classList.remove('fullScreen');
+		TMP2.innerText="Expand image";
+	} else {
+		TMP.classList.add('fullScreen');
+		TMP2.innerText="Revert image";
+	}
+	return false;
+}
+
+function mount() {
+	const TMP=document.querySelector('#biggerBtn');
+	TMP.addEventListener('mousedown', bigger, {capture:true, passive:true });
+	TMP.addEventListener('touchstart', bigger, {capture:true, passive:true });
+}
+
+if(hasBeenRun()===0) {
+	document.pageStartup= mount;
+} else {
+	mount();
+}
+
+</script>
 </body>
 </html>
