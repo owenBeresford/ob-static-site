@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>AI Classifiers</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Some data about Classifiers, the definition, when to use them, how to test them, and how they fit into ML and LLM.   Includes descriptions of 14 algorithms which are used to make the classifiers." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="AI Classifiers">
+<meta itemprop="description" content="Some data about Classifiers, the definition, when to use them, how to test them, and how they fit into ML and LLM.   Includes descriptions of 14 algorithms which are used to make the classifiers.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="AI Classifiers">
+<meta name="twitter:description" content="Some data about Classifiers, the definition, when to use them, how to test them, and how they fit into ML and LLM.   Includes descriptions of 14 algorithms which are used to make the classifiers.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="AI Classifiers" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ai-classifiers" />
+<meta property="og:description" content="Some data about Classifiers, the definition, when to use them, how to test them, and how they fit into ML and LLM.   Includes descriptions of 14 algorithms which are used to make the classifiers." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="1st of Dec 2024, 20:33:37" />
+<meta property="article:modified_time" content="1st of Dec 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/ai-classifiers" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "AI Classifiers",
+	"article:published_time":"1st of Dec 2024, 20:33:37", 
+    "article:modified_time":"1st of Dec 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p class="buttonBar"> 
+<a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM Concepts </a>
+<a href="/resource/ai-dictionary" class="button" title="All the atypical language pulled out into one location, to make the other test read better." > DICTIONARY </a>
+<a href="/resource/ai-retrieval-augmented-generation" class="button" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</a>
+<a href="/resource/ai-vector-stores" class="button" title="Examines the specialised storage needed for LLM data.">Vector stores </a>
+<a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
+<a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic data </a>
+<a href="/resource/ai-test-prompt" class="button" title="Article to supply data on managing and testing prompts.">Test prompt </a>
+<a href="/resource/ai-classifiers" class="button disabled" title="This article. About a data management feature called classifiers, testing them and relevant algorithms.">Classifiers </a>
+<a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
+</p>
+<div class="lotsOfWords addReferences">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > What are Classifiers in LLM? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Many operations are processed easier for the LLM after the data has been filed correctly.  Classsifiers apply a label to the inputted data.   Classifiers are borrowed from ML based systems <sup><a href="https://iabac.org/blog/classification-in-machine-learning-a-comprehensive-guide" target="_blank">1</a></sup>.  This stage is machine led learning, but there is often a manual supervision especially on early iterations.  List of behaviour for classifiers <sup><a href="https://iabac.org/blog/classification-in-machine-learning-a-comprehensive-guide" target="_blank">2</a></sup>.</p>
+
+<p>As a statement on ethics in a page on technology <sup><a href="https://pivot-to-ai.com/2024/11/30/meet-the-underpaid-workers-in-nairobi-kenya-who-power-openai/" target="_blank">3</a></sup>: this is a reason to build better, not to build faster.</p>
+
+<p>This text doesn't include any notes on “AI text classifiers” products that report if webpage content seems to have been made by an LLM.  That specific list will be added in <a href="https://owenberesford.me.uk/resource/ai-synthetic-data#">ai-synthetic-data</a>.</p>
+
+
+<div class="pullout">
+<p>As a maquette of a classifier, those images on social media like <i>“golden retrievers vs cinnamon rolls”</i> are an example of Classifiers in use.  The Classifier would label each image, so later operations can use the images as input data with less errors ~ an AI image of someone walking a cinnamon roll might be comedic, but not very useful.  <br />
+It is common to simplify an explanation of a Classifier to regions on a scatter graph, and a dividing line.  This enables a quick visualisation and hides all the equations.  The actual code is equations, and requires that data can be expressed as numerical scores.  Scoring <i>“likelihood of this image being a roll”</i>, and <i>“likelihood of this image being a dog”</i> are numerical scores that make sense.  As a design pattern, all data is converted to numbers (Vectorisation) but dogs pictures fundamentally aren't a scalar number themselves.   This paragraph <i>is</i> confusing in that technically, a photo stored as a JPEG <i>is lots of numbers</i>: the MPEG cell boundaries, the tone in each cell, etc, but these numbers do not describe the information <i>“dog”</i>, but <i>“brown tone here, darker brown tone there, pink bit on the end”</i> which many humans would see resembles a dog.  See philosophy for longer notes</p>
+
+
+</div>
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > List of algorithms <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>I keep writing these boring lists of algorithms, as an idea to limit those excited but vacuous claims by AI sales people (e.g. OpenAI's reinstated CEO claims about AGI).  With the name of an algorithm and hopefully an understanding on how it works, it is easier to extract data from the <i>interweb</i>.   <i>NB: as a detail for English, I am not writing “Classifier” after each classifier.</i>   This list is just Classifiers similar to <sup><a href="https://scribe.rip/@karan.kamat1406/which-classification-model-should-you-use-a-cheat-sheet-for-machine-learning-practitioners-3fea0bcab04e" target="_blank">1</a></sup>.</p>
+
+<ul class="ulbasic">
+    <li>There are basically really simple two state algorithms, and useful “multi class” algorithms <sup><a href="https://scribe.rip/@murpanironit/a-comprehensive-guide-to-multiclass-classification-in-machine-learning-c4f893e8161d" target="_blank">2</a></sup>. </li>
+    <li>A simple, and  easy-to-create Classifier is a <b>Linear</b> <sup><a href="https://en.wikipedia.org/wiki/Linear_classifier" target="_blank">3</a></sup>.  This generates a linear equation that segregates two classes of data.  Used when the highest speed is needed.  Note overlap with next term. </li>
+    <li>An article on Y combinator on something else mentioned a very simple <b>Binary</b> <sup><a href="https://dpu.daviddalpiaz.org/posts/binary-classification/" target="_blank">4</a></sup> <sup><a href="https://www.sharpsightlabs.com/blog/binary-classification-explained/" target="_blank">5</a></sup>, in terms of the algorithm, pls see graphics BSP <sup><a href="https://en.wikipedia.org/wiki/Binary_space_partitioning" target="_blank">6</a></sup>, file systems at low level <sup><a href="https://courses.cs.duke.edu/cps110/spring00/slides/disk-fs.pdf" target="_blank">7</a></sup>.   This looks like the same algorithm, but could be due to a different industry terminology. </li>
+    <li><b>Logistic Regression</b> <sup><a href="https://en.wikipedia.org/wiki/Logistic_regression" target="_blank">8</a></sup> ~ A type of regression analysis designed for multiple complex variables <sup><a href="https://statisticsbyjim.com/regression/logistic-regression/" target="_blank">9</a></sup>  </li>
+    <li><b>Linear Discriminant Analysis</b> (LDA) <sup><a href="https://en.wikipedia.org/wiki/Linear_discriminant_analysis" target="_blank">10</a></sup> sometimes referenced as 'Fisher's linear discriminant', as he's credited author.  Notes say it works by reducing the number of dimensions the data is present in, to stereotype it (see maths in first link).   </li>
+    <li><b> One vs All</b> <sup><a href="http://mlwiki.org/index.php/One-vs-All_Classification" target="_blank">11</a></sup> this is pulled out from the above references, but this is a good diagram, and I thought the separate label would be more clear.   It is the linear classifier, but scaled to more than two groups.</li>
+    <li><b>Naive Bayes</b> <sup><a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier" target="_blank">12</a></sup> is a widely used algorithm based on ideas of Rev. T Bayes.   The term 'naive' states that variables are not correlated.  This process computes probabilities of an outcome compared to the occurrence rate in a training set of data <sup><a href="https://www.ibm.com/topics/naive-bayes" target="_blank">13</a></sup> <sup><a href="https://www.analyticsvidhya.com/blog/2017/09/naive-bayes-explained/" target="_blank">14</a></sup> (see maths in first link).   </li>
+    <li><b>Q learning</b> <sup><a href="https://en.wikipedia.org/wiki/Q-learning" target="_blank">15</a></sup> <sup><a href="https://huggingface.co/learn/deep-rl-course/unit2/q-learning" target="_blank">16</a></sup> is an algorithm for agents.   It doesn't use models so it copes with messy data better using stochastic transitions.  This <sup><a href="https://www.simplilearn.com/tutorials/machine-learning-tutorial/what-is-q-learning" target="_blank">17</a></sup> is a breakdown and further terminology.  </li>
+    <li><b>Random forests</b> or <b>Random decision forests</b> <sup><a href="https://en.wikipedia.org/wiki/Random_forest" target="_blank">18</a></sup> <sup><a href="https://arxiv.org/pdf/1511.05741" target="_blank">19</a></sup> are a fairly old algorithm to limit other algorithms tendency to over-fit to known data.  The second ref is 42 pages of academic level text, and covers all known random forest variants.   This phrase keeps coming up in LLM, but is a general decision making step <sup><a href="https://www.ibm.com/topics/random-forest" target="_blank">20</a></sup>.   Idea progressed by Tin Kam Ho at IBM.  As a summary, this Bags / groups a list of uncorrelated decision trees ~ as they are unrelated ~ should suppress the over-fitting.  </li>
+    <li>The <b>Variational Auto-encoder</b> (VAE) algorithm <sup><a href="https://en.wikipedia.org/wiki/Variational_autoencoder" target="_blank">21</a></sup> improves results of a Classifier by reducing noise, when Classifying audio or visuals.  Maths implementation is in the first wiki link.  For images, I guess edge detection algorithms e.g. <sup><a href="https://en.wikipedia.org/wiki/Canny_edge_detector" target="_blank">22</a></sup> would also be useful.   </li>
+    <li>A plain <b>Neural net</b> <sup><a href="https://en.wikipedia.org/wiki/Neural_network" target="_blank">23</a></sup> ~ A simple algorithm that the below ideas tweak.</li>
+    <li><b>Perceptron</b> <sup><a href="https://en.wikipedia.org/wiki/Perceptron" target="_blank">24</a></sup> <sup><a href="https://www.analyticssteps.com/blogs/introduction-perceptron-model-machine-learning" target="_blank">25</a></sup> ~ a software neuron, that matches a heap of vectors to an expected sample.  Implied simple or single layer type</li>
+    <li>The basis of deep-learning is a <b>multilayer Perceptron</b> <sup><a href="https://en.wikipedia.org/wiki/Multilayer_perceptron" target="_blank">26</a></sup>.  The tensorflow library from Google popularised this approach <sup><a href="https://www.turing.com/kb/multilayer-perceptron-in-tensorflow" target="_blank">27</a></sup>.  The idea is to encode data in the connections between neural nets in the same architecture as our nervous systems.  All the diagrams I have seen for deep-learning have over 10 layers of neural-nets.   This means it executes slower than other algorithms, but can respond to much more abstract data.</li>
+    <li><b>K-Nearest Neighbours</b> (KNN) <sup><a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm" target="_blank">28</a></sup> <sup><a href="https://scribe.rip/swlh/k-nearest-neighbor-ca2593d7a3c4" target="_blank">29</a></sup> This was first developed by Evelyn Fix and Joseph Hodges <sup><a href="https://www.elastic.co/what-is/knn" target="_blank">30</a></sup>.   The current version is “fuzzy KNN”.   </li>
+    <li><b>Support vector machine</b> (SVM) <sup><a href="https://en.wikipedia.org/wiki/Support_vector_machine" target="_blank">31</a></sup> <sup><a href="https://www.analyticssteps.com/blogs/how-does-support-vector-machine-algorithm-works-machine-learning" target="_blank">32</a></sup>  A combined strategy with a Linear classifier and rapidly classify non-linearly with the kernel-trick <sup><a href="https://en.wikipedia.org/wiki/Kernel_method#Mathematics:_the_kernel_trick" target="_blank">33</a></sup>.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Previous work <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>These are classifier tools that can be installed, ideally as open source.</p>
+
+<ul class="ulbasic">
+    <li><strong><a href="https://www.tensorflow.org/" target="_blank">Tensorflow</a></strong> by Google Inc <a href="https://pypi.org/project/tensorflow/" target="_blank">pypi</a>, <a href="https://www.tensorflow.org/versions" target="_blank">docs</a>, <a href="https://github.com/tensorflow/tensorflow" target="_blank">git</a> license: Apache2.</li>
+    <li><strong> caffe2 </strong> is deprecated. Notes say try pytorch modules</li>
+    <li><strong><a href="https://keras.io/getting_started/" target="_blank">Keras</a></strong> @3 <a href="https://keras.io/api/" target="_blank">docs</a>, <a href="https://github.com/keras-team/keras" target="_blank">git</a>, <a href="https://pypi.org/project/keras/" target="_blank">pipy</a>, license: Apache2.</li>
+    <li><strong><a href="https://docs.datarobot.com/" target="_blank">Datarobot</a></strong> <a href="https://docs.datarobot.com/en/docs/api/index.html" target="_blank">docs</a>, <a href="https://github.com/datarobot?q=DataRobot&amp;amp;type=all&amp;amp;language=&amp;amp;sort=" target="_blank">git</a>, <a href="https://pypi.org/project/datarobot/" target="_blank">pypi</a>, license: custom, please read first</li>
+    <li><strong><a href="https://chainer.org/" target="_blank">Chainer</a></strong> @7.81 <a href="https://docs.chainer.org/en/stable/" target="_blank">docs</a>, <a href="https://pypi.org/project/chainer/" target="_blank">pypi</a>, <a href="https://github.com/chainer/chainer" target="_blank">git</a>, license: MIT, note this is completed project.</li>
+    <li><strong><a href="https://scikit-learn.org/" target="_blank">Scikit-learn</a></strong> @1.5.2 <a href="https://scikit-learn.org/stable/api/index.html" target="_blank">docs</a>, <a href="https://github.com/scikit-learn/scikit-learn" target="_blank">git</a>, <a href="https://pypi.org/project/scikit-learn/" target="_blank">pypi</a>, license: BSD3</li>
+    <li><strong>Deeplearning4j</strong> <a href="https://deeplearning4j.konduit.ai/" target="_blank">docs</a>, <a href="https://github.com/deeplearning4j/deeplearning4j" target="_blank">git</a>, <a href="https://en.wikipedia.org/wiki/Deeplearning4j" target="_blank">wiki</a>, license: apache2, Note: Java</li>
+    <li><strong><a href="https://pytorch.org/" target="_blank">PyTorch</a></strong> <a href="https://pytorch.org/docs/stable/index.html" target="_blank">docs</a> <a href="https://github.com/pytorch/pytorch/projects?query=is%3Aopen" target="_blank">git</a>  licence: really confusing, I don't know <sup><a href="https://pytorch.org/blog/pytorch2-5/" target="_blank">34</a></sup> <sup><a href="https://github.com/pytorch/pytorch?tab=License-1-ov-file#readme" target="_blank">35</a></sup></li>
+    <li><strong>Caffe</strong> <a href="https://github.com/BVLC/caffe" target="_blank">git</a> <a href="https://caffe.berkeleyvision.org/" target="_blank">docs</a> this is old, no recent changes</li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > To test classifiers <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Obviously generic test process will apply to a classifier <sup><a href="https://www.coursera.org/articles/machine-learning-classification" target="_blank">36</a></sup> <sup><a href="https://robots.net/fintech/what-is-a-classifier-in-machine-learning/" target="_blank">37</a></sup>.   I would suggest:</p>
+
+<ul class="ulbasic">
+    <li>A paper on surrogates <sup><a href="https://arxiv.org/abs/2402.15558" target="_blank">38</a></sup>, seems to be focussed on Neural Nets. </li>
+    <li>Making a detailed map (used in the maths context) of your classifiers options.</li>
+    <li>Create synthetic data that matches each state in your map as fixtures.</li>
+    <li>For thoroughness, add social diversity to further fixtures to check this doesn't change the outcomes.</li>
+    <li>A test runner to exec the classifier-under-test against the fixtures</li>
+</ul>
+
+<p>To improve the rate of delivery, the following tools could be used.   This list is biased towards ML, as these are ML algorithms.</p>
+
+<ul class="ulbasic">
+    <li><strong><a href="https://openml.org/" target="_blank">OpenML</a></strong> <a href="https://docs.openml.org" target="_blank">docs</a> is a platform for hosting ML, written in Python, and it supports many languages.   It includes a <a href="https://test.openml.org/home" target="_blank">test feature</a> <a href="https://docs.openml.org/reference/testing/" target="_blank">docs</a>, an integration with Google <sup><a href="https://colab.research.google.com/github/openml/blog/blob/master/_notebooks/2019-10-26-OpenML-Machine-Learning-as-a-community.ipynb" target="_blank">39</a></sup> </li>
+    <li><strong><a href="https://distilabel.argilla.io/latest/" target="_blank">Distilabel </a></strong> <a href="https://github.com/argilla-io/distilabel" target="_blank">git</a> </li>
+    <li><strong><a href="https://www.nyckel.com/" target="_blank">Nyckel</a></strong> <a href="https://www.nyckel.com/docs" target="_blank">docs</a> A platform that quickly allows setting up and using classifiers.  Supports API access for scale.</li>
+    <li><strong><a href="https://langtest.org/" target="_blank">langtest</a></strong> <a href="https://langtest.org/docs/pages/docs/quickstart" target="_blank">docs</a>  This tool is biased towards classifing text rather than testing classifiers.</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>About Classifiers in AI</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-classifiers" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-classifiers" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-classifiers" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-classifiers&amp;t=AI+Classifiers"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-classifiers" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-12-01T20:26:55">1st of Dec 2024</time>
+						</span>
+						<span>Created <time datetime="2024-10-02T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >2nd of Oct 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-classifiers" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+
+<fieldset class="h4_menu column bigScreenOnly ">
+<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
+<menu class="h4_lean">
+<li class="h4_odd"><a href="#toc0">What are Classifiers in LLM?</a></li>
+<li><a href="#toc1">List of algorithms</a></li>
+<li class="h4_odd"><a href="#toc2">Previous work</a></li>
+<li><a href="#toc3">To test classifiers</a></li>
+</menu>
+<br />
+
+</fieldset>
+	</div>
+<menu class="burgerMenu" >
+<li class="h4_odd">Additional features</li>
+<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+<li class=""><a href="#contentGroup">Similar articles</a></li>
+</menu>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+	</div> 
+	<p> Page rendered <time datetime="2024-12-01T20:33:37">1st of Dec 2024, 20:33:37</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-01T20:26:55">1st of Dec 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+
+</body>
+</html>

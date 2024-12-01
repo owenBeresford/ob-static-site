@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-test-prompt" />
 <meta property="og:description" content="A Focus on tools available to support test populations of prompts for AI/LLM products, and notes on why this is needed.  I outline a test-plan for a chatbot-based product as a sample." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="9th of Oct 2024, 14:16:41" />
-<meta property="article:modified_time" content="8th of Oct 2024" />
+<meta property="article:published_time" content="1st of Dec 2024, 20:33:38" />
+<meta property="article:modified_time" content="1st of Dec 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-test-prompt" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Testing Prompts",
-	"article:published_time":"9th of Oct 2024, 14:16:41", 
-    "article:modified_time":"8th of Oct 2024",
+	"article:published_time":"1st of Dec 2024, 20:33:38", 
+    "article:modified_time":"1st of Dec 2024",
     "article:section":"technology",
 
     "author": {
@@ -51,7 +51,7 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker">
+     <div class="blocker addReferences">
 <p class="buttonBar"> 
 <a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM Concepts </a>
 <a href="/resource/ai-dictionary" class="button" title="All the atypical language pulled out into one location, to make the other test read better." > DICTIONARY </a>
@@ -59,10 +59,11 @@ TODO: magic tune selection against some index/DB -->
 <a href="/resource/ai-vector-stores" class="button" title="Examines the specialised storage needed for LLM data.">Vector stores </a>
 <a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
 <a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic data </a>
+<a href="/resource/ai-classifiers" class="button" title=" About a data management feature called classifiers, testing them and relevant algorithms.">Classifiers </a>
 <span href="/resource/ai-test-prompt" class="button disabled" title="This article. Article to supply data on managing and testing prompts.">Test prompt </span>
 <a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
 </p>
-<div class="lotsOfWords addReferences">
+<div class="lotsOfWords">
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>A useful system needs to have every LLM step reviewed carefully.  A systematic set of test prompts is  good baseline to showing compliance to various laws, and will show areas where the base data for the LLM was sparse.   It is essential that this area of testing involves domain experts, but their involvement can be done with a UI of their choice (I guess Excel would be a common answer).  As an off-the-cuff validation, I would execute each domain area multiple times to see if there was extra hidden associations that the LLM was storing.<br />
@@ -86,20 +87,21 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
     <li>RACE (Role, Action, Context, Expectation) </li>
     <li>COAST (Context, Objective, Actions, Scenario, Task)</li>
     <li>RISE (Role, Input, Steps, Expectation)</li>
+    <li>An article with a more complex text plan <sup><a href="https://scribe.rip/@olaf.lenzmann/mastering-llms-for-complex-classification-tasks-64f0bda2edf3" target="_blank">12</a></sup> CIEQXT (context setup, instructions, evidence, question, closing instruction, or call-to-thinking).  Supplies samples, claims to be dense, isn't really  </li>
 </ul>
 
-<p>The source ~ TestSigma ~ is a tool, and supports manual and automated tests for prompts and LLM <sup><a href="https://thectoclub.com/tools/testsigma-review/" target="_blank">12</a></sup>.  It is a paid-for tool, and I am unaware of a data export capacity, which is essential for third party hosted tests.  It has strong NLP features which will support the human interaction to make tests ~ “tests in plain english”.   As this is for prompts, its the same idea as Selenium, but completely different interactions.   There are competitors to TestSigma, try TestRigor<a href="https://www.google.co.uk/search?q=TestRigor">?</a> <sup><a href="https://testrigor.com/" target="_blank">13</a></sup> reviewed <sup><a href="https://www.repeato.app/testsigma-vs-testrigor/" target="_blank">14</a></sup> <sup><a href="https://testrigor.com/blog/vision-ai-and-how-testrigor-uses-it/" target="_blank">15</a></sup>.</p>
+<p>The source ~ TestSigma ~ is a tool, and supports manual and automated tests for prompts and LLM <sup><a href="https://thectoclub.com/tools/testsigma-review/" target="_blank">13</a></sup>.  It is a paid-for tool, and I am unaware of a data export capacity, which is essential for third party hosted tests.  It has strong NLP features which will support the human interaction to make tests ~ “tests in plain english”.   As this is for prompts, its the same idea as Selenium, but completely different interactions.   There are competitors to TestSigma, try TestRigor<a href="https://www.google.co.uk/search?q=TestRigor">?</a> <sup><a href="https://testrigor.com/" target="_blank">14</a></sup> reviewed <sup><a href="https://www.repeato.app/testsigma-vs-testrigor/" target="_blank">15</a></sup> <sup><a href="https://testrigor.com/blog/vision-ai-and-how-testrigor-uses-it/" target="_blank">16</a></sup>.</p>
 
 <p>More test tooling</p>
 
 <ul class="ulbasic">
-    <li><b><a href="https://humanloop.com/" target="_blank">Humanloop</a></b> <sup><a href="https://humanloop.com/blog/evaluating-llm-apps" target="_blank">16</a></sup> referencing <sup><a href="https://arxiv.org/abs/2202.03286" target="_blank">17</a></sup> </li>
-    <li><b><a href="https://langfuse.com" target="_blank">Langfuse</a></b> intro <sup><a href="https://langfuse.com/blog/2024-04-introducing-langfuse-2.0" target="_blank">18</a></sup> <sup><a href="https://scribe.rip/@annemsony.137/what-is-langfuse-efd9f50d7c6f" target="_blank">19</a></sup>, <a href="https://github.com/langfuse/langfuse" target="_blank">git</a>  </li>
-    <li><b><a href="https://www.langchain.com/" target="_blank">Langchain</a></b>, mentions reasoning, into <sup><a href="https://www.elastic.co/blog/langchain-tutorial" target="_blank">20</a></sup> <sup><a href="https://scribe.rip/@zilliz_learn/ultimate-guide-to-getting-started-with-langchain-b9a87cb340f8" target="_blank">21</a></sup> <a href="https://github.com/langchain-ai/langchain" target="_blank">git</a></li>
-    <li><b><a href="https://agenta.ai/" target="_blank">Agenta</a></b>, into <sup><a href="https://agenta.ai/blog/introducing-agenta-platform" target="_blank">22</a></sup> <sup><a href="https://www.antler.co/blog/why-we-invested-in-agenta" target="_blank">23</a></sup> <sup><a href="https://docs.agenta.ai/getting_started/quick-start" target="_blank">24</a></sup> <a href="https://github.com/Agenta-AI/agenta" target="_blank">git</a></li>
-    <li><b><a href="https://pezzo.ai/" target="_blank">Pezzo</a></b>, intro <sup><a href="https://hackernoon.com/how-pezzo-ai-is-simplifying-ai-adoption-for-developers" target="_blank">25</a></sup> <sup><a href="https://www.toolify.ai/ai-news/revolutionize-your-llm-management-with-pezzoai-399048" target="_blank">26</a></sup> <sup><a href="https://dev.to/pezzo/developers-add-ai-to-your-toolkit-in-10-minutes-mdn" target="_blank">27</a></sup> <a href="https://github.com/pezzolabs/pezzo" target="_blank">git</a></li>
-    <li><b><a href="https://jfrog.com/jfrog-ml" target="_blank">Jfrog</a></b> intro <sup><a href="https://portal.microfocus.com/s/article/KM000033216?language=en_US" target="_blank">28</a></sup> <sup><a href="https://scribe.rip/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34" target="_blank">29</a></sup> <sup><a href="https://jfrog.com/blog/jfrog-to-acquire-qwak-to-streamline-ai-models/" target="_blank">30</a></sup> <a href="https://github.com/jfrog" target="_blank">git</a> </li>
-    <li><b><a href="https://www.statsig.com/" target="_blank">Statsig</a></b> <sup><a href="https://www.statsig.com/blog/ai-prompt-experiments" target="_blank">31</a></sup> <a href="https://github.com/statsig-io" target="_blank">git</a></li>
+    <li><b><a href="https://humanloop.com/" target="_blank">Humanloop</a></b> <sup><a href="https://humanloop.com/blog/evaluating-llm-apps" target="_blank">17</a></sup> referencing <sup><a href="https://arxiv.org/abs/2202.03286" target="_blank">18</a></sup> </li>
+    <li><b><a href="https://langfuse.com" target="_blank">Langfuse</a></b> intro <sup><a href="https://langfuse.com/blog/2024-04-introducing-langfuse-2.0" target="_blank">19</a></sup> <sup><a href="https://scribe.rip/@annemsony.137/what-is-langfuse-efd9f50d7c6f" target="_blank">20</a></sup>, <a href="https://github.com/langfuse/langfuse" target="_blank">git</a>  </li>
+    <li><b><a href="https://www.langchain.com/" target="_blank">Langchain</a></b>, mentions reasoning, into <sup><a href="https://www.elastic.co/blog/langchain-tutorial" target="_blank">21</a></sup> <sup><a href="https://scribe.rip/@zilliz_learn/ultimate-guide-to-getting-started-with-langchain-b9a87cb340f8" target="_blank">22</a></sup> <a href="https://github.com/langchain-ai/langchain" target="_blank">git</a></li>
+    <li><b><a href="https://agenta.ai/" target="_blank">Agenta</a></b>, into <sup><a href="https://agenta.ai/blog/introducing-agenta-platform" target="_blank">23</a></sup> <sup><a href="https://www.antler.co/blog/why-we-invested-in-agenta" target="_blank">24</a></sup> <sup><a href="https://docs.agenta.ai/getting_started/quick-start" target="_blank">25</a></sup> <a href="https://github.com/Agenta-AI/agenta" target="_blank">git</a></li>
+    <li><b><a href="https://pezzo.ai/" target="_blank">Pezzo</a></b>, intro <sup><a href="https://hackernoon.com/how-pezzo-ai-is-simplifying-ai-adoption-for-developers" target="_blank">26</a></sup> <sup><a href="https://www.toolify.ai/ai-news/revolutionize-your-llm-management-with-pezzoai-399048" target="_blank">27</a></sup> <sup><a href="https://dev.to/pezzo/developers-add-ai-to-your-toolkit-in-10-minutes-mdn" target="_blank">28</a></sup> <a href="https://github.com/pezzolabs/pezzo" target="_blank">git</a></li>
+    <li><b><a href="https://jfrog.com/jfrog-ml" target="_blank">Jfrog</a></b> intro <sup><a href="https://portal.microfocus.com/s/article/KM000033216?language=en_US" target="_blank">29</a></sup> <sup><a href="https://scribe.rip/decodingml/how-to-fine-tune-llms-on-custom-datasets-at-scale-using-qwak-and-cometml-12216a777c34" target="_blank">30</a></sup> <sup><a href="https://jfrog.com/blog/jfrog-to-acquire-qwak-to-streamline-ai-models/" target="_blank">31</a></sup> <a href="https://github.com/jfrog" target="_blank">git</a> </li>
+    <li><b><a href="https://www.statsig.com/" target="_blank">Statsig</a></b> <sup><a href="https://www.statsig.com/blog/ai-prompt-experiments" target="_blank">32</a></sup> <a href="https://github.com/statsig-io" target="_blank">git</a></li>
 </ul>
 
 
@@ -109,7 +111,7 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
 
 </div>
 <hr />
-<div class="halferWords addReferences">
+<div class="halferWords">
 <details class="singlePopup withScroll">
 <summary><h3> Test plan for a chatbot </h3></summary>
 <p>Test preconditions that need to exist:</p>
@@ -223,13 +225,13 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt&amp;t=Testing+Prompts"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt&amp;t=Testing+Prompts"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
 
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-test-prompt" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-10-08T16:38:05">8th of Oct 2024</time>
+						<span>Edited <time datetime="2024-12-01T18:04:24">1st of Dec 2024</time>
 						</span>
 						<span>Created <time datetime="2024-10-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Oct 2024</time> </span>
 					</span>
@@ -280,7 +282,7 @@ A thorough set of notes for how to make a good set of test prompts <sup><a href=
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-10-09T14:16:41">9th of Oct 2024, 14:16:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-10-08T16:38:05">8th of Oct 2024</time>.
+	<p> Page rendered <time datetime="2024-12-01T20:33:38">1st of Dec 2024, 20:33:38</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-01T18:04:24">1st of Dec 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
