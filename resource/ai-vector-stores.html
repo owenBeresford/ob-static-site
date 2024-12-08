@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-vector-stores" />
 <meta property="og:description" content="A compilation of information about Vector searches, stores and Vector DB, along with Vector store recommendations.  The text has a focus on architectures and algorithms, so that, for these topics, the article remains relevant." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="1st of Dec 2024, 20:33:38" />
-<meta property="article:modified_time" content="1st of Dec 2024" />
+<meta property="article:published_time" content="8th of Dec 2024, 7:23:27" />
+<meta property="article:modified_time" content="8th of Dec 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-vector-stores" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "LLM / AI vectors",
-	"article:published_time":"1st of Dec 2024, 20:33:38", 
-    "article:modified_time":"1st of Dec 2024",
+	"article:published_time":"8th of Dec 2024, 7:23:27", 
+    "article:modified_time":"8th of Dec 2024",
     "article:section":"technology",
 
     "author": {
@@ -67,7 +67,7 @@ TODO: magic tune selection against some index/DB -->
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro &amp; theory <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>If you start with loose data made by a human, and you need to search with it or against it, then a traditional RDB isn't great technology.   But if you spend more time on loading the data into a VectorDB, better grade of search can be achieved.  Quite a few search engines built a version of vector search a long time ago.<br />
-To service these, there is a large group of data storage engines that I currently am learning about, so I am discovering.   In this article and the attached ones, it is necessary to avoid content made via AI #leSigh.   These are currently used for LLM-based Chatbots (etc.).   In the following paragraph Types are capitalised, if I make them italic as in other articles, most of the paragraph would be in italic.   A Vector-store is just software to store Vectors dot dot dot.   A Vector ~ when used for AI ~ is an Array of Floats <sup><a href="https://www.ibm.com/topics/vector-database" target="_blank">1</a></sup> ~ <sub>this doc is long, but has no internal ids, so I can't reference “pages”</sub>.   Each Float represents a position in a Dimension, and is supposed to model the meaning of the source text, in a fashion that associates random letter / Char Strings which are similar things ~ e.g., a car is similar to a taxi and a truck <sup><a href="https://thenewstack.io/how-large-language-models-fuel-the-rise-of-vector-databases/" target="_blank">2</a></sup>, but textual based analysis can't tell you that.   Notes say the only valuable Vectors are non-zero and are Dense.   I guess they must be a SparseArray, or it wouldn't be possible not to store the zeros, OR the Dimensions are set in advance, and it's a large Struct.   TODO: I should read source code to confirm this.<br />
+To service these, there is a large group of data storage engines that I currently am learning about, so I am discovering.   In this article and the attached ones, it is necessary to avoid content made via AI #leSigh.   These are currently used for LLM-based Chatbots (etc.).   In the following paragraph Types are capitalised, if I make them italic as in other articles, most of the paragraph would be in italic.   A Vector-store is just software to store Vectors dot dot dot.   A Vector ~ when used for AI ~ is an Array of Floats <sup><a href="https://www.ibm.com/topics/vector-database" target="_blank">1</a></sup> ~ <sub>this doc is long, but has no internal ids, so I can't reference “pages”</sub>.   Each Float represents a position in a Dimension, and is supposed to model the meaning of the source text, in a fashion that associates random letter / Char Strings which are similar things ~ e.g., a car is similar to a taxi and a truck <sup><a href="https://thenewstack.io/how-large-language-models-fuel-the-rise-of-vector-databases/" target="_blank">2</a></sup>, but textual based analysis can't tell you that.   Notes say the only valuable Vectors are non-zero and are Dense.   I guess they must be a SparseArray, or it wouldn't be possible not to store the zeros, OR the Dimensions are set in advance, and it's a large Struct.   TODO: IOIO I should read source code to confirm this.<br />
 According to <sup><a href="https://www.ciopages.com/vector-databases/" target="_blank">3</a></sup> Vector DB are sometimes used for 3D model data, or geometric information.  They also state fraud detection, but graph databases are a better structure for that.  They do not mention any dedicated Vector stores, favouring pgVector, MongoDB arrays and similar.   The long text <sup><a href="https://www.ibm.com/topics/vector-database" target="_blank">4</a></sup> offers LLM backing and search indices.   According to <sup><a href="https://myscale.com/blog/vector-store-vs-vector-database-comparison-guide/" target="_blank">5</a></sup>, there are Vector DB and Vector Stores <sup><a href="https://myscale.com/blog/vector-store-vs-vector-database-comparison-guide/" target="_blank">6</a></sup> <sup><a href="https://learn.microsoft.com/en-us/azure/search/vector-store" target="_blank">7</a></sup> <sup><a href="https://medium.com/predict/vector-store-anlysis-exploring-popular-solutions-63eba05f27a7" target="_blank">8</a></sup>, and most people will want the DB as they gain from the extra features.  Simplicity will help the remaining users as the need <del>giga-scale</del><ins>tera-scale</ins> operations (same principal as ColumnDB).   <sup><a href="https://malaikannan.github.io/2024/08/31/VectorDB/" target="_blank">9</a></sup> observes that “capacity” for Vector searches isn't the same quality as “built and optimised for” Vector searches ~ although the PG team release slowly and optimise a lot.</p>
 
 
@@ -187,7 +187,7 @@ There is a VectorDB bench project for comparing search via VectorDB <sup><a href
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-12-01T18:05:01">1st of Dec 2024</time>
+						<span>Edited <time datetime="2024-12-08T07:23:16">8th of Dec 2024</time>
 						</span>
 						<span>Created <time datetime="2024-08-30T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >30th of Aug 2024</time> </span>
 					</span>
@@ -203,28 +203,32 @@ There is a VectorDB bench project for comparing search via VectorDB <sup><a href
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
+	
+	<div class="bigScreenOnly column defaultLinksMenu">
+		<details class="defaultLinksMenu" >
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
-<fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
-<menu class="h4_lean">
-<li class="h4_odd"><a href="#toc0">Intro &amp; theory</a></li>
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="titleHolder"><summary >Internal links</summary><menu class="titleList">
+<li><a href="#toc0">Intro &amp; theory</a></li>
 <li><a href="#toc1">Query structures</a></li>
-<li class="h4_odd"><a href="#toc2">Vector store recommendations</a></li>
+<li><a href="#toc2">Vector store recommendations</a></li>
 <li><a href="#toc3">Value Prop</a></li>
-<li class="h4_odd"><a href="#toc4">Testing Vectors</a></li>
+<li><a href="#toc4">Testing Vectors</a></li>
 </menu>
-<br />
+</details><br />
 
-</fieldset>
 	</div>
-<menu class="burgerMenu" >
-<li class="h4_odd">Additional features</li>
-<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
-<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#contentGroup">Similar articles</a></li>
-</menu>
+
+	</div>
 	</nav>
 </fieldset>
 		</div>
@@ -239,11 +243,11 @@ There is a VectorDB bench project for comparing search via VectorDB <sup><a href
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-12-01T20:33:38">1st of Dec 2024, 20:33:38</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-01T18:05:01">1st of Dec 2024</time>.
+	<p> Page rendered <time datetime="2024-12-08T07:23:27">8th of Dec 2024, 7:23:27</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-08T07:23:16">8th of Dec 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 
 </body>
 </html>
