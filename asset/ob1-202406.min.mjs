@@ -573,12 +573,12 @@ function ne() {
     if (!m(t3.host) && !o3)
       return;
     o3 && (e3.querySelector("#sendMasto").textContent = "Share article");
-    const a3 = ['<li id="shareClose"> <i class="fa fa-cancel" aria-hidden="true"></i> </li>	<li> <a class="hunchUp" id="copyURL"><i class="fa fa-copy" aria-hidden="true"></i><span class="hunchUp"> copy<br /> URL</span> </a> </li>'], i3 = ["shareMenuTrigger", "siteChartLink", "rssLink"], s2 = Array.from(e3.querySelectorAll(".allButtons a")), l3 = n(t3), c3 = e3.querySelector(".allButtons");
+    const a3 = ['<li id="shareClose"> <i class="fa fa-cancel" aria-hidden="true"></i> </li>	<li> <a class="hunchUp" id="copyURL"><i class="fa fa-copy" aria-hidden="true"></i><span class="hunchUp"> copy<br /> URL</span> </a> </li>'], i3 = ["shareMenuTrigger", "siteChartLink", "rssLink"], s2 = Array.from(e3.querySelectorAll(".allButtons a")), l3 = !m(t3.host) && !n(t3), c3 = e3.querySelector(".allButtons");
     for (const e4 in s2) {
       if (i3.includes(s2[e4].id))
         continue;
       const t4 = s2[e4].cloneNode(true);
-      l3 || c3.removeChild(s2[e4]), t4.classList.remove("bigScreenOnly"), a3.push("<li>"), a3.push(t4.outerHTML), a3.push("</li>"), s2[e4].getAttribute("id") && s2[e4].setAttribute("id", "old" + s2[e4].getAttribute("id"));
+      l3 && c3.removeChild(s2[e4]), t4.classList.remove("bigScreenOnly"), a3.push("<li>"), a3.push(t4.outerHTML), a3.push("</li>"), s2[e4].getAttribute("id") && s2[e4].setAttribute("id", "old" + s2[e4].getAttribute("id"));
     }
     a3.unshift('<nav><div class="shareMenu" id="shareMenu"><menu id="mobileMenu">'), a3.push("</menu></div></nav>"), S("#navBar", a3.join("\n"), e3);
   }(t2, o2, a2), F(t2, o2, a2);
