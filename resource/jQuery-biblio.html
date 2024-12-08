@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-biblio" />
 <meta property="og:description" content="Covering article for a usability feature, biblio extraction for mobile UI." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="17th of Sep 2024, 14:43:42" />
-<meta property="article:modified_time" content="14th of Sep 2024" />
+<meta property="article:published_time" content="8th of Dec 2024, 7:23:30" />
+<meta property="article:modified_time" content="8th of Dec 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-biblio" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "jQuery-biblio",
-	"article:published_time":"17th of Sep 2024, 14:43:42", 
-    "article:modified_time":"14th of Sep 2024",
+	"article:published_time":"8th of Dec 2024, 7:23:30", 
+    "article:modified_time":"8th of Dec 2024",
     "article:section":"technology",
 
     "author": {
@@ -54,13 +54,15 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker addBashSamples">
 <p class="accessSrc">Source code: <a href="https://github.com/owenBeresford/jquery-biblio" title="public location of the jquery-biblio source." class="button"><i class="fa fa-github" aria-hidden="true"></i></a>  </p>
 <div class="lotsOfWords">
+
+<h5 id="toc0"> Update: I have replaced this code with a much smaller TS bundle <a href="https://github.com/owenBeresford/extra-panda" target="_blank">git</a></h5>
 <p>If you are on a small screen, the academic habit of putting reference links as super-text is annoying and fiddly.  I think the content should still have the links in normal fashion for bigger screen users.  This module is to extract the links and display them as a OL list at the end of the page.  The result list will need to be styled so the list can be operated with a thumb.  I am putting my wiki content inside “screenful” blocks, so the columnisation is easier to read.  This means the link number keep starting from 1 again; and result biblio needs to be similarly paginated.  This requirement isn't likely to be needed by other people. <br />
 As this library is targeting links created by a wiki software; there is shortage of meta data.  I can code to inject values when they are supplied, and supply generic values otherwise.  It would be nice to have automatic publication date extraction, and a title extraction.  Date published can be presented from last-modified HTTP headers, this can be taken from AJAX, setting the request type to HEAD.  HTTP doesn't present any means to get a title outside of a full request; as not all resources have titles.</p>
 
 <p>I have put an MVP solution in the <a href="https://owenberesford.me.uk/resource/drupal-notes#">drupal-notes</a> page.  Real code will need to be more flexible and think about HTML generation.   This is lower down the prioritise than modules that are likely to be used.  <i><strong>Update 2014</strong>, I bumped this up the work list as I have another boring train journey, with intermittent net connection.</i></p>
 
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Dev notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Dev notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>I built a static demo, and a unit test (linking qunit);</li>
     <li>I will remodel my resources to be more clear (jQuery articles will now start with jQuery);</li>
@@ -90,7 +92,7 @@ As this library is targeting links created by a wiki software; there is shortage
 <p><strong>UPDATE 2022</strong> I made a new script to create the static reference cache; this is checked into the same repo.  The newer code is just JS, and much better workflow than my previous hacks.  To be very clear to “website availability” people, this script runs <strong>once</strong> per edition of each page, and supplies data for richer links for users, to know where they will end up, and how fresh the linked page is.  There is little chance of this admin step adding more than 1 HTTP request per week to your systems, and if my article links to multiple articles on the same website, I share cached data between links.  Unfortunately cloudflare have a “proxy to try to eliminate atypical setups” feature; most frequently this stops clients with ad blockers.  Sometimes this is affecting my browsing capacity, when I was behaving as normal human browsing documentation (i.e. no bots and I am not running adblockers).   This feature could be used to ensure digital finger-printing technology works; so eliminate the need for cookies to track users.   To force cloud flare to work, I need to use a cloudscrapper module.</p>
 
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Requirements (on Mobile) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Requirements (on Mobile) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>Be an OO jQuery plugin (cheap solution will be tightly dependant on the framework, so separation will make little practical difference).  This is mentioning a solution, but should be taken as focussed on budget.</li>
     <li>Copy all the links inside an HTML element.</li>
@@ -102,7 +104,7 @@ As this library is targeting links created by a wiki software; there is shortage
 </ul>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Requirements (on desktop) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Requirements (on desktop) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This is a second extension, after I saw papers in Nature; add a tooltip to make viewing of references to external websites more clear.  I have copied the basic idea, and for desktop browsers, this now will:</p>
 
 <ul class="ulbasic">
@@ -114,7 +116,7 @@ As this library is targeting links created by a wiki software; there is shortage
 </ul>
 
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Usability concerns / meta data for the JS tool  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Usability concerns / meta data for the JS tool  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>My prime use-case is wiki links, these are terse on meta data.</li>
     <li>Good UI/ UX / accessible sites have detail on each link.</li>
@@ -127,7 +129,7 @@ As this library is targeting links created by a wiki software; there is shortage
 <p>%% I am citing my testing for a pre-jQuery AJAX library I wrote.</p>
 
 
-<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > API and interface notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > API and interface notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This has no public API functions, just a single access via biblio().  Biblio is configured by the following (the function takes a hash, with the following keys):</p>
 
 <ul class="ulbasic">
@@ -168,7 +170,7 @@ As this library is targeting links created by a wiki software; there is shortage
 Callbacks are functions called in the context of the BibliographyExtractor class, so may access the options hash.  They should return HTML, or perform the stated change.   If you want to override many of these, it may be faster to fork the plugin and edit the library.</p>
 
 
-<h4 class="dontend" id="toc5"> Value for <i>extendViaDownload</i> </h4>
+<h4 class="dontend" id="toc6"> Value for <i>extendViaDownload</i> </h4>
 <p><i>Practical tip: just build a references cache, with the included tool, and use that. It is much faster, and works better with normal sites.</i><br />
 The downloading has to be organised sequentially, due to webrowsers sensibly limiting available threads.  Additionally I add a small delay, between each one, as I don't assume that this is the only page loaded.</p>
 
@@ -182,7 +184,7 @@ The downloading has to be organised sequentially, due to webrowsers sensibly lim
 <p>Everything is tagged '3rd party', as the links may be on your own website.</p>
 
 
-<h3 class="dontend" id="toc6"> <a href="#toc6" title="Jump to this section." > Smoke Tested on: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc7"> <a href="#toc7" title="Jump to this section." > Smoke Tested on: <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>In normal TDD fashion, I made real unit tests at the point I wrote the units. I iterated the UX side enough times with a range of data. Recently I had access machine with alot of different browsers installed on it, so I can state that this looks reasonable on:<br />
 <fieldset class="browserTestingContainer">
 <legend> This feature has been tested on:</legend>
@@ -252,13 +254,13 @@ I have never tested on (but for specific geo-markets should do):
 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio&amp;t=jQuery-biblio"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio&amp;t=jQuery-biblio"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
 
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-biblio" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-09-14T20:08:57">14th of Sep 2024</time>
+						<span>Edited <time datetime="2024-12-08T07:23:16">8th of Dec 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -274,30 +276,34 @@ I have never tested on (but for specific geo-markets should do):
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
+	
+	<div class="bigScreenOnly column defaultLinksMenu">
+		<details class="defaultLinksMenu" >
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
-<fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu" aria-haspopup="menu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
-<menu class="h4_lean">
-<li class="h4_odd"><a href="#toc0">Dev notes</a></li>
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details  class="titleHolder"><summary >Internal links</summary><menu class="titleList">
+<li><a href="#toc0">Dev notes</a></li>
 <li><a href="#toc1">Requirements (on Mobile)</a></li>
-<li class="h4_odd"><a href="#toc2">Requirements (on desktop)</a></li>
+<li><a href="#toc2">Requirements (on desktop)</a></li>
 <li><a href="#toc3">Usability concerns / meta data for the JS tool</a></li>
-<li class="h4_odd"><a href="#toc4">API and interface notes</a></li>
+<li><a href="#toc4">API and interface notes</a></li>
 <li><a href="#toc5">Value for <i>extendViaDownload</i></a></li>
-<li class="h4_odd"><a href="#toc6">Smoke Tested on:</a></li>
+<li><a href="#toc6">Smoke Tested on:</a></li>
 </menu>
-<br />
+</details><br />
 
-</fieldset>
 	</div>
-<menu class="burgerMenu" >
-<li class="h4_odd">Additional features</li>
-<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
-<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#contentGroup">Similar articles</a></li>
-</menu>
+
+	</div>
 	</nav>
 </fieldset>
 		</div>
@@ -312,11 +318,11 @@ I have never tested on (but for specific geo-markets should do):
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-09-17T14:43:42">17th of Sep 2024, 14:43:42</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-09-14T20:08:57">14th of Sep 2024</time>.
+	<p> Page rendered <time datetime="2024-12-08T07:23:30">8th of Dec 2024, 7:23:30</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-08T07:23:16">8th of Dec 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <link rel="stylesheet" href="/asset/hljs.min.css" />
 <script type="module" src="/asset/highlight-js.mjs"></script>
 </body>

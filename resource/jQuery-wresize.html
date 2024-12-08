@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/jQuery-wresize" />
 <meta property="og:description" content="A simple jQuery module to make resize events useful. Objectives and references included." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="20th of Aug 2024, 9:16:14" />
-<meta property="article:modified_time" content="20th of Aug 2024" />
+<meta property="article:published_time" content="8th of Dec 2024, 7:23:31" />
+<meta property="article:modified_time" content="8th of Dec 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/jQuery-wresize" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Window Resize",
-	"article:published_time":"20th of Aug 2024, 9:16:14", 
-    "article:modified_time":"20th of Aug 2024",
+	"article:published_time":"8th of Dec 2024, 7:23:31", 
+    "article:modified_time":"8th of Dec 2024",
     "article:section":"technology",
 
     "author": {
@@ -55,12 +55,14 @@ TODO: magic tune selection against some index/DB -->
 <p class="accessSrc"><a href="https://github.com/owenBeresford/jquery-wresize" title="public location of the jQuery-resize source." class="button"><i class="fa fa-github" aria-hidden="true"></i></a> </p>
 <div class="lotsOfWords">
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h5 id="toc0"> Update: I have replaced this code with a much smaller TS bundle <a href="https://github.com/owenBeresford/extra-panda" target="_blank">git</a></h5>
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>I need a <a href="https://github.com/owenBeresford/jquery-wresize" target="_blank">plugin</a> to manage window resize events on my site, so I wrote one. The text is columnised, but needs to have the correct columnisation to the current screen size.  The columnise plugin I <a href="https://owenberesford.me.uk/resource/jQuery-columnise#">imported</a> and extended doesn't do this natively very well.  This is mostly a desktop concern (as apposed to mobile).<br />
 This is a very simple problem, there are some other implementations, but none seem to fit my coding style.  I seem to have added a lot more control flags than other implementations; but what I did is just normal OO.   <b>UPDATE 2022</b>; There is now an (not even new) API, this is functionally obsolete <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API" target="_blank">1</a></sup></p>
 
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > My objectives <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > My objectives <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>Create a jQuery plugin</li>
     <li>Ensure that the object issues I have in some of jQuery are not present.</li>
@@ -71,17 +73,17 @@ This is a very simple problem, there are some other implementations, but none se
 </ul>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > References <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > References <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>There are a number of template files online for writing jQuery modules.  I read these, but my source is mostly from scratch <sup><a href="https://knowhowcommunity.org/how-to-create-jquery-plugin/" target="_blank">2</a></sup> <sup><a href="https://github.com/jquery-boilerplate/jquery-boilerplate/wiki/Another-extending-jQuery-boilerplate" target="_blank">3</a></sup> <sup><a href="https://css-tricks.com/snippets/jquery/jquery-plugin-template/" target="_blank">4</a></sup> <sup><a href="https://stackoverflow.com/questions/2562315/developing-a-jquery-plugin-that-returns-a-given-object-instead-of-jquery-object" target="_blank">5</a></sup> <sup><a href="https://www.designveloper.com/blog/create-basic-plugin-jquery/" target="_blank">6</a></sup></p>
 
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Discussion. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Discussion. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>After one day, I have written some code, and have a sample that demos it working.  The code is currently <a href="https://github.com/owenBeresford/jquery-wresize" target="_blank">uploaded</a>.  This is created as a jQuery plugin as there is jQuery code in my site already, and I would like to keep to a small number of frameworks.  <br />
 The code mostly only makes sense applied to resize() events, although you can tell it to run on other events.  One doesn't stack click() or close() events, for example.<br />
 As this is written in JS, I am using closures, and functions defined inside functions.  My actual design is broadly the same as if I had implemented this in Perl or PHP.  JS's awkward definition of 'this' is noted, but these days the language supplies <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind" target="_blank">primitives</a> to work round this.  Secondly, I am using prototype based objects rather than literal objects to attempt to make it more readable (I normally use literal objects).</p>
 
 
-<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Testing. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > Testing. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Obviously this needs to work in all browsers, and obviously this needs not to leak RAM.  The second clause is likely to be simple for this plugin, as its just timing code.  I haven't noticed any leaks in the columniser script which is algorithmically more likely to have them.<br />
 My initial test script s no more available on this website, but is in the git repo.   After I wrote first copy of this resource, I added the library to my site. I then tested the library on all the browsers I had access to.  I ran this on MSIE11, FF27, Opera12, Safari mobile, Chrome mobile, and Chrome33.</p>
 
@@ -112,20 +114,20 @@ My initial test script s no more available on this website, but is in the git re
 					<span class="allButtons"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
-						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow"> Share </span>
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
                         <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-wresize" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
 
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-wresize" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-wresize" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-wresize&amp;t=Window+Resize"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker new</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-wresize&amp;t=Window+Resize"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
 
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2FjQuery-wresize" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>
+						<span>Edited <time datetime="2024-12-08T07:23:16">8th of Dec 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -141,28 +143,32 @@ My initial test script s no more available on this website, but is in the git re
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
+	
+	<div class="bigScreenOnly column defaultLinksMenu">
+		<details class="defaultLinksMenu" >
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
-<fieldset class="h4_menu column bigScreenOnly ">
-<legend><span id="pageMenu"><i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span></legend>
-<menu class="h4_lean">
-<li class="h4_odd"><a href="#toc0">Intro</a></li>
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="titleHolder"><summary >Internal links</summary><menu class="titleList">
+<li><a href="#toc0">Intro</a></li>
 <li><a href="#toc1">My objectives</a></li>
-<li class="h4_odd"><a href="#toc2">References</a></li>
+<li><a href="#toc2">References</a></li>
 <li><a href="#toc3">Discussion.</a></li>
-<li class="h4_odd"><a href="#toc4">Testing.</a></li>
+<li><a href="#toc4">Testing.</a></li>
 </menu>
-<br />
+</details><br />
 
-</fieldset>
 	</div>
-<menu class="burgerMenu" >
-<li class="h4_odd">Additional features</li>
-<li class=""><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
-<li class="h4_odd"><a href="/resource/search">Search <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="/resource/appearance">Appearance <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class="h4_odd"><a href="/resource/contact-me">Contact me <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-<li class=""><a href="#contentGroup">Similar articles</a></li>
-</menu>
+
+	</div>
 	</nav>
 </fieldset>
 		</div>
@@ -177,11 +183,11 @@ My initial test script s no more available on this website, but is in the git re
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-08-20T09:16:14">20th of Aug 2024, 9:16:14</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-08-20T08:47:23">20th of Aug 2024</time>.
+	<p> Page rendered <time datetime="2024-12-08T07:23:31">8th of Dec 2024, 7:23:31</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-08T07:23:16">8th of Dec 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
-<script type="module" src="/asset/ob1-202406.min.mjs" ></script>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 
 </body>
 </html>
