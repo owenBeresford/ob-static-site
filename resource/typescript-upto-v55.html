@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>TS v50 =>v 555</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A list of changes in Typescript between v5 and v5.5, I have grouped them for better readability." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="TS v50 =>v 555">
+<meta itemprop="description" content="A list of changes in Typescript between v5 and v5.5, I have grouped them for better readability.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="TS v50 =>v 555">
+<meta name="twitter:description" content="A list of changes in Typescript between v5 and v5.5, I have grouped them for better readability.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="TS v50 =>v 555" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/typescript-upto-v55" />
+<meta property="og:description" content="A list of changes in Typescript between v5 and v5.5, I have grouped them for better readability." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="14th of Dec 2024, 17:31:40" />
+<meta property="article:modified_time" content="14th of Dec 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/typescript-upto-v55" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "TS v50 =>v 555",
+	"article:published_time":"14th of Dec 2024, 17:31:40", 
+    "article:modified_time":"14th of Dec 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords betterDL popOverWidget">
+<p>This is a *very boring* page, said on a website of boring content.  I am creating it to improve the speed that I an adopt the newer syntax.   It's a demo of new code syntaxes between TS 5 and TS 5.5.  I will then do a further one for TS 5.5 to TS 6.   As a general note, it is necessary to use Node 18 or Node 20+ with TS 5 and tools.   I would like to not have a category “types” in this article &gt;_&lt;<br />
+I hope these <b>intensional copies</b> of the actual docs, in a more readable format are logged as <i>readability</i> in the search engines.</p>
+
+<p>Text from previous article:<br />
+I hoped to be able to build a list of <i>“tool X@version is tested with TS@version, we aim to achieve testing against TS@5.0 by $date”</i>, like people do with database drivers.  As plan B, I hope <strong>npm</strong> can tell me when I build artifacts.  <strong>Tools that will need checking:</strong> TS compiler, TS linter, TS unit test tools, libraries that use TS (e.g. React), documentation building tools, IDE integration.   I supply a single download TS to test that tools are supporting TS v5, but I will leave the higher levels of granularity on testing to the reader.   I haven't noticed a “common name” package ~ made by platform admin to reach towards less-informed users expectations ~ the way Ubuntu does.   <br />
+This article may send you to sleep, but it is the antithesis of a tech blog article that omits version numbers and publication dates, and talks excitedly about the obvious.  I have noticed that quite a few repos in Github do not compile with a more modern TS compiler, <strong>especially Tut projects</strong>.   I haven't noticed any TS syntax being withdrawn, but here are TSC features being withdrawn <sup><a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-4.html#upcoming-changes-from-typescript-50-deprecations" target="_blank">1</a></sup> <a href="https://github.com/microsoft/TypeScript/issues/51909" target="_blank">git</a> - the change is marked at 5.0, but the hard deadline is on 5.5</p>
+
+<p>Big announce articles <sup><a href="https://devblogs.microsoft.com/typescript/announcing-typescript-5-0/" target="_blank">2</a></sup> <sup><a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-5.html" target="_blank">3</a></sup>, which shows new features (I find the second link easier to use).  For checking tool compatibility, try <a href="https://owenberesford.me.uk/asset/ts-v50-v55.ts" target="_blank">my all-in-one sample</a>, of most use in syntax highlighting.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Samples <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+
+
+<details class="singlePopup withScroll">
+<summary>
+   <h5>Changes relating to OO</h5>
+</summary>
+<code lang="ts" class="highlight wide">
+// *** getter and setter types TS 5.1
+class SafeBox {
+    #value: string | undefined;
+    // Only accepts strings!
+    set value(newValue: string) {
+    }
+    // Must check for 'undefined'!
+    get value(): string | undefined {
+        return this.#value;
+    }
+}
+
+// *** [Symbol.dispose] TS 5.2
+class TempFile implements Disposable {
+    #path: string;
+    #handle: number;
+    constructor(path: string) {
+        this.#path = path;
+        this.#handle = fs.openSync(path, "w+");
+    }
+    // other methods
+    [Symbol.dispose]() {
+        // Close the file and delete it.
+        fs.closeSync(this.#handle);
+        fs.unlinkSync(this.#path);
+    }
+}
+
+// *** metadata TS 5.2
+interface Context {
+    name: string;
+    metadata: Record&lt;PropertyKey, unknown&gt;;
+}
+function setMetadata(_target: any, context: Context) {
+    context.metadata[context.name] = true;
+}
+class SomeClass {
+    @setMetadata
+    foo = 123;
+    @setMetadata
+    accessor bar = "hello!";
+    @setMetadata
+    baz() { }
+}
+const ourMetadata = SomeClass[Symbol.metadata];
+console.log(JSON.stringify(ourMetadata));
+// { "bar": true, "baz": true, "foo": true }
+
+// **** Serialise TS 5.2
+import { serialize, jsonify } from "./serializer";
+class Person {
+    firstName: string;
+    lastName: string;
+    @serialize
+    age: number
+    @serialize
+    get fullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+    toJSON() {
+        return jsonify(this)
+    }
+    constructor(firstName: string, lastName: string, age: number) {
+        // ...
+    }
+}
+
+// *** use of super TS 5.3
+class Base1 {
+    someMethod() {
+        console.log("someMethod called!");
+    }
+}
+class Derived1 extends Base1 {
+    someOtherMethod() {
+        // These act identically.
+        this.someMethod();
+        super.someMethod();
+    }
+}
+new Derived1().someOtherMethod();
+// Prints:
+//   someMethod called!
+//   someMethod called!
+
+class Base2 {
+    someMethod = () =&gt; {
+        console.log("someMethod called!");
+    }
+}
+class Derived2 extends Base2 {
+    someOtherMethod() {
+        super.someMethod();
+    }
+}
+new Derived2().someOtherMethod();
+// 💥
+// Doesn't work because 'super.someMethod' is 'undefined'.
+</code>
+</details>
+<br />
+<details class="singlePopup withScroll">
+<summary>
+   <h5>Changes relating to interfaces </h5>
+</summary>
+<code lang="ts" class="highlight wide">
+// *** getter and setter types TS 5.1
+interface CSSStyleRule {
+    // ...
+    /** Always reads as a `CSSStyleDeclaration` */
+    get style(): CSSStyleDeclaration;
+    /** Can only write a `string` here. */
+    set style(newValue: string);
+    // ...
+}
+</code>
+</details>
+<br />
+<details class="singlePopup withScroll">
+<summary>
+   <h5>Changes relating to functions </h5>
+</summary>
+<code lang="ts" class="highlight wide">
+//*** function return values examples in 5.1
+
+// ✅ fine - we inferred that 'f1' returns 'void'
+function f1() {
+    // no returns
+}
+// ✅ fine - 'void' doesn't need a return statement
+function f2(): void {
+    // no returns
+}
+// ✅ fine - 'any' doesn't need a return statement
+function f3(): any {
+    // no returns
+}
+// ❌ error!
+// A function whose declared type is neither 'void' nor 'any' must return a value.
+function f4(): undefined {
+    // no returns
+}
+
+declare function takesFunction(f: () =&gt; undefined): undefined;
+// ❌ error!
+// Argument of type '() =&gt; void' is not assignable to parameter of type '() =&gt; undefined'.
+takesFunction(() =&gt; {
+    // no returns
+});
+// ❌ error!
+// A function whose declared type is neither 'void' nor 'any' must return a value.
+takesFunction((): undefined =&gt; {
+    // no returns
+});
+// ❌ error!
+// Argument of type '() =&gt; void' is not assignable to parameter of type '() =&gt; undefined'.
+takesFunction(() =&gt; {
+    return;
+});
+// ✅ works
+takesFunction(() =&gt; {
+    return undefined;
+});
+// ✅ works
+takesFunction((): undefined =&gt; {
+    return;
+});
+
+// ✅ Works in TypeScript 5.1!
+function f4(): undefined {
+    // no returns
+}
+// ✅ Works in TypeScript 5.1!
+takesFunction((): undefined =&gt; {
+    // no returns
+});
+
+// ✅ Works in TypeScript 5.1!
+takesFunction(function f() {
+    //                 ^ return type is undefined
+    // no returns
+});
+// ✅ Works in TypeScript 5.1!
+takesFunction(function f() {
+    //                 ^ return type is undefined
+    return;
+});
+
+// ✅ Works in TypeScript 5.1 under '--noImplicitReturns'!
+function f(): undefined {
+    if (Math.random()) {
+        // do some stuff...
+        return;
+    }
+}
+
+interface Serializer {
+    set value(v: string | number | boolean);
+    get value(): string;
+}
+declare let box: Serializer;
+// Allows writing a 'boolean'
+box.value = true;
+// Comes out as a 'string'
+console.log(box.value.toUpperCase());
+
+
+// *** TS 5.2
+function loggy(id: string): Disposable {
+    console.log(`Creating ${id}`);
+    return {
+        [Symbol.dispose]() {
+            console.log(`Disposing ${id}`);
+        }
+    }
+}
+function func() {
+    using a = loggy("a");
+    using b = loggy("b");
+    {
+        using c = loggy("c");
+        using d = loggy("d");
+    }
+    using e = loggy("e");
+    return;
+    // Unreachable.
+    // Never created, never disposed.
+    using f = loggy("f");
+}
+func();
+
+// *** TS 5.2
+class ErrorA extends Error {
+    name = "ErrorA";
+}
+class ErrorB extends Error {
+    name = "ErrorB";
+}
+function throwy(id: string) {
+    return {
+        [Symbol.dispose]() {
+            throw new ErrorA(`Error from ${id}`);
+        }
+    };
+}
+function func() {
+    using a = throwy("a");
+    throw new ErrorB("oops!")
+}
+try {
+    func();
+}
+catch (e: any) {
+    console.log(e.name); // SuppressedError
+    console.log(e.message); // An error was suppressed during disposal.
+    console.log(e.error.name); // ErrorA
+    console.log(e.error.message); // Error from a
+    console.log(e.suppressed.name); // ErrorB
+    console.log(e.suppressed.message); // oops!
+}
+
+// *** TS 5.2
+function doSomeWork() {
+    const path = ".some_temp_file";
+    const file = fs.openSync(path, "w+");
+    using cleanup = new DisposableStack();
+    cleanup.defer(() =&gt; {
+        fs.closeSync(file);
+        fs.unlinkSync(path);
+    });
+    // use file...
+    if (someCondition()) {
+        // do some more work...
+        return;
+    }
+    // ...
+}
+
+// **** extra serialise tricks   TS 5.2
+const serializables = Symbol();
+type Context =
+    | ClassAccessorDecoratorContext
+    | ClassGetterDecoratorContext
+    | ClassFieldDecoratorContext
+    ;
+export function serialize(_target: any, context: Context): void {
+    if (context.static || context.private) {
+        throw new Error("Can only serialize public instance members.")
+    }
+    if (typeof context.name === "symbol") {
+        throw new Error("Cannot serialize symbol-named properties.");
+    }
+    const propNames =
+        (context.metadata[serializables] as string[] | undefined) ??= [];
+    propNames.push(context.name);
+}
+export function jsonify(instance: object): string {
+    const metadata = instance.constructor[Symbol.metadata];
+    const propNames = metadata?.[serializables] as string[] | undefined;
+    if (!propNames) {
+        throw new Error("No members marked with @serialize.");
+    }
+    const pairStrings = propNames.map(key =&gt; {
+        const strKey = JSON.stringify(key);
+        const strValue = JSON.stringify((instance as any)[key]);
+        return `${strKey}: ${strValue}`;
+    });
+    return `{ ${pairStrings.join(", ")} }`;
+}
+
+// *** narrowing switch types TS 5.3
+function f(x: unknown) {
+    switch (true) {
+        case typeof x === "string":
+            // 'x' is a 'string' here
+            console.log(x.toUpperCase());
+            // falls through...
+        case Array.isArray(x):
+            // 'x' is a 'string | any[]' here.
+            console.log(x.length);
+            // falls through...
+        default:
+          // 'x' is 'unknown' here.
+          // ...
+    }
+}
+
+// **** type fiddling on bool functions  TS 5.3
+interface A {
+    a: string;
+}
+interface B {
+    b: string;
+}
+type MyType = A | B;
+function isA(x: MyType): x is A {
+    return "a" in x;
+}
+function someFn(x: MyType) {
+    if (isA(x) === true) {
+        console.log(x.a); // works!
+    }
+}
+
+// **** add noInfer keyword support, TS 5.4
+function createStreetLight1&lt;C extends string&gt;(colors: C[], defaultColor?: C) {
+    // ...
+}
+createStreetLight1(["red", "yellow", "green"], "red");
+
+// ❌ error!   This is undesirable, but is allowed!
+createStreetLight1(["red", "yellow", "green"], "blue");
+
+function createStreetLight2&lt;C extends string&gt;(colors: C[], defaultColor?: NoInfer&lt;C&gt;) {
+    // ...
+}
+createStreetLight2(["red", "yellow", "green"], "blue");
+//                                            ~~~~~~
+// ❌ error!
+// Argument of type '"blue"' is not assignable to parameter of type '"red" | "yellow" | "green" | undefined'.
+
+// *** newish in JS TS 5.4
+const array = [0, 1, 2, 3, 4, 5];
+const myObj = Object.groupBy(array, (num, index) =&gt; {
+    return num % 2 === 0 ? "even": "odd";
+});
+</code>
+</details>
+<br />
+<details class="singlePopup withScroll">
+<summary>
+   <h5>Other changes </h5>
+</summary>
+<code lang="ts" class="highlight wide">
+// *** TS 5.2 
+async function doWork() {
+    // Do fake work for half a second.
+    await new Promise(resolve =&gt; setTimeout(resolve, 500));
+}
+function loggy(id: string): AsyncDisposable {
+    console.log(`Constructing ${id}`);
+    return {
+        async [Symbol.asyncDispose]() {
+            console.log(`Disposing (async) ${id}`);
+            await doWork();
+        },
+    }
+}
+async function func() {
+    await using a = loggy("a");
+    await using b = loggy("b");
+    {
+        await using c = loggy("c");
+        await using d = loggy("d");
+    }
+    await using e = loggy("e");
+    return;
+    // Unreachable.
+    // Never created, never disposed.
+    await using f = loggy("f");
+}
+func();
+
+// **** more complex version of last sample TS 5.2 
+async function doWork() {
+    // Do fake work for half a second.
+    await new Promise(resolve =&gt; setTimeout(resolve, 500));
+}
+function loggy(id: string): AsyncDisposable {
+    console.log(`Constructing ${id}`);
+    return {
+        async [Symbol.asyncDispose]() {
+            console.log(`Disposing (async) ${id}`);
+            await doWork();
+        },
+    }
+}
+async function func() {
+    await using a = loggy("a");
+    await using b = loggy("b");
+    {
+        await using c = loggy("c");
+        await using d = loggy("d");
+    }
+    await using e = loggy("e");
+    return;
+    // Unreachable.
+    // Never created, never disposed.
+    await using f = loggy("f");
+}
+func();
+
+// **** types and names  on Tupals  TS 5.2
+// ✅ fine - no labels
+type Pair1&lt;T&gt; = [T, T];
+// ✅ fine - all fully labeled
+type Pair2&lt;T&gt; = [first: T, second: T];
+// ❌ previously an error
+type Pair3&lt;T&gt; = [first: T, T];
+//                         ~
+// Tuple members must all have names
+// or all not have names.
+// ✅
+type TwoOrMore_B&lt;T&gt; = [first: T, second: T, rest: ...T[]];
+
+// *** KLAAAXXXON KLAAAXXXON this is the most important change, makes types globally useful TS 5.2
+import type { JustAType } from "./justTypes.ts";
+export function f(param: JustAType) {
+    // ...
+}
+
+/**
+ * @param {import("./justTypes.ts").JustAType} param
+ */
+export function f(param) {
+    // ...
+}
+
+// **** extra fiddles for imports TS 5.3
+// We only want this to be interpreted as JSON,
+// not a runnable/malicious JavaScript file with a `.json` extension.
+import obj from "./something.json" with { type: "json" };
+
+const obj = await import("./something.json", {
+    with: { type: "json" }
+});
+
+// **** add extra option TS 5.3
+// Resolve `pkg` as if we were importing with a `require()`
+import type { TypeFromRequire } from "pkg" with {
+    "resolution-mode": "require"
+};
+// Resolve `pkg` as if we were importing with an `import`
+import type { TypeFromImport } from "pkg" with {
+    "resolution-mode": "import"
+};
+export interface MergedType extends TypeFromRequire, TypeFromImport {}
+
+// **** see verbatimModuleSyntax TS 5.3
+import { type Person } from "./types";
+export let p: Person
+
+// *** inference improvements TS 5.5
+interface Bird {
+    commonName: string;
+    scientificName: string;
+    sing(): void;
+}
+
+// Maps country names -&gt; national bird.
+// Not all nations have official birds (looking at you, Canada!)
+declare const nationalBirds: Map&lt;string, Bird&gt;;
+
+function makeBirdCalls(countries: string[]) {
+  // birds: (Bird | undefined)[]
+  const birds = countries
+    .map(country =&gt; nationalBirds.get(country))
+    .filter(bird =&gt; bird !== undefined);
+  for (const bird of birds) {
+    bird.sing();  // with new version this has correctly understood the filter declaration
+  }
+}
+
+// *** inference improvements TS 5.5
+function getClassroomAverage(students: string[], allScores: Map&lt;string, number&gt;) {
+  const studentScores = students
+    .map(student =&gt; allScores.get(student))
+// a poor implementation for reference
+//    .filter(score =&gt; !!score);
+// a better implementation 
+    .filter(score =&gt; score !== undefined);
+  return studentScores.reduce((a, b) =&gt; a + b) / studentScores.length;
+}
+</code>
+</details>
+
+<br />
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Typescript v50 to v55</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftypescript-upto-v55" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftypescript-upto-v55" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftypescript-upto-v55" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftypescript-upto-v55&amp;t=TS+v50+%3D%3Ev+555"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftypescript-upto-v55" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-12-14T17:25:35">14th of Dec 2024</time>
+						</span>
+						<span>Created <time datetime="2024-12-01T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >1st of Dec 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftypescript-upto-v55" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column defaultLinksMenu">
+		<details class="defaultLinksMenu" >
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="titleHolder"><summary >Chapters </summary><menu class="titleList">
+<li><a href="#toc0">Samples</a></li>
+</menu>
+</details><br />
+
+	</div>
+
+	</div>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+	</div> 
+	<p> Page rendered <time datetime="2024-12-14T17:31:40">14th of Dec 2024, 17:31:40</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-14T17:25:35">14th of Dec 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+<link rel="stylesheet" href="/asset/hljs.min.css" />
+<script type="module" src="/asset/highlight-ts.mjs"></script>
+<style>
+details summary h5 { display:inline-block; min-width:20em; }
+.halferWords summary h5 { text-align: left; }
+
+</style>
+</body>
+</html>
