@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/iceline-config" />
 <meta property="og:description" content="Configuration for iceline." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="8th of Dec 2024, 20:03:08" />
-<meta property="article:modified_time" content="8th of Dec 2024" />
+<meta property="article:published_time" content="21st of Dec 2024, 23:01:56" />
+<meta property="article:modified_time" content="15th of Dec 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/iceline-config" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Technical documentation for iceline",
-	"article:published_time":"8th of Dec 2024, 20:03:08", 
-    "article:modified_time":"8th of Dec 2024",
+	"article:published_time":"21st of Dec 2024, 23:01:56", 
+    "article:modified_time":"15th of Dec 2024",
     "article:section":"technology",
 
     "author": {
@@ -53,11 +53,30 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="lotsOfWords">
-<div class="pullout">
+<aside class="pullout">
 NOTE: this project is deprecated.
-</div>
+</aside>
 
-[[text1]]
+
+<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Configuration files <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<p>This resource applies to both editions of the platform.<br />
+When this file gets bigger I will split it into system and site settings.  Items marked system are dangerous in ignorance.</p>
+
+<p>As a list of items names:</p>
+
+<ol>
+    <li>master_browser_barrier ~ <a href="https://owenberesford.me.uk/resource/iceline-config#master" target="_blank">details</a> ~ This is a list of validation details for values that are allowed in the GET or POST requests.  The <a href="https://owenberesford.me.uk/resource/iceline-config#validation" target="_blank">validation options</a> are a small declarative language. Each noun is a rule to be applied to the data.  SYSTEM</li>
+    <li>master_alias_list    ~ A list of aliases so duplicate form items can have shared configuration (e.g. firstName and lastName having the same validation).  If you add forms to your site, you need to add items to this list, or the master_browser_barrier. </li>
+    <li>site_settings    ~ A <a href="https://owenberesford.me.uk/resource/iceline-config#site" target="_blank">list of items</a> to control the renderers and site settings.</li>
+    <li>renderers ~ A list of renderer classes, this is a SYSTEM setting, only touch if you know what you are doing.</li>
+    <li>mode_selector    ~ A list of resource classes, only touch when you are SYSTEM.  The order of this will affect the performance of the site.</li>
+</ol>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Master list of items  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This list is just reproduced for reference.</p>
+
+
 <code lang="php" class="highlight" >
 	'uid'	  => array('type'=>'int', 'optional'=>1, ),
 	'lg'	  => array('min-length'=>2, 'max-length'=>5, 'trim'=>1, 'optional'=>1,),
@@ -185,7 +204,7 @@ NOTE: this project is deprecated.
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>
+						<span>Edited <time datetime="2024-12-15T21:22:52">15th of Dec 2024</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -241,12 +260,17 @@ NOTE: this project is deprecated.
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-12-08T20:03:08">8th of Dec 2024, 20:03:08</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>.
+	<p> Page rendered <time datetime="2024-12-21T23:01:56">21st of Dec 2024, 23:01:56</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-15T21:22:52">15th of Dec 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <link rel="stylesheet" href="/asset/hljs.min.css" />
 <script type="module" src="/asset/highlight-php.mjs"></script>
+<style>
+code[lang=php] { overflow-x:scroll; display:block; scrollbar-width: auto; }
+code::-webkit-scrollbar { width: 12px; }
+
+</style>
 </body>
 </html>

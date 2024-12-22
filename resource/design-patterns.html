@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/design-patterns" />
 <meta property="og:description" content="PHP design patterns and Structures that I apply & use are analysed in this article. I list over 18 Patterns I use.  Content is evergreen." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="8th of Dec 2024, 20:03:06" />
-<meta property="article:modified_time" content="8th of Dec 2024" />
+<meta property="article:published_time" content="21st of Dec 2024, 23:01:55" />
+<meta property="article:modified_time" content="15th of Dec 2024" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/design-patterns" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Design Patterns",
-	"article:published_time":"8th of Dec 2024, 20:03:06", 
-    "article:modified_time":"8th of Dec 2024",
+	"article:published_time":"21st of Dec 2024, 23:01:55", 
+    "article:modified_time":"15th of Dec 2024",
     "article:section":"technology",
 
     "author": {
@@ -60,11 +60,11 @@ TODO: magic tune selection against some index/DB -->
 <p>I need to make a new article for other languages.   I note that as comprehension in small companies is important, so I focus on DDD.  I want to be able to discuss solutions as part of costs; and non-technical people will find the genericness of design patterns opaque/ vague.</p>
 
 
-<div class="pullout" >
-<p>Describing <strong>software</strong> architecture in terms of buildings, my style oscillates between a squat Brutalist carpark and an airy high Gothic cathedral in Barcelona.  With the first extreme, it is 1970s flavoured, ugly, has high running costs, and emits lots of carbon. But I assembled a solution inside a fortnight and it serves 1000 people reliably.  The other extreme is beautiful, has a strong aesthetic and inspires a million visits from around the globe.  It is efficient; but it took a generation, and will remain for the next 400 years.</p>
+<aside class="pullout" >
+<p>Describing <strong>software</strong> architecture in terms of buildings, my style oscillates between a squat Brutalist carpark and an airy high Gothic cathedral in Barcelona.  With the first extreme, it is 1970s flavoured, ugly, has high running costs, and emits lots of carbon. But I assembled a solution inside a fortnight and it serves the first 1000 people reliably.  The other extreme is beautiful, has a strong aesthetic and inspires a million visits from around the globe.  It is efficient; but it took a generation, and will remain for the next 400 years.</p>
 
 
-</div>
+</aside>
 <p><b>Edit 2022</b>: This paragraph will probably get extracted into its own article, purely for linguistics/ cultural structuring.   A few years ago I bought and read a book on JS design patterns.  I didn't think it had much material absent from structures built in older programming languages in it.   Now React is mature enough to a) have an out-of-language renderer ~ Reactnative b) start to sell senior positions on the basis of use of design patterns.   Therefore, I am now doing the same writing style as previous but use these terms.   I am using Typescript where possible, as that allows Interfaces, and extra behaviour on types.  In my opinion, a very clear benefit to using Typescript is adding Interfaces on your props, as a) humans and the compiler read them, b) everything needs to have a single version or it won't compile, c) in terms of dev-time, this is very cheap documentation.  I still factor out Services from Components, to make testing easier/ faster.  Services generally follow a linear set of steps, and React's more functional design makes deterministic state monitoring harder.  If I wasn't doing that I could make them Container Components.   When I make a Service, I export it via a useXXX() function, to match the other library features, and to be able to limit object creation/ add shared references.   This is either a Factory function, or a Singleton depending on details.  I still use Facade structures to encapsulate and apply SRP on static config on imported libraries; and I build Presentational components and Render props components (ugly name) as a means to reduce code duplication.    On the scale of work I build, I use a simplified version of State Design as a wrapped useState(); as a full blown version wouldn't add any benefit, but cost time.   In theory I should be using HOC ~ high order components ~ as the epitome of functional programming; but I haven't met a business need where that would add value.</p>
 
 <p>Over the last year [this is 2013-2014], mostly for contracts where it has most relevance; I have been naming classes according to design pattern references; specifically as I wouldn't be on tap for later changes.  Truthfully, I am just ensuring the classnames to match what the online books say.  The structures ~ allowing reuse and stability ~ are needed for both DDD and patterns.</p>
@@ -137,7 +137,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>
+						<span>Edited <time datetime="2024-12-15T20:24:51">15th of Dec 2024</time>
 						</span>
 						<span>Created <time datetime="2022-05-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of May 2022</time> </span>
 					</span>
@@ -189,7 +189,7 @@ TODO: magic tune selection against some index/DB -->
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-12-08T20:03:06">8th of Dec 2024, 20:03:06</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>.
+	<p> Page rendered <time datetime="2024-12-21T23:01:55">21st of Dec 2024, 23:01:55</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-15T20:24:51">15th of Dec 2024</time>.
     <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 </div>
 </footer>
