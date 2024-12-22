@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<title>Mobile tooltips</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A demo/ maquette for not submerging users in text while filling-in a form, but supplying longer contextual help, as they enter values.   There is a legacy opinion from older technology that the demonstrated interaction here isn't possible.  I show that it is." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Mobile tooltips">
+<meta itemprop="description" content="A demo/ maquette for not submerging users in text while filling-in a form, but supplying longer contextual help, as they enter values.   There is a legacy opinion from older technology that the demonstrated interaction here isn't possible.  I show that it is.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Mobile tooltips">
+<meta name="twitter:description" content="A demo/ maquette for not submerging users in text while filling-in a form, but supplying longer contextual help, as they enter values.   There is a legacy opinion from older technology that the demonstrated interaction here isn't possible.  I show that it is.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Mobile tooltips" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/mobile-tooltips-maquette" />
+<meta property="og:description" content="A demo/ maquette for not submerging users in text while filling-in a form, but supplying longer contextual help, as they enter values.   There is a legacy opinion from older technology that the demonstrated interaction here isn't possible.  I show that it is." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="21st of Dec 2024, 23:01:56" />
+<meta property="article:modified_time" content="21st of Dec 2024" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/mobile-tooltips-maquette" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Mobile tooltips",
+	"article:published_time":"21st of Dec 2024, 23:01:56", 
+    "article:modified_time":"21st of Dec 2024",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords tooltipsMaquetteContainer">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Ambition <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This is a part of a range of “visual samples / maquettes”. Since I started doing more front-end work, I have been making these to speed up browser testing. #boring My thought, I should add a snoring backtrack to these pages. <br />
+Mobile apps are the biggest UI and sales opportunity.  Mobile apps have small screens, and strongly benefit from extra process to convey what the app is supposed to be doing, or asking for.   Mobile apps traditionally do not have tooltip displays, but what if they did in a special fashion.   A one word input label allows more space, and a longer contextual message ~ most loudly for password requirements ~ should improve usability.  This is a maquette, see how it flows.  <br />
+This maquette should explore keyboard pop-ups and avoidance.  As a mobile-first design, there are few inputs adjacent to each other.</p>
+
+<p><b>NOTICE: Nothing is uploaded to any servers, it's a UI demo.</b></p>
+
+
+<div class="maquetteContainer popOverWidget">
+<div class="maquette">
+<div class="warning">This maquette only makes sense on a mobile.</div>
+
+<div class="chunk">
+<span tabIndex=5 class="fakeButton button">Fake button</span>
+<aside>
+OMG Thanks for activating me!!
+<br />This fake button doesn't do anything.
+</aside>
+</div>
+
+<div class="chunk">
+<label for="fi1">
+Number :
+<input id="fi1" type="text" name="fi1" required pattern="^666$" class="lucky" />
+</label>
+<aside>
+Enter 666
+</aside>
+</div>
+
+<div class="chunk">
+<label for="fi2">
+Your Acct ID :
+<input id="fi2" type="number" required name="fi2" pattern="^[0-9]{9}$" />
+</label>
+<aside><ul>
+<li>Your account with us (9 numbers, no punctuation please). 
+<li><ins>(in real app-code this could be stored in a cookie, so only entered occasionally)</ins>
+</ul></aside>
+</div>
+
+<div class="chunk">
+<label for="fi3">
+Well known numbers :
+<input id="fi3" type="tel" required name="fi3" pattern="^([0-9 ]{9-12},)*[0-9 ]{9-12}$" />
+</label>
+<aside><ul>
+<li>Please enter a company phone number that you remember (normal phone numbers, separated by commas), 
+<li><ins>e.g. the local taxi chain at my parents old house was 01329 282 282 </ins> 
+<li><ins>This is contrived demo shows why longer help texts would be needed for this type of question.</ins>
+</ul></aside>
+</div>
+
+<div class="chunk">
+<label for="fi4">
+Read my SIM :
+<input id="fi4" type="checkbox" name="fi4" />
+</label>
+<aside><ul>
+<li>Should take data from my local phone SIM, to build a list of numbers.
+<li><ins>This pretends to take ALL NUMBERS.</ins>
+<li><ins>There should be a thing to deselect your own numbers from the company numbers that this fake tool is designed to capture.</ins> 
+</ul></aside>
+</div>
+
+</div>
+<details class="singlePopup withScroll docs">
+<summary>
+<h4 id="toc5">Technical Notes </h4>
+</summary>
+<p>This maquette is just basic HTML and CSS.</p>
+
+<ul class="ulbasic">
+    <li>LABEL </li>
+    <li>ASIDE</li>
+    <li>:focus-within, :user-valid </li>
+    <li>:has, :not</li>
+    <li>some UTF-8 symbols</li>
+    <li>standard visualisation tools (in CSS)</li>
+    <li>Unsure how to search for this in NPMJS.  This artefact should match highly performant, secure, and efficient form widget for both mobile and desktop.  As far as webpages are green-tech, this is the green option.  Even lower impact than SSR, it's “dev-time rendering”.  The maquette isn't brandable, but it isn't much work to make it so.  With this technology you can have 15+ tabs open, on a fairly low-spec machine.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Notes on UX  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>I'm seeing users in two groups, “sales pipeline accidental users” and “employed people working”.  These have different needs, and this maquette currently doesn't do both precisely. </li>
+    <li>Note, there is no title element in these form items.</li>
+    <li>Also see a more mouse-centric process to have control on text for tooltips <a href="https://owenberesford.me.uk/resource/transition-animation-tooltips-maquette#">transition-animation-tooltips-maquette</a>.</li>
+    <li>This form is more verbose than many, but if it is more readable, it's worth it.</li>
+    <li>I ought to test on a larger number of devices still.</li>
+</ul>
+
+
+<br /><br />
+<fieldset class="browserTestingContainer">
+<legend> This feature has been tested on:</legend>
+<p id="shouldAnimate">This browser has animation
+<ul class="ulbasic">
+<li> ✔ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔ <i class="fa fa-edge"></i> win32/Edge </li>
+<li> ✔ <i class="fa fa-firefox"></i> win32/Firefox (this is not a chrome codebase) </li>
+<li> ✔ <i class="fa fa-safari"></i> mac x/safari </li>
+<li> ✔ <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> ✔ <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> ✔ <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> ✔ <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> ✔ <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>My first batch of testing is on available Linux browsers, as they are closer to hand.</li>
+</ul>
+
+<details class="singlePopup">
+<summary>Other browsers</Summary>
+I am not testing on the following, as they use the Chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> Samsung Internet </li>
+<li> Opera </li>
+<li> Brave </li>
+<li> Blackberry browser (erm Ok, not this one)</li>
+</ul>
+I have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> Vivaldi </li>
+<li> Kameleo</li>
+<li> Yandex</li>
+<li> QQ</li>
+<li> Soque Explorer</li>
+</ul>
+</details>
+</fieldset>
+</details>
+</div>
+</div>
+<br /> <br />
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Exploration: mobile tooltips</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmobile-tooltips-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmobile-tooltips-maquette" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmobile-tooltips-maquette" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmobile-tooltips-maquette&amp;t=Mobile+tooltips"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmobile-tooltips-maquette" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2024-12-21T22:59:10">21st of Dec 2024</time>
+						</span>
+						<span>Created <time datetime="2024-04-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >3rd of Apr 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fmobile-tooltips-maquette" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column defaultLinksMenu">
+		<details class="defaultLinksMenu" >
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="titleHolder"><summary >Chapters </summary><menu class="titleList">
+<li><a href="#toc0">Ambition</a></li>
+<li><a href="#toc1">Notes on UX</a></li>
+<li><a href="#toc2">Technical Notes</a></li>
+</menu>
+</details><br />
+
+	</div>
+
+	</div>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<p> Page rendered <time datetime="2024-12-21T23:01:56">21st of Dec 2024, 23:01:56</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-21T22:59:10">21st of Dec 2024</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+<style> 
+.maquetteContainer .maquette { margin: 5em auto; height: fit-content; scroll-snap-type: y mandatory; 
+	overscroll-behavior-y: contain; scroll-snap-stop: always; scroll-behavior: auto;  }
+.tooltipsMaquetteContainer aside { display:none; }
+.tooltipsMaquetteContainer .chunk { display:block; height:40%; scroll-snap-align: start; }
+.tooltipsMaquetteContainer label { display:block; width:100%; }
+.tooltipsMaquetteContainer input, .tooltipsMaquetteContainer p { display:inline-block; margin-left:1em; width:calc( 100% - 2em ); }
+.tooltipsMaquetteContainer label:has( input[type="tel"] )::before { content:"📞"; color:blue; }
+
+.tooltipsMaquetteContainer .chunk:has( input:focus-within ) aside { 
+	display:block; width:100%; max-height:50%; height:fit-content; background:#fff; 
+	border:solid 1px #666; position:absolute; z-index:10; box-sizing: border-box;
+ 	max-width: calc( 660px - 2em ); margin:1em auto;
+}  
+.tooltipsMaquetteContainer .chunk:has( .fakeButton:focus, .fakeButton:focus-within ) aside { 
+	display:block; width:100%; max-height:50%; height:fit-content; background:#fff; 
+	border:solid 1px #666; position:absolute; z-index:10; box-sizing: border-box;
+	max-width: calc( 660px - 2em ); margin:1em auto;
+} 
+
+.tooltipsMaquetteContainer .chunk:has( input:not( [type="CHECKBOX"] ) ):has( input:user-valid ) aside { display:none; } 
+.tooltipsMaquetteContainer .chunk:has( input:not( [type="CHECKBOX"] ) ):has( input:user-valid ) label::after { 
+	line-height: 0.69; content:"✔"; font-size:2em; margin-left:1em; display: inline-block; color:green;
+} 
+.tooltipsMaquetteContainer .chunk:has( input:not( [type="CHECKBOX"] ) ):has( input:valid ) input { width:calc( 100% - 4em ); margin-left:0; }
+/*
+.tooltipsMaquetteContainer .chunk:has( input[type="CHECKBOX"]:user-valid ) aside { 
+	display:none; transition-delay:3s; transition-behavior: allow-discrete; transition: display 10s; 
+} 
+*/
+
+.tooltipsMaquetteContainer .warning { display:none; }
+@media screen and (min-width:600px) {
+	.tooltipsMaquetteContainer .warning { display:block; background:var(--errorbg); color:var(--starkfg); font-size:1.5em; 
+	padding:1em; }
+}
+@media screen and (max-width: 640px) {
+	.maquetteContainer .maquette::before { content:""; counter-reset: chunk;  }
+	.maquetteContainer .chunk::before { content:counter(chunk)"/5"; display:inline-block; width:2em; height:2em; }
+	.maquetteContainer .chunk { height:50%; margin: counter-increment: chunk; }
+
+	.maquetteContainer .maquette { height:fit-content; } 
+	.maquetteContainer .fakeButton { display:block; margin:0 auto; }
+
+}
+
+.tooltipsMaquetteContainer [type="checkbox"] { 
+	width:4em; display:inline-block; }
+
+#shouldAnimate::after { content:"ENABLED"; color:var(--errorbg); padding:0 0.5em; }
+@media (prefers-reduced-motion) {
+	#shouldAnimate::after { content:"DISABLED"; }
+	.tooltipsMaquetteContainer aside { display:block; }
+
+}
+
+</style>
+</body>
+</html>
