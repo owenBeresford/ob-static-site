@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>DVCS</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="DVCS">
+<meta itemprop="description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="DVCS">
+<meta name="twitter:description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="DVCS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/review-dvcs-automation" />
+<meta property="og:description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="20th of Jan 2025, 20:05:58" />
+<meta property="article:modified_time" content="20th of Jan 2025" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/review-dvcs-automation" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "DVCS",
+	"article:published_time":"20th of Jan 2025, 20:05:58", 
+    "article:modified_time":"20th of Jan 2025",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences popOverWidget DCVSautoContainer">
+<div class="halferWords addBashSamples">
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>For large numbers of developers on mixed machines, it is smart to execute lint / prettier / tests / compile automatically.  For a useful amount of CI/CD <b>automation is necessary</b> <sup><a href="https://en.wikipedia.org/wiki/CI/CD" target="_blank">1</a></sup>, and adding the activity in the Git service is parsimonious.</p>
+
+<p>I didn't write this article about 10Y ago, as I thought at the time that it was very simple, and I try not to copy-and-paste the internet.   Things have migrated from a service you install and setup with YML on your laptop (like Jenkins) to a service you setup with YML on your code repo (see chart).   This makes coordination between team members easier.  I have read the included references, although for lower friction use a YML validator frequently.  The inputs for the automation services are not shown to be complex in these blogs.   I have included the official manuals in-case the blogs omitted important steps.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Local step for Git <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>Git the locally-installed tool can run scripts on “version control events” <sup><a href="https://git-scm.com/docs/githooks" target="_blank">2</a></sup> <sup><a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks" target="_blank">3</a></sup>.  These are not sent to the server on Git-push, and I think make most sense for “local weirdness management”.   The first link lists the hooks that exist (about 20).   As they are running on your local device, they do not cost anything or need any SaaS accounts.<br />
+This is useful if you run a different OS to the rest of the dev population, and want different line ending or char-encoding, just like the legacy FTP 'ascii mode' <sup><a href="https://superuser.com/questions/4401/whats-the-point-of-ascii-mode-in-ftp" target="_blank">4</a></sup>.  <br />
+<i>No code supplied, please see the first two links.</i>   I think running a list as a pre-commit is an efficiency measure if your IDE doesn't perform this.   This needs to be aligned with a no-warnings lint policy, or it is obstructive paperwork.   This policy is disruptive if abruptly applied to a existing project where dev release speed was prioritised.   Probably the smartest process is to increment the number of active lint rules over months (much longer than the average branch life span).   This means every branch may change a few details, but each step is small in time and is easy to read as a `diff`.   Assuming a steady size team of devs, there isn't likely to be a performance gain by adding `eslint` rules.  Sometimes weird compile messages can be explained via lint, but that is unlikely to occur often.   Needing to failover to the external tools manually means your IDE isn't setup properly.</p>
+
+<p>#TODO IOIO Add Terraform <sup><a href="https://github.com/terraform-docs/terraform-docs" target="_blank">5</a></sup> <sup><a href="https://en.wikipedia.org/wiki/HashiCorp" target="_blank">6</a></sup>, add Jenkins or other locally hosted tools</p>
+
+
+<aside class="pullout">
+<p>Note: with auto-deployments, the entire process needs to be automated, as you are not looking at the source code during these steps.  Yes stupid-YML-error, I'm looking at you.  I try to move analysis into lint as a mechanism to report any failures early.  For example <sup><a href="https://www.npmjs.com/package/@vitest/coverage-v8" target="_blank">1</a></sup>.  Security notes on CI/CD from <a href="https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html" target="_blank">OWASP</a>.</p>
+
+
+</aside>
+<p>List of tools in <a href="https://en.wikipedia.org/wiki/Distributed_version_control" target="_blank">Distributed version control systems</a>.   Or a better chart <a href="https://en.wikipedia.org/wiki/Comparison_of_source-code-hosting_facilities" target="_blank">Comparison of source-code-hosting facilities</a>.   Some further assorted notes that aggregate DVCS software <sup><a href="https://fullscale.io/blog/top-10-version-control-systems/" target="_blank">1</a></sup>.  A long list of Cloud tools and features <sup><a href="https://www.techtarget.com/searchcloudcomputing/feature/A-cloud-services-cheat-sheet-for-AWS-Azure-and-Google-Cloud" target="_blank">2</a></sup></p>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Common DVCS vendors <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>This is one of the few horizontal scrolling articles on this site, but it was too hard to compare otherwise.   With the free categories, it seems good sense to run your tests locally without using the DVCS tool, this has impact of being faster.  If the tool under-dev needs to be done via a server, mocks would reduce costs, and local build scripts can be created (often exactly the same script just launched by hand).</p>
+
+
+</div>
+<div class="row">
+
+<div class="columns betterDL">
+<fieldset >
+<legend class="align-middle"><a class="button" href="https://github.com/" title="please change to your account">Github actions</a> from MSFT</legend>
+<div class="tabClass" id="t1">
+<dl>
+<dt>Price</dt> <dd>Free (within limits) <sup><a href="https://github.com/pricing#compare-features">50</a></sup> </dd>
+<dt>Docs</dt> <dd> <a href="https://github.github.io/actions-cheat-sheet/actions-cheat-sheet.html">Cheatsheet</a>  <a href="https://github.com/features/actions">Docs</a> </dd>
+<dt>First published </dt><dd> 2018,<br />as early MSFT change</dd>
+<dt>Sample</dt><dd>
+ <details class="singlePopup withScroll"><summary>Sample 1</summary><code class="highlight"># https://github.github.io/actions-cheat-sheet/actions-cheat-sheet.html
+name: My Workflow
+on:
+  push:
+    branches:
+      - 'releases/*'
+      - '!releases/**-alpha'
+env:
+  message: 'conversation'
+  my_token: $``{{`` secrets.GITHUB_TOKEN ``}}``
+jobs:
+  my_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out our code
+        uses: actions/checkout@master
+      - name: Say something
+        run: |
+          echo "A little less ${message}"
+          echo "A little more action"
+  my_job:
+    needs: my_build
+    container:
+      image: node:10.16-jessie
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379/tcp</code></details> 
+ <details class="singlePopup withScroll"><summary>Sample 2</summary><code class="highlight"># https://github.com/actions/checkout
+name: "Update Changelog"
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Setup git-chglog
+        run: |
+          CHGLOG_VERSION="0.9.1"
+          curl -o git-chglog -L "https://github.com/git-chglog/git-chglog/releases/download/${CHGLOG_VERSION}/git-chglog_linux_amd64"
+          chmod +x git-chglog
+
+      - name: Generate CHANGELOG.md
+        id: generate
+        run: |
+          rm -f CHANGELOG.md
+          ./git-chglog -o CHANGELOG.md
+          if git diff --quiet CHANGELOG.md; then
+            echo "changes=false" &gt;&gt; $GITHUB_OUTPUT
+          else
+            echo "changes=true" &gt;&gt; $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: $``{{`` secrets.GITHUB_TOKEN ``}}``
+
+      - name: Cleanup
+        run: rm git-chglog
+        if: always()
+
+      - name: Create Pull Request
+        if: steps.generate.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: $``{{`` secrets.GITHUB_TOKEN ``}}``
+          commit-message: "chore: update CHANGELOG.md"
+          title: "📝 Update Changelog"
+          body: |
+            This PR updates the CHANGELOG.md to include all releases.
+            - Generated using git-chglog
+            - Triggered by: $``{{`` github.event_name ``}}``
+            - Auto-merge enabled
+          branch: update-changelog-$``{{`` github.run_id ``}}``
+          base: main
+          delete-branch: true
+          labels: documentation, automated-pr
+
+      - name: Enable Auto-merge
+        if: steps.generate.outputs.changes == 'true'
+        run: |
+          gh pr merge --auto --merge "$``{{`` steps.create-pr.outputs.pull-request-number ``}}``"
+        env:
+          GH_TOKEN: $``{{`` secrets.GITHUB_TOKEN ``}}``</code></details> 
+</dd>
+<dt>Concurrency?</dt> <dd>Yes, as programming <br /> <sup><a href="https://github.com/github/docs/blob/main/content/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs.md">51</a></sup>, <sup><a href="https://github.blog/changelog/2021-04-19-github-actions-limit-workflow-run-or-job-concurrency/">52</a></sup>, <sup><a href="https://docs.github.com/en/enterprise-cloud@latest/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs">53</a></sup> </dd>
+<dt>is YML?</dt> <dd> &check; </dd>
+<dt>Market share </dt> <dd> ?? </dd>
+<dt>Integrates with<br />(external only) </dt> <dd> <sup><a href="https://adamtheautomator.com/custom-github-actions-guide/">54</a></sup> <sup><a href="https://dev.to/harshm03/github-actions-full-guide-5cm6">55</a></sup>  </dd>
+<dt>Additional notes </dt> <dd>
+Actions [note brand-name ends in an s] are defined by a script file.  Do not use the term "Action script" as Macromedia (now Adobe) own this <sup><a href="https://en.wikipedia.org/wiki/ActionScript">33</a></sup> for legacy Flash products. 
+ </dd>
+</dl>
+</div>
+</fieldset>
+</div>
+
+<div class="columns betterDL">
+<fieldset >
+<legend class="align-middle"><a class="button" href="https://bitbucket.org/" >Bitbucket pipelines</a> from Atlassian</legend>
+<div class="tabClass" id="t1">
+<dl>
+<dt>Price</dt> <dd>Initially Free <sup><a href="https://community.atlassian.com/t5/Bitbucket-questions/Price-per-minute-for-Pipeline-machine-sizes/qaq-p/2874665">50</a></sup> </dd>
+<dt>Docs</dt> <dd> <a href="https://blog.programster.org/bitbucket-pipeline-cheatsheet">Cheatsheet</a> <a href="https://docs.localstack.cloud/user-guide/ci/bitbucket/">Docs</a> <a href="https://community.atlassian.com/t5/Pipelines-articles/bg-p/pipelines_articles">blog</a> <sup><a href="https://yourdevkit.com/cheat-sheet/bitbucket-pipeliness">50</a></sup>  <sup><a href="https://scribe.rip/@mertmengu/guide-to-bitbucket-pipeline-for-advanced-ci-cd-workflows-3cd9e523865b">50</a></sup> </dd>
+<dt>First published </dt><dd>AFAICT 2020 <sup><a href="https://confluence.atlassian.com/bitbucket/bitbucket-pipelines-792496469.html">55</a></sup> </dd>
+<dt>Sample</dt><dd>
+ <details class="singlePopup withScroll"><summary>Sample 1</summary><code class="highlight"># https://consciouslycode.com/2022/11/using-bitbucket-pipelines-to-automate-project-releases/
+# Default image to use - version 3.x
+image: atlassian/default-image:3
+definitions:
+  services:
+    docker:
+      memory: 7128
+  steps:
+      - step: &amp;Build-Application
+          name: Build Application
+          image: rikorose/gcc-cmake
+          size: 2x
+          script:
+            # Update the submodules
+            - git submodule update --recursive --init
+            # Install the dependencies
+            - apt-get update &amp;&amp; export DEBIAN_FRONTEND=noninteractive
+            - apt-get -y install --no-install-recommends uuid-dev libssl-dev libz-dev libzmq5 libzmq3-dev
+            # Print the Linux version.
+            - uname -a
+            # Print the gcc version.
+            - gcc --version
+
+            # Print the CMake version.
+            - cmake --version
+            # Setup the build
+            - mkdir _bld &amp;&amp; cd _bld
+            # Call CMake
+            - cmake -DCMAKE_BUILD_TYPE=Debug ..
+            # Build project
+            - make -j10
+      - step: &amp;Build-Container
+          name: Test Container Build
+          size: 2x
+          script:
+            # Update the submodules
+            - git submodule update --recursive --init
+            # Build the container
+            - docker build --file ./Dockerfile .
+          services:
+            - docker</code></details> 
+ <details class="singlePopup withScroll"><summary>Sample 2</summary><code class="highlight"># https://consciouslycode.com/2022/11/using-bitbucket-pipelines-to-automate-project-releases/
+
+branches:
+    # master branch defined here previously
+    release/next:
+      - step:
+          name: Generate Release
+          script:
+            # Configure npm to work properly as root user in Ubuntu
+            - npm config set user 0
+            - npm config set unsafe-perm true
+            # Install necessary release packages and generate release, pushing back to repo
+            - npm install -g release-it @release-it/conventional-changelog @j-ulrich/release-it-regex-bumper --save-dev
+            - release-it --ci
+      - parallel:
+        - step:
+            name: Publish to External Continuous Delivery System
+            script:
+              - export APP="name_of_app"
+              - git clone --recursive https://url.of.your.cd.com/your-cd-repo.git
+              - cd containers
+              - git checkout testing
+              - git submodule update --recursive --init
+              - cd ${APP} &amp;&amp; git checkout master
+              - git pull
+              - export VERSION=$(git tag | sort -V | tail -1)
+              - &gt;
+                echo "Updating ${APP} to Release Version: ${VERSION}"
+              - git checkout ${VERSION}
+              - cd ../
+              - git add ${APP}
+              - &gt;
+                git -c user.name='Bitbucket Pipeline' -c user.email='bitbucket-pipeline@witricity.com' commit -m "${APP}: update to version ${VERSION}"
+              - git push
+        - step:
+            name: Create Pull Request
+            caches:
+              - node
+            script:
+              - apt-get update
+              - apt-get -y install curl jq
+              - export DESTINATION_BRANCH="master"
+              - export CLOSE_ME="true"
+              - &gt;
+                export BB_TOKEN=$(curl -s -S -f -X POST -u "${BB_AUTH_STRING}" \
+                  https://bitbucket.org/site/oauth2/access_token \
+                  -d grant_type=client_credentials -d scopes="repository" | jq --raw-output '.access_token')
+              - &gt;
+                export DEFAULT_REVIEWERS=$(curl https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/default-reviewers \
+                  -s -S -f -X GET \
+                  -H "Authorization: Bearer ${BB_TOKEN}" | jq '.values' | jq 'map({uuid})' )
+              - &gt;
+                curl https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/pullrequests \
+                  -s -S -f -X POST \
+                  -H 'Content-Type: application/json' \
+                  -H "Authorization: Bearer ${BB_TOKEN}" \
+                  -d '{
+                        "title": "Release '"${BITBUCKET_BRANCH}"'",
+                        "description": "Automated PR release :)",
+                        "source": {
+                          "branch": {
+                            "name": "'"${BITBUCKET_BRANCH}"'"
+                          }
+                        },
+                        "destination": {
+                          "branch": {
+                            "name": "'"${DESTINATION_BRANCH}"'"
+                          }
+                        },
+                        "close_source_branch": '"${CLOSE_ME}"',
+                        "reviewers": '"${DEFAULT_REVIEWERS}"'
+                      }'</code></details> 
+</dd>
+<dt>Concurrency?</dt> <dd>
+
+</dd> 
+<dt>is YML?</dt> <dd> &check; </dd>
+<dt>Market share </dt> <dd> ?? </dd>
+<dt>Integrates with<br />(external only) </dt> <dd> <sup><a href="https://bitbucket.org/product/features/pipelines/integrations">54</a></sup> 
+<sup><a href="https://support.atlassian.com/bitbucket-cloud/docs/use-pipes-in-bitbucket-pipelines/">55</a></sup> 
+<sup><a href="https://www.lambdatest.com/support/docs/bitbucket-pipelines-integration-with-lambdatest/">55</a></sup> 
+<sup> <a href="https://chrisfrewin.scribe.rip/the-last-bitbucket-pipelines-tutorial-youll-ever-need-mastering-ci-and-cd-28a027fc5e40">55</a></sup>  
+<sup> <a href="https://consciouslycode.com/2022/11/using-bitbucket-pipelines-to-automate-project-releases/">56</a></sup>  </dd>
+<dt>Additional notes </dt> <dd> Detailed features chart <sup> <a href="https://knapsackpro.com/ci_servers/bitbucket-pipelines">54</a></sup> </dd>
+</dl>
+</div>
+</fieldset>
+</div>
+
+<div class="columns betterDL">
+<fieldset >
+<legend class="align-middle"><a class="button" href="https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html" >CodePipeline </a> from AWS</legend>
+<div class="tabClass" id="t1">
+<dl>
+<dt>Price</dt> <dd>Complex see link <sup><a href="https://aws.amazon.com/codepipeline/pricing/">50</a></sup> </dd>
+
+<dt>Docs</dt> <dd> <a href="https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-devops-example.html">Cheatsheet</a> 
+<a href="https://docs.aws.amazon.com/codepipeline/latest/APIReference/Welcome.html">Docs</a>  
+<sup><a href="https://scribe.rip/@williamwarley/a-complete-guide-for-aws-devops-tools-codebuild-codecommit-codepipeline-codedeploy-c55549ba53f7">50</a></sup>  
+ </dd>
+<dt>First published </dt><dd>2015 <sup><a href="https://en.wikipedia.org/wiki/Timeline_of_Amazon_Web_Services">55</a></sup> </dd>
+<dt>Sample</dt><dd>
+	<a class="button" href="https://scribe.rip/@djakkone/using-aws-codepipeline-create-your-first-ci-cd-pipeline-bc82f3408cfd">Sample1 </a>, <a class="button" href="https://community.aws/content/2lYbJseAPqB3HKfrqiRWzuio1v2/aws-lambda-deployment-using-codepipeline-and-codebuild">Sample1 </a> ~ GUI interactions
+ <details class="singlePopup withScroll"><summary>Sample 2</summary><code class="highlight"># https://dev.to/nedsoft/automate-nodejs-deployment-to-aws-elastic-beanstalk-with-terraform-and-codepipeline-o2c
+# eb.tf
+
+# Create elastic beanstalk application
+
+resource "aws_elastic_beanstalk_application" "elasticapp" {
+  name = "${local.base_name}-app"
+}
+
+resource "aws_security_group" "instances" {
+  name = "${local.base_name}-sg"
+}
+
+resource "aws_security_group_rule" "allow_http_inbound" {
+  type              = "ingress"
+  security_group_id = aws_security_group.instances.id
+
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  source_security_group_id = aws_security_group.alb.id
+}
+resource "aws_security_group_rule" "allow_https_inbound" {
+  type              = "ingress"
+  security_group_id = aws_security_group.instances.id
+  from_port   = 443
+  to_port     = 443
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+
+resource "aws_security_group" "alb" {
+  name = "${local.base_name}-alb-sg"
+}
+
+resource "aws_security_group_rule" "allow_alb_http_inbound" {
+  type              = "ingress"
+  security_group_id = aws_security_group.alb.id
+
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+
+}
+resource "aws_security_group_rule" "allow_alb_https_inbound" {
+  type              = "ingress"
+  security_group_id = aws_security_group.alb.id
+
+  from_port   = 443
+  to_port     = 443
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+
+}
+
+resource "aws_security_group_rule" "allow_alb_all_outbound" {
+  type              = "egress"
+  security_group_id = aws_security_group.alb.id
+
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+
+}
+
+# Create elastic beanstalk Environment
+
+resource "aws_elastic_beanstalk_environment" "beanstalkappenv" {
+  name                = "${local.base_name}-env"
+  application         = aws_elastic_beanstalk_application.elasticapp.name
+  solution_stack_name = var.solution_stack_name
+  tier                = var.tier
+
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "VPCId"
+    value     = data.aws_vpc.default_vpc.id
+  }
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "IamInstanceProfile"
+    value     =  "aws-elasticbeanstalk-ec2-role"
+  }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "SecurityGroups"
+    value     = aws_security_group.instances.id
+  }
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "AssociatePublicIpAddress"
+    value     =  "True"
+  }
+
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "Subnets"
+    value     = join(",", data.aws_subnet_ids.default_subnet.ids)
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:environment:process:default"
+    name      = "MatcherHTTPCode"
+    value     = "200"
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerType"
+    value     = "application"
+  }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "InstanceType"
+    value     = var.instance_type
+  }
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "ELBScheme"
+    value     = "internet facing"
+  }
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "MinSize"
+    value     = var.minsize
+  }
+  setting {
+    namespace = "aws:autoscaling:asg"
+    name      = "MaxSize"
+    value     = var.maxsize
+  }
+  setting {
+    namespace = "aws:elasticbeanstalk:healthreporting:system"
+    name      = "SystemType"
+    value     = "enhanced"
+  }
+
+  setting {
+    namespace = "aws:elbv2:loadbalancer"
+    name      = "SecurityGroups"
+    value     = aws_security_group.alb.id
+  }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "Protocol"
+    value     = "HTTPS"
+  }
+    setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "SSLCertificateArns"
+    value     = var.certificate_arn
+  }
+
+   setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "SSLPolicy"
+    value     = var.elb_policy_name
+  }
+
+  dynamic "setting" {
+    for_each = var.elastic_beanstalk_env
+    content {
+      namespace = "aws:elasticbeanstalk:application:environment"
+      name      = setting.key
+      value     = setting.value
+    }
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "API_ENV"
+    value     = local.env == "prod" ? "production": "staging"
+  }
+
+}
+
+data "aws_route53_zone" "selected" {
+  name = var.hosted_zone
+}
+
+data "aws_elastic_beanstalk_hosted_zone" "this" {}
+
+
+resource "aws_route53_record" "beanstalkappenv" {
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    =  local.env != "prod" ? "${local.base_name}.${var.hosted_zone}" : "${var.project_name}.${var.hosted_zone}"
+  type    = "A"
+
+  alias {
+   name    = aws_elastic_beanstalk_environment.beanstalkappenv.cname
+   zone_id = "${data.aws_elastic_beanstalk_hosted_zone.this.id}"
+    evaluate_target_health = true
+  }
+}</code></details> 
+</dd>
+<dt>Concurrency?</dt> <dd>As AWS is <sup><a href="https://reintech.io/blog/parallel-action-execution-aws-codepipeline">33</a></sup>, different conceptual model.</dd> 
+<dt>is YML?</dt> <dd> &check; <sup><a href="https://buddy.works/docs/yaml/yaml-actions/aws-codepipeline">52 </a></sup>, but using the GUI is common. </dd>
+<dt>Market share </dt> <dd> ?? </dd>
+<dt>Integrates with<br />(external only) </dt> <dd> Yes <sup><a href="https://news.abnasia.org/blog/posts/en-big-data-pipeline-cheatsheet-for-aws-azure-and-google-cloud-9085">52 </a></sup> <sup><a href="https://scribe.rip/@ping-ayush/code-build-deploy-guide-to-automation-in-aws-using-codepipeline-c22fe46a28895">52 </a></sup>  <sup><a href="https://community.aws/content/2lYbJseAPqB3HKfrqiRWzuio1v2/aws-lambda-deployment-using-codepipeline-and-codebuild">52 </a></sup>  </dd>
+<dt>Additional notes </dt> <dd> This is often used with Terraform <sup><a href="https://en.wikipedia.org/wiki/Terraform_(software)">52 </a></sup>.  I'm not sure about this tool, all the notes are talking about using EC2 but were published last year.  Yes that will work, but newer AWS tools have less running costs and are faster to setup. </dd>
+
+</dl>
+</div>
+</fieldset>
+</div>
+
+<div class="columns betterDL">
+<fieldset >
+<legend class="align-middle"><a class="button" href="https://aws.amazon.com/elasticbeanstalk/" >Beanstalk</a> from AWS</legend>
+<div class="tabClass" id="t1">
+<dl>
+<dt>Price</dt> <dd>Pay for AWS resources used <sup><a href="https://aws.amazon.com/elasticbeanstalk/pricing/">50</a></sup> </dd>
+<dt>Docs</dt> <dd> <a href="https://ashanksm.scribe.rip/aws-cloud-practitioner-cheat-sheet-0611e606a47e">Cheatsheet</a> <a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/api/Welcome.html">Docs</a>  
+<sup><a href="https://dev.to/alameen_musa/a-beginners-guide-to-aws-elastic-beanstalk-3ejj">50</a></sup>  
+<sup><a href="https://www.cloudwards.net/aws-elastic-beanstalk/">50</a></sup>  
+<sup><a href="https://scribe.rip/aws-beanstalk-in-5-minutes-a-hands-on-beginners-guide-8c7217bce37d">50</a></sup>  
+ </dd>
+<dt>First published </dt><dd>2011 <sup><a href="https://en.wikipedia.org/wiki/AWS_Elastic_Beanstalk">55</a></sup> </dd>
+<dt>Sample</dt><dd>
+ <a class="button" href="https://scribe.rip/@sumathyofficial/this-article-gives-detailed-guide-to-configure-deployments-using-aws-elastic-beanstalk-1cecb2e29e1b">Sample1</a> ~ GUI interactions
+</dd>
+<dt>Concurrency?</dt> <dd>As AWS is.</dd> 
+<dt>is YML?</dt> <dd> no !! <sup><a href="https://dev.to/thecodexakash/complete-guide-on-nextjs-deployment-on-aws-elastic-beanstalk-using-docker-aws-codepipeline-codebuild-8g9">52 </a></sup>  
+<sup><a href="https://buddy.works/guides/beanstalk-app9">52 </a></sup> 
+ </dd>
+<dt>Market share </dt> <dd> ?? </dd>
+<dt>Integrates with<br />(external only) </dt> <dd> AFAICT, nil </dd>
+<dt>Additional notes </dt> <dd> Note using IAMs rather than UN/PW for other AWS services is recommended <sup><a href="https://espacehub.org/cloud-computing/deploying-applications-with-aws-elastic-beanstalk-best-practices/">51</a></sup>, </dd>
+</dl>
+</div>
+</fieldset>
+</div>
+
+</div>
+<p class="halferWords">
+I will add more suppliers in edition 2 of this article.  #TODO IOIO I intend to add AWS Apprunner, HelixCore, AWS CodeCommit, Microsoft Team Foundation Server, Gitlab, Nulab
+
+#TODO: add a filter option to make Vendor pair comparison easier.  
+#TODO2: Replace first samples that just show basic grammar, with better samples that show full features.
+</p>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="worklog,engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Review of automation for DVCS</h1></header>
+			    	<p role="status" class="bigScreenOnly">  This is 50% of the article.  </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freview-dvcs-automation" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freview-dvcs-automation" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freview-dvcs-automation" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freview-dvcs-automation&amp;t=DVCS"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freview-dvcs-automation" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2025-01-20T19:59:44">20th of Jan 2025</time>
+						</span>
+						<span>Created <time datetime="2024-12-24T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >24th of Dec 2024</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freview-dvcs-automation" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column defaultLinksMenu">
+		<details class="defaultLinksMenu" >
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="titleHolder"><summary >Chapters </summary><menu class="titleList">
+<li><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">Local step for Git</a></li>
+<li><a href="#toc2">Common DVCS vendors</a></li>
+</menu>
+</details><br />
+
+	</div>
+
+	</div>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+	</div> 
+	<p> Page rendered <time datetime="2025-01-20T20:05:58">20th of Jan 2025, 20:05:58</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2025-01-20T19:59:44">20th of Jan 2025</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+<style>
+.DCVSautoContainer legend .button { padding:0.6em 1em; min-width:10em; }
+.DCVSautoContainer .betterDL dl dd { width:auto; min-width:50%; max-width:initial; }
+.DCVSautoContainer .betterDL dl dd:nth-of-type(even), 
+.DCVSautoContainer .betterDL dl dt:nth-of-type(even) { --bgr: 204; --bgg: 255; --bgb: 153; }
+.DCVSautoContainer .betterDL dl dt { width:auto; min-width:30%; max-width:initial; }
+.DCVSautoContainer.popOverWidget code { white-space:pre; margin-left:1em; }
+.DCVSautoContainer .singlePopup { padding-left:1em; }
+.DCVSautoContainer.popOverWidget summary { margin:0; } 
+.DCVSautoContainer .row { max-width:90%; min-width:1300px; overflow-x:scroll; }
+</style>
+</body>
+</html>
