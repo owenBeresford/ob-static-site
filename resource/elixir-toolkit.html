@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Elixir toolkit</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="What is the best toolchain for development in Elixir in 2025?  A look at today's Elixir as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Elixir toolkit">
+<meta itemprop="description" content="What is the best toolchain for development in Elixir in 2025?  A look at today's Elixir as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Elixir toolkit">
+<meta name="twitter:description" content="What is the best toolchain for development in Elixir in 2025?  A look at today's Elixir as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Elixir toolkit" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/elixir-toolkit" />
+<meta property="og:description" content="What is the best toolchain for development in Elixir in 2025?  A look at today's Elixir as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="24th of Jan 2025, 9:59:39" />
+<meta property="article:modified_time" content="24th of Jan 2025" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/elixir-toolkit" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Elixir toolkit",
+	"article:published_time":"24th of Jan 2025, 9:59:39", 
+    "article:modified_time":"24th of Jan 2025",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples addReferences popOverWidget">
+<div class="halferWords">
+<p>This is a part of a quick range of “preferred tools” articles, setting up server-side languages.   It will need to be updated every 2-3 years.   #boring I'm starting to think I should add a snoring backtrack to these pages.   I do not have a “project starter” project / scripts for Elixir.   So notes are here, as plan B...<br />
+A fairly official forum for Elixir <sup><a href="https://elixirforum.com/" target="_blank">1</a></sup></p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Language target <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Elixir doesn't seem to have a formal spec, but the master project implementation is the equivalent reference point.  There is a syntax reference <sup><a href="https://hexdocs.pm/elixir/syntax-reference.html" target="_blank">2</a></sup>, and list of published [to the interpreter] kernel features <sup><a href="https://hexdocs.pm/elixir/Kernel.SpecialForms.html" target="_blank">3</a></sup> and the kernel <sup><a href="https://hexdocs.pm/elixir/Kernel.html" target="_blank">4</a></sup> module.   A comparison of Elixir implementations <sup><a href="https://gist.github.com/Nezteb/dc63f1d5ad9d88907dd103da2ca000b1" target="_blank">5</a></sup>.   Related information, some notes for Erlang <sup><a href="https://2024-06-06.adoptingerlang.org/docs/cheat_sheets/" target="_blank">6</a></sup> <sup><a href="https://www.erlang.org/docs/26/reference_manual/users_guide" target="_blank">7</a></sup>.   Due to conceptual model, types are a bit different <sup><a href="https://hexdocs.pm/elixir/1.18/typespecs.html" target="_blank">8</a></sup> <sup><a href="https://culttt.com/2016/10/26/specifications-types-elixir/" target="_blank">9</a></sup> <sup><a href="https://elixirmerge.com/p/understanding-elixirs-type-system" target="_blank">10</a></sup>, but these are in the process of being changed <sup><a href="https://elixir-lang.org/blog/2024/06/12/elixir-v1-17-0-released/" target="_blank">11</a></sup>.  <br />
+Elixir is a server-side functional focussed general-purpose programming-language <sup><a href="https://en.wikipedia.org/wiki/Elixir_%28programming_language%29" target="_blank">12</a></sup>, and is used for “Hygienic metaprogramming by direct access to the AST”.   The bytecode for Elixir is seamlessly compatible with Erlang's interpreter, the BEAM engine <sup><a href="https://www.erlang-solutions.com/blog/the-beam-erlangs-virtual-machine/" target="_blank">13</a></sup> which Elixir uses as a runtime interpreter.   Due to early use of Erlang in telecoms, there is OTP <sup><a href="https://dev.to/cody-daigle/elixir-erlang-and-the-beam-5g6j" target="_blank">14</a></sup> <sup><a href="https://oozou.com/blog/understanding-elixir-otp-applications-part-5-building-high-availability-systems-152" target="_blank">15</a></sup> ~ Open Telecom Platform ~ this is a middleware and supplies extremely-concurrent-processes tools.</p>
+
+<p>The new version of the basic language from 2024/12 is 1.18 <sup><a href="https://elixir-lang.org/blog/2024/12/19/elixir-v1-18-0-released/" target="_blank">16</a></sup> which adds more type support.   The newest version in Ubuntu 24 is Elixir 1.14, and Elixir website <sup><a href="https://elixir-lang.org/install.html#distributions" target="_blank">17</a></sup> recommends running `add-apt-repository ppa:rabbitmq/rabbitmq-erlang` to get a newer edition.   Windows install process <sup><a href="https://elixir-lang.org/install.html#windows" target="_blank">18</a></sup>, the other operating systems are on the same page.   <br />
+If running complex Elixir infra, look at <sup><a href="https://elixir-lang.org/install.html#version-managers" target="_blank">19</a></sup>, for version managers, same structure to `nvm`.   The highest recommended one is <strong>asdf</strong>.  The end-of-life plot for Elixir <sup><a href="https://endoflife.date/elixir" target="_blank">20</a></sup>.  The equivalent to `packages.json` in JS is `mix.exs` <sup><a href="https://scribe.rip/@jonnyeberhardt7/understanding-mix-exs-the-heart-of-your-elixir-project-0bdc80a3f434" target="_blank">21</a></sup></p>
+
+<p>In some languages the compiler is a licensing problem, and the market will present several.  Elixir has `elixirc` <sup><a href="https://www.mankier.com/1/elixirc" target="_blank">22</a></sup>.  Compilation can be done from the basic Elixir shell, here is a tidied0up UI esbuild <a href="https://hex.pm/packages/esbuild" target="_blank">docs</a>.  A compiler to native code <sup><a href="https://hex.pm/packages/charms" target="_blank">23</a></sup> in the package manager.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>An IDE: Nothing specific optimised, but default options are described <sup><a href="https://www.slant.co/topics/6921/%7Eelixir-ides-editors" target="_blank">24</a></sup> <sup><a href="https://elixirforum.com/t/elixir-code-editors-ides-which-one-are-you-using-poll/3191" target="_blank">25</a></sup> <ul class="ulbasic">
+        <li>Add IDE plugins...</li>
+    </ul></li>
+    <li>An online REPL: Note, actual REPL don't seem to exist due to I/O complexity.  The following are compile and execute <sup><a href="https://ideone.com/wenyce" target="_blank">26</a></sup> <sup><a href="https://www.tutorialspoint.com/execute_elixir_online.php" target="_blank">27</a></sup>.</li>
+    <li>Package lists and package: <strong>Hex</strong> <sup><a href="https://hex.pm/" target="_blank">28</a></sup> <sup><a href="https://elixirmerge.com/p/exploring-the-evolution-of-hex-in-the-elixir-ecosystem" target="_blank">29</a></sup> ~ video</li>
+    <li>Lists of packages: <sup><a href="https://www.libhunt.com/l/elixir" target="_blank">30</a></sup>.  As a test env tool, to show that your code-under-test will work in different Elixir envs, try <strong>Blend</strong> <sup><a href="https://hex.pm/packages/blend" target="_blank">31</a></sup> <sup><a href="https://elixirforum.com/t/blend-test-your-package-against-different-versions-of-its-dependencies/63431" target="_blank">32</a></sup></li>
+    <li>Unit test tools: <ul class="ulbasic">
+        <li><strong>espec</strong> <sup><a href="https://hex.pm/packages/espec" target="_blank">33</a></sup> <a href="https://hexdocs.pm/espec/api-reference.html" target="_blank">docs</a> ~ another spec based / BDD tool</li>
+        <li><strong>espec_phoenix</strong> <sup><a href="https://hex.pm/packages/espec_phoenix" target="_blank">34</a></sup> <a href="https://hexdocs.pm/espec_phoenix/api-reference.html" target="_blank">docs</a> ~ ditto</li>
+        <li><strong>white_bread</strong> <sup><a href="https://hex.pm/packages/white_bread" target="_blank">35</a></sup> <a href="https://hexdocs.pm/white_bread/api-reference.html" target="_blank">docs</a> ~ Story BDD tool based on cucumber.</li>
+        <li><strong>chaps</strong> <sup><a href="https://hex.pm/packages/chaps" target="_blank">36</a></sup> <a href="https://hexdocs.pm/chaps/readme.html" target="_blank">docs</a> ~ tool to make automated builds fail if new code doesn't have new tests</li>
+        <li>I see many references to <strong>ExUnit</strong>, but no project, as it comes with the language <sup><a href="https://littlelines.com/blog/2017/11/06/exunit-quick-reference" target="_blank">37</a></sup> <sup><a href="https://joyofelixir.com/18-automated-testing" target="_blank">38</a></sup>.</li>
+        <li><strong>testiex</strong>  <sup><a href="https://olshansky.scribe.rip/testiex-easier-test-driven-development-in-elixir-761cd1a9f11" target="_blank">39</a></sup> ~ an alternate shell to make running test populations faster,</li>
+    </ul></li>
+    <li>Lint tools: <ul class="ulbasic">
+        <li><strong>proper</strong> <sup><a href="https://hex.pm/packages/proper" target="_blank">40</a></sup> <a href="https://hexdocs.pm/proper/" target="_blank">docs</a> ~ a property reporting tool ~ technically for Erlang.</li>
+        <li><strong>proper_case</strong> <sup><a href="https://hex.pm/packages/proper_case" target="_blank">41</a></sup> <a href="https://hexdocs.pm/proper_case/api-reference.html" target="_blank">docs</a> <a href="https://github.com/johnnyji/proper_case?tab=readme-ov-file#propercase" target="_blank">docs</a> ~ tool to check case is used correctly and consistently</li>
+        <li><strong>credo</strong> <sup><a href="https://hex.pm/packages/credo" target="_blank">42</a></sup> <a href="https://hexdocs.pm/credo/overview.html" target="_blank">docs</a>  ~ <sup><a href="https://www.thegreatcodeadventure.com/elixir-linter-building-an-otp-elixir-code-quality-engine-with-credo/" target="_blank">43</a></sup> a static code analysis tool for code consistency and teaching.</li>
+        <li>coverage: <strong>excoveralls</strong> <sup><a href="https://hex.pm/packages/excoveralls" target="_blank">44</a></sup> <a href="https://hexdocs.pm/excoveralls/readme.html" target="_blank">docs</a> ~ Coverage report tool, has coveralls.io integration.</li>
+        <li><strong>dialyxir</strong> <sup><a href="https://hex.pm/packages/dialyxir" target="_blank">45</a></sup> <a href="https://hexdocs.pm/dialyxir/readme.html" target="_blank">docs</a>  Notes to explain structures <sup><a href="https://hexdocs.pm/dialyxir/readme.html#with-explaining-stuff" target="_blank">46</a></sup></li>
+    </ul></li>
+    <li>Docs generator: <ul class="ulbasic">
+        <li>Elixir is like Python but wants docs to be louder <a href="https://hexdocs.pm/elixir/writing-documentation.html" target="_blank">guide for elixir docs</a> <sup><a href="https://elixirschool.com/en/lessons/basics/documentation/" target="_blank">47</a></sup></li>
+        <li><strong> ex_doc </strong> <sup><a href="https://hex.pm/packages/ex_doc" target="_blank">48</a></sup> <a href="https://hexdocs.pm/ex_doc/readme.html" target="_blank">docs</a> ~ I think part of Elixir language project</li>
+        <li><strong>pandoc</strong> <sup><a href="https://hex.pm/packages/pandoc" target="_blank">49</a></sup> <a href="https://hexdocs.pm/pandoc/Pandoc.html" target="_blank">docs</a> ~ An Elixr binding for Pandoc <a href="https://pandoc.org/" target="_blank">docs</a> </li>
+        <li>Docout is a flexible documentation generator <sup><a href="https://elixirforum.com/t/docout-flexible-documentation-generator/45227" target="_blank">50</a></sup> <a href="https://github.com/tfwright/docout" target="_blank">git</a></li>
+    </ul></li>
+    <li>Profilers <sup><a href="https://blog.appsignal.com/2022/04/26/using-profiling-in-elixir-to-improve-performance.html" target="_blank">51</a></sup>: <ul class="ulbasic">
+        <li><strong>eprof</strong> [XXX] <a href="https://hexdocs.pm/mix/1.12/Mix.Tasks.Profile.Eprof.html" target="_blank">docs</a> <sup><a href="https://www.alanvardy.com/post/using-eprof" target="_blank">52</a></sup> erlang <a href="https://erlang.org/documentation/doc-8.1/lib/tools-2.8.6/doc/html/eprof.html" target="_blank">docs</a></li>
+        <li><strong>exprof</strong> <sup><a href="https://hex.pm/packages/exprof" target="_blank">53</a></sup> <a href="https://hexdocs.pm/exprof/api-reference.html" target="_blank">docs</a> <a href="https://github.com/parroty/exprof" target="_blank">git</a></li>
+        <li><strong>fprof</strong> not found, but logged as more detailed</li>
+    </ul></li>
+</ul>
+
+<p>The equivalent to `packages.json` seems to be `mix.exs`, sample <sup><a href="https://github.com/Elixir-journey/elixir-kickoff/blob/main/mix.exs" target="_blank">54</a></sup>.   An <a href="https://github.com/Elixir-journey/elixir-kickoff" target="_blank">Elixir seed project / starter project</a>.   A reference for why to adopt Elixir <sup><a href="https://thelinuxcode.com/elixir-a-big-picture-language-for-reliable-scalable-software/" target="_blank">55</a></sup>, this is not the objective of the article.   Usage notes from a Elixir architect <sup><a href="https://medium.com/very-big-things/tagged/elixir" target="_blank">56</a></sup>.</p>
+
+<p>.</p>
+
+
+
+<details class="singlePopup withScroll">
+<summary> An attempt at a project starter </summary>
+<code lang="elixir" class="highlight">
+# I have patched this to include the files I mention.
+# please refer to the original copy first, as I haven't run this, and don't know the function names
+defmodule TEMPLATEKickoff.MixProject do
+  use Mix.Project
+
+  def project do
+    [
+      app: :TEMPLATE_kickoff,
+      version: "0.1.0",
+      elixir: "~&gt; 1.18",
+      erlang: "~&gt; 27.0",
+      start_permanent: Mix.env() == :prod,
+      deps: deps(),
+      docs: [
+        main: "readme",
+        extras: ["README.md"]
+      ],
+      dialyzer: [
+        plt_add_apps: [:mix]
+      ]
+    ]
+  end
+
+  # Run "mix help compile.app" to learn about applications.
+  def application do
+    [
+      mod: {TEMPLATEKickoff.Application, []},
+      extra_applications: [:logger]
+    ]
+  end
+
+  # Run "mix help deps" to learn about dependencies.
+  defp deps do
+    [
+      {:jason, "~&gt; 1.3"},
+      {:credo, "~&gt; 1.6", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~&gt; 1.1", only: [:dev], runtime: false},
+      {:ex_doc, "~&gt; 0.34", only: :dev, runtime: false},
+      {:mix_audit, "~&gt; 2.1"},
+	  {:blend, "~&gt; 0.4.1"},
+	  {:espec, "~&gt; 1.9"},
+	  {:espec_phoenix, "~&gt; 0.8.2"},
+	  {:white_bread, "~&gt; 4.5"},
+	  {:chaps, "~&gt; 1.0"},
+	  {:proper, "~&gt; 1.4"},
+	  {:proper_case, "~&gt; 1.3"},
+	  {:excoveralls, "~&gt; 0.18.4"},
+	  {:pandoc, "~&gt; 0.3.2"},
+	  {:exprof, "~&gt; 0.2.4"}
+    ]
+  end
+end
+</code>
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentGroup" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="outer_menu articleHeader">
+	<legend></legend>
+	<nav>
+		<div id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Tools for Elixir</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="bibbles row addReading">
+					<span class="allButtons"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Felixir-toolkit" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Felixir-toolkit" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Felixir-toolkit" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Felixir-toolkit&amp;t=Elixir+toolkit"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Felixir-toolkit" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time datetime="2025-01-24T09:55:26">24th of Jan 2025</time>
+						</span>
+						<span>Created <time datetime="2025-01-21T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >21st of Jan 2025</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="popup1 bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Felixir-toolkit" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column defaultLinksMenu">
+		<details class="defaultLinksMenu" >
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="titleHolder"><summary >Chapters </summary><menu class="titleList">
+<li><a href="#toc0">Language target</a></li>
+<li><a href="#toc1">Tools</a></li>
+</menu>
+</details><br />
+
+	</div>
+
+	</div>
+	</nav>
+</fieldset>
+		</div>
+ <br class="blocker" />
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ 
+ <footer>
+  <div class="h4_footer"> 
+	<div class="leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<p> Page rendered <time datetime="2025-01-24T09:59:39">24th of Jan 2025, 9:59:39</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2025-01-24T09:55:26">24th of Jan 2025</time>.
+    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+</div>
+</footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
