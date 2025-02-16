@@ -111,7 +111,7 @@ Header unset cache-control
 Header set Cache-Control "max-age=2592000, public"
 </filesMatch>
 
-<filesMatch ".*-references|.*-meta">
+<filesMatch ".*-references|.*-meta|.*json.*">
 	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
 	Header append X-ICELINE "add ref JSON"
