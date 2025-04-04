@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/svg-in-api-response-maquette" />
 <meta property="og:description" content="A look at SVG icons within the API. A list of when to use it and when to avoid using it is provided. I talk also about alternative structures and processes." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Feb 2025, 19:06:33" />
-<meta property="article:modified_time" content="15th of Feb 2025" />
+<meta property="article:published_time" content="4th of Apr 2025, 8:36:03" />
+<meta property="article:modified_time" content="Apr '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/svg-in-api-response-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "SVG icons in API response",
-	"article:published_time":"15th of Feb 2025, 19:06:33", 
-    "article:modified_time":"15th of Feb 2025",
+	"article:published_time":"4th of Apr 2025, 8:36:03", 
+    "article:modified_time":"Apr '25",
     "article:section":"technology",
 
     "author": {
@@ -51,10 +51,10 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker popOverWidget">
+     <div class="blocker popOverWidget addImages">
 <div class="halferWords">
 <p>Just an idea: as JSON can hold any text, it can include another text format.  I'm choosing images in this maquette.   For more realistic code the JSON blob should be a REST or GraphQL response.   I supply two implementations of the same idea, Version B is more realistic.<br />
-<b>Note</b> this is a slowed-down-demo, so you can see the steps happening.</p>
+<b>Note</b> this is a slowed-down demo, so you can see the steps happening.</p>
 
 
 </div>
@@ -108,19 +108,21 @@ TODO: magic tune selection against some index/DB -->
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Alternative structures  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li>The widely used and stable process of putting assets in a service like AWS S3, and just indexing the URLs in your data. </li>
-    <li>If your symbols are like Monopoly pieces and non-representative, evaluate UTF-8 symbols as a skinnier version.  For this, the symbols are just inline in the data.</li>
-    <li>For a narrower range of symbols / logos, an SVG can reference named tags inside a DEFS in other SVG elements in the same page.   So if there is a BUTTON tag in the HEAD, this button could be used over and over again, without downloading it repeatedly.   This trick has most use in SPA, and should be correctly used with ShadowDOM to reducer parsing costs.   Unfortunately, it won't automatically add event handlers each time.  </li>
+    <li>If your symbols are like Monopoly pieces and non-representative, evaluate UTF-8 symbols as a skinnier version.  With this, the symbols are just inline in the data.</li>
+    <li>For a narrower range of symbols / logos, an SVG can reference named tags inside a DEFS in other SVG elements in the same page.   So if there is a SVG BUTTON tag in the HEAD, this button could be used over and over again, without downloading it repeatedly.   This trick has most use in SPA, and should be correctly used with ShadowDOM to reducer parsing costs.   Unfortunately, it won't automatically add event handlers each time.  </li>
 </ul>
 
 
 <h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Process <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
-    <li>I have built “React component of an inline SVG document”, and do not recommend this, it uses too much RAM.   The solution that MaterialUI use is to have a standard IMG tag, and it references that  SVG data.  </li>
+    <li>I have built “React component of an inline SVG document”, and do not recommend this, it uses too much RAM.   The solution that MaterialUI use is to have a standard IMG tag, and it references that SVG data.  </li>
     <li>Obviously, follow the SVG minimisation steps listed in <a href="https://owenberesford.me.uk/resource/svg-optimisation#">svg-optimisation</a> to make platform faster.  The automated options could be applied when an image is uploaded, but the manual steps probably have more impact... </li>
     <li>Look at leaflet maps as a model <a href="https://www.npmjs.com/package/leaflet" target="_blank">npm</a> <sup><a href="https://leafletjs.com/" target="_blank">1</a></sup>.  They use SVG map cells, so it layers more easily.</li>
     <li>An SVG can be made inert to HTML/XML parsers by swapping &quot; and &lt;,&gt; chars.   I have been removing style tags also, or the HTML parser can't see the whole block as JSON correctly.   This skips the bin2hex, so saving on bandwidth by ~30%.</li>
-    <li>The version A demo code (an inline TEMPLATE tag) doesn't deliver any value.   This idea was designed for API responses.   To reuse existing code (the absent image markup), I start with an empty SVG which isn't realistic, but would help various HTML rendering optimisations.   The version B demo code is a static fake API response.  But is is a real response.</li>
+    <li>The version A demo code (an inline TEMPLATE tag) doesn't deliver any value.   This idea was designed for API responses.   To reuse existing code (the absent image markup), I start with an empty SVG which isn't realistic, but would help various HTML rendering optimisations.   The version B demo code is a static fake API response.  But it is a real response.</li>
 </ul>
+
+<p>I wrote the note before the code.   I make demos like this to explore an idea</p>
 
 
 </details>
@@ -128,47 +130,44 @@ TODO: magic tune selection against some index/DB -->
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" data-group="uitools,worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in uitools </p>
+	<div id="contentGroup" class="adjacentWidget" data-group="uitools,worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in uitools </p>
 <div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in worklog </p>
 <div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
  </div>
 
   </div>
-  <fieldset class="outer_menu articleHeader">
+  <fieldset class="articleHeader">
 	<legend></legend>
-	<nav>
-		<div id="navBar" class="row">
+	<nav id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>SVG icons in API response</h1></header>
 			    	<p role="status" class="bigScreenOnly">    </p>
 				</div>
-				<div id="shareGroup" class="bibbles row addReading">
-					<span class="allButtons"> 
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-in-api-response-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-in-api-response-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
 						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
-
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-in-api-response-maquette" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-in-api-response-maquette" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
 						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-in-api-response-maquette&amp;t=SVG+icons+in+API+response"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
-
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-in-api-response-maquette" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2025-02-15T19:06:18">15th of Feb 2025</time>
+						<span>Edited <time title="Page edited on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>
 						</span>
-						<span>Created <time datetime="2025-01-06T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >6th of Jan 2025</time> </span>
+						<span>Created <time datetime="2025-01-06T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jan '25</time> </span>
 					</span>
 
 				</div>
 			</div>
-			<dialog id="popup" class="popup1 bigScreenOnly">
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsvg-in-api-response-maquette" type="text" value="" placeholder="mastodon.social" />  
@@ -178,8 +177,8 @@ TODO: magic tune selection against some index/DB -->
 				</form>
 			</dialog>
 	
-	<div class="bigScreenOnly column defaultLinksMenu">
-		<details class="defaultLinksMenu" >
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
 			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
 			<menu class="dfl">
@@ -191,7 +190,7 @@ TODO: magic tune selection against some index/DB -->
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details  class="titleHolder"><summary >Chapters </summary><menu class="titleList">
+		<details  class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Reasons to avoid</a></li>
 <li><a href="#toc1">Reasons to use</a></li>
 <li><a href="#toc2">Alternative structures</a></li>
@@ -203,26 +202,23 @@ TODO: magic tune selection against some index/DB -->
 </details><br />
 
 	</div>
-
-	</div>
+	<!-- /div -->
 	</nav>
 </fieldset>
-		</div>
- <br class="blocker" />
+ </div> 
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- 
- <footer>
-  <div class="h4_footer"> 
-	<div class="leftFooter"> 
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2025-02-15T19:06:33">15th of Feb 2025, 19:06:33</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2025-02-15T19:06:18">15th of Feb 2025</time>.
-    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
-</div>
-</footer>
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-04-04T08:36:03" datetime="2025-04-04T08:36:03">4th of Apr 2025, 8:36:03</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <template id="srcEle">
 {
@@ -271,16 +267,20 @@ template { display:none; }
 
 @media screen and (max-width:640px ) {
 	.maquetteContainer .maquette:before { content:""; }
+	.maquette>* { padding-left:0; padding-right:0; }
+    .maquetteContainer { align-items: start; }
+    .maquetteContainer h4 { font-size: 130%; }
+	
 }
 </style>
 <script defer type="module">
 /*
 local script, with big comment about lower complexity in demo
-JSON.parse with bells an' whistles enabled
+JSON.parse 
 dont need to parse the XML string
 revert " char to XML
 inject XML string into SVG element 
-strip deadImage
+strip deadImage class
 */
 function accessXML(srcID, dom) {
 	const SRC=dom.querySelector(srcID);

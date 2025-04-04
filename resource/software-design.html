@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
 <title>Software design</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/software-design" />
 <meta property="og:description" content="Article to describe specifics on software design and the heuristic process of designing software.  I also analyse practical implementation." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="8th of Dec 2024, 20:03:12" />
-<meta property="article:modified_time" content="8th of Dec 2024" />
+<meta property="article:published_time" content="4th of Apr 2025, 8:36:03" />
+<meta property="article:modified_time" content="Apr '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/software-design" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Software design",
-	"article:published_time":"8th of Dec 2024, 20:03:12", 
-    "article:modified_time":"8th of Dec 2024",
+	"article:published_time":"4th of Apr 2025, 8:36:03", 
+    "article:modified_time":"Apr '25",
     "article:section":"technology",
 
     "author": {
@@ -46,7 +46,7 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body" class="annoyingBody">
+<body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -100,47 +100,44 @@ TODO: magic tune selection against some index/DB -->
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" data-group="engineering,english" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering,english" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in english </p>
 <div id="groupenglish" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=english" aria-label="This article lists all items in english group.">All of <br />english<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
  </div>
 
   </div>
-  <fieldset class="outer_menu articleHeader">
+  <fieldset class="articleHeader">
 	<legend></legend>
-	<nav>
-		<div id="navBar" class="row">
+	<nav id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Software design process</h1></header>
 			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;   </p>
 				</div>
-				<div id="shareGroup" class="bibbles row addReading">
-					<span class="allButtons"> 
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
 						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
-
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
 						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design&amp;t=Software+design"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
-
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>
+						<span>Edited <time title="Page edited on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>
 						</span>
-						<span>Created <time datetime="2017-02-28T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Feb 2017</time> </span>
+						<span>Created <time datetime="2017-02-28T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '17</time> </span>
 					</span>
 
 				</div>
 			</div>
-			<dialog id="popup" class="popup1 bigScreenOnly">
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsoftware-design" type="text" value="" placeholder="mastodon.social" />  
@@ -150,8 +147,8 @@ TODO: magic tune selection against some index/DB -->
 				</form>
 			</dialog>
 	
-	<div class="bigScreenOnly column defaultLinksMenu">
-		<details class="defaultLinksMenu" >
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
 			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
 			<menu class="dfl">
@@ -163,33 +160,30 @@ TODO: magic tune selection against some index/DB -->
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details open class="titleHolder"><summary >Chapters </summary><menu class="titleList">
+		<details open class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Specifics on software design.</a></li>
 <li><a href="#toc1">Practice implementation</a></li>
 </menu>
 </details><br />
 
 	</div>
-
-	</div>
+	<!-- /div -->
 	</nav>
 </fieldset>
-		</div>
- <br class="blocker" />
+ </div> 
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- 
- <footer>
-  <div class="h4_footer"> 
-	<div class="leftFooter"> 
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-12-08T20:03:12">8th of Dec 2024, 20:03:12</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>.
-    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
-</div>
-</footer>
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-04-04T08:36:03" datetime="2025-04-04T08:36:03">4th of Apr 2025, 8:36:03</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 
 </body>

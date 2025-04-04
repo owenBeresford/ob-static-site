@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
 <title>Changelog</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/changelog" />
 <meta property="og:description" content="This is a list of changes, focussing on the UX.   It's quite boring.  This is NOT date sorted.   I pulled this out of the home page as Google said that page was too heavy." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="8th of Dec 2024, 20:03:05" />
-<meta property="article:modified_time" content="8th of Dec 2024" />
+<meta property="article:published_time" content="4th of Apr 2025, 8:35:55" />
+<meta property="article:modified_time" content="Apr '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/changelog" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Changelog",
-	"article:published_time":"8th of Dec 2024, 20:03:05", 
-    "article:modified_time":"8th of Dec 2024",
+	"article:published_time":"4th of Apr 2025, 8:35:55", 
+    "article:modified_time":"Apr '25",
     "article:section":"technology",
 
     "author": {
@@ -46,7 +46,7 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body" class="annoyingBody">
+<body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -63,6 +63,7 @@ TODO: magic tune selection against some index/DB -->
     <li>Why is this a custom stack?  Because on day 0 I thought that installing Wordpress would not achieve my requirements (show use of PHP5 in 2010), and by now I'm stuck with it.   Do I use normal libraries when working, *YES OF COURSE I USE FRAMEWORKS AND OSS*.  Why don't I have any holiday snaps or something?  This isn't that type of website.   Why isn't there any adverts?   This isn't that type of website.  Why didn't I use an SPA, to show off my skills?   The showing-off wouldn't work, I have used SPA for over seven years, like many people and <em>mostly</em>, this is &gt;200,000 words, this is not an SPA oriented problem.  I have used a CSS framework, and I do not have a CSS framework that would allow my complex and dense layouts.  </li>
     <li>All references to twitter predate the buyout by Mr Musk.</li>
     <li>UPDATE: if you load the page via the actual engine, you can now add “debug-layout” to get a visualisation of every elements size. </li>
+    <li>This is my sole creation ever where UI and layout tests are included in the content, rather than some isolated testing directory on a non-public server.  I would like to avoid buying a spare phone to test anything on Apple.   The integrated lifestyle is too complex if your entire involvement is some unit-tests.  </li>
     <li>Some of the early changes where a learning curve for me, but none of the ones after 2014 are.  I am adding more features to match the current scale of the data.</li>
     <li>This site has always been a UTF-8 site, this was more rare when I started it.</li>
     <li>The articles on this site reflect semantic-web concepts from 2004 era; they each have a meta header used to build the HTML head and for my custom indexing.</li>
@@ -91,8 +92,9 @@ TODO: magic tune selection against some index/DB -->
     <li>This git-repo / this project has no tests.  The engine that creates the HTML does have test-scripts, and this was the biggest test population I made at that point, as I needed to <i>test a language</i>; not an app, report or something.  They are fixtures and static expected results rather than proper unit-test with assert conditions.  My recent tweaks to the template are all tested with the next items:</li>
     <li>I have added a extra test process to the JS/TS, so now I can establish tests on CSS</li>
     <li>Currently my the directory of raw content text, which hasn't been compiled to HTML weighs abit bigger than 3MB.  I have about 260 articles, as I deleted the oldest 20% in Jan 2022.  The compiled HTML is about 5MB.  The common CSS is 110KB compiled; and the common JS is 350KB, with some pages pulling more JS.   In 2024, I assembled a better TS codebase, its now 9K on the wire.  </li>
+    <li>This year I made a better grade of word count algorithm.  I have been hovering near 250,000 words for a while, but I keep doing process upgrades so I have not “declared victory and gone home”.  My current approach ignores the header block and the Harvard references.  </li>
     <li>I have moved some older JS based “UX and information retrieval improvements” to being built via CSS.  This makes the download smaller, and hopefully PageSpeed will complain about excessively large documents less often.   Unfortunately, I cannot apply the same process to mobile view, as there is no ':hover' in that render style.   I improved error reporting for remaining dead outbound-links.   </li>
-    <li>Some CSS perf optimisation, no idea about impact from this.  Separately, I swapped my nice transition animated biblio tooltips to display:block ones, as <i>nobody ain't got time for</i> a 2s pageload cost on transitions.   </li>
+    <li>Some CSS perf optimisation, no idea about impact from this.  Separately, I swapped my nice transition animated biblio tooltips to display:block ones, as <i>nobody ain't got time for</i> a 2s page-load cost on transitions.   </li>
     <li>I do not understand why many web agencies have a 1-3s page load time, after the first page impression.  They are loading vast amounts of assets via Cloudflare, which have little impact.   I do not think that random web-viewers are impressed that you installed a wordpress plugin, but they should have better market analysis than me.   UPDATE: its the advertising ain't it?</li>
     <li>I am mostly adding text, and testing it using a word processor, and my language focused “glamorous assistant”. </li>
     <li> <strong> All my articles have <a href="https://pagespeed.web.dev/analysis/https-owenberesford-me-uk/nm3jtvslj7?hl=en_GB&amp;amp;form_factor=mobile" target="_blank">pagespeed</a> scores over 90, many are 100.</strong>  Google is not really supportive for longer content (based on DOM tree size).</li>
@@ -104,45 +106,42 @@ TODO: magic tune selection against some index/DB -->
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+	<div id="contentGroup" class="adjacentWidget" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
 <div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
  </div>
 
   </div>
-  <fieldset class="outer_menu articleHeader">
+  <fieldset class="articleHeader">
 	<legend></legend>
-	<nav>
-		<div id="navBar" class="row">
+	<nav id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Changelog for this site</h1></header>
 			    	<p role="status" class="bigScreenOnly">    </p>
 				</div>
-				<div id="shareGroup" class="bibbles row addReading">
-					<span class="allButtons"> 
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fchangelog" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fchangelog" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
 						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
-
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fchangelog" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fchangelog" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
 						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fchangelog&amp;t=Changelog"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
-
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fchangelog" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>
+						<span>Edited <time title="Page edited on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>
 						</span>
-						<span>Created <time datetime="2023-12-28T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >28th of Dec 2023</time> </span>
+						<span>Created <time datetime="2023-12-28T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Dec '23</time> </span>
 					</span>
 
 				</div>
 			</div>
-			<dialog id="popup" class="popup1 bigScreenOnly">
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fchangelog" type="text" value="" placeholder="mastodon.social" />  
@@ -152,8 +151,8 @@ TODO: magic tune selection against some index/DB -->
 				</form>
 			</dialog>
 	
-	<div class="bigScreenOnly column defaultLinksMenu">
-		<details class="defaultLinksMenu" >
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
 			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
 			<menu class="dfl">
@@ -167,26 +166,23 @@ TODO: magic tune selection against some index/DB -->
 		</details>
 		
 	</div>
-
-	</div>
+	<!-- /div -->
 	</nav>
 </fieldset>
-		</div>
- <br class="blocker" />
+ </div> 
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- 
- <footer>
-  <div class="h4_footer"> 
-	<div class="leftFooter"> 
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
-	<p> Page rendered <time datetime="2024-12-08T20:03:05">8th of Dec 2024, 20:03:05</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>.
-    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
-</div>
-</footer>
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-04-04T08:35:55" datetime="2025-04-04T08:35:55">4th of Apr 2025, 8:35:55</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 
 </body>

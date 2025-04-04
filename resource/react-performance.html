@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 200,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
 <title>Improving React18 Performance</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/react-performance" />
 <meta property="og:description" content="Article defines how to make React18 apps smoother, faster, and respond to user input better by changing functions used." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="8th of Dec 2024, 20:03:12" />
-<meta property="article:modified_time" content="8th of Dec 2024" />
+<meta property="article:published_time" content="4th of Apr 2025, 8:36:02" />
+<meta property="article:modified_time" content="Apr '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/react-performance" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Improving React18 Performance",
-	"article:published_time":"8th of Dec 2024, 20:03:12", 
-    "article:modified_time":"8th of Dec 2024",
+	"article:published_time":"4th of Apr 2025, 8:36:02", 
+    "article:modified_time":"Apr '25",
     "article:section":"technology",
 
     "author": {
@@ -46,7 +46,7 @@ TODO: magic tune selection against some index/DB -->
   }
 </script>
 </head>
-<body id="body" class="annoyingBody">
+<body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
   <div class="after_menu articleContent">
    <main id="main">
@@ -78,7 +78,7 @@ TODO: magic tune selection against some index/DB -->
     <li>Reduce use of <i>useEffect</i>, as it can be triggered multiple times.  It can be swapped for <i><a href="https://react.dev/reference/react/useCallback" target="_blank">useCallback</a></i>.  Note complexity caused by references to functions, when the function is recompiled every time it is referenced ~ i.e. arrow functions <sup><a href="https://stackoverflow.com/questions/2539205/javascript-inline-functions-vs-predefined-functions" target="_blank">1</a></sup>.   Categorically do not let inputs to one <i>useEffect</i> be the output of another <i>useEffect</i>.</li>
     <li>For form input items, swap <i>useState</i> for <i><a href="https://react.dev/reference/react/useRef" target="_blank">useRef</a></i>, this means changing the input values doesn't force a redraw.</li>
     <li>Simplify waiting-for-data states by putting <a href="https://react.dev/reference/react/Suspense" target="_blank">Suspense</a> into your object tree. This class has been added fairly recently, but saves time.  Add <i><a href="https://react.dev/reference/react/StrictMode" target="_blank">StrictMode</a></i> to get visibility of errors more easily.   I also see <i><a href="https://react.dev/reference/react/Profiler" target="_blank">Profiler</a></i>, but in the context of running JS in a bigscreen webrowser, the React-browser-tool is easier to use.  If you log profiling data to a logging server for mobile, this is an option if you somehow lack normal tooling.  This component gives you <i>id, phase, actualDuration, baseDuration, startTime, commitTime</i> data points per render.</li>
-    <li>Check HTTP headers, which should be made by the framework you are using.  Caching and compression are standard and desirable.  See also <a href="https://owenberesford.me.uk/resource/basic-website-features-2021#">basic-website-features-2021</a>.</li>
+    <li>Check HTTP headers, which should be made by the framework you are using.  Caching and compression are standard and desirable.  See also basic-website-features-2021<a href="">?</a>.</li>
     <li>Smart use of lazy loading is cunning.   Lazy loading means reducing the amount of work needed for the first render.   However when using the feature asking for the lazy load: delays occur.   If you have an app with many features (more often desktop apps), there will be many features that do not get used often; and lazy loading these components gives an easy performance benefit.    The cunning thing is making which features are lazy loaded dynamic, and matching the current users' profile.   It should be combined with <i>Suspense</i>.</li>
     <li>React works better if the data model described in the architecture image is followed.   Compared to earlier frameworks, React allows more messy development.   The app will perform better if events and data have unidirectional flow.   This somewhat vague direction can be simplified to <i>“don't get or generate the data inside the component”</i>.</li>
     <li>Add a log to your slow component <i>render()</i>, and have component run in a unit test, or isolated for 20sec.   If it has done many redraws, fix this.  If it hasn't done many redraws, you are looking at the wrong bit of code.   The easiest way to do this is <a href="https://developer.mozilla.org/en-US/docs/Web/API/console/count" target="_blank">count</a>.</li>
@@ -117,6 +117,7 @@ TODO: magic tune selection against some index/DB -->
     <li>Avoid Async code in <i>componentWillMount</i>, if needed add it to <i>componentDidMount</i>; as described <sup><a href="https://www.codementor.io/blog/react-optimization-5wiwjnf9hj#13-avoid-async-initialization-in" target="_blank">3</a></sup> </li>
     <li>Where at all possible, avoid <i><a href="https://react.dev/reference/react-dom/flushSync" target="_blank">flushSync</a></i>. Recent React improves event-throughput by buffering up changes, and applying them in a batch; this event handling forces everything back into small steps again. </li>
     <li>Putting the computation in a separate thread/ process is a standard trick in programming.  As JS is very single threaded, do large functions in a <a href="https://owenberesford.me.uk/resource/js-workers#">Webworker</a>, this should include talking with slow API.</li>
+    <li>Some JS optimisation tips <sup><a href="https://8hob.io/posts/hidden-cost-of-literals/" target="_blank">4</a></sup></li>
     <li>Maybe be able to reduce scope of React libraries, with cunning use of <i><a href="https://react.dev/reference/react-dom/createPortal" target="_blank">createPortal</a></i> ( <a href="https://codesandbox.io/s/42x771ykwx" target="_blank">demo</a> ).   I think this is not desirable for full-screen mobile apps with SPA; but for a marketing brochure site, it may improve performance, as static HTML is a lot faster than React.</li>
 </ul>
 
@@ -125,47 +126,44 @@ TODO: magic tune selection against some index/DB -->
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentGroup" data-group="research,engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+	<div id="contentGroup" class="adjacentWidget" data-group="research,engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
 <div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
  </div>
 
   </div>
-  <fieldset class="outer_menu articleHeader">
+  <fieldset class="articleHeader">
 	<legend></legend>
-	<nav>
-		<div id="navBar" class="row">
+	<nav id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Improving React18 Performance</h1></header>
 			    	<p role="status" class="bigScreenOnly">    </p>
 				</div>
-				<div id="shareGroup" class="bibbles row addReading">
-					<span class="allButtons"> 
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
 						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
 						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"><span class="sr-only">Twitter</span> </i></a>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
 						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
-
 						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
 						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
 						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance&amp;t=Improving+React18+Performance"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
-
 						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>
+						<span>Edited <time title="Page edited on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>
 						</span>
-						<span>Created <time datetime="2023-07-12T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >12th of Jul 2023</time> </span>
+						<span>Created <time datetime="2023-07-12T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jul '23</time> </span>
 					</span>
 
 				</div>
 			</div>
-			<dialog id="popup" class="popup1 bigScreenOnly">
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
 				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Freact-performance" type="text" value="" placeholder="mastodon.social" />  
@@ -175,8 +173,8 @@ TODO: magic tune selection against some index/DB -->
 				</form>
 			</dialog>
 	
-	<div class="bigScreenOnly column defaultLinksMenu">
-		<details class="defaultLinksMenu" >
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
 			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
 			<menu class="dfl">
@@ -188,7 +186,7 @@ TODO: magic tune selection against some index/DB -->
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details open class="titleHolder"><summary >Chapters </summary><menu class="titleList">
+		<details open class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Understand the architecture</a></li>
 <li><a href="#toc1">Improve current code</a></li>
 <li><a href="#toc2">Standard Ideas for new code</a></li>
@@ -196,26 +194,23 @@ TODO: magic tune selection against some index/DB -->
 </details><br />
 
 	</div>
-
-	</div>
+	<!-- /div -->
 	</nav>
 </fieldset>
-		</div>
- <br class="blocker" />
+ </div> 
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- 
- <footer>
-  <div class="h4_footer"> 
-	<div class="leftFooter"> 
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
 		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
-	<p> Page rendered <time datetime="2024-12-08T20:03:12">8th of Dec 2024, 20:03:12</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time datetime="2024-12-08T20:03:00">8th of Dec 2024</time>.
-    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
-</div>
-</footer>
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-04-04T08:36:02" datetime="2025-04-04T08:36:02">4th of Apr 2025, 8:36:02</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <script type="module">
 import { appendIsland, runFetch, hasBeenRun } from '/asset/ob1-202406.min.mjs'; 
