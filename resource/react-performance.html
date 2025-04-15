@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/react-performance" />
 <meta property="og:description" content="Article defines how to make React18 apps smoother, faster, and respond to user input better by changing functions used." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="4th of Apr 2025, 8:36:02" />
+<meta property="article:published_time" content="15th of Apr 2025, 22:29:27" />
 <meta property="article:modified_time" content="Apr '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/react-performance" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Improving React18 Performance",
-	"article:published_time":"4th of Apr 2025, 8:36:02", 
+	"article:published_time":"15th of Apr 2025, 22:29:27", 
     "article:modified_time":"Apr '25",
     "article:section":"technology",
 
@@ -78,7 +78,7 @@ TODO: magic tune selection against some index/DB -->
     <li>Reduce use of <i>useEffect</i>, as it can be triggered multiple times.  It can be swapped for <i><a href="https://react.dev/reference/react/useCallback" target="_blank">useCallback</a></i>.  Note complexity caused by references to functions, when the function is recompiled every time it is referenced ~ i.e. arrow functions <sup><a href="https://stackoverflow.com/questions/2539205/javascript-inline-functions-vs-predefined-functions" target="_blank">1</a></sup>.   Categorically do not let inputs to one <i>useEffect</i> be the output of another <i>useEffect</i>.</li>
     <li>For form input items, swap <i>useState</i> for <i><a href="https://react.dev/reference/react/useRef" target="_blank">useRef</a></i>, this means changing the input values doesn't force a redraw.</li>
     <li>Simplify waiting-for-data states by putting <a href="https://react.dev/reference/react/Suspense" target="_blank">Suspense</a> into your object tree. This class has been added fairly recently, but saves time.  Add <i><a href="https://react.dev/reference/react/StrictMode" target="_blank">StrictMode</a></i> to get visibility of errors more easily.   I also see <i><a href="https://react.dev/reference/react/Profiler" target="_blank">Profiler</a></i>, but in the context of running JS in a bigscreen webrowser, the React-browser-tool is easier to use.  If you log profiling data to a logging server for mobile, this is an option if you somehow lack normal tooling.  This component gives you <i>id, phase, actualDuration, baseDuration, startTime, commitTime</i> data points per render.</li>
-    <li>Check HTTP headers, which should be made by the framework you are using.  Caching and compression are standard and desirable.  See also basic-website-features-2021<a href="">?</a>.</li>
+    <li>Check HTTP headers, which should be made by the framework you are using.  Caching and compression are standard and desirable.  See also <a href="https://owenberesford.me.uk/resource/commercial-website-features#">commercial-website-features</a>.</li>
     <li>Smart use of lazy loading is cunning.   Lazy loading means reducing the amount of work needed for the first render.   However when using the feature asking for the lazy load: delays occur.   If you have an app with many features (more often desktop apps), there will be many features that do not get used often; and lazy loading these components gives an easy performance benefit.    The cunning thing is making which features are lazy loaded dynamic, and matching the current users' profile.   It should be combined with <i>Suspense</i>.</li>
     <li>React works better if the data model described in the architecture image is followed.   Compared to earlier frameworks, React allows more messy development.   The app will perform better if events and data have unidirectional flow.   This somewhat vague direction can be simplified to <i>“don't get or generate the data inside the component”</i>.</li>
     <li>Add a log to your slow component <i>render()</i>, and have component run in a unit test, or isolated for 20sec.   If it has done many redraws, fix this.  If it hasn't done many redraws, you are looking at the wrong bit of code.   The easiest way to do this is <a href="https://developer.mozilla.org/en-US/docs/Web/API/console/count" target="_blank">count</a>.</li>
@@ -156,7 +156,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-04-15T15:13:46" datetime="2025-04-15T15:13:46">Apr '25</time>
 						</span>
 						<span>Created <time datetime="2023-07-12T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jul '23</time> </span>
 					</span>
@@ -207,7 +207,7 @@ TODO: magic tune selection against some index/DB -->
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-04T08:36:02" datetime="2025-04-04T08:36:02">4th of Apr 2025, 8:36:02</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-04-15T22:29:27" datetime="2025-04-15T22:29:27">15th of Apr 2025, 22:29:27</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-15T15:13:46" datetime="2025-04-15T15:13:46">Apr '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
