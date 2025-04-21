@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
 <title>Web RTC test</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/webrtc-test" />
 <meta property="og:description" content="A maquette looking at current webRTC, which was designed for peer to peer architecture, in normal browsers, with lists libraries to install." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="4th of Apr 2025, 8:36:05" />
+<meta property="article:published_time" content="21st of Apr 2025, 20:11:44" />
 <meta property="article:modified_time" content="Apr '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/webrtc-test" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Web RTC test",
-	"article:published_time":"4th of Apr 2025, 8:36:05", 
+	"article:published_time":"21st of Apr 2025, 20:11:44", 
     "article:modified_time":"Apr '25",
     "article:section":"technology",
 
@@ -149,7 +149,7 @@ I have never tested on (but for specific geo-markets should do):
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-04-16T08:02:24" datetime="2025-04-16T08:02:24">Apr '25</time>
 						</span>
 						<span>Created <time datetime="2023-06-19T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jun '23</time> </span>
 					</span>
@@ -194,13 +194,13 @@ I have never tested on (but for specific geo-markets should do):
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-04T08:36:05" datetime="2025-04-04T08:36:05">4th of Apr 2025, 8:36:05</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-04T07:33:19" datetime="2025-04-04T07:33:19">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-04-21T20:11:44" datetime="2025-04-21T20:11:44">21st of Apr 2025, 20:11:44</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-16T08:02:24" datetime="2025-04-16T08:02:24">Apr '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <script type="module">
-import { appendIsland, runFetch, hasBeenRun } from '/asset/ob1-202406.min.mjs'; 
+import { appendIsland, runFetch, hasBeenRun, domLog } from '/asset/ob1-202406.min.mjs'; 
 
 // As I haven't built both ends to this software feature, this is just a quick demo 
 // I DO HAVE experience networked software that scales, I do a good impression of realtime, but
@@ -208,40 +208,24 @@ import { appendIsland, runFetch, hasBeenRun } from '/asset/ob1-202406.min.mjs';
 //
 // this was about 8h creating the above prose and 2-3h on the following simple code
 
-// As this is the error reporting function, cannot report error about using a bad browser
-function writeLog(str, bold=false ) {
-	const LOG=document.getElementById('log');
-	let li = document.createElement('li');
-	const dd=new Date();
-    let tt=document.createElement('time');
-	tt.dateTime=dd.toString();
-	tt.textContent=dd.getUTCHours()+':'+dd.getUTCMinutes()+':'+dd.getUTCSeconds();
-	li.appendChild(tt);
-	li.appendChild(document.createTextNode(" => "+ str));
-	if( bold) {
-		li.style="font-size:115%; ";
-	}
-	LOG.append(li);
-}
-
 function run() {
 	try {
-		writeLog("Start log with "+(location.protocol==="https:"?" its working inside HTTPS.":" its broken with bad/absent cert."));
-		writeLog("This is browsing your local hardware, no data leaves your machine, or is stored.  Please grant access permission.");
+		domLog("Start log with "+(location.protocol==="https:"?" its working inside HTTPS.":" its broken with bad/absent cert."));
+		domLog("This is browsing your local hardware, no data leaves your machine, or is stored.  Please grant access permission.");
 		navigator.mediaDevices
 			.getUserMedia({ audio: true, video: true, })
 			.then((stream) => {
-				writeLog('getUserMedia(): this stream is '+ (stream.active?"ACTIVE":"dead") );
+				domLog('getUserMedia(): this stream is '+ (stream.active?"ACTIVE":"dead") );
 				let s1=stream.getAudioTracks();
 
-				writeLog('getUserMedia() Audio length '+ s1.length );
+				domLog('getUserMedia() Audio length '+ s1.length );
 				if(s1.length) {
-					writeLog('getUserMedia() Audio track '+ s1[0].label );
+					domLog('getUserMedia() Audio track '+ s1[0].label );
 				}
 				let s2=stream.getVideoTracks();
-				writeLog('getUserMedia() Video length '+ s2.length );
+				domLog('getUserMedia() Video length '+ s2.length );
 				if(s2.length) {
-					writeLog('getUserMedia() Video track '+ s2[0].label );					
+					domLog('getUserMedia() Video track '+ s2[0].label );					
 				}
 
 				// try to disable camera feed, as do not need it
@@ -249,25 +233,25 @@ function run() {
  				stream=null;
 
 			}).catch((e) => {
-				writeLog('getUserMedia(): '+ e.toString() );
+				domLog('getUserMedia(): '+ e.toString() );
 			});
 
 	} catch( e) {
-		writeLog( 'getUserMedia(): '+e.toString() );		
+		domLog( 'getUserMedia(): '+e.toString() );		
 	}
 
 	try {
 		navigator.mediaDevices.enumerateDevices() 
 			.then((devices) => {
 				devices.forEach((device) => {
-					writeLog(`enumerateDevice(): ${device.kind}: ${device.label} id = ${device.deviceId}`);
+					domLog(`enumerateDevice(): ${device.kind}: ${device.label} id = ${device.deviceId}`);
 				});
 			}).catch((e) => {
-				writeLog('enumerateDevice(): '+ e.toString() );
+				domLog('enumerateDevice(): '+ e.toString() );
 			});
 
 	} catch( e) {
-		writeLog('enumerateDevice(): '+ e.toString() );		
+		domLog('enumerateDevice(): '+ e.toString() );		
 	}
 }
 
