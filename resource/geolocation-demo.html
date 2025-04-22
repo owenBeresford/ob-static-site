@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
 <title>Geolocation demo</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/geolocation-demo" />
 <meta property="og:description" content="A boring demo, to trap all the error states, and to try to maximise reporting." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="15th of Apr 2025, 22:29:26" />
+<meta property="article:published_time" content="21st of Apr 2025, 22:44:35" />
 <meta property="article:modified_time" content="Apr '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/geolocation-demo" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Geolocation demo",
-	"article:published_time":"15th of Apr 2025, 22:29:26", 
+	"article:published_time":"21st of Apr 2025, 22:44:35", 
     "article:modified_time":"Apr '25",
     "article:section":"technology",
 
@@ -136,7 +136,7 @@ I have never tested on (but for specific geo-markets should do):
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-15T15:11:07" datetime="2025-04-15T15:11:07">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>
 						</span>
 						<span>Created <time datetime="2021-10-31T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Oct '21</time> </span>
 					</span>
@@ -181,48 +181,26 @@ I have never tested on (but for specific geo-markets should do):
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-15T22:29:26" datetime="2025-04-15T22:29:26">15th of Apr 2025, 22:29:26</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-15T15:11:07" datetime="2025-04-15T15:11:07">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-04-21T22:44:35" datetime="2025-04-21T22:44:35">21st of Apr 2025, 22:44:35</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <script type="module">
-	import { hasBeenRun } from '/asset/ob1-202406.min.mjs';
-
-// As this is the error reporting function, cannot report error about using a bad browser
-function writeLog(str, bold=false, html=false) {
-	const LOG=document.getElementById('log');
-	let li = document.createElement('li');
-	const dd=new Date();
-    let tt=document.createElement('time');
-	tt.dateTime=dd.toString();
-	tt.textContent=dd.getUTCHours()+':'+dd.getUTCMinutes()+':'+dd.getUTCSeconds();
-	li.appendChild(tt);
-	if(html) {
-		let t2=document.createElement('template');
-		t2.innerHTML=str;
-		li.appendChild(t2.content);
-	} else {
-		li.appendChild(document.createTextNode(" => "+ str));
-	}	
-	if( bold) {
-		li.style="font-size:115%; ";
-	}
-	LOG.append(li);
-}
+import { hasBeenRun, domLog } from '/asset/ob1-202406.min.mjs';
 
 function loadWidget(e) {
 	let btn=document.getElementById("pwr");
 	btn.addEventListener("click", applyEvents);
 	btn.addEventListener("touch", applyEvents);
-	writeLog("Pls choose your security model now.");
+	domLog("Pls choose your security model now.");
 }
 
 function handleError(e) {
 	if(e instanceof GeolocationPositionError) {
-		writeLog("haz Typed Error: ["+e.code+"] "+e.message );	
+		domLog("haz Typed Error: ["+e.code+"] "+e.message );	
 	} else {	
-		writeLog("haz Error: "+e );
+		domLog("haz Error: "+e );
 	}
 }
 
@@ -230,14 +208,14 @@ function handleWork(e) {
 	let dd=new Date( e.timestamp);
 	let pp=e.coords;
 
-	writeLog(
+	domLog(
 		"["+(new Date()).toString()+"] sample point: [..."+dd.getUTCHours()+":"+dd.getUTCMinutes()+":"+
 		dd.getUTCSeconds()+"] haz Working result with "+pp.accuracy+"m accuracy"
 			 );
-	writeLog(
+	domLog(
 		"Got location: [long, lat, alt]=["+pp.longitude+","+ pp.latitude+", "+pp.altitude+ "] " 
 			);
-	writeLog(
+	domLog(
 		'<a href="https://www.google.com/maps/@'+pp.longitude +','+pp.altitude+',15z" title="Open in Gmap" target="_blank">Open in gmap</a>',
 		false, true	);
 
@@ -295,7 +273,7 @@ const CBStack={
 
 function fireEvent(e) {
 	window.STACK=CBStack.create();
-	writeLog("Starting event queue; this is expected to take at least 15s");
+	domLog("Starting event queue; this is expected to take at least 15s");
 
 	STACK.push(function() {
 	try {
@@ -304,12 +282,12 @@ function fireEvent(e) {
 			timeout: 2000,
 			maximumAge: 3600*1000
 		};
-		writeLog("Currently using timeout=2s, max age=1 hour, low grain accuracy");
+		domLog("Currently using timeout=2s, max age=1 hour, low grain accuracy");
 		navigator.geolocation.getCurrentPosition(handleWork, handleError, options);
-		writeLog("After event queued up");
+		domLog("After event queued up");
 
 	} catch(e) {
-		writeLog("Haz other type of error "+e.message);
+		domLog("Haz other type of error "+e.message);
 	}
 	});
 	STACK.push(function() {
@@ -319,12 +297,12 @@ function fireEvent(e) {
 			timeout: 2000,
 			maximumAge: 3600*1000
 		};
-		writeLog("Currently using timeout=2s, max age=1 hour, high grain accuracy");
+		domLog("Currently using timeout=2s, max age=1 hour, high grain accuracy");
 		navigator.geolocation.getCurrentPosition(handleWork, handleError, options);
-		writeLog("After event queued up");
+		domLog("After event queued up");
 
 	} catch(e) {
-		writeLog("Haz other type of error "+e.message);
+		domLog("Haz other type of error "+e.message);
 	}
 	});
 	STACK.push(function() {
@@ -334,12 +312,12 @@ function fireEvent(e) {
 			timeout: 2000,
 			maximumAge: 60*1000
 		};
-		writeLog("Currently using timeout=2s, max age=1 minute, low grain accuracy");
+		domLog("Currently using timeout=2s, max age=1 minute, low grain accuracy");
 		navigator.geolocation.getCurrentPosition(handleWork, handleError, options);
-		writeLog("After event queued up");
+		domLog("After event queued up");
 
 	} catch(e) {
-		writeLog("Haz other type of error "+e.message);
+		domLog("Haz other type of error "+e.message);
 	}
 	});
 	STACK.push(function() {
@@ -349,12 +327,12 @@ function fireEvent(e) {
 			timeout: 2000,
 			maximumAge: 60*1000
 		};
-		writeLog("Currently using timeout=2s, max age=1 minute, high grain accuracy");
+		domLog("Currently using timeout=2s, max age=1 minute, high grain accuracy");
 		navigator.geolocation.getCurrentPosition(handleWork, handleError, options);
-		writeLog("After event queued up");
+		domLog("After event queued up");
 
 	} catch(e) {
-		writeLog("Haz other type of error "+e.message);
+		domLog("Haz other type of error "+e.message);
 	}
 	});
 	STACK.push(function() {
@@ -364,12 +342,12 @@ function fireEvent(e) {
 			timeout: 4000,
 			maximumAge: 60*1000
 		};
-		writeLog("Currently using timeout=4s, max age=1 minute, high grain accuracy");
+		domLog("Currently using timeout=4s, max age=1 minute, high grain accuracy");
 		navigator.geolocation.getCurrentPosition(handleWork, handleError, options);
-		writeLog("After event queued up");
+		domLog("After event queued up");
 
 	} catch(e) {
-		writeLog("Haz other type of error "+e.message);
+		domLog("Haz other type of error "+e.message);
 	}
 	});
 
@@ -377,9 +355,9 @@ function fireEvent(e) {
 }
 
 function applyEvents(e) {
-	writeLog("Setting up widget. ⚠WARN⚠: Logging is in verbose.");
+	domLog("Setting up widget. ⚠WARN⚠: Logging is in verbose.");
 	if(!navigator.geolocation || !navigator.geolocation.getCurrentPosition) {
-		writeLog("Cannot access the geoLocation object, widget is FAIL. Look at HTTPS?", true);
+		domLog("Cannot access the geoLocation object, widget is FAIL. Look at HTTPS?", true);
 		return;
 	}
 

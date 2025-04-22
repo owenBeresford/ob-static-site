@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Laptop batteries</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Investigation into how current technology for laptop batteries actually work, and how to increase battery lifespan. A list of best handling practices is also included." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Laptop batteries">
+<meta itemprop="description" content="Investigation into how current technology for laptop batteries actually work, and how to increase battery lifespan. A list of best handling practices is also included.">
+<meta name="twitter:site" content="@channelOwen">
+<meta name="twitter:title" content="Laptop batteries">
+<meta name="twitter:description" content="Investigation into how current technology for laptop batteries actually work, and how to increase battery lifespan. A list of best handling practices is also included.">
+<meta name="twitter:creator" content="@channelOwen">
+<meta property="og:title" content="Laptop batteries" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/battery-tech-investigation" />
+<meta property="og:description" content="Investigation into how current technology for laptop batteries actually work, and how to increase battery lifespan. A list of best handling practices is also included." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="22nd of Apr 2025, 8:38:26" />
+<meta property="article:modified_time" content="Apr '25" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/battery-tech-investigation" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Laptop batteries",
+	"article:published_time":"22nd of Apr 2025, 8:38:26", 
+    "article:modified_time":"Apr '25",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples popOverWidget addReferences">
+<div class="lotsOfWords">
+<p>I have a laptop that is outside of commercial release as I bought it second hand.   The fact it isn't on sale means that I can't quickly just buy a component.  My first replacement battery was mislabelled, so I need to do the research myself for a more useful bnattery. #blerg<br />
+<strong>My objective</strong> here is to get a battery with maximal capacity and make likely outcomes clear (I am not selling laptops or batteries).  As batteries are not the same chemicals as what was used in the 1980's and 1990's, or even 2000's any process learned then needs to be reviewed.</p>
+
+
+<aside class="pullout">
+<p><strong>Note for inline battery-backup / UPS nodes</strong>, these notes are not relevant, and a different document will need to be created or referenced.</p>
+
+
+</aside>
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Metrics <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>MTBF as normal</li>
+    <li>input amps/ volts</li>
+    <li>output amps/ volts</li>
+    <li>safe charge cycles</li>
+    <li>charge up time without thermal overrun.</li>
+    <li>average discharge time with bright screen rate, + dull screen rate  </li>
+</ul>
+
+<p>WISH-LIST: it would be really nice if all larger batteries (over 2A I guess) would include a thermocouple, as motherboards / mainboards do.   This enables battery specific over-heating to be monitored.   I have seen PSU specific thermocouples. If you get more than X bad disk sectors, you replace the disk.  With this monitor, if you get more than X heating alerts, replace the battery ~ especially if you fly with the laptop often.</p>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Assorted facts as intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>Most laptop batteries are currently lithium ion tech <sup><a href="https://en.wikipedia.org/wiki/Lithium-ion_battery" target="_blank">1</a></sup>, like phones</li>
+    <li>For other electronics, there are many other battery options <sup><a href="https://en.wikipedia.org/wiki/Electric_battery" target="_blank">2</a></sup> <sup><a href="https://indrakar.com/the-history-of-the-battery-from-ancient-beginnings-to-modern-innovations/" target="_blank">3</a></sup> ~ referencing the end only.   Basic reference with fancy diagrams <sup><a href="https://www.energy.gov/eere/ammto/breaking-it-down-next-generation-batteries" target="_blank">4</a></sup></li>
+    <li>A “battery” or collection is so named <sup><a href="https://www.collinsdictionary.com/dictionary/english/battery" target="_blank">5</a></sup>, as it behaves like a gun battery, with cells in parallel <sup><a href="https://simple.wikipedia.org/wiki/Battery" target="_blank">6</a></sup> ~ easier diagram <sup><a href="https://www.canarymedia.com/articles/clean-energy/take-a-look-inside-a-lithium-ion-battery-solar-panel-and-wind-turbine" target="_blank">7</a></sup> ~ more realistic structure.   A technical breakdown of manufacturing techniques for Li-ion batteries <sup><a href="https://www.sciencedirect.com/science/article/pii/S258900422100300X" target="_blank">8</a></sup></li>
+    <li>Current goal state ~ but not yet commercialised that I have seen is Sodium ions <sup><a href="https://en.wikipedia.org/wiki/Solid-state_battery" target="_blank">9</a></sup>. </li>
+    <li>Modern Li-ion batteries have control circuits built in e.g. <sup><a href="https://www.sales-batteries.co.uk/toshiba-laptop/tecra-w50-a-102-battery.html" target="_blank">10</a></sup>, I assume to reduce chance of a fire, and surge protection <sup><a href="https://hackaday.com/2022/10/10/lithium-ion-battery-circuitry-is-simple/" target="_blank">11</a></sup> ~ ending comments are detailed, but lack references, or <sup><a href="https://www.reddit.com/r/batteries/comments/1k0ryaq/what_does_the_bms_do_on_this_lipo_cell/" target="_blank">12</a></sup>.  This can be used to poll battery settings in addition.   Details on a model circuitry in batteries <sup><a href="https://www.caretxdigital.com/" target="_blank">13</a></sup>, or an advanced model <sup><a href="https://www.sciencedirect.com/org/science/article/pii/S0199859524000666" target="_blank">14</a></sup>.  Useful background reading from sparkie, unfortunately there is no part2 to be found <sup><a href="https://www.edn.com/laptop-battery-secrets-part-1/i" target="_blank">15</a></sup>.   Some notes on hacking batteries <sup><a href="https://www.batteryskills.com/can-a-laptop-battery-be-repaired/" target="_blank">16</a></sup>.   </li>
+    <li>The number of charge cycles advertised varies widely ~ but this range could be due to operating conditions or age of reporting.  Most Li-ion batteries support between 300 – 4000 charging cycles <sup><a href="https://www.quora.com/What-does-it-mean-that-a-battery-has-300-500-charge-cycles-Does-it-mean-that-the-battery-wont-perform-as-good-as-new-after-300-500-charge-cycles-or-does-it-mean-after-a-period-of-time-it-wont-be-at-its-best" target="_blank">17</a></sup> <sup><a href="https://www.electricity-magnetism.org/laptop-battery-en/" target="_blank">18</a></sup> ~ view with JS disabled.    This reports <sup><a href="https://evreporter.com/understanding-charge-discharge-curves-of-li-ion-cells/" target="_blank">19</a></sup> 2000 recharge cycles. The low end figures would be the battery lasting for 1-2.5 years assuming most routine work happens on battery power.  </li>
+    <li>The control circuits include a count of recharge cycles.   Apple inc was prosecuted for artificially reducing the battery life via software to sell more phones (2017) <sup><a href="https://www.bbc.co.uk/news/business-61823512" target="_blank">20</a></sup> <sup><a href="https://www.bbc.co.uk/news/technology-51706635" target="_blank">21</a></sup></li>
+    <li>I read that Li-ion batteries do not have a memory effect, so are better rechargables.  There is confused messaging on “best practice for power”.   There is a widely recited text about 20-80% eg <sup><a href="https://www.makeuseof.com/tag/battery-works-3-ways-can-ruin/" target="_blank">22</a></sup>.  ~ which is good advice for getting a consistent voltage, see the graphs.   I have found no source of this “rule”, it's just repeated.   Research from primary sources <sup><a href="https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries" target="_blank">23</a></sup> <sup><a href="https://electronics.stackexchange.com/questions/74243/what-is-the-meaning-of-a-batterys-cycle-life" target="_blank">24</a></sup> says run to flat is fine. <ul class="ulbasic">
+        <li>BUT there is some sub-system that tells you the phone battery is dead before it is dead, unless you encourage it to hit 0.   I added 12h light use by forcing it back to a better definition of 0 ~ enough for medium length calls or quite a few texts.   Doing this <em>may</em> shorten the batteries life span. </li>
+    </ul></li>
+    <li>Some Li-ion batteries, on one hand, are damaged by being fully empty / flat, and won't work afterwards <sup><a href="https://www.makeuseof.com/tag/battery-works-3-ways-can-ruin/" target="_blank">25</a></sup> ~ and in my experience when left flat.  This is called “deep discharge state”.  On the other hand, bouncing to 0 isn't instantly fatal in my experience.</li>
+    <li>The reason that phone batteries are shipped and sold with 40% charge is to make demos easier, and to avoid self-discharge / cell-leakage.   They do this least at about 40% charged <sup><a href="https://www.osnn.net/threads/laptop-battery-discussion-how-to-get-longest-life.98719/post-868386" target="_blank">26</a></sup>.  The 40% full avoids battery failure by being entirely flat, and battery decay.  Same technology is in laptop batteries.   </li>
+    <li>For larger Li-ion batteries ~ for EV ~ fast charging will reduce battery lifespan due to “stress” ~ to paraphrase.   IMO, fast charge installation should mandate by a fire check, as the process dumps loads of heat.   Related reading <sup><a href="https://www.cantrackgps.com/news/Does-the-charging-speed-of-lithium-battery-affect-the-battery-degradation_596.html" target="_blank">27</a></sup> </li>
+    <li>Stressed batteries are different to the original spec, so they store power less well.  They have a higher chance of igniting, especially in hot places like the tropics.  </li>
+    <li>I wish mobiles with Li-ion batteries came with a UI that included more numbers ~ maybe in the advanced debug section.  I can easily see the version of Android, but not the charging voltage used, or battery recharge count. </li>
+    <li>I wish even more technical articles described the battery technology they write about.  I have eliminated articles mentioning cars, as different operating space.</li>
+</ul>
+
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords">
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Charge / Discharge cycles <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>Some plots of discharge capacity vs temperature <sup><a href="https://www.richtek.com/en/Design%20Support/Technical%20Document/AN024" target="_blank">1</a></sup> <sup><a href="https://poweringautos.com/how-many-charge-cycles-are-in-a-car-battery/" target="_blank">2</a></sup> <sup><a href="https://www.ufinebattery.com/blog/how-to-read-lithium-battery-discharge-curve-and-charging-curve/" target="_blank">3</a></sup> <sup><a href="https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries" target="_blank">4</a></sup>.  <ul class="ulbasic">
+        <li>For charging batteries, older battery technology cannot be charged at all over 45°C.  Charging a Li-ion when its hot, or storing it hot &gt;25°C will induce “stress” and shorten its charging ability.  <i>(these same references, but a new point for clarity)</i></li>
+    </ul></li>
+    <li>Fast discharging reduces batteries effective lifespan <sup><a href="https://saft.com/en/energizing-iot/lithium-ion-batteries-use-5-more-tips-longer-lifespan" target="_blank">5</a></sup></li>
+    <li>The ampage used to charge or discharge affects battery lifespan, as this is “fast charge” or “fast discharge” so more abusive on the battery <sup><a href="https://www.quora.com/Does-a-higher-amp-damage-a-battery" target="_blank">6</a></sup> .   Secondly, these steps are likely to generate overheating.</li>
+    <li>The charging voltage is sensitive <sup><a href="https://batteryuniversity.com/article/bu-808-how-to-prolong-lithium-based-batteries" target="_blank">7</a></sup>.   Using the manufacturer's charger is pragmatic advice.   I guess the best charging voltage is changed by the cell size.  Following <sup><a href="https://www.powerstream.com/lithium-ion-charge-voltage.htm" target="_blank">8</a></sup>, there is a floor voltage for charging, and reducing a “default change voltage of 4.2v” to 4.05v means it could support twice the number of discharges <sup><a href="https://accubattery.zendesk.com/hc/en-us/articles/212988989-Re-Battery-University-article-BU-808" target="_blank">9</a></sup>.   The electronics lab used to make the data says the charging drew about 60mA.   This is less than USB-C, but may be quoted per cell, rather than per battery.  For hardware people, discussion on voltage regulation chips <sup><a href="https://hackaday.com/2022/10/10/lithium-ion-battery-circuitry-is-simple/" target="_blank">10</a></sup> used in batteries ~ I can't evaluate that, but seems relevant data.</li>
+    <li>According to <sup><a href="https://www.osnn.net/threads/laptop-battery-discussion-how-to-get-longest-life.98719/" target="_blank">11</a></sup> <sup><a href="https://batterlution.com/should-you-store-lithium-ion-batteries-storage-fully-charged-a-comprehensive-guide-to-storage/" target="_blank">12</a></sup> ~ the first is an older article, but still Li-ion ~ leaving batteries on the mains will reduce their lifespan.   There is supposed to be circuitry to limit this effect <sup><a href="https://electronics.stackexchange.com/questions/298453/understanding-lipo-charging-protection-circuit" target="_blank">13</a></sup>. </li>
+    <li>A larger battery will increase preference for fast charging systems, as without that they take a long-time to charge.  Conversely, an older battery with reduced-compared-to-initial-capacity is still useful as it was larger spec to start with.</li>
+    <li>An older working-battery will discharge faster, as its max-charge is lower. See various graphs.</li>
+    <li>The MTBF is how many manufactured things are logged for quality.  For a Li-ion battery there would be little chance of it exploding or burning <i>à la Teslas in the rain</i>, and the stored charge being enough just after charging. </li>
+    <li>Trickle charging avoids some problems on extremes of stored charge, but still have problems XXX</li>
+</ul>
+
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Outcomes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>If you want to have the battery to last for as long as possible, keep the battery between 0-20°C, and charge at 3.7V.  Example, use this for spacecraft or something where swapping batteries is very expensive.  Increasing the number of cells will give you the expected ampage stored even though it will be less than other approaches.  </li>
+    <li><del>If you need to maximise the power stored, and have little care for lifespan, charge at &gt;4.3V with insulation, quote `Li-Ion battery failure would occurs minutes of reaching an over charge condition ... burst/explode/catch fire depending on the type of battery` <sup><a href="https://www.osnn.net/threads/laptop-battery-discussion-how-to-get-longest-life.98719/" target="_blank">14</a></sup>.  Use for weapons where they are consumed as munitions. </del><ins>I think that idea is probably useless as or would catch fire before leaving the launcher</ins></li>
+    <li>For domestic devices to live longer, charge at 3.9V, and don't let the temperature <strong>of the battery</strong> climb above 25°C.  It is important to buy the biggest battery practical, as this approach will reduce power output by nearly 30% per discharge cycle.   Repeat the temp of battery, not the surrounding laptop. </li>
+</ul>
+
+<p>Hypothetically, a long-life platform could always use low voltage charging, maybe from solar or wind power, and charge often.   As this article is about laptops, organise a battery large enough to run the laptop for a full day.  Maybe a setup with several batteries, and charge ones not being used on alternating days.  If a whole days use would flatten the reduced-output battery with the 3.9V charging, this setup SHOULD run 10-20 years without upgrades.  I write this as Moore's law <sup><a href="https://en.wikipedia.org/wiki/Moore%27s_law" target="_blank">15</a></sup> seems to be driving computers much less than it was, so older machines are still useful.</p>
+
+<p>Correct modelling is complex.   My source data is only moving 1 variable per data run in standard science fashion, to make results more clear.   It would be useful to have a graph of “power used per month” vs “charging habit categories”, and “all charging variables categories” vs “max charge stored” ~ this second one has sensible clusters of the variables.  I cannot add these graphs without creating the raw data, as the raw data doesn't seem to be included in the articles.</p>
+
+
+<details class="accordionWidget singlePopup withScroll">
+<summary> <h4> Extended reading </h4> </summary>
+<p>Names in this list are not formatted according to Harvard notation,</p>
+
+<ul class="ulbasic">
+    <li>Bolun Xu; Alexandre Oudalov; Andreas Ulbig; Göran Andersson; Daniel S. Kirschen preprint [June 2016] “Modeling of Lithium-Ion Battery Degradation for Cell Life Assessment” <a class="cleanimage" href="https://www.researchgate.net/publication/303890624_Modeling_of_Lithium-Ion_Battery_Degradation_for_Cell_Life_Assessment" target="_blank">https://www.researchgate.net/publication/303890624_Modeling_of_Lithium-Ion_Battery_Degradation_for_Cell_Life_Assessment</a><ul class="ulbasic">
+        <li>DOI 10.1109/TSG.2016.2578950 ~~ IEEE Transactions on Smart Grid1</li>
+    </ul></li>
+    <li>Choi, Soo Seok; Lim, Hong S. [2002] “Factors that affect cycle-life and possible degradation mechanisms of a Li-ion cell based on Li Co O 2”  <a class="cleanimage" href="https://ui.adsabs.harvard.edu/abs/2002JPS...111..130C/abstract" target="_blank">https://ui.adsabs.harvard.edu/abs/2002JPS...111..130C/abstract</a><ul class="ulbasic">
+        <li>DOI 10.1016/S0378-7753(02)00305-1 ~~ Journal of Power Sources, Volume 111, Issue 1, p. 130-136.</li>
+    </ul></li>
+    <li>Review for other device batteries <a class="cleanimage" href="https://www.thunderheartreviews.com/2018/08/lg-m50-5000mah-vs-samsung-48g-4800mah.html" target="_blank">https://www.thunderheartreviews.com/2018/08/lg-m50-5000mah-vs-samsung-48g-4800mah.html</a></li>
+    <li>Junya Shao; Junfu Li; Weizhe Yuan; Changsong Dai; Zhenbo Wang; Ming Zhao; Michael Pecht; [May 2023] “A novel method of discharge capacity prediction based on simplified electrochemical model-aging mechanism for lithium-ion batteries” <a class="cleanimage" href="https://www.sciencedirect.com/science/article/abs/pii/S2352152X23001858" target="_blank">https://www.sciencedirect.com/science/article/abs/pii/S2352152X23001858</a><ul class="ulbasic">
+        <li>DOI 10.1016/j.est.2023.106788 ~~ Journal of Energy Storage</li>
+    </ul></li>
+    <li>Adrian Soto; Alberto Berrueta; Miren Mateos; Pablo Sanchis; Alfredo Ursúa [Nov 2022] “Impact of micro-cycles on the lifetime of lithium-ion batteries: An experimental study” <a class="cleanimage" href="https://www.sciencedirect.com/science/article/pii/S2352152X2201338X" target="_blank">https://www.sciencedirect.com/science/article/pii/S2352152X2201338X</a><ul class="ulbasic">
+        <li>DOI 10.1016/j.est.2022.105343 ~~ Journal of Energy Storage</li>
+    </ul></li>
+    <li>Yuliya Preger; Heather M. Barkholtz; Armando Fresquez; Daniel L Campbell; Benjamin W. Juba; Jessica Romàn-Kustas; Summer R. Ferreira and Babu Chalamala [September 2020]  “Degradation of Commercial Lithium-Ion Cells as a Function of Chemistry and Cycling Conditions” <a class="cleanimage" href="https://iopscience.iop.org/article/10.1149/1945-7111/abae37" target="_blank">https://iopscience.iop.org/article/10.1149/1945-7111/abae37</a><ul class="ulbasic">
+        <li>DOI 10.1149/1945-7111/abae37 ~~ Journal of The Electrochemical Society, Volume 167, Number 12  OPEN ACCESS</li>
+    </ul></li>
+    <li>Peng Zhang; Jun Liang; Feng Zhang; [May 2017] “An Overview of Different Approaches for Battery Lifetime Prediction”  <a class="cleanimage" href="https://www.researchgate.net/publication/317107750_An_Overview_of_Different_Approaches_for_Battery_Lifetime_Prediction" target="_blank">https://www.researchgate.net/publication/317107750_An_Overview_of_Different_Approaches_for_Battery_Lifetime_Prediction</a><ul class="ulbasic">
+        <li>DOI 10.1088/1757-899X/199/1/012134 ~~ IOP Conference Series Materials Science and Engineering  CC BT 3 lience</li>
+    </ul></li>
+</ul>
+
+
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Laptop batteries (2020s tech, li-ion)</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbattery-tech-investigation" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbattery-tech-investigation" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbattery-tech-investigation" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbattery-tech-investigation&amp;t=Laptop+batteries"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbattery-tech-investigation" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2025-04-22T08:27:04" datetime="2025-04-22T08:27:04">Apr '25</time>
+						</span>
+						<span>Created <time datetime="2025-04-06T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Apr '25</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fbattery-tech-investigation" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Metrics</a></li>
+<li><a href="#toc1">Assorted facts as intro</a></li>
+<li><a href="#toc2">Charge / Discharge cycles</a></li>
+<li><a href="#toc3">Outcomes</a></li>
+<li><a href="#toc4">Extended reading</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-04-22T08:38:26" datetime="2025-04-22T08:38:26">22nd of Apr 2025, 8:38:26</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-22T08:27:04" datetime="2025-04-22T08:27:04">Apr '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
