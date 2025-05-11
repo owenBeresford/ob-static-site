@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about ~200,000 words, please read some of them. -->
 <title>IT and process</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/home" />
 <meta property="og:description" content="Assorted articles and processes on the current state of software engineering.  Please move through to the articles..." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Apr 2025, 22:44:36" />
-<meta property="article:modified_time" content="Apr '25" />
+<meta property="article:published_time" content="11th of May 2025, 19:58:21" />
+<meta property="article:modified_time" content="May '25" />
 <!-- meta property="article:tag" content="Article Tag" /  -->
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <link rel="canonical" href="https://owenberesford.me.uk/" />
@@ -90,16 +90,22 @@ For performance, I have stripped many off-the-shelf components from this site, s
 <a class="button" href="/resource/changelog" title="View important tech changes to this site">Show boring notes about this site </a>
 </div>
 </div>
-<div class="column tabContainer">
+<div class="column tabContainer" role="tablist">
+	<header class="tabHeader">
 		<span role="presentation" class="fakeTab" style="left:0em;" rel="me" >
-			 <img src="/asset/ob1.webp" role="presentation" class="myUglyFace" loading="lazy" width="100" height="100" alt="Many bloggers say adding a photo of yourself makes it look more authentic. IMO, my face is not a reason to hire me."  /> 
+			 <img src="/asset/ob1.webp" role="presentation" aria-hidden="true" class="myUglyFace" loading="lazy" width="100" height="100" alt="Many bloggers say adding a photo of yourself makes it look more authentic. IMO, my face is not a reason to hire me."  /> 
 		</span>
 
-	<fieldset class="tabs-content" role="tab">
-		<legend title="This should be the list of most important articles on this site.  I hope I have updated it">
-			<label> Articles <input id="articles" type="radio" value="articles" checked name="tabs" /></label>
-		</legend>
-<ul class="ulbasic">
+		<label title="This should be the list of most important articles on this site.  I hope I have updated it" role="tab" id="tabArticles" aria-controls="panelArticles">
+			Articles <input id="articles" type="radio" value="articles" checked name="tabs" />
+		</label>
+		<label title="My roles, publications and OSS projects" role="tab" id="tabProjects" aria-controls="panelProjects">
+			 Projects <input id="projects" type="radio" value="projects" name="tabs" />
+		</label>
+	</header>
+
+	<section class="tabContent" role="tabpanel" aria-labelledby="tabArticles" id="panelArticles">
+		<ul class="ulbasic">
     <li><a href="https://owenberesford.me.uk/resource/whats-changed-2022#">whats-changed-2022</a></li>
     <li>Links to demos in projects tab</li>
     <li>2020 Notes I wrote at <a href="https://owenberesford.me.uk/resource/js-nation-live-notes#">JS nation</a></li>
@@ -129,13 +135,10 @@ For performance, I have stripped many off-the-shelf components from this site, s
 </ul>
 
 
-	</fieldset>
+	</section>
 	
-	<fieldset class="tabs-content" role="tab">
-		<legend title="My roles, publications and OSS projects" >
-			<label>  Projects <input id="projects" type="radio" value="projects" name="tabs" /></label>
-		</legend>
-<ul class="ulbasic">
+	<section class="tabContent" role="tabpanel" aria-labelledby="tabProjects" id="panelProjects">
+		<ul class="ulbasic">
     <li>2023: some UTF8 toys: <a href="https://owenberesford.me.uk/resource/utf8-richtext-maquette#">utf8-richtext-maquette</a>, <a href="https://owenberesford.me.uk/resource/diverse-emoji#">diverse-emoji</a>, <a href="https://owenberesford.me.uk/resource/colourise-emoji#">colourise-emoji</a>, <a href="https://owenberesford.me.uk/resource/progress-animation-maquette#">progress-animation-maquette</a>, <a href="https://owenberesford.me.uk/resource/search-text-sample#">search-text-sample</a></li>
     <li>2024 utf8 and CSS toys: <a href="https://owenberesford.me.uk/resource/3d-effects-maquette#">3d-effects-maquette</a>, <a href="https://owenberesford.me.uk/resource/form-no-js-maquette#">form-no-js-maquette</a>, <a href="https://owenberesford.me.uk/resource/my-fonts-maquette#">my-fonts-maquette</a>, <a href="https://owenberesford.me.uk/resource/transition-animation-tooltips-maquette#">transition-animation-tooltips-maquette</a>, <a href="https://owenberesford.me.uk/resource/webcomponent-maquette#">webcomponent-maquette</a></li>
     <li>2025 CSS toys:  <a href="https://owenberesford.me.uk/resource/mobile-tooltips-maquette#">mobile-tooltips-maquette</a>, <a href="https://owenberesford.me.uk/resource/svg-in-api-response-maquette#">svg-in-api-response-maquette</a></li>
@@ -167,8 +170,7 @@ For performance, I have stripped many off-the-shelf components from this site, s
 </ul>
 
 
-	</fieldset>
-
+	</section>
 </div>
 </div>
     </article>
@@ -180,7 +182,7 @@ For performance, I have stripped many off-the-shelf components from this site, s
 	<div class="column">
 		<div class="top-bar fullWidth">
 			<header><h1>IT and process</h1></header>
-			<p class="bigScreenOnly" role="status">Literate programming: ~ 240,000 words and rising, ~ 260 articles </p>
+			<p class="bigScreenOnly" role="status">Literate programming: ~ 250,000 words and rising, ~ 260 articles </p>
 		</div>
 		<div id="shareGroup" class="metaWidget row addReading">
 			<span class="SMshareWidget"> 
@@ -197,8 +199,8 @@ For performance, I have stripped many off-the-shelf components from this site, s
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edit <time datetime="2025-04-21T22:44:25">Apr '25</time></span>
-						<span>Creat <time datetime="2015-03-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
+						<span>Edit <time datetime="2025-05-11T16:37:58">May '25</time></span>
+						<span>Create <time datetime="2015-03-15T00:00:00" title="if the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
 
 				</div>
@@ -226,7 +228,7 @@ For performance, I have stripped many off-the-shelf components from this site, s
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i></a>
 	</div>
 	<div class="column bigColumn">
-		 Page rendered <time datetime="2025-04-21T22:44:36">21st of Apr 2025, 22:44:36</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2025-04-21T22:44:25">Apr '25</time>. <br />
+		 Page rendered <time datetime="2025-05-11T19:58:21">11th of May 2025, 19:58:21</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me#">contact me</a>.  Last modified <time datetime="2025-05-11T16:37:58">May '25</time>. <br />
 		Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence#" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
 
