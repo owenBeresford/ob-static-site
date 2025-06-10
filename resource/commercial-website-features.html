@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/commercial-website-features" />
 <meta property="og:description" content="A list of 30 features that a developer should do for each website accessible on the internet." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Apr 2025, 22:44:34" />
-<meta property="article:modified_time" content="Apr '25" />
+<meta property="article:published_time" content="10th of Jun 2025, 9:44:27" />
+<meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/commercial-website-features" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Website features list",
-	"article:published_time":"21st of Apr 2025, 22:44:34", 
-    "article:modified_time":"Apr '25",
+	"article:published_time":"10th of Jun 2025, 9:44:27", 
+    "article:modified_time":"Jun '25",
     "article:section":"technology",
 
     "author": {
@@ -135,6 +135,8 @@ As a “after a few years” review, the easy-to-find advice is either badly aud
     <li>Tech admin: Analysis of logging, so any errors can be resolved promptly.  If you are using a website as an active communication channel with your users; this is essential.</li>
 </ul>
 
+<p>A convenient test tool for many of these details is <a href="https://pagespeed.web.dev/report" target="_blank">Pagespeed</a></p>
+
 
 </details>
 <details class="singlePopup withScroll">
@@ -209,12 +211,13 @@ As a “after a few years” review, the easy-to-find advice is either badly aud
     <li>Try preloading essential iconset fonts / images for diagrams / CSS libs directly in the HTML HEAD with LINK rel=“preload” <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload" target="_blank">3</a></sup> <sup><a href="https://devdoc.net/web/developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content.html" target="_blank">4</a></sup> <sup><a href="https://stackoverflow.com/a/49981075" target="_blank">5</a></sup> <sup><a href="https://stackoverflow.com/a/64499667" target="_blank">6</a></sup>.  There are “solutions” describing making LINK elements with preload via JS.   However, by the time the JS has been downloaded and parsed, it's not the early loading phase anymore ~ so I'm not sure how this helps.   This tech is supported by 96.02% of browsers <sup><a href="https://caniuse.com/?search=rel%3Dpreload" target="_blank">7</a></sup></li>
     <li>Use loading=lazy <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading" target="_blank">8</a></sup> and height / width attributes on IMG elements, so the image(s) can be loaded last, but nothing will reflow.   Currently supported by 96.31% of browsers <sup><a href="https://caniuse.com/?search=loading%3Dlazy" target="_blank">9</a></sup></li>
     <li>Reduce animation to the most import bit, rather than all over.  Animation reduces readability, and the further we travel from 1995 the less people are impressed by it.   For the important animation, platforms like MaterialUI are great for consistency and being able to deliver story points quickly, BUT maybe a little bit of CSS is smaller and faster e.g. <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions/Using_CSS_transitions" target="_blank">10</a></sup>.   There are other technologies that could be used, but my point is, good DX often isn't performant.   </li>
-    <li>Bundling and splitting CSS into <i>“all the CSS for this app/site and mobile and portrait”</i>, then <i>“all the CSS for this app/site and tablet and landscape”</i>, and <i>“all the CSS for this app/site and a big screen”</i> may help reduce download volumes if the CSS is different in each case.  This isn't true in all apps / sites.   The screen orientation is the important metric, but the precise visualisations created should match your users, not some online notes.  Assuming your CSS works in this architecture, media queries can be added to the STYLE element, so only relevant CSS is downloaded.  There are many text centric sites where multiple files would be nearly identical so this step buys nothing.   To reduce risk, there should be a default “catchall” style sheet with a flexible RWD / liquid layout.  <strong>This needs to be a compile step</strong>, or the render testing will be very lengthy. Try <i>PurgeCSS</i> <a href="https://www.npmjs.com/package/@fullhuman/postcss-purgecss" target="_blank">npm</a> <a href="https://github.com/FullHuman/purgecss" target="_blank">git</a>, or <i>PurityCSS</i> <a href="https://www.npmjs.com/package/purify-css" target="_blank">npm</a> <a href="https://github.com/purifycss/purifycss" target="_blank">git</a>  <sup><a href="https://www.corewebvitals.io/pagespeed/fix-remove-unused-css-lighthouse" target="_blank">11</a></sup> <sup><a href="https://webup.org/blog/react-device-based-code-split/" target="_blank">12</a></sup>.</li>
+    <li>Look at when each Element is rendered, and if these are in the right order.  The order can be managed with various CSS declarations XXX XXX  <sup><a href="https://web.dev/blog/css-content-visibility-baseline" target="_blank">11</a></sup></li>
+    <li>Bundling and splitting CSS into <i>“all the CSS for this app/site and mobile and portrait”</i>, then <i>“all the CSS for this app/site and tablet and landscape”</i>, and <i>“all the CSS for this app/site and a big screen”</i> may help reduce download volumes if the CSS is different in each case.  This isn't true in all apps / sites.   The screen orientation is the important metric, but the precise visualisations created should match your users, not some online notes.  Assuming your CSS works in this architecture, media queries can be added to the STYLE element, so only relevant CSS is downloaded.  There are many text centric sites where multiple files would be nearly identical so this step buys nothing.   To reduce risk, there should be a default “catchall” style sheet with a flexible RWD / liquid layout.  <strong>This needs to be a compile step</strong>, or the render testing will be very lengthy. Try <i>PurgeCSS</i> <a href="https://www.npmjs.com/package/@fullhuman/postcss-purgecss" target="_blank">npm</a> <a href="https://github.com/FullHuman/purgecss" target="_blank">git</a>, or <i>PurityCSS</i> <a href="https://www.npmjs.com/package/purify-css" target="_blank">npm</a> <a href="https://github.com/purifycss/purifycss" target="_blank">git</a>  <sup><a href="https://www.corewebvitals.io/pagespeed/fix-remove-unused-css-lighthouse" target="_blank">12</a></sup> <sup><a href="https://webup.org/blog/react-device-based-code-split/" target="_blank">13</a></sup>.</li>
     <li>Look at the HTML after all the technology has happened.  Try to migrate to use HTML DIALOG and DETAILS / SUMMARY with relevant CSS, as these are smoother, more secure, smaller, and faster than some 3rd party SPA Component.   For modern CSS, many features in a HTML SELECT can be styled, so migrating to a real SELECT box is probably better UX.   </li>
     <li>Encourage marketing-centric plugins to load after the actual content.   For certain vendors, I edit their JS snippet to use a DOM loadevent, then a small setTimeout, rather than HTML3 onload event.   This means users get an interactive page load time that is 4-5s faster.</li>
-    <li>Check for usage of legacy features based on CSS margins, as this caused page reflows.   Try CSS <i>flex</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex" target="_blank">13</a></sup> or <i>flex-grid</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Glossary/Grid" target="_blank">14</a></sup>.   These should be a feature of your CSS framework.  Assume global support for each CSS option mentioned in this paragraph.   I don't have experience with CSS float making reflows, but that should be deprecated also.   </li>
+    <li>Check for usage of legacy features based on CSS margins, as this caused page reflows.   Try CSS <i>flex</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex" target="_blank">14</a></sup> or <i>flex-grid</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Glossary/Grid" target="_blank">15</a></sup>.   These should be a feature of your CSS framework.  Assume global support for each CSS option mentioned in this paragraph.   I don't have experience with CSS float making reflows, but that should be deprecated also.   </li>
     <li>Eliminate non-visible white-space from your HTML for production use on SSR or static sites.  There are plugins for your framework, and/or a regex over the source code that makes the HTML.   If you are using an SPA, this step is not important.</li>
-    <li>Ensure everything in minified correctly, and trees are shaken (i.e. check the file rather than looking at the file suffix). #leSigh Check fonts are compressed when they say they are. #leSigh Check images have correct resolution, correct JPEG compression and correct palette size, again #leSigh.  In many cases, diagram-type images are smaller as SVG, but photo-type images need to be either WEBP or JPEG2000.  I assert that there are no dodgy small resolution JPEGs for anything recent, so the newer format is better <sup><a href="https://blog.idrsolutions.com/how-to-choose-jpg-versus-jpeg2000-for-image-files/" target="_blank">15</a></sup>.   Keep measuring everything. </li>
+    <li>Ensure everything in minified correctly, and trees are shaken (i.e. check the file rather than looking at the file suffix). #leSigh Check fonts are compressed when they say they are. #leSigh Check images have correct resolution, correct JPEG compression and correct palette size, again #leSigh.  In many cases, diagram-type images are smaller as SVG, but photo-type images need to be either WEBP or JPEG2000.  I assert that there are no dodgy small resolution JPEGs for anything recent, so the newer format is better <sup><a href="https://blog.idrsolutions.com/how-to-choose-jpg-versus-jpeg2000-for-image-files/" target="_blank">16</a></sup>.   Keep measuring everything. </li>
     <li>I haven't mentioned deprecate table-based layouts from the early noughties with extreme prejudice... but do so if found.</li>
 </ul>
 
@@ -269,7 +272,7 @@ Note there are Golang HTTP middleware frameworks which ship without HTTP 404 or 
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-06-01T22:29:06" datetime="2025-06-01T22:29:06">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2021-07-16T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jul '21</time> </span>
 					</span>
@@ -277,9 +280,9 @@ Note there are Golang HTTP middleware frameworks which ship without HTTP 404 or 
 				</div>
 			</div>
 			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcommercial-website-features" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcommercial-website-features" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -299,7 +302,7 @@ Note there are Golang HTTP middleware frameworks which ship without HTTP 404 or 
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details  class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
+		<details  class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">An accessible internet-facing website should have</a></li>
 <li><a href="#toc1">Artifacts</a></li>
 <li><a href="#toc2">Tech features</a></li>
@@ -323,7 +326,7 @@ Note there are Golang HTTP middleware frameworks which ship without HTTP 404 or 
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-21T22:44:34" datetime="2025-04-21T22:44:34">21st of Apr 2025, 22:44:34</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-06-10T09:44:27" datetime="2025-06-10T09:44:27">10th of Jun 2025, 9:44:27</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-01T22:29:06" datetime="2025-06-01T22:29:06">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

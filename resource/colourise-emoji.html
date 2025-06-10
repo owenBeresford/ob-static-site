@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/colourise-emoji" />
 <meta property="og:description" content="Maquette Colouring your Emoticons/Emoji using plain UTF8 for apps and matching to the active colour scheme (pale and dark modes).  I listed all the useful icon UTF8 I could find." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Apr 2025, 22:44:34" />
-<meta property="article:modified_time" content="Apr '25" />
+<meta property="article:published_time" content="10th of Jun 2025, 9:44:27" />
+<meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/colourise-emoji" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Colouring your Emoticons/Emoji",
-	"article:published_time":"21st of Apr 2025, 22:44:34", 
-    "article:modified_time":"Apr '25",
+	"article:published_time":"10th of Jun 2025, 9:44:27", 
+    "article:modified_time":"Jun '25",
     "article:section":"technology",
 
     "author": {
@@ -87,8 +87,9 @@ Please note the solid square should have a check/ tick in the middle, but flatte
 ™ ® ® ♻  ⚕ 💲 ✔ ✅ 🔗 ⚙ 🔑 ✨ 
 </div></p>
 
-<p>NOTE separate process needed for SAFARI <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank">2</a></sup>.  Note to get the chars to render, I needed to use different symbols (see <sup><a href="https://codepoints.net/U+FE0E" target="_blank">3</a></sup> ), and encode them <sup><a href="https://www.online-toolz.com/tools/unicode-html-entities-convertor.php" target="_blank">4</a></sup>; rather than pasting them. (use view source), <br />
-Encoded as entities: <br />
+<p>NOTE separate process needed for SAFARI <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank">2</a></sup>.  Note to get the chars to render, I needed to use different symbols (see <sup><a href="https://codepoints.net/U+FE0E" target="_blank">3</a></sup> ), and encode them <sup><a href="https://www.online-toolz.com/tools/unicode-html-entities-convertor.php" target="_blank">4</a></sup>; rather than pasting them. (use view source).   Further notes <sup><a href="https://stackoverflow.com/questions/35939070/safari-mobile-does-not-respect-css-color-attribute-for-html-entity-10006" target="_blank">5</a></sup> <sup><a href="https://stackoverflow.com/questions/21400182/safari-css-font-color-issue#21522506" target="_blank">6</a></sup></p>
+
+<p>Encoded as entities: <br />
 <div class="pullout1 _darkMode2" >
 ™ ® ® ♻  ⚕ &#128178;&#65038; ✔ &#9989;&#xFE0E; &#128279; &#9881; &#128273;&#xFE0E;
 </div></p>
@@ -134,7 +135,7 @@ I have never tested on (but for specific geo-markets should do):
 </details>
 </fieldset></p>
 
-<p>As my work normally deploys for mobile, I will need to support droid (most typically a version of chrome); and apple (typically a version of safari) as core objectives.  From this testing page; there will need to be a dual render of “chrome symbol encoding”, and then “safari symbol encoding”.  *Strongly probably* the second one can be magic translation via JS, see <sup><a href="https://github.com/mathiasbynens/he" target="_blank">5</a></sup>.  In a situation with known clients, this can be done statically in advance.  Conclusion: If a solution text where both patforms could use the same source text, and skip the rewriting step was found, this technology may be viable.  <br />
+<p>As my work normally deploys for mobile, I will need to support droid (most typically a version of chrome); and apple (typically a version of safari) as core objectives.  From this testing page; there will need to be a dual render of “chrome symbol encoding”, and then “safari symbol encoding”.  *Strongly probably* the second one can be magic translation via JS, see <sup><a href="https://github.com/mathiasbynens/he" target="_blank">7</a></sup>.  In a situation with known clients, this can be done statically in advance.  Conclusion: If a solution text where both platforms could use the same source text, and skip the rewriting step was found, this technology may be viable.  <br />
 .   <br />
 ... <br />
 .</p>
@@ -179,7 +180,7 @@ I have never tested on (but for specific geo-markets should do):
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-06-01T19:58:35" datetime="2025-06-01T19:58:35">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2022-02-22T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '22</time> </span>
 					</span>
@@ -187,9 +188,9 @@ I have never tested on (but for specific geo-markets should do):
 				</div>
 			</div>
 			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcolourise-emoji" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fcolourise-emoji" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -224,7 +225,7 @@ I have never tested on (but for specific geo-markets should do):
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-21T22:44:34" datetime="2025-04-21T22:44:34">21st of Apr 2025, 22:44:34</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-06-10T09:44:27" datetime="2025-06-10T09:44:27">10th of Jun 2025, 9:44:27</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-01T19:58:35" datetime="2025-06-01T19:58:35">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
 </footer>

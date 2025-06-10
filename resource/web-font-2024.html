@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/web-font-2024" />
 <meta property="og:description" content="A look at recent web fonts tech and the typographical options, and analysis of fonts' readability.   A demo also is shown with font options achieving typographic effects inside CSS." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Apr 2025, 22:44:42" />
-<meta property="article:modified_time" content="Apr '25" />
+<meta property="article:published_time" content="10th of Jun 2025, 9:44:30" />
+<meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/web-font-2024" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Web Fonts '24",
-	"article:published_time":"21st of Apr 2025, 22:44:42", 
-    "article:modified_time":"Apr '25",
+	"article:published_time":"10th of Jun 2025, 9:44:30", 
+    "article:modified_time":"Jun '25",
     "article:section":"technology",
 
     "author": {
@@ -51,8 +51,8 @@ TODO: magic tune selection against some index/DB -->
   <div class="after_menu articleContent">
    <main id="main">
     <article>
-     <div class="blocker addReferences extraFonts">
-<div class="lotsOfWords popOverWidget">
+     <div class="blocker addReferences extraFonts popOverWidget">
+<div class="lotsOfWords">
 <p>If the text you are writing resembles a blog, custom fonts are nice but not essential.   As a rule of thumb, I am sure &gt;50% of users will <em>not notice</em> what font you use.   This effect is amplified if the reader is using a small screen like a phone.  If a person with an odd setup sees your text with their system default-font, they have still completed their user journey successfully.   The common practice of pretending that time doesn't exist whilst a font is computed in a google cache doesn't make sense to me (blocking with no content for about 3s).   It does make me leave the site, or at least background the tab.   If a user has really old or odd technological choices ~ IMO ~ it's better to use system fonts, their tech choice has said they do not want bells or whistles while they browse.</p>
 
 <p>However there are other uses of fonts, such as icon fonts where it is worth having a very good level of support; as technical failure would break user journeys.   With current technology, I sometimes use UTF-8 chars rather than a logo font, as this is less bytes.  The logo fonts are awesome as a means to send company logos efficiently.   As ever, “work out who your users are and support the right technology for them” is more important than these market percentage sizes.</p>
@@ -153,30 +153,57 @@ It is possible to have fonts for specific purposes (e.g. only Japanese letters, 
 
 </div>
 <br />
-<div class="lotsOfWords popOverWidget">
+<div class="lotsOfWords">
 <p>If you have a random font file that [non-tech authority person] likes using, diagnostics to manage this better are available: font identifiers <sup><a href="https://www.fontsquirrel.com/matcherator" target="_blank">1</a></sup> <sup><a href="https://www.whatfontis.com/" target="_blank">2</a></sup> <sup><a href="https://www.myfonts.com/pages/whatthefont" target="_blank">3</a></sup> <sup><a href="https://www.fontspring.com/matcherator" target="_blank">4</a></sup>, from screen grab images; data about an actual WOFF file can be extracted via <sup><a href="https://github.com/typesupply/woffTools" target="_blank">5</a></sup>, maybe installable via pip; or the online version <sup><a href="https://products.aspose.app/font/metadata/woff" target="_blank">6</a></sup>; to report/ set VR fonts settings <sup><a href="https://fontdrop.info/#/?darkmode=true" target="_blank">7</a></sup>.       <br />
 I am sourcing browser population stats from caniuse.com, but take the numbers as ratios.   The populations do not add-up to 100% on quite a few tech options, and as quite a few minority browsers usage is the same or less than as the error bar, it's awkward.  <br />
 Font loading discussion <sup><a href="https://css-tricks.com/fout-foit-foft/" target="_blank">8</a></sup>.  I could design a system where buttons using logo-fonts have fixed sizes and a default text that would be displaced when the logo is available on screen (and overflow-x:hidden).   For text-fonts, the FOUT before the font is available can be reduced by having a backup system font, and using a tool <sup><a href="https://meowni.ca/font-style-matcher/" target="_blank">9</a></sup> to make the system font have the same volume as the desired font.  For the body text, I think I would set the colour to a lower saturation version, so any jump would be less impactful.</p>
 
 
+<details class="singlePopup">
+<summary>Recent CSS keywords</summary>
+These only have partial support, but look very useful.  Possibly extend to have relevant links to MDN. 
+<ul class="ulbasic">
+    <li>font-synthesis</li>
+    <li>font-synthesis-position</li>
+    <li>font-synthesis-small-caps</li>
+    <li>font-synthesis-style</li>
+    <li>font-synthesis-weight</li>
+    <li>font-variant</li>
+    <li>font-variant-alternates</li>
+    <li>font-variant-caps</li>
+    <li>font-variant-east-asian</li>
+    <li>font-variant-emoji</li>
+    <li>font-variant-ligatures</li>
+    <li>font-variant-numeric</li>
+    <li>font-variant-position</li>
+    <li>font-variation-settings</li>
+    <li>font-style ~ this is CSS 1</li>
+</ul>
+
+
+</details>
+</br />
+<p>.</p>
+
+
 <h5 id="toc1"> Printing fonts</h5>
-<p>I haven't built much to run in a webrowser that shold be emitted via a printer.  If I did, I would use the PDF format.   PDF has different font approaches, and is not covered in this article.  Please always use the newest available version of PDF format <sup><a href="https://en.wikipedia.org/wiki/PDF" target="_blank">10</a></sup>, some tools use decade old PDF writers.</p>
+<p>I haven't built much to run in a webrowser that should be emitted via a printer.  If I did, I would use the PDF format.   PDF has different font approaches, and is not covered in this article.  Please always use the newest available version of PDF format <sup><a href="https://en.wikipedia.org/wiki/PDF" target="_blank">1</a></sup>, some tools use decade old PDF writers.</p>
 
 
 <h5 id="toc2"> So, fonts?</h5>
-<p>For nearly everything, I use locally hosted fonts, as this is “better security” during audits.  If you are using CDN fonts, please try the optimisation tips listed on <sup><a href="https://css-tricks.com/how-to-load-fonts-in-a-way-that-fights-fout-and-makes-lighthouse-happy/" target="_blank">11</a></sup> <sup><a href="https://perfmatters.io/docs/ensure-text-remains-visible-during-webfont-load/" target="_blank">12</a></sup>.   My App servers are physically fairly near the clients, a SaaS with a .com domain may or may not be.   For a high use services, I would put fonts on a different subdomain, just like pictures.   Warning, fonts should be considered a external binary of unknown providence, says Canva <sup><a href="https://www.theregister.com/2024/03/08/canva_font_security/" target="_blank">13</a></sup>.  The article doesn't list anything that would affect a web app, but I suspect that no-one thought about that threat vector.   I would treat the article as Canva trying to build-up market value.</p>
+<p>For nearly everything, I use locally hosted fonts, as this is “better security” during audits.  If you are using CDN fonts, please try the optimisation tips listed on <sup><a href="https://css-tricks.com/how-to-load-fonts-in-a-way-that-fights-fout-and-makes-lighthouse-happy/" target="_blank">2</a></sup> <sup><a href="https://perfmatters.io/docs/ensure-text-remains-visible-during-webfont-load/" target="_blank">3</a></sup>.   My App servers are physically fairly near the clients, a SaaS with a .com domain may or may not be.   For a high use services, I would put fonts on a different subdomain, just like pictures.   Warning, fonts should be considered a external binary of unknown providence, says Canva <sup><a href="https://www.theregister.com/2024/03/08/canva_font_security/" target="_blank">4</a></sup>.  The article doesn't list anything that would affect a web app, but I suspect that no-one thought about that threat vector.   I would treat the article as Canva trying to build-up market value.</p>
 
-<p>I like typography, I was briefly happy when when web-fonts got adopted by marketing teams in 2012 or so.  It is now a decade later, my current page makes use of many more settings for typesetting.  I have built many of these visual effects in plain HTML and 'box-model CSS' (no demo, as it's just 'not stopping working' till stupid o'clock).   But CSS applied to text without a special tag is much smaller and easier.   I can achieve many of these effects via MathML, see <a href="https://owenberesford.me.uk/resource/draw-equations-inline#">draw-equations-inline</a>, but again PageSpeed will complain about DOM node count.   I may need to replace my font files soon <sup><a href="https://css-tricks.com/one-file-many-options-using-variable-fonts-web/" target="_blank">14</a></sup> (even if I use the same font).</p>
+<p>I like typography, I was briefly happy when when web-fonts got adopted by marketing teams in 2012 or so.  It is now a decade later, my current page makes use of many more settings for typesetting.  I have built many of these visual effects in plain HTML and 'box-model CSS' (no demo, as it's just 'not stopping working' till stupid o'clock).   But CSS applied to text without a special tag is much smaller and easier.   I can achieve many of these effects via MathML, see <a href="https://owenberesford.me.uk/resource/draw-equations-inline#">draw-equations-inline</a>, but again PageSpeed will complain about DOM node count.   I may need to replace my font files soon <sup><a href="https://css-tricks.com/one-file-many-options-using-variable-fonts-web/" target="_blank">5</a></sup> (even if I use the same font).</p>
 
 
 <h5 id="toc3"> ⚠ WARNING ⚠, readability</h5>
-<p>There are text focussed CSS declarations that affect the way that the letters look.  Editing fonts so they are readable and usable in many different situations is a larger and more difficult skill than adding some CSS.  A font can be made italic by setting a CSS declaration <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style" target="_blank">15</a></sup>, but a font won't be readable and italic without more work in a font editor (or using another person's work with the editor, but that does the same thing). <br />
+<p>There are text focussed CSS declarations that affect the way that the letters look.  Editing fonts so they are readable and usable in many different situations is a larger and more difficult skill than adding some CSS.  A font can be made italic by setting a CSS declaration <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style" target="_blank">6</a></sup>, but a font won't be readable and italic without more work in a font editor (or using another person's work with the editor, but that does the same thing). <br />
 The previous link showing synthesised fonts shows them to be less pronounced than the actual designed ones.  In terms of reading accessibility, a human designed font is definitely better.  But in terms of reducing bandwidth (so reducing people waiting) the browser made fonts are much better.  <br />
-In terms of flicker when fonts are applied, this can minimised by smoothing the differences in the default font, and the preferred one.  This can be done by setting <i>size-adjust, ascent-override, descent-override</i>, and <i>line-gap-override</i> <sup><a href="https://web.dev/articles/optimize-cls" target="_blank">16</a></sup>.  This is a supportive feature only, as these CSS declarations are less often supported on Safari or MSIE <sup><a href="https://caniuse.com/?search=line-gap-override" target="_blank">17</a></sup>.   As far as I can tell, these values would need to be computed manually.</p>
+In terms of flicker when fonts are applied, this can minimised by smoothing the differences in the default font, and the preferred one.  This can be done by setting <i>size-adjust, ascent-override, descent-override</i>, and <i>line-gap-override</i> <sup><a href="https://web.dev/articles/optimize-cls" target="_blank">7</a></sup>.  This is a supportive feature only, as these CSS declarations are less often supported on Safari or MSIE <sup><a href="https://caniuse.com/?search=line-gap-override" target="_blank">8</a></sup>.   As far as I can tell, these values would need to be computed manually.</p>
 
 
 <h5 id="toc4">⚠ WARNING ⚠, extra font features are sporadic</h5>
-<p>These hints I'm demoing here are brittle to the font setup.   To get this demo to work, I scrapped the font from the mozilla site <a href="https://github.com/mozilla/Fira" target="_blank">git</a>.   It is frustrating that my normal selection of “maximise readability” for different types of people will stop these hints from working.   This font is licensed via the 'open font licence', created by SIL (OFL).   I also downloaded the Adobe “show new font features” font <a href="https://github.com/adobe-fonts/source-sans/" target="_blank">git</a> or via a GUI <sup><a href="https://fonts.adobe.com/fonts/source-sans#fonts-section" target="_blank">18</a></sup> which supports more features.  This last font is released with OFL.<br />
+<p>These hints I'm demoing here are brittle to the font setup.   To get this demo to work, I scrapped the font from the mozilla site <a href="https://github.com/mozilla/Fira" target="_blank">git</a>.   It is frustrating that my normal selection of “maximise readability” for different types of people will stop these hints from working.   This font is licensed via the 'open font licence', created by SIL (OFL).   I also downloaded the Adobe “show new font features” font <a href="https://github.com/adobe-fonts/source-sans/" target="_blank">git</a> or via a GUI <sup><a href="https://fonts.adobe.com/fonts/source-sans#fonts-section" target="_blank">9</a></sup> which supports more features.  This last font is released with OFL.<br />
 When dealing with fonts, please ensure that you have a licence to use it.   Unlike CSS itself, a font is categorised as a graphic.   I can find fonts, but I'm more interested in font readability than anything else.   There is value in 'pretty font' choice on paper, but I'm not convinced laptops have enough resolution to make fonts for body text that distinct.  <b>UPDATE:</b> If I allowed the browser default of 14pt text, rather than 11pt, the font choice may be more meaningful.</p>
 
 
@@ -214,7 +241,7 @@ When dealing with fonts, please ensure that you have a licence to use it.   Unli
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-06-08T17:51:31" datetime="2025-06-08T17:51:31">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2024-01-09T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jan '24</time> </span>
 					</span>
@@ -222,9 +249,9 @@ When dealing with fonts, please ensure that you have a licence to use it.   Unli
 				</div>
 			</div>
 			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-font-2024" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-font-2024" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -244,7 +271,7 @@ When dealing with fonts, please ensure that you have a licence to use it.   Unli
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 			</details>
-		<details open class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Typography demo for current browsers</a></li>
 </menu>
 </details><br />
@@ -263,7 +290,7 @@ When dealing with fonts, please ensure that you have a licence to use it.   Unli
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-21T22:44:42" datetime="2025-04-21T22:44:42">21st of Apr 2025, 22:44:42</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-06-10T09:44:30" datetime="2025-06-10T09:44:30">10th of Jun 2025, 9:44:30</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-08T17:51:31" datetime="2025-06-08T17:51:31">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
 </footer>

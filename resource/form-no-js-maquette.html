@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/form-no-js-maquette" />
 <meta property="og:description" content="A tech demo detailing how much user interface can be built without using JS.  This has validation for user input." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Apr 2025, 22:44:35" />
-<meta property="article:modified_time" content="Apr '25" />
+<meta property="article:published_time" content="10th of Jun 2025, 9:44:28" />
+<meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/form-no-js-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Forms with only HTML+CSS",
-	"article:published_time":"21st of Apr 2025, 22:44:35", 
-    "article:modified_time":"Apr '25",
+	"article:published_time":"10th of Jun 2025, 9:44:28", 
+    "article:modified_time":"Jun '25",
     "article:section":"technology",
 
     "author": {
@@ -62,7 +62,7 @@ TODO: magic tune selection against some index/DB -->
 </div>
 <div class="maquetteContainer">
 <div class="maquette">
-<form class="outsizeFormContainer" action="" method="post" encoding="multipart/form-data; charset=utf8" >
+<form class="outsizeFormContainer" action="" method="post" enctype="multipart/form-data; charset=utf8" >
 <p><a name="demoHere"></a> Please supply your details (takes about 1-2min from desktop, about 5min from a phone):
 <fieldset class="formTab">
 <legend><label for="tab1Label"> Contact detail &nbsp; &nbsp; &nbsp; &nbsp;  </label> <input type="radio" id="tab1Label" name="tabs" value="group1" checked />  </legend>
@@ -160,7 +160,7 @@ This is free text, I applied no validation rules. </span>
 <td> Introverted</td><td> <input id="txt13" class="f1" type="range" min="-5" max="5" name="gender2" required /></td> <td>Extroverted</td>
 </tr>
 <tr>
-<td> Kaos</td> <td> <input id="txt14" class="f1" type="range" min="-5" max="5" name="gender3" required /></td> <td> Ordered</td>
+<td title="I would write χάος, but a reader needs to think about it too much to be a label."> Kaos</td> <td> <input id="txt14" class="f1" type="range" min="-5" max="5" name="gender3" required /></td> <td> Ordered</td>
 </tr>
 <tr>
 <td> Individualistic</td><td> <input id="txt15" class="f1" type="range" min="-5" max="5" name="gender4" required /></td><td>  Community</td>
@@ -261,7 +261,8 @@ This is free text, I applied no validation rules. </span>
     <li>I dare not use the traditional inch marker (&quot;) by the shoe inputs in this as people will assume its a typo in some code;</li>
     <li>I hope that 50 chars is enough letters for a person's full name ~ <strong>TODO</strong> include more example data here;</li>
     <li>I am not using a flex layout in the tab titles, as I wanted it to be clear that the GUI Sigils were just CSS; </li>
-    <li>I need a different unit for input screen sizes, as 'em' or 'rem' doesn't seem to match anything that the user enters (especially for number inputs);</li>
+    <li>I need a different unit for input screen sizes, as 'em' or 'rem' doesn't seem to match anything that the user enters (especially for number inputs).  Possibly this is caused by not using font size 26 as my default;</li>
+    <li>If a more shiny slider is needed, then look at <sup><a href="https://css-tip.com/css-variables-range-slider/" target="_blank">1</a></sup></li>
 </ul>
 
 
@@ -349,7 +350,7 @@ I have never tested on (but for specific geo-markets should do):
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-06-08T17:44:10" datetime="2025-06-08T17:44:10">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2024-03-20T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Mar '24</time> </span>
 					</span>
@@ -357,9 +358,9 @@ I have never tested on (but for specific geo-markets should do):
 				</div>
 			</div>
 			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fform-no-js-maquette" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -379,7 +380,7 @@ I have never tested on (but for specific geo-markets should do):
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details  class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
+		<details  class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Intro</a></li>
 <li><a href="#toc1">Benefits: Why build this page?</a></li>
 <li><a href="#toc2">Liabilities</a></li>
@@ -403,7 +404,7 @@ I have never tested on (but for specific geo-markets should do):
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-21T22:44:35" datetime="2025-04-21T22:44:35">21st of Apr 2025, 22:44:35</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-06-10T09:44:28" datetime="2025-06-10T09:44:28">10th of Jun 2025, 9:44:28</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-08T17:44:10" datetime="2025-06-08T17:44:10">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
