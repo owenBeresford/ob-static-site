@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/terraform" />
 <meta property="og:description" content="Terraform is a tool to manage, deploy, and delete cloud infrastructure.  I outline the basic architecture of the config language for this tool, along with useful problem-solving recipes." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="18th of May 2025, 19:58:29" />
-<meta property="article:modified_time" content="May '25" />
+<meta property="article:published_time" content="10th of Jun 2025, 10:19:25" />
+<meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/terraform" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Terraform",
-	"article:published_time":"18th of May 2025, 19:58:29", 
-    "article:modified_time":"May '25",
+	"article:published_time":"10th of Jun 2025, 10:19:25", 
+    "article:modified_time":"Jun '25",
     "article:section":"technology",
 
     "author": {
@@ -78,14 +78,14 @@ The headline value of this tool is to be able to keep deployment process in the 
 <ul class="ulbasic">
     <li>terraform init ~~~~ With configs created, this adds any necessary drivers without much hassle</li>
     <li>terraform plan ~~~ Reports broken attribs and configs </li>
-    <li>terraform apply ~~ Makes the plan happen</li>
     <li>terraform import ~ Evaluates the remote service settings so Terraform can see what is different to the local config. See state section.</li>
+    <li>terraform apply ~~ Makes the plan happen</li>
 </ul>
 
 
 
 <details class="singlePopup withScroll">
-<summary><h3>Recipes </h3></summary>
+<summary><h3>27 Recipes </h3></summary>
 
 <ul class="ulbasic">
     <li>Simple recipe first, favour Perl / bash style '#' for 1 line comments <sup><a href="https://developer.hashicorp.com/terraform/language/syntax/configuration" target="_blank">1</a></sup>, although Clang comment are supported.</li>
@@ -98,31 +98,33 @@ The headline value of this tool is to be able to keep deployment process in the 
     <li>There is a command to programmatically load files in Terraform <sup><a href="https://developer.hashicorp.com/terraform/language/functions/file" target="_blank">15</a></sup> <sup><a href="https://jhooq.com/terraform-load-data-from-input-file/" target="_blank">16</a></sup>.   Note parsing must be manually set.</li>
     <li>The command `terraform import` copies remote config to the local Terraform node <sup><a href="https://terrateam.io/blog/terraform-import/" target="_blank">17</a></sup>.   This allows comparison requirements to work better. </li>
     <li>Terraform <i>can</i> be used to create files on the local machine <sup><a href="https://www.boroscsaba.com/posts/run-terraform-locally-to-create-local-files/" target="_blank">18</a></sup>.   This in some situations is a good way to create them, as it can automatically tidy-up afterwards.   </li>
-    <li>To list possible variables for a vendor, create a minimal but complete provider setup, then run `terraform import` <sup><a href="https://scribe.rip/@leslie.alldridge/import-existing-resources-into-terraform-and-generate-code-with-examples-3130a9cb781a" target="_blank">19</a></sup>.  This will make a `terraform.tfstate` cache, which can be read in a text editor.  The variable names can be copied out of this cache.  </li>
-    <li>How this declarative language deals with loops <sup><a href="https://www.gruntwork.io/blog/terraform-tips-tricks-loops-if-statements-and-gotchas" target="_blank">20</a></sup>.  Loops are too useful not to be included.   </li>
+    <li>On Linux machines there is often path expansion to leave settings more readable and shorter (also on win32, but less orderly).  Terraform ships with <i>pathexpand</i> to normalise paths <sup><a href="https://developer.hashicorp.com/terraform/language/functions/pathexpand" target="_blank">19</a></sup> <sup><a href="https://developer.hashicorp.com/packer/docs/templates/hcl_templates/functions/file/pathexpand" target="_blank">20</a></sup></li>
+    <li>To list possible variables for a vendor, create a minimal but complete provider setup, then run `terraform import` <sup><a href="https://scribe.rip/@leslie.alldridge/import-existing-resources-into-terraform-and-generate-code-with-examples-3130a9cb781a" target="_blank">21</a></sup>.  This will make a `terraform.tfstate` cache, which can be read in a text editor.  The variable names can be copied out of this cache.  </li>
+    <li>How this declarative language deals with loops <sup><a href="https://www.gruntwork.io/blog/terraform-tips-tricks-loops-if-statements-and-gotchas" target="_blank">22</a></sup>.  Loops are too useful not to be included.   </li>
     <li>This tool will automate Oracle tools, which makes it worth using in its own right.   Oracle UI is heavy and authoritarian ~ it tells you to enter postcodes in caps with a dedicated message, rather than shifting-case in software.  </li>
     <li>There is a separate package called “Terraform Enterprise”, which I guess is to manage private cloud? </li>
-    <li>Via automagic, create a self-signed cert for unit-tests <sup><a href="https://www.slingacademy.com/article/terraform-how-to-generate-self-signed-ssl-certificates/" target="_blank">21</a></sup>, or make one via Lets-Encrypt <sup><a href="https://blog.xmi.fr/posts/tls-terraform-azure-lets-encrypt/#level-2-requesting-a-certificate-from-lets-encrypt" target="_blank">22</a></sup>.<ul class="ulbasic">
-        <li>Extra cert details <sup><a href="https://amod-kadam.scribe.rip/create-private-ca-and-certificates-using-terraform-4b0be8d1e86d" target="_blank">23</a></sup>.</li>
-        <li>There are a couple of integrations that allow Terraform on other Cert resellers ~ see the registry <sup><a href="https://registry.terraform.io/" target="_blank">24</a></sup>.</li>
+    <li>Via automagic, create a self-signed cert for unit-tests <sup><a href="https://www.slingacademy.com/article/terraform-how-to-generate-self-signed-ssl-certificates/" target="_blank">23</a></sup>, or make one via Lets-Encrypt <sup><a href="https://blog.xmi.fr/posts/tls-terraform-azure-lets-encrypt/#level-2-requesting-a-certificate-from-lets-encrypt" target="_blank">24</a></sup>.<ul class="ulbasic">
+        <li>Extra cert details <sup><a href="https://amod-kadam.scribe.rip/create-private-ca-and-certificates-using-terraform-4b0be8d1e86d" target="_blank">25</a></sup>.</li>
+        <li>There are a couple of integrations that allow Terraform on other Cert resellers ~ see the registry <sup><a href="https://registry.terraform.io/" target="_blank">26</a></sup>.</li>
     </ul></li>
-    <li>Terraform has parsers / ingesters for common formats: JSON as `jsondecode` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/jsondecode" target="_blank">25</a></sup> <sup><a href="https://scribe.rip/@sampark02/mastering-jsonencode-and-jsondecode-in-terraform-f1406fc0ed03" target="_blank">26</a></sup>, CSV as `csvdecode` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/csvdecode" target="_blank">27</a></sup> <sup><a href="https://www.slingacademy.com/article/terraform-read-csv-data-and-convert-into-list-of-maps/" target="_blank">28</a></sup>, YML as `yamldecode` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/yamldecode" target="_blank">29</a></sup> <sup><a href="https://build5nines.com/working-with-yaml-in-terraform-using-the-yamldecode-and-yamlencode-functions/" target="_blank">30</a></sup>, base64 as `base64decode` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/base64decode" target="_blank">31</a></sup> <sup><a href="https://devtodevops.com/terraform-base64-encode/" target="_blank">32</a></sup>, and int `parseint` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/parseint" target="_blank">33</a></sup>.  <ul class="ulbasic">
+    <li>Terraform has parsers / ingesters for common formats: JSON as `jsondecode` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/jsondecode" target="_blank">27</a></sup> <sup><a href="https://scribe.rip/@sampark02/mastering-jsonencode-and-jsondecode-in-terraform-f1406fc0ed03" target="_blank">28</a></sup>, CSV as `csvdecode` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/csvdecode" target="_blank">29</a></sup> <sup><a href="https://www.slingacademy.com/article/terraform-read-csv-data-and-convert-into-list-of-maps/" target="_blank">30</a></sup>, YML as `yamldecode` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/yamldecode" target="_blank">31</a></sup> <sup><a href="https://build5nines.com/working-with-yaml-in-terraform-using-the-yamldecode-and-yamlencode-functions/" target="_blank">32</a></sup>, base64 as `base64decode` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/base64decode" target="_blank">33</a></sup> <sup><a href="https://devtodevops.com/terraform-base64-encode/" target="_blank">34</a></sup>, and int `parseint` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/parseint" target="_blank">35</a></sup>.  <ul class="ulbasic">
         <li>There are complementary encode functions with predictable naming...</li>
-        <li>Config files are normally held as the INI / default format, but can be stored as JSON <sup><a href="https://developer.hashicorp.com/terraform/language/syntax/json" target="_blank">34</a></sup></li>
-        <li>For base64, care will be needed for end-of-blocks <sup><a href="https://stackoverflow.com/questions/78732942/terraform-base64encode-multiline" target="_blank">35</a></sup></li>
+        <li>Config files are normally held as the INI / default format, but can be stored as JSON <sup><a href="https://developer.hashicorp.com/terraform/language/syntax/json" target="_blank">36</a></sup></li>
+        <li>For base64, care will be needed for end-of-blocks <sup><a href="https://stackoverflow.com/questions/78732942/terraform-base64encode-multiline" target="_blank">37</a></sup></li>
     </ul></li>
-    <li>Data can be manipulated into and out of arrays `flatten` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/flatten" target="_blank">36</a></sup>, `distinct` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/distinct" target="_blank">37</a></sup> <sup><a href="https://scribe.rip/@sampark02/terraform-functions-flatten-and-distinct-explained-with-examples-cdb61a0c7406" target="_blank">38</a></sup>  or `map` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/map" target="_blank">39</a></sup></li>
-    <li>There is a list of string manipulation functions <sup><a href="https://scribe.rip/@sampark02/terraform-string-functions-real-world-examples-with-output-64a15207cc5b" target="_blank">40</a></sup> that resembles the JS String module.</li>
-    <li>As described in the shorter text, `terraform plan` will list differences between the known server state and the local configs, there is <i>-destroy</i> and <i>-refresh-only</i> for DELETE and UPDATE actions <sup><a href="https://developer.hashicorp.com/terraform/cli/commands/plan#planning-modes" target="_blank">41</a></sup>.   These later life-cycle operations are in more recent editions of Terraform, update it if needed for newer vendor API and newer features.   Whilst creating a large environment, better performance can be achieved with <i>-parallelism=n</i> , the default is 10. </li>
-    <li>By default Terraform attempts to confirm actions that may have side-effects whilst <i>applying</i>.  This is not great for automation, and can be disabled <sup><a href="https://developer.hashicorp.com/terraform/cli/commands/apply#apply-options" target="_blank">42</a></sup>.   Passing in a particular plan files implies that you are confident in its contents, and will also disable the confirm steps.</li>
+    <li>Data can be manipulated into and out of arrays `flatten` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/flatten" target="_blank">38</a></sup>, `distinct` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/distinct" target="_blank">39</a></sup> <sup><a href="https://scribe.rip/@sampark02/terraform-functions-flatten-and-distinct-explained-with-examples-cdb61a0c7406" target="_blank">40</a></sup>  or `map` <sup><a href="https://developer.hashicorp.com/terraform/language/functions/map" target="_blank">41</a></sup></li>
+    <li>There is a list of string manipulation functions <sup><a href="https://scribe.rip/@sampark02/terraform-string-functions-real-world-examples-with-output-64a15207cc5b" target="_blank">42</a></sup> that resembles the JS String module.</li>
+    <li>As described in the shorter text, `terraform plan` will list differences between the known server state and the local configs, there is <i>-destroy</i> and <i>-refresh-only</i> for DELETE and UPDATE actions <sup><a href="https://developer.hashicorp.com/terraform/cli/commands/plan#planning-modes" target="_blank">43</a></sup>.   These later life-cycle operations are in more recent editions of Terraform, update it if needed for newer vendor API and newer features.   Whilst creating a large environment, better performance can be achieved with <i>-parallelism=n</i> , the default is 10. </li>
+    <li>By default Terraform attempts to confirm actions that may have side-effects whilst <i>applying</i>.  This is not great for automation, and can be disabled <sup><a href="https://developer.hashicorp.com/terraform/cli/commands/apply#apply-options" target="_blank">44</a></sup>.   Passing in a particular plan files implies that you are confident in its contents, and will also disable the confirm steps.</li>
     <li>I have worked with contractors in more rural areas of India / Pakistan / Bengal who dislike Github / Bitbucket as it saturates their connection for hours (their office to the vendors servers, probably in the US).   However if they had a Git server on a cloud based in India, that should be a reasonable performance, and transit for cloud-to-cloud should be a lot more reliable.   Uploading a Terraform plan file should be really efficient in bytes (office to a Git server), so not have this penalty.   For test deployments, a <i>near cloud</i> is a much better workflow.  The difference for “oh, no! Its slow” of a few seconds (me) vs several hours (them) is noticeable.</li>
-    <li>It's possible to add extra checks and external scripts, like cost estimators as a validation step <sup><a href="https://developer.hashicorp.com/terraform/tutorials/automation/validation-enforcement" target="_blank">43</a></sup>.   This feels more like an interactive BDD test.</li>
-    <li>As an example of “scripting on-host resources”, Terraform can setup Nginx <sup><a href="https://registry.terraform.io/providers/getstackhead/nginx/latest" target="_blank">44</a></sup> <a href="https://registry.terraform.io/providers/getstackhead/nginx/latest/docs" target="_blank">docs</a>.  Using Terraform for the same computer is an odd thing to do, but it's possible.   Also a recipe to deploy Nginx to previous generation whole-VM-machine cloud <sup><a href="https://dev.to/danielfavour/deploy-an-nginx-web-server-on-an-ec2-instance-with-terraform-621" target="_blank">45</a></sup>, and how to deploy a pre-setup Docker image to your local machine via Terraform (running, guess what? .... Nginx!).   </li>
-    <li>There is a plugin for Redhat <a href="https://github.com/orgs/terraform-redhat/repositories" target="_blank">git</a> or official <sup><a href="https://registry.terraform.io/providers/redhat-developer/rhoas/latest/docs" target="_blank">46</a></sup>.  I haven't checked other distros, but I assume the same would be possible ~ a press release <sup><a href="https://www.hashicorp.com/en/blog/new-terraform-integrations-with-cisco-dell-red-hat-servicenow-and-more" target="_blank">47</a></sup>. </li>
-    <li>To setup mail relay on the above new RHEL server, I think it's necessary to use Ansible, or plain bash, these can be triggered from the same Terraform transaction.   There is a terraform-ansible plugin <sup><a href="https://registry.terraform.io/providers/ansible/ansible/latest" target="_blank">48</a></sup> <a href="https://registry.terraform.io/providers/ansible/ansible/latest/docs" target="_blank">docs</a> <a href="https://github.com/ansible/terraform-provider-ansible" target="_blank">git</a>.</li>
+    <li>It's possible to add extra checks and external scripts, like cost estimators as a validation step <sup><a href="https://developer.hashicorp.com/terraform/tutorials/automation/validation-enforcement" target="_blank">45</a></sup>.   This feels more like an interactive BDD test.</li>
+    <li>As an example of “scripting on-host resources”, Terraform can setup Nginx <sup><a href="https://registry.terraform.io/providers/getstackhead/nginx/latest" target="_blank">46</a></sup> <a href="https://registry.terraform.io/providers/getstackhead/nginx/latest/docs" target="_blank">docs</a>.  Using Terraform for the same computer is an odd thing to do, but it's possible.   Also a recipe to deploy Nginx to previous generation whole-VM-machine cloud <sup><a href="https://dev.to/danielfavour/deploy-an-nginx-web-server-on-an-ec2-instance-with-terraform-621" target="_blank">47</a></sup>, and how to deploy a pre-setup Docker image to your local machine via Terraform (running, guess what? .... Nginx!).   </li>
+    <li>There is a plugin for Redhat <a href="https://github.com/orgs/terraform-redhat/repositories" target="_blank">git</a> or official <sup><a href="https://registry.terraform.io/providers/redhat-developer/rhoas/latest/docs" target="_blank">48</a></sup>.  I haven't checked other distros, but I assume the same would be possible ~ a press release <sup><a href="https://www.hashicorp.com/en/blog/new-terraform-integrations-with-cisco-dell-red-hat-servicenow-and-more" target="_blank">49</a></sup>. </li>
+    <li>To setup mail relay on the above new RHEL server, I think it's necessary to use Ansible, or plain bash, these can be triggered from the same Terraform transaction.   There is a terraform-ansible plugin <sup><a href="https://registry.terraform.io/providers/ansible/ansible/latest" target="_blank">50</a></sup> <a href="https://registry.terraform.io/providers/ansible/ansible/latest/docs" target="_blank">docs</a> <a href="https://github.com/ansible/terraform-provider-ansible" target="_blank">git</a>.</li>
     <li>There are firewall plugins for cloud, but can't find one for RHEL directly.</li>
-    <li>There are quite a few plugins for routing <sup><a href="https://registry.terraform.io/search/providers?category=networking&amp;amp;q=%20networking" target="_blank">49</a></sup>.</li>
-    <li>For locked networking work-spaces, it is possible to use local plugins, rather than download from the vendor <sup><a href="https://stackoverflow.com/questions/50944395/use-pre-installed-terraform-plugins-instead-of-downloading-them-with-terraform-i" target="_blank">50</a></sup>, as the link says, there is a cache-dir option, and a bundle option.</li>
+    <li>There are quite a few plugins for routing <sup><a href="https://registry.terraform.io/search/providers?category=networking&amp;amp;q=%20networking" target="_blank">51</a></sup>.</li>
+    <li>A common VM tech is Docker, so is supported as a “remote service” <sup><a href="https://developer.hashicorp.com/terraform/tutorials/docker-get-started/docker-build" target="_blank">52</a></sup> <sup><a href="https://scribe.rip/@jeffery1236/automating-docker-infrastructure-with-terraform-a-step-by-step-tutorial-84be440f0058" target="_blank">53</a></sup> <sup><a href="https://blog.purestorage.com/purely-educational/how-to-deploy-a-docker-image-with-terraform/" target="_blank">54</a></sup>.  I like using Terraform here, as Docker used to change commands often.</li>
+    <li>For locked networking work-spaces, it is possible to use local plugins, rather than download from the vendor <sup><a href="https://stackoverflow.com/questions/50944395/use-pre-installed-terraform-plugins-instead-of-downloading-them-with-terraform-i" target="_blank">55</a></sup>, as the link says, there is a cache-dir option, and a bundle option.</li>
 </ul>
 
 
@@ -193,7 +195,7 @@ The headline value of this tool is to be able to keep deployment process in the 
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-05-18T19:58:24" datetime="2025-05-18T19:58:24">May '25</time>
+						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2025-04-30T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Apr '25</time> </span>
 					</span>
@@ -201,9 +203,9 @@ The headline value of this tool is to be able to keep deployment process in the 
 				</div>
 			</div>
 			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fterraform" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fterraform" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -223,9 +225,9 @@ The headline value of this tool is to be able to keep deployment process in the 
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details open class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">TL;DR ~ minimal path</a></li>
-<li><a href="#toc1">Recipes</a></li>
+<li><a href="#toc1">27 Recipes</a></li>
 <li><a href="#toc2">Data 'sump'</a></li>
 </menu>
 </details><br />
@@ -244,7 +246,7 @@ The headline value of this tool is to be able to keep deployment process in the 
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-05-18T19:58:29" datetime="2025-05-18T19:58:29">18th of May 2025, 19:58:29</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-05-18T19:58:24" datetime="2025-05-18T19:58:24">May '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:25" datetime="2025-06-10T10:19:25">10th of Jun 2025, 10:19:25</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

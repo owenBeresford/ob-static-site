@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-tune-llm" />
 <meta property="og:description" content="A research and analysis of 12 techniques to fine-tune and improve an LLM in order to obtain a creative and generative product-making process." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="11th of May 2025, 19:58:20" />
-<meta property="article:modified_time" content="May '25" />
+<meta property="article:published_time" content="10th of Jun 2025, 10:19:16" />
+<meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-tune-llm" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Tune LLM",
-	"article:published_time":"11th of May 2025, 19:58:20", 
-    "article:modified_time":"May '25",
+	"article:published_time":"10th of Jun 2025, 10:19:16", 
+    "article:modified_time":"Jun '25",
     "article:section":"technology",
 
     "author": {
@@ -115,9 +115,9 @@ Hopefully it is clear that “prompting” isn't “training” <sup><a href="ht
 <p>Note: mobiles have had “generate the next word in a text/SMS” for a long time, and they achieved this initially on very sparse hardware.   Siri by Apple inc uses a remote voice-clip to process text, and has been running this for many years.   These are examples of simple and narrow “AI”, that people don't notice.   Whilst I was trying to work out how to tune an LLM, I pulled up the following intro references: an obvious long list of business sectors that could use a tuned LLM <sup><a href="https://www.turing.com/resources/finetuning-large-language-models" target="_blank">1</a></sup>.   For people with no experience building integrations, this <sup><a href="https://writer.com/blog/how-to-evaluate-generative-ai-llm-vendors/" target="_blank">2</a></sup> covers the administration needed to build a successful business process, although it is formatted to fit in power point slides.  <br />
 Apple have released a proper OSS LLM (that is, it includes its source data) <sup><a href="https://machinelearning.apple.com/research/openelm" target="_blank">3</a></sup> <sup><a href="https://arxiv.org/html/2404.14619v2" target="_blank">4</a></sup> <sup><a href="https://venturebeat.com/ai/apple-shows-off-open-ai-prowess-new-models-outperform-mistral-and-hugging-face-offerings/" target="_blank">5</a></sup> <a href="https://huggingface.co/collections/apple/core-ml-gallery-models-666b66ca4e6657b7d179bc42" target="_blank">src</a>.   A second OSS LLM library <sup><a href="https://llm.datasette.io/en/stable/" target="_blank">6</a></sup> (This second one doesn't have data attached).   List some processes that people have used to tune an LLM <sup><a href="https://arxiv.org/html/2408.13296v1" target="_blank">7</a></sup>.   Feature generation <sup><a href="https://arxiv.org/pdf/2406.03505" target="_blank">8</a></sup>.</p>
 
-<p>I have made software that will emit a random response a percentage of the time, from a fixed list of options, to make it less dull to use.  This is NOT AI but better UX, and increases delight for tired people.   If you take the title “prompt engineer”, I think some learning in Psychology is important.</p>
+<p>I have made software that will emit a random response a percentage of the time, from a fixed list of options, to make it less dull to use.   This is NOT AI but better UX, and increases delight for tired people.   If you take the title “prompt engineer”, I think some learning in Psychology is important.</p>
 
-<p>Another approach to tuning would be a <strong>Neuro-Symbolic</strong> approach, on the surface this doesn't use Vectors.  Plese see XXX IOIO when I have written it.</p>
+<p>Another approach to tuning would be a <strong>Neuro-Symbolic</strong> approach, on the surface this doesn't use Vectors.  Please see XXX IOIO when I have written it.</p>
 
 <hr />
 <p>[1] NLP is sometimes 'natural language programming', 'natural language processing' and 'natural language parsing', but these cover the same area.</p>
@@ -125,9 +125,29 @@ Apple have released a proper OSS LLM (that is, it includes its source data) <sup
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Value prop  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>A tuned LLM will create the appropriate content a much higher percentage of the time, and is likely to use less hardware resources.  This means it is a better product.  Compared to a base 3rd party LLM, your tuned one may add more features, and deliver better.  Tuning can reduce your hardware requirements, so reduce [excessive for OpenAI] running costs.<br />
-An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" target="_blank">9</a></sup> as an example of derived value.</p>
+An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" target="_blank">9</a></sup> as an example of derived value.  Some further carefully tuned models <sup><a href="https://blog.jetbrains.com/ai/2025/02/why-and-how-jetbrains-built-mellum-the-llm-designed-for-code-completion/" target="_blank">10</a></sup> <sup><a href="https://www.theregister.com/2025/01/07/ai_can_write_improved_code_research/" target="_blank">11</a></sup> <sup><a href="https://www.techradar.com/computing/artificial-intelligence/best-large-language-models-llms-for-coding" target="_blank">12</a></sup></p>
 
 
+<aside>
+<blockquote site="https://fosstodon.org/@kate">
+<p>impact of good tuning is about this model: <br />
+Quote:</p>
+
+<ul class="ulbasic">
+    <li>OLD it takes a human 20min to write an email, </li>
+    <li>NEW it takes a few seconds for a LLM to do this, with a single draft</li>
+    <li>However power used<ul class="ulbasic">
+        <li>OLD [my local PCs] take 200w for all equipment, so 60Wh for that time</li>
+        <li>NEW [internet numbers] 3kWh per average prompt (XXX add reference)</li>
+    </ul></li>
+    <li>Thus LLM uses 50 times more power, but much faster PER PROMPT.   </li>
+    <li>Users often need multiple prompts, especially on more complex “actual problems”.</li>
+    <li>UPDATE: Deepseek needs numbers inputted for power used</li>
+</ul>
+
+
+</blockquote>
+</aside>
 </div>
 <br /><br />
 </div>
@@ -161,7 +181,7 @@ An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" t
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-05-09T13:16:27" datetime="2025-05-09T13:16:27">May '25</time>
+						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2024-09-14T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Sep '24</time> </span>
 					</span>
@@ -169,9 +189,9 @@ An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" t
 				</div>
 			</div>
 			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-tune-llm" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-tune-llm" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -191,7 +211,7 @@ An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" t
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details open class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Context / intro</a></li>
 <li><a href="#toc1">Techniques available</a></li>
 <li><a href="#toc2">Value prop</a></li>
@@ -212,7 +232,7 @@ An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" t
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-05-11T19:58:20" datetime="2025-05-11T19:58:20">11th of May 2025, 19:58:20</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-05-09T13:16:27" datetime="2025-05-09T13:16:27">May '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:16" datetime="2025-06-10T10:19:16">10th of Jun 2025, 10:19:16</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

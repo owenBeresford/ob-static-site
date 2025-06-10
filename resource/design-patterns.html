@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/design-patterns" />
 <meta property="og:description" content="PHP design patterns and Structures that I apply & use are analysed in this article. I list over 18 Patterns I use.  Content is evergreen." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Apr 2025, 22:44:34" />
-<meta property="article:modified_time" content="Apr '25" />
+<meta property="article:published_time" content="10th of Jun 2025, 10:19:17" />
+<meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/design-patterns" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Design Patterns",
-	"article:published_time":"21st of Apr 2025, 22:44:34", 
-    "article:modified_time":"Apr '25",
+	"article:published_time":"10th of Jun 2025, 10:19:17", 
+    "article:modified_time":"Jun '25",
     "article:section":"technology",
 
     "author": {
@@ -53,11 +53,13 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="lotsOfWords">
-<p>As a person calling themselves a software engineer, I need to say I use design patterns, and sound educated in them; their use, and the anti-patterns.  I have read the books, and use what was written in them when it seems relevant to the solution.  In many places, I talk with commercial people, or clients; and so I was never talking about design patterns.  There are places, where I intuitively worked out a structure that looked like a pattern, but didn't use the same name.   I always <i>write code that I can manage</i>.  I value teamwork, which makes design patterns important.   Article is quite boring, and it would be more useful with a code repo.</p>
+<p><strong>This article was more important in 2012.</strong><br />
+As a person calling themselves a software engineer, I need to say I use design patterns, and sound educated in them; their use, and the anti-patterns.  I have read the books, and use what was written in them when it seems relevant to the solution.  In many places, I talk with commercial people, or clients; and so I was never talking about design patterns.  There are places, where I intuitively worked out a structure that looked like a pattern, but didn't use the same name.   I always <i>write code that I can manage</i>.  I value teamwork, which makes design patterns important.   Article is quite boring, and it would be more useful with a code repo.</p>
 
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > PHP design patterns <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>I need to make a new article for other languages.   I note that as comprehension in small companies is important, so I focus on DDD.  I want to be able to discuss solutions as part of costs; and non-technical people will find the genericness of design patterns opaque/ vague.</p>
+<p>I need to make a new article for other languages.   I note that as comprehension in small companies is important, so I focus on DDD.  I want to be able to discuss solutions as part of costs; and non-technical people will find the genericness of design patterns opaque/ vague. <br />
+It is important this create a standard for pluralisation or not, and stick with it.   Before this decision is made, external systems should be reviewed to avoid large impedance when a dev is using both concurrently.</p>
 
 
 <aside class="pullout" >
@@ -76,28 +78,30 @@ TODO: magic tune selection against some index/DB -->
 <ul class="ulbasic">
     <li>Inside PHP I am targeting Symfony2+ as a framework (<strong>EDIT 2020</strong> Obviously newer version after 2014 are in use), I use <b>MVC</b> and related algorithms.  Inside Perl I use Catalyst.  I have created implementations of this algorithm previously from scratch. I have used <b>MVP</b> in places where there was too much rendering logic.  This algorithm is valuable as there are many frameworks for it.  It allows large amounts of work to be automated/ done by the libraries.   In comparison to tools like Wordpress, it doesn't constrain one to simple things.</li>
     <li>At time of writing I have yet to build a proper <b>MVVM</b>, but that is a result of giving clients what they need, rather than lack of skill.  There are many companies that think it more important to hold decision making on the server (commercial common sense).</li>
-    <li>For most companies, construction as a <b>SOA</b> is most sensible, I have built a couple.</li>
+    <li>For most companies, construction as a <b>SOA</b> is most sensible, I have built a couple.   After 2012, I would describe this process as building <b>SaaS<a href="https://www.google.co.uk/search?q=SaaS">?</a></b> instead.   </li>
+    <li>As code in the browser gets larger, I am using <b>SPA</b>, and Component design.  I built <b>EventBus</b> / MQ in 2020 to allow better experience with a many tabbed SPA UI.  I have used SPA libraries across several, years per major SPA vendor.    </li>
     <li>I am using <b>CQRS</b> after people started talking about it, but technically, I always split my DB permissions up, as I often work with DB clusters (especially at first role).</li>
     <li>I always use ObjectComposition<a href="https://www.google.co.uk/search?q=ObjectComposition">?</a> rather than inheritance; since it became practical at PHP5.  In more flexible languages like Python or Perl, I used from first use.</li>
     <li><b>EDIT Jan 2015</b>, from <sup><a href="https://phptherightway.com/pages/Design-Patterns.html" target="_blank">1</a></sup> I note that there is a formal name for the single access point is <b>Front Side Controller</b>.  I have always used this, but not considered it a pattern, as it is barely an object; just reduces errors, and reduces costs.  I also have used <b>HMVC</b> where this is  relevant to the framework (repacking for multiple output formats is nice with this).  </li>
     <li><b>Singletons</b> are an item on GoF, but break many OO traits.  They are the standard way to build logging or resources that only make sense with a single item.  I use them for Logs, and frequently config objects.</li>
     <li>I use <b>Transformers</b> and <b>Adaptors</b>.</li>
-    <li>I use <b>Factories</b>.  I am using this less than I used, due to DI being technically feasible in PHP.  I'm not sure if I should include this, as I haven't written a <b>DI</b> yet, but I use other peoples DI libraries.  Obviously using DI requires that I am using <b>IoC</b>.  I have built some IoC structures. </li>
-    <li>I make a variety of <b>Producers</b> and <b>Consumers</b>.</li>
+    <li>Recently, I am using <b>Containers</b>, using the term like Symfony dynamically created objects from your config files.  Please do not confuse with Docker/ VM Containers, which are the same pattern in different software.   I was using <b>Factories</b>.  I am using this less than I used, due to DI being technically feasible in PHP.  I'm not sure if I should include this, as I haven't written a <b>DI</b> yet, but I use other peoples DI libraries.  Obviously using DI requires that I am using <b>IoC</b>.  I have built some IoC structures. </li>
+    <li>I make a variety of <b>Producers</b> and <b>Consumers</b>, sometimes <b>PubSub<a href="https://www.google.co.uk/search?q=PubSub">?</a></b>.</li>
+    <li>I over use <b>Models</b> to isolate all the SQL to a single file for an <b>Entity</b>, or sometimes a <b>Queue</b>.   I manage and faction my Models or they climb in size.   I should manage Models via a <b>Repository</b> (rather than the simpler and faster approach of giving the Service knowledge and have them ask for the Model when loading/ DI).    </li>
     <li>I use <b>Collections/Iterators</b> when it seems to make sense.  I prefer to use arrays in some situations, for performance.   Where I use data as a scalar, I am using <b>Entities</b>.</li>
     <li>I use <b>Facade</b> classes, frequently over an array of implementations (single access point, correct behaviour depending on data supplied).</li>
-    <li>I have made alot of <b>Managers</b> and <b>Workers</b> for multiprocess applications.  This frequently has better performance than Threads on Unix platforms. </li>
-    <li>I use <b>Validation</b> libraries and Managers for them.  Do not know the Pattern for this, but its a common structure.  It is used in Symfony2, but the ones I was referencing I wrote from scratch.  </li>
-    <li>Output <b>Rasterisers</b>/ templating libraries.</li>
+    <li>With newer languages ~ say Golang ~ I use <b>Threads</b>.   My older experience <b>Workers</b> for multiprocess applications, and Managers to allocate resources.   Early versions of Linux and Unix where focussing on “simple and stable”, at the expense of Threads ~ see Multics and Vax as other computational models with Threads.   </li>
+    <li>I use <b>Validation</b> libraries and Managers for them.  Do not know the Pattern for this (Adaptor?), but its a common structure.   It is used in Symfony2+3, but the ones I was referencing I wrote from scratch initially.  </li>
+    <li>Output <b>Rasterisers</b> / templating libraries.</li>
     <li>Some of my work should be formalised as <b>Observer</b> and <b>Subject</b> pattern.  I copied this from graphics rendering pipelines, where it is abit altered.</li>
     <li></li>
     <li>I have built quite a few OO tree structures, and some linked lists. </li>
-    <li>I have built many state machines, but am not sure if this is a design pattern or a function pointer array. </li>
-    <li>I tend to use SAX XML parsers, rather than DOM.  The business uses often have alot of data, so DOM would consume a massive amount of RAM.</li>
-    <li>Where the language allows I use flyweight classes where I need alot of a given object.  See the previous SAX parser as an example.</li>
+    <li>I have built many FSM ~ in OO known as a <b>State</b> pattern.  </li>
+    <li>Historically, I tend to use SAX XML parsers, rather than DOM.  The business use-cases often have alot of data, so DOM would exceed locally available RAM.</li>
+    <li>Where the language allows, I use flyweight classes where I need alot of a given object.  See the previous SAX parser as an example.</li>
 </ul>
 
-<p><b>I will write more on this subject in later articles.</b></p>
+<p><b>I will write more on this subject in later articles.</b>   The title on this is for PHP, however after 2018, I am using PHP less, and working with Golang, TS and Python and C++.  This might be simpler if I structured the article as 'in year XXX, I used language XXX1 and managed complexity with patterns XX1, XX2, XX3, XX4, XX5' rather than update the text.   Maybe in a tabbed / folding structure in the page.</p>
 
 
 </div>
@@ -134,7 +138,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2022-05-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >May '22</time> </span>
 					</span>
@@ -142,9 +146,9 @@ TODO: magic tune selection against some index/DB -->
 				</div>
 			</div>
 			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdesign-patterns" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fdesign-patterns" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -164,7 +168,7 @@ TODO: magic tune selection against some index/DB -->
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details open class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">PHP design patterns</a></li>
 </menu>
 </details><br />
@@ -183,7 +187,7 @@ TODO: magic tune selection against some index/DB -->
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-21T22:44:34" datetime="2025-04-21T22:44:34">21st of Apr 2025, 22:44:34</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:17" datetime="2025-06-10T10:19:17">10th of Jun 2025, 10:19:17</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

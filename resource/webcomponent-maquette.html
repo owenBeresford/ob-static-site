@@ -8,22 +8,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
-<meta name="Description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which often absent from React." />
+<meta name="Description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which are often absent from React." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
 <meta itemprop="name" content="WebComponent.mjs">
-<meta itemprop="description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which often absent from React.">
+<meta itemprop="description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which are often absent from React.">
 <meta name="twitter:site" content="@channelOwen">
 <meta name="twitter:title" content="WebComponent.mjs">
-<meta name="twitter:description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which often absent from React.">
+<meta name="twitter:description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which are often absent from React.">
 <meta name="twitter:creator" content="@channelOwen">
 <meta property="og:title" content="WebComponent.mjs" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/webcomponent-maquette" />
-<meta property="og:description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which often absent from React." />
+<meta property="og:description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which are often absent from React." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Apr 2025, 22:44:42" />
-<meta property="article:modified_time" content="Apr '25" />
+<meta property="article:published_time" content="10th of Jun 2025, 10:19:26" />
+<meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/webcomponent-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "WebComponent.mjs",
-	"article:published_time":"21st of Apr 2025, 22:44:42", 
-    "article:modified_time":"Apr '25",
+	"article:published_time":"10th of Jun 2025, 10:19:26", 
+    "article:modified_time":"Jun '25",
     "article:section":"technology",
 
     "author": {
@@ -66,9 +66,10 @@ TODO: magic tune selection against some index/DB -->
 <div class="maquetteContainer">
 <div class="maquette">
 <p>This is a maquette menu, made with a WebComponent.  Includes animation without JS, which is atypical for similar components in NPMJS. <br />BLAH BLAH BLah Blaj bojao fhfhss hsfhsf hg.</p>
+<span id="plainHTML"></span>
 <skinnable-menu id="fancyHTML" class="errorNoJs" data-flag="4">
 <!-- [
-{ "type":"a", "href":"/", "display":"< home", "title":"Look at the article listed on the home page, and my ugly mug."}, 
+{ "type":"a", "id":"attentionHere", "href":"/", "display":"< home", "title":"Look at the article listed on the home page, and my ugly mug."}, 
 { "type":"a", "href":"/resource/search", "display":"Search 🔍", "title":"Find an article on this site via the search tool"}, 
 { "type":"a", "href":"/resource/appearance", "display":"Appearance", "title":"Edit the way the site looks, this link includes medical needs planning"}, 
 { "type":"a", "href":"/resource/contact-me", "display":"Contact me 📩", "title":"Send me a message."} 
@@ -80,7 +81,7 @@ TODO: magic tune selection against some index/DB -->
 <summary>
 <h4 id="toc0">Webcomponent API </h4>
 </summary>
-<p> Building this was annoying as I can't find a single single doc that shows all the API points for a WebComponent.   All the blogs just mention 3 functions and use words like "complete", "ultimate", "whole lifecycle".   I could read the webrowser source, but that will be a slow process.   Most of the below functions are used in this demo.  Todate, I do not have a use-case for migrating DOM nodes between Documents. </p> 
+<p> Building this was annoying as I can't find a single single doc that shows all the API points for a WebComponent.   All the blogs just mention 3 functions and use words like "complete", "ultimate", "whole lifecycle".   I could read the webrowser source, but that will be a slow process.   Most of the below functions are used in this demo.  To-date, I do not have a use-case for migrating DOM nodes between Documents. </p> 
 <code lang="javascript" class="highlight" style="margin-left:3em;">
 // #todo look at slots 
 
@@ -116,11 +117,11 @@ Node.getRootNode(options)
 <summary>
 <h4 id="toc1">Technical Notes </h4>
 </summary>
-<p>I do not expect to learn very much here for the JS.   But knowing what breaks ahead of trying it in a sprint is a good idea.   I will aim to keep all the code in this file if it is still readable.   This is just a demo of the Webcomponent API, not intended a reusable component by itself.  I like this <a href="https://mdn.github.io/web-components-examples/" target="_blank">list of examples</a>.</p>
+<p>I do not expect to learn very much here for JS.   But knowing what breaks ahead of trying it in a sprint is a good idea.   I will aim to keep all the code in this file if it is still readable.   This is just a demo of the Webcomponent API, not intended a reusable component by itself.  I like this <a href="https://mdn.github.io/web-components-examples/" target="_blank">list of examples</a>.</p>
 
 <p>I have ideas about doing things with a Radial.   I suspect that Golden mean spiral (yes that spiral) will be better and more scalable than an actual circle.   I think it would be nice to add a “shake to unspiral”, like browsers have “put phone down should go back” interaction, and the official Gmap App has “shake to report error”, which unfortunately triggers whilst I am running.   The best washing machine UI is a part mechanical rotating selector, as people can use it in low light, or with poor vision, or impaired coordination.   It is still clear what state the washing machine is in, if there is a power cut, or similar.  #TODO find that UX article again<br />
 There are few Radial UI elements in the interwebs, as they do not pack well, and were not practical before 2012.  <br />
-If the technique shown here was used at scale, it would lead to smaller SPA.  The information density of the JSON blob to make the menu with is much higher than the flat HTML or worse, a React blob.   To balance the cost of downloading the extra couple of KB of the JS class, the JS class would need to be widely reusable, and includes a mature CSS structure.  That exceeds the scope for a demo.  I could make the Component much smaller and simpler if I didn't make it support several render approaches concurrently.</p>
+If the technique shown here was used at scale, it would lead to smaller SPA.  The information density of the JSON blob to make the menu with is much higher than the flat HTML or worse, a React blob.   To balance the cost of downloading the extra couple of KB of the JS class, the JS class would need to be widely reusable, and include a mature CSS structure.  That exceeds the scope for a demo.  I could make the Component much smaller and simpler if I didn't make it support several render approaches concurrently.</p>
 
 <p>For good #A11y it should be possible to disable more complex rendering modes / styles.  Note the new sub document doesn't automatically import the CSS context of the main page (just like SVG, but here both halves are HTML).  This demo loads work into the CSS engine, as a contrast to most React components.  The displayed structure is using Anchors, as they are links, a different demo may use buttons for features.</p>
 
@@ -128,33 +129,41 @@ If the technique shown here was used at scale, it would lead to smaller SPA.  Th
 
 <ul class="ulbasic">
     <li>load most advanced option</li>
-    <li>unless value is overridden in the HTML (attr is data-flag)</li>
+    <li>unless value is over-ridden in the HTML (attr is data-flag)</li>
     <li>unless value is set in URL param (key is 'flag')</li>
     <li>if running on a small screen, display relevant UI (currently it would gain from further CSS, and dedicated interactions).  As this is a maquette, the extra CSS has been left to the reader.</li>
     <li>if browser is setup for no-motion, go to plainer version</li>
-    <li>if browser detects shaking, go to plainer version <strong>TODO</strong></li>
+    <li>if browser detects shaking, go to plainer version</li>
 </ul>
 
 
-<h5 id="toc0"> Existing work.</h5>
-<p>I normally do a trawl of NPMJS to see what exists already with tests.  As this maquette is a browser feature, this may be less useful in this case.  However:</p>
+<h5 id="toc0"> V1.2</h5>
+<p>I have added an event handler for motion events.  As this demo will be accessible on a HTTPS website, it will execute. <br />
+The transition CSS will only execute in Chrome family when there is a focus on the element (logical when you think about the words used).  This is more complex than normal due to the sub-document.<br />
+I think I should write v1.3 with plain CSS animation, rather than a transition.</p>
+
+
+<h5 id="toc1"> Existing work.</h5>
+<p>I normally do a trawl of NPMJS to see what exists already with tests.  This maquette is a browser feature, this may be less useful in this case.  However:</p>
 
 <ul class="ulbasic">
     <li>the spec polyfills ~ I assume for very old browsers <a href="https://www.npmjs.com/package/@webcomponents/webcomponentsjs" target="_blank">npm</a> <a href="https://github.com/webcomponents/polyfills" target="_blank">git</a>.   This has a couple of sub projects, for different related features.</li>
+    <li><a href="https://lit.dev/" target="_blank">Lit</a> framework <a href="https://lit.dev/docs/" target="_blank">docs</a> <a href="https://github.com/lit/lit" target="_blank">git</a></li>
+    <li><a href="https://stenciljs.com/" target="_blank">Stencil</a> framework <a href="https://stenciljs.com/docs/introduction" target="_blank">docs</a> <a href="https://github.com/stenciljs/" target="_blank">git</a></li>
     <li>Useful: a lint plugin <strong>eslint-plugin-wc</strong> <a href="https://www.npmjs.com/package/eslint-plugin-wc" target="_blank">npm</a>.</li>
 </ul>
 
-<p>Pls see code sample in the API Popover.  UPDATE: Chrome seems to cancel transition animation that is 1s long.  Fixed by being slower.</p>
+<p>Pls see code sample in the API Popover.  UPDATE <del>Chrome seems to cancel transition animation that is 1s long.  Fixed by being slower.</del><ins>Boundary of problem misdiagnosed.  Chrome doesn't like Transition animation in sub-documents, especially when they may not be on screen / viewport.</ins>   Being shorter worked as I had Devtools open.</p>
 
 
-<h5 id="toc1"> Reflection</h5>
+<h5 id="toc2"> Reflection</h5>
 <ul class="ulbasic">
-    <li>Given that I convert the string of HTML to a HTMLIsland of HTML via a TEMPLATE element, I am not sure of the value of this demo.   Using the TEMPLATE is much more concise that issuing DOM calls to set each HTML attribute as a JS instruction.  </li>
-    <li>It would be good if I made the CSS more tidy.   For reusable code, I would add its own nameespace.</li>
+    <li>Given that I convert the string of HTML to a HTMLIsland of HTML via a TEMPLATE element, I am not sure of the value of this demo.   Using the TEMPLATE is much more concise than issuing DOM calls to set each HTML attribute as a JS instruction.  </li>
+    <li>It would be good if I made the CSS more tidy.   For reusable code, I would add its own namespace ~ [now added].</li>
     <li>The mobile view would be more useful if it supported the pull-down to open and swipe to retreat interactions.  Flag=4 will be terrible packing on mobile, <i>don't do that</i>.</li>
     <li>For better readability, I put the data in JSON in a HTML comment.  A more mature solution may use a marked up script similar to [script type=“application/json”] to hold the data.   See <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#embedding_data_in_html" target="_blank">1</a></sup> existing technology.</li>
-    <li>This sample does includes more events/ API points than many samples, so is <i>more useful</i>. </li>
-    <li>Please note as this is a single file maquette, I cannot really use TS.</li>
+    <li>This sample does include more events/ API points than many samples, so is <i>more useful</i>. </li>
+    <li>Please note this is a single file maquette, I cannot practically use TS.   I have added API docs.</li>
 </ul>
 
 
@@ -194,7 +203,7 @@ If the technique shown here was used at scale, it would lead to smaller SPA.  Th
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>
+						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2024-11-16T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Nov '24</time> </span>
 					</span>
@@ -202,9 +211,9 @@ If the technique shown here was used at scale, it would lead to smaller SPA.  Th
 				</div>
 			</div>
 			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" encoding="multipart/form-data" action="." name="mastoSelection"  >
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
 					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" max-length="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fwebcomponent-maquette" type="text" value="" placeholder="mastodon.social" />  
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fwebcomponent-maquette" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
 					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
@@ -224,7 +233,7 @@ If the technique shown here was used at scale, it would lead to smaller SPA.  Th
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		<details open class="headingsWidget"><summary ><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Webcomponent API</a></li>
 <li><a href="#toc1">Technical Notes</a></li>
 </menu>
@@ -244,13 +253,13 @@ If the technique shown here was used at scale, it would lead to smaller SPA.  Th
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-04-21T22:44:42" datetime="2025-04-21T22:44:42">21st of Apr 2025, 22:44:42</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-04-21T22:44:25" datetime="2025-04-21T22:44:25">Apr '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:26" datetime="2025-06-10T10:19:26">10th of Jun 2025, 10:19:26</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <script type="module" >
-import { log,  hasBeenRun, currentSize, calcScreenDPI } from '/asset/ob1-202406.min.mjs';
+import { log,  hasBeenRun, currentSize, calcScreenDPI, isLibreWolf, appendIsland } from '/asset/ob1-202406.min.mjs';
 
 /**
 SAMPLE USAGE
@@ -260,7 +269,7 @@ SAMPLE USAGE
 
 <skinnable-menu class="errorNoJs" data-flag=2>
 <!-- [
-{ type:"a", href="/", display:"< home", title:"look at the article listed on the homw page, and my ugly mug."}, 
+{ type:"a", href="/", display:"< home", title:"look at the article listed on the home page, and my ugly mug."}, 
 { type:"a", href="/resource/search", display:"search 🔍", title:"dfgdgd"}, 
 { type:"a", href="/resource/appearance", display:"Appearance", title:"dfgdgd"}, 
 { type:"a", href="/resource/contact-me", display:"Contact me 📩", title:"dfgdgd"}, 
@@ -269,19 +278,19 @@ SAMPLE USAGE
 
 const TEMPLATE1 = [`<div>`, `<div>THING!</div>`, `</div>`];
 const TEMPLATE2 = [
-  `<span id="pageMenu" aria-haspopup="menu"> <i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span> open <menu>`,
+  `<div class="wcm1Container"><span id="pageMenu" aria-haspopup="menu"> <i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span> </span> open <menu>`,
   '<li title="${title}"><a href="${href}">${display}</a></li>',
-  `</menu>`,
+  `</menu></div>`,
 ];
 const TEMPLATE3 = [
-  `<details> <summary id="pageMenu" aria-haspopup="menu"><span> <i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span></span> </summary> <menu>`,
+  `<div class="wcm1Container"> <details> <summary id="pageMenu" aria-haspopup="menu"><span> <i class="fa fa-ob1burger" aria-hidden="true"></i><span class="sr-only">Menu</span></span> </summary> <menu>`,
   '<li title="${title}"><a href="${href}">${display}</a></li>',
-  `</menu> </details>`,
+  `</menu> </details></div>`,
 ];
 const TEMPLATE4 = [
-  `<details class="redialMenu"> <summary id="pageMenu" aria-haspopup="menu"><span> ⚙ </span> <span class="sr-only">Menu</span> </summary> <menu>`,
-  '<li style="--offset:${offset};" title="${title}"><a href="${href}">${display}</a></li>',
-  `</menu> </details>`,
+  ` <div class="wcm1Container"> <details class="redialMenu"> <summary id="pageMenu" aria-haspopup="menu"><span> ⚙ </span> <span class="sr-only">Menu</span> </summary> <menu>`,
+  '<li style="--offset:${offset};" title="${title}"><a href="${href}" id="${id?id:""}">${display}</a></li>',
+  `</menu> </details></div `,
 ];
 
 /**
@@ -293,13 +302,15 @@ const TEMPLATE4 = [
 class ChangeableMenu extends HTMLElement {
   /////// static consts
   static get WANTED_FIELDS() {
-    return ["type", "href", "display", "title", "cssClass", "offset" ];
+    return ["type", "href", "display", "title", "cssClass", "offset", "id" ];
   }
 
   ////// private vars
   #mode; // :number
   #children; // :string
   #ourDom; // :ShadowDom
+// this is a basic spin lock, or it does unnecessary renders
+  #milestone; // :number
 
   /**
 	* constructor
@@ -311,6 +322,7 @@ class ChangeableMenu extends HTMLElement {
     super();
     this.#children = "" + this.innerHTML;
     this.#ourDom = this.attachShadow({ mode: "open" });
+	this.#milestone=1;
   }
 
   /**
@@ -318,27 +330,41 @@ class ChangeableMenu extends HTMLElement {
    * Map the values to actual HTML
  
    * @param {Document =document} dom 
+   * @param {Location =location} loc 
    * @public
    * @returns {void}
    */
   render(dom = document, loc=location) {
-    let struct = dom.createElement("template");
-    struct.innerHTML = this.#mergeHTML(
-      this.#setActiveTemplate(this.#mapFlag(loc) ),
-      this.#parseChildren(
-        this.#children,
-        this.#blob2list,
-        this.#map,
-        this.#defaultValues,
-      ),
-    );
-    this.#ourDom.replaceChildren(struct.content);
-	log("debug", "Rendered state:");
-	log("debug", dom.querySelector('#fancyHTML' ).innerHTML );
-	log("debug", dom.querySelector('#fancyHTML' ).shadowRoot.querySelector("menu").outerHTML );
-	let tmp=dom.querySelector('#fancyHTML' ).shadowRoot.querySelector("menu li");
-	tmp.setAttribute("style", tmp.getAttribute("style")+' --ignore:"100%"' );
-	log("debug", tmp.outerHTML );
+	if(this.#milestone) {
+		let struct = dom.createElement("template");
+		struct.innerHTML = this.#mergeHTML(
+		  this.#setActiveTemplate( this.#mapFlag(loc) ),
+		  this.#parseChildren(
+			this.#children,
+			this.#blob2list,
+			this.#map,
+			this.#defaultValues,
+		  ),
+		);
+		this.#ourDom.replaceChildren(struct.content);
+
+// I want this section moved outside of render().
+// it's adjusting state, BUT where can I put it
+		const PARAM=new URLSearchParams(loc.search);
+		if(PARAM.has('deploy') && PARAM.get('deploy')==="1" ) {
+			this.#deploy(this.#ourDom, '#plainHTML', dom );
+			const NO_CHROM=	dom.querySelector( '#fancyHTML' );
+			NO_CHROM.setAttribute('data-disabled', '1');
+			NO_CHROM.setAttribute('style', "display:none;");
+		}
+
+	} else {
+		log("warn", "Ran a 'disabled' render (0 elements)");
+		this.#ourDom.replaceChildren();	
+	}
+
+	log("debug", "Access to shadownDom rendered state (raw)");
+	log("debug", dom.querySelector('#fancyHTML' ).shadowRoot.innerHTML);
 
   }
 
@@ -428,14 +454,20 @@ class ChangeableMenu extends HTMLElement {
  span#pageMenu { margin-right: initial; }
 
 /* CSS to make menu state more clear */
- details:not( [open] ) summary span:has( .fa-ob1burger ):after { content:">>"; font-size:2em; line-height:0.7; position: relative; top: 5px; } 
- details[open] summary span:has( .fa-ob1burger ):before { content:"<<"; font-size:2em; line-height:0.7; margin-bottom:-0.5em; position: relative; top: 5px; } 
- details:not( [open] ) summary span:has( .fa-ob1burger ):before { content:""; } 
- details[open] summary span:has( .fa-ob1burger ):after { content:""; }
+.wcm1Container details:not( [open] ) summary span:has( .fa-ob1burger ):after { content:">>"; font-size:2em; line-height:0.7; position: relative; top: 5px; } 
+.wcm1Container details[open] summary span:has( .fa-ob1burger ):before { content:"<<"; font-size:2em; line-height:0.7; margin-bottom:-0.5em; position: relative; top: 5px; } 
+.wcm1Container details:not( [open] ) summary span:has( .fa-ob1burger ):before { content:""; } 
+.wcm1Container details[open] summary span:has( .fa-ob1burger ):after { content:""; }
 
 /* the redial bit */
- .redialMenu[open] li { transform-origin: -20% -20%; transform: translateX(100px) rotateZ( calc( var(--offset) * 11deg ) ) translateX(20px); background:white; border-bottom: solid 1px var(--scroll2); transition: transform 1s ease-in; ; will-change: transform; animation-fill-mode: forwards; }
- .redialMenu { perspective: 1000px; transform-style: preserve-3d; -webkit-transform: perspective(1000px); }
+@property --offset { 
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0; 
+}	
+
+ .redialMenu { perspective: 1000px; transform-style: preserve-3d; -webkit-transform: perspective(1000px); height: 20em; }
+ .redialMenu[open] li { transform-origin: -20% -20%; transform: translateX(100px) rotateZ( calc( var(--offset) * 11deg ) ) translateX(20px); background:white; border-bottom: solid 1px var(--scroll2); transition: transform 1s ease-in; will-change: transition, transform; animation-fill-mode: both; }
 /* transition: transform 1s ease-in allow-discrete, overlay 1s allow-discrete; */
  details.redialMenu summary span:nth-child(1) { font-size:2em; font-weight:bold; }
 
@@ -488,8 +520,8 @@ class ChangeableMenu extends HTMLElement {
         ret.push( func2(obj[i], ChangeableMenu.WANTED_FIELDS, func3( ChangeableMenu.WANTED_FIELDS) ) );
       }
     } else {
-      // my code is less functional, as I assume the option of errors
-      // and respond appropriately
+      // My code is less functional, as I assume the option of errors
+      // and respond appropriately.
       throw new Error("At present, not supporting flat string option.");
     }
     return ret;
@@ -532,8 +564,35 @@ class ChangeableMenu extends HTMLElement {
       		initial[names[i]] = objIn[names[i]];
 		}
     }
+	// #leSigh
+	if(! ("id" in objIn)) {
+		initial["id"]=null;
+	}
     return initial;
   }
+
+  /**
+    * deploy 
+    * move generated HTML into the original document to see if CSS animation will then work.
+	* IMPURE
+
+    * @see [https://stackoverflow.com/questions/20090059/how-to-remove-a-shadow-root-from-an-html-element-adorned-with-a-shadow-dom-from] 
+    * @param {ShadowDOM} shadow
+    * @param {string} id 
+    * @param {Document} dom 
+    * @private
+    * @returns {void}
+    */
+	#deploy(shadow, id, dom) {
+		const ref=dom.querySelector(id);
+		ref.innerHTML="";
+		let tmp=shadow.getHTML().split("\n");
+		// dump the first line as it imports a CSS file we have in the parent window
+		tmp=tmp.slice(1, tmp.length);
+		appendIsland(id, tmp.join(" "), dom);
+		// no public shadowDOM.close()
+	}
+
 
   /**
     * defaultValues
@@ -552,29 +611,196 @@ class ChangeableMenu extends HTMLElement {
     return out;
   }
 
+  /**
+    * connectedCallback  
+    * 
+	* IMPURE 
+    * @public
+    * @returns {void}
+    */
   connectedCallback() {
     log("info", "Connected Event");
-    this.render();
+	if(this.#milestone ===1) {
+		this.#milestone++;
+    	this.render(document, location);
+	}
 	document.querySelector('.errorNoJs').classList.remove('errorNoJs');
   }
 
+  /**
+    * disconnectedCallback  
+    * 
+	* PURE 
+    * @public
+    * @returns {void}
+    */
   disconnectedCallback() {
     log("info", "Disconnected Event");
   }
 
+  /**
+    * attributeChangedCallback
+    * 
+	* PURE
+ 
+    * @param {string} naam
+    * @param {string} alt
+    * @param {string} nu
+    * @public
+    * @returns {void}
+    */
   attributeChangedCallback(naam, alt, nu) {
     log("info", `Attribute ${naam} has changed from ${alt} to ${nu}.`);
     if (naam === "data-flag") {
-      this.render();
+		this.#milestone++;
+    	this.render(document, location);
+    }
+
+    if (naam === "data-disabled" && nu) {
+		// any true value for nu
+		this.#milestone=0;
     }
   }
 
-	static get observedAttributes() {
-    return ['data-flag'];
+  /**
+    * observedAttributes
+    * 
+	* PURE
+	* @static 
+    * @public
+    * @returns {Array[string]}
+    */
+  static get observedAttributes() {
+    return ['data-flag', 'data-disabled'];
   }
 }
 
+/*
+ Class ShakeSensor
+   This should be used as a left running an EventEmitter, like mouse code.
+   My only local usage has short sampling on page load.
+
+	<strike>Unless I have missed a trick, data binding is finally behaving like normal languages
+	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields
+	</strike>No I need to for both setInterval and addEventListener
+
+	source https://bhavyakashyap.me/articles?id=js-shake
+	alternative https://stackoverflow.com/questions/70544832/detect-shake-event-with-javascript-with-all-major-browsers-devices-ios-androi
+*/
+class ShakeSensor {
+	#x1;
+	#y1;
+	#z1;
+	#x2;
+	#y2;
+	#z2;
+	#sampling;
+	#sensitivity;
+	#hndl;
+
+  /**
+    * constructor
+    * 
+	* IMPURE
+ 
+    * @param {number} sampling
+    * @param {window} win
+    * @public
+    * @returns {ShakeSensor}
+    */
+	constructor(sampling=200, win=window) {
+		if (typeof win.DeviceMotionEvent == 'undefined') {
+			throw new Error("Unsupported JS feature.  This must be run from a HTTPS connection.  Safari may not work either.");
+		}
+		this.#x1 = this.#y1 = this.#z1 = this.#x2 = this.#y2 = this.#z2 = 0;
+		this.#sampling=sampling;
+		this.CB=null;
+
+		// leSigh.  The past is still here
+		this.doMoving = this.doMoving.bind(this);
+		this.evaluate = this.evaluate.bind(this);		
+	}
+
+ 
+  /**
+    * startDetectShake 
+    * Registers a callback and starts looking for shaking.
+    * THIS CODE IS CPU EXPENSIVE
+	* IMPURE
+ 
+    * @param {Function} CB
+    * @param {number}  sensitivity - Shake sensitivity, a lower number is more sensitive && I infer measured in Pixels.
+    * @param {window}  win
+    * @public
+    * @returns {void}
+    */
+	startDetectShake(CB, sensitivity=16, win=window) {
+		this.#sensitivity =sensitivity;
+
+		win.addEventListener('devicemotion', this.doMoving, false);
+		this.#hndl=setInterval(this.evaluate, this.#sampling);
+		log("info", "Higher CPU usage for shake detection started");
+	}
+
+  /**
+    * stopDetectShake 
+    * stops looking
+	* IMPURE
+ 
+    * @param {window}  win
+    * @public
+    * @returns {void}
+    */
+	stopDetectShake(win=window) {
+		clearInterval(this.#hndl);
+		win.removeEventListener('devicemotion', this.doMoving, false);
+		log("info", "Higher CPU usage for shake detection ended");
+	}
+	
+
+  /**
+    * evaluate 
+    * Registers a callback and starts looking for shaking.
+
+    * A better design would be to decouple the event logging from motion evaluation.
+	* This would allow better knowledge of data that doesn't follow the sample rate.
+	* IMPURE
+    * @private
+    * @returns {void}
+    */
+	evaluate() {
+		let change = Math.abs(this.#x1- this.#x2)+ 
+					Math.abs(this.#y1- this.#y2)+ 
+					Math.abs(this.#z1- this.#z2);
+		if (change > this.#sensitivity) {
+			this.CB();
+		}
+		this.#x2 = this.#x1;
+		this.#y2 = this.#y1;
+		this.#z2 = this.#z1;
+	}
+
+  /**
+    * doMoving
+    * Registers a callback and starts looking for shaking.
+	* IMPURE
+ 
+    * @param {DeviceMotionEvent} e
+    * @private
+    * @returns {void}
+    */
+	doMoving(e) {
+		this.#x1 = e.accelerationIncludingGravity.x;
+		this.#y1 = e.accelerationIncludingGravity.y;
+		this.#z1 = e.accelerationIncludingGravity.z;
+	}
+
+}
+
+
 // https://natclark.com/tutorials/javascript-reduced-motion/
+// https://stackoverflow.com/questions/7363117/detecting-the-opening-or-closing-of-a-details-element
+// https://stackoverflow.com/questions/57813144/how-to-select-element-inside-open-shadow-dom-from-document
 function init() {
 	window.customElements.define("skinnable-menu", ChangeableMenu);
 
@@ -587,10 +813,27 @@ function init() {
 		}
 	}
 	if( calcScreenDPI( document, window)>150 ) {
-		let comp=document.querySelector('#fancyHTML');
-		comp.setAttribute( 'data-flag', '2');
+		if(!isLibreWolf(document, window.navigator, window) ) {
+			let comp=document.querySelector('#fancyHTML');
+			comp.setAttribute( 'data-flag', '2');
+		} else if( calcScreenDPI( document, window)>199 ) {
+			let comp=document.querySelector('#fancyHTML');
+			comp.setAttribute( 'data-flag', '2');
+		}
 	}
-// IOIO add shake detection
+
+	document.querySelector('#fancyHTML').addEventListener('click', ()=>{ 
+		document.querySelector('#fancyHTML').shadowRoot.querySelector('#attentionHere').focus(); 
+		}, false);
+
+
+// lightweight motion detection, only on load, 
+// This edition is not adopting permanent service
+	const SS1=new ShakeSensor(200, window);  
+	const CB=( )=>{ let comp=document.querySelector('#fancyHTML');  comp.setAttribute( 'data-flag', '2'); }
+	SS1.startDetectShake(CB, 16, window);
+
+	setTimeout(() => { SS1.stopDetectShake(window); }, 1000);
 }
 
 if(hasBeenRun()) {
