@@ -11,19 +11,19 @@
 <meta name="Description" content="What is the best toolchain for development in Java in July 2024? A look at today's Java as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="Java toolkit.">
-<meta itemprop="description" content="What is the best toolchain for development in Java in July 2024? A look at today's Java as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="Java toolkit.">
-<meta name="twitter:description" content="What is the best toolchain for development in Java in July 2024? A look at today's Java as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="Java toolkit." />
+<meta itemprop="description" content="What is the best toolchain for development in Java in July 2024? A look at today's Java as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Java toolkit." />
+<meta name="twitter:description" content="What is the best toolchain for development in Java in July 2024? A look at today's Java as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="Java toolkit." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/java-toolkit" />
 <meta property="og:description" content="What is the best toolchain for development in Java in July 2024? A look at today's Java as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:20" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:20" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/java-toolkit" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Java toolkit.",
-	"article:published_time":"10th of Jun 2025, 10:19:20", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:20", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -59,7 +59,7 @@ TODO: magic tune selection against some index/DB -->
 <h5 id="toc0"> Language target</h5>
 <p>Java is more of an open spec than other languages, there are many implementations of the JVM <sup><a href="https://en.wikipedia.org/wiki/List_of_Java_virtual_machines" target="_blank">1</a></sup>.  A discussion of Java history <sup><a href="https://tomgregory.com/gradle/which-jdk-version-and-vendor/" target="_blank">2</a></sup> <sup><a href="https://incusdata.com/blog/which-java-jdk-should-you-use" target="_blank">3</a></sup> <sup><a href="https://foojay.io/today/fantastic-jvms-and-where-to-find-them/" target="_blank">4</a></sup>.  In my personal experience avoid the RHEL Java and the Oracle Java as the licence terms make doing business more hard.   It is part of the language contract that a Java byte code file should be runnable on the vast majority of JVM / runtimes without any extra effort.  The edge case in some cases is that smaller editions may lack some libraries.<br />
 Java as a language has been in existence sine the early 90s.   The first version was called Oak, made by Sun microsystems.   Typically, there are standard editions <sup><a href="https://en.wikipedia.org/wiki/Java_Platform,_Standard_Edition" target="_blank">5</a></sup> for servers, the phone editions <sup><a href="https://en.wikipedia.org/wiki/Comparison_of_Java_and_Android_API" target="_blank">6</a></sup>, and some micro editions <sup><a href="https://en.wikipedia.org/wiki/Java_Platform,_Micro_Edition" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Java_Card" target="_blank">8</a></sup> for smaller devices like DVD players.   For current server use <sup><a href="https://en.wikipedia.org/wiki/Java_version_history" target="_blank">9</a></sup>, something around “Java SE 19” for server-side work (most servers lag two years behind bleeding edge release in my experience). <br />
-Actual computer magazines are recommending installing random binaries from the internet, rather than a vetted edition <sup><a href="https://www.linode.com/docs/guides/how-to-install-openjdk-ubuntu-22-04/" target="_blank">10</a></sup>.   As many people use Java whilst learning programming, there is a lot of low grade notes on the internet.   There is no clear trend for “best compiler”, may people say use “javac”, and just assume you have JRE installed.   The normal Java run-times use a JIT translator to the local ASM instructions (avoiding the use of 'compiler' in this second step for clarity).  Many people claim this is also a good optimiser <sup><a href="https://www.infoworld.com/article/2077647/make-java-fast-optimize.html" target="_blank">11</a></sup> <sup><a href="https://medium.com/@sakshee_agrawal/understanding-just-in-time-jit-compilation-in-java-ae2a6b9fa931" target="_blank">12</a></sup> <sup><a href="https://medium.com/@sakshee_agrawal/understanding-just-in-time-jit-compilation-in-java-ae2a6b9fa931" target="_blank">13</a></sup>.   Some useful but tangential notes on Java JIT <sup><a href="https://dev.to/yousef_zook/java-performance-4-working-with-the-jit-compiler-1ak4" target="_blank">14</a></sup>.   For low powered phones, it is recommended to optimise the code statically, and practical way to do that is Proguard <sup><a href="https://www.guardsquare.com/proguard" target="_blank">15</a></sup>.<br />
+Actual computer magazines are recommending installing random binaries from the internet, rather than a vetted edition <sup><a href="https://www.linode.com/docs/guides/how-to-install-openjdk-ubuntu-22-04/" target="_blank">10</a></sup>.   As many people use Java whilst learning programming, there is a lot of low grade notes on the internet.   There is no clear trend for “best compiler”, may people say use “javac”, and just assume you have JRE installed.   The normal Java run-times use a JIT translator to the local ASM instructions (avoiding the use of 'compiler' in this second step for clarity).  Many people claim this is also a good optimiser <sup><a href="https://www.infoworld.com/article/2077647/make-java-fast-optimize.html" target="_blank">11</a></sup> <sup><a href="https://scribe.rip/@sakshee_agrawal/understanding-just-in-time-jit-compilation-in-java-ae2a6b9fa931" target="_blank">12</a></sup> <sup><a href="https://scribe.rip/@sakshee_agrawal/understanding-just-in-time-jit-compilation-in-java-ae2a6b9fa931" target="_blank">13</a></sup>.   Some useful but tangential notes on Java JIT <sup><a href="https://dev.to/yousef_zook/java-performance-4-working-with-the-jit-compiler-1ak4" target="_blank">14</a></sup>.   For low powered phones, it is recommended to optimise the code statically, and practical way to do that is Proguard <sup><a href="https://www.guardsquare.com/proguard" target="_blank">15</a></sup>.<br />
 Historically I used “jikes”, but that's a dead project since 2010 ~ it was the first OSS made by IBM. <br />
 My current Ubuntu machine has Java v21, apparently by default (the OpenJDK version).   I do not remember installing it.  Eclipse and Netbeans ship with a copy of Java, and are Java IDEs.  Link to the win32 version of Java <sup><a href="https://learn.microsoft.com/en-us/java/openjdk/download" target="_blank">16</a></sup>.  Shopping list of choices for all common OS <sup><a href="https://www.guru99.com/best-java-ide.html" target="_blank">17</a></sup>.  <br />
 </p>
@@ -114,7 +114,7 @@ My current Ubuntu machine has Java v21, apparently by default (the OpenJDK versi
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-17T17:05:57" datetime="2025-07-17T17:05:57">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2024-06-28T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jun '24</time> </span>
 					</span>
@@ -159,7 +159,7 @@ My current Ubuntu machine has Java v21, apparently by default (the OpenJDK versi
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:20" datetime="2025-06-10T10:19:20">10th of Jun 2025, 10:19:20</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:20" datetime="2025-08-09T17:48:20">9th of Aug 2025, 17:48:20</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-17T17:05:57" datetime="2025-07-17T17:05:57">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

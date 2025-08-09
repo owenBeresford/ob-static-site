@@ -11,18 +11,18 @@
 <meta name="Description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="DVCS">
-<meta itemprop="description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="DVCS">
-<meta name="twitter:description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="DVCS" />
+<meta itemprop="description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="DVCS" />
+<meta name="twitter:description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="DVCS" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/review-dvcs-automation" />
 <meta property="og:description" content="DVCS or Distributed version control systems often include an automation engine, so business level transactions can be achieved via a single mouse click (git in your IDE).  This is a comparative review of the first 4 engines, and is a partial article todate.  I will extend this soonish." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:23" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:22" />
 <meta property="article:modified_time" content="Jun '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/review-dvcs-automation" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "DVCS",
-	"article:published_time":"10th of Jun 2025, 10:19:23", 
+	"article:published_time":"9th of Aug 2025, 17:48:22", 
     "article:modified_time":"Jun '25",
     "article:section":"technology",
 
@@ -63,9 +63,9 @@ TODO: magic tune selection against some index/DB -->
 <h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Local step for Git <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>Git the locally-installed tool can run scripts on “version control events” <sup><a href="https://git-scm.com/docs/githooks" target="_blank">2</a></sup> <sup><a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks" target="_blank">3</a></sup>.  These are not sent to the server on Git-push, and I think make most sense for “local weirdness management”.   The first link lists the hooks that exist (about 20).   As they are running on your local device, they do not cost anything or need any SaaS accounts.<br />
 This is useful if you run a different OS to the rest of the dev population, and want different line ending or char-encoding, just like the legacy FTP 'ascii mode' <sup><a href="https://superuser.com/questions/4401/whats-the-point-of-ascii-mode-in-ftp" target="_blank">4</a></sup>.  <br />
-<i>No code supplied, please see the first two links.</i>   I think running a list as a pre-commit is an efficiency measure if your IDE doesn't perform this.   This needs to be aligned with a no-warnings lint policy, or it is obstructive paperwork.   This policy is disruptive if abruptly applied to a existing project where dev release speed was prioritised.   Probably the smartest process is to increment the number of active lint rules over months (much longer than the average branch life span).   This means every branch may change a few details, but each step is small in time and is easy to read as a `diff`.   Assuming a steady size team of devs, there isn't likely to be a performance gain by adding `eslint` rules.  Sometimes weird compile messages can be explained via lint, but that is unlikely to occur often.   Needing to failover to the external tools manually means your IDE isn't setup properly.</p>
+<i>No code supplied, please see the first two links.</i>   I think running a list as a pre-commit is an efficiency measure if your IDE doesn't perform this.   This needs to be aligned with a no-warnings lint policy, or it is obstructive paperwork.   This policy is disruptive if abruptly applied to a existing project where dev release speed was prioritised.   Probably the smartest process is to increment the number of active lint rules over months (much longer than the average branch life span).   This means every branch may change a few details, but each step is small in time and is easy to read as a `diff`.   Assuming a steady size team of devs, there isn't likely to be a performance gain by adding `eslint` rules.  Sometimes weird compile messages can be explained via lint, but hopefully that is a rare event.   Needing to failover to the external tools manually means your IDE isn't setup properly.</p>
 
-<p>#TODO IOIO Add Terraform <sup><a href="https://github.com/terraform-docs/terraform-docs" target="_blank">5</a></sup> <sup><a href="https://en.wikipedia.org/wiki/HashiCorp" target="_blank">6</a></sup>, add Jenkins or other locally hosted tools</p>
+<p>I'm not sure if Terraform should be strictly classed as a local step.  The Terraform daemon does run locally in many cases, but for realistic service monitoring, it would be run on a server inside the production firewalls.  I made some notes <a href="https://owenberesford.me.uk/resource/terraform#">terraform</a>.   This would only make changes when asked, and does support diagnostic/ review modes.   Terraform can be triggered from other services e.g. before black-friday sale begins, double server allocation on cloud host.   #TODO Add Jenkins or other locally hosted tools.</p>
 
 
 <aside class="pullout">
@@ -638,7 +638,7 @@ I will add more suppliers in edition 2 of this article.  #TODO IOIO I intend to 
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-06-27T15:00:39" datetime="2025-06-27T15:00:39">Jun '25</time>
 						</span>
 						<span>Created <time datetime="2024-12-24T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Dec '24</time> </span>
 					</span>
@@ -689,7 +689,7 @@ I will add more suppliers in edition 2 of this article.  #TODO IOIO I intend to 
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:23" datetime="2025-06-10T10:19:23">10th of Jun 2025, 10:19:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:22" datetime="2025-08-09T17:48:22">9th of Aug 2025, 17:48:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-27T15:00:39" datetime="2025-06-27T15:00:39">Jun '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

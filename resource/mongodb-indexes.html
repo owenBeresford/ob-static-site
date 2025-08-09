@@ -11,19 +11,19 @@
 <meta name="Description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="MongoDB indexes">
-<meta itemprop="description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="MongoDB indexes">
-<meta name="twitter:description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="MongoDB indexes" />
+<meta itemprop="description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="MongoDB indexes" />
+<meta name="twitter:description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="MongoDB indexes" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/mongodb-indexes" />
 <meta property="og:description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:21" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:21" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/mongodb-indexes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "MongoDB indexes",
-	"article:published_time":"10th of Jun 2025, 10:19:21", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:21", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -59,7 +59,7 @@ TODO: magic tune selection against some index/DB -->
 
 <p>The MongoDB v5 shell supports: <i>createIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/createIndexes/" target="_blank">3</a></sup> and <i>dropIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/dropIndexes/" target="_blank">4</a></sup>.  Note this version removes <i>ensureIndex()</i>.   Either of these commands can be run on the DB or the collection levels.  It is strongly not advisable to run either of these commands whilst the DB is in operational service, as changing indexes will lock the DB for while.   With practical observation, if a collection has less than a million documents and is completely hosted on a single server; the outage is a few seconds.  Compare this to your required uptime metrics.  Indexes created and used by Mongo do not normally use a auto-increment algorithm (like Postgres or MySQL uses), as sharded systems wouldn't know the largest previous value.  The official notes for auto-increment <sup><a href="https://www.mongodb.com/basics/mongodb-auto-increment" target="_blank">5</a></sup>.</p>
 
-<p>This document exists as I was told (in MongoDB v3 period) that Mongo added indexes automatically.  There is an attached tool called <i>Atlas</i> <sup><a href="https://www.mongodb.com/docs/atlas/performance-advisor/" target="_blank">6</a></sup> which includes a <strong>performance analyser</strong> feature <sup><a href="https://www.mongodb.com/blog/post/optimizing-mongodb-deployment-performance-advisor" target="_blank">7</a></sup>.  This is a good idea; but cannot replace normal performance tests or benchmarking on your API, as the slowdown may not be in the DB.  Controlling index creation must be left as a human operator's decision; to work out if adding another index would lead to more benefit, or a overall reduction in performance requires general-purpose intelligence; which humans have not invented yet.  There are numerous examples of positive feedback loops leading to system failure <sup><a href="https://www.advisorperspectives.com/commentaries/2016/01/11/complex-systems-feedback-loops-and-the-bubble-crash-cycle" target="_blank">8</a></sup> <sup><a href="https://medium.com/@hamo2025/how-a-software-bug-made-knight-capital-lose-500m-in-a-day-almost-go-bankrupt-c527d195ae83" target="_blank">9</a></sup> <sup><a href="https://www.forbes.com/sites/christophersteiner/2012/08/02/knight-capitals-algorithmic-fiasco-wont-be-the-last-of-its-kind/" target="_blank">10</a></sup>.  I prefer to put a layer of “query execution time logging” on the outside of the Mongo driver in the client language; as Object hydration is quite expensive ~ in CPU time ~  needs to be managed.  Having both layers of logging (DB side query logging and app API query logging), when they can be disabled, is useful for isolating problems.   There are some notes on indexes <sup><a href="https://www.mongodb.com/blog/post/performance-best-practices-indexing" target="_blank">11</a></sup> <sup><a href="https://www.mongodb.com/docs/v5.0/applications/indexes/" target="_blank">12</a></sup>.  There is a tool called autopilot which is not relevant to this problem.   If you are using Spring framework in Java, it can add indexes <sup><a href="https://github.com/spring-projects/spring-boot/issues/28478" target="_blank">13</a></sup>.   If you are using FastAPI in Python, there is an extension that will create indexes <sup><a href="https://github.com/identixone/fastapi_contrib" target="_blank">14</a></sup> <a href="https://fastapi-contrib.readthedocs.io/en/latest/usage.html" target="_blank">docs</a> (assume install via pip).</p>
+<p>This document exists as I was told (in MongoDB v3 period) that Mongo added indexes automatically.  There is an attached tool called <i>Atlas</i> <sup><a href="https://www.mongodb.com/docs/atlas/performance-advisor/" target="_blank">6</a></sup> which includes a <strong>performance analyser</strong> feature <sup><a href="https://www.mongodb.com/blog/post/optimizing-mongodb-deployment-performance-advisor" target="_blank">7</a></sup>.  This is a good idea; but cannot replace normal performance tests or benchmarking on your API, as the slowdown may not be in the DB.  Controlling index creation must be left as a human operator's decision; to work out if adding another index would lead to more benefit, or a overall reduction in performance requires general-purpose intelligence; which humans have not invented yet.  There are numerous examples of positive feedback loops leading to system failure <sup><a href="https://www.advisorperspectives.com/commentaries/2016/01/11/complex-systems-feedback-loops-and-the-bubble-crash-cycle" target="_blank">8</a></sup> <sup><a href="https://scribe.rip/@hamo2025/how-a-software-bug-made-knight-capital-lose-500m-in-a-day-almost-go-bankrupt-c527d195ae83" target="_blank">9</a></sup> <sup><a href="https://www.forbes.com/sites/christophersteiner/2012/08/02/knight-capitals-algorithmic-fiasco-wont-be-the-last-of-its-kind/" target="_blank">10</a></sup>.  I prefer to put a layer of “query execution time logging” on the outside of the Mongo driver in the client language; as Object hydration is quite expensive ~ in CPU time ~  needs to be managed.  Having both layers of logging (DB side query logging and app API query logging), when they can be disabled, is useful for isolating problems.   There are some notes on indexes <sup><a href="https://www.mongodb.com/blog/post/performance-best-practices-indexing" target="_blank">11</a></sup> <sup><a href="https://www.mongodb.com/docs/v5.0/applications/indexes/" target="_blank">12</a></sup>.  There is a tool called autopilot which is not relevant to this problem.   If you are using Spring framework in Java, it can add indexes <sup><a href="https://github.com/spring-projects/spring-boot/issues/28478" target="_blank">13</a></sup>.   If you are using FastAPI in Python, there is an extension that will create indexes <sup><a href="https://github.com/identixone/fastapi_contrib" target="_blank">14</a></sup> <a href="https://fastapi-contrib.readthedocs.io/en/latest/usage.html" target="_blank">docs</a> (assume install via pip).</p>
 
 <p>For good user search against a company dataset, a “manual input index” is probably required.  That is, it should be lower-cased, the accents removed, stop words like “the” removed, or maybe duplicated entries and maybe the words stemmed.  If I am using PG I can get most of this data munging done automatically; in a BASE system, I need to write it on the insertion code.  The data normalisation makes results more relevant, and it executes faster.  As an example please look at <a href="https://owenberesford.me.uk/resource/search-text-sample#">search-text-sample</a>.<br />
 As a defensive coding warning; it is advisable to add sanity checking for manipulations of 2d points; as one of the manual steps may have inverted the data.  See <sup><a href="https://owenberesford.me.uk/resource//gis-data#toc4" target="_blank">15</a></sup>   <br />
@@ -118,7 +118,7 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-17T17:07:00" datetime="2025-07-17T17:07:00">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2023-01-20T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jan '23</time> </span>
 					</span>
@@ -168,7 +168,7 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:21" datetime="2025-06-10T10:19:21">10th of Jun 2025, 10:19:21</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:21" datetime="2025-08-09T17:48:21">9th of Aug 2025, 17:48:21</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-17T17:07:00" datetime="2025-07-17T17:07:00">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

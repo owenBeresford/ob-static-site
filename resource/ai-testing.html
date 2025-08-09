@@ -11,19 +11,19 @@
 <meta name="Description" content="As LLMs are evolved rather than written, their testing is a different process to other software.  However, various reported and unexpected features show that testing is necessary.  The articles includes a LLM test plan and context information." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="LLM testing">
-<meta itemprop="description" content="As LLMs are evolved rather than written, their testing is a different process to other software.  However, various reported and unexpected features show that testing is necessary.  The articles includes a LLM test plan and context information.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="LLM testing">
-<meta name="twitter:description" content="As LLMs are evolved rather than written, their testing is a different process to other software.  However, various reported and unexpected features show that testing is necessary.  The articles includes a LLM test plan and context information.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="LLM testing" />
+<meta itemprop="description" content="As LLMs are evolved rather than written, their testing is a different process to other software.  However, various reported and unexpected features show that testing is necessary.  The articles includes a LLM test plan and context information." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="LLM testing" />
+<meta name="twitter:description" content="As LLMs are evolved rather than written, their testing is a different process to other software.  However, various reported and unexpected features show that testing is necessary.  The articles includes a LLM test plan and context information." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="LLM testing" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-testing" />
 <meta property="og:description" content="As LLMs are evolved rather than written, their testing is a different process to other software.  However, various reported and unexpected features show that testing is necessary.  The articles includes a LLM test plan and context information." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:16" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:19" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-testing" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "LLM testing",
-	"article:published_time":"10th of Jun 2025, 10:19:16", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:19", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -81,10 +81,10 @@ Source of image: Mastodon </a> <span class="button bigScreenOnly" id="biggerBtn"
 </figcaption>
 </figure> <br />
 <p>~ Australia is the ~50th most populous country.   If you don't support dialects of english, are you actually serving random US people who use their dialect rather than a “standardised english” ~ a process feels more like Mandarin than the “no ruleZ 'ere guv'&quot; approach that english uses. <br />
-In the UK to date, the use of AI isn't mentioned by legislation, but this may change soon <sup><a href="https://www.shoosmiths.com/insights/articles/catch-me-if-you-can-the-impact-of-chatgpt-and-how-uk-ai-regulation-might-deal-with-generative-ai" target="_blank">1</a></sup> <sup><a href="https://blogs.law.ox.ac.uk/oblb/blog-post/2023/03/regulating-chatgpt-and-other-large-generative-ai-models" target="_blank">2</a></sup>.  This Science opinion paper <sup><a href="https://www.sciencedirect.com/science/article/pii/S0268401223000233" target="_blank">3</a></sup> states there is no tailoring of output ~ and the paper includes an AI summary feature in the online text.<br />
+In the UK to date, the use of AI isn't mentioned by legislation, but this may change soon <sup><a href="https://www.shoosmiths.com/insights/articles/catch-me-if-you-can-the-impact-of-chatgpt-and-how-uk-ai-regulation-might-deal-with-generative-ai" target="_blank">1</a></sup> <sup><a href="https://blogs.law.ox.ac.uk/oblb/blog-post/2023/03/regulating-chatgpt-and-other-large-generative-ai-models" target="_blank">2</a></sup>.  This Science opinion paper <sup><a href="https://scholars.cityu.edu.hk/ws/portalfiles/portal/148632258/146954686.pdf" target="_blank">3</a></sup> OR <sup><a href="https://dl.acm.org/doi/10.1016/j.ijinfomgt.2023.102642" target="_blank">4</a></sup> states there is no tailoring of output ~ and the paper includes an AI summary feature in the online text.<br />
 Deterministic systems are much easier to test, so maximising deterministic steps on your AI should increase quality without extra dev cost.  In the extreme, this will minimise the “AI” of an AI product.</p>
 
-<p>A breakdown of areas to test (referencing <sup><a href="https://github.blog/ai-and-ml/llms/the-architecture-of-todays-llm-applications/" target="_blank">4</a></sup>).  To thoroughly test a current AI platform:</p>
+<p>A breakdown of areas to test (referencing <sup><a href="https://github.blog/ai-and-ml/llms/the-architecture-of-todays-llm-applications/" target="_blank">5</a></sup>).  To thoroughly test a current AI platform:</p>
 
 
 
@@ -138,7 +138,7 @@ Deterministic systems are much easier to test, so maximising deterministic steps
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Processes for testing <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Random text by humans is prone to bias, but if not used as your official company voice, this isn't your problem.   If your chatbot repeats this text, then it is your problem.   Vetting the inputs for making the LLM would help.  However, assuming the LLM is purchased, you won't have control to achieve that.   Similar to the sexism test in cartoons <sup><a href="https://fanlore.org/wiki/The_Hawkeye_Initiative" target="_blank">1</a></sup> <sup><a href="https://knowyourmeme.com/memes/the-hawkeye-initiative" target="_blank">2</a></sup> ~ where one character is swapped, but not their poses or actions ~ a prompt with no identity classifiers can be stereotyped to a narrower group of people easily (by adding a few neutral tone adjectives), and if this has a large tone impact to the output of your LLM, you have a biased LLM.   Repeat for each group of people, as the LLM may not be biased against everyone.  To automate this palette of tests, compare the entirely generic first prompt output to the later prompts.   Any words that are added need to be reviewed for balance ~ noting that LLM are not deterministic.   This needs to be automated to keep the value of the LLM, my current best guess solution is Lexical libraries <sup><a href="https://en.wikipedia.org/wiki/Lexicology" target="_blank">3</a></sup> in Perl (with the tests written in Perl).  A solution sketch is to feed the word delta into Wordnet <sup><a href="https://wordnet.princeton.edu/" target="_blank">4</a></sup>, and grab the most vague / high-level term from the Wordnet results, and compare the deltas on each sample. <br />
 As a test of whether the LLM can emit useful and relevant data, some people have carefully made test fixture populations.   These shouldn't be topical, or very advanced information.   The best one of these I have found so far is <sup><a href="https://www.reddit.com/r/SillyTavernAI/comments/1e1zte9/a_very_quick_and_easy_way_to_evaluate_your_llm/" target="_blank">5</a></sup>.<br />
-Other people also wanted tested, therefore reliable LLM, for example <sup><a href="https://www.rungalileo.io/blog/metrics-first-approach-to-llm-evaluation" target="_blank">6</a></sup> <sup><a href="https://pkum37.medium.com/testing-of-llm-models-a-challenging-frontier-c255e09aab06" target="_blank">7</a></sup> <sup><a href="https://www.analyticsvidhya.com/blog/2023/05/how-to-evaluate-a-large-language-model-llm/" target="_blank">8</a></sup> <sup><a href="https://www.leewayhertz.com/how-to-test-llms-in-production/#How-to-test-LLMs-in-production" target="_blank">9</a></sup>.   These companies have setup frameworks for things that need testing.   A second test framework <sup><a href="https://www.codesmith.io/blog/an-introduction-to-llm-evaluation-how-to-measure-the-quality-of-llms-prompts-and-outputs" target="_blank">10</a></sup> <sup><a href="https://docs.rungalileo.io/galileo/llm-studio/prompt-inspector/choosing-your-guardrail-metrics" target="_blank">11</a></sup>, I think aimed at manual tests, sometimes including a LLM to be a test output handler.   This startup <sup><a href="https://www.confident-ai.com/blog/llm-evaluation-metrics-everything-you-need-for-llm-evaluation" target="_blank">12</a></sup> which proposes a hallucination test by repeated queries, as hallucinations do not repeat.   They also have several other tools to look at LLM.   Using an unknown quality tool to show the quality of another untested service is a risky business, and in none of the supplied examples, the second AI eliminated the need for a human operator.   I strongly suspect that the double LLM test process will have a bi-modal distribution, where it works either perfectly or terribly.   It has been demonstrated that most LLM have inline control signals.   A useful LLM cannot be popped to a lower level of context (same idea as an admin shell on a server), especially not by accident <sup><a href="https://ten10.com/blog/how-to-test-llm-based-chatbots/" target="_blank">13</a></sup>.</p>
+Other people also wanted tested, therefore reliable LLM, for example <sup><a href="https://www.rungalileo.io/blog/metrics-first-approach-to-llm-evaluation" target="_blank">6</a></sup> <sup><a href="https://pkum37.scribe.rip/testing-of-llm-models-a-challenging-frontier-c255e09aab06" target="_blank">7</a></sup> <sup><a href="https://www.analyticsvidhya.com/blog/2023/05/how-to-evaluate-a-large-language-model-llm/" target="_blank">8</a></sup> <sup><a href="https://www.leewayhertz.com/how-to-test-llms-in-production/#How-to-test-LLMs-in-production" target="_blank">9</a></sup>.   These companies have setup frameworks for things that need testing.   A second test framework <sup><a href="https://www.codesmith.io/blog/an-introduction-to-llm-evaluation-how-to-measure-the-quality-of-llms-prompts-and-outputs" target="_blank">10</a></sup> <sup><a href="https://docs.rungalileo.io/galileo/llm-studio/prompt-inspector/choosing-your-guardrail-metrics" target="_blank">11</a></sup>, I think aimed at manual tests, sometimes including a LLM to be a test output handler.   This startup <sup><a href="https://www.confident-ai.com/blog/llm-evaluation-metrics-everything-you-need-for-llm-evaluation" target="_blank">12</a></sup> which proposes a hallucination test by repeated queries, as hallucinations do not repeat.   They also have several other tools to look at LLM.   Using an unknown quality tool to show the quality of another untested service is a risky business, and in none of the supplied examples, the second AI eliminated the need for a human operator.   I strongly suspect that the double LLM test process will have a bi-modal distribution, where it works either perfectly or terribly.   It has been demonstrated that most LLM have inline control signals.   A useful LLM cannot be popped to a lower level of context (same idea as an admin shell on a server), especially not by accident <sup><a href="https://ten10.com/blog/how-to-test-llm-based-chatbots/" target="_blank">13</a></sup>.</p>
 
 <p>For software that takes user input and displays it to other users (e.g. social media), normally there are clearly defined rules for no hate speech, not promoting violence, only appropriate mentions to religion, no threats, no swearing etc.  I built Regexs to enforce these rules, and I'm sure many other developers have too.   If the internet is your data source, this is a bigger scope problem.  For example, there is at least one youth organisation that has “YT” as an abbreviation, for “young...&quot; or “youth...&quot;, fairly innocent, and part of the legitimate function of the organisation. ...Also YouTube...  However, some pale people object to that abbreviation being used as a label for “white people”.   These are normally the people labelling and stereotyping everyone else.   My most reliable and systematic solution is not to use the unmoderated internet as a data source.</p>
 
@@ -201,7 +201,7 @@ Another example of the necessity of testing, the MSFT Copilot system can read an
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-24T17:29:05" datetime="2025-07-24T17:29:05">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2024-09-11T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Sep '24</time> </span>
 					</span>
@@ -252,7 +252,7 @@ Another example of the necessity of testing, the MSFT Copilot system can read an
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:16" datetime="2025-06-10T10:19:16">10th of Jun 2025, 10:19:16</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:19" datetime="2025-08-09T17:48:19">9th of Aug 2025, 17:48:19</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-24T17:29:05" datetime="2025-07-24T17:29:05">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

@@ -11,19 +11,19 @@
 <meta name="Description" content="Detailed article on React 18 Architecture to act as a single page cheat-sheet. Target audience: Software engineers who have used many frameworks. Written by a software engineer on how React18 works; and what features got in the completed edition.  I explain all 15 React Hooks; 23 React18 methods and 3 built-in tags." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="React 18 Architecture">
-<meta itemprop="description" content="Detailed article on React 18 Architecture to act as a single page cheat-sheet. Target audience: Software engineers who have used many frameworks. Written by a software engineer on how React18 works; and what features got in the completed edition.  I explain all 15 React Hooks; 23 React18 methods and 3 built-in tags.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="React 18 Architecture">
-<meta name="twitter:description" content="Detailed article on React 18 Architecture to act as a single page cheat-sheet. Target audience: Software engineers who have used many frameworks. Written by a software engineer on how React18 works; and what features got in the completed edition.  I explain all 15 React Hooks; 23 React18 methods and 3 built-in tags.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="React 18 Architecture" />
+<meta itemprop="description" content="Detailed article on React 18 Architecture to act as a single page cheat-sheet. Target audience: Software engineers who have used many frameworks. Written by a software engineer on how React18 works; and what features got in the completed edition.  I explain all 15 React Hooks; 23 React18 methods and 3 built-in tags." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="React 18 Architecture" />
+<meta name="twitter:description" content="Detailed article on React 18 Architecture to act as a single page cheat-sheet. Target audience: Software engineers who have used many frameworks. Written by a software engineer on how React18 works; and what features got in the completed edition.  I explain all 15 React Hooks; 23 React18 methods and 3 built-in tags." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="React 18 Architecture" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/react18-notes" />
 <meta property="og:description" content="Detailed article on React 18 Architecture to act as a single page cheat-sheet. Target audience: Software engineers who have used many frameworks. Written by a software engineer on how React18 works; and what features got in the completed edition.  I explain all 15 React Hooks; 23 React18 methods and 3 built-in tags." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:23" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:22" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/react18-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "React 18 Architecture",
-	"article:published_time":"10th of Jun 2025, 10:19:23", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:22", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -63,7 +63,8 @@ TODO: magic tune selection against some index/DB -->
     <li>A vastly over engineered diagram, drawn in React <sup><a href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/" target="_blank">1</a></sup>.  Someone's test code to explore hooks <sup><a href="https://github.com/GregNicholas/hooks-in-react18-next" target="_blank">2</a></sup> </li>
 </ul>
 
-<p>The newest version of React has a slightly different life cycle model; and some of the older process have been retired <sup><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">3</a></sup> <sup><a href="https://medium.com/how-to-react/react-life-cycle-methods-with-examples-2bdb7465332b" target="_blank">4</a></sup> <sup><a href="https://medium.com/swlh/react-lifecycle-hooks-71547ef4e7a8" target="_blank">5</a></sup>.</p>
+<p>The newest version of React has a slightly different life cycle model; and some of the older process have been retired <sup><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">3</a></sup> <sup><a href="https://scribe.rip/how-to-react/react-life-cycle-methods-with-examples-2bdb7465332b" target="_blank">4</a></sup> <sup><a href="https://scribe.rip/swlh/react-lifecycle-hooks-71547ef4e7a8" target="_blank">5</a></sup>. <br />
+UPDATE: short notes for <a href="https://www.epicreact.dev/react-19-cheatsheet" target="_blank">React 19 Cheat Sheet</a>.</p>
 
 
 <h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Architecture prefix <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
@@ -71,11 +72,11 @@ TODO: magic tune selection against some index/DB -->
 
 <p>'Modern React' i.e. after v16.6 has a more functional architecture; using many hooks.  Many people in JS like FP; and so think that this is a better way to build things.  As a side effect of moving to FP, it is more strongly reactive; see <a href="https://owenberesford.me.uk/resource/reactive-architecture#">reactive-architecture</a> for more details.  JS, as used in webrowsers, is very much a single thread of execution; many JS people try to hide this limitation.  JS Webworkers are roughly a OS process thread; and roughly allow better async processing; but the communication and synchronisation bottle-neck is terrible.  Compare language features with a non-browser Java app (probably on your Android) for a realistic second opinion.  A React stack cannot be properly reactive whilst it only uses a single process/ thread execution context.</p>
 
-<p>Like many frameworks; React18 is using ObjectComposition pattern <sup><a href="https://en.wikipedia.org/wiki/Object_composition" target="_blank">6</a></sup>.   A reason to upgrade to React18 is attempts at concurrency have been created <sup><a href="https://www.telerik.com/blogs/concurrent-rendering-react-18" target="_blank">7</a></sup> <sup><a href="https://reactjs.org/blog/2022/03/29/react-v18.html#what-is-concurrent-react" target="_blank">8</a></sup> <sup><a href="https://navneetlalg.medium.com/improving-performance-with-concurrency-in-react-18-a-guide-to-suspense-time-slicing-and-3224dc593748" target="_blank">9</a></sup>.  The framework for concurrency allows Batching.   If you are using server side rendering; you will like Suspense (new feature); but were probably using it previously via plugin like Nextjs or Hydrogen <sup><a href="https://www.freecodecamp.org/news/whats-new-in-react-18/" target="_blank">10</a></sup>.</p>
+<p>Like many frameworks; React18 is using ObjectComposition pattern <sup><a href="https://en.wikipedia.org/wiki/Object_composition" target="_blank">6</a></sup>.   A reason to upgrade to React18 is attempts at concurrency have been created <sup><a href="https://www.telerik.com/blogs/concurrent-rendering-react-18" target="_blank">7</a></sup> <sup><a href="https://reactjs.org/blog/2022/03/29/react-v18.html#what-is-concurrent-react" target="_blank">8</a></sup> <sup><a href="https://navneetlalg.scribe.rip/improving-performance-with-concurrency-in-react-18-a-guide-to-suspense-time-slicing-and-3224dc593748" target="_blank">9</a></sup>.  The framework for concurrency allows Batching.   If you are using server side rendering; you will like Suspense (new feature); but were probably using it previously via plugin like Nextjs or Hydrogen <sup><a href="https://www.freecodecamp.org/news/whats-new-in-react-18/" target="_blank">10</a></sup>.</p>
 
 
 <h5 id="toc1"> Project structure of React18</h5>
-<p>Most developers interact with React via JSX.  This is a convenience notation for humans that the compilers discard quite quickly; read <sup><a href="https://ui.dev/react-elements-vs-react-components" target="_blank">11</a></sup> <sup><a href="https://reactjs.org/docs/jsx-in-depth.html" target="_blank">12</a></sup> if this statement is new to you.   “Recent” versions of React (larger than React 2, I think) split the bit of react that interacts with the DOM, from the bits that are creating and processing events.   The DOM section has different implementations depending which JS runtime the app is hosted in (Mobile native, browser native, or server emulation).  More details <sup><a href="https://techstacker.com/react-vs-react-dom-vs-react-native-whats-the-difference/" target="_blank">13</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units" target="_blank">14</a></sup>.   The most important thing in the update-DOM code is a function that compares an old state with a newer state and makes a diff <sup><a href="https://reactjs.org/docs/reconciliation.html" target="_blank">15</a></sup> <sup><a href="https://medium.com/@abdellani/how-does-the-diff-algorithm-work-in-react-js-c4296548f84b" target="_blank">16</a></sup>.  The diff is what is applied to the real DOM in this update cycle.  To make the diff-ing work better, React creates a VirtualDOM structure <sup><a href="https://www.testim.io/blog/shadow-dom-vs-virtual-dom/" target="_blank">17</a></sup> <sup><a href="https://medium.com/duomly-blockchain-online-courses/shadow-dom-vs-virtual-dom-what-is-the-difference-f2611da536ab" target="_blank">18</a></sup> as an intermediate structure which is closer to the DOM.</p>
+<p>Most developers interact with React via JSX.  This is a convenience notation for humans that the compilers discard quite quickly; read <sup><a href="https://ui.dev/react-elements-vs-react-components" target="_blank">11</a></sup> <sup><a href="https://reactjs.org/docs/jsx-in-depth.html" target="_blank">12</a></sup> if this statement is new to you.   “Recent” versions of React (larger than React 2, I think) split the bit of react that interacts with the DOM, from the bits that are creating and processing events.   The DOM section has different implementations depending which JS runtime the app is hosted in (Mobile native, browser native, or server emulation).  More details <sup><a href="https://techstacker.com/react-vs-react-dom-vs-react-native-whats-the-difference/" target="_blank">13</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units" target="_blank">14</a></sup>.   The most important thing in the update-DOM code is a function that compares an old state with a newer state and makes a diff <sup><a href="https://reactjs.org/docs/reconciliation.html" target="_blank">15</a></sup> <sup><a href="https://scribe.rip/@abdellani/how-does-the-diff-algorithm-work-in-react-js-c4296548f84b" target="_blank">16</a></sup>.  The diff is what is applied to the real DOM in this update cycle.  To make the diff-ing work better, React creates a VirtualDOM structure <sup><a href="https://www.testim.io/blog/shadow-dom-vs-virtual-dom/" target="_blank">17</a></sup> <sup><a href="https://scribe.rip/duomly-blockchain-online-courses/shadow-dom-vs-virtual-dom-what-is-the-difference-f2611da536ab" target="_blank">18</a></sup> as an intermediate structure which is closer to the DOM.</p>
 
 <p>The most import distinction between a website (made up of pages) and a webapp (made up of screens) is the singular page/ DOM loaded.  Although there is caching, each webpage in a website is a separate thing/ DOM; and will load its libraries each impression.   An app loads its heavy libraries once (ideally in an install phase, not every 09:02 when you start working).  This implies apps need to be more careful with memory management, and use some sort of Router to change to the next screen.   I have never needed to use any router other than the basic one, per toolkit.  For React in the browser, its <sup><a href="https://ui.dev/react-router-tutorial" target="_blank">19</a></sup> <sup><a href="https://www.npmjs.com/package/react-router" target="_blank">20</a></sup>; there is a React-native version (as pages are a “user-land” programmer structure there) <sup><a href="https://dev.to/syncfusion/react-router-vs-react-router-dom-mfl" target="_blank">21</a></sup>.  Most Router libraries are using the History object in the JS interpreter; but the recipe it outlined in <sup><a href="https://ogzhanolguncu.com/blog/build-a-custom-react-router-from-scratch" target="_blank">22</a></sup> <sup><a href="https://reactnavigation.org/docs/custom-routers/" target="_blank">23</a></sup>.</p>
 
@@ -123,7 +124,7 @@ It would be an extremely heretical statement; but this architecture can be achie
         <li>const memoizedCallback = useCallback( () =&gt; {  doSomething(a, b); }, [a, b],);</li>
         <li>package: React</li>
     </ul></li>
-    <li><b>useRef()</b> <sup><a href="https://react.dev/reference/react/useRef" target="_blank">15</a></sup> <sup><a href="https://medium.com/trabe/react-useref-hook-b6c9d39e2022" target="_blank">16</a></sup> ~ Ref is short for Reference; this is a smart pointer structure.   The pointed-to data is mutable.<ul class="ulbasic">
+    <li><b>useRef()</b> <sup><a href="https://react.dev/reference/react/useRef" target="_blank">15</a></sup> <sup><a href="https://scribe.rip/trabe/react-useref-hook-b6c9d39e2022" target="_blank">16</a></sup> ~ Ref is short for Reference; this is a smart pointer structure.   The pointed-to data is mutable.<ul class="ulbasic">
         <li>const refContainer = useRef(initialValue);</li>
         <li>package: React</li>
     </ul></li>
@@ -135,7 +136,7 @@ It would be an extremely heretical statement; but this architecture can be achie
         <li>const deferredValue = useDeferredValue(value);</li>
         <li>package: React</li>
     </ul></li>
-    <li><b>useImperativeHandle()</b> <sup><a href="https://react.dev/reference/react/useImperativeHandle" target="_blank">21</a></sup> <sup><a href="https://medium.com/trabe/react-useref-hook-b6c9d39e2022" target="_blank">22</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useimperativehandle" target="_blank">23</a></sup> ~ Try to avoid using this because React is trying not to be imperative and performance is terible.   Creates an action ~ the createHandle ~ that will be executed when data exposed to a parent ref is changed.   <ul class="ulbasic">
+    <li><b>useImperativeHandle()</b> <sup><a href="https://react.dev/reference/react/useImperativeHandle" target="_blank">21</a></sup> <sup><a href="https://scribe.rip/trabe/react-useref-hook-b6c9d39e2022" target="_blank">22</a></sup> <sup><a href="https://reactjs.org/docs/hooks-reference.html#useimperativehandle" target="_blank">23</a></sup> ~ Try to avoid using this because React is trying not to be imperative and performance is terible.   Creates an action ~ the createHandle ~ that will be executed when data exposed to a parent ref is changed.   <ul class="ulbasic">
         <li>useImperativeHandle(ref, createHandle, [deps]);</li>
         <li>package: React</li>
     </ul></li>
@@ -151,7 +152,7 @@ It would be an extremely heretical statement; but this architecture can be achie
         <li>const state = useSyncExternalStore(subscribe, getSnapshot[, getServerSnapshot]); </li>
         <li>package: React</li>
     </ul></li>
-    <li><b>useDebugValue()</b> <sup><a href="https://react.dev/reference/react/useDebugValue" target="_blank">28</a></sup> <sup><a href="https://reactjsguru.com/react-usedebugvalue-hook/" target="_blank">29</a></sup> ~ Renders a value to ReactDebugTools<a href="https://www.google.co.uk/search?q=ReactDebugTools">?</a>; Also supports a version without the Adaptor. <ul class="ulbasic">
+    <li><b>useDebugValue()</b> <sup><a href="https://react.dev/reference/react/useDebugValue" target="_blank">28</a></sup> <sup><a href="https://reactjsguru.com/react-usedebugvalue-hook/" target="_blank">29</a></sup> ~ Renders a value to ReactDebugTools<a href="https://duckduckgo.com/?q=ReactDebugTools">?</a>; Also supports a version without the Adaptor. <ul class="ulbasic">
         <li>useDebugValue(data, (data) =&gt; any);</li>
         <li>package: React</li>
     </ul></li>
@@ -267,7 +268,7 @@ It would be an extremely heretical statement; but this architecture can be achie
     <li><b>Suspense</b> <sup><a href="https://reactjs.org/docs/react-api.html#suspense" target="_blank">39</a></sup>, used to FP style supply a loading screen without branching, needs createRoot() to be active <sup><a href="https://blog.bitsrc.io/quick-walkthrough-to-suspenselist-in-react-b930d1ece892" target="_blank">40</a></sup> <sup><a href="https://betterprogramming.pub/the-complete-guide-to-react-18-dd8763430345" target="_blank">41</a></sup>.  <a href="https://dev.to/vaukalak/react-18-suspense-minimal-example-3j0k" target="_blank">Minimal sample</a>.    <ul class="ulbasic">
         <li>project: React</li>
     </ul></li>
-    <li><b>StrictMode</b> <sup><a href="https://reactjs.org/docs/strict-mode.html" target="_blank">42</a></sup> This is only for dev builds; enables more detailed error reporting.  In some code you get effects <sup><a href="https://medium.com/@sahil90085/useeffect-double-mounting-in-strict-mode-1beb339f1919" target="_blank">43</a></sup> <sup><a href="https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode" target="_blank">44</a></sup>.  <a href="https://medium.com/nmc-techblog/wait-youre-not-using-react-strictmode-a9713927a33b" target="_blank">Minimal example</a> <ul class="ulbasic">
+    <li><b>StrictMode</b> <sup><a href="https://reactjs.org/docs/strict-mode.html" target="_blank">42</a></sup> This is only for dev builds; enables more detailed error reporting.  In some code you get effects <sup><a href="https://scribe.rip/@sahil90085/useeffect-double-mounting-in-strict-mode-1beb339f1919" target="_blank">43</a></sup> <sup><a href="https://stackoverflow.com/questions/61254372/my-react-component-is-rendering-twice-because-of-strict-mode" target="_blank">44</a></sup>.  <a href="https://scribe.rip/nmc-techblog/wait-youre-not-using-react-strictmode-a9713927a33b" target="_blank">Minimal example</a> <ul class="ulbasic">
         <li>project: React</li>
     </ul></li>
     <li><del> SuspenseList</del> <sup><a href="https://yagmurcetintas.com/journal/whats-new-in-react-18" target="_blank">45</a></sup> Basically the same idea as previous, for a list of items.  ONLY EXISTS IN VERY EARLY VERSIONS OF React18, DO NOT USE <a href="https://www.programcreek.com/typescript/?api=react.SuspenseList" target="_blank">Minimal samples</a><ul class="ulbasic">
@@ -279,9 +280,9 @@ It would be an extremely heretical statement; but this architecture can be achie
     <li></li>
     <li>Interfaces/ base classes: <ul class="ulbasic">
         <li><b>React.Component</b> <sup><a href="https://react.dev/reference/react/Component" target="_blank">46</a></sup> <sup><a href="https://reactjs.org/docs/react-component.html" target="_blank">47</a></sup>,</li>
-        <li><b>React.FC</b> <sup><a href="https://medium.com/@harrymt/should-you-use-react-fc-for-typing-react-components-62cde9ba67c" target="_blank">48</a></sup> <sup><a href="https://www.pluralsight.com/guides/use-interface-props-in-functional-components-using-typescript-with-react" target="_blank">49</a></sup> <sup><a href="https://medium.com/raccoons-group/why-you-probably-shouldnt-use-react-fc-to-type-your-react-components-37ca1243dd13" target="_blank">50</a></sup> aka FunctionComponent,</li>
+        <li><b>React.FC</b> <sup><a href="https://scribe.rip/@harrymt/should-you-use-react-fc-for-typing-react-components-62cde9ba67c" target="_blank">48</a></sup> <sup><a href="https://www.pluralsight.com/guides/use-interface-props-in-functional-components-using-typescript-with-react" target="_blank">49</a></sup> <sup><a href="https://scribe.rip/raccoons-group/why-you-probably-shouldnt-use-react-fc-to-type-your-react-components-37ca1243dd13" target="_blank">50</a></sup> aka FunctionComponent,</li>
         <li><b>React.VFC</b> <sup><a href="https://www.mydatahack.com/using-react-vfc-instead-of-react-fc/" target="_blank">51</a></sup> aka VoidFunctionComponent and </li>
-        <li><b>React.SFC</b> aka StatelessFunctionComponent <sup><a href="https://medium.com/@ethan_ikt/react-stateless-functional-component-with-typescript-ce5043466011" target="_blank">52</a></sup> <sup><a href="https://stackoverflow.com/questions/40748397/how-to-use-children-with-react-stateless-functional-component-in-typescript" target="_blank">53</a></sup> <sup><a href="https://stackoverflow.com/questions/53885993/react-16-7-react-sfc-is-now-deprecated" target="_blank">54</a></sup>.  </li>
+        <li><b>React.SFC</b> aka StatelessFunctionComponent <sup><a href="https://scribe.rip/@ethan_ikt/react-stateless-functional-component-with-typescript-ce5043466011" target="_blank">52</a></sup> <sup><a href="https://stackoverflow.com/questions/40748397/how-to-use-children-with-react-stateless-functional-component-in-typescript" target="_blank">53</a></sup> <sup><a href="https://stackoverflow.com/questions/53885993/react-16-7-react-sfc-is-now-deprecated" target="_blank">54</a></sup>.  </li>
         <li><b>ErrorBoundary</b> <sup><a href="https://reactjs.org/docs/error-boundaries.html" target="_blank">55</a></sup> <sup><a href="https://blog.pusher.com/react-error-boundaries/" target="_blank">56</a></sup> a small feature to localise error handling, rather than use a single global errorhandler; leading to easier to diagnose and therefore fix problems.</li>
         <li>These are not actually tags, but used to make them.</li>
         <li>Note only Component is in the basic user-docs; I mention the rest as this is “everything docs”.   They are being added and deprecated quite quickly.</li>
@@ -326,7 +327,7 @@ It would be an extremely heretical statement; but this architecture can be achie
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-17T17:07:42" datetime="2025-07-17T17:07:42">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2022-08-01T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Aug '22</time> </span>
 					</span>
@@ -378,7 +379,7 @@ It would be an extremely heretical statement; but this architecture can be achie
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:23" datetime="2025-06-10T10:19:23">10th of Jun 2025, 10:19:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:22" datetime="2025-08-09T17:48:22">9th of Aug 2025, 17:48:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-17T17:07:42" datetime="2025-07-17T17:07:42">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
 </footer>

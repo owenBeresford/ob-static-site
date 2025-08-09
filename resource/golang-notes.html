@@ -11,19 +11,19 @@
 <meta name="Description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="Golang binary">
-<meta itemprop="description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="Golang binary">
-<meta name="twitter:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="Golang binary" />
+<meta itemprop="description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Golang binary" />
+<meta name="twitter:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="Golang binary" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/golang-notes" />
 <meta property="og:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:19" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:20" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/golang-notes" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Golang binary",
-	"article:published_time":"10th of Jun 2025, 10:19:19", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:20", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -82,7 +82,7 @@ Before I started using Golang; I was focussing on “how to type in this languag
     <li>Golang binaries do not need a script host (see Java, ASP etc).  </li>
     <li>The `go build` command includes the trace and debug data unless this is disabled.  For applications which are considered stable adding -ldflags &quot;-s” leads to smaller files <sup><a href="https://stackoverflow.com/questions/29599209/how-to-build-a-release-version-binary-in-go" target="_blank">12</a></sup></li>
     <li>If you are doing a manual build (i.e. no Make) use `go build -ldflags &quot;-s” -o $RESULT_NAME $RELATIVEPATH_TO_FILE_WITH_MAIN()`.  AFAIK, the main Package needs to link every other package (directly or indirectly), for Golang to be able to load the library.</li>
-    <li>We want to target go1.5 or greater as the modules system is now complete.  Notes <sup><a href="https://insujang.github.io/2020-04-04/go-modules/" target="_blank">13</a></sup> <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">14</a></sup>.  Golang defines modules as “A module is a collection of Go packages stored in a file tree with a go.mod file at its root. The go.mod file defines the module’s module path, which is also the import path used for the root directory, and its dependency requirements, which are the other modules needed for a successful build. Each dependency requirement is written as a module path and a specific semantic version.&quot; from <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">15</a></sup>.   A worked example for golang modules <sup><a href="https://github.com/GowthamGirithar/employee-service" target="_blank">16</a></sup>.</li>
+    <li>We want to target go1.5 or greater as the modules system is now complete.  Notes <sup><a href="https://insujang.github.io/2020-04-04/go-modules/" target="_blank">13</a></sup> <sup><a href="https://scribe.rip/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">14</a></sup>.  Golang defines modules as “A module is a collection of Go packages stored in a file tree with a go.mod file at its root. The go.mod file defines the module’s module path, which is also the import path used for the root directory, and its dependency requirements, which are the other modules needed for a successful build. Each dependency requirement is written as a module path and a specific semantic version.&quot; from <sup><a href="https://blog.golang.org/using-go-modules" target="_blank">15</a></sup>.   A worked example for golang modules <sup><a href="https://github.com/GowthamGirithar/employee-service" target="_blank">16</a></sup>.</li>
     <li>Go before go1.4, go is really keen on having all source in a single source root.</li>
     <li>Go after go1.4 adds support for modules, implying multi-homing for source code and adds $GOPATH.  Current implementation of $GOPATH is weak, as not all features can read more than one directory in this variable.  I hope this is enhanced in later versions.</li>
     <li>Go is painful for excess directories; whoever this can be managed with `go mod edit` <sup><a href="https://golang.org/doc/tutorial/call-module-code" target="_blank">17</a></sup>.</li>
@@ -96,12 +96,12 @@ Before I started using Golang; I was focussing on “how to type in this languag
 <ul class="ulbasic">
     <li>The main entry point must be in a package called 'main', and be a function called main <sup><a href="https://golang.org/ref/spec#Program_execution" target="_blank">1</a></sup> <sup><a href="https://www.callicoder.com/golang-packages/" target="_blank">2</a></sup> <sup><a href="https://stackoverflow.com/questions/42333488/package-main-and-func-main" target="_blank">3</a></sup>.<ul class="ulbasic">
         <li>Those two statements do not talk about the file name; which is flexible.</li>
-        <li>According to <sup><a href="https://medium.com/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">4</a></sup> the “main” package doesn't need to be in a directory called “main”; so it can be stored with the other Go files.  My recent practical experience contradicts this.  I make an extra “main” subpackage, to keep it out of the way.</li>
+        <li>According to <sup><a href="https://scribe.rip/rungo/everything-you-need-to-know-about-packages-in-go-b8bac62b74cc" target="_blank">4</a></sup> the “main” package doesn't need to be in a directory called “main”; so it can be stored with the other Go files.  My recent practical experience contradicts this.  I make an extra “main” subpackage, to keep it out of the way.</li>
     </ul></li>
     <li>A range of package structures are outlined <sup><a href="https://stackoverflow.com/questions/9985559/organizing-a-multiple-file-go-project" target="_blank">5</a></sup>.  I will update this point with which one is best.</li>
     <li>Golang files generally have .go as a suffix <sup><a href="https://stackoverflow.com/questions/25161774/what-are-conventions-for-filenames-in-go" target="_blank">6</a></sup>; I do not know if that is required anywhere.</li>
     <li>There is nearly a standard file system layout <sup><a href="https://github.com/golang-standards/project-layout" target="_blank">7</a></sup></li>
-    <li>In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">8</a></sup> <sup><a href="https://medium.com/@yardenlaif/accessing-private-functions-methods-types-and-variables-in-go-951acccc05a6" target="_blank">9</a></sup>.</li>
+    <li>In a package, public symbols start with a capital letter; private ones do not <sup><a href="https://tour.golang.org/basics/3" target="_blank">8</a></sup> <sup><a href="https://scribe.rip/@yardenlaif/accessing-private-functions-methods-types-and-variables-in-go-951acccc05a6" target="_blank">9</a></sup>.</li>
 </ul>
 
 <p>Dependencies:</p>
@@ -112,16 +112,16 @@ Before I started using Golang; I was focussing on “how to type in this languag
     <li>As of “time of print”; dependencies are added as source code via `go get $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">11</a></sup> <sup><a href="https://golangbyexample.com/add-dependency-module-golang/" target="_blank">12</a></sup>.  This (after go1.3) adds a line to go.mod file; secondly downloading the source code to a appropriately named sub-directory of $GOROOT.</li>
     <li>Dependencies can be removed via `go clean -i $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Remove_object_files_and_cached_files" target="_blank">13</a></sup>.  I think this was added in `go1.3`.</li>
     <li>Dependencies can be upgraded with `go get -u $URL` <sup><a href="https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them" target="_blank">14</a></sup>.</li>
-    <li>The `go get` command can be appended with GIT hashes or release tag names for greater precision <sup><a href="https://golang.org/pkg/cmd/go/internal/get/" target="_blank">15</a></sup> <sup><a href="https://medium.com/faun/managing-dependency-and-module-versioning-using-go-modules-c7c6da00787a" target="_blank">16</a></sup>.</li>
+    <li>The `go get` command can be appended with GIT hashes or release tag names for greater precision <sup><a href="https://golang.org/pkg/cmd/go/internal/get/" target="_blank">15</a></sup> <sup><a href="https://scribe.rip/faun/managing-dependency-and-module-versioning-using-go-modules-c7c6da00787a" target="_blank">16</a></sup>.</li>
     <li>If a dependency is added before it is used; in go.mod it will be tagged with `/ /indirect` <sup><a href="https://golangbyexample.com/indirect-dependency-golang/" target="_blank">17</a></sup>.  Used dependencies (in the source code) are not.  </li>
     <li>You can list/ verify dependencies with `go mod tidy -v`; to be able to reduce unneeded deps on your local disk <sup><a href="https://golang.org/cmd/go/#hdr-Maintaining_module_requirements" target="_blank">18</a></sup> <sup><a href="https://golangbyexample.com/go-mod-tidy/" target="_blank">19</a></sup>.</li>
     <li>In the source files, dependencies are imported on the package level and using the keyword 'import' <sup><a href="https://golangdocs.com/import-in-golang" target="_blank">20</a></sup> <sup><a href="https://www.golangprograms.com/golang-import-struct-from-another-or-child-package.html" target="_blank">21</a></sup>. </li>
-    <li>The import can be an array or a scalar (which is better than most languages) <sup><a href="https://medium.com/golangspec/import-declarations-in-go-8de0fd3ae8ff" target="_blank">22</a></sup>.  Much faster than Java as there is no need to specify each class.  This can be tricky as C++ with many defines <sup><a href="https://developpaper.com/golang-import-local-package-and-import-related-details/" target="_blank">23</a></sup> </li>
+    <li>The import can be an array or a scalar (which is better than most languages) <sup><a href="https://scribe.rip/golangspec/import-declarations-in-go-8de0fd3ae8ff" target="_blank">22</a></sup>.  Much faster than Java as there is no need to specify each class.  This can be tricky as C++ with many defines <sup><a href="https://developpaper.com/golang-import-local-package-and-import-related-details/" target="_blank">23</a></sup> </li>
     <li>There is a compile constraint feature (like Pascal uses); this is written as a comment starting  `// +build `.  Some more detailed notes <sup><a href="https://www.jetbrains.com/help/go/configuring-build-constraints-and-vendoring.html#build-constraints" target="_blank">24</a></sup> <sup><a href="https://golang.org/pkg/cmd/go/internal/help/" target="_blank">25</a></sup> <sup><a href="https://dev.to/jacktt/go-build-in-advance-4o8n" target="_blank">26</a></sup> </li>
     <li>Notes on cross compilation <sup><a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5" target="_blank">27</a></sup></li>
     <li>The Golang supports alias <sup><a href="https://golang.org/ref/spec#Import_declarations" target="_blank">28</a></sup> <sup><a href="https://www.golangprograms.com/golang-package-examples/how-to-import-and-use-packages-of-the-same-name.html" target="_blank">29</a></sup>; to be able to reference packages in a more convenient fashion. </li>
     <li>NB: just like Node, there is a high rate of change on quite a few projects.</li>
-    <li>To support an CTO request; how-to link existing C++ code to a Golang runtime, a terse recipe: compile the C++ code as *SO, with exported symbols; put SO file in golang project root directory, with a *.syso  suffix; add build-constraints to the go code to say load the external binary.  This supports static and dynamic linking.  Links: <sup><a href="https://golang.org/cmd/link/" target="_blank">30</a></sup> <sup><a href="https://stackoverflow.com/questions/26418883/golang-how-to-link-c-objects-using-cgo-ofiles" target="_blank">31</a></sup> <sup><a href="https://github.com/vladimirvivien/go-cshared-examples" target="_blank">32</a></sup>.  Notes for run-time linking of the two binary formats <sup><a href="https://medium.com/learning-the-go-programming-language/calling-go-functions-from-other-languages-4c7d8bcc69bf" target="_blank">33</a></sup></li>
+    <li>To support an CTO request; how-to link existing C++ code to a Golang runtime, a terse recipe: compile the C++ code as *SO, with exported symbols; put SO file in golang project root directory, with a *.syso  suffix; add build-constraints to the go code to say load the external binary.  This supports static and dynamic linking.  Links: <sup><a href="https://golang.org/cmd/link/" target="_blank">30</a></sup> <sup><a href="https://stackoverflow.com/questions/26418883/golang-how-to-link-c-objects-using-cgo-ofiles" target="_blank">31</a></sup> <sup><a href="https://github.com/vladimirvivien/go-cshared-examples" target="_blank">32</a></sup>.  Notes for run-time linking of the two binary formats <sup><a href="https://scribe.rip/learning-the-go-programming-language/calling-go-functions-from-other-languages-4c7d8bcc69bf" target="_blank">33</a></sup></li>
     <li><i>UPDATE</i>: by 2025 this needs updating to Golang 1.25, and Golang is more useful if a “small binary” option is available.  Maybe the ELF could be GZIP if it isn't at present?</li>
 </ul>
 
@@ -174,7 +174,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-17T17:05:03" datetime="2025-07-17T17:05:03">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2021-05-31T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >May '21</time> </span>
 					</span>
@@ -224,7 +224,7 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:19" datetime="2025-06-10T10:19:19">10th of Jun 2025, 10:19:19</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:20" datetime="2025-08-09T17:48:20">9th of Aug 2025, 17:48:20</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-17T17:05:03" datetime="2025-07-17T17:05:03">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
 </footer>
