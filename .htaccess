@@ -20,16 +20,15 @@ Redirect permanent "/resource/group-images" "/resource/group-XXX?first=images"
 Redirect permanent "/resource/group-research" "/resource/group-XXX?first=research"
 Redirect permanent "/resource/group-testing" "/resource/group-XXX?first=testing"
 
-Redirect permanent "/resource/basic-website-features-2021" "/resource/commercial-website-features"
-Redirect permanent "/resource/sales-website-features" "/resource/commercial-website-features"
 Redirect permanent "/resource/cloud-hosting-2017" "/resource/cloud-hosting"
 Redirect permanent "/resource/shopping-list-hack" "/resource/shopping-list"
 Redirect permanent "/resource/fullstack-developer" "/resource/UX-engineer"
 Redirect permanent "/resource/story-book" "/resource/storybook"
 Redirect permanent "/resource/svg-notes" "/resource/svg-format-notes"
 Redirect permanent "/resource/css-architecture" "/resource/css-organisation"
-Redirect permanent "/resource/lecture-jan" "/resource/wip-notes-jan-2019" 
 Redirect permanent "/resource/whats-changed-2020" "/resource/whats-changed-2022"
+Redirect permanent "/resource/basic-website-features-2021" "/resource/commercial-website-features"
+Redirect permanent "/resource/sales-website-features" "/resource/commercial-website-features"
 
 <IfModule mod_deflate.c>
   SetOutputFilter DEFLATE
@@ -110,16 +109,16 @@ Header unset cache-control
 
 Header set Cache-Control "max-age=2592000, public"
 </filesMatch>
-
-<filesMatch ".*-references|.*-meta|.*json.*">
-	Header set Content-Type 'application/json; encoding=utf8'
-	Header set Cache-Control 'max-age=86400'
-	Header append X-ICELINE "add ref JSON"
-	RewriteCond %{REQUEST_URI}      ^/resource/
-	RewriteCond "%{REQUEST_FILENAME}.json" -f
-	RewriteRule ^(.*)%				$1.json
-</filesMatch>
-
+#
+#<filesMatch ".*-references|.*-meta|.*json.*">
+#	Header set Content-Type 'application/json; encoding=utf8'
+#	Header set Cache-Control 'max-age=86400'
+#	Header append X-ICELINE "add ref JSON"
+#	RewriteCond %{REQUEST_URI}      ^/resource/
+#	RewriteCond "%{REQUEST_FILENAME}.json" -f
+#	RewriteRule ^(.*)%				$1.json
+#</filesMatch>
+#
 # https://stackoverflow.com/a/39474567                       ^(?!.*STRING1|.*STRING2|.*STRING3).*$
 <FilesMatch ".*(?!-references|-meta|rss|sitemap|\.min\.js|\.min\.css|\.webp|\.png|\.woff|\.woff2|\.ico|\.jpeg)$">
 Header set Content-Type 'text/html; encoding= utf8'
@@ -134,6 +133,12 @@ RewriteCond %{REQUEST_URI}      ^/resource/
 RewriteCond "%{REQUEST_FILENAME}.html" -f
 RewriteCond %{SERVER_PORT}      443
 RewriteRule ^(.*)$				$1.html
+
+</FilesMatch>
+<FilesMatch "/short-life/.*$">
+RewriteCond %{REQUEST_URI}      ^/short-life/
+RewriteCond "%{REQUEST_FILENAME}" -f
+RewriteRule ^(.*)$				https://%{HTTP_HOST}$1
 </FilesMatch>
 <FilesMatch ".*-references.*">
 	Header set Content-Type 'application/json; encoding=utf8'
@@ -195,6 +200,18 @@ RewriteRule (.*)				$1.html
 	Header set Content-Type 'text/javascript; encoding=utf8'
 	Header set Cache-Control 'max-age=2592000'
 </filesMatch>
+<FilesMatch ".*min\.mjs">
+	Header unset Content-Type 
+	Header append X-ICELINE "add MJS"
+	Header set Content-Type 'text/javascript; encoding=utf8'
+	Header set Cache-Control 'max-age=2592000'
+</FilesMatch>
+<FilesMatch ".*\.mjs">
+	Header unset Content-Type 
+	Header append X-ICELINE "add MJS"
+	Header set Content-Type 'text/javascript; encoding=utf8'
+	Header set Cache-Control 'max-age=2592000'
+</FilesMatch>
 <filesMatch ".jpeg">
 	Header unset Content-Type 
 	Header set Content-Type 'image/jpeg'

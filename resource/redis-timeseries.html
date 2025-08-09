@@ -11,19 +11,19 @@
 <meta name="Description" content="Research about the Redis module "timeseries" along with some user cases." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="Redis notes~ standard and timeseries">
-<meta itemprop="description" content="Research about the Redis module "timeseries" along with some user cases.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="Redis notes~ standard and timeseries">
-<meta name="twitter:description" content="Research about the Redis module "timeseries" along with some user cases.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="Redis notes~ standard and timeseries" />
+<meta itemprop="description" content="Research about the Redis module "timeseries" along with some user cases." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Redis notes~ standard and timeseries" />
+<meta name="twitter:description" content="Research about the Redis module "timeseries" along with some user cases." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="Redis notes~ standard and timeseries" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/redis-timeseries" />
 <meta property="og:description" content="Research about the Redis module "timeseries" along with some user cases." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:23" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:22" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/redis-timeseries" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Redis notes~ standard and timeseries",
-	"article:published_time":"10th of Jun 2025, 10:19:23", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:22", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -67,7 +67,7 @@ TODO: magic tune selection against some index/DB -->
     <li>Redis uses types more strictly than other NoSQL systems e.g. <sup><a href="https://redis.io/topics/data-types" target="_blank">19</a></sup>. In particular, look at hashes as a means to store app Objects or Beans [Java speak] or documents [in Mongo speak]. </li>
     <li>Redis does support multiple “databases”, <sup><a href="https://stackoverflow.com/questions/8805004/redis-select-performance" target="_blank">20</a></sup> although please observe this is in the <em>same process</em>, so there may not be any point.   The same link states that the overhead from multiple Redis instances is small, and does horizontal scaling better.</li>
     <li>Recent Redis has modules <sup><a href="https://redis.io/topics/modules-intro" target="_blank">21</a></sup>, which looks useful for embedding things <sup><a href="https://redis.io/modules" target="_blank">22</a></sup>.   The most important one, IMO is “redisearch”, which supplies full text features <sup><a href="https://oss.redislabs.com/redisearch/index.html" target="_blank">23</a></sup> <sup><a href="https://redislabs.com/redis-enterprise/redis-search/" target="_blank">24</a></sup>. </li>
-    <li>Redis has few data manipulation features (according to <sup><a href="https://redis.io/commands" target="_blank">25</a></sup>, the entire API is ~480 commands), compared to platforms like Postgres; however it does support server side scripting via Lua <sup><a href="https://redislabs.com/ebook/part-3-next-steps/chapter-11-scripting-redis-with-lua/" target="_blank">26</a></sup>.  Lua scripting should be used cautiously, as it blocks the main thread in the DB <sup><a href="https://medium.com/@andrwknight/a-guide-to-redis-lua-scripting-737431d2455" target="_blank">27</a></sup>, and secondly uses a single Lua interpreter instance for all scripting. </li>
+    <li>Redis has few data manipulation features (according to <sup><a href="https://redis.io/commands" target="_blank">25</a></sup>, the entire API is ~480 commands), compared to platforms like Postgres; however it does support server side scripting via Lua <sup><a href="https://redislabs.com/ebook/part-3-next-steps/chapter-11-scripting-redis-with-lua/" target="_blank">26</a></sup>.  Lua scripting should be used cautiously, as it blocks the main thread in the DB <sup><a href="https://scribe.rip/@andrwknight/a-guide-to-redis-lua-scripting-737431d2455" target="_blank">27</a></sup>, and secondly uses a single Lua interpreter instance for all scripting. </li>
     <li>Redis does implement transactions, but in an idiosyncratic fashion <sup><a href="https://redis.io/topics/transactions" target="_blank">28</a></sup> <sup><a href="https://stackoverflow.com/questions/10489298/redis-is-single-threaded-then-how-does-it-do-concurrent-i-o" target="_blank">29</a></sup> (the requirements are slightly different as it is single threaded; but uses modern IO kernel calls to multiplex the IO. Note IO is nearly always the prime limiting factor).</li>
     <li>There are many references to lack of larger scale concurrency in Redis, due to its single thread.  Redis is only atomic on certain operations, and has some issues with race conditions <sup><a href="https://files.meetup.com/19025268/Redis-Labs-Using-Redis-as-a-Time-Series-Database-1215.pdf" target="_blank">30</a></sup>.  The same can be said of many bits of software, but its less common on databases.   </li>
 </ul>
@@ -139,7 +139,7 @@ I don't think the EXPIREAT command is specfic to RTS, but for continuous accumul
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-17T17:08:05" datetime="2025-07-17T17:08:05">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2020-01-31T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jan '20</time> </span>
 					</span>
@@ -190,7 +190,7 @@ I don't think the EXPIREAT command is specfic to RTS, but for continuous accumul
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:23" datetime="2025-06-10T10:19:23">10th of Jun 2025, 10:19:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:22" datetime="2025-08-09T17:48:22">9th of Aug 2025, 17:48:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-17T17:08:05" datetime="2025-07-17T17:08:05">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

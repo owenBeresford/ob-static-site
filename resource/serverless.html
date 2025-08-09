@@ -11,19 +11,19 @@
 <meta name="Description" content="Fact finding article about Serveless, the product from AWS. Locate pillow before reading it." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="Serverless notes">
-<meta itemprop="description" content="Fact finding article about Serveless, the product from AWS. Locate pillow before reading it.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="Serverless notes">
-<meta name="twitter:description" content="Fact finding article about Serveless, the product from AWS. Locate pillow before reading it.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="Serverless notes" />
+<meta itemprop="description" content="Fact finding article about Serveless, the product from AWS. Locate pillow before reading it." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Serverless notes" />
+<meta name="twitter:description" content="Fact finding article about Serveless, the product from AWS. Locate pillow before reading it." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="Serverless notes" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/serverless" />
 <meta property="og:description" content="Fact finding article about Serveless, the product from AWS. Locate pillow before reading it." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:24" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:23" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/serverless" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Serverless notes",
-	"article:published_time":"10th of Jun 2025, 10:19:24", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:23", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -54,9 +54,9 @@ TODO: magic tune selection against some index/DB -->
      <div class="blocker addReferences">
 <div class="halferWords">
 <p>Serverless the product is 90% hot air, and another devops thing.  Concurrently, Serverless is the [awkward] name of an architecture; but this article is about the product from AWS.  The architecture is the natural response to business people saying <i>“I want one guy that can do graphic design, UX analysis, front end component development, API development, test infrastructure, long-lifespan product design, database design and infrastructure, reporting, scalability engineering, AI engineer, short life-span marketing-hype nano-sites, internationalisation, mid-life cycle support, and devops to deploy everything”</i>; there are only so many hours in the day.  My analysis is repeated by <sup><a href="https://tech-wiki.online/en/serverless.html" target="_blank">1</a></sup> <sup><a href="https://www.openpr.com/news/2390981/serverless-computing-market-to-register-growth-of-21-6-see" target="_blank">2</a></sup> [XXX].   A fudge to avoid work volume is that “the one guy” is an entire dev agency, but then the fees go up; which is what the business person wanted to avoid to start with.   As a review of Serverless as an architecture <sup><a href="https://www.infoq.com/articles/serverless-stalled/" target="_blank">3</a></sup>. <br />
-There are a variety of “middleware or framework as a service” platforms, as listed <sup><a href="https://wiki.aquasec.com/display/containers/On-Premises+Serverless+Platforms" target="_blank">4</a></sup> <sup><a href="https://www.htfmarketreport.com/reports/3574220-worldwide-serverless-computing-market" target="_blank">5</a></sup>.  To focus on AWS lambda, the business value it delivers can be summarised as “less work for developers” <sup><a href="https://aws.amazon.com/serverless/" target="_blank">6</a></sup>, and the incredibly precise billing, leading to lower average costs.   Lambda marketing is targeting business features that are not executed very often; but may have spikey loads.   The spikey-ness means that the feature need a relatively large volume/scale facility if allocated statically, which is normally more expensive; but as it is not run very often this is idle and wasted for most of the time.   The Lambda is to be used with the AWS database tools, either plain RDS or Aurora (effectively v2 of RDS); a competitor offers a factual analysis <sup><a href="https://fauna.om/blog/compare-aws-aurora-serverless-v2-architecture-features-pricing-vs-fauna" target="_blank">7</a></sup>. <br />
-In <sup><a href="https://www.serverless.com/framework/docs-providers-aws-guide-intro" target="_blank">8</a></sup>, Serverless is described in a more useful fashion as a framework; and includes reference configuration.  In order to develop a Serverless project faster; someone has made a “no-server serverless” version (i.e. just your laptop); <sup><a href="https://sls.zone/pages/learn/developing-locally-with-serverless-offline/" target="_blank">9</a></sup>.   Like many toolkits, here is a CLI interface <sup><a href="https://www.serverless.com/cloud/docs-cli" target="_blank">10</a></sup>, although this one looks more like a shell, rather than a thing that can be managed in make, npm or similar tooling.  I think <sup><a href="https://docs.serverless-stack.com/packages/cli" target="_blank">11</a></sup> would be more useful for integrating into other tools.  Both these links includes the simple install process at the top; so I won't mention it.   The service is documented <sup><a href="https://www.serverless.com/framework/docs/providers/aws/guide/services/" target="_blank">12</a></sup> <sup><a href="https://www.serverless.com/framework/docs-providers-aws-guide-intro" target="_blank">13</a></sup>. <br />
-Lambda is normally used with Serverless (although these are different things); Lambda is documented <sup><a href="https://www.tutorialspoint.com/serverless/index.htm" target="_blank">14</a></sup>, under the name Serverless, as marketing is [intentionally] confused.  Lambda as would expected in a computation SaaS, has management features for RAM limits <sup><a href="https://www.tutorialspoint.com/serverless/serverless_regions_memory_size_timeouts.htm" target="_blank">15</a></sup>, a custom build process <sup><a href="https://www.tutorialspoint.com/serverless/serverless_regions_memory_size_timeouts.htm" target="_blank">16</a></sup>, plugins <sup><a href="https://www.tutorialspoint.com/serverless/serverless_plugins.htm" target="_blank">17</a></sup>, gateway triggers <sup><a href="https://www.tutorialspoint.com/serverless/serverless_api_gateway_triggered_lambdas.htm" target="_blank">18</a></sup>.   In obvious fashion, there instructions on how to link to other AWs services <sup><a href="https://www.serverless.com/framework/docs/providers/aws/guide/credentials/" target="_blank">19</a></sup>.    <br />
+There are a variety of “middleware or framework as a service” platforms, as listed <sup><a href="https://wiki.aquasec.com/display/containers/On-Premises+Serverless+Platforms" target="_blank">4</a></sup> <sup><a href="https://www.reddit.com/r/serverless/comments/1i0n4mi/on_prem_serverless/" target="_blank">5</a></sup> <sup><a href="https://www.htfmarketreport.com/reports/3574220-worldwide-serverless-computing-market" target="_blank">6</a></sup>.  To focus on AWS lambda, the business value it delivers can be summarised as “less work for developers” <sup><a href="https://aws.amazon.com/serverless/" target="_blank">7</a></sup>, and the incredibly precise billing, leading to lower average costs.   Lambda marketing is targeting business features that are not executed very often; but may have spikey loads.   The spikey-ness means that the feature need a relatively large volume/scale facility if allocated statically, which is normally more expensive; but as it is not run very often this is idle and wasted for most of the time.   The Lambda is to be used with the AWS database tools, either plain RDS or Aurora (effectively v2 of RDS); a competitor offers a factual analysis <sup><a href="https://fauna.om/blog/compare-aws-aurora-serverless-v2-architecture-features-pricing-vs-fauna" target="_blank">8</a></sup>. <br />
+In <sup><a href="https://www.serverless.com/framework/docs-providers-aws-guide-intro" target="_blank">9</a></sup>, Serverless is described in a more useful fashion as a framework; and includes reference configuration.  In order to develop a Serverless project faster; someone has made a “no-server serverless” version (i.e. just your laptop); <sup><a href="https://sls.zone/pages/learn/developing-locally-with-serverless-offline/" target="_blank">10</a></sup>.   Like many toolkits, here is a CLI interface <sup><a href="https://www.serverless.com/cloud/docs-cli" target="_blank">11</a></sup>, although this one looks more like a shell, rather than a thing that can be managed in make, npm or similar tooling.  I think <sup><a href="https://docs.serverless-stack.com/packages/cli" target="_blank">12</a></sup> would be more useful for integrating into other tools.  Both these links includes the simple install process at the top; so I won't mention it.   The service is documented <sup><a href="https://www.serverless.com/framework/docs/providers/aws/guide/services/" target="_blank">13</a></sup> <sup><a href="https://www.serverless.com/framework/docs-providers-aws-guide-intro" target="_blank">14</a></sup>. <br />
+Lambda is normally used with Serverless (although these are different things); Lambda is documented <sup><a href="https://www.tutorialspoint.com/serverless/index.htm" target="_blank">15</a></sup>, under the name Serverless, as marketing is [intentionally] confused.  Lambda as would expected in a computation SaaS, has management features for RAM limits <sup><a href="https://www.tutorialspoint.com/serverless/serverless_regions_memory_size_timeouts.htm" target="_blank">16</a></sup>, a custom build process <sup><a href="https://www.tutorialspoint.com/serverless/serverless_regions_memory_size_timeouts.htm" target="_blank">17</a></sup>, plugins <sup><a href="https://www.tutorialspoint.com/serverless/serverless_plugins.htm" target="_blank">18</a></sup>, gateway triggers <sup><a href="https://www.tutorialspoint.com/serverless/serverless_api_gateway_triggered_lambdas.htm" target="_blank">19</a></sup>.   In obvious fashion, there instructions on how to link to other AWs services <sup><a href="https://www.serverless.com/framework/docs/providers/aws/guide/credentials/" target="_blank">20</a></sup>.    <br />
 For some one who is practiced with Serverless/ Lambda; it seems to be fairly fast platform to deploy to.</p>
 
 
@@ -92,7 +92,7 @@ For some one who is practiced with Serverless/ Lambda; it seems to be fairly fas
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-19T14:20:49" datetime="2025-07-19T14:20:49">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2021-10-09T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Oct '21</time> </span>
 					</span>
@@ -137,7 +137,7 @@ For some one who is practiced with Serverless/ Lambda; it seems to be fairly fas
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:24" datetime="2025-06-10T10:19:24">10th of Jun 2025, 10:19:24</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:23" datetime="2025-08-09T17:48:23">9th of Aug 2025, 17:48:23</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-19T14:20:49" datetime="2025-07-19T14:20:49">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

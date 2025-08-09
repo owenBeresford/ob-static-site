@@ -11,19 +11,19 @@
 <meta name="Description" content="What is the best toolchain for development in Node in March 2024? Today's Node as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="Node toolchain">
-<meta itemprop="description" content="What is the best toolchain for development in Node in March 2024? Today's Node as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="Node toolchain">
-<meta name="twitter:description" content="What is the best toolchain for development in Node in March 2024? Today's Node as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="Node toolchain" />
+<meta itemprop="description" content="What is the best toolchain for development in Node in March 2024? Today's Node as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Node toolchain" />
+<meta name="twitter:description" content="What is the best toolchain for development in Node in March 2024? Today's Node as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="Node toolchain" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/node-toolkit" />
 <meta property="og:description" content="What is the best toolchain for development in Node in March 2024? Today's Node as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:22" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:21" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/node-toolkit" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Node toolchain",
-	"article:published_time":"10th of Jun 2025, 10:19:22", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:21", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -58,7 +58,7 @@ TODO: magic tune selection against some index/DB -->
 
 <h5 id="toc0"> Language target</h5>
 <p>In the last decade, there has been more than 18 versions of Node released <sup><a href="https://nodejs.org/en/about/previous-releases#looking-for-latest-release-of-a-version-branch" target="_blank">1</a></sup>.   The log of historical versions only go back to 2017 <sup><a href="https://github.com/nodejs/node/releases?page=38" target="_blank">2</a></sup>.   The forward looking release schedule as <sup><a href="https://nodejs.org/en/about/previous-releases#release-schedule" target="_blank">3</a></sup>.   As far as Node is a server side service, the version that is available on servers is meaningful <sup><a href="https://en.wikipedia.org/wiki/Node.js" target="_blank">4</a></sup>.   For node, I do not have an idealised version, however, newer is generally better.   I could reference less widely-used run-times for Node, Deno has nicer loading features, including direct use of Typescript, and has a cloud offering <sup><a href="https://en.wikipedia.org/wiki/Deno_%28software%29" target="_blank">5</a></sup> <sup><a href="https://deno.com/" target="_blank">6</a></sup>.  Or Bun <sup><a href="https://bun.sh/blog/bun-v1.0" target="_blank">7</a></sup> <sup><a href="https://bun.sh/blog/bun-v1.0.29" target="_blank">8</a></sup>, whose definition of hot-reload doesn't disrupt running processes.   The better features of the minority run-times are interesting, although that would be harder to upgrade if you were to use an extra test framework feature.  <br />
-On Debian flavour OSs, the newest stable version at time of print (v20) is quite easy to install <sup><a href="https://computingforgeeks.com/how-to-install-node-js-20-on-ubuntu/" target="_blank">9</a></sup>, please ignore many many webpages advising to download a bash script, and run it as root.   For Redhat family, there seems to be an official package at v20 <sup><a href="https://www.redhat.com/en/blog/nodejs-20" target="_blank">10</a></sup>, and it can be installed on Centos without drama <sup><a href="https://www.server-world.info/en/note?os=CentOS_Stream_9&amp;amp;p=nodejs&amp;amp;f=7" target="_blank">11</a></sup>.   As Win32 doesn't have a unified package manager system, install Node from the Node website <sup><a href="https://nodejs.org/en/download" target="_blank">12</a></sup>.   For AWS Lambda, just choose the newest version in the engine list <sup><a href="https://aws.amazon.com/blogs/compute/node-js-20-x-runtime-now-available-in-aws-lambda/" target="_blank">13</a></sup> <sup><a href="https://stackfeed.io/article/2023-11-15-aws-lambda-adds-support-for-nodejs-20" target="_blank">14</a></sup>.   According to stackfeed, GCP is running with Node20 <sup><a href="https://stackfeed.io/article/2023-06-26-gcp-app-engine-standard-nodejs-the-nodejs-20-runtime-for-app-engine-standard-environment-is-now-generally-available" target="_blank">15</a></sup> <sup><a href="https://stackfeed.io/article/2023-06-26-gcp-app-engine-flexible-nodejs-nodejs-20-is-now-generally-available-note-that-nodejs-20-enters-long-term-support-lts-in-october-and-is-the-nodejs-current-version-until-that-time" target="_blank">16</a></sup>.   For Azure, Version 20 is the standard version, as of March 2024 <sup><a href="https://azure.microsoft.com/en-gb/updates/generally-available-azure-functions-support-for-nodejs-20/" target="_blank">17</a></sup></p>
+On Debian flavour OSs, the newest stable version at time of print (v20) is quite easy to install <sup><a href="https://joshtronic.com/2023/04/23/how-to-install-nodejs-20-on-ubuntu-2004-lts/" target="_blank">9</a></sup>, please ignore many many webpages advising to download a bash script, and run it as root.   For Redhat family, there seems to be an official package at v20 <sup><a href="https://www.redhat.com/en/blog/nodejs-20" target="_blank">10</a></sup>, and it can be installed on Centos without drama <sup><a href="https://www.server-world.info/en/note?os=CentOS_Stream_9&amp;amp;p=nodejs&amp;amp;f=7" target="_blank">11</a></sup> <sup><a href="https://www.server-world.info/en/note?os=CentOS_Stream_10&amp;amp;p=download" target="_blank">12</a></sup>.   As Win32 doesn't have a unified package manager system, install Node from the Node website <sup><a href="https://nodejs.org/en/download" target="_blank">13</a></sup>.   For AWS Lambda, just choose the newest version in the engine list <sup><a href="https://aws.amazon.com/blogs/compute/node-js-20-x-runtime-now-available-in-aws-lambda/" target="_blank">14</a></sup> <sup><a href="https://dev.to/slsbytheodo/deploy-your-first-node-20-lambda-function-on-aws-2ac1" target="_blank">15</a></sup>.   In 2023, GCP is running with Node20 <sup><a href="https://cloud.google.com/appengine/docs/standard/nodejs/release-notes" target="_blank">16</a></sup> <sup><a href="https://discuss.google.dev/t/what-exactly-is-the-latest-node-js-version-supported/141349" target="_blank">17</a></sup>.   For Azure, Version 20 is the standard version, as of March 2024 <sup><a href="https://azure.microsoft.com/en-gb/updates?id=generally-available-azure-functions-support-for-nodejs-20" target="_blank">18</a></sup></p>
 
 
 <h5 id="toc1"> Tools</h5>
@@ -67,7 +67,7 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
         <li>IDE plugins...</li>
     </ul></li>
     <li>An online REPL <a href="https://onecompiler.com/nodejs" target="_blank">called compiler</a>, if you are on a win32 machine with no interpreter locally. </li>
-    <li>Package listing and discovery via <a href="https://www.npmjs.com/" target="_blank">npmjs</a> a few guides <sup><a href="https://dyte.io/blog/package-json/" target="_blank">18</a></sup> <sup><a href="https://www.encora.com/insights/a-developers-guide-to-package.json-best-practices-from-basics-to-mastery" target="_blank">19</a></sup></li>
+    <li>Package listing and discovery via <a href="https://www.npmjs.com/" target="_blank">npmjs</a> a few guides <sup><a href="https://dyte.io/blog/package-json/" target="_blank">19</a></sup> <sup><a href="https://www.encora.com/insights/a-developers-guide-to-package.json-best-practices-from-basics-to-mastery" target="_blank">20</a></sup></li>
     <li>The command line tool is called `npm`, which is how many people add packages to the packages.json.  This supports 'version logic', i.e. `somepackage==1.0.4`, or `somePackage&gt;=2.4`.  Use `npm -g` to have a global package installation (requires root).   </li>
     <li>Run `npm i` in a directory will install the contents of any immediate <em>package.json</em>.  For Node, it is common to not statically link libraries, but to load at runtime.  Each installation is “built locally” to manage variance across Node versions and sometimes different versions of libraries depending on OS.  Some of these <em>package.json</em> files are in my github account, <em>they are common.</em></li>
     <li>Preferred unit test tools: <ul class="ulbasic">
@@ -77,17 +77,17 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
         <li><i>There are many test frameworks for JS</i>.  Some older people like Mocha.</li>
     </ul></li>
     <li>Lint: <ul class="ulbasic">
-        <li>eslint ~ this is a large project with many rules </li>
+        <li>eslint ~ this is a large project with many rules.   See a messy example in this boring websites UI extensions <a href="https://github.com/owenBeresford/extra-panda/blob/main/eslint.config.mjs" target="_blank">git</a></li>
         <li>prettier ~ this is a formatter, but will report some errors</li>
         <li>tsc ~ assuming use of TS, this is useful for explaining some useless errors in a later compiler</li>
-        <li>There are several static analysis tools <sup><a href="https://analysis-tools.dev/tag/typescript" target="_blank">20</a></sup> <sup><a href="https://portal.gitnation.org/contents/static-analysis-in-javascript-whats-easy-and-whats-hard" target="_blank">21</a></sup> ~ note the second link is supported by AI.</li>
+        <li>There are several static analysis tools <sup><a href="https://analysis-tools.dev/tag/typescript" target="_blank">21</a></sup> <sup><a href="https://gitnation.com/contents/static-analysis-in-javascript-whats-easy-and-whats-hard" target="_blank">22</a></sup> ~ note the second link is supported by AI.</li>
     </ul></li>
     <li>Docs generator:<ul class="ulbasic">
-        <li>Jsdoc and others described <a href="https://owenberesford.me.uk/resource/docs-for-js-ts#">docs-for-js-ts</a></li>
+        <li>Jsdoc and others described in <a href="https://owenberesford.me.uk/resource/docs-for-js-ts#">docs-for-js-ts</a></li>
     </ul></li>
     <li>As TS is a quality improvement layer, its not used at runtime.   There is a compiler to convert TS back into to JS, potentially an old version of JS for older clients.   </li>
-    <li>Note, it is currently common to put JS modules with a file suffix 'mjs' <sup><a href="https://dmitripavlutin.com/ecmascript-modules-nodejs/" target="_blank">22</a></sup> <sup><a href="https://dev.to/nipu/js-cjs-and-mjs-defference-5f21" target="_blank">23</a></sup> <sup><a href="https://medium.com/@mohitgadhavi1/difference-between-js-and-mjs-extensions-15636d9c7f31" target="_blank">24</a></sup>.   For traditional no-modules, use a suffix of 'js'.   This affects which deps loading style to use, and modules sometimes come including both languages.   </li>
-    <li>Profilers: There are native Node v8 profilers <sup><a href="https://nodejs.org/en/learn/getting-started/profiling" target="_blank">25</a></sup> <sup><a href="https://nodejs.org/en/learn/diagnostics/memory/using-heap-profiler/" target="_blank">26</a></sup> <sup><a href="https://betterstack.com/community/guides/scaling-nodejs/profiling-nodejs-applications/" target="_blank">27</a></sup> , and third party options.  VScode <sup><a href="https://code.visualstudio.com/docs/nodejs/profiling" target="_blank">28</a></sup>, Clinic.js suite <a href="https://clinicjs.org/" target="_blank">docs</a> <a href="https://github.com/clinicjs/node-clinic" target="_blank">git</a> and others <sup><a href="https://soshace.com/2024/02/06/profiling-tools-and-techniques-for-node-js-applications/" target="_blank">29</a></sup> </li>
+    <li>Note, it is currently common to put JS modules with a file suffix 'mjs' <sup><a href="https://dmitripavlutin.com/ecmascript-modules-nodejs/" target="_blank">23</a></sup> <sup><a href="https://dev.to/nipu/js-cjs-and-mjs-defference-5f21" target="_blank">24</a></sup> <sup><a href="https://scribe.rip/@mohitgadhavi1/difference-between-js-and-mjs-extensions-15636d9c7f31" target="_blank">25</a></sup>.   For traditional no-modules, use a suffix of 'js'.   This affects which deps loading style to use, and modules sometimes come including both languages.   </li>
+    <li>Profilers: There are native Node v8 profilers <sup><a href="https://nodejs.org/en/learn/getting-started/profiling" target="_blank">26</a></sup> <sup><a href="https://nodejs.org/en/learn/diagnostics/memory/using-heap-profiler/" target="_blank">27</a></sup> <sup><a href="https://betterstack.com/community/guides/scaling-nodejs/profiling-nodejs-applications/" target="_blank">28</a></sup> , and third party options.  VScode <sup><a href="https://code.visualstudio.com/docs/nodejs/profiling" target="_blank">29</a></sup>, Clinic.js suite <a href="https://clinicjs.org/" target="_blank">docs</a> <a href="https://github.com/clinicjs/node-clinic" target="_blank">git</a> and others <sup><a href="https://dev.to/imsushant12/profiling-and-benchmarking-nodejs-applications-2h2o" target="_blank">30</a></sup> <sup><a href="https://clouddevs.com/node/performance-monitoring-and-profiling/" target="_blank">31</a></sup> </li>
 </ul>
 
 <p>.</p>
@@ -125,7 +125,7 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-30T08:10:37" datetime="2025-07-30T08:10:37">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2024-03-08T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Mar '24</time> </span>
 					</span>
@@ -170,7 +170,7 @@ On Debian flavour OSs, the newest stable version at time of print (v20) is quite
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:22" datetime="2025-06-10T10:19:22">10th of Jun 2025, 10:19:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:21" datetime="2025-08-09T17:48:21">9th of Aug 2025, 17:48:21</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-30T08:10:37" datetime="2025-07-30T08:10:37">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

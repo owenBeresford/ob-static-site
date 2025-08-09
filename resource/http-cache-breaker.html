@@ -11,19 +11,19 @@
 <meta name="Description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
-<meta itemprop="name" content="HTTP cache breaker">
-<meta itemprop="description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches.">
-<meta name="twitter:site" content="@channelOwen">
-<meta name="twitter:title" content="HTTP cache breaker">
-<meta name="twitter:description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches.">
-<meta name="twitter:creator" content="@channelOwen">
+<meta itemprop="name" content="HTTP cache breaker" />
+<meta itemprop="description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="HTTP cache breaker" />
+<meta name="twitter:description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
+<meta name="twitter:creator" content="@channelOwen" />
 <meta property="og:title" content="HTTP cache breaker" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://owenberesford.me.uk/resource/http-cache-breaker" />
 <meta property="og:description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Jun 2025, 10:19:19" />
-<meta property="article:modified_time" content="Jun '25" />
+<meta property="article:published_time" content="9th of Aug 2025, 17:48:20" />
+<meta property="article:modified_time" content="Jul '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/http-cache-breaker" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "HTTP cache breaker",
-	"article:published_time":"10th of Jun 2025, 10:19:19", 
-    "article:modified_time":"Jun '25",
+	"article:published_time":"9th of Aug 2025, 17:48:20", 
+    "article:modified_time":"Jul '25",
     "article:section":"technology",
 
     "author": {
@@ -64,14 +64,14 @@ I am focussing here on static assets which do not need parameter data to specify
 
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Cache building <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
-<p>This section is widely understood and used; you are probably using it <sup><a href="https://medium.com/@codebyamir/a-web-developers-guide-to-browser-caching-cc41f3b73e7c" target="_blank">3</a></sup>, with diagrams <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching" target="_blank">4</a></sup>.</p>
+<p>This section is widely understood and used; you are probably using it <sup><a href="https://scribe.rip/@codebyamir/a-web-developers-guide-to-browser-caching-cc41f3b73e7c" target="_blank">3</a></sup>, with diagrams <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching" target="_blank">4</a></sup>.</p>
 
 <ul class="ulbasic">
     <li>HTTP header, Cache-Control <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control" target="_blank">5</a></sup> <sup><a href="https://www.keycdn.com/blog/http-cache-headers" target="_blank">6</a></sup> with 'positive values'.  Note, it is possible to store this header in HTML if needed; but doing that breaks encapsulation, and only applies to HTML, and seems to be deprecated <sup><a href="https://html.spec.whatwg.org/multipage/semantics.html#pragma-directives" target="_blank">7</a></sup>.  This header has quite a few options, useful diagram <sup><a href="https://web.dev/http-cache/#flowchart" target="_blank">8</a></sup>. </li>
     <li>If assets where acquired from a CDN, there are often proprietary CDN cache headers.  Some work has started to manage these <sup><a href="https://httpwg.org/specs/rfc9213.html" target="_blank">9</a></sup>.  Cloudflare is the biggest static cache company, and has some custom headers <sup><a href="https://developers.cloudflare.com/fundamentals/get-started/reference/http-request-headers/" target="_blank">10</a></sup></li>
     <li>This article is mostly ignoring HTTP proxy caching.  Google runs a service called AMP that they claim is a geo-localisation, JAMstack framework, and HTTP proxy service <sup><a href="https://amp.dev/documentation/guides-and-tutorials/websites/learn/amp-caches-and-cors/how_amp_pages_are_cached" target="_blank">11</a></sup> <sup><a href="https://developers.google.com/amp/cache" target="_blank">12</a></sup>.  Adoption of AMP is generally matched by correctly using meta data, and better HTML <sup><a href="https://areknawo.com/google-amp-in-2020-better-but-still-not-good/" target="_blank">13</a></sup> <sup><a href="https://www.link-assistant.com/news/is-amp-relevant-in-2020.html" target="_blank">14</a></sup>, so the client site works better in search engines.  In theory sites served via this should be much faster, however numbers generated by external devops people state that the only marginal gains <sup><a href="https://kinsta.com/blog/disable-google-amp/" target="_blank">15</a></sup> <sup><a href="https://www.gainchanger.com/google-amp-sucks/" target="_blank">16</a></sup> <sup><a href="https://www.searchenginewatch.com/2016/07/06/is-google-amp-a-ranking-signal/" target="_blank">17</a></sup>; and the only significant gains found for badly written and badly organised wordpress sites on shared hosting <sup><a href="https://wordpress.org/plugins/amp/" target="_blank">18</a></sup>.  Varnish <sup><a href="https://varnish-cache.org/docs/7.2/users-guide/" target="_blank">19</a></sup> is an older inline static proxy service, to reduce load on busy servers.</li>
     <li>HTTP header Vary <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary" target="_blank">20</a></sup> with diagrams <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#vary" target="_blank">21</a></sup> should be used to ensure that the correct thing is cached, when headers will change what payload is returned for this URL.  This header is very important if the cached assets are inside a security layer / session.</li>
-    <li>Similarly to last point, HTTP header ETag <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag" target="_blank">22</a></sup> allows a means of knowing the contents of an URL haven't changed.  This is short for “Entity tag”, but written as etag <sup><a href="https://medium.com/pixelpoint/best-practices-for-cache-control-settings-for-your-website-ff262b38c5a2" target="_blank">23</a></sup>.  URLs with an Etag will get a If-None-Match <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match" target="_blank">24</a></sup> header on later requests.   NB: This header is more difficult to build manually. </li>
+    <li>Similarly to last point, HTTP header ETag <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag" target="_blank">22</a></sup> allows a means of knowing the contents of an URL haven't changed.  This is short for “Entity tag”, but written as etag <sup><a href="https://scribe.rip/pixelpoint/best-practices-for-cache-control-settings-for-your-website-ff262b38c5a2" target="_blank">23</a></sup>.  URLs with an Etag will get a If-None-Match <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match" target="_blank">24</a></sup> header on later requests.   NB: This header is more difficult to build manually. </li>
     <li>A smart config is to not add the caching headers on your test instance(s); but set 'no-cache'; so every page request is likely to use the newest copy of the assets.   This step is even more important when testing on phones, as there are no keyboard shortcuts for a phone.</li>
 </ul>
 
@@ -81,7 +81,7 @@ I am focussing here on static assets which do not need parameter data to specify
 
 <ul class="ulbasic">
     <li>HTTP header, Expires <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires" target="_blank">26</a></sup> <sup><a href="https://www.keycdn.com/blog/http-cache-headers" target="_blank">27</a></sup>, if there is a routine sprint+deploy duration, setting the expires date to just after the next sprint is an idea.  This works less well if you are doing CI/CD, where ETags work better.</li>
-    <li>HTTP header, Cache-Control <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control" target="_blank">28</a></sup> <sup><a href="https://www.keycdn.com/blog/http-cache-headers" target="_blank">29</a></sup> with 'negative values' i.e. “no-cache, must-revalidate”.   Note: a value of 'max-age=0' is deprecated as a HTTP1.0 feature <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#force_revalidation" target="_blank">30</a></sup>.  For some test platforms, setting a value of 'private' is wise.  </li>
+    <li>HTTP header, Cache-Control <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control" target="_blank">28</a></sup> <sup><a href="https://www.keycdn.com/blog/http-cache-headers" target="_blank">29</a></sup> with 'negative values' i.e. “no-cache, must-revalidate”.   Note: a value of 'max-age=0' is deprecated as a HTTP1.0 feature <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#force_revalidation" target="_blank">30</a></sup>.  For local platforms, setting a value of 'private' is wise.  </li>
     <li>HTTP header, Last-Modified <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified" target="_blank">31</a></sup> is an instruction to keep the response until X time has past.  This will trigger a If-Modified-Since header in the next request for this URL. Example, if you have weekly platform updates, set this header to the milestone release date.   </li>
     <li>HTTP header Clear-Site-Data: cache <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data" target="_blank">32</a></sup>, noting <sup><a href="https://groups.google.com/a/mozilla.org/g/dev-platform/c/I939w1yrTp4" target="_blank">33</a></sup>.   </li>
 </ul>
@@ -153,7 +153,7 @@ ETag            &lt;hash value&gt;</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>
+						<span>Edited <time title="Page edited on 2025-07-17T17:05:29" datetime="2025-07-17T17:05:29">Jul '25</time>
 						</span>
 						<span>Created <time datetime="2023-02-02T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '23</time> </span>
 					</span>
@@ -204,7 +204,7 @@ ETag            &lt;hash value&gt;</p>
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-06-10T10:19:19" datetime="2025-06-10T10:19:19">10th of Jun 2025, 10:19:19</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-06-10T09:54:33" datetime="2025-06-10T09:54:33">Jun '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:20" datetime="2025-08-09T17:48:20">9th of Aug 2025, 17:48:20</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-17T17:05:29" datetime="2025-07-17T17:05:29">Jul '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
