@@ -126,6 +126,7 @@ Header set Cache-Control "max-age=2592000, public"
 <FilesMatch ".*(?!-references|-meta|rss|sitemap|\.min\.js|\.min\.css|\.webp|\.png|\.woff|\.woff2|\.ico|\.jpeg)$">
 Header set Content-Type 'text/html; encoding= utf8'
 Header set Cache-Control 'max-age=86400'
+Header set Cross-Origin-Opener-Policy: same-origin
 Header append X-ICELINE "group - add HTML"
 RewriteCond %{REQUEST_URI}      ^/resource/
 RewriteCond "%{REQUEST_FILENAME}.html" -f

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Rich tooltips</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A short explanation article on why my site has rich tooltips on outbound links.  Harvard notation for references is less useful for web publishing as it hides context." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Rich tooltips" />
+<meta itemprop="description" content="A short explanation article on why my site has rich tooltips on outbound links.  Harvard notation for references is less useful for web publishing as it hides context." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Rich tooltips" />
+<meta name="twitter:description" content="A short explanation article on why my site has rich tooltips on outbound links.  Harvard notation for references is less useful for web publishing as it hides context." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Rich tooltips" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/rich-tooltips" />
+<meta property="og:description" content="A short explanation article on why my site has rich tooltips on outbound links.  Harvard notation for references is less useful for web publishing as it hides context." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="11th of Sep 2025, 18:35:49" />
+<meta property="article:modified_time" content="Sep '25" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/rich-tooltips" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Rich tooltips",
+	"article:published_time":"11th of Sep 2025, 18:35:49", 
+    "article:modified_time":"Sep '25",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p class="accessSrc">This is a deployed feature on this site.   UI tests <a href="https://github.com/owenBeresford/extra-panda/blob/main/src/vis-tests/addreferences-test.html" target="_blank">git</a> <a href="https://github.com/owenBeresford/extra-panda/blob/main/src/tests/desktop-biblio.webtest.mjs" target="_blank">git</a></p>
+<div class="halferWords addReferences">
+
+<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Rich tooltips description <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>A passive response to hovering on outbound links, that will show an “interstitial” before a click happens.   This supplies extra data on-top of a cold Harvard notation reference mark.</li>
+    <li>Includes an alternative view for small devices, as an annotated list of links at the end of the document instead.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Why? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>Harvard notation for links is less good accessibility for web, as it has little context.  My articles use many references as I lean-on others authority rather than my own.  </li>
+    <li>At the point I implemented the first edition, articles hosted on science direct had this rich link scheme.   I thought the interaction was a god experience and copied it.   </li>
+    <li>It does suppress memes with 'never gunna give you up' Youtube links.   Gen-Z etc: it's a random 80s pop song that I have never heard, as I am too young, but some people who previously used dial-up think it is cool to spam it.  </li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Experience notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>This feature supplies annotation about links before users click through them.   As my articles are technically focused, and a user may or may not be interested in the link, adding annotation improves understanding on destination.  </li>
+    <li>I have conducted UI tests and some interviews on the presence of the popup.</li>
+    <li>As ever, the dev makes a poor user until they stop developing.   The external view is important.</li>
+    <li>The popups do temporarily hide the content behind, but they do not receive any input events.</li>
+    <li>A view of the age of the linked content is valuable, and the best decision point available here.</li>
+    <li>Matching the source of my idea, I was hoping for a list of authors on the links.   This idea only works sometimes, as authors are only commonly listed in some places.</li>
+    <li>If your situation makes categorical statements about some domain types, this is a faster view so you will waste less time (e.g. there was prejudice about wiki previously).</li>
+</ul>
+
+<hr />
+<ul class="ulbasic">
+    <li>A marketing person would be thinking about adverts.</li>
+    <li>Having the meta data as a separate file enables processes about references, like stats on references.</li>
+    <li>Having this meta data and maintaining it gives me a process to update older possibly expired links, so keeping my content more useful. </li>
+    <li>The link building process does improve my references, as I need to do the academic process on the references.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Research <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p><strong>ASIDE</strong>: A product engineer who values Nielsen Norman group, discusses links, and mostly demonstrates that browser defaults work <sup><a href="https://prototypr.scribe.rip/a-guide-to-designing-perfect-links-in-ux-414558f35730" target="_blank">1</a></sup>.   I reference this article as a suggestion to read just before UX tests or accessibility tests are written.</p>
+
+<p>I mostly made the rich links, as I was complying to Harvard notation on references.   This is awkward for the web, referencing good / meaningful link labels <sup><a href="https://smart-interface-design-patterns.com/articles/links-ux/" target="_blank">2</a></sup> for contextual clues.   Do anything to avoid “click here” as a label, <sup><a href="https://www.interaction-design.org/literature/article/tips-for-better-hyperlink-ux" target="_blank">3</a></sup> <sup><a href="https://cieden.com/book/atoms/link/link-text" target="_blank">4</a></sup>.   I have never used this.   Links need to be seen to be visited <sup><a href="https://pixlflix.com/best-practices-link-styling-clickable-elements-stand-out/" target="_blank">5</a></sup>.  Some agency notes discussing process for improving context and contextual help <sup><a href="https://scribe.rip/make-it-clear/ux-ui-tips-a-guide-to-contextual-help-3bdf1de19f09" target="_blank">6</a></sup> <sup><a href="https://www.chameleon.io/blog/contextual-help-ux" target="_blank">7</a></sup>.   Tooltips are a UI feature amoungst others <sup><a href="https://userpilot.com/blog/contextual-help/" target="_blank">8</a></sup>.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Rich tooltips</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frich-tooltips" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frich-tooltips" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frich-tooltips" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frich-tooltips&amp;t=Rich+tooltips"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frich-tooltips" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2025-09-11T18:11:04" datetime="2025-09-11T18:11:04">Sep '25</time>
+						</span>
+						<span>Created <time datetime="2024-04-23T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Apr '24</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frich-tooltips" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Rich tooltips description</a></li>
+<li><a href="#toc1">Why?</a></li>
+<li><a href="#toc2">Experience notes</a></li>
+<li><a href="#toc3">Research</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services" target="_blank" title="They, er, don't have a service for >250,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-09-11T18:35:49" datetime="2025-09-11T18:35:49">11th of Sep 2025, 18:35:49</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-09-11T18:11:04" datetime="2025-09-11T18:11:04">Sep '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
