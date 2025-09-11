@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Text Columns theory</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A review of literature regarding ideal line length and its affects on reading.  This includes reasons why I use columns." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Text Columns theory" />
+<meta itemprop="description" content="A review of literature regarding ideal line length and its affects on reading.  This includes reasons why I use columns." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Text Columns theory" />
+<meta name="twitter:description" content="A review of literature regarding ideal line length and its affects on reading.  This includes reasons why I use columns." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Text Columns theory" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/text-columns" />
+<meta property="og:description" content="A review of literature regarding ideal line length and its affects on reading.  This includes reasons why I use columns." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="1st of Sep 2025, 15:09:03" />
+<meta property="article:modified_time" content="Sep '25" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/text-columns" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Text Columns theory",
+	"article:published_time":"1st of Sep 2025, 15:09:03", 
+    "article:modified_time":"Sep '25",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences">
+<p class="accessSrc">This is a deployed feature of my boring website.  UI Tests <a href="https://github.com/owenBeresford/extra-panda/blob/ux2/src/vis-tests/columns-test.html" target="_blank">git</a>, a test <a href="https://owenberesford.me.uk/resource/columniser-via-css#">columniser-via-css</a>  a legacy implementation <a href="https://owenberesford.me.uk/resource/jQuery-columnise#">jQuery-columnise</a>.</p>
+<div class="halferWords">
+<p><strong>NB:</strong> Most of the articles online are focussed on speed reading, rather than “best comprehension”.</p>
+
+<p>I have added text columns to my website, I think it makes it easier to read, and I infer that academic press ~ who also use it ~ should know best practice for manual data ingestion.   As there is now practiced support for academic documents online, they collectively should have good ideas.  Creating features to assist 1 population segment (in this case dyslexic people) shouldn't reduce utility for other readers, and I do not think it does.  <br />
+My experience and skills in typography are limited to languages similar to ASCII / “Latin1” alphabet.   I haven't seen typography notes for far-Asian languages, but I am confident that they exist in their respective languages.   I read articles on UI components that support L2R languages like en-UK and R2L languages like ar-AE ~ but that has always been out of scope for my work.   I think it may be cheaper to have multiple components due to diverse operating requirements.</p>
+
+<p>Notes to improve readability <sup><a href="https://www.timetabler.com/reading/" target="_blank">1</a></sup> in school books.   It outlines the four most important layout constraints for readability, to quote the size of type, the length of line, the leading / spacing between the lines and the weight of print.   It also supplies equations for several common readability metrics.   A comprehensive guide <sup><a href="https://www.uxpin.com/studio/blog/optimal-line-length-for-readability/" target="_blank">2</a></sup> <sup><a href="https://scribe.rip/@wblekhoa/talk-aboutthe-optimal-length-of-text-in-ux-ui-525e689f0b71" target="_blank">3</a></sup> recommends similar numbers, but also mentions Dyslexic people (target 70 char as max line length).   <br />
+As a measure on text density <sup><a href="https://pearsonified.com/golden-ratio-typography-intro/" target="_blank">4</a></sup>, there is a best practice for line length to the font-size and interline gap.   According to <sup><a href="https://baymard.com/blog/line-length-readability" target="_blank">5</a></sup> <sup><a href="https://winterpm.com/#" target="_blank">6</a></sup> <sup><a href="https://practicaltypography.com/line-length.html" target="_blank">7</a></sup> <sup><a href="https://ideeeas.com/whats-the-ideal-content-width-for-readability/" target="_blank">8</a></sup>, the best line length ~ in characters ~ is <strong>50–75</strong> for “Latin1” languages, and under 40 chars for far-Asian languages.   The line length is discussed <sup><a href="https://www.paulolyslager.com/optimal-text-layout-line-length/" target="_blank">9</a></sup> as part of text blocks.   This states that reading is done in 5-10 char “sips”, and so there would be 6 to 12 “sips” per line.   The best size for absorption is quoted at “18pt” <sup><a href="https://www.paulolyslager.com/why-online-fonts-bigger-awesome-ux/" target="_blank">10</a></sup>.   An analysis of text orientation in en-US <sup><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2921212/" target="_blank">11</a></sup>, that some bits of the US use for signs.   I write longer for readable text in <a href="https://owenberesford.me.uk/resource/readable-fonts#">readable-fonts</a>.   For commercial text <sup><a href="https://baymard.com/blog/line-length-readability" target="_blank">12</a></sup>, users will probably be on a phone, and not very motivated, therefore “terse” is an important metric (but still catchy).   This boring website is the opposite writing style.     <br />
+The published size range (50-75) is from early print media, but mostly holds on the internet and phone screens.   The columns that typographers say work best have fixed sizes, so they can force the ratios correctly.   Unfortunately, web-services need responsive layouts, and there will need to be careful design to include the ratios.</p>
+
+<p>Factors affecting readability of a text:</p>
+
+<ul class="ulbasic">
+    <li>its Fogg metric (ie use of words)</li>
+    <li>colour contrast of text</li>
+    <li>edge of text margins ~ to allow faster detection on edge of text with edge vision</li>
+    <li>the text justification</li>
+    <li>line height, the measure of space around the actual letters</li>
+    <li>line length <sup><a href="https://en.wikipedia.org/wiki/Line_length" target="_blank">13</a></sup></li>
+    <li>text orientation vs expectations of reader</li>
+</ul>
+
+<p>There are several sources (also linked here for other details) mentioning margins on text are important for reading comprehension.  I infer the edge of where to put your optical yellow spot is involved, but this is my guess.  This idea is disabled for phones, as the edge of the phone is well understood.</p>
+
+<p><strong>Notes on text in columns</strong> like academic press, CodingHorror is in favour <sup><a href="https://blog.codinghorror.com/text-columns-how-long-is-too-long/" target="_blank">14</a></sup> of columns.  This includes examples, so sits in first place.   Other references <sup><a href="https://uxmovement.com/content/how-margins-and-line-lengths-affect-readability/" target="_blank">15</a></sup> also includes examples, <sup><a href="https://www.tandfonline.com/doi/full/10.1080/0144929X.2016.1196502" target="_blank">16</a></sup>.   There was some quite detailed research done by Wichita Uni ~ in the USA ~ when MSIE6 was current, so I haven't linked to it.   A full paper from Wichita, but without graphs <sup><a href="https://soar.wichita.edu/server/api/core/bitstreams/90254df5-57a5-4d17-ac4c-d7309ffb1b4e/content" target="_blank">17</a></sup>.</p>
+
+<p><strong>Notes for single column</strong> <sup><a href="https://scribe.rip/ben-shoemate/optimum-web-readability-max-and-min-width-for-page-text-dee9987a27a0" target="_blank">18</a></sup> <sup><a href="https://www.viget.com/articles/the-line-length-misconception/" target="_blank">19</a></sup> <sup><a href="https://designshack.net/articles/layouts/practical-tips-for-utilizing-columns-of-text-in-your-layouts/" target="_blank">20</a></sup></p>
+
+<p>The text in my website starts a plain “blob” ~ a DB term.  I apply columns on the client side, as the server doesn't know viewport size, or scroll position.   If the article is larger, plain columns have reduced utility, as the reader needs to scroll from top to bottom several times.   To avoid this, I split my longer articles into “pages”, of about 800-900 words sections.   This is a manual step, as it works better if the “pages” happen to match chapters boundaries.   I have a word count feature in the scripting to make this easier to apply.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="research, uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+<div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Text Columns, the theory</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftext-columns" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftext-columns" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftext-columns" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftext-columns&amp;t=Text+Columns+theory"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftext-columns" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2025-09-01T11:48:51" datetime="2025-09-01T11:48:51">Sep '25</time>
+						</span>
+						<span>Created <time datetime="2025-04-29T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Apr '25</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Ftext-columns" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-09-01T15:09:03" datetime="2025-09-01T15:09:03">1st of Sep 2025, 15:09:03</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-09-01T11:48:51" datetime="2025-09-01T11:48:51">Sep '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
