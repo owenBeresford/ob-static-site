@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/punit" />
 <meta property="og:description" content="Case notes for my Perl unit test framework." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="9th of Aug 2025, 17:48:22" />
-<meta property="article:modified_time" content="Jul '25" />
+<meta property="article:published_time" content="11th of Sep 2025, 15:11:14" />
+<meta property="article:modified_time" content="Sep '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/punit" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "punit: Creating test automatically",
-	"article:published_time":"9th of Aug 2025, 17:48:22", 
-    "article:modified_time":"Jul '25",
+	"article:published_time":"11th of Sep 2025, 15:11:14", 
+    "article:modified_time":"Sep '25",
     "article:section":"technology",
 
     "author": {
@@ -114,7 +114,7 @@ The other languages that I use tend to be more forceful about using objects, and
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Implementation discussion <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>My goal is to have results, more than write alot of code.   As such, I will import other libraries as it seems to assist my goals.  The presence of Moose and similar libraries will complicate the test framework.   Performance of the thing to build test-cases isn't seen as an important issue.  This tool shouldn't be run as apart of CI or regression testing, as 100% automation is not a practical goal. The remaining hand-code will need to be done.    <br />
 The mechanisms in Test::Common and Test::Assert fight each other, so those two cannot be used together.  I will test each of the classes in this project using existing simpler test tools (which I trust to have already been tested).<br />
-A minimal implementation would create the skeleton unit-tests, provide the assert type interface and provide the harness to execute the test case with.  In practical terms unit tests are run for populations of classes, and the harness manages execution of each.  A more useful implementation would import the grammar from jUnit/ phpunit-skelgen <sup><a href="https://docs.phpunit.de/en/10.5/annotations.html" target="_blank">1</a></sup> <sup><a href="https://devdocs.io/phpunit~8/" target="_blank">2</a></sup> <sup><a href="https://www.softwaretestinghelp.com/junit-assertions/" target="_blank">3</a></sup>.  This would allow the creation of tests in a more logical context (and its faster).   UPDATE: recent PHPunit now uses Attributes rather than Annotations ~ v12 please read <a class="cleanimage" href="https://docs.phpunit.de/en/12.2/attributes.html" target="_blank">https://docs.phpunit.de/en/12.2/attributes.html</a>]</p>
+A minimal implementation would create the skeleton unit-tests, provide the assert type interface and provide the harness to execute the test case with.  In practical terms unit tests are run for populations of classes, and the harness manages execution of each.  A more useful implementation would import the grammar from jUnit/ phpunit-skelgen <sup><a href="https://docs.phpunit.de/en/10.5/annotations.html" target="_blank">1</a></sup> <sup><a href="https://devdocs.io/phpunit~8/" target="_blank">2</a></sup> <sup><a href="https://www.softwaretestinghelp.com/junit-assertions/" target="_blank">3</a></sup>.  This would allow the creation of tests in a more logical context (and its faster).   UPDATE: recent PHPunit now uses Attributes rather than Annotations ~ v12 please read <a href="https://docs.phpunit.de/en/12.2/attributes.html" target="_blank">docs</a></p>
 
 <p>The requirement for ignoring private functions is common to test tools.   One can argue that there shouldn't be too many private functions, and certainly as they are implementation details, they should be free to change API.  In practical terms, I will probably make this a config item, to allow better inter-operation with different coding standards.  If there is a algorithmic way to automate the creation of setup() functions, I haven't seen it.  I will create code to create a default testee object, but the params feed to this will need to be edited by the operator. It would be very useful to auto-magically guess, but hard for test conditions.</p>
 
@@ -163,7 +163,7 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-07-09T12:50:31" datetime="2025-07-09T12:50:31">Jul '25</time>
+						<span>Edited <time title="Page edited on 2025-09-10T20:18:50" datetime="2025-09-10T20:18:50">Sep '25</time>
 						</span>
 						<span>Created <time datetime="2015-03-03T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" ><strong> &gt;7 Years ago</strong></time> </span>
 					</span>
@@ -211,11 +211,11 @@ A minimal implementation would create the skeleton unit-tests, provide the asser
  </div>
  <footer class="row footWidget"> 
 	<div class="column leftFooter"> 
-		<a href="https://www.plainenglish.co.uk/services.html" target="_blank" title="They, er, don't have a service for >200,000 word sites, so no logo.">Campaign for Plain English</a><br />
+		<a href="https://www.plainenglish.co.uk/services" target="_blank" title="They, er, don't have a service for >250,000 word sites, so no logo.">Campaign for Plain English</a><br />
 		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-08-09T17:48:22" datetime="2025-08-09T17:48:22">9th of Aug 2025, 17:48:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-07-09T12:50:31" datetime="2025-07-09T12:50:31">Jul '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-09-11T15:11:14" datetime="2025-09-11T15:11:14">11th of Sep 2025, 15:11:14</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-09-10T20:18:50" datetime="2025-09-10T20:18:50">Sep '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
