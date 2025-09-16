@@ -257,6 +257,12 @@ RewriteRule (.*)				$1.html
 	Header append X-ICELINE "add ICON"
 	Header set Cache-Control 'max-age=2592000'
 </filesMatch>
+<filesMatch "\.pdf">
+	Header unset Content-Type 
+	Header set Content-Type 'application/pdf'
+	Header append X-ICELINE "add PDF"
+	Header set Cache-Control 'max-age=2592000'
+</filesMatch>
 
 </IfModule>
 
