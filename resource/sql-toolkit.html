@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>SQL tools</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="What is the best toolchain for development in general SQL in 2025?  A look at today's SQL as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="SQL tools" />
+<meta itemprop="description" content="What is the best toolchain for development in general SQL in 2025?  A look at today's SQL as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="SQL tools" />
+<meta name="twitter:description" content="What is the best toolchain for development in general SQL in 2025?  A look at today's SQL as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="SQL tools" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/sql-toolkit" />
+<meta property="og:description" content="What is the best toolchain for development in general SQL in 2025?  A look at today's SQL as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="28th of Sep 2025, 22:17:37" />
+<meta property="article:modified_time" content="Sep '25" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/sql-toolkit" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "SQL tools",
+	"article:published_time":"28th of Sep 2025, 22:17:37", 
+    "article:modified_time":"Sep '25",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples addReferences ">
+<div class="halferWords">
+<p>This is a part of a quick range of “preferred tools” articles, setting up server-side languages.   It will need to be updated every 2-3 years.   #boring I'm starting to think I should add a snoring backtrack to these pages.   I do not have a “project starter” project / scripts for SQL, as I have never used it as a solo language.   So notes are here, as plan B...</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Language target <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>SQL has several specs <sup><a href="https://en.wikipedia.org/wiki/SQL" target="_blank">1</a></sup> <sup><a href="https://en.wikibooks.org/wiki/Structured_Query_Language" target="_blank">2</a></sup>, and even ISO rating <sup><a href="https://en.wikipedia.org/wiki/ISO/IEC_9075" target="_blank">3</a></sup>.  The current newest spec is from '23, and has been sub-divided <sup><a href="https://blog.ansi.org/ansi/sql-standard-iso-iec-9075-2023-ansi-x3-135/" target="_blank">4</a></sup>.   An out of date '92 SQL spec <sup><a href="https://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt" target="_blank">5</a></sup> ~ but is open access.  Every DB vendor will be running their own variant.     <br />
+SQL and related languages are server-side data languages, and I think fairly functional as declarative.  SQL performance is a function of the data it is applied to, and the schema ~ databases always gain with more RAM.</p>
+
+<p>This section here is normally where to get versions of the language from.  This is harder for DB as there are many vendors.  Some auto-indexes if you actually need to know <sup><a href="https://packages.ubuntu.com/search?keywords=db" target="_blank">6</a></sup> <sup><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/using-databases" target="_blank">7</a></sup> ~ RHEL has many fewer in core repos.   Any Win32 offering for package management as a normal feature rather than an special enterprise addon? naah.  As a win32 user, you will need to use the internet at random, and hope you don't install a crypto miner.  There are <i>many</i> cloud vendors offering DBaaS capacity [...].</p>
+
+<p>I am not aware of package managers for database platforms.   UPDATE: Suprabase runs a catalogue for a PG extensions <a href="https://supabase.github.io/dbdev/" target="_blank">git</a> <a href="https://supabase.github.io/dbdev/" target="_blank">docs</a>.   If you install the DB client package to your local machine, there is normally a procedure for including and sometimes running scripts on client startup.   As an idea, this is just a resource file for the client process, like a `.bashrc`.   Users can create complex STORPROC type logic in tools that do not support STORPROC.</p>
+
+<p>The SQL language will be interpreted by the client (for validation) AND the server.  When the DB is accessed from a software the client-side validation will be narrower.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>An IDE: normally programming IDE normally support SQL without any extra effort by you.  DBeaver community edition is an opensource option <a href="https://github.com/dbeaver/dbeaver" target="_blank">git</a> <a href="https://dbeaver.com/docs/" target="_blank">docs</a>. Every-time I mention “an IDE”, a Jetbrains Ad flows through my keyboard without touching my brain.  BUT Jetbrains do have an IDE just for SQL... <sup><a href="https://www.jetbrains.com/datagrip/" target="_blank">8</a></sup> and it has a good level of support for RDB databases.   According to <sup><a href="https://dev.to/concerate/11-best-sql-ides-or-sql-editors-for-2024-447p" target="_blank">9</a></sup> <sup><a href="https://www.placementpreparation.io/blog/sql-ides-and-code-editors/" target="_blank">10</a></sup> <sup><a href="https://blog.devart.com/top-sql-database-ide.html" target="_blank">11</a></sup> there is a big range of options.</li>
+    <li>An online REPL: <a href="https://www.sqlvalidator.com/" target="_blank">SQL Validator</a>, <a href="https://sqlable.com/validator/" target="_blank">SQLable</a>, <a href="https://sqliteonline.com/" target="_blank">SQLite online</a>, <a href="https://onecompiler.com/postgresql" target="_blank">one compiler</a>  <ul class="ulbasic">
+        <li>Even in locked-down spaces, <i>SQLite3</i> can probably be placed and used (as no server process). </li>
+        <li>Obviously many DB can be installed and their clients can be installed to an average work-laptop if the data volumes are moderate.</li>
+    </ul></li>
+    <li>A wiki index of relevant tools <sup><a href="https://en.wikipedia.org/wiki/List_of_SQL_software_and_tools" target="_blank">12</a></sup> </li>
+    <li>Unit test tools: <ul class="ulbasic">
+        <li>There is TAP support for PG <a href="https://pgtap.org/" target="_blank">pgTAP</a>.  Separately, according to <sup><a href="https://scribe.rip/@vbilopav/unit-testing-and-tdd-with-postgresql-is-easy-b6f14623b8cf" target="_blank">13</a></sup>, <sup><a href="https://www.bigsmoke.us/postgresql-unit-testing/" target="_blank">14</a></sup> PG supports ASSERT and setting terminal colours as SQL.</li>
+        <li>As a general data tool <a href="https://www.getdbt.com/" target="_blank">DBT</a> <a href="https://docs.getdbt.com/docs/build/unit-tests" target="_blank">docs</a> <sup><a href="https://dev.to/chaets/an-end-to-end-guide-to-dbt-data-build-tool-with-a-use-case-example-18mk" target="_blank">15</a></sup> <sup><a href="https://docs.getdbt.com/docs/build/data-tests" target="_blank">16</a></sup>.  This is designed for entire data warehouses, and will support several DB engines/ servers.</li>
+        <li><a href="https://tsqlt.org/" target="_blank">T-SQL</a> ~ a local service ~ obviously focussed on MSFT T-SQL <a href="https://tsqlt.org/user-guide/" target="_blank">docs</a> <sup><a href="https://www.sqlshack.com/sql-unit-testing-reference-guide-for-beginners/" target="_blank">17</a></sup>, <a href="https://github.com/tSQLt-org/tSQLt" target="_blank">git</a>, licence: Apache 2.0 .  A walk-through <sup><a href="https://scribe.rip/juliusbaerengineering/unit-testing-the-db-with-tsqlt-07af06f6ee49" target="_blank">18</a></sup>.</li>
+        <li>When Java, try <a href="http://sqlunit.sourceforge.net" target="_blank">SQLunit</a> <a href="https://sqlunit.sourceforge.net/javadoc/index.html" target="_blank">docs</a>, <sup><a href="https://www.testingtoolsguide.net/tools/sqlunit/" target="_blank">19</a></sup></li>
+        <li><a href="https://pypi.org/project/sql-testing-library/" target="_blank">sql-testing-library</a> in Pypi, <sup><a href="https://libraries.io/pypi/sql-testing-library" target="_blank">20</a></sup> </li>
+        <li><a href="https://pypi.org/project/sql-test-kit/" target="_blank">SQL test kit</a> in Pypi, </li>
+    </ul></li>
+    <li><strong>Areas to test in a DB</strong>:<ul class="ulbasic">
+        <li>basic Data in DB ~ maybe use generators ~ but for behaviour tests </li>
+        <li>GDPR compliance, and related legislation </li>
+        <li>Permissions, for payment systems I secure critical fields in addition to tables if possible </li>
+        <li>Table coherence/ integrity tests, mostly for STORPROC</li>
+        <li>Char encoding/ binary encoding tests</li>
+        <li>Date and Time formatting and TZ translation tests</li>
+        <li>Encryption tests, if relevant</li>
+        <li>Performance tests</li>
+    </ul></li>
+    <li>Lint tools: <ul class="ulbasic">
+        <li>my preferred SQL formatter <a href="https://www.dpriver.com/pp/sqlformat.htm" target="_blank">Dpriver</a>, this supports inputs effectively a config file, and fixes issues that make some SQL clients break.   Not been changed since before 2012, so some DB choices are more obscure. </li>
+        <li>Some code may not goto the internet, but you can try <a href="https://sqlformat.org/" target="_blank">sql format</a> as it deals with that.  </li>
+        <li><a href="https://codebeautify.org/sqlformatter" target="_blank">code beautify</a>, supports several DB, does prettier and lint </li>
+        <li>local JS <a href="https://www.npmjs.com/package/sql-formatter" target="_blank">sql-formatter</a> <a href="https://github.com/sql-formatter-org/sql-formatter" target="_blank">git</a> <a href="https://github.com/sql-formatter-org/sql-formatter/blob/HEAD/docs/language.md" target="_blank">docs</a></li>
+        <li>local CLI, python <a href="https://www.sqlfluff.com/" target="_blank">SQL fluff</a> <a href="https://github.com/sqlfluff/sqlfluff" target="_blank">git</a> <a href="https://docs.sqlfluff.com/en/stable/" target="_blank">docs</a> <a href="https://scribe.rip/@shnmth99/elevate-your-sql-game-formatting-and-linting-tools-you-need-to-know-9a1056016857" target="_blank">docs</a> </li>
+        <li><a href="http://sqllint.com/" target="_blank">SQLlint</a> ~ HTTP url ~ </li>
+    </ul></li>
+    <li>Docs generator: <ul class="ulbasic">
+        <li>A site listing many tools <sup><a href="https://dbmstools.com/categories/database-documentation-generator-tools/postgresql" target="_blank">21</a></sup>.   I think most IDEs could help here too. </li>
+        <li>SQL2HTML tool, sql-gen-doc <a href="https://github.com/ntindall/sql-gen-doc?tab=readme-ov-file" target="_blank">git</a></li>
+    </ul></li>
+    <li>Profilers :<ul class="ulbasic">
+        <li>EXPLAIN is your first tool <sup><a href="https://scribe.rip/tuanhdotnet/understanding-sql-queries-using-the-explain-command-4acefe770a7d" target="_blank">22</a></sup>, and fairly widely supported.  </li>
+        <li>MSFT SQL includes a profiler <sup><a href="https://learn.microsoft.com/en-us/sql/tools/sql-server-profiler/sql-server-profiler?view=sql-server-ver17" target="_blank">23</a></sup> <sup><a href="https://www.sqlshack.com/an-overview-of-the-sql-server-profiler/" target="_blank">24</a></sup></li>
+        <li><a href="https://www.devart.com/dbforge/" target="_blank">dBForge</a> includes a profiler <sup><a href="https://www.devart.com/dbforge/postgresql/studio/query-profiler.html" target="_blank">25</a></sup></li>
+    </ul></li>
+</ul>
+
+<p>I sometimes write an article that effectively duplicates Vendor X web docs, as writing the text will lead to me having better working knowledge of the API.   Yes, in a world thats adopting LLM everywhere rapidly, this seems weird and retro.   But I'm the same person as I was before LLM products, and that is a good way to retain information in my head.   It works better for me than watching videos or bouncing via a search engine or LLM.   I can bounce via information technology, but I will not remember the details.   Extra content to this article: <del>[index of PG SQL features], [extra notes on SQL parallelisation ideas]</del></p>
+
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>General SQL toolkit</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsql-toolkit" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsql-toolkit" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsql-toolkit" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsql-toolkit&amp;t=SQL+tools"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsql-toolkit" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2025-09-28T22:14:11" datetime="2025-09-28T22:14:11">Sep '25</time>
+						</span>
+						<span>Created <time datetime="2025-09-19T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Sep '25</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fsql-toolkit" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Language target</a></li>
+<li><a href="#toc1">Tools</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-09-28T22:17:37" datetime="2025-09-28T22:17:37">28th of Sep 2025, 22:17:37</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-09-28T22:14:11" datetime="2025-09-28T22:14:11">Sep '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
