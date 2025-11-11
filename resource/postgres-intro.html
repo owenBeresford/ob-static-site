@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>PG intro</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A intro to a thorough analysis of PG and the SQL features it contains. This group includes Postgres features and tips how to use it optimally." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="PG intro" />
+<meta itemprop="description" content="A intro to a thorough analysis of PG and the SQL features it contains. This group includes Postgres features and tips how to use it optimally." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="PG intro" />
+<meta name="twitter:description" content="A intro to a thorough analysis of PG and the SQL features it contains. This group includes Postgres features and tips how to use it optimally." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="PG intro" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/postgres-intro" />
+<meta property="og:description" content="A intro to a thorough analysis of PG and the SQL features it contains. This group includes Postgres features and tips how to use it optimally." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="11th of Nov 2025, 16:22:48" />
+<meta property="article:modified_time" content="Nov '25" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/postgres-intro" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "PG intro",
+	"article:published_time":"11th of Nov 2025, 16:22:48", 
+    "article:modified_time":"Nov '25",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples addReferences popOverWidget">
+<div class="halferWords">
+<p class="buttonBar"> 
+This PG text is broken into: 
+<span href="#" class="button disabled" title="You are here">Intro</span>
+<a href="/resource/postgres-features" class="button" title="A list of the more rare or more recent SQL features that PG supports.  These items can be executed by client code. ">Features</a>
+<a href="/resource/postgres-recipes" class="button" title="A list of recipes for various necessary functions for PG, mostly for admin tasks.">Recipes</a>
+</p>
+</div>
+<div class="lotsOfWords">
+<p>This should be referenced like a man-page, I assume you ~ the reader, know about databases and SQL at present.   I write this to have broader understanding about this magnificent tool.  Previous working knowledge should include DB locks, as this is essential to all DB usage,   SQL keywords will be written in caps.   All the specific reference pages are for PG 16, as PG 18 is quite new ~ I ought to update all the links next year or so.<br />
+A reasonable overview of the history of PG is available from <sup><a href="https://en.wikipedia.org/wiki/PostgreSQL" target="_blank">1</a></sup> <sup><a href="https://www.postgresql.org/docs/16//history.html" target="_blank">2</a></sup> and out of scope for this article.    As an open source project, the release notes are available <sup><a href="https://www.postgresql.org/docs/release/" target="_blank">3</a></sup>.   It is recommended to have a local copy of PG to explore options and verify grammar (...etc) more easily and rapidly.   This can be achieved without root / admin permissions <sup><a href="https://www.geeksforgeeks.org/postgresql/postgresql-installing-postgresql-without-admin-rights-on-windows/" target="_blank">4</a></sup> <sup><a href="https://www.endpointdev.com/blog/2013/06/installing-postgresql-without-root/" target="_blank">5</a></sup> ~ the second is an old link, but this should still work.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > High level features <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>A marketing-level summary exists to help absorb the later sections better.   The official Postgres docs, and PG itself complies to Unix culture “mechanism not policy”, modularity and decision making via language and scripting.</p>
+
+<ul class="ulbasic">
+    <li>Strong separation of concerns</li>
+    <li>is a RDB...</li>
+    <li>Better data types than SQL spec, IMO <sup><a href="https://en.wikipedia.org/wiki/PostgreSQL#Data_types" target="_blank">6</a></sup></li>
+    <li>Fancy index options <sup><a href="https://en.wikipedia.org/wiki/PostgreSQL#Indexes" target="_blank">7</a></sup> <sup><a href="https://www.postgresql.org/docs/16//textsearch.html" target="_blank">8</a></sup> </li>
+    <li>Replication (ie horizontal scalability) <sup><a href="https://www.postgresql.org/docs/16/logical-replication.html" target="_blank">9</a></sup> <sup><a href="https://wiki.postgresql.org/wiki/Replication,_Clustering,_and_Connection_Pooling" target="_blank">10</a></sup></li>
+    <li>Transactions ~ to enable fast undo if a multi-step operation fails in some fashion <sup><a href="https://en.wikibooks.org/wiki/PostgreSQL/Transactions" target="_blank">11</a></sup> <sup><a href="https://www.postgresql.org/docs/16//tutorial-transactions.html" target="_blank">12</a></sup></li>
+    <li>Extra Schema (like a View), can be separated from actual data assignments <sup><a href="https://www.postgresql.org/docs/16//ddl-schemas.html" target="_blank">13</a></sup></li>
+    <li>Storproc  ~ aka “stored procedures”, can be in safe and unsafe langs <sup><a href="https://en.wikipedia.org/wiki/Stored_procedure" target="_blank">14</a></sup> <sup><a href="https://www.postgresql.org/docs/16//xproc.html" target="_blank">15</a></sup></li>
+    <li>Foreign Data Wrappers (FDWs) <sup><a href="https://www.postgresql.org/docs/16/ddl-foreign-data.html#DDL-FOREIGN-DATA" target="_blank">16</a></sup>, supports TOAST <sup><a href="https://www.postgresql.org/docs/16/storage-toast.html" target="_blank">17</a></sup>, other DB <sup><a href="https://www.postgresql.org/docs/16/catalog-pg-foreign-server.html" target="_blank">18</a></sup>, Cloud stuff (RDS?) <sup><a href="https://wiki.postgresql.org/wiki/Foreign_data_wrappers" target="_blank">19</a></sup></li>
+    <li>Supports role-based user accounts, and supports rows level permissions for roles <sup><a href="https://www.postgresql.org/docs/16//ddl-rowsecurity.html" target="_blank">20</a></sup>.  </li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Gotchas <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>`psql` <sup><a href="https://www.postgresql.org/docs/16/app-psql.html" target="_blank">21</a></sup> isn't installed by default, it should be. </li>
+    <li>I think making initial user accounts is too complex and should be managed carefully.  Unlike blogs, DO NOT GRANT ALL PRIVS to a default user, this is poor security and planning.  DB users (ie the website/API server) are not DBA and should not have ability to edit or create tables.  I think DB users shouldn't use passwords as they are too easy to crack (see next steps for theory).   See sample transcript <details class="singlePopup">
+<summary>add user scripting </summary>
+<code lang="sql" class="highlight">-- https://www.postgresql.org/docs/16/sql-createpolicy.html
+-- https://www.postgresql.org/docs/16/sql-createrole.html
+-- https://www.postgresql.org/docs/16/sql-createpolicy.html
+
+-- https://www.strongdm.com/blog/postgres-create-user
+
+CREATE ROLE sales_team; 
+GRANT SELECT, UPDATE, CREATE ON ALL TABLES IN SCHEMA nu_corp TO sales_team;
+GRANT sales_team TO example_nu_corp_user;
+
+CREATE USER dbs_user WITH ENCRYPTED PASSWORD 'your_password';
+setup better create user 
+ALTER USER dba_user WITH SUPERUSER;
+
+CREATE POLICY restrict_confidential_data 
+    ON sensitive_table 
+    TO your_role 
+    USING (manager = current_user)
+
+CREATE TABLE accounts (manager text, company text, contact_email text); 
+ ALTER TABLE accounts ENABLE ROW LEVEL SECURITY; 
+CREATE POLICY account_managers ON accounts TO managers USING (manager = current_user);
+</code>
+</details></li>
+    <li>The basic password algo in PG is MD5 <sup><a href="https://www.postgresql.org/docs/16/auth-password.html" target="_blank">22</a></sup>, a different choice should be used <sup><a href="https://www.postgresql.org/docs/16/auth-methods.html" target="_blank">23</a></sup>, SSL “auth-cert” <sup><a href="https://www.postgresql.org/docs/16/auth-cert.html" target="_blank">24</a></sup> <sup><a href="https://goteleport.com/learn/dev-ops/postgresql-ssl-authentication-guide/" target="_blank">25</a></sup>.</li>
+    <li>There is no need to talk to a DB outside of firewall isolation, as the DB shouldn't be exposed to the internet.   As a fail-over setup <sup><a href="https://www.postgresql.org/docs/16/ssl-tcp.html" target="_blank">26</a></sup> when this isn't true (...terabyte RDS?).    </li>
+    <li>In `psql`, schema that are not on the search path will not be found unless its called `public`.   They can be fully specified `\dt schema.*` or imported by default with `SET search_path TO schema,public;`.</li>
+    <li>Currency may go weird on ETL if second DB isn't the same finance locale as first instance (ie a bank account table holding Euro might get assumed to be USD in C locale, and so all the values are wrong, and the formatting would definitely be wrong for EU regions that use ',' for decimals). </li>
+    <li>Invalid byte sequences will halt copy from backups. . . test your backups before you need them to avoid this.   Obivously any other process with that record will need tiding, but the scope of the failure is much narrower than further DB outage.</li>
+    <li>Always set your encoding to UTF-8, you may get a name or address in another language <sup><a href="https://www.postgresql.org/docs/16/multibyte.html" target="_blank">27</a></sup> ~ this is the internet.   This reduces odds on the last item failing.</li>
+    <li>Like most DB, NULL is dangerous in PG, use `set null ∅` to make it less surprising (as printed more clearly) whilst being dangerous.  Littering SQL with tests against `IS NULL` can safe guard, or use `COALESCE` <sup><a href="https://www.postgresql.org/docs/16/functions-conditional.html" target="_blank">28</a></sup>.   </li>
+</ul>
+
+<p>Rare items, I may remove to shorten article</p>
+
+<ul class="ulbasic">
+    <li>People from win32 or older Java need to note that “unicode” is just a synonym for “utf8” <sup><a href="https://www.postgresql.org/docs/current/multibyte.html#MULTIBYTE-CHARSET-SUPPORTED" target="_blank">29</a></sup>.  This one gives me grief, but its not a PG fault, and out of scope to a DB.</li>
+    <li>Compared to other DB, `count(*)` should be only used in limited cases, as PG architecture isn't optimised for it.  Verify with `EXPLAIN` before applying to production.  See longer notes in <sup><a href="https://wiki.postgresql.org/wiki/Index-only_scans#Is_.22count.28.2A.29.22_much_faster_now.3F" target="_blank">30</a></sup>.</li>
+    <li>Unless qualified (with types) PG will assume 32 bit ints, aka int4 in SQL.   This implies a 4 byte max int value.  </li>
+    <li>All unquoted identifiers are assumed by Postgres to be lower case by default.   Having lower-case table names is probably a strong policy.</li>
+</ul>
+
+
+</div>
+</div>
+<style>
+.singlePopup summary { border:solid var(--scroll2) 2px; min-width:20em; text-align:center;}
+</style>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Postgres group intro</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-intro" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-intro" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-intro" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-intro&amp;t=PG+intro"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-intro" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2025-11-11T10:25:32" datetime="2025-11-11T10:25:32">Nov '25</time>
+						</span>
+						<span>Created <time datetime="2025-10-05T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Oct '25</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-intro" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">High level features</a></li>
+<li><a href="#toc1">Gotchas</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-11-11T16:22:48" datetime="2025-11-11T16:22:48">11th of Nov 2025, 16:22:48</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-11-11T10:25:32" datetime="2025-11-11T10:25:32">Nov '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>PG features</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A thorough analysis of PG and the SQL features it contains. This includes PG features and tips how to use it optimally.  Here is a group of articles" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="PG features" />
+<meta itemprop="description" content="A thorough analysis of PG and the SQL features it contains. This includes PG features and tips how to use it optimally.  Here is a group of articles" />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="PG features" />
+<meta name="twitter:description" content="A thorough analysis of PG and the SQL features it contains. This includes PG features and tips how to use it optimally.  Here is a group of articles" />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="PG features" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/postgres-features" />
+<meta property="og:description" content="A thorough analysis of PG and the SQL features it contains. This includes PG features and tips how to use it optimally.  Here is a group of articles" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="11th of Nov 2025, 16:22:47" />
+<meta property="article:modified_time" content="Nov '25" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/postgres-features" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "PG features",
+	"article:published_time":"11th of Nov 2025, 16:22:47", 
+    "article:modified_time":"Nov '25",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples addReferences popOverWidget">
+<div class="halferWords">
+<p class="buttonBar"> 
+This PG text is broken into: 
+<a href="/resource/postgres-intro" class="button" title="Text to set context, please read this one first.">Intro</a>
+<span href="#" class="button disabled" title="You are here.">Features</span>
+<a href="/resource/postgres-recipes" class="button" title="A list of recipes for various necessary functions for PG, mostly for admin tasks.">Recipes</a>
+</p>
+</div>
+<div class="lotsOfWords">
+<p>After sept 2025, the newest official release is v18 <sup><a href="https://www.postgresql.org/about/news/postgresql-18-released-3142/" target="_blank">1</a></sup> <sup><a href="https://www.postgresql.org/docs/release/" target="_blank">2</a></sup>, prod servers are often 2 versions back, unless a critical feature is added more recently.   Installing the docs package is recommended, although maybe to a dev laptop rather than the DB server.   According to <sup><a href="https://www.pgedge.com/blog/postgresql-performance-tuning" target="_blank">3</a></sup>, several performance improvements have been released in v18.</p>
+
+<ul class="ulbasic">
+    <li>From psql, there are SQL keywords, schema items, functions and shell features.  Shell features tend to start `\`.   Programming languages will support SQL, and possibly the functions.   A psql manual is <sup><a href="https://tomcam.github.io/postgres/" target="_blank">4</a></sup> <sup><a href="https://www.postgresguide.com/utilities/psql/" target="_blank">5</a></sup></li>
+    <li>Postgres has static typing on data <sup><a href="https://www.postgresql.org/docs/16/typeconv-overview.html" target="_blank">6</a></sup>, but good conversion capacity.  The types are extendable if this adds value.   To quote</li>
+</ul>
+
+    <blockquote> Data types are divided into several basic type categories, including boolean, numeric, string, bitstring, datetime, timespan, geometric, network, and user-defined.     </blockquote>
+<ul class="ulbasic">
+    <li>There is a `::money` type, with controlled precision <sup><a href="https://www.postgresql.org/docs/16//datatype-money.html" target="_blank">7</a></sup> (fairly common in DB but avoid “cent slicing” frauds).</li>
+    <li>To perform casting / type assertions, use `CAST ( expression AS type )` OR `expression::type` in the query <sup><a href="https://www.postgresql.org/docs/16/sql-expressions.html#SQL-SYNTAX-TYPE-CASTS" target="_blank">8</a></sup>.   </li>
+    <li>To get best value from larger text fields, you probably want “full text search” <sup><a href="https://www.postgresql.org/docs/16/textsearch.html" target="_blank">9</a></sup> to easily support partial matches on large fields.  Postgres supports “full text” (this is classical by now) and tsVector matching <sup><a href="https://www.postgresql.org/docs/16/textsearch-intro.html#TEXTSEARCH-MATCHING" target="_blank">10</a></sup>.   Dictionaries for Stemming, stop-words, etc should be applied for good quality outcomes <sup><a href="https://www.postgresql.org/docs/16/textsearch-dictionaries.html" target="_blank">11</a></sup>.   Vectors have additional syntax <sup><a href="https://www.postgresql.org/docs/16/textsearch-features.html#TEXTSEARCH-FEATURES" target="_blank">12</a></sup>. </li>
+    <li>Postgres runs queries in the most CPU efficient method according to the data.  It doesn't set any sequencing for sub-expressions (unlike Clang family) <sup><a href="https://www.postgresql.org/docs/16/sql-expressions.html#SYNTAX-EXPRESS-EVAL" target="_blank">13</a></sup>.   Sequencing can be forced with careful use of a SWITCH statement.</li>
+    <li>Syntax features not found in basic webpages describing SQL92 <ul class="ulbasic">
+        <li>In line with other SQL, strings should be delimited with appostrophy / single quotes <sup><a href="https://www.postgresql.org/docs/16/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS" target="_blank">14</a></sup>, if a string contains a single quote, double it.  Several strings seperated by line breaks will be joined unless there are spaces or similar in addition.  As C++ lang, Python or Perl, there are some marked up string notations ~ strings starting with an 'e' have escapes expanded to their real value.  Unicode strings are written with 'U&amp;', Bitstrings (of only 0 or 1) start 'B', and un-adorned strings can use '$' in place of '.   </li>
+        <li>Numbers can be specified: 0b100101, 0B10011001, 0o273, 0O755, 0x42f, 0XFFFF, 42, 3.5, 4., .001, 5e2, 1.925e-3 without quotes.  Underscores can be used for readability same as JS or Python. </li>
+        <li>UUID are a local feature `gen_random_uuid` <sup><a href="https://www.postgresql.org/docs/current/functions-uuid.html" target="_blank">15</a></sup>.  There is `pg_uuidv7` plugin <sup><a href="https://pgxn.org/dist/pg_uuidv7/" target="_blank">16</a></sup> or `uuidv7` (native in v18), which has better characteristics for databases as it's closer to a time-stamp.  See <sup><a href="https://en.wikipedia.org/wiki/Universally_unique_identifier" target="_blank">17</a></sup> <sup><a href="https://fastuuid.com/learn-about-uuids/ultimate-uuid-cheat-sheet" target="_blank">18</a></sup> for notes on versions, UUID have a public spec. </li>
+        <li>A recent SQL feature <sup><a href="https://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_IEC_9075-1_2023_ed_6_-_id_76583_Publication_PDF_(en).zip" target="_blank">19</a></sup> is DEFERRABLE on constraints, which allows invisible states when a single SQL statement is executed to break constraints ~ the data is correct before and after, just not during.  Available in Postgres <sup><a href="https://www.postgresql.org/docs/16/sql-set-constraints.html" target="_blank">20</a></sup>.</li>
+        <li>On a reporting-only server, it's possible to make queries parallelisable, ie to use multiple vCPUs <sup><a href="https://www.postgresql.org/docs/16//parallel-query.html" target="_blank">21</a></sup>.  Read the “when” sub-page before being excited.   Suspect step0 is to check disk-caches everywhere carefully.  I annotate reporting-only, as any type of OLAP or OLTP implies many DB clients, so vCPUs shared between these clients.   </li>
+        <li> </li>
+        <li>There are GENERATED columns <sup><a href="https://www.postgresql.org/docs/16/ddl-generated-columns.html#DDL-GENERATED-COLUMNS" target="_blank">22</a></sup>, which are like a view for that column.  They may be stored or virtual.  Virtual seem as a Lamda function in a programming language.  Generated columns are omitted from some data transactions like partitions, or referencing other generated values. Use-case: `name varchar generated always initcap(first_name) + &quot; &quot; + initcap(family_name) virtual` or transforming dates. </li>
+        <li>Operator precedence chart (its more complex than BODMAS) <sup><a href="https://www.postgresql.org/docs/16/sql-syntax-lexical.html#SQL-PRECEDENCE" target="_blank">23</a></sup>.  </li>
+        <li>SCHEMA are like a directory to put SQL TABLES in, to make name-spacing more readable <sup><a href="https://www.postgresql.org/docs/16/ddl-schemas.html#DDL-SCHEMAS-PUBLIC" target="_blank">24</a></sup>.  For example, a product has SCHEMA 'active', and a SCHEMA 'archive', data is migrated into archive when it is too old for day to day use.  There is a SCHEMA called 'public' where items will appear by default.   </li>
+        <li>Postgres supports `COMPOSITE` types, which handle like Clang structs, or JSON objects <sup><a href="https://www.postgresql.org/docs/16//rowtypes.html#ROWTYPES" target="_blank">25</a></sup>.   To insert a composite struct, use ROW <details class="singlePopup">
+<summary>use COMPOSITEs </summary>
+<code lang="sql" class="highlight">-- https://www.postgresql.org/docs/16//rowtypes.html
+
+CREATE TYPE inventory_item AS (
+    name            text,
+    supplier_id     integer,
+    price           numeric
+);
+
+
+INSERT INTO mytab (complex_col) VALUES((1.1,2.2));
+
+UPDATE mytab SET complex_col = ROW(1.1,2.2) WHERE ...;
+</code>
+</details>.   Also `RANGE` types, and non-stupid range block handling <sup><a href="https://www.postgresql.org/docs/16//rangetypes.html" target="_blank">26</a></sup>.    </li>
+        <li></li>
+        <li>There is ARRAY <sup><a href="https://www.postgresql.org/docs/16/sql-expressions.html#SQL-SYNTAX-ARRAY-CONSTRUCTORS" target="_blank">27</a></sup>.  </li>
+        <li>Postgres implementation for `AGGREGATE` <sup><a href="https://www.postgresql.org/docs/16/sql-expressions.html#SYNTAX-AGGREGATES" target="_blank">28</a></sup>.  WINDOW functions are like non-grouping aggregates <sup><a href="https://www.postgresql.org/docs/16/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS" target="_blank">29</a></sup> <details class="singlePopup ">
+<summary>Samples for Window functions </summary>
+<code lang="sql" class="highlight">-- https://codezup.com/advanced-sql-querying-window-functions-ctes/
+-- Use the ROW_NUMBER() window function to assign a unique row number to each row
+SELECT
+	id,
+	name,
+	salary,
+ 	ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num
+FROM employees;
+
+-- https://www.postgresql.org/docs/current/tutorial-window.html
+SELECT sum(salary) OVER w, avg(salary) OVER w
+	FROM empsalary
+	WINDOW w AS (PARTITION BY depname ORDER BY salary DESC);
+</code>
+</details>.   There is COLLATE expression <sup><a href="https://www.postgresql.org/docs/16/sql-expressions.html#SQL-SYNTAX-COLLATE-EXPRS" target="_blank">30</a></sup> <details class="singlePopup ">
+<summary>Samples for Collation </summary>
+<code lang="sql" class="highlight">-- basic global to DB sample
+-- In practice AFAICT, "ICU" batch is most relevant
+-- @link https://scribe.rip/@adarsh2801/understanding-collations-in-postgresql-648e4fa333e1
+
+-- this below adds 'u' letters to everything where they should be.
+CREATE DATABASE testTest
+	LC_COLLATE 'en_GB.UTF-8'
+	LC_CTYPE 'en_GB.UTF-8';
+
+CREATE TABLE 
+	-- ...
+
+-- OR can be allocated on tables and fields
+
+-- This can be overridden per query (possibly sub-query)
+BEGIN; 
+	SELECT * FROM ta1 ORDER BY name COLLATE "zh_Hant_TW.UTF-8";
+THEN 
+	ROLLBACK; 
+	SELECT * FROM ta1 ORDER BY name COLLATE "zh.UTF-8";
+END IF; 
+COMMIT; 
+
+-- build search version with better matching
+CREATE TABLE ta1_sample (
+	sample_pk int8 not null default -1,
+	volume text,
+	search_volume
+						);
+CREATE INDEX ON ta1_sample (search_volume) full text;
+
+-- just insert into volume, then populate search version
+INSERT INTO ta1_sample( search_volume) VALUES (lower(volume COLLATE pg_c_utf8));
+</code>
+</details>.</li>
+        <li>The syntax for ENUMs is much nicer than Typescript or Golang <sup><a href="https://www.postgresql.org/docs/16//datatype-enum.html" target="_blank">31</a></sup>, a short example: `CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');`   </li>
+        <li>Create a temporary VIEW with `WITH` <sup><a href="https://www.postgresql.org/docs/16/queries-with.html" target="_blank">32</a></sup>, the WITH syntax can be used to move data between tables <sup><a href="https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-MODIFYING" target="_blank">33</a></sup>.  OR create a recursive statement <sup><a href="https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-RECURSIVE" target="_blank">34</a></sup> ~ I think this last on is just syntax sugar.</li>
+    </ul></li>
+</ul>
+
+
+</div>
+</div>
+<style>
+.singlePopup summary { border:solid var(--scroll2) 2px; min-width:20em; text-align:center;}
+</style>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Postgres and it's SQL features</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-features" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-features" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-features" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-features&amp;t=PG+features"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-features" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2025-11-11T10:25:21" datetime="2025-11-11T10:25:21">Nov '25</time>
+						</span>
+						<span>Created <time datetime="2025-10-05T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Oct '25</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fpostgres-features" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-11-11T16:22:47" datetime="2025-11-11T16:22:47">11th of Nov 2025, 16:22:47</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-11-11T10:25:21" datetime="2025-11-11T10:25:21">Nov '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
