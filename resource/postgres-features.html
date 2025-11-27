@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/postgres-features" />
 <meta property="og:description" content="A thorough analysis of PG and the SQL features it contains. This includes PG features and tips how to use it optimally.  Here is a group of articles" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="11th of Nov 2025, 16:22:47" />
+<meta property="article:published_time" content="27th of Nov 2025, 21:59:24" />
 <meta property="article:modified_time" content="Nov '25" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/postgres-features" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "PG features",
-	"article:published_time":"11th of Nov 2025, 16:22:47", 
+	"article:published_time":"27th of Nov 2025, 21:59:24", 
     "article:modified_time":"Nov '25",
     "article:section":"technology",
 
@@ -156,7 +156,9 @@ INSERT INTO ta1_sample( search_volume) VALUES (lower(volume COLLATE pg_c_utf8));
 </code>
 </details>.</li>
         <li>The syntax for ENUMs is much nicer than Typescript or Golang <sup><a href="https://www.postgresql.org/docs/16//datatype-enum.html" target="_blank">31</a></sup>, a short example: `CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');`   </li>
-        <li>Create a temporary VIEW with `WITH` <sup><a href="https://www.postgresql.org/docs/16/queries-with.html" target="_blank">32</a></sup>, the WITH syntax can be used to move data between tables <sup><a href="https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-MODIFYING" target="_blank">33</a></sup>.  OR create a recursive statement <sup><a href="https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-RECURSIVE" target="_blank">34</a></sup> ~ I think this last on is just syntax sugar.</li>
+        <li>Create a temporary VIEW with `WITH` <sup><a href="https://www.postgresql.org/docs/16/queries-with.html" target="_blank">32</a></sup>, the WITH syntax can be used to move data between tables <sup><a href="https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-MODIFYING" target="_blank">33</a></sup>.  OR create a recursive statement <sup><a href="https://www.postgresql.org/docs/16/queries-with.html#QUERIES-WITH-RECURSIVE" target="_blank">34</a></sup> ~ I think this last one is just syntax sugar.</li>
+        <li>Since I graduated SQL has gained `MERGE` keyword, and most DB ~ including Postgres ~ seem to support it <sup><a href="https://www.postgresql.org/docs/current/sql-merge.html" target="_blank">35</a></sup>.   This performs a three-way operation to make a target table be the same as a source, reducing logic in the programming language, and reducing race conditions.   </li>
+        <li>Under discussion, auto-sanitised logging <sup><a href="https://ardentperf.com/2025/10/15/sanitized-sql/" target="_blank">36</a></sup>.</li>
     </ul></li>
 </ul>
 
@@ -196,7 +198,7 @@ INSERT INTO ta1_sample( search_volume) VALUES (lower(volume COLLATE pg_c_utf8));
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-11-11T10:25:21" datetime="2025-11-11T10:25:21">Nov '25</time>
+						<span>Edited <time title="Page edited on 2025-11-27T07:15:29" datetime="2025-11-27T07:15:29">Nov '25</time>
 						</span>
 						<span>Created <time datetime="2025-10-05T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Oct '25</time> </span>
 					</span>
@@ -240,7 +242,7 @@ INSERT INTO ta1_sample( search_volume) VALUES (lower(volume COLLATE pg_c_utf8));
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-11-11T16:22:47" datetime="2025-11-11T16:22:47">11th of Nov 2025, 16:22:47</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-11-11T10:25:21" datetime="2025-11-11T10:25:21">Nov '25</time>.
+		<p> Page rendered <time title="Page rendered on 2025-11-27T21:59:24" datetime="2025-11-27T21:59:24">27th of Nov 2025, 21:59:24</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-11-27T07:15:29" datetime="2025-11-27T07:15:29">Nov '25</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

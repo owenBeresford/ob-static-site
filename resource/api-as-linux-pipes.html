@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>"linux pipe" middleware API</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Review of tech options to reduce need for API to combine data whilst making data mashup apps.  I ideate 8 options, but there are clearly better ones compared to the requirements listed." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content=""linux pipe" middleware API" />
+<meta itemprop="description" content="Review of tech options to reduce need for API to combine data whilst making data mashup apps.  I ideate 8 options, but there are clearly better ones compared to the requirements listed." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content=""linux pipe" middleware API" />
+<meta name="twitter:description" content="Review of tech options to reduce need for API to combine data whilst making data mashup apps.  I ideate 8 options, but there are clearly better ones compared to the requirements listed." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content=""linux pipe" middleware API" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/api-as-linux-pipes" />
+<meta property="og:description" content="Review of tech options to reduce need for API to combine data whilst making data mashup apps.  I ideate 8 options, but there are clearly better ones compared to the requirements listed." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="27th of Nov 2025, 21:59:22" />
+<meta property="article:modified_time" content="Nov '25" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/api-as-linux-pipes" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": ""linux pipe" middleware API",
+	"article:published_time":"27th of Nov 2025, 21:59:22", 
+    "article:modified_time":"Nov '25",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences betterDL">
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Pitch/ intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+You are a knowledge worker and are accessing data from a mobile.  You need to aggregate from several sources then manipulate in the mobile for presentation ~ could be local estate agents, some extra facts like insurance rates per street and a map service.   It would be really nice to not have to make a client connection to each source.  In theory <a href="https://owenberesford.me.uk/resource/graphql-notes#">GraphQL</a> could be applied to this problems, but I think that requires dedicated server API, which is what this is trying to avoid.   <br />
+<i>What if it was possible to link differing server API like Linux pipes?</i>.  This is concentrating on aggregating remote API sources, not DB ~ the plumbing is different.   This is a research article, I am not offering a product.   As I start this article, I'm unsure if it can be delivered.  <br />
+There is no logical reason why this tool ~ if it exists ~ could not be used to POST into system2 the results of GET system1.   However, test first &amp; test hard ~ see Knight Capital in 2012-08, for an example of fail conditions <sup><a href="https://www.bbc.co.uk/news/magazine-19214294" target="_blank">1</a></sup> <sup><a href="https://www.hibit.dev/posts/194/how-a-software-error-led-to-an-865-billion-trading-collapse" target="_blank">2</a></sup>.     <br />
+<dl>
+    <dt>Audience</dt>
+        <dd>app prototype engineers, data-science modellers, data fiddlers who aren't using Pandas just now.</dd>
+</dl>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Limits <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>There needs to be support for flush output then exec next source ~ APPENDED sources.    There needs to support “stepped writes”, so a final stream included interlaced data from each source, and interfaced in a predictable fashion ~ call this INTERLACED sources.   </li>
+    <li>Security / auth on the resources.  The linked API would need the login step.<ul class="ulbasic">
+        <li><i>Although if the sources were open-sources, this is stepped over.</i></li>
+    </ul></li>
+    <li>Any solution will need to work with corp firewalls.</li>
+    <li>If there is need to do many small requests (ie GET /api/v2.5/things/223483423, GET /api/v2.5/things/3524663 ) buffering intelligently is necessary.</li>
+    <li>Buffering in general is needed as this is the internet.</li>
+    <li>Sensible timeout handling<ul class="ulbasic">
+        <li>Should be handled like a SQL transaction ROLLBACK.</li>
+    </ul></li>
+    <li>As auto-code, this may not meet any performance requirements without effort ~ eg enriched but stale stock-data is valueless.  </li>
+    <li>⚠ WARN ⚠  Many of these options handle data-lakes frequently, it's essential to add some sort of limiters to avoid accidentally attempting to download a multi-terabyte of data onto your phone.  </li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Possible solutions <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>Create an “easy UI” on top of <b>AWS Lambda</b> <a href="https://docs.aws.amazon.com/lambda/" target="_blank">docs</a>.  Other Cloud vendors are available.   Licence for “production” is a commercial contract.<ul class="ulbasic">
+        <li>Gains: very workable, avoids problems with mobile IP.   Can fairly easily correlate IDs from differing systems, as this is a full programming language.   Should start with a “good” IP.   Mature error handling can be added.</li>
+        <li>Losses: need to design data flow and make software for this option.  The dev needs to create a quick JS/TS function.   Needs AWS account setup, and per user account (assuming OSS for software).   Users would need to trust the storage of authenticators.</li>
+    </ul></li>
+    <li>“Not serverless” services like <b>Vercel</b> <a href="https://vercel.com/docs" target="_blank">docs</a> <sup><a href="https://vercel.com/guides" target="_blank">3</a></sup> can be used, but this is “an API in a fancy hat”.   Licence <sup><a href="https://vercel.com/legal/notices-and-license-information" target="_blank">4</a></sup> but for “production” is a commercial contract <sup><a href="https://vercel.com/pricing" target="_blank">5</a></sup>.   SDK is <a href="https://github.com/vercel/sdk" target="_blank">git</a>, I believe this can be run on the service.   <ul class="ulbasic">
+        <li>Gains: more features than Lambda, on average less code needed, <i>correct spelling of Greek words</i>.   Mature error handling can be added.   Tidy workflow for static or low-context artefacts (eg puzzle game services).  </li>
+        <li>Losses: another DSL to read.  Not as simple as other solutions</li>
+    </ul></li>
+    <li>Reporting platforms like <b>Pyroscope + Grafana</b> ~ this focusses on headless aggregate access, not dashboarding. <a href="https://grafana.com/docs/grafana/latest/" target="_blank">docs</a> <a href="https://grafana.com/docs/pyroscope/latest/" target="_blank">docs</a>  these are OSS.<ul class="ulbasic">
+        <li>Gains: low-code platform.   Pyroscope does include an API client <sup><a href="https://grafana.com/grafana/plugins/grafana-pyroscope-app/?tab=changelog" target="_blank">6</a></sup>.  Admin for Grafana can be done via CLI <sup><a href="https://grafana.com/docs/grafana/latest/administration/cli/" target="_blank">7</a></sup>.   There are cloud packages for this service.   </li>
+        <li>Losses: Can't find a headless option to fetch data for Grafana so FAIL.  </li>
+    </ul></li>
+    <li>Try <b>Airflow</b> <a href="https://airflow.apache.org/docs/" target="_blank">docs</a> licence Apache 2.  There is an API client <sup><a href="https://airflow.apache.org/docs/task-sdk/stable/api.html#airflow.sdk.Connection" target="_blank">8</a></sup>.  A diagram of supported DB sources <sup><a href="https://airbyte.com/blog/airflow-etl-pipelines" target="_blank">9</a></sup>.<ul class="ulbasic">
+        <li>Gains: CLI access <sup><a href="https://www.sparkcodehub.com/airflow/fundamentals/cli" target="_blank">10</a></sup>.   Inline API client, via Python <sup><a href="https://readmedium.com/airflow-3-ways-to-call-a-rest-api-78181fca6fe8" target="_blank">11</a></sup> ~ a few lines .  Airflow can be setup on AWS or similar clouds <sup><a href="https://aws.amazon.com/managed-workflows-for-apache-airflow/" target="_blank">12</a></sup> <sup><a href="https://cloud.google.com/blog/products/data-analytics/different-ways-to-run-apache-airflow-on-google-cloud" target="_blank">13</a></sup>, and also locally (as Apache foundation).  A feature called DAGs offers scheduled events <sup><a href="https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html" target="_blank">14</a></sup>.   According to <sup><a href="https://dev.to/mendy_kevin_94ec1db73e1df/ultimate-guide-to-creating-a-pipelineapache-airflow-165b" target="_blank">15</a></sup> Airflow can be a webserver, so able to serve results.  </li>
+        <li>Losses: Need to make a structure like a .terraform.secrets file (UPDATE IF FOUND)</li>
+    </ul></li>
+    <li>Try <b>Snowflake</b> <a href="https://docs.snowflake.com/en/" target="_blank">docs</a> concepts <sup><a href="https://docs.snowflake.com/en/user-guide/intro-key-concepts" target="_blank">16</a></sup>, licence is commercial <sup><a href="https://www.snowflake.com/en/pricing-options/" target="_blank">17</a></sup>.  Snowflake has many subprojects for integrations <a href="https://github.com/orgs/Snowflake-Labs/repositories" target="_blank">git</a>, boast list <sup><a href="https://www.snowflake.com/en/developers/open-source/" target="_blank">18</a></sup>.  Tools to make use easier <sup><a href="https://www.snowflake.com/en/developers/downloads/" target="_blank">19</a></sup>.    Do not confuse with Snowflake.net, which is an older commercial ASP project <sup><a href="http://www.intellimerce.com/faq.html" target="_blank">20</a></sup> in the same area.    <ul class="ulbasic">
+        <li>Gains: data can be accessed in other API <sup><a href="https://scribe.rip/@ashish.dubey.sp/snowflake-external-access-retrieve-data-from-an-api-f0b6fb9b1871" target="_blank">21</a></sup> <sup><a href="https://scribe.rip/snowflake/pulling-data-from-an-external-api-into-snowflake-with-python-dcc1ba6ecc69" target="_blank">22</a></sup>.  Has support for various data <sup><a href="https://docs.snowflake.cn/en/user-guide/data-load-unstructured-rest-api" target="_blank">23</a></sup>.  Data can be manipulating in Snowflake, then GET'd <sup><a href="https://sparkbyexamples.com/snowflake/download-snowflake-table-internal-stage-local/" target="_blank">24</a></sup> <sup><a href="https://scribe.rip/akava/exporting-snowflake-query-results-abb013a2d29b" target="_blank">25</a></sup>.   Snowflake has reasonable error handling <sup><a href="https://docs.snowflake.com/en/developer-guide/snowflake-scripting/exceptions" target="_blank">26</a></sup> and for STORPOC <sup><a href="https://thinketl.com/exceptions-in-snowflake-stored-procedures/" target="_blank">27</a></sup>.  Docs for auth on API <sup><a href="https://docs.snowflake.com/en/user-guide/api-authentication" target="_blank">28</a></sup>.   There is a Node client project, I have no idea if this can be run in a phone <a href="https://www.npmjs.com/package/snowflake-sdk" target="_blank">npm</a>. </li>
+        <li>Losses: There have been multiple security leaks with Snowflake ~ although I do not know which party failed 'due process'.   There are many articles referencing Snowflake auth mechanisms, please read them.</li>
+    </ul></li>
+    <li><b>GraphQL</b> hosting vendors, Hasura or Apollo etc.  Relevant notes on <a href="https://owenberesford.me.uk/resource/graphql-notes#">GraphQL</a> itself.   As an open format, there will be at least one free version.   This option is more sketched as it's not very aligned.<ul class="ulbasic">
+        <li>Gains: Can download API with GraphQL, sample in Apollo <sup><a href="https://blog.ranjithnair.dev/posts/external-apis-graphql" target="_blank">29</a></sup>.   Downloads, YES.  As much security as needed, YES.  </li>
+        <li>Losses: You will need to write code [Boo-hiss] maybe YML [booooooo!!!].  This will buffer data in your phone to do transforms [Boo-hiss].   </li>
+    </ul></li>
+    <li>[CHEAT solution] There integration features (scheduled events, web “hooks” API) on <b>services like Stripe</b>, but this is a narrow scope solution <a href="https://docs.stripe.com/webhooks" target="_blank">docs</a>, <a href="https://docs.stripe.com/api/events" target="_blank">docs</a>. <ul class="ulbasic">
+        <li>Gains: strict security, high availability, good brand, little actual code required</li>
+        <li>Losses: only applies to mission of hosting service (payments for Stripe)</li>
+    </ul></li>
+    <li>[CHEAT solution] when all involved are your services and on the same machine, add a “named pipe” (linux) or IPC (win32) for faster comms.  Example walk-through <sup><a href="https://docs.stripe.com/api/events" target="_blank">30</a></sup> (not my code).   More complex shared memory options are available at extra effort.<ul class="ulbasic">
+        <li>Gains: this is fast, secure, and reliable (away from processes falling over)</li>
+        <li>Losses: same machine only</li>
+    </ul></li>
+</ul>
+
+<p>Confirmation of deployment options should be involved in solution selection.  <br />
+Conclusion for this problem, look at Airflow in more detail.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Middleware API as Linux pipes</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fapi-as-linux-pipes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fapi-as-linux-pipes" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fapi-as-linux-pipes" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fapi-as-linux-pipes&amp;t=%22linux+pipe%22+middleware+API"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fapi-as-linux-pipes" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2025-11-27T18:51:11" datetime="2025-11-27T18:51:11">Nov '25</time>
+						</span>
+						<span>Created <time datetime="2025-11-20T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Nov '25</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fapi-as-linux-pipes" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Pitch/ intro</a></li>
+<li><a href="#toc1">Limits</a></li>
+<li><a href="#toc2">Possible solutions</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2025-11-27T21:59:22" datetime="2025-11-27T21:59:22">27th of Nov 2025, 21:59:22</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-11-27T18:51:11" datetime="2025-11-27T18:51:11">Nov '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
