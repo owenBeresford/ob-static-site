@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-launching-llm" />
 <meta property="og:description" content="An introduction to my study on AI algorithms and structures.  Mentions other earlier product supported by AI features and some characteristics of LLM created text." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="11th of Sep 2025, 18:35:41" />
-<meta property="article:modified_time" content="Sep '25" />
+<meta property="article:published_time" content="4th of Jan 2026, 12:25:45" />
+<meta property="article:modified_time" content="Jan '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-launching-llm" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Intro for LLM",
-	"article:published_time":"11th of Sep 2025, 18:35:41", 
-    "article:modified_time":"Sep '25",
+	"article:published_time":"4th of Jan 2026, 12:25:45", 
+    "article:modified_time":"Jan '26",
     "article:section":"technology",
 
     "author": {
@@ -62,6 +62,7 @@ TODO: magic tune selection against some index/DB -->
 <a href="/resource/ai-classifiers" class="button" title=" About a data management feature called classifiers, testing them and relevant algorithms.">Classifiers </a>
 <a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic </a>
 <a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products.">Tuning LLM </a>
+<a href="/resource/ai-agent-architecture" class="button" title="A short review of howto make an AI agent, the common architectures and howto test them.  Testing is critical as agents can create many changes very quickly.">Agents</a>
 </p>
 <div class="halferWords">
 <p>Most of my content recently is excessively boring, and this is a good example.</p>
@@ -81,8 +82,10 @@ TODO: magic tune selection against some index/DB -->
     <li>“Potential” +4.1% </li>
     <li>“Findings” + 2.7%  </li>
     <li>“Crucial” + 2.6% </li>
+    <li>“you will leave this talk” </li>
+    <li>“the audience will leave this talk”</li>
     <li>“it is important to note” </li>
-    <li>“as an AI language model” (probably easy here)</li>
+    <li>“as an AI language model” (probably easy spot here)</li>
 </ul>
 
 <p>For some clear diagrams on the basic LLM activity flow, see <sup><a href="https://blog.langchain.dev/tutorial-chatgpt-over-your-data/" target="_blank">4</a></sup>.  It would be better if the diagram included RAG, as a parallel option to the VectorDB.</p>
@@ -93,12 +96,15 @@ TODO: magic tune selection against some index/DB -->
 
 <ul class="ulbasic">
     <li>Siri by Apple inc</li>
+    <li>Amazon “you may be interested in” sales channel by Amazon inc</li>
+    <li>Watson by IBM inc</li>
     <li>Bayesian email filters</li>
-    <li>Writing apps like Grammarly, Hemmingway, or ProWritingAid (the alternative suggestions generation)</li>
-    <li>Most camera in phones distort the images to make selfies “look better” - this makes skinny people look weird.</li>
-    <li>Google Translate from 2017 (I don't know how other translation tools are made, but there are several)</li>
-    <li>Spotify auto play-list feature </li>
-    <li>Google map route finder feature ~ when they gave it more CPU time in the earlier editions.</li>
+    <li>The query acquisition in Alexa from Amazon inc </li>
+    <li>The alternative suggestions generation feature used in Writing apps like Grammarly, Hemmingway, or ProWritingAid.</li>
+    <li>Most cameras in phones distort the images to make selfies “look better” ~ this makes skinny people look weird.</li>
+    <li>Google Translate from 2017 (I don't know how other translation tools are made, but there are several).</li>
+    <li>Auto created play-lists feature in Spotify by Spotify Inc. </li>
+    <li>Map route finder feature in gmap from Google inc ~ when they gave it more CPU time in the earlier editions.</li>
     <li>Some features of Duolingo, used to generate the practice content.  The practice sessions are completely tailored to the users writing style, I assume pulled from messaging histories, or spell check history.</li>
 </ul>
 
@@ -107,15 +113,15 @@ TODO: magic tune selection against some index/DB -->
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Feedback <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This paragraph will need to be extended, but please read some initial impact studies <sup><a href="https://metr.org/Early_2025_AI_Experienced_OS_Devs_Study.pdf" target="_blank">6</a></sup> <sup><a href="https://observer.co.uk/news/opinion-and-ideas/article/if-we-dont-fight-for-our-juries-trial-by-ai-is-coming" target="_blank">7</a></sup> <sup><a href="https://irrj.org/article/view/19625" target="_blank">8</a></sup>  <br />
-Articles about consequences of adoption: <sup><a href="https://generativeai.scribe.rip/the-junior-developer-extinction-were-all-building-the-next-programming-dark-age-f66711c09f25" target="_blank">9</a></sup> and <sup><a href="https://x.com/jasonlk/status/1946069562723897802" target="_blank">10</a></sup> ~ I'm not sure this link will last as open access</p>
+Articles about consequences of adoption: <sup><a href="https://generativeai.scribe.rip/the-junior-developer-extinction-were-all-building-the-next-programming-dark-age-f66711c09f25" target="_blank">9</a></sup> <sup><a href="https://www.aiweirdness.com/when-a-chatbot-runs-your-store/" target="_blank">10</a></sup> and <sup><a href="https://x.com/jasonlk/status/1946069562723897802" target="_blank">11</a></sup> ~ I'm not sure this link will last as open access.</p>
 
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Structures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>I list many specific terms to make the rest of the group of articles easier to read.   For words to be <b>useful</b>, they should be orthogonal and well organised.   AI currently is so very much more of an <strong>advertisement space</strong> than other tech <sup><a href="https://www.techpolicy.press/challenging-the-myths-of-generative-ai/" target="_blank">11</a></sup>, and access to terms helps structure and deflate 3rd party data.  Note, much of this is stats or words to describe stats.  I relegate the Maths proofs and actual equations to the external academic papers etc, as my highest level of detail would be source code ~ as an engineer I write better code, and Maths-first people write better maths.  Browsing the terminology shows what LLM authors and researchers needed to describe, and so how LLM are built.</p>
+<p>I list many specific terms to make the rest of the group of articles easier to read.   For words to be <b>useful</b>, they should be orthogonal and well organised.   AI currently is so very much more of an <strong>advertisement space</strong> than other tech <sup><a href="https://www.techpolicy.press/challenging-the-myths-of-generative-ai/" target="_blank">12</a></sup>, and access to terms helps structure and deflate 3rd party data.  Note, much of this is stats or words to describe stats.  I relegate the Maths proofs and actual equations to the external academic papers etc, as my highest level of detail would be source code ~ as an engineer I write better code, and Maths-first people write better maths.  Browsing the terminology shows what LLM authors and researchers needed to describe, and so how LLM are built.</p>
 
-<p>An LLM is structured like a Tensorflow, please browse <sup><a href="https://huggingface.co/blog/lyogavin/airllm" target="_blank">12</a></sup>.</p>
+<p>An LLM is structured like a Tensorflow, please browse <sup><a href="https://huggingface.co/blog/lyogavin/airllm" target="_blank">13</a></sup>.</p>
 
-<p>This group of articles is mostly focused on how to build and manage a new LLM, but I think <em>some</em> theory will make the terminology and structures easier to understand.   There is frequent mention to Gradients in ML, Neural nets, and now LLM, this is the view of the rate of change towards the desired data.  I have simplified *massively* that sentence.   A better and more detailed view is the following: first the pure Maths <sup><a href="https://en.wikipedia.org/wiki/Vector_calculus" target="_blank">13</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Gradient" target="_blank">14</a></sup>, then application theories <sup><a href="https://machinelearningmastery.com/gradient-in-machine-learning/" target="_blank">15</a></sup> <sup><a href="https://machinelearningmastery.com/gradient-descent-for-machine-learning/" target="_blank">16</a></sup>.  I mention Rate of change in various places to describe curves <sup><a href="https://en.wikipedia.org/wiki/Gallery_of_curves" target="_blank">17</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Curve" target="_blank">18</a></sup>.  According to the last Wiki, I should swap the word 'linear' (constant amount of change in one axis value leads to a constant amount of change in the other axis value)  for 'line' <sup><a href="https://en.wikipedia.org/wiki/Line_%28geometry%29" target="_blank">19</a></sup>, but I think that is ambiguous, as all the graphs have lines.  I also use the word 'Stochastic' <sup><a href="https://en.wikipedia.org/wiki/Stochastic" target="_blank">20</a></sup></p>
+<p>This group of articles is mostly focused on how to build and manage a new LLM, but I think <em>some</em> theory will make the terminology and structures easier to understand.   There is frequent mention to Gradients in ML, Neural nets, and now LLM, this is the view of the rate of change towards the desired data.  I have simplified *massively* that sentence.   A better and more detailed view is the following: first the pure Maths <sup><a href="https://en.wikipedia.org/wiki/Vector_calculus" target="_blank">14</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Gradient" target="_blank">15</a></sup>, then application theories <sup><a href="https://machinelearningmastery.com/gradient-in-machine-learning/" target="_blank">16</a></sup> <sup><a href="https://machinelearningmastery.com/gradient-descent-for-machine-learning/" target="_blank">17</a></sup>.  I mention Rate of change in various places to describe curves <sup><a href="https://en.wikipedia.org/wiki/Gallery_of_curves" target="_blank">18</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Curve" target="_blank">19</a></sup>.  According to the last Wiki, I should swap the word 'linear' (constant amount of change in one axis value leads to a constant amount of change in the other axis value)  for 'line' <sup><a href="https://en.wikipedia.org/wiki/Line_%28geometry%29" target="_blank">20</a></sup>, but I think that is ambiguous, as all the graphs have lines.  I also use the word 'Stochastic' <sup><a href="https://en.wikipedia.org/wiki/Stochastic" target="_blank">21</a></sup></p>
 
 <p>Some people publish articles of their org's internal process, eg “hardware considerations and budget”.  It is very obvious that all software needs to run on some hardware, and better hardware will give results faster than cheaper / older / slower hardware, this is not relevant to this study, and is omitted.  I note there are some “AI innovations”, that in lay-persons English are &quot;<i>if we run this on a faster PC then we get answers faster</i>&quot;.</p>
 
@@ -135,7 +141,7 @@ For people with no previous study of AI, I compiled a dictionary to make the lat
  </div>
 
   </div>
-  <fieldset class="articleHeader">
+  <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
 	<nav id="navBar" class="row">
 			<div class="column">
@@ -158,7 +164,7 @@ For people with no previous study of AI, I compiled a dictionary to make the lat
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2025-09-11T18:11:04" datetime="2025-09-11T18:11:04">Sep '25</time>
+						<span>Edited <time title="Page edited on 2026-01-03T21:27:25" datetime="2026-01-03T21:27:25">Jan '26</time>
 						</span>
 						<span>Created <time datetime="2024-09-10T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Sep '24</time> </span>
 					</span>
@@ -175,7 +181,7 @@ For people with no previous study of AI, I compiled a dictionary to make the lat
 				</form>
 			</dialog>
 	
-	<div class="bigScreenOnly column linksWidget">
+	<div class="bigScreenOnly column linksWidget" role="navigation">
 		<details class="linksWidget" id="pageMenu">
 			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
@@ -206,11 +212,10 @@ For people with no previous study of AI, I compiled a dictionary to make the lat
  </div>
  <footer class="row footWidget"> 
 	<div class="column leftFooter"> 
-		<a href="https://www.plainenglish.co.uk/services" target="_blank" title="They, er, don't have a service for >250,000 word sites, so no logo.">Campaign for Plain English</a><br />
-		My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2025-09-11T18:35:41" datetime="2025-09-11T18:35:41">11th of Sep 2025, 18:35:41</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2025-09-11T18:11:04" datetime="2025-09-11T18:11:04">Sep '25</time>.
+		<p> Page rendered <time title="Page rendered on 2026-01-04T12:25:45" datetime="2026-01-04T12:25:45">4th of Jan 2026, 12:25:45</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-01-03T21:27:25" datetime="2026-01-03T21:27:25">Jan '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
