@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Agents arch</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A short review of howto make an AI agent, the common architectures and howto test them.  Testing is critical as agents can create many changes very quickly." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Agents arch" />
+<meta itemprop="description" content="A short review of howto make an AI agent, the common architectures and howto test them.  Testing is critical as agents can create many changes very quickly." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Agents arch" />
+<meta name="twitter:description" content="A short review of howto make an AI agent, the common architectures and howto test them.  Testing is critical as agents can create many changes very quickly." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Agents arch" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ai-agent-architecture" />
+<meta property="og:description" content="A short review of howto make an AI agent, the common architectures and howto test them.  Testing is critical as agents can create many changes very quickly." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="4th of Jan 2026, 12:25:45" />
+<meta property="article:modified_time" content="Jan '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/ai-agent-architecture" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Agents arch",
+	"article:published_time":"4th of Jan 2026, 12:25:45", 
+    "article:modified_time":"Jan '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences">
+<p class="buttonBar"> 
+<a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM Concepts </a>
+<a href="/resource/ai-dictionary" class="button" title="All the atypical language pulled out into one location, to make the other test read better." > DICTIONARY </a>
+<a href="/resource/ai-retrieval-augmented-generation" class="button" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</a>
+<a href="/resource/ai-vector-stores" class="button" title="Examines the specialised storage needed for LLM data.">Vector stores </a>
+<a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
+<a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic data </a>
+<a href="/resource/ai-test-prompt" class="button" title="Article to supply data on managing and testing prompts.">Test prompt </a>
+<a href="/resource/ai-classifiers" class="button" title="About a data management feature called classifiers, testing them and relevant algorithms.">Classifiers </a>
+<a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
+<span href="/resource/ai-agent-architecture" class="button disabled" title="This article, A short review of howto make an AI agent, the common architectures and howto test them.  Testing is critical as agents can create many changes very quickly.">Agents</span>
+</p>
+<div class="lotsOfWords">
+<p>This topic seems to accumulate low-grade content, as though there is some blog that boasts about using an demo-agent to make docs, and everyone else ran with the idea.   As ever, I put specific algorithms in the <a href="https://owenberesford.me.uk/resource/ai-dictionary#">dictionary</a>.   An AI Agent is probably what most people imagined when adverts for AI tools happened <sup><a href="https://www.allaboutai.com/ai-agents/llms-vs-ai-agents/" target="_blank">1</a></sup>.  General Agents are getting less stupid and random, so more useful.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Architecture <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>In <sup><a href="https://www.botpress.com/blog/llm-agents" target="_blank">2</a></sup>, an LLM is just a stats model, and an agent extends with Retrieval, Reasoning, Memory, a Control loop and Tool use to allow it to interact better.   Many of the LLM products above the level of chatbots seem to be agents, whatever their label.  Other low-grade references mention “ethical and safety filters”, which is better covered by JonSnowlabs.  This article currently lacks diagrams; however this link <sup><a href="https://www.productcompass.pm/p/ai-agent-architectures" target="_blank">3</a></sup> has lots of them.</li>
+    <li>As a useful taxonomy on LLM learning styles (only read if no previous learning on LLM): “supervised learning (prediction), unsupervised learning (pattern detection), and reinforcement learning (decision optimisation)&quot; <sup><a href="https://insightfulai.co.uk/ai-algorithms-explained-types-uses-roi-insights/" target="_blank">4</a></sup>.</li>
+    <li>The control loop (as its named in articles) makes this seem like a LLM wrapper on a “FSM in a fancy hat” <sup><a href="https://scribe.rip/@aleixlopez/introduction-to-ai-agents-62a790d0bc22" target="_blank">5</a></sup>.  The code examples in <sup><a href="https://ai-sdk.dev/docs/agents/loop-control" target="_blank">6</a></sup> (released by Vercel) further emphasise the FSM structure.    </li>
+    <li>Agents can have context memory as a short-term memory like humans do, and long-term storage, via RAG or Vectors etc <sup><a href="https://www.digitalocean.com/community/conceptual-articles/rag-ai-agents-agentic-rag-comparative-analysis" target="_blank">7</a></sup> <sup><a href="https://aws.amazon.com/blogs/machine-learning/building-smarter-ai-agents-agentcore-long-term-memory-deep-dive/" target="_blank">8</a></sup>.  It is common to build a &quot;AgentRAG” to drive the RAG faster and in a more highly tuned fashion <sup><a href="https://www.ibm.com/think/topics/agentic-rag" target="_blank">9</a></sup> <sup><a href="https://www.glean.com/blog/what-is-a-rag-ai-agent" target="_blank">10</a></sup>. </li>
+    <li>The computational effort on various sub-systems of an AI isn't consistent.   Splitting the total problem into smaller sections allows better CPU balancing, separate to multiple agents <sup><a href="https://amberljc.github.io/blog/2025-09-05-agentic-rl-systems.html" target="_blank">11</a></sup>.   </li>
+    <li>To implement agent safety, they should adopt processes to create bias detection, transparency, and accountability <sup><a href="https://www.infosysbpm.com/blogs/generative-ai/agents-in-ai-ethical-considerations-accountability-and-transparency.html" target="_blank">12</a></sup>.  These term are not AI algorithms, and shouldn't need further explanation, however, some readable case-studies <sup><a href="https://tepperspectives.cmu.edu/all-articles/the-ethical-challenges-of-ai-agents/" target="_blank">13</a></sup> <sup><a href="https://www.bcg.com/publications/2025/making-ai-agents-safe-for-world" target="_blank">14</a></sup>.  Wiki reports industry and regulation <sup><a href="https://en.wikipedia.org/wiki/AI_safety" target="_blank">15</a></sup>.</li>
+    <li>One of the common patterns in &quot;ReAct”, or reason action.  Described in <sup><a href="https://deepwiki.com/tmgthb/Autonomous-Agents/3.3-react-based-agent-frameworks" target="_blank">16</a></sup> <sup><a href="https://scribe.rip/google-cloud/building-react-agents-from-scratch-a-hands-on-guide-using-gemini-ffe4621d90ae" target="_blank">17</a></sup> <sup><a href="https://www.ibm.com/think/topics/react-agent" target="_blank">18</a></sup> this offers a way to iteratively apply information to planned activities so derivative outcomes can be achieved.   Humans do this automatically, but there is an algorithmic solution.<ul class="ulbasic">
+        <li>Multi-agents seem to be used to faction contexts into smaller sections (reduces token count) <sup><a href="https://en.wikipedia.org/wiki/Multi-agent_system" target="_blank">19</a></sup> <sup><a href="https://scribe.rip/@iamanraghuvanshi/agentic-ai-7-multi-agent-architectures-explained-how-ai-agents-collaborate-141c23e9117f" target="_blank">20</a></sup>.  This has been used in many systems, example, described in <sup><a href="https://journal.bit.edu.cn/jbit/en/article/id/20050202" target="_blank">21</a></sup> <sup><a href="https://huggingface.co/papers/2511.08319" target="_blank">22</a></sup> <sup><a href="https://uwe-repository.worktribe.com/output/6545522/a-simulated-annealing-algorithm-for-multi-agent-systems-a-job-shop-scheduling-application" target="_blank">23</a></sup>.  There are a number of integration algorithms to merge data.  </li>
+    </ul></li>
+    <li>Agents can be built around DeepSeek services.  Extra, in dec 2025, DeepSeek-V3.2 introduced “Sparse Attention” (see diagrams in <sup><a href="https://ml-digest.com/deepseek-v3-2/" target="_blank">24</a></sup>) can be used to build faster, smaller agents <sup><a href="https://www.financialcontent.com/article/tokenring-2025-12-30-efficiency-over-excess-how-deepseek-r1-shattered-the-ai-scaling-myth" target="_blank">25</a></sup> <sup><a href="https://www.ceibs.edu/new-papers-columns/26350" target="_blank">26</a></sup> <sup><a href="https://scribe.rip/@joycebirkins/finally-understanding-gradient-descent-and-scaling-laws-openai-validated-it-4-years-ago-ce9852662c11i" target="_blank">27</a></sup>.   DeepSeek v3.0 was released in 2024 and isn't relevant to this article.  For some applications, DeepSeek-V3.2-Speciale is more relevant than the more generic version <sup><a href="https://www.shadeform.ai/blog/deepseek-v3-2-guide" target="_blank">28</a></sup>.</li>
+    <li>The v3 ed for DeepSeek encouraged OpenAI to release o1 strawberry <sup><a href="https://www.oneusefulthing.org/p/something-new-on-openais-strawberry" target="_blank">29</a></sup> <sup><a href="https://aiproem.substack.com/p/scaling-laws-breakthroughs-market" target="_blank">30</a></sup> where they vastly improved planning phases, which is described in the ref to allow crossword solving.  </li>
+    <li>A common wish-list feature from marketing people is “more friendly” output than flat text.  There are multi-modal tools for input and outputs <sup><a href="https://en.wikipedia.org/wiki/Multi-agent_system" target="_blank">31</a></sup> <sup><a href="https://www.ibm.com/think/topics/multimodal-ai" target="_blank">32</a></sup>.   There is nothing that requires AI to process text streams, aside that its easier and faster to build.   </li>
+    <li>AI authors use the term “tracing” for Event logging (not a CPU stack trace).   It is easier to manage a robot if it logs its data, analysis, plans, and possibly humans add feedback in response (the management).  </li>
+    <li>There have been software “agents” since there was an internet.  However, these were rules based rather than self directing and learning entities.   As extended reading, I reference the following texts as whole articles <sup><a href="https://arxiv.org/html/2503.12687v1" target="_blank">33</a></sup> <sup><a href="https://www.cs.rhul.ac.uk/home/kostas/pubs/StathisSeismyc10.pdf" target="_blank">34</a></sup> (note academic papers not written by AI marketeers, or their tools).</li>
+    <li></li>
+    <li>[MORE TO COME: I need to add another 500 words]</li>
+    <li></li>
+    <li>According to <sup><a href="https://github.com/chaosync-org/awesome-ai-agent-testing?tab=readme-ov-file#certification-programs" target="_blank">35</a></sup> there are some certifications in AI architecture and building it.   </li>
+    <li>Apple inc has very large cash reserves, and roughly infinite credit capacity.  In 2024 they released a “free service with new devices” service <sup><a href="https://www.apple.com/uk/newsroom/2024/06/introducing-apple-intelligence-for-iphone-ipad-and-mac/" target="_blank">36</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Apple_Intelligence" target="_blank">37</a></sup>.   The wiki link states it is a strong multi-modal p[roduct, but early versions had serious issues on data quality/ hallucinations.  I mention this as they do not chase AI hype, and most of the AI service is on device, clearly ignoring OpenAI Scale “laws” at runtime.</li>
+    <li>Absent content: Supporting common engineering traits for faster delivery and more reliability is appropriate.   To be a legal product, it will need to comply with various customer-data laws, exactly the same as other software or business process (not described).   Whatever tools say, it is advisable to keep prompt histories in a version control system.   When tools claim to be smart or intelligent, they have to follow the basic world-data ingestion, analysis, planning, memory and action loop of a human, as that is <strong>intelligence</strong>.   I do not want a list of products in this article, as those would age much faster than a list of algorithms.   Annoying product-promotion articles list use-cases as a taxonomy ~ I guess it's an easy SEO gain for an advertorial.   </li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Value prop <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Benefits to previous approaches</p>
+
+<ul class="ulbasic">
+    <li>An non-trivial agent has an internal state, planning, world knowledge, and persistent goals <sup><a href="https://www.docker.com/blog/genai-vs-agentic-ai/" target="_blank">38</a></sup> <sup><a href="https://lawrence-emenike.scribe.rip/the-difference-between-genai-ai-agents-and-agentic-ai-5b66fbb462b0" target="_blank">39</a></sup>.   This is probably what non-technical people understood the early releases of ChatGPT to be doing.   This more complex structure is actually doing these traits.   The biggest change is that an agent is active <sup><a href="https://blogs.lse.ac.uk/businessreview/2025/02/11/with-autonomous-problem-solving-agentic-ai-will-upend-what-you-consider-work/" target="_blank">40</a></sup>, maybe holding the initiative.   Versus the plain LLM that just responds to input.   I would infer that persistent state would make is vastly easier to output video or audio interactively ~ ie my avatar consistently has short red hair and a fixed number of fingers; there is no need to describe this each time.  In business terms, it can implement your SOP without human interaction <sup><a href="https://arxiv.org/abs/2503.15520" target="_blank">41</a></sup></li>
+    <li>A definite improvement adding persistent knowledge (but not as part of the VectorDB or LLM dataset), leading to less need to load context in each interaction, so each interaction can be dealt with faster and more efficiently.  DeepSeek uses a KV cache (eg Redis, or an organised MongoDB) for this step. </li>
+</ul>
+
+<p>Failures compared to previous architecture</p>
+
+<ul class="ulbasic">
+    <li>If the agent is let loose, any errors in actions can have large outcomes.  See Knight Capital in 2012-08, for an example of failures <sup><a href="https://www.bbc.co.uk/news/magazine-19214294" target="_blank">42</a></sup> <sup><a href="https://www.hibit.dev/posts/194/how-a-software-error-led-to-an-865-billion-trading-collapse" target="_blank">43</a></sup>. </li>
+    <li>It uses more resources and executes more slowly.   This means it is harder to run as a rentable SaaS with client/server arch.   </li>
+    <li>If a plain LLM “learns” a statement, it will be present for all interactions, which effectively merges all users into the same user session (notice GDPR etc).</li>
+</ul>
+
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Test process <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>There is an expanding market segment for “testing via AI agents”.   Whilst this makes sense if AI made your code, I think this is a currently high-risk method if the exclusive process.  <br />
+There are many articles online talking about test tools, this section doesn't add much value to you ~ reader.   I have written this <i>so I have a view</i> on the options.</p>
+
+<p><i>Areas that need testing in Agents</i>, in addition to normal software service process</p>
+
+<ul class="ulbasic">
+    <li>LLM Hallucinations ~ less common than early LLM, but still a recurrent issue <sup><a href="https://www.morphik.ai/blog/eliminate-hallucinations-guide" target="_blank">1</a></sup> <sup><a href="https://www.techtarget.com/searchenterpriseai/tip/Why-does-AI-hallucinate-and-can-we-prevent-it" target="_blank">2</a></sup> <sup><a href="https://dac.digital/ai-hallucination-risks-how-to-spot-and-prevent/" target="_blank">3</a></sup> (links detail management strategies).   Can be reliably engineered away at higher dev cost by regulating sources for LLM training-data, which may or may not happen.   Better world knowledge can suppress or reduce effects (via RAG or world knowledge).   The best solution is very hard and is logical inferencing on the active dataset.  This is first item for agents as it can be very dangerous.  </li>
+    <li>Failing to apply feedback data to world knowledge ~ a larger issue for Agents than for more inert systems due to scope and impact.  This leads to AI systems creating useless outputs (example: Amazon trying to sell myself a toilet seat the week after I bought one via them ~ toilet seats not routine purchases unless you are a builder).  This needs to be caught as QA if not earlier, and is essential for a useful product.  </li>
+    <li>Hill climbing failure / Goal progression failures.  The agent is actioning its plans, but they do not lead to any success state.   In non-AI systems this would be caused by “real world data”.   This has to be caught in QA, as the problem is non-existent earlier.   </li>
+    <li>Failure to passify prompt injection attacks leading to security problems.  For interactive agents, this is a major concern, I previously read an article <sup><a href="https://www.pentestpartners.com/security-blog/exploiting-copilot-ai-for-sharepoint/" target="_blank">4</a></sup> <sup><a href="https://cybersecuritynews.com/hackers-exploit-copilot-ai-for-sharepoint/" target="_blank">5</a></sup> where an infosec engineer escalated Copilot to supply other employees “confidential” and “encrypted” files, which would allow them to do insider trading safely or similar.  </li>
+    <li>As AI do a large volume of computation, keeping users informed on activities and current progress is stronger UX.  This is UX or interaction review, in a more QA fashion ~ QA should operate with live-data as it needs real computation delays.  The general HCI guidelines <sup><a href="https://www.nngroup.com/articles/response-times-3-important-limits/" target="_blank">6</a></sup> state 'show feedback if an activity takes longer than a second', and clearly offer details for delays of over 3s (ideally before the slow item is started).  The 1993 link states less than 10s delay on tasks, but I reduce the limit as all computers are faster since then.  </li>
+    <li>Prompt sensitivity <sup><a href="https://scribe.rip/@jainam_rajput/agents-biggest-enemy-in-production-prompt-sensitivity-1ac59de92902" target="_blank">7</a></sup> ~ this is an example of Chaos maths.   A good article on prompt engineering, including sensitivity, is <sup><a href="https://datagrid.com/blog/11-tips-ai-agent-prompt-engineering" target="_blank">8</a></sup>.  </li>
+    <li>Context limitations ~ as an Agent is doing more steps, it is more likely to exhaust “context capacity” than other uses of LLM.  An exploration of options <sup><a href="https://www.elastic.co/search-labs/blog/context-engineering-relevance-ai-agents-elasticsearch" target="_blank">9</a></sup> from Elastic Inc.   If context is used inefficiently, this reduces output quality of the rest of the system, including performance.   Some tools store the entire user session in the context, and this can saturate it.  Galileo <sup><a href="https://galileo.ai/blog/prevent-ai-agent-failure" target="_blank">10</a></sup> recommend forwarding high complexity queries to real humans, to ensure the client gets value, and taking training data to improve the system.   An advertorial <sup><a href="https://mkinf.substack.com/p/limitations-and-challenges-of-ai-agents" target="_blank">11</a></sup>.  </li>
+    <li>For chatbots (the most common LLM deployed), the following angles should be tested for legal compliance: Intent Recognition, Response Quality, Conversation Flow, Escalation Handling, quoting <sup><a href="https://github.com/chaosync-org/awesome-ai-agent-testing?tab=readme-ov-file#customer-service" target="_blank">12</a></sup></li>
+    <li>In 2020, OpenAI published a paper <sup><a href="https://arxiv.org/abs/2001.08361" target="_blank">13</a></sup> summarised as <sup><a href="https://scribe.rip/@lukelimdy/openais-research-paper-scaling-laws-for-neural-language-models-key-takeaways-d177438553d8" target="_blank">14</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Neural_scaling_law" target="_blank">15</a></sup> where they describe their current implementation constraints ~ they call this “scaling laws”, but they didn't disclose all the information.   I think this is a valuable normalisation of OpenAI's work down to three variables.   However when a different implementation (e.g. DeepSeek, DeepMind etc) doesn't seem to follow the same curves <sup><a href="https://scribe.rip/sage-ai/demystify-transformers-a-comprehensive-guide-to-scaling-laws-attention-mechanism-fine-tuning-fffb62fc2552" target="_blank">16</a></sup> <sup><a href="https://arxiv.org/pdf/2512.02556" target="_blank">17</a></sup>, that is not a law or <strong>global invariant</strong>, it's a implementation detail to know about for OpenAI.   I discovered the initial paper writing this article, and it seems overblown by 2025.   Other tangential work from Google <sup><a href="https://techcrunch.com/2025/03/19/researchers-say-theyve-discovered-a-new-method-of-scaling-up-ai-but-theres-reason-to-be-skeptical/" target="_blank">18</a></sup> where they use search tech to make inferences with LLM output.   </li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Existing work and frameworks <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>As ever, its important to define goals before starting the work.  Testing will be smoother and more repeatable if it is well defined (eg an invoice generator and manager shouldn't create long chatty emails, and absolutely must get factual data correct).   Obviously, maximising work done via traditional (and deterministic) processes leads to faster delivery rates.    Also obviously, as far as possible running each test on an isolated components makes it cheaper, faster and easier to test.</li>
+    <li>The LLM test process is often called “evals” aka evaluations.   These are handled like module unit-tests, and have the same population handling behaviour.   A business article <sup><a href="https://www.linkedin.com/pulse/mastering-llm-evals-hidden-superpower-behind-great-ai-aggarwal-3wgsc" target="_blank">19</a></sup> encourages evals to allow portability between LLM vendors, so the vendor doesn't control your business.    </li>
+    <li>Some notes on the mechanical practices of testing Agents and LLM <sup><a href="https://www.merge.dev/blog/testing-ai-agents" target="_blank">20</a></sup>.</li>
+</ul>
+
+<p>Some OSS tools</p>
+
+<ul class="ulbasic">
+    <li><strong>FM eval</strong> a python library maintained by Amazon inc to dedicated perform LLM evals <a href="https://pypi.org/project/fmeval/" target="_blank">pypi</a> <a href="https://deepwiki.com/aws/fmeval" target="_blank">docs</a> lang: Python3 + Rust, licence is Apache2.  This is described in <sup><a href="https://arxiv.org/abs/2407.12872" target="_blank">21</a></sup>. </li>
+    <li><strong>Opik</strong> created by Comet.  Offers Excel like features, targeting evaluation <a href="https://www.comet.com/site/products/opik/" target="_blank">docs</a> <a href="https://github.com/comet-ml/opik" target="_blank">git</a>, lang Py3, Apache2 licence.</li>
+    <li><strong>BabyAGI</strong> a task scheduler/ runner started by a hobbyist, official <a href="https://babyagi.org/" target="_blank">docs</a>, <a href="https://docs.kanaries.net/articles/babyagi-chatgpt" target="_blank">docs</a>, installable via pip3, <a href="https://github.com/yoheinakajima/babyagi" target="_blank">git</a>, old version <a href="https://github.com/yoheinakajima/babyagi_archive" target="_blank">git</a>, dominant lang= python, licence MIT.<ul class="ulbasic">
+        <li>This is not a test tool, but it is a adaptive problem solver, with codeGen ability.</li>
+    </ul></li>
+    <li>LangChain is a framework, but can be used to test AI agents <sup><a href="https://docs.langchain.com/oss/python/langchain/test" target="_blank">22</a></sup> <sup><a href="https://lincolnloop.com/blog/avoiding-mocks-testing-llm-applications-with-langchain-in-django/" target="_blank">23</a></sup> <a href="https://pypi.org/project/langchain-tests" target="_blank">pypi</a> for tests.   Lang mostly Python, MIT licence.  </li>
+    <li><strong>Langfuse</strong> <a href="https://langfuse.com/docs" target="_blank">docs</a> <a href="https://github.com/langfuse/langfuse" target="_blank">git</a>, <a href="https://pypi.org/project/langfuse/" target="_blank">pypi</a>, lang= Python3, licence MIT </li>
+    <li><strong>Deepeval</strong> <a href="https://github.com/confident-ai/deepeval" target="_blank">git</a> <a href="https://deepeval.com/docs/getting-started" target="_blank">docs</a> <a href="https://pypi.org/project/deepeval/" target="_blank">pypi</a> licence=Apache2, lang=Python     </li>
+</ul>
+
+<p>As further reading links, these are less focused on OSS options <sup><a href="https://ttms.com/10-best-ai-tools-for-testers/" target="_blank">24</a></sup> <sup><a href="https://www.getmaxim.ai/articles/top-5-platforms-to-test-ai-agents-2025-a-comprehensive-guide/" target="_blank">25</a></sup> <sup><a href="https://docs.cloud.google.com/agent-builder/agent-engine/overview" target="_blank">26</a></sup> <sup><a href="https://agpt.co/" target="_blank">27</a></sup>   <br />
+Shout-out for useful git repos for notes <sup><a href="https://github.com/chaosync-org/awesome-ai-agent-testing" target="_blank">28</a></sup> <sup><a href="https://github.com/kennethleungty" target="_blank">29</a></sup>.</p>
+
+
+</div>
+
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>AI Agents Architecture</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-agent-architecture" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-agent-architecture" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-agent-architecture" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-agent-architecture&amp;t=Agents+arch"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-agent-architecture" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-01-03T21:33:26" datetime="2026-01-03T21:33:26">Jan '26</time>
+						</span>
+						<span>Created <time datetime="2025-10-23T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Oct '25</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-agent-architecture" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Architecture</a></li>
+<li><a href="#toc1">Value prop</a></li>
+<li><a href="#toc2">Test process</a></li>
+<li><a href="#toc3">Existing work and frameworks</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-01-04T12:25:45" datetime="2026-01-04T12:25:45">4th of Jan 2026, 12:25:45</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-01-03T21:33:26" datetime="2026-01-03T21:33:26">Jan '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
