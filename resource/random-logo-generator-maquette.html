@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Random logos</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A code-demo / maquette to be able to add temporary random drawn clipart to a link short cut list.  This is smaller /faster than photos from a CDN, but may not suit all products." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Random logos" />
+<meta itemprop="description" content="A code-demo / maquette to be able to add temporary random drawn clipart to a link short cut list.  This is smaller /faster than photos from a CDN, but may not suit all products." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Random logos" />
+<meta name="twitter:description" content="A code-demo / maquette to be able to add temporary random drawn clipart to a link short cut list.  This is smaller /faster than photos from a CDN, but may not suit all products." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Random logos" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/random-logo-generator-maquette" />
+<meta property="og:description" content="A code-demo / maquette to be able to add temporary random drawn clipart to a link short cut list.  This is smaller /faster than photos from a CDN, but may not suit all products." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="13th of Jan 2026, 17:35:12" />
+<meta property="article:modified_time" content="Jan '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/random-logo-generator-maquette" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Random logos",
+	"article:published_time":"13th of Jan 2026, 17:35:12", 
+    "article:modified_time":"Jan '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker popOverWidget">
+<div class="halferWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This is a method to get clipart into a big data grid, at no admin effort.   As this doesn't include photos, there is no copyright or licensing issues.  <br />
+These avatar images are random and created on page load, differently each time (reload to see).  This is just a maquette, not production code.</p>
+
+
+</div>
+<br />
+<div class="maquetteContainer">
+<div class="maquette">
+
+<div class="row">
+<div class="cell">
+Cell A
+</div>
+<div class="cell">
+Cell B
+</div>
+<div class="cell">
+Cell C
+</div>
+<div class="cell">
+Cell D
+</div>
+</div>
+
+<div class="row">
+<div class="cell">
+Cell E
+</div>
+<div class="cell">
+Cell F
+</div>
+<div class="cell">
+Cell H
+</div>
+<div class="cell">
+Cell I
+</div>
+</div>
+
+<div class="row">
+<div class="cell">
+Cell J
+</div>
+<div class="cell">
+Cell K
+</div>
+<div class="cell">
+Cell L
+</div>
+<div class="cell">
+Cell M
+</div>
+</div>
+
+<div class="row">
+<div class="cell">
+Cell N
+</div>
+<div class="cell">
+Cell O 
+</div>
+<div class="cell">
+Cell P
+</div>
+<div class="cell">
+Cell Q
+</div>
+</div>
+
+</div>
+
+<details class="screenDocs withScroll docs">
+<summary><h2>Technical notes</h2> </summary>
+
+<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Context  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>If you have something like a cell grid, and want some random clipart to act as a background for the cells,  OR a default image for user avatars, you could:</p>
+
+<ul class="ulbasic">
+    <li>At most effort, use actual, real, unique, and personal photos.</li>
+    <li>Use Google image search [or similar] to generate an image for the title /subject of the cell.</li>
+    <li>Use an LLM create an image from your cell title/ subject.</li>
+    <li>A random choice from a list of 5-6 images (which exist on the web-server).</li>
+    <li>Statically render an image using server-side code to match the call title/ subject.</li>
+    <li>Use your company logo in every cell (if relevant).</li>
+    <li>Hard-code the HTML to a choice from a fixed list of items (the most boring choice)</li>
+    <li>As Github or Stackoverflow do, create a random avatar image.  Using a tidied up version of this maquette.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Existing work <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>None of these solve the same problem, as my demo.  They make much larger images, and at grid scale would be slower.  None of these are in NPM, and I assume would object if you started load them for every page load.</p>
+
+<ul class="ulbasic">
+    <li>Several random image SaaS <sup><a href="https://picsum.photos/" target="_blank">1</a></sup> <sup><a href="https://randompicturegenerator.com/" target="_blank">2</a></sup>, could be used as a external image source.  I think these use a dictionary.</li>
+    <li>Interactive image generator <sup><a href="https://doodleipsum.com/" target="_blank">3</a></sup>, could be used as image source maybe</li>
+    <li>Interactively define a simpler diagram <sup><a href="https://www.oliverboorman.biz/projects/tools/fractions.php" target="_blank">4</a></sup></li>
+    <li>Several AI image content-makers <sup><a href="https://creator.nightcafe.studio/tools/random-image-generator" target="_blank">5</a></sup> <sup><a href="https://www.vheer.com/random-image-generator" target="_blank">6</a></sup> <sup><a href="https://www.canva.com/random-image-generator/" target="_blank">7</a></sup> (so no copywright).   These are often used to add an image header to your blog CONTENT, they make CONTENT, not art.  </li>
+</ul>
+
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Limits to demo <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>At start I do not plan on using the ShadowDOM, but can do if building with less abstraction executes too slow.</li>
+    <li>My plan is to add an SVG image, per cell.  This may have issues if there are 10,000+ cells etc.</li>
+    <li>Management of the cell grid layout is left outside of this maquette ~ there should already be a solution.</li>
+    <li>As I am using SVG, this maquette is resizable and doesn't add constraints to the cell size.</li>
+    <li>Your current branding colours are left outside of this maquette, but due to SVG can be applied easily.</li>
+    <li>This maquette is unlikely to impose constraints on selection of browser or its version, I'm not using bleeding edge API.  (although MSIE is always deprecated, its 2026).</li>
+    <li>I haven't added CSS for mobile, yet.  As this using SVG it can easily by reflowed.</li>
+</ul>
+
+
+<h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > UX improvements on build1 <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>Make a half square, then add a mirror image to fill the shape.<ul class="ulbasic">
+        <li>or better a quarter and rotate it. </li>
+    </ul></li>
+    <li>Bigger grids.</li>
+    <li>Better colour than &quot;#3333cc66”, maybe random-walk colour?.</li>
+</ul>
+
+
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Generator for random logos</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frandom-logo-generator-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frandom-logo-generator-maquette" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frandom-logo-generator-maquette" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frandom-logo-generator-maquette&amp;t=Random+logos"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frandom-logo-generator-maquette" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-01-13T17:34:53" datetime="2026-01-13T17:34:53">Jan '26</time>
+						</span>
+						<span>Created <time datetime="2026-01-04T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jan '26</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Frandom-logo-generator-maquette" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details  class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">Context</a></li>
+<li><a href="#toc2">Existing work</a></li>
+<li><a href="#toc3">Limits to demo</a></li>
+<li><a href="#toc4">UX improvements on build1</a></li>
+<li><a href="#toc5">Technical notes</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-01-13T17:35:12" datetime="2026-01-13T17:35:12">13th of Jan 2026, 17:35:12</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-01-13T17:34:53" datetime="2026-01-13T17:34:53">Jan '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+<script type="module" >
+// This needs to be in JS as its a static maquette, with no compile step.
+// Demo CSS lacks normal features and management process.
+import { appendIsland, assignCSSBlob, ready, } from '/asset/ob1-202406.min.mjs';
+
+// How many dots in an image, not real pixel.   NOTE: Name ends 'one D', not 'eye D'
+// I can't add double quotes to a variable name
+const PIXEL_COUNT_1D=8; // :number
+
+// amount of real estate the generated image may use, this is a square image.
+const IMAGE_SIZE_PX=150; // :number
+
+const COLOUR="#3333cc66";
+
+/**
+ * applyAvatars
+ * Access point to add the logos/ avatar to the HTML selection 
+ * 
+ * @public
+ * @param {string} sel - this should return a list of appropriate elements
+ * @param {Enum | number} style - in a large system this would be an Enum, but in a standalone demo, it's an int
+ * @param {Document} dom - no global vars, I ought to do Math param too, but I do not need to inject that for testing 
+ * @returns {void}
+ */
+export function applyAvatars(sel, style, dom) {
+	let LIST;
+	try {
+		LIST=Array.from(dom.querySelectorAll(sel));
+	} catch(e) {
+		console.warn("Selection '"+sel+"' for attributes failed.");
+		return;
+	}
+	if( !Array.isArray(LIST)|| LIST.length===0) {
+		console.warn("Selection '"+sel+"' for attributes failed.");
+		return;
+	}
+
+	let d1=new Date();
+	let ret=-1;
+	// IOIO ignore style flag for now (will split here)
+	for(let i=0; i<LIST.length; i++) {
+		const GRID= nextRandBlock( PIXEL_COUNT_1D); 
+		ret= addImage_1( LIST[i], GRID, dom); 
+		if(ret) {	
+			console.warn("Selection '"+sel+"' for attributes failed.");
+			return;
+		}
+	}
+	addCSSHeader_1(dom);
+	let d2=new Date();
+	console.log("Rendering logos took "+ (d2-d1)+"ms." );
+}
+
+/**
+ * nextRandBlock
+ * Create a grid of values to use as pixel values, currently a boolean for a boolean stencil
+ *  PURE
+ *
+ * @param {number =8} size
+ * @param {number =1} low  - UNUSED in this build
+ * @param {number =126} high
+ * @private
+ * @returns {Array<Array<boolean>>}
+ */
+function nextRandBlock(size=8, low=1, high=126) {
+	let ret=new Uint8Array(size *size); 
+	ret=crypto.getRandomValues(ret);
+	for( let i=0; i<ret.length; i++) {
+		if(ret[i] > high) { ret[i]=1; }
+		else { ret[i]=0; }
+	}
+	return ret;
+}
+
+/**
+ * addImage_1 ~ version with large pixels, similar to Github.
+   plan 1) 	Fake github logos.  Generate a random 8b number, convert it to a 4x4 grid of boolean values, add super-size pixels for each true.
+ * 
+ * IMPURE
+ * @private
+ * @param {HTMLElement} ele -
+ * @param {Array<Array<boolean>>} dat
+ * @param {Document} dom
+ * @returns {void}
+ */
+function addImage_1(ele, dat, dom) {
+	let svg=`<svg class="autoBGimage"
+  viewBox="0 0 ${IMAGE_SIZE_PX} ${IMAGE_SIZE_PX}"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <g>`;
+	for(let i=0; i<PIXEL_COUNT_1D; i++ ) {
+		for(let j=0; j<PIXEL_COUNT_1D; j++) {
+			if(dat[i*PIXEL_COUNT_1D+j]) {
+				svg+=addPixel_1(i, j, IMAGE_SIZE_PX);
+			}
+		}
+	}
+	svg+="</g></svg>";
+
+	appendIsland(ele, svg, dom);
+// cells on other platform work, as the image actually exists on the webserver
+// here I can inject a wrapper block element and an image into that
+// I can't really use a CSS background as the file doesn't exist,,,
+// I could try an IMG With src-data URLs
+}
+
+// plan 2)     Random squiggles with generated numbers for splines.   
+function addImage_2(ele, dat, dom) {}
+
+/**
+ * addPixel_1
+ * A util to create a "pixel" for the image (i.e. a large dot)
+ 
+ * @param {number} x - 0..PIXEL_COUNT_1D
+ * @param {number} y - 0..PIXEL_COUNT_1D
+ * @param {number =150} sz - width pixels
+ * @private
+ * @returns {string}
+ */
+function addPixel_1(x, y, sz=150) {
+	let  xx=Math.round((x/ PIXEL_COUNT_1D) * sz),
+		 yy=Math.round((y/ PIXEL_COUNT_1D) * sz),
+		side=Math.round(sz/PIXEL_COUNT_1D);
+
+	let p=`<path class="pixel" 
+ style="transform: translate(${xx}px, ${yy}px);" 
+ d="M 0,0 L ${side},0 L ${side},${side} L 0,${side} Z"  
+ />`;
+	// using PATH so can bevel things later if wish to
+	return p;
+}
+
+/**
+ * addCSSHeader_1 
+ * Util for isolation to create a CSS blob, with rules needed for this demo.
+ 
+ * @param {Document} dom
+ * @private
+ * @returns {void}
+ */
+function addCSSHeader_1( dom) {
+	let CSS=`
+.pixel       { fill:${ COLOUR}; stroke:${ COLOUR}; stroke-width:2; }
+.autoBGimage { z-index:-1; background:transparent; width:100%; height:100%; position:initial; }
+	`;
+	assignCSSBlob(CSS, "css4images", dom );  
+}
+
+// make style pulled from GET param
+ready(function() { applyAvatars(".maquetteContainer .cell", 1, document ); }, document );
+
+</script>
+<style>
+.cell { min-width: 10em; min-height: 10em; background-image:initial; }
+.cell .autoBGimage { width:150px; height:150px; display:block; }
+.maquetteContainer summary h2 { display:inline-block; }
+.maquetteContainer .maquette { margin-left:2em; max-width:60em; width:60%; }
+
+</style>
+</body>
+</html>
