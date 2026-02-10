@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Keyboard accessible menu</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A demo of better keyboard input.  I wanted a means to tab to component/ blocks, rather than each element." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Keyboard accessible menu" />
+<meta itemprop="description" content="A demo of better keyboard input.  I wanted a means to tab to component/ blocks, rather than each element." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Keyboard accessible menu" />
+<meta name="twitter:description" content="A demo of better keyboard input.  I wanted a means to tab to component/ blocks, rather than each element." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Keyboard accessible menu" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/keyboard-menu-maquette" />
+<meta property="og:description" content="A demo of better keyboard input.  I wanted a means to tab to component/ blocks, rather than each element." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="10th of Feb 2026, 13:57:04" />
+<meta property="article:modified_time" content="Feb '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/keyboard-menu-maquette" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Keyboard accessible menu",
+	"article:published_time":"10th of Feb 2026, 13:57:04", 
+    "article:modified_time":"Feb '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+<p>This is a part of a range of “visual samples / maquettes”. Since I started doing more front-end work, I have been making these to speed up browser testing. #boring My thought, I should add a snoring backtrack to these pages.</p>
+
+<p>This is an engineering demo, not a UI demo.  Ideally the visible UI will look the same as normal. <br />
+I am unhappy with my current UI interactions for keyboard access, so I am making this as an iteration.   I don't think 'keyboard access' is a meaningful sentence on mobile view.    <br />
+<strong>⚠ WARN ⚠:</strong> On this maquette, beware of standard page features which are not using the new code.</p>
+
+
+</div>
+<div class="maquetteContainer">
+<div class="maquette">
+
+<p><strong>target 1.1 </strong>: a burger menu structure.  Note, no fold-up markup added
+<nav aria-label="maquette widget 1 (menu)">
+  <menu role="menu" id="blob1" class="dfl addKeyboard">
+    <li role="none" aria-hidden="true">Additional features </li>
+    <li role="none"><a role="menuitem" href="/" tabindex="0"> &lt; Home</a></li>
+    <li role="none"><a role="menuitem" href="/resource/search" tabindex="-1">Search 🔎</a></li>
+    <li role="none"><a role="menuitem" href="/resource/appearance" tabindex="-1">Appearance</a></li>
+    <li role="none"><a role="menuitem" href="/resource/contact-me" tabindex="-1">Contact me 📞</a></li>
+    <li role="none"><a role="menuitem" href="#contentGroup" tabindex="-1"> 📜 Similar articles</a></li>
+  </menu>
+</nav>
+
+<p><strong> target 1.2 </strong>: a burger menu structure.  Note, foldup, and breakable focus capture
+<nav aria-label="maquette widget 2 (collapsible menu)">
+  <details class="linksWidget addKeyboard" aria-haspopup="menu" id="blob2" >
+  <summary class="defaultLinksTrigger fa-">A foldable menu </summary>
+  <menu role="menu" class="dfl">
+    <li role="none" aria-hidden="true" >Additional features </li>
+    <li role="none"><a role="menuitem" href="/" tabindex="0"> &lt; Home</a></li>
+    <li role="none"><a role="menuitem" href="/resource/search" tabindex="-1">Search 🔎</a></li>
+    <li role="none"><a role="menuitem" href="/resource/appearance" tabindex="-1">Appearance</a></li>
+    <li role="none"><a role="menuitem" href="/resource/contact-me" tabindex="-1">Contact me 📞</a></li>
+    <li role="none"><a role="menuitem" href="#contentGroup" tabindex="-1"> 📜 Similar articles</a></li>
+  </menu>
+  </details>
+</nav>
+
+<p><strong> target 1.1 </strong>: Just another tab target
+<nav aria-label="maquette widget 3 (stubb)">
+  <details class="linksWidget addKeyboard" aria-haspopup="menu" id="blob3" >
+  <summary class="defaultLinksTrigger fa-">A foldable menu </summary>
+  <p>Pikka boo! <a role="menuitem" href="#contentGroup">Focus point</a> sorry for abuse of ARIA attrib on this link
+  </details>
+</nav>
+
+
+<br /><br />
+</div>
+<details class="singlePopup withScroll addReferences docs">
+<summary>
+<h4 id="toc0">Technical Notes</h4>
+</summary>
+<p>Inventing your own interaction is rarely a good idea as even if you are genius, your users do not excitedly learn your UI/ tools.<br />
+BUT<br />
+I really need less long lists with keyboard access.  This Component / block idea means the UI is much faster to use.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Desired behaviours <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>I have implemented the recommended spec on w3c, I don't thing this helps mobile/ haptic users (tab key? arrow keys?).</li>
+    <li>DEFAULT for mobile can use touch to open menu, but cycle selection modalities don't make sense</li>
+    <li>can cycle components / blocks by tab key</li>
+    <li>can cycle links or other single values by UP / DOWN arrow keys</li>
+    <li>can trigger the links with SPACE or ENTER (or touch on mobile)</li>
+    <li>ESCAPE should close a menu (added item, as it common in other contexts)</li>
+    <li>no item is focussed by default on page load</li>
+    <li>shift-tab works as win32</li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Functional spec <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>Work out if faster to auto-append “addKeyboard” CSS class to components, or leave it as hand mapping, so less scripting needs to be created.   </li>
+    <li>Create interstitial with a guide text, launch it ONCE when tab or arrow keys are used outside of text entry elements<ul class="ulbasic">
+        <li>It MUST have a visible close to remove it</li>
+        <li>Think about cookie for the above interstitial, so its only shown once per month by default</li>
+    </ul></li>
+    <li>Build process to apply to each component  and as real/ tidy code</li>
+    <li>Make above interactions nice </li>
+    <li>Iterate UI feedback enough, think about colour abit more</li>
+    <li>Something to view help/ alt texts via keyboard access</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Local site components to affect <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>SM share-bar, mobile and bigscreen</li>
+    <li>article menu</li>
+    <li>article segments menu</li>
+    <li>links in footer component</li>
+    <li>links in adjacent content component</li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Context reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>If you have no previous reading on keyboard access in webpages, this is a detailed list presented like a powerpoint <sup><a href="https://www.accessibud.com/blog/keyboard-accessibility/" target="_blank">1</a></sup>.   <br />
+More validation tools specifically for ARIA attributes <sup><a href="https://achecks.org/achecker" target="_blank">2</a></sup> <sup><a href="https://www.powermapper.com/tests/screen-readers/attributes/" target="_blank">3</a></sup>.   A list of links that w3c recommends <sup><a href="https://www.w3.org/WAI/test-evaluate/tools/list/" target="_blank">4</a></sup><br />
+MAYBE ADD MORE READING?</p>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Interstitial text (maybe update). <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This INTERSTITIAL can be closed by the X on the right.  It will only appear rarely (and if cookies are wiped)<br />
+You seem to be using keyboard access as an input modality.</p>
+
+<ul class="ulbasic">
+    <li>Using the keyboard on text input elements, works in normal fashion.</li>
+    <li>Using the TAB key will select a component, and adds a border to it.  </li>
+    <li>The UP / DOWN arrows will cycle selectable items in that component.</li>
+    <li>SPACE or ENTER will trigger the selected item</li>
+    <li>This sites uses many DETAILS/ SUMMARY HTML elements, these should open/ close in a helpful fashion</li>
+    <li>The technical HTML structures should be hidden from you in the component choices, as that is not <i>your</i> problem.</li>
+    <li>Message me if you think of improvements...</li>
+</ul>
+
+
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering,uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Better menu structures: keyboard access</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fkeyboard-menu-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fkeyboard-menu-maquette" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fkeyboard-menu-maquette" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fkeyboard-menu-maquette&amp;t=Keyboard+accessible+menu"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fkeyboard-menu-maquette" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
+						</span>
+						<span>Created <time datetime="2026-02-02T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '26</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fkeyboard-menu-maquette" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details  class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Desired behaviours</a></li>
+<li><a href="#toc1">Functional spec</a></li>
+<li><a href="#toc2">Local site components to affect</a></li>
+<li><a href="#toc3">Context reading</a></li>
+<li><a href="#toc4">Interstitial text (maybe update).</a></li>
+<li><a href="#toc5">Technical Notes</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-02-10T13:57:04" datetime="2026-02-10T13:57:04">10th of Feb 2026, 13:57:04</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+<script type="module">
+import { ready, log } from '/asset/ob1-202406.min.mjs';
+const MARKER="addKeyboard";
+
+function _trigger(rootId, leafId, direct, dom) {
+	var menu=dom.querySelector(rootId);
+	var items = Array.from(dom.querySelectorAll( rootId+" "+ leafId ));
+	log("debug", "Binding keyboard "+direct+" events for "+rootId);
+	function focusItem(idx, items) {
+		for(let i=0; i<items.length; i++) {
+			items[i].tabIndex=-1;
+		}
+
+		items[idx].tabIndex = 0;
+		items[idx].focus();
+	}
+
+	menu[direct]("keydown", (evt) => {
+		var menu=dom.querySelector(rootId);
+		var items = Array.from(dom.querySelectorAll( rootId+" "+ leafId ));
+	    var idx = items.indexOf(dom.activeElement);
+		
+		evt.preventDefault();
+	    if (idx === -1) { 
+			log("notice", "XXX received key event for unknown element XXX" );
+			return;
+		}
+
+		switch (evt.key) {
+		case "ArrowDown":
+			focusItem((idx + 1) % items.length, items );
+			break;
+		case "ArrowUp":
+			focusItem((idx - 1 + items.length) % items.length, items);
+			break;
+		case "Home":
+			focusItem(0, items);
+			break;
+		case "End":
+			focusItem(items.length - 1, items);
+			break;
+		case "Enter":
+		case " ":
+			items[idx].click();
+			break;
+		case "Tab":
+			var BLOBS=Array.from(dom.querySelectorAll('.'+MARKER ));
+			if( BLOBS.indexOf( menu) <0) {
+				log("warn", "[tab] can't find self lump, so can't tab to next lump correctly FAIL!");
+				return;
+			}
+			if(menu instanceof HTMLDetailsElement) {
+				menu.open=false;
+			}
+			_trigger( rootId, leafId, 'removeEventListener', dom);		
+		
+			let i = ((BLOBS.indexOf(menu)+1)%BLOBS.length);
+			if(BLOBS[i] instanceof HTMLDetailsElement) {
+				BLOBS[i].open=true;
+				BLOBS[i].focus();
+				_trigger( "#"+BLOBS[i].id, leafId, 'addEventListener', dom);
+			} else {
+				BLOBS[i].focus();
+				_trigger( "#"+BLOBS[i].id, leafId, 'addEventListener', dom);
+			}
+			break;
+		case "Escape":
+			_close(menu, rootId, leafId, dom ); 
+			break;
+		default:
+			log("debug", "Unhandled event happened "+evt.key+" AKA code="+evt.keyCode);
+		}
+
+	});
+		if(dom.activeElement===menu) {
+			log("debug", "[menu] moved focus to actionable link");
+			focusItem(0, items);
+		}
+		if(dom.activeElement.tagName === "SUMMARY" ) {
+			log("debug", "[summary] moved focus to actionable link");		
+			focusItem(0, items);
+		}
+
+		if( menu instanceof HTMLDetailsElement ) {
+			log("debug", "Activating "+menu.id+" block.  Moved focus to input element");
+			focusItem(0, items);
+		}
+
+}
+
+// maybe refactor menu out...
+function _close(menu, rootId, leafId, dom ) {
+	_trigger(rootId, leafId, 'removeEventListener', dom);
+	if(menu instanceof HTMLDetailsElement) {
+		menu.open=false;
+		log("debug", "Escape event, closed the menu");
+	} else {     // Maybe add further HTML elements
+				// add awareness of MENU blocks
+		log("notice", "[ESC] Unknown block, can't close it");
+	}
+}
+
+function extractParent(ele, cls, dom) {
+	if(ele.classList.contains(cls)) { return ele; }
+
+	while(!ele.classList.contains(cls) && ele !== dom.body) {
+		ele=ele.parentNode;
+	}
+	return ele;
+}
+
+// only use on DETAILS
+function _toggle(rootId, leafId, dom) {
+	const menu=dom.querySelector(rootId);
+	
+	menu.addEventListener("toggle", function() {
+	 if(menu.open) {
+	 	_trigger(rootId, leafId, 'addEventListener', dom);
+	 } else {
+	 	_trigger(rootId, leafId, 'removeEventListener', dom);
+	 }
+	});
+}
+
+// this function is coded for this page, and is non-generic
+// can build mapper in presence of .addKeyboard as alternative
+ready(()=> { 
+	_trigger("#blob1", '[role="menuitem"]', 'addEventListener', document);
+	_toggle("#blob2", '[role="menuitem"]', document);
+	_toggle("#blob3", '[role="menuitem"]', document);
+}, document);
+
+</script>
+<style>
+.maquette .linksWidget[open] { right:auto; position:inherit; }
+.maquette nav:focus-within { border:dashed 10px rgb(204, 255, 153); --fgcontrast: 1.2; --bgcontrast: 1; }
+.maquette nav:focus-within [role="menuitem"] { background:var(--attentionbg);  }
+
+</style>
+</body>
+</html>

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-synthetic-data" />
 <meta property="og:description" content="Conceptual analysis and discussion on how to make data, of data generation for testing via synthetic data, I also list a range of algorithmic options for generating data." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="4th of Jan 2026, 12:25:45" />
-<meta property="article:modified_time" content="Jan '26" />
+<meta property="article:published_time" content="10th of Feb 2026, 13:56:59" />
+<meta property="article:modified_time" content="Feb '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-synthetic-data" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Synthetic",
-	"article:published_time":"4th of Jan 2026, 12:25:45", 
-    "article:modified_time":"Jan '26",
+	"article:published_time":"10th of Feb 2026, 13:56:59", 
+    "article:modified_time":"Feb '26",
     "article:section":"technology",
 
     "author": {
@@ -100,7 +100,8 @@ History of algorithmic options for generating data: <br />
 <div class="lotsOfWords">
 
 <h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Value prop <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>The value of testing LLM: it's cheaper to run all the tests with synthetic data. To create all the test data that your new product will need. Without this, it will need to be made by hand, or you cannot show legal compliance. The list of historal algorithmic data was aimed to make the test article shorter. The next paragraph lists the tools I found. It is not a comprehensive list, I will improve it.</p>
+<p>The value of testing LLM: it's cheaper to run all the tests with synthetic data.  To create all the test data that your new product will need. Without this, it will need to be made by hand, or you cannot show legal compliance.   The list of historal algorithmic data was aimed to make the test article shorter.   The next paragraph lists the tools I found. It is not a comprehensive list, I will improve it.   <br />
+Please consider safety perspectives <sup><a href="https://tante.cc/2025/09/15/the-data-narrative-eats-itself/" target="_blank">1</a></sup></p>
 
 <p>IOIO TODO: Add a section on AI text detectors /  AI text classifiers.</p>
 
@@ -111,12 +112,12 @@ History of algorithmic options for generating data: <br />
 <ul class="ulbasic">
     <li>Building a solution with <strong>Mixtral-8x7B-Instruct-v0.1</strong>, will supply instructional type english text <a href="https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1" target="_blank">src</a>,  <a href="https://huggingface.co/blog/cosmopedia" target="_blank">Cosmopedia</a> <a href="https://github.com/huggingface/cosmopedia" target="_blank">git</a> this uses Mixtral, Llama2, datatrove, nanotron and lighteval</li>
     <li>Speech synthesis <a href="https://github.com/huggingface/parler-tts" target="_blank">Parler-TTS</a> via AI.  This is all Python src and uses Accelerate, jiwer, wandb, and <strong>Transformers</strong>.  For advanced use, please read the referenced papers.</li>
-    <li>The Azure platform <sup><a href="https://techcommunity.microsoft.com/t5/ai-ai-platform-blog/the-future-of-ai-synthetic-data-gen-with-llama-3-1-405b-amp-raft/ba-p/4236077" target="_blank">1</a></sup> <a href="https://github.com/Azure-Samples/raft-distillation-recipe?WT_mc_id=aiml-122224-cedricvidal" target="_blank">git</a> is advertising <strong>Llama 3.1</strong> <sup><a href="https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct" target="_blank">2</a></sup> for generating Q&amp;A tuples, and claims to be optimised for long chains of reasoning. !! </li>
+    <li>The Azure platform <sup><a href="https://techcommunity.microsoft.com/t5/ai-ai-platform-blog/the-future-of-ai-synthetic-data-gen-with-llama-3-1-405b-amp-raft/ba-p/4236077" target="_blank">2</a></sup> <a href="https://github.com/Azure-Samples/raft-distillation-recipe?WT_mc_id=aiml-122224-cedricvidal" target="_blank">git</a> is advertising <strong>Llama 3.1</strong> <sup><a href="https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct" target="_blank">3</a></sup> for generating Q&amp;A tuples, and claims to be optimised for long chains of reasoning. !! </li>
     <li><a href="https://huggingface.co/hpcai-tech/OpenSora-VAE-v1.2" target="_blank">OpenSora</a> <a href="https://github.com/hpcaitech/Open-Sora" target="_blank">git</a> uses VAE, there is a demo instance, but that currently has a build error.</li>
     <li>Not OSS, hopefully a turnkey solution <a href="https://www.tonic.ai/lp/synthetic-test-data-generation" target="_blank">TonicAI</a></li>
     <li>Not OSS, <a href="https://scribe.rip/@gryant/synthetic-data-generation-with-crewai-agents-for-model-fine-tuning-dcf27251d903" target="_blank">CrewIA</a> </li>
-    <li>JohnSnowlabs advertorial “conference” did include a demo of their tooling. They have a no-code platform<sup><a href="https://nlp.johnsnowlabs.com/docs/en/alab/quickstart" target="_blank">3</a></sup> <sup><a href="https://nlp.johnsnowlabs.com/docs/en/alab/synthetic_task" target="_blank">4</a></sup> <a href="https://github.com/JohnSnowLabs/nlu" target="_blank">git</a></li>
-    <li>Interconnects <sup><a href="https://www.interconnects.ai/p/llm-synthetic-data?r=1uo6yut" target="_blank">5</a></sup>  not sure what they sell, but this is a summary blog of testing, which means they are selling something AI testing. </li>
+    <li>JohnSnowlabs advertorial “conference” did include a demo of their tooling. They have a no-code platform<sup><a href="https://nlp.johnsnowlabs.com/docs/en/alab/quickstart" target="_blank">4</a></sup> <sup><a href="https://nlp.johnsnowlabs.com/docs/en/alab/synthetic_task" target="_blank">5</a></sup> <a href="https://github.com/JohnSnowLabs/nlu" target="_blank">git</a></li>
+    <li>Interconnects <sup><a href="https://www.interconnects.ai/p/llm-synthetic-data?r=1uo6yut" target="_blank">6</a></sup>  not sure what they sell, but this is a summary blog of testing, which means they are selling something AI testing. </li>
     <li>TODO IOIO improve list</li>
 </ul>
 
@@ -153,7 +154,7 @@ History of algorithmic options for generating data: <br />
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-01-03T21:27:48" datetime="2026-01-03T21:27:48">Jan '26</time>
+						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
 						</span>
 						<span>Created <time datetime="2024-10-01T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Oct '24</time> </span>
 					</span>
@@ -165,7 +166,7 @@ History of algorithmic options for generating data: <br />
 					<label for="mastodonserver">your server: 
 						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-synthetic-data" type="text" value="" placeholder="mastodon.social" />  
 					</label> 
-					<span id="sendMasto" class="button masto" title="Share article to *your* mastodon server">Share article now</span>
+					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
 					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
 				</form>
 			</dialog>
@@ -204,7 +205,7 @@ History of algorithmic options for generating data: <br />
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-01-04T12:25:45" datetime="2026-01-04T12:25:45">4th of Jan 2026, 12:25:45</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-01-03T21:27:48" datetime="2026-01-03T21:27:48">Jan '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-02-10T13:56:59" datetime="2026-02-10T13:56:59">10th of Feb 2026, 13:56:59</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
