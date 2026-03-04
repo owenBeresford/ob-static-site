@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/accessibility-testing" />
 <meta property="og:description" content="Definition of Accessibility Testing, guidelines including legal requirements, and a list of 10 software tools to perform accessibility test." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Feb 2026, 13:56:58" />
+<meta property="article:published_time" content="20th of Feb 2026, 19:10:26" />
 <meta property="article:modified_time" content="Feb '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/accessibility-testing" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Accessibility Testing",
-	"article:published_time":"10th of Feb 2026, 13:56:58", 
+	"article:published_time":"20th of Feb 2026, 19:10:26", 
     "article:modified_time":"Feb '26",
     "article:section":"technology",
 
@@ -78,18 +78,25 @@ Similar to the EAA, the UEA maps WCAG guidance.  I would guess that the same ben
 There are many documents on creating accessible content inside the gov.uk structure, for example <sup><a href="https://accessibility.blog.gov.uk/2023/01/06/a-new-accessibility-strategy-for-the-gov-uk-design-system/" target="_blank">25</a></sup> <sup><a href="https://www.gov.uk/guidance/accessibility-requirements-for-public-sector-websites-and-apps" target="_blank">26</a></sup> but that is off topic.</p>
 
 
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Some edge-cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>An annoyance that may or not get spotted by most tools: on maps, when a colour is used as map data, <i>please do not also use it for labelling</i>.<br />
+Keyboard user journey testing must be done manually at present, as browsers do not want to allow code to make key-presses authentically for security issues.   I notice the keyboard accessibility isn't very well covered by other references on this page.   I am improving this capacity on my site.   As a reference build for later work see <a href="https://owenberesford.me.uk/resource/keyboard-menu-maquette#">keyboard-menu-maquette</a>.   A walk-through for intro which looks like a powerpoint <sup><a href="https://www.accessibud.com/blog/keyboard-accessibility/" target="_blank">27</a></sup>.  An implementation guide for keyboard interactions <sup><a href="https://accessibility-test.org/blog/development/keyboard-nav/keyboard-navigation-why-its-crucial-for-accessibility/" target="_blank">28</a></sup> specifically, the 'H end of HCI' or human factors.   As further accessibility, I recommend “accessibility for everyone” <sup><a href="https://accessibilityforeveryone.site/considering-accessibility/" target="_blank">29</a></sup>.    <br />
+A report on successfulness of supporting technology for screen-readers <sup><a href="https://www.powermapper.com/tests/screen-readers/" target="_blank">30</a></sup>, there is a section for ARIA <sup><a href="https://www.powermapper.com/tests/screen-readers/aria/" target="_blank">31</a></sup>.  <br />
+A random idea that helps perspective is to follow accounts like “Accessibility Awareness”.   Much of what they say isn't new, but the attention will assist your default baseline interactions.   There is no big deadline breaking crackdown if a11y is part of your worldview to start with.</p>
+
+
 </div>
 <br /> <hr /><br />
 <div class="lotsOfWords">
 
-<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Practical solutions for testing accessibility  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Practical solutions for testing accessibility  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>It is not practical to make an accessibility QA service for yourself.  The following rentable services exist:</p>
 
 <ul class="ulbasic">
     <li>Primary suggestions:</li>
     <li>Currently free, <a href="https://freeaccessibilitychecker.skynettechnologies.com/" target="_blank">Skynet</a> is a more detailed-set of reporting than other tools, and supports current editions for WCAG.  NOTE: it does include garbage warnings, like no h1 found, when it is present.  But errors shown can be skipped, the other option, errors just hidden as “it's  browser” might ruin someones day. </li>
     <li>For ARIA attribs specifically, I am using <a href="https://achecks.org/achecker" target="_blank">A Checker</a> (they chose this name not me).   Lists everything at higher resolution than Pagespeed.   </li>
-    <li><a href="https://pagespeed.web.dev" target="_blank">Pagespeed</a> ~ a free page checker from google; it runs in “mostly real-time” (i.e. each page report takes 15-20s).  It supports a good range of WCAG, but I'm not sure if it is 100% of it.   If you use Analytics, it will merge in the results.  It will show you a screen-grab of what each device looks like (from a chrome headless instance).  This is the option I currently use.   Quite a few features from this tool are available in Chrome as the “lighthouse” tab locally; and according to <sup><a href="https://moz.com/blog/how-to-automate-pagespeed-insights-for-multiple-urls-using-google-sheets" target="_blank">1</a></sup> there is a version that can be run on all URLs in your site at the same time.  A benefit of server based test tools that are not running on your local webserver, is that site performance can be measured; this is something that Pagespeed does well.</li>
+    <li><a href="https://pagespeed.web.dev" target="_blank">Pagespeed</a> ~ a free page checker from google; it runs in “mostly real-time” (i.e. each page report takes 15-20s).  It supports a good range of WCAG, but I'm not sure if it is 100% of it.   If you use Analytics, it will merge in the results.  It will show you a screen-grab of what each device looks like (from a chrome headless instance).  This is an option I currently use.   Quite a few features from this tool are available in Chrome as the “lighthouse” tab locally; and according to <sup><a href="https://moz.com/blog/how-to-automate-pagespeed-insights-for-multiple-urls-using-google-sheets" target="_blank">1</a></sup> there is a version that can be run on all URLs in your site at the same time.  A benefit of server based test tools that are not running on your local webserver, is that site performance can be measured; this is something that Pagespeed does well.</li>
     <li>UPDATE 2025: IBM equal access suite <sup><a href="https://www.ibm.com/able/toolkit/tools/" target="_blank">2</a></sup> ~ also a browser plugin <sup><a href="https://www.ibm.com/able/toolkit/verify/automated/" target="_blank">3</a></sup>.  This is the newest WCAG guides, and maintained rather than tools for WCAG 1.   Includes a web2speach / screen-reader, but only for IBM employees (boo)</li>
     <li>aXe acquired from <a href="https://github.com/dequelabs/axe-core" target="_blank">git</a> or <a href="https://www.npmjs.com/package/axe-core" target="_blank">npm</a> can be linked into standard unit tests.   There is a paid service that performs all the manual vetting available from <a href="https://www.deque.com/axe/" target="_blank">Deque</a> in addition.   If you had linked this to your test infra, the results would be very convenient.   They say they need a custom test URL, which duplicates the normal page, and links the additional aXe library.  For render-once sites like blogs, 1 test harness would cover the entire page; but for SPA with locally generated content aXe will need to be triggered after every “human input event” as the DOM will have been changed.  They state they have some capacity for JSDOM, running from NodeJS, but its not as reliable.</li>
     <li><a href="https://tenon.io/" target="_blank">Tenon</a> is an API based service, and seems to mostly focus on HTML.  It has spider capacity; it strongly dislikes developers using A elements as buttons.   I saw no CSS issues via this, possibly as it wants to do staged processing.   Please see <a href="https://www.levelaccess.com/" target="_blank">level access</a> as they bought Tenon.</li>
@@ -104,13 +111,15 @@ There are many documents on creating accessible content inside the gov.uk struct
     <li><a href="https://chrome.google.com/webstore/detail/siteimprove-accessibility/efcfolpjihicnikpmhnmphjhhpiclljc" target="_blank">SiteImprove</a> ~ a service that crawls every 5days.  SiteImprove is a member of w3c.   I cannot find any pricing.  Platform also supports <i>Deutsche</i>. </li>
     <li><a href="https://www.powermapper.com/products/sortsite/" target="_blank">SortSite</a> ~ this is a site test tool, not an accessibility tester, but it does check WCAG v2 and v2.1.   It has a whole site UI, so if you make each page separately this would save staff time to test, but the smallest licence is 100USD <sup><a href="https://www.powermapper.com/buy/all/sortsite/" target="_blank">10</a></sup>.</li>
     <li>The W3C hosts a very long list of accessibility checkers <sup><a href="https://www.w3.org/WAI/ER/tools/" target="_blank">11</a></sup> including ones that are quite old.  I think many of these are rules systems, and no fees; but do not have a practical means to check.   If you use a Linux, you probably have <a href="https://manpages.ubuntu.com/manpages/jammy/man1/tidy.1.html" target="_blank">tidy</a>, which is a convenient <em>HTML validator</em>, and supports WCAG checks.  As a HTML validator, it doesn't look at CSS so this is only useful for some situations.</li>
-    <li>Boring sidebar: On my personal site, my PageSpeed scores are all over 95%; this should be achievable on most sites/platforms/apps.   The updates didn't cost very much, and can be done as a rolling process on each completed feature.  It is the law.  The UK government recommends making an accessibility statement <sup><a href="https://www.gov.uk/guidance/make-your-website-or-app-accessible-and-publish-an-accessibility-statement" target="_blank">12</a></sup>.  Some additional notes <sup><a href="https://www.accessible-social.com/" target="_blank">13</a></sup></li>
 </ul>
 
-<p>I notice the keyboard accessibility isn't very well covered by other references on this page.   I am improving this capacity on my site, as a reference build for later work.   A walk-through for intro which looks like a powerpoint <sup><a href="https://www.accessibud.com/blog/keyboard-accessibility/" target="_blank">14</a></sup>.  An implementation guide for keyboard interactions <sup><a href="https://accessibility-test.org/blog/development/keyboard-nav/keyboard-navigation-why-its-crucial-for-accessibility/" target="_blank">15</a></sup> specifically, the 'H end of HCI' or human factors.   As further accessibility, I recommend “accessibility for everyone” <sup><a href="https://accessibilityforeveryone.site/considering-accessibility/" target="_blank">16</a></sup>.</p>
+<p><div class="pullout">
+<ul class="ulbasic">
+    <li>Boring sidebar: On my personal site, my PageSpeed scores are all over 95%; this should be achievable on most sites/platforms/apps.   The updates didn't cost very much, and can be done as a rolling process on each completed feature.  It is the law.  The UK government recommends making an accessibility statement <sup><a href="https://www.gov.uk/guidance/make-your-website-or-app-accessible-and-publish-an-accessibility-statement" target="_blank">1</a></sup>.  Some additional notes <sup><a href="https://www.accessible-social.com/" target="_blank">2</a></sup></li>
+</ul>
 
-<p>A report on successfulness of supporting technology for screen-readers <sup><a href="https://www.powermapper.com/tests/screen-readers/" target="_blank">17</a></sup>, there is a section for ARIA <sup><a href="https://www.powermapper.com/tests/screen-readers/aria/" target="_blank">18</a></sup>.  <br />
-An annoyance that may or not get spotted by most tools: on maps, when a colour is used as map data, please do not also use it for labelling.</p>
+
+</div></p>
 
 
 </div>
@@ -147,7 +156,7 @@ An annoyance that may or not get spotted by most tools: on maps, when a colour i
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
+						<span>Edited <time title="Page edited on 2026-02-20T10:18:03" datetime="2026-02-20T10:18:03">Feb '26</time>
 						</span>
 						<span>Created <time datetime="2023-04-27T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Apr '23</time> </span>
 					</span>
@@ -181,7 +190,8 @@ An annoyance that may or not get spotted by most tools: on maps, when a colour i
 <li><a href="#toc0">Technical definition</a></li>
 <li><a href="#toc1">What are the EU legal requirements?</a></li>
 <li><a href="#toc2">What are the UK legal requirements in 2023?</a></li>
-<li><a href="#toc3">Practical solutions for testing accessibility</a></li>
+<li><a href="#toc3">Some edge-cases</a></li>
+<li><a href="#toc4">Practical solutions for testing accessibility</a></li>
 </menu>
 </details><br />
 
@@ -198,7 +208,7 @@ An annoyance that may or not get spotted by most tools: on maps, when a colour i
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-02-10T13:56:58" datetime="2026-02-10T13:56:58">10th of Feb 2026, 13:56:58</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-02-20T19:10:26" datetime="2026-02-20T19:10:26">20th of Feb 2026, 19:10:26</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-20T10:18:03" datetime="2026-02-20T10:18:03">Feb '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

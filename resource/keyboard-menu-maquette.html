@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/keyboard-menu-maquette" />
 <meta property="og:description" content="A demo of better keyboard input.  I wanted a means to tab to component/ blocks, rather than each element." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Feb 2026, 13:57:04" />
+<meta property="article:published_time" content="12th of Feb 2026, 16:50:54" />
 <meta property="article:modified_time" content="Feb '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/keyboard-menu-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Keyboard accessible menu",
-	"article:published_time":"10th of Feb 2026, 13:57:04", 
+	"article:published_time":"12th of Feb 2026, 16:50:54", 
     "article:modified_time":"Feb '26",
     "article:section":"technology",
 
@@ -53,7 +53,7 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="halferWords">
-<p>This is a part of a range of “visual samples / maquettes”. Since I started doing more front-end work, I have been making these to speed up browser testing. #boring My thought, I should add a snoring backtrack to these pages.</p>
+<p>This is a part of a range of “visual samples / maquettes”. Since I started doing more front-end work, I have been making these to speed up browser testing of features. #boring My thought, I should add a snoring backtrack to these pages.</p>
 
 <p>This is an engineering demo, not a UI demo.  Ideally the visible UI will look the same as normal. <br />
 I am unhappy with my current UI interactions for keyboard access, so I am making this as an iteration.   I don't think 'keyboard access' is a meaningful sentence on mobile view.    <br />
@@ -113,7 +113,7 @@ I really need less long lists with keyboard access.  This Component / block idea
 
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Desired behaviours <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
-    <li>I have implemented the recommended spec on w3c, I don't thing this helps mobile/ haptic users (tab key? arrow keys?).</li>
+    <li>I have implemented the recommended spec on w3c, I don't think this helps mobile/ haptic users (tab key? arrow keys?).</li>
     <li>DEFAULT for mobile can use touch to open menu, but cycle selection modalities don't make sense</li>
     <li>can cycle components / blocks by tab key</li>
     <li>can cycle links or other single values by UP / DOWN arrow keys</li>
@@ -138,7 +138,7 @@ I really need less long lists with keyboard access.  This Component / block idea
 </ul>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Local site components to affect <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Local site components to affect if this adds value <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>SM share-bar, mobile and bigscreen</li>
     <li>article menu</li>
@@ -150,11 +150,23 @@ I really need less long lists with keyboard access.  This Component / block idea
 
 <h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Context reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>If you have no previous reading on keyboard access in webpages, this is a detailed list presented like a powerpoint <sup><a href="https://www.accessibud.com/blog/keyboard-accessibility/" target="_blank">1</a></sup>.   <br />
-More validation tools specifically for ARIA attributes <sup><a href="https://achecks.org/achecker" target="_blank">2</a></sup> <sup><a href="https://www.powermapper.com/tests/screen-readers/attributes/" target="_blank">3</a></sup>.   A list of links that w3c recommends <sup><a href="https://www.w3.org/WAI/test-evaluate/tools/list/" target="_blank">4</a></sup><br />
-MAYBE ADD MORE READING?</p>
+For a repeatable process, this should to be locale aware.  JS has support to see current user language (if filled in correctly by user) <sup><a href="https://dev.to/free_programmers/how-to-detect-the-users-language-on-a-website-ka1" target="_blank">2</a></sup>.   I guess pre-created keyboard assignments? <br />
+More validation tools specifically for ARIA attributes <sup><a href="https://achecks.org/achecker" target="_blank">3</a></sup> <sup><a href="https://www.powermapper.com/tests/screen-readers/attributes/" target="_blank">4</a></sup>.   <br />
+I see <del>three</del><ins>four</ins> possible solutions</p>
+
+<ul class="ulbasic">
+    <li>A keyboard menu structure, context box thing, like actual apps or console game UI.  [not very good on mobile]</li>
+    <li>Direct key bindings, like in win32 Apps, save is often &lt;cntl-s&gt; [not on mobile as chords]</li>
+    <li>A arrow key cursor, so re-inventing an awkward mouse            [not on mobile, AWKWARD]</li>
+    <li>A minimal scripting language, a la vim or emacs.                [awkward on mobile] </li>
+</ul>
+
+<p>For direct keybindings, this is not really guessable/ usable for websites.   For an App, heavy users might be able to gain, but how to make Chord sequences?   Do you, reader, use &lt;cntl-B&gt; in msft word to bold something, or a labourious menu crawl as its now Tuesday an MSFT have moved all the UI round again.   The tech is <sup><a href="https://learn.microsoft.com/en-us/windows/apps/develop/input/access-keys" target="_blank">5</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/accesskey" target="_blank">6</a></sup> <sup><a href="https://getwcag.com/en/accessibility-guide/accesskeys" target="_blank">7</a></sup>.   Everything I read on this option mentions manual testing, as Js doesn't allow real keyboard events to be made (#leSigh).</p>
+
+<p>Writing a language is a oversize scope solution.   Even less guessable that the keybindings.   Here, state your goals to the app, and let the software work it out, eg with a defined list of terms, so “share this to xitter”.   However see initial comment that no-one values a single system that much, unless they use it everyday.</p>
 
 
-<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Interstitial text (maybe update). <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Interstitial text. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This INTERSTITIAL can be closed by the X on the right.  It will only appear rarely (and if cookies are wiped)<br />
 You seem to be using keyboard access as an input modality.</p>
 
@@ -204,7 +216,7 @@ You seem to be using keyboard access as an input modality.</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
+						<span>Edited <time title="Page edited on 2026-02-12T11:04:57" datetime="2026-02-12T11:04:57">Feb '26</time>
 						</span>
 						<span>Created <time datetime="2026-02-02T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '26</time> </span>
 					</span>
@@ -237,9 +249,9 @@ You seem to be using keyboard access as an input modality.</p>
 		<details  class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Desired behaviours</a></li>
 <li><a href="#toc1">Functional spec</a></li>
-<li><a href="#toc2">Local site components to affect</a></li>
+<li><a href="#toc2">Local site components to affect if this adds value</a></li>
 <li><a href="#toc3">Context reading</a></li>
-<li><a href="#toc4">Interstitial text (maybe update).</a></li>
+<li><a href="#toc4">Interstitial text.</a></li>
 <li><a href="#toc5">Technical Notes</a></li>
 </menu>
 </details><br />
@@ -257,7 +269,7 @@ You seem to be using keyboard access as an input modality.</p>
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-02-10T13:57:04" datetime="2026-02-10T13:57:04">10th of Feb 2026, 13:57:04</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-02-12T16:50:54" datetime="2026-02-12T16:50:54">12th of Feb 2026, 16:50:54</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-12T11:04:57" datetime="2026-02-12T11:04:57">Feb '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>

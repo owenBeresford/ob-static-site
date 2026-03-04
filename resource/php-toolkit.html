@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Tools for PHP</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Today's PHP as a development language, briefly reporting on tools. This article is part of a series for recent tooling for languages." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Tools for PHP" />
+<meta itemprop="description" content="Today's PHP as a development language, briefly reporting on tools. This article is part of a series for recent tooling for languages." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Tools for PHP" />
+<meta name="twitter:description" content="Today's PHP as a development language, briefly reporting on tools. This article is part of a series for recent tooling for languages." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Tools for PHP" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/php-toolkit" />
+<meta property="og:description" content="Today's PHP as a development language, briefly reporting on tools. This article is part of a series for recent tooling for languages." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="4th of Mar 2026, 8:36:51" />
+<meta property="article:modified_time" content="Mar '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/php-toolkit" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Tools for PHP",
+	"article:published_time":"4th of Mar 2026, 8:36:51", 
+    "article:modified_time":"Mar '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords addBashSamples">
+<p>This will need to updated in 2-3 years.    #boring! I'm starting to think I should add a snoring backtrack to these pages.   I have been paid to deliver products using PHP.   It is not my favourite language, but new PHP is much better than PHP3 or PHP4.   PHP the language is documented as aiming to seize market share first, to ensure the language had traction and ensure involved people to continue.</p>
+
+
+<h5 id="toc0"> Language target</h5>
+<p>PHP is a widely used net language, but less dominant than it was <sup><a href="https://www.zenrows.com/blog/php-usage-statistics#language-of-choice" target="_blank">1</a></sup> <sup><a href="https://www.zend.com/blog/is-php-still-relevant" target="_blank">2</a></sup> ~ the second reference is by Zend inc who sell PHP facilities.  Those notes do not mention Ghost or similar generation JS blog tools that supersede wordpress.  Journalists have been saying its dead for about a decade, but there is much established work running on it.   In Feb 2026, the current edition of PHP is 8.5 <sup><a href="https://www.php.net/" target="_blank">3</a></sup>.   This is a very broad features language, although they have been improving the language architecture for well over a decade.  The project docs are quite good <sup><a href="https://www.php.net/docs.php" target="_blank">4</a></sup>.   Using the newest PHP version is always recommended.   By whatever means needed use &gt;PHP7 as it got an AST then and all the standard tools work much better.   There are several ways to execute PHP, but it is less linked to clouds than other languages.   PHP has language extensions for many tools or services (eg the well-known MySQL).  <br />
+PHP the language has more complex licensing <sup><a href="https://heathermeeker.com/2025/07/13/php-license-metamorphoses-to-bsd/" target="_blank">5</a></sup> <sup><a href="https://wiki.php.net/rfc/php_license_update" target="_blank">6</a></sup> <sup><a href="https://news-web.php.net/php.internals/127984" target="_blank">7</a></sup> than other languages, which I think is an awkward situation.  PHP can be compiled from its source, and doing so is recommended for awkward/ non-standard setups.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Engineering details <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Other toolkit articles do not have this section.  I think PHP needs this list of caveats.</p>
+
+<ul class="ulbasic">
+    <li>PHP is only used as a server side language, and normally used with HTTP variants.   </li>
+    <li>It can be run as a persistent interpreter ~ not as a single PHP script ~ with FPM.   Or as a persistent interpreter and a single script, with or without POSIX assistance.   Historically, PHP was run as a sub-process of Apache, or as a self ending script process like bash scripts are.   <ul class="ulbasic">
+        <li>The first option mentioned is recommended as it reduces time spent parsing code.   Typically a single process can be used for 10,000+ HTTP requests, and only parsing the code once saves quite a lot across the duration. </li>
+    </ul></li>
+    <li>Before starting a project in PHP please read the 'fractal of bad design' <sup><a href="https://eev.ee/blog/2012/04/09/php-a-fractal-of-bad-design/" target="_blank">8</a></sup> <sup><a href="https://dev.to/tanzimibthesam/revisiting-php-a-fractal-of-bad-design-with-context-343g" target="_blank">9</a></sup> <sup><a href="https://blog.codinghorror.com/the-php-singularity/" target="_blank">10</a></sup> <sup><a href="https://dev.to/tanzimibthesam/revisiting-php-a-fractal-of-bad-design-with-context-343g" target="_blank">11</a></sup>.   It is stated that &quot;<i>a bad worker blame their tools</i>&quot;, BUT a worker should chose their tools, and avoid the bad ones.  </li>
+    <li>PHP has a share-nothing interpreter arch by default.  Due to this, it is common to have more than one version of PHP on servers.   <ul class="ulbasic">
+        <li>My local machine at random has php 7.4, 8.4, 8.2 and 8.3 on it.   I use some libraries written for PHP 5 that cannot take newest PHP, and I don't have random time to update legacies (it's offline code).   </li>
+    </ul></li>
+    <li>To-date PHP does not have real hot loading (unlike Java or C++).   Some frameworks may offer it by soft naming after a compile step (what JS does).   <ul class="ulbasic">
+        <li>A second interpreter ~ possibly in a different language ~ is often used as a monitor and can supply the results of hot-loading.   State is often stored in a DB between HTTP requests, so if it a different process, nothing was lost. </li>
+    </ul></li>
+    <li>Random Clang modules can be inlined with `dl` <sup><a href="https://www.php.net/manual/en/function.dl.php" target="_blank">12</a></sup>.  Use with caution if essential.  </li>
+    <li>Memory handling in PHP is complex and abstracted.  PHP uses a COW scheme [XXX], and reference counting <sup><a href="https://www.php.net/manual/en/language.references.php" target="_blank">13</a></sup>.   Note “easy” loops make a duplicate of the array, so use with caution on large arrays.   Memory can be forced to be recycled via <sup><a href="https://www.php.net/manual/en/function.gc-collect-cycles.php" target="_blank">14</a></sup></li>
+    <li>PHP Arrays are complex creatures and have no relation to Clang arrays ~ think `dict()` in Python, not `list()`.  Use of better types is recommended <sup><a href="https://www.php.net/manual/en/class.splfixedarray.php" target="_blank">15</a></sup> if possible.</li>
+    <li>Old PHP had very poor async capacity or poor and unsafe thread capacity, so multi whole process arch was common.   Newer PHP can have async <a href="https://docs.phalcon.io/5.9/introduction/" target="_blank">docs</a> <sup><a href="https://www.php.net/manual/en/language.generators.overview.php" target="_blank">16</a></sup>, and can have threads <sup><a href="https://www.php.net/manual/en/class.thread.php" target="_blank">17</a></sup>, cautiously.  DB drivers are not aware of threads, and will need careful management.   </li>
+    <li>There are some language features that I think should be seen as dangerous, and marked as errors via a lint tool.   </li>
+    <li>The biggest gotcha is that PHP can ignore errors and keep rolling ~ with a malformed app state.  </li>
+    <li>There was a hack called “super globals”, and these should be avoided with extreme prejudice.  </li>
+    <li>Any known errors can be made silent with an '@' at the start of the line <sup><a href="https://www.php.net/manual/en/language.operators.errorcontrol.php" target="_blank">18</a></sup>.   Obviously not recommended. </li>
+    <li>Types on primitive data are flakey, and there is auto conversion ~ which sometimes isn't correct (here primitives includes strings), although this is handled better than earlier versions after PHP7. <ul class="ulbasic">
+        <li>As a following sentence never use loose-type comparisons, as chaos will ensure with realistic data eg ` ('0e3' == '0e14') ` is true.</li>
+        <li>Also `TRUE` or `FALSE` might show up in some places, and are two ints, not ranges/ bit patterns, singular values.   Therefore a thing that evaluates to `TRUE` isn't `true`.  </li>
+        <li>Language functions that are shallow wrappers of Clang calls might return `-1` flag value for a error.  This shouldn't be naïvely used with a boolean test, as `-1` is `true`.</li>
+        <li>Junior devs are always tripped up by array indexes starting from 0.  I try to reduce this by calling them 'array offsets'.</li>
+    </ul></li>
+    <li>String handling is either single byte (ASCII) or multi byte (unicode).  These are completely different API.  Either avoid low level string manipulation, or use MB functions generally.   Perl and Python do this aspect much better.</li>
+    <li>A positive feature of PHP is it can run untrusted scripts if “safe mode” is configured <sup><a href="https://www.php.net/manual/en/ini.core.php#ini.disable-functions" target="_blank">19</a></sup> correctly.  This must be done from the config file as a security hobble. </li>
+    <li>One of the low level abstraction leakages is “tick handling” <sup><a href="https://www.php.net/manual/en/function.register-tick-function.php" target="_blank">20</a></sup> <sup><a href="https://bugs.php.net/bug.php?id=71448" target="_blank">21</a></sup>.  Only use if necessary, test very carefully, as it will make your production systems fragile.</li>
+    <li>This article format doesn't cover greater scope, I was hoping to learn if anything had moved in the last several years since I used PHP.</li>
+    <li>Long lifespan PHP is generally written in a strict layout, just like Python or TS.   However, there are many standards to choose from, index <sup><a href="https://www.php-fig.org/psr/" target="_blank">22</a></sup>.  PSR 7, I think the newest code spec <sup><a href="https://generalistprogrammer.com/tutorials/guzzlehttp-psr7-composer-package-guide" target="_blank">23</a></sup>.</li>
+</ul>
+
+<p>The language <a href="https://owenberesford.me.uk/resource/language-setups#">index page</a> lists related resources for PHP config.   I need to be careful about deprecating older articles for PHP, as I know people being paid to manage very old PHP projects. <br />
+<strong>TODO: a realistic PHP config for new PHP versions.</strong></p>
+
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords addBashSamples">
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>An IDE: the 2 biggest options are PHPstorm (sorry Jetbrains ad again), and VScode after config.  I often use an extended version of vim.   There are hundreds of IDE for PHP.  <ul class="ulbasic">
+        <li>Add IDE plugins...</li>
+    </ul></li>
+    <li>An online “playground” ~ <sup><a href="https://www.mygreatlearning.com/blog/php-compiler-tool/" target="_blank">1</a></sup> <sup><a href="https://www.adaface.com/online-compiler/online-php-compiler" target="_blank">2</a></sup> <ul class="ulbasic">
+        <li>PHP can easily be run from a shell, as a compiler.  See also <a href="https://psysh.org/" target="_blank">Psysh</a> which adds better input-streams and UX.   </li>
+    </ul></li>
+    <li>Package discovery via <a href="https://packagist.org/" target="_blank">Packagist</a>.   Extremely deprecated code may exist in Pear indexes <sup><a href="https://pear.php.net/" target="_blank">3</a></sup>.</li>
+    <li>Package installation <a href="https://getcomposer.org/" target="_blank">Composer</a> <sup><a href="https://www.php-dev.net/composer-for-packages-complete-guide-for-php-developers" target="_blank">4</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Composer_%28software%29" target="_blank">5</a></sup> <a href="https://github.com/composer/composer" target="_blank">git</a>, I see adverts for <a href="https://valvoid.com/registry/packages/1/fusion-php-package-manager" target="_blank">Fusion</a> by Valvoid <a href="https://gitlab.com/valvoid/fusion/php/code" target="_blank">git</a> <sup><a href="https://dev.to/retlim/introducing-fusion-a-php-package-manager-3cj2" target="_blank">6</a></sup> but the usage numbers are very minor.  There was a thing called Pear, but do not go there its focused on PHP4 and ZF1.</li>
+    <li>Extensions: I use the OS level package manager, so routine updates are synchronised.  There is PIE <sup><a href="https://www.php.net/manual/en/install.pie.intro.php" target="_blank">7</a></sup> <i>(preferred)</i> and PECL <sup><a href="https://www.php.net/manual/en/install.pecl.intro.php" target="_blank">8</a></sup> if you use Win32.</li>
+</ul>
+
+
+<h5 id="toc3"> Common process </h5>
+<ul class="ulbasic">
+    <li>unit test:  <ul class="ulbasic">
+        <li>There is no clear dominant trend on BDD test tools, possibly implying that testing behaviour is rarer on ReST API.  </li>
+        <li><a href="https://packagist.org/packages/hamcrest/hamcrest-php" target="_blank">hamcrest</a> <a href="https://docs.openrewrite.org/recipes/java/testing/hamcrest" target="_blank">docs</a> <sup><a href="https://www.vogella.com/tutorials/Hamcrest/article.html" target="_blank">9</a></sup> <a href="https://github.com/hamcrest/hamcrest-php" target="_blank">git</a> <i>hamcrest/hamcrest-php</i> the first dep on this is phpunit</li>
+        <li><a href="https://packagist.org/packages/phpunit/phpunit" target="_blank">phpunit</a> <a href="https://devdocs.io/phpunit/" target="_blank">docs</a> <a href="https://github.com/sebastianbergmann/phpunit" target="_blank">git</a> <i>phpunit/phpunit</i>.  For strict TDD unit tests, this is the most common tool by a magnitude. </li>
+        <li><a href="https://packagist.org/packages/behat/behat" target="_blank">behat</a> <a href="https://github.com/Behat/Behat" target="_blank">git</a> <a href="https://docs.behat.org/en/latest/" target="_blank">docs</a> <sup><a href="https://deepwiki.com/moodlehq/moodle-docker/4.2-behat-browser-testing" target="_blank">10</a></sup> <i>behat/behat</i></li>
+        <li><a href="https://packagist.org/packages/phpspec/phpspec" target="_blank">phpspec</a> <a href="https://github.com/phpspec/phpspec" target="_blank">git</a> <a href="https://phpspec.net/en/stable/manual/introduction.html" target="_blank">docs</a> <i>phpspec/phpspec</i> </li>
+        <li><a href="https://packagist.org/packages/pestphp/pest" target="_blank">Pest</a> <a href="https://github.com/pestphp/pest" target="_blank">git</a> <a href="https://pestphp.com/docs/installation" target="_blank">docs</a> <i>pestphp/pest</i> </li>
+    </ul></li>
+    <li>lint: <ul class="ulbasic">
+        <li>Obviously you can enable all the error reporting inside PHP <sup><a href="https://www.php.net/manual/en/function.error-reporting.php" target="_blank">11</a></sup> <sup><a href="https://www.php.net/manual/en/function.set-error-handler.php" target="_blank">12</a></sup><sup><a href="https://www.php.net/manual/en/function.set-exception-handler.php" target="_blank">13</a></sup>.  Multiple links as multiple control options, this process is a good idea.   Also an IDE is likely to show some errors.   Secondly some errors will reported by `php -l` ~ the types of errors that crash your server, so automatically adding this adds value.   Assuming you have unit tests, this last check will only report malformed config files, but regardless never die in prod.  </li>
+        <li><a href="https://packagist.org/packages/friendsofphp/php-cs-fixer" target="_blank">CS fixer</a> <a href="https://github.com/PHP-CS-Fixer/PHP-CS-Fixer" target="_blank">git</a> <sup><a href="https://redberry.international/linting-a-laravel-project-using-cs-fixer/" target="_blank">14</a></sup> <a href="https://cs.symfony.com/" target="_blank">docs</a> <i>friendsofphp/php-cs-fixer</i></li>
+        <li>The last item can be supported with <a href="https://packagist.org/packages/ergebnis/php-cs-fixer-config" target="_blank">php-cs-fixer-config</a> to simplify config generation.   </li>
+        <li><a href="https://packagist.org/packages/rector/rector" target="_blank">Rector</a> <a href="https://github.com/rectorphp/rector" target="_blank">git</a> <a href="https://getrector.com/documentation" target="_blank">docs</a> use to migrate to newer PHP features</li>
+    </ul></li>
+    <li>docs generator ~ an advertorial on why add code-docs <sup><a href="https://moldstud.com/articles/p-the-ultimate-guide-to-writing-effective-php-code-documentation-tips-best-practices-and-examples" target="_blank">15</a></sup>: <ul class="ulbasic">
+        <li><a href="https://packagist.org/packages/phpdocumentor/phpdocumentor" target="_blank">phpDocumentor</a> <a href="https://github.com/phpDocumentor/phpDocumentor" target="_blank">git</a> <a href="https://docs.phpdoc.org/components/guides/guides/index.html" target="_blank">docs</a> a viewer <a href="https://github.com/phpDocumentor/dev-server" target="_blank">git</a></li>
+        <li>I have a hack to add PHPdoc to source code, but the above AST reader is a better solution.  </li>
+        <li>I only see that item in packagist, there are more says <sup><a href="https://en.wikipedia.org/wiki/Comparison_of_documentation_generators" target="_blank">16</a></sup> as non-specialist tools.</li>
+    </ul></li>
+    <li>Compilers: Use the PHP interpreter, or for linting see above,</li>
+    <li>The entire language is supporting packages of packages, so no extra tooling for this is needed.</li>
+    <li>Profilers: <ul class="ulbasic">
+        <li>In real world situations, I have never had a situation where PHP execution time exceeded DB execution time.  If I need to do intense calculations, I would leave PHP for a faster language.   Maybe look at <a href="https://owenberesford.me.uk/resource/php-benchmark-2022#">php-benchmark-2022</a>.   </li>
+        <li>A product needs mature configs, with correct timeouts.  Not blocking unnecessarily is a low effort improvement.   </li>
+        <li><a href="https://packagist.org/packages/symfony/profiler-pack" target="_blank">Symfony profiler</a> <a href="https://symfony.com/doc/7.0/profiler.html" target="_blank">docs</a> <sup><a href="https://inspector.dev/ultimate-guide-to-symfony-profiler/" target="_blank">17</a></sup> <a href="https://github.com/symfony/profiler-pack" target="_blank">git</a> <i>symfony/profiler-pack</i> Notes show this doing round trip and HTML render durations, rather than strict language profiling.  I guess this makes it closer to PageSpeed.</li>
+        <li>Xdebug <sup><a href="https://xdebug.org/docs/install" target="_blank">18</a></sup> <a href="https://xdebug.org/docs/" target="_blank">docs</a> <a href="https://github.com/xdebug/xdebug" target="_blank">git</a> This is a PHP extension </li>
+        <li>Xhprof <a href="https://docs.ddev.com/en/stable/users/debugging-profiling/xhprof-profiling/" target="_blank">docs</a> <a href="https://www.php.net/manual/en/book.xhprof.php" target="_blank">docs</a> install instructions <sup><a href="https://gist.github.com/revenkroz/931d868748232efd884be3a6c278144a" target="_blank">19</a></sup> original FB docs <sup><a href="https://web.archive.org/web/20110514095512/http://mirror.facebook.net/facebook/xhprof/doc.html" target="_blank">20</a></sup> via web archive.  This is also a PHP extension.</li>
+    </ul></li>
+    <li>As a static analysis <ul class="ulbasic">
+        <li><a href="https://packagist.org/packages/phpstan/phpstan" target="_blank">phpstan</a> is a static analysis tool <a href="https://github.com/phpstan/phpstan" target="_blank">git</a> <a href="https://phpstan.org/user-guide/getting-started" target="_blank">docs</a> a cheatsheet <sup><a href="https://gist.github.com/lunetics/9d09fb54a4ec10429015e0bfa74b3dfb" target="_blank">21</a></sup> <i>phpstan/phpstan</i></li>
+        <li><a href="https://packagist.org/packages/squizlabs/php_codesniffer" target="_blank">codesniffer</a> <a href="https://github.com/PHPCSStandards/PHP_CodeSniffer" target="_blank">git</a> <a href="https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki/Advanced-Usage" target="_blank">docs</a> <i>squizlabs/php_codesniffer</i>.  Note owner and publisher do not match, that's not my error.</li>
+        <li><a href="https://packagist.org/packages/vimeo/psalm" target="_blank">Psalm</a> <a href="https://github.com/vimeo/psalm" target="_blank">git</a> <sup><a href="https://medium.com/@mohamadshahkhajeh/advanced-static-analysis-in-php-leveraging-psalm-phpstan-and-beyond-5db8f990d06a" target="_blank">22</a></sup> <a href="https://psalm.dev/docs/" target="_blank">docs</a></li>
+    </ul></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+<div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Recent PHP toolkit</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-toolkit" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-toolkit" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-toolkit" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-toolkit&amp;t=Tools+for+PHP"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-toolkit" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-03-04T08:36:18" datetime="2026-03-04T08:36:18">Mar '26</time>
+						</span>
+						<span>Created <time datetime="2026-02-28T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '26</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-toolkit" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Engineering details</a></li>
+<li><a href="#toc1">Tools</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-03-04T08:36:51" datetime="2026-03-04T08:36:51">4th of Mar 2026, 8:36:51</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-03-04T08:36:18" datetime="2026-03-04T08:36:18">Mar '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
