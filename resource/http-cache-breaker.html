@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/http-cache-breaker" />
 <meta property="og:description" content="A look at HTTP cache building in the webrowser, flush caching both on static assets.  I propose a feature to manage old and bad caches." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Feb 2026, 13:57:03" />
-<meta property="article:modified_time" content="Feb '26" />
+<meta property="article:published_time" content="1st of Mar 2026, 12:09:24" />
+<meta property="article:modified_time" content="Mar '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/http-cache-breaker" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "HTTP cache breaker",
-	"article:published_time":"10th of Feb 2026, 13:57:03", 
-    "article:modified_time":"Feb '26",
+	"article:published_time":"1st of Mar 2026, 12:09:24", 
+    "article:modified_time":"Mar '26",
     "article:section":"technology",
 
     "author": {
@@ -60,7 +60,11 @@ I am focussing here on static assets which do not need parameter data to specify
 
 <p>When I am making apps, I normally need to run an API to get a relatively static set of data; I put this data in the localStorage, so later DOM refreshes will be quicker to get to a useful state.   As the cache process is entirely managed by decisions in JS, I can perform whatever cache invalidation behaviour I want or need to.  <b>This process is particularly important if you have a many-tab UI design.</b>   I try to not use JS level cache management for JS assets as this increases the time it takes for the app to be useable.   If I was building an app that needed an “ultra-lean download budget”; I would use that, as the execution time would be less urgent than the download volume.</p>
 
-<p>Some people use the dynamic file names (possibly via webpack) to act as a cache mechanism.   This has limited value for testing releases, where the version may last a few minutes.   In the multiple file-names due to multiple run-times/ browsers situation this has less caching effect, so not working.</p>
+<p>Some people use the dynamic file names (possibly via webpack) to act as a cache mechanism.   This has limited value for testing releases, where the version may last a few minutes.   In the multiple file-names due to multiple run-times/ browsers situation this has less caching effect, so not working.  <br />
+A further detail to consider is additional caching layers that browsers have, such as the Favico cache.  As far as favico is a file that you download, normal HTTP headers should apply.  Older advice to manage favico specifically, is to use the following for the length of time that you expect it takes a user to revisit your app/ site<br />
+<blockquote>
+&lt;link rel="shortcut icon" href=&quot;http://www.yoursite.com/favicon.ico?v=&lt;? echo time() ?&gt;&quot; /&gt;
+</blockquote></p>
 
 
 <h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Cache building <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
@@ -96,7 +100,7 @@ I propose an “modify app” button that does the following:</p>
         <li>If they want to get rid of the app why would they be still using it?</li>
         <li>If the user has entirely deleted all stored state, it is not possible to determine if it's first impression or not</li>
     </ul></li>
-    <li>On click for update, access CacheStorage object, exec delete() call <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete" target="_blank">35</a></sup> on the static asset list, ??which is defined??; </li>
+    <li>On click for update, access CacheStorage object, exec delete() call <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete" target="_blank">35</a></sup> on the static asset list, <i>??which is defined??</i>; </li>
     <li>Run location.reload(true) OR run webworkers;<ul class="ulbasic">
         <li>If install is synchronous, it is guaranteed to have known code state; but slower</li>
     </ul></li>
@@ -109,14 +113,14 @@ I propose an “modify app” button that does the following:</p>
 <p>List of caching headers added to requests, for resources that have a planned update cycle. <br />
     <br />
 Cache-Control   “max-age=<ins>&lt;number of seconds at expected update rate&gt;</ins>, public”<br />
-ETag            &lt;hash value&gt; <br />
+ETag            <ins>&lt;hash value&gt;</ins> <br />
 Last-Modified   <ins>&lt;date in ISO format, probably the last deployment date&gt;</ins><br />
 Expires         <ins>&lt;date in ISO format, at the next deployment date&gt;</ins></p>
 
 <p>After the product is completed, so no sprints</p>
 
 <p>Cache-Control   “max-age=<ins>&lt;some sensible cache duration&gt;</ins>, public”<br />
-ETag            &lt;hash value&gt;</p>
+ETag            <ins>&lt;hash value&gt;</ins></p>
 
 
 </div>
@@ -153,7 +157,7 @@ ETag            &lt;hash value&gt;</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
+						<span>Edited <time title="Page edited on 2026-03-01T12:09:14" datetime="2026-03-01T12:09:14">Mar '26</time>
 						</span>
 						<span>Created <time datetime="2023-02-02T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '23</time> </span>
 					</span>
@@ -203,7 +207,7 @@ ETag            &lt;hash value&gt;</p>
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-02-10T13:57:03" datetime="2026-02-10T13:57:03">10th of Feb 2026, 13:57:03</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-03-01T12:09:24" datetime="2026-03-01T12:09:24">1st of Mar 2026, 12:09:24</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-03-01T12:09:14" datetime="2026-03-01T12:09:14">Mar '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
