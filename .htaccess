@@ -158,6 +158,12 @@ RewriteRule ^(.*)$				https://%{HTTP_HOST}$1
 	RewriteCond %{SERVER_PORT}      443
 	RewriteRule ^(.*)$				$1.json
 </FilesMatch>
+<FilesMatch "robots.txt">
+	Header set Content-Type 'text/plain'
+	Header set Cache-Control 'max-age=86400'
+	Header append X-ICELINE "add ROBOTS"
+</FilesMatch>
+
 <FilesMatch ".*-meta">
 	Header set Content-Type 'application/json; encoding=utf8'
 	Header set Cache-Control 'max-age=86400'
