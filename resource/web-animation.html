@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Animation</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Process for web animation, referencing CSS, JS, and other options.   Animation can improve UX and usability when used correctly." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Animation" />
+<meta itemprop="description" content="Process for web animation, referencing CSS, JS, and other options.   Animation can improve UX and usability when used correctly." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Animation" />
+<meta name="twitter:description" content="Process for web animation, referencing CSS, JS, and other options.   Animation can improve UX and usability when used correctly." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Animation" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/web-animation" />
+<meta property="og:description" content="Process for web animation, referencing CSS, JS, and other options.   Animation can improve UX and usability when used correctly." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="11th of Mar 2026, 20:09:43" />
+<meta property="article:modified_time" content="Mar '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/web-animation" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Animation",
+	"article:published_time":"11th of Mar 2026, 20:09:43", 
+    "article:modified_time":"Mar '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences">
+<div class="lotsOfWords ">
+<p>There are many, many pages on the interwebs explaining 'how to animate'.   In this text, “to animate” is “to make a thing move”, maybe colour, maybe location, maybe size, etc.   I already know how to animate in raw JS or raw CSS ~ for most of the other articles I gain information.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Animation policy (after general reading, particularly W3C) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>As described in <a href="https://owenberesford.me.uk/resource/favicon-notes#">favicon-notes</a>, animation MUST be used wisely and to say something, NOT spamming effects.</li>
+    <li>Animation MAY be used to draw attention to elements. <ul class="ulbasic">
+        <li>Animation MAY be used to show content changes more clearly ~ this actually helps.</li>
+    </ul></li>
+    <li>Sometimes, animation is used to make pages more cute (not applicable to my work).</li>
+    <li>Animation MUST NOT block UI or user desires.   Animation MUST NOT slow the load stage. </li>
+    <li>Animation MUST NOT make interactions harder to use, for example moving buttons away from the user's mouse,</li>
+    <li>Animation sometimes triggers medical problems, so there MUST be a disable option.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Business need: Animation options <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>As a high-level checklist, the following options exist:</p>
+
+<ul class="ulbasic">
+    <li>actual video feeds / small static video assets </li>
+    <li>use SVG animation features see <a href="https://owenberesford.me.uk/resource/svg-animation#">svg-animation</a></li>
+    <li>use JS to imperatively edit HTML elements<ul class="ulbasic">
+        <li>OR SVG elements</li>
+    </ul></li>
+    <li>use CSS animation to declaratively edit HTML elements<ul class="ulbasic">
+        <li>OR SVG elements</li>
+    </ul></li>
+    <li>HTML canvas + JS (different angle) <sup><a href="https://dev.to/sharique_siddiqui_8242dad/canvas-and-svg-graphics-and-animation-1p16" target="_blank">1</a></sup></li>
+    <li>webGL <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Animating_objects_with_WebGL" target="_blank">2</a></sup> (real honest 3d + flat batteries on phones) <sup><a href="https://dev.to/kolonatalie/high-performance-web-animation-gsap-webgl-and-the-secret-to-60fps-2l1g" target="_blank">3</a></sup></li>
+    <li>use CSS transitions to declaratively edit HTML elements<ul class="ulbasic">
+        <li>OR SVG elements</li>
+    </ul></li>
+    <li>scroll animation, so idle when users are reading (CSS only, AFAIK).</li>
+    <li>...</li>
+    <li>using JS to swap images (whole images, not sprite animation).  These will need to be cached locally to keep performance.</li>
+    <li>sprite animation (this will never die, but is slow to build, unless auto-code) OLDER</li>
+    <li>GIF animation <sup><a href="https://en.wikipedia.org/wiki/GIF" target="_blank">4</a></sup> / MNG animation <sup><a href="https://en.wikipedia.org/wiki/Multiple-image_Network_Graphics" target="_blank">5</a></sup>  OLDER, INFERIOR </li>
+    <li>HTML refresh <sup><a href="https://http.dev/refresh" target="_blank">6</a></sup> and different HTML (alot OLDER, INFERIOR)</li>
+</ul>
+
+<p><div class="pullout">
+<p>Animation can be:</p>
+
+<ul class="ulbasic">
+    <li>routine, applying standard effects, and looking like Powerpoint.   In this case using a standardised framework is better use of time.   </li>
+    <li>for specific interactions, a locally written one delivers the results better.  As an example the small animation on my homepage is not regular, and not repeating frequently.</li>
+</ul>
+
+
+</div></p>
+
+<p>CSS keywords <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations" target="_blank">7</a></sup>, list of HTML properties that can be animated <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Animatable_properties" target="_blank">8</a></sup></p>
+
+<ul class="ulbasic">
+    <li>As background, MSword (and therefore Powerpoint or Visio) doesn't natively do motion in curves, or curve shapes well.</li>
+    <li>SVG is much better for curves than HTML is.   HTML Borders can be curved in HTML, but there are annoying edge cases that fail.</li>
+    <li>Animation via JS or CSS can be from a framework based or locally written.   The “locally written” version, can be generated by hand, with pre-LLM tools (see list below), or an LLM.</li>
+    <li>Some other work, <a href="https://owenberesford.me.uk/resource/progress-animation-maquette#">progress-animation-maquette</a>, <a href="https://owenberesford.me.uk/resource/transition-animation-tooltips-maquette#">transition-animation-tooltips-maquette</a>, <a href="https://owenberesford.me.uk/resource/svg-animation#">svg-animation</a> </li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > CSS animation generators <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This is much simpler than matrix transformation in SVG, or typed and compiled languages.<br />
+There are many generators <sup><a href="https://cssify.co/tools/css-animation-generator" target="_blank">9</a></sup>, <sup><a href="https://iconostack.com/css-animations-generator/" target="_blank">10</a></sup> <sup><a href="https://cssgenerator.dev/animations" target="_blank">11</a></sup>, <sup><a href="https://www.cssportal.com/css-animation-generator/" target="_blank">12</a></sup>, <sup><a href="https://webcode.tools/css-generator/keyframe-animation" target="_blank">13</a></sup>, <sup><a href="https://tools.webdevpuneet.com/css-animation-generator/" target="_blank">14</a></sup>.</p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > CSS Animation frameworks <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>CSS animation frameworks are best for “applying power point effects for the marketing director”, quickly.   There are hundreds (and I assume some not maintained).   These following links are merely listicles, and all different counts and content <sup><a href="https://www.sliderrevolution.com/resources/css-animation-libraries/" target="_blank">15</a></sup>, <sup><a href="https://medevel.com/animation-css-frameworks/" target="_blank">16</a></sup>, <sup><a href="https://geekflare.com/dev/top-css-animation-libraries/" target="_blank">17</a></sup>, <sup><a href="https://freefrontend.com/css-animation-libraries/" target="_blank">18</a></sup>.</p>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > QA and UXA on animation. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>I can't see test tools specifically for animation.   I or other devs can build the outcome on top of Lighthouse as a in-browser test <a href="https://developer.chrome.com/docs/lighthouse/overview/" target="_blank">docs</a> <sup><a href="https://deepwiki.com/lavas-project/pwa-book/9-pwa-testing-with-lighthouse" target="_blank">19</a></sup>.</li>
+    <li>Need a magic trick <sup><a href="https://github.com/w3c/csswg-drafts/issues/7389" target="_blank">20</a></sup> to disable on slower CPU/ overly busy CPU/ low battery machine.  An article CLAIMS the browser will say when its low battery in media-queries <sup><a href="https://carder.market/threads/battery-api-is-dead-long-live-charging-state-inference-via-css-media-queries.179624/" target="_blank">21</a></sup> ~ I haven't seen this happening.  <ul class="ulbasic">
+        <li>In JS, there is battery status API for many users <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Battery_Status_API" target="_blank">22</a></sup>, but not supported by Safari <sup><a href="https://caniuse.com/?search=+battery+status" target="_blank">23</a></sup>.  There is a fairly old component for this <sup><a href="https://www.npmjs.com/package/react-native-battery-optimization-check" target="_blank">24</a></sup> or in plain React <sup><a href="https://www.npmjs.com/package/@plenty-hooks/use-battery" target="_blank">25</a></sup>.  This is a more frequently updated module <sup><a href="https://www.npmjs.com/package/expo-battery" target="_blank">26</a></sup>.   One of these JS libraries can be used to set a CSS class for “UI effect reduction”, including animation.   </li>
+    </ul></li>
+    <li>Obviously pay attention to user requests eg <i>prefers-reduced-motion</i> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion" target="_blank">27</a></sup>, <a href="https://owenberesford.me.uk/resource/accessibility-testing#">accessibility-testing</a>.</li>
+    <li>Matching 'banner blindness' <sup><a href="https://www.publift.com/blog/reducing-banner-blindness" target="_blank">28</a></sup> by routine web users, permanently scrolling bylines are likely to be ignored.<ul class="ulbasic">
+        <li>Positive uses for scrollers is to allow titles to big to fit on screen to be accessible, and 1 line.  This situation is most common on mobile.   </li>
+    </ul></li>
+    <li>Animation for good for UX (eg instant DOM changes can baffle slower users) <sup><a href="https://scribe.rip/@CarlosSmith24/the-role-of-animation-in-improving-app-user-experience-afaf0e06c77c" target="_blank">29</a></sup> <sup><a href="https://born.mt/insights/web-animation-best-practices/" target="_blank">30</a></sup> </li>
+    <li>Obviously browser compat testing, and phone testing need to happen regardless<ul class="ulbasic">
+        <li>For example, a successful app-dev turned rel-dev known as PPK <sup><a href="https://quirksmode.org/about/" target="_blank">31</a></sup>, has a test suite of ~50 devices, so delivers high quality apps. </li>
+        <li>Note animating colours is awkward on Safari, any float alpha values are converted to black.  See <a href="https://owenberesford.me.uk/resource/colourise-emoji#">colourise-emoji</a>, search for Safari in <sup><a href="https://github.com/owenBeresford/extra-panda/blob/main/src/presentation/colours.css" target="_blank">32</a></sup>.</li>
+    </ul></li>
+</ul>
+
+<p>This site isn't for outbound link farming, just I'm trying not to duplicate text.</p>
+
+<p>.</p>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>web animation</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-animation" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-animation" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-animation" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-animation&amp;t=Animation"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-animation" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-03-11T14:53:20" datetime="2026-03-11T14:53:20">Mar '26</time>
+						</span>
+						<span>Created <time datetime="2026-01-10T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jan '26</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fweb-animation" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Animation policy (after general reading, particularly W3C)</a></li>
+<li><a href="#toc1">Business need: Animation options</a></li>
+<li><a href="#toc2">CSS animation generators</a></li>
+<li><a href="#toc3">CSS Animation frameworks</a></li>
+<li><a href="#toc4">QA and UXA on animation.</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-03-11T20:09:43" datetime="2026-03-11T20:09:43">11th of Mar 2026, 20:09:43</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-03-11T14:53:20" datetime="2026-03-11T14:53:20">Mar '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
