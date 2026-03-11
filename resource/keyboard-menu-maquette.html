@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/keyboard-menu-maquette" />
 <meta property="og:description" content="A demo of better keyboard input.  I wanted a means to tab to component/ blocks, rather than each element." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="12th of Feb 2026, 16:50:54" />
-<meta property="article:modified_time" content="Feb '26" />
+<meta property="article:published_time" content="11th of Mar 2026, 20:11:15" />
+<meta property="article:modified_time" content="Mar '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/keyboard-menu-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Keyboard accessible menu",
-	"article:published_time":"12th of Feb 2026, 16:50:54", 
-    "article:modified_time":"Feb '26",
+	"article:published_time":"11th of Mar 2026, 20:11:15", 
+    "article:modified_time":"Mar '26",
     "article:section":"technology",
 
     "author": {
@@ -148,11 +148,24 @@ I really need less long lists with keyboard access.  This Component / block idea
 </ul>
 
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Context reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>If you have no previous reading on keyboard access in webpages, this is a detailed list presented like a powerpoint <sup><a href="https://www.accessibud.com/blog/keyboard-accessibility/" target="_blank">1</a></sup>.   <br />
-For a repeatable process, this should to be locale aware.  JS has support to see current user language (if filled in correctly by user) <sup><a href="https://dev.to/free_programmers/how-to-detect-the-users-language-on-a-website-ka1" target="_blank">2</a></sup>.   I guess pre-created keyboard assignments? <br />
-More validation tools specifically for ARIA attributes <sup><a href="https://achecks.org/achecker" target="_blank">3</a></sup> <sup><a href="https://www.powermapper.com/tests/screen-readers/attributes/" target="_blank">4</a></sup>.   <br />
-I see <del>three</del><ins>four</ins> possible solutions</p>
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Further reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>basic react notes on react website <sup><a href="https://legacy.reactjs.org/docs/accessibility.html" target="_blank">1</a></sup> // lol.</li>
+    <li>I found two general libraries that add keyboard access to a whole site/ app/ platform as a generic library: <strong>a11y project</strong> <a href="https://www.a11yproject.com/" target="_blank">docs</a> <a href="https://github.com/a11yproject/a11yproject.com" target="_blank">git</a> or <strong>a11ykit</strong> <a href="https://github.com/patrickfox/a11ykit" target="_blank">git</a> <a href="https://github.com/patrickfox/a11ykit/blob/master/README.md" target="_blank">docs</a> (this is in NPMJS).</li>
+    <li>component <strong>React a11y Dropdown</strong> <a href="https://github.com/dcooney/react-a11y-dropdown" target="_blank">git</a> <a href="https://dcooney.github.io/react-a11y-dropdown/" target="_blank">docs</a> in NPMJS</li>
+    <li>component <strong>a11y-menu</strong> <a href="https://github.com/reekoheek/xlit#readme" target="_blank">docs</a> [github.com/reekoheek/xlit git] in NPMJS<ul class="ulbasic">
+        <li>If you have no previous reading on keyboard access in webpages, this is a detailed list presented like a powerpoint <sup><a href="https://www.accessibud.com/blog/keyboard-accessibility/" target="_blank">2</a></sup>.   A primer for semantic HTML and keyboard access <sup><a href="https://www.a11y-collective.com/blog/modal-accessibility/" target="_blank">3</a></sup> <sup><a href="https://uxplaybook.org/articles/7-principles-for-inclusive-accesible-ux-designs" target="_blank">4</a></sup> <sup><a href="https://scribe.rip/@sankarrajcivil10/accessibility-in-ux-ui-what-why-how-when-types-and-methods-6e5f26321fef" target="_blank">5</a></sup>.   A long list of HTML good practice <sup><a href="https://javascript.plainenglish.io/accessibility-a11y-in-react-small-tweaks-big-impact-31be5af5c67b" target="_blank">6</a></sup> <sup><a href="https://londeren.scribe.rip/design-patterns-creating-accessible-web-components-d3244f529290" target="_blank">7</a></sup>, that everyone should already be using.</li>
+    </ul></li>
+    <li>To have detailed and correct ARIA attribs, is probably necessary to use JS to set them, today <sup><a href="https://javascriptux.com/web-accessibility-a11y-standards/" target="_blank">8</a></sup>.   If this becomes not true, I will update this article.   </li>
+    <li>Permanent note on anything to do with UX, interaction design or usability: provide a revert OR cancel interaction, so mistakes are reversible.  Intro article <sup><a href="https://www.a11y-collective.com/blog/modal-accessibility/" target="_blank">9</a></sup>.  </li>
+    <li>For a repeatable process, this should to be locale aware.  JS has support to see current user language (if filled in correctly by user) <sup><a href="https://dev.to/free_programmers/how-to-detect-the-users-language-on-a-website-ka1" target="_blank">10</a></sup> <sup><a href="https://stackoverflow.com/questions/9518556/is-there-a-way-to-detect-what-the-input-language-setting-is-currently" target="_blank">11</a></sup>.   I guess pre-created keyboard assignments?    </li>
+    <li>More validation tools specifically for ARIA attributes <sup><a href="https://achecks.org/achecker" target="_blank">12</a></sup> <sup><a href="https://www.powermapper.com/tests/screen-readers/attributes/" target="_blank">13</a></sup>.  </li>
+    <li>If any UI feature triggers a modal, it is important that the current focus element is clear, and on screen <sup><a href="https://scribe.rip/@im_rahul/focus-trapping-looping-b3ee658e5177" target="_blank">14</a></sup>, so the user isn't trapped.   The same review should occur on tabbed UI.  TESTING is needed!</li>
+</ul>
+
+<p><strong>NOTE</strong>: using <em>enough</em> Aria attribs increases intent and accessibility for a wide range of users.   Also using <em>too many</em> Aria attribs adds no value and may confuse the poor screen-reader.   Whats the correct magic number of attribs?  Off the cuff: it depends, I think it varies per user.</p>
+
+<p>I see <del>three</del><ins>four</ins> possible solutions</p>
 
 <ul class="ulbasic">
     <li>A keyboard menu structure, context box thing, like actual apps or console game UI.  [not very good on mobile]</li>
@@ -161,9 +174,11 @@ I see <del>three</del><ins>four</ins> possible solutions</p>
     <li>A minimal scripting language, a la vim or emacs.                [awkward on mobile] </li>
 </ul>
 
-<p>For direct keybindings, this is not really guessable/ usable for websites.   For an App, heavy users might be able to gain, but how to make Chord sequences?   Do you, reader, use &lt;cntl-B&gt; in msft word to bold something, or a labourious menu crawl as its now Tuesday an MSFT have moved all the UI round again.   The tech is <sup><a href="https://learn.microsoft.com/en-us/windows/apps/develop/input/access-keys" target="_blank">5</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/accesskey" target="_blank">6</a></sup> <sup><a href="https://getwcag.com/en/accessibility-guide/accesskeys" target="_blank">7</a></sup>.   Everything I read on this option mentions manual testing, as Js doesn't allow real keyboard events to be made (#leSigh).</p>
+<p>For direct keybindings, this is not really guessable/ usable for websites <sup><a href="https://ux.stackexchange.com/questions/152282/are-html-accesskeys-still-terrible-in-2024" target="_blank">15</a></sup>.   For an App, heavy users might be able to gain, but how to make Chord sequences?   Do you, reader, use &lt;cntl-B&gt; in msft word to bold something, or a labourious menu crawl as its now Tuesday and MSFT have moved all the UI round again.   The tech is <sup><a href="https://learn.microsoft.com/en-us/windows/apps/develop/input/access-keys" target="_blank">16</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/accesskey" target="_blank">17</a></sup> <sup><a href="https://getwcag.com/en/accessibility-guide/accesskeys" target="_blank">18</a></sup> <sup><a href="https://www.accessibilitychecker.org/wcag-guides/ensure-every-accesskey-attribute-value-is-unique/" target="_blank">19</a></sup>.   Everything I read on this option mentions manual testing, as JS doesn't allow real keyboard events to be made (#leSigh).   Accessibility aXe (testing for keyboard input) <sup><a href="https://dequeuniversity.com/rules/axe/4.10" target="_blank">20</a></sup>.   It is necessary to have a visualisation process for your keyboard assignments.  Awareness of this API <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Keyboard_API" target="_blank">21</a></sup> when it becomes more widely supported is advised.</p>
 
 <p>Writing a language is a oversize scope solution.   Even less guessable that the keybindings.   Here, state your goals to the app, and let the software work it out, eg with a defined list of terms, so “share this to xitter”.   However see initial comment that no-one values a single system that much, unless they use it everyday.</p>
+
+<p>.</p>
 
 
 <h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Interstitial text. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
@@ -216,7 +231,7 @@ You seem to be using keyboard access as an input modality.</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-12T11:04:57" datetime="2026-02-12T11:04:57">Feb '26</time>
+						<span>Edited <time title="Page edited on 2026-03-11T20:10:49" datetime="2026-03-11T20:10:49">Mar '26</time>
 						</span>
 						<span>Created <time datetime="2026-02-02T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '26</time> </span>
 					</span>
@@ -250,7 +265,7 @@ You seem to be using keyboard access as an input modality.</p>
 <li><a href="#toc0">Desired behaviours</a></li>
 <li><a href="#toc1">Functional spec</a></li>
 <li><a href="#toc2">Local site components to affect if this adds value</a></li>
-<li><a href="#toc3">Context reading</a></li>
+<li><a href="#toc3">Further reading</a></li>
 <li><a href="#toc4">Interstitial text.</a></li>
 <li><a href="#toc5">Technical Notes</a></li>
 </menu>
@@ -269,7 +284,7 @@ You seem to be using keyboard access as an input modality.</p>
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-02-12T16:50:54" datetime="2026-02-12T16:50:54">12th of Feb 2026, 16:50:54</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-12T11:04:57" datetime="2026-02-12T11:04:57">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-03-11T20:11:15" datetime="2026-03-11T20:11:15">11th of Mar 2026, 20:11:15</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-03-11T20:10:49" datetime="2026-03-11T20:10:49">Mar '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
