@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Lesser known features for NPM</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A list of 22 details to better manage and understand current NPM settings.   Warn, the best version of NPM is set by the current version of Node ~ including in only-front-end projects." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Lesser known features for NPM" />
+<meta itemprop="description" content="A list of 22 details to better manage and understand current NPM settings.   Warn, the best version of NPM is set by the current version of Node ~ including in only-front-end projects." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Lesser known features for NPM" />
+<meta name="twitter:description" content="A list of 22 details to better manage and understand current NPM settings.   Warn, the best version of NPM is set by the current version of Node ~ including in only-front-end projects." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Lesser known features for NPM" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/npm-hidden-extras" />
+<meta property="og:description" content="A list of 22 details to better manage and understand current NPM settings.   Warn, the best version of NPM is set by the current version of Node ~ including in only-front-end projects." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="16th of Jun 2026, 18:38:48" />
+<meta property="article:modified_time" content="Jun '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/npm-hidden-extras" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Lesser known features for NPM",
+	"article:published_time":"16th of Jun 2026, 18:38:48", 
+    "article:modified_time":"Jun '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addBashSamples">
+<div class="halferWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>I'm not sure how much use this article is generally.   But if NPM <a href="https://www.manpagez.com/man/1/npm/" target="_blank">docs</a> leaves its logging at home, these steps will show you what it didn't.</li>
+    <li>`$package is “thing”, or “thing@semver”`</li>
+    <li>These notes are written for NPM v11.   NPM is more stable than many JS API. </li>
+    <li>If anything confuses you, browse the flow diagram in <sup><a href="https://dev.to/pranav89624/how-npm-install-works-what-really-happens-when-you-hit-enter-190" target="_blank">1</a></sup>.  I have linked rather than copied for a better internet.  </li>
+    <li>Most NPM configuration is done via package.json  [<sub>but not all</sub>].   Keywords supported are documented in <a href="https://docs.npmjs.com/cli/v11/configuring-npm/package-json" target="_blank">docs</a>.   I often add comments into the scripts section by items similar to ` &quot;#ignore this line 1”:“blah blah note about the following script blah blah” `.  <em>Technically</em> JSON doesn't support comments, but this hack helps. </li>
+    <li>Using npm forces a semver library to be present (<i>bonus!</i>).  Be aware of these rules <a href="https://github.com/npm/node-semver" target="_blank">node-server</a> and if they differ from XYZ platform that you normally use. </li>
+    <li>WARN: On docs.npmjs.com, the NPM version selector is stiff, and you will probably need to select it twice to get the correct version.</li>
+    <li> </li>
+    <li>Drive with nvm <a href="https://github.com/nvm-sh/nvm" target="_blank">git</a> to set Node (#leSigh win32 again)</li>
+</ul>
+
+<p><aside class="pulloutWidget">
+<div class="g1 pullout3">
+<p>ASIDE that I forget<br />
+  `export NODE_ENV=production; npm i `<br />
+  is recommended for operational concerns on Cloud to reduce deployment costs, but this disables many tools.<br />
+  Various frameworks will stop writing to the log when this is set.  DO NOT FORGET that you set this in long-lived shells.<br />
+  Probably sensible policy: only do deployment tests or real deployments in short lived shells, `exit` after the step change.</p>
+
+
+</div>
+</aside></p>
+
+<p><aside class="pulloutWidget" >
+<div class="g1 pullout4">
+<p>It is easy to look at the `package.json` of packages ~ in the code tab of NPMJS <sup><a href="https://www.npmjs.com/package/npm?activeTab=code" target="_blank">1</a></sup>.   Via the browser view, you don't need to meet installation requirements, or a git hub account . . . . ie can view from your phone.</p>
+
+
+</div>
+</aside></p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Lesser known facts <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>ls -l .npmrc <ol>
+        <li>A hidden file <a href="https://docs.npmjs.com/cli/v11/configuring-npm/npmrc" target="_blank">docs</a> that is used to enforce side effects :-)</li>
+    </ol></li>
+    <li>`npm ls $package`<ol>
+        <li>This shows local copies of the named package. </li>
+        <li>It also shows all the “unnecessary”/ dupe copies.</li>
+    </ol></li>
+    <li>NB: do not accidentally leave NODE_DEBUG set whilst using NPM, or your term is heavily flooded.</li>
+    <li>`npm config list --json`<ol>
+        <li>A way to list several different configs and settings as a group <a href="https://docs.npmjs.com/cli/v9/commands/npm-config?v=true" target="_blank">docs</a> </li>
+    </ol></li>
+    <li>`npm install --force $package`<ol>
+        <li>Probably everyone does know this one.</li>
+        <li>To limit use of --force, read about alternatives <a href="https://www.xjavascript.com/blog/how-to-update-dependencies-of-dependencies-using-npm/#method-4-manual-resolution-with-npm-ls-and-npm-install" target="_blank">docs</a>.</li>
+    </ol></li>
+    <li>`npm pkg get devDependencies.$package`<ol>
+        <li>Returns the currently installed version.   Could also be 'dependencies'.</li>
+        <li>Empty brackets means not found.  </li>
+    </ol></li>
+    <li>`npm pkg get workspaces` <ol>
+        <li>In other languages, a 'workspace' is a 'namespace'.   </li>
+        <li>If you use Workspaces <a href="https://docs.npmjs.com/cli/v11/using-npm/workspaces" target="_blank">docs</a>, this is how to list them.  Again, generally this information abit awkward to find.</li>
+    </ol></li>
+    <li>`npm view $package peerDependencies` <ol>
+        <li>This information cannot be seen in npmjs.  This allows better decision making earlier as package doesn't need to be installed first.  </li>
+        <li>Strongly advise: full package name/ version to get the relevant output.</li>
+    </ol></li>
+    <li>NPM included a overrides mask to regulate peer packages <sup><a href="https://docs.npmjs.com/cli/v9/configuring-npm/package-json#overrides" target="_blank">2</a></sup></li>
+    <li>`npm i --verbose --strict-peer-deps $package ` <ol>
+        <li>To better manage the peer packages that give you grief in security updates.</li>
+    </ol></li>
+    <li>`npm explain $package`<ol>
+        <li>List impact of installing named package <a href="https://docs.npmjs.com/cli/v11/commands/npm-explain" target="_blank">docs</a>.  Again mentions peers</li>
+    </ol></li>
+    <li>`npm ddp --install-strategy=hoisted --verbose `<ol>
+        <li>Attempt to reduce duplicate copy of packages.  Probably uses the fabled tree shaking</li>
+    </ol></li>
+    <li>`npm audit --production`<ol>
+        <li>for later stage projects where you only want to spend further time on service availability</li>
+    </ol></li>
+    <li>`npm config get global`<ol>
+        <li>...or other variables.  Self descriptive. </li>
+    </ol></li>
+    <li>`npm config get omit `<ol>
+        <li>This can be used as a mask to disable NPM features</li>
+    </ol></li>
+    <li>`npm config list`<ol>
+        <li>This reports some code artefacts that NPM isn't suited to change (ie $PWD)</li>
+    </ol></li>
+    <li>`npm audit fix --production `<ol>
+        <li>CAUTION purges everything for dev tools in 1 command.</li>
+        <li>If doing that solves a production problem, its time to review tool use.</li>
+    </ol></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Extra features for NPM and NPMJS</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fnpm-hidden-extras" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fnpm-hidden-extras" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fnpm-hidden-extras" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fnpm-hidden-extras&amp;t=Lesser+known+features+for+NPM"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fnpm-hidden-extras" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-06-16T18:38:33" datetime="2026-06-16T18:38:33">Jun '26</time>
+						</span>
+						<span>Created <time datetime="2026-02-15T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '26</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fnpm-hidden-extras" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Context</a></li>
+<li><a href="#toc1">Lesser known facts</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-06-16T18:38:48" datetime="2026-06-16T18:38:48">16th of Jun 2026, 18:38:48</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-06-16T18:38:33" datetime="2026-06-16T18:38:33">Jun '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>

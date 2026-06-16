@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>Test framework omissions</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A list of awkward cases whilst testing behaviour inside JS based apps.  I mention my current hack solutions to ensure users get a good solution.  Expect page content to be updated." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="Test framework omissions" />
+<meta itemprop="description" content="A list of awkward cases whilst testing behaviour inside JS based apps.  I mention my current hack solutions to ensure users get a good solution.  Expect page content to be updated." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="Test framework omissions" />
+<meta name="twitter:description" content="A list of awkward cases whilst testing behaviour inside JS based apps.  I mention my current hack solutions to ensure users get a good solution.  Expect page content to be updated." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="Test framework omissions" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/e2e-testing-limitations" />
+<meta property="og:description" content="A list of awkward cases whilst testing behaviour inside JS based apps.  I mention my current hack solutions to ensure users get a good solution.  Expect page content to be updated." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="16th of Jun 2026, 18:22:28" />
+<meta property="article:modified_time" content="Jun '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/e2e-testing-limitations" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "Test framework omissions",
+	"article:published_time":"16th of Jun 2026, 18:22:28", 
+    "article:modified_time":"Jun '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="halferWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>In apps, there are two areas that need testing most strongly:</p>
+
+<ul class="ulbasic">
+    <li>Logic / business logic, as humans are weak with logical thinking,</li>
+    <li>“flakey corner-cases”.  Browsers are a large tool and have an above average number of flakey corner-cases.  As security structures are created, they add more flakey corners and more complex ones, as JS often doesn't work a well in this case (so the security feature cannot be bypassed).</li>
+</ul>
+
+<p>Every test tool can test business logic, so this is ignored in the rest of this article.   See the end of <a href="https://owenberesford.me.uk/resource/testing-epic#">the other pages on testing</a> if ignorant.   This entire site is very boring if SWE isn't <em>your</em> trade.</p>
+
+<p>Flakey corner-cases are a leading cause for manual testing, as this allows <em>some progress</em>.   It is needed to have a careful review of what is happening if the flakey corner-case lacks sufficient docs.  Many of these corners are fiddly.</p>
+
+<p>AFAIK, 'a corner case' is a term borrowed from civil engineering <sup><a href="https://en.wikipedia.org/wiki/Corner_case" target="_blank">1</a></sup>, as corners obviously stick out, and get bashed more than flat sections of wall.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Current list of corner cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>The following are known areas of JS-inside-browsers that are harder to test.  This list will get larger, and the focus is on solutions not cataloguing “JS being awkward”, <del>again</del>.</p>
+
+<ul class="ulbasic">
+    <li>Investigating certs from browser JS, <ul class="ulbasic">
+        <li>Easier from outside the browser.   At a minima, any Node process can integrate OpenSSL CLI <sup><a href="https://openssl-projects.org/" target="_blank">2</a></sup> <sup><a href="https://www.openssl-library.org/roadmap/index.html" target="_blank">3</a></sup> tools for fun and profit.  </li>
+    </ul></li>
+    <li>Server availability, <ul class="ulbasic">
+        <li>Some OSS work <a href="https://github.com/owenBeresford/oab1-conf/blob/main/lib/unit-test-CORS-errors.js" target="_blank">git</a>, but not much data possible.</li>
+        <li>Easier from outside, see one or more 3rd party SaaS <del>adverts here</del></li>
+    </ul></li>
+    <li>JS Worker* features (aka Threads in other languages).<ul class="ulbasic">
+        <li>Some OSS <a href="https://github.com/zackargyle/service-workers/tree/master/packages/service-worker-mock" target="_blank">git</a> <sup><a href="https://www.gaunt.dev/blog/2015/12/14/unit-testing-service-worker/" target="_blank">4</a></sup></li>
+        <li>In other languages, I would organise to run any logic from the Worker module in the main test process, and then a second set of tests to start and stop threads and pass messages.  Inside JS, the Worker script would need to be cut-n-shut <sup><a href="https://www.giveacar.co.uk/cut-and-shut/" target="_blank">5</a></sup> into a <em>normal</em> object.   </li>
+        <li>Noting the Worker functions are not public or exported, as they do not need to be.   </li>
+    </ul></li>
+    <li>Session jacking for legit security purposes ie to force login to a hotel wifi. <ul class="ulbasic">
+        <li>A tool for manually doing traffic redirection <sup><a href="https://www.mitmproxy.org/" target="_blank">6</a></sup>.  Some notes <sup><a href="https://whisperlab.org/introduction-to-hacking/lectures/wifi-exploitation" target="_blank">7</a></sup>.  </li>
+        <li>In my first employer I built a small module that performed enable transparent redirects if certain data was found in a provisioning DB.  This encouraged payments from people with expired card details logged.   </li>
+    </ul></li>
+    <li>Direct Keyboard events, <ul class="ulbasic">
+        <li>But you can test form inputs by DOM manipulation <a href="https://testing-library.com/docs/" target="_blank">docs</a>, and other libraries.</li>
+        <li>I have made a maquette, for keyboard interaction in Navbars <sup><a href="https://owenberesford.me.uk/resource/keyboard-menu-maquette" target="_blank">8</a></sup>.  This is soo much code for basic interactions using arrow keys and space/ escape that should just work.</li>
+        <li>Games and tools like gmap want to use direct key events <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent" target="_blank">docs</a>, and probably to normalise between different clients.    </li>
+    </ul></li>
+    <li>“background tab events” are happening correctly, <ul class="ulbasic">
+        <li>As soon as a tab is in the background JS timers go weird and slower <sup><a href="https://www.xjavascript.com/blog/chrome-timeouts-interval-suspended-in-background-tabs/" target="_blank">9</a></sup>.  The slower effect is an architecture detail to save batteries on portable devices.   There is a well known step algorithm for aligning steps [XXX] which helps normalise this.</li>
+        <li>This can be observed from your server, if the background action includes server traffic.  Or in a persistent log somewhere (maybe SaaS, maybe localStorage or maybe DOM additions).    </li>
+        <li>Some tips for JS <sup><a href="https://developer.chrome.com/docs/devtools/javascript/background-services/" target="_blank">10</a></sup> <sup><a href="https://www.keepersecurity.com/blog/2023/10/16/how-to-detect-man-in-the-middle-attacks/" target="_blank">11</a></sup> in Chrome.  </li>
+    </ul></li>
+    <li>HTTPS only features require actual real certs, or get loads of warnings.<ul class="ulbasic">
+        <li>This is manageable due to letsEncrypt <sup><a href="https://letsencrypt.org/" target="_blank">12</a></sup> <sup><a href="https://community.letsencrypt.org/t/local-domain-certs-with-lets-encrypt-ca/212014/4" target="_blank">13</a></sup> <sup><a href="https://dev.to/ietxaniz/how-to-implement-https-in-local-networks-using-lets-encrypt-4eh" target="_blank">14</a></sup>, hence I moved it last. </li>
+        <li>Due to what a cert is, its necessary to have public DNS names.  Another option is an extra local CA <sup><a href="https://smallstep.com/blog/build-a-tiny-ca-with-raspberry-pi-yubikey/" target="_blank">15</a></sup></li>
+        <li>I have a captive browser project to perform BDD tests inside the HTTPS/ SSL <a href="https://github.com/owenBeresford/extra-panda/blob/main/tools/tests-browser.ts" target="_blank">git</a>, but to get better quality I need to replace Playwright (not the Python version) with Puppeteer (not the Perl version), so I can use a wider variety of browsers.</li>
+    </ul></li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="testing, engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in testing </p>
+<div id="grouptesting" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=testing" aria-label="This article lists all items in testing group.">All of <br />testing<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Limits of E2E testing</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fe2e-testing-limitations" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fe2e-testing-limitations" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fe2e-testing-limitations" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fe2e-testing-limitations&amp;t=Test+framework+omissions"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fe2e-testing-limitations" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-06-15T19:48:09" datetime="2026-06-15T19:48:09">Jun '26</time>
+						</span>
+						<span>Created <time datetime="2026-06-10T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jun '26</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fe2e-testing-limitations" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Intro</a></li>
+<li><a href="#toc1">Current list of corner cases</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-06-16T18:22:28" datetime="2026-06-16T18:22:28">16th of Jun 2026, 18:22:28</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-06-15T19:48:09" datetime="2026-06-15T19:48:09">Jun '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
