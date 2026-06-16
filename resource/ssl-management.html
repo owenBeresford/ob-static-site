@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ssl-management" />
 <meta property="og:description" content="A list of different methods to get a SSL cert." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Feb 2026, 13:57:09" />
-<meta property="article:modified_time" content="Feb '26" />
+<meta property="article:published_time" content="16th of Jun 2026, 18:38:49" />
+<meta property="article:modified_time" content="Jun '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ssl-management" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "SSL/SSH management",
-	"article:published_time":"10th of Feb 2026, 13:57:09", 
-    "article:modified_time":"Feb '26",
+	"article:published_time":"16th of Jun 2026, 18:38:49", 
+    "article:modified_time":"Jun '26",
     "article:section":"technology",
 
     "author": {
@@ -52,23 +52,31 @@ TODO: magic tune selection against some index/DB -->
    <main id="main">
     <article>
      <div class="blocker">
-<div class="halferWords">
+<div class="halferWords addBashSamples popOverWidget ">
 <p>This is just an accumulation of notes, as certs/ SSL tech always takes me too long.</p>
 
 <p>I am using:</p>
 
 <ul class="ulbasic">
-    <li><i>ssh-keygen</i> <a href="https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html" target="_blank">docs</a> ~ A tool that easily makes standalone SSL keys.  The project is focussed on supporting SSH ident easily, and uses OpenSSL code.  Interesting notes, referencing other keygen tools <sup><a href="https://www.ssh.com/academy/ssh/keygen" target="_blank">1</a></sup>.<ul class="ulbasic">
-        <li>Unknown provenance, but you could use <a href="https://8gwifi.org/sshfunctions.jsp" target="_blank">8g wifi</a> or <a href="https://keytool.online/" target="_blank">keytool</a> to generate SSL keys when running win32 without admin.  </li>
-        <li>As noted above, this is useful for ident certs on SSH login.  The certs are not linked to a public rootCA.</li>
-    </ul></li>
     <li>XYZ library in language ABC, whilst building Apps, for the normal SSL on data-transit.  See relevant package manager for more details.  <ul class="ulbasic">
         <li>Certs here can be overwritten/ installed on startup, or just rented as part of the service. </li>
         <li>See other items for choice on rootCA.</li>
     </ul></li>
-    <li><i>openssl</i> <a href="https://www.openssl.org/docs/" target="_blank">docs</a> <a href="https://www.openssl.org/docs/" target="_blank">docs</a> a cheat sheet <sup><a href="https://www.golinuxcloud.com/openssl-cheatsheet/" target="_blank">2</a></sup> as OpenSSL is quite a large tool ~ (or more precisely, a project page of links to docs) <a href="https://github.com/openssl/openssl/blob/master/README.md" target="_blank">git</a> ~ when using SSL programmatically, but at a lower level.<ul class="ulbasic">
+    <li><i>openssl</i> <a href="https://www.openssl.org/docs/" target="_blank">docs</a> <a href="https://www.openssl.org/docs/" target="_blank">docs</a> a cheat sheet <sup><a href="https://www.golinuxcloud.com/openssl-cheatsheet/" target="_blank">1</a></sup> as OpenSSL is quite a large tool ~ (or more precisely, a project page of links to docs) <a href="https://github.com/openssl/openssl/blob/master/README.md" target="_blank">git</a> ~ when using SSL programmatically, but at a lower level.<ul class="ulbasic">
         <li>If you have specific advanced needs this is the best option.  This is OSS, and vetted source.</li>
         <li>Can use private rootCA, self-signed, or public rootCA.</li>
+        <li><details class="singlePopup withScroll" >
+<summary> Create EC certs </summary>
+<p> A basic sample to create EC certs, nothing exciting.
+`<p>## It seems even test machine certs need to be elliptic curve, to be able to match libraries <br />
+## with production,  This writes result files to current directory.  Therefore:</p>
+
+<p>openssl req -newkey ec:private-P-256.pem -keyout PRIVAAT.key -out CSR.csr<br />
+openssl genpkey -genparam -algorithm ec -pkeyopt ec_paramgen_curve:P-256 -out private-P-256.pem<br />
+openssl req -x509 -key PRIVAAT.key -in CSR.pem -out NIEUWE-SERVER.crt -days 365 -sha256</p>
+
+`
+</details></li>
     </ul></li>
     <li><i>Lets Encrypt</i> <a href="https://letsencrypt.org/docs/" target="_blank">docs</a> <a href="https://easyengine.io/docs/lets-encrypt/" target="_blank">docs</a> ~ An SSL tied to domain name, used for server side ident.   Commercial services are available, but this is eating most of the market.<ul class="ulbasic">
         <li>Supplies its own rootCA (which is already in browsers)</li>
@@ -81,9 +89,16 @@ TODO: magic tune selection against some index/DB -->
         <li>Note the tooling seems more reliable when the pure CLI version is used.  The GUI version emits certs that other orgs don't like.  </li>
         <li>uses Ubuntu's/ Canonical's rootCA.</li>
     </ul></li>
+    <li><i>MOSTLY DEPRECATED</i> <i>ssh-keygen</i> <a href="https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html" target="_blank">docs</a> ~ A tool that easily makes standalone SSL keys.  The project is focussed on supporting SSH ident easily, and uses OpenSSL code.  Interesting notes, referencing other keygen tools <sup><a href="https://www.ssh.com/academy/ssh/keygen" target="_blank">2</a></sup>.<ul class="ulbasic">
+        <li>Unknown provenance, but you could use <a href="https://8gwifi.org/sshfunctions.jsp" target="_blank">8g wifi</a> or <a href="https://keytool.online/" target="_blank">keytool</a> to generate SSL keys when running win32 without admin.  </li>
+        <li>As noted above, this is useful for ident certs on SSH login.  The certs are not linked to a public rootCA.</li>
+    </ul></li>
 </ul>
 
-<p>There is some discussion on algorithms in <a href="https://owenberesford.me.uk/resource/ancient-TLS#">ancient-TLS</a>.   Note fingerprints made by these different tools do not seem compatible, which is annoying, as it should be the same maths.</p>
+<p>There is some discussion on algorithms in <a href="https://owenberesford.me.uk/resource/ancient-TLS#">ancient-TLS</a>.   Note 'fingerprints' made by these different tools do not seem compatible, which is annoying, as it should be the same maths.  <br />
+If you use OpenSSL to create certs, it is convenient to be able to test via the same tool.  The following pretends to be a HTTP server on a TLS connection, so testing RootCAs and cert build options.   <br />
+   ` openssl s_server -key $APP_KEY -cert $APP_CERT -accept 3001 -HTTP $APP_FIXTURE -4 -tls1_2 ` <br />
+See `man openssl` and `openssl s_server --help` for an explanation.</p>
 
 
 </div>
@@ -118,7 +133,7 @@ TODO: magic tune selection against some index/DB -->
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
+						<span>Edited <time title="Page edited on 2026-06-16T18:38:33" datetime="2026-06-16T18:38:33">Jun '26</time>
 						</span>
 						<span>Created <time datetime="2024-06-10T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jun '24</time> </span>
 					</span>
@@ -162,7 +177,7 @@ TODO: magic tune selection against some index/DB -->
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-02-10T13:57:09" datetime="2026-02-10T13:57:09">10th of Feb 2026, 13:57:09</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-06-16T18:38:49" datetime="2026-06-16T18:38:49">16th of Jun 2026, 18:38:49</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-06-16T18:38:33" datetime="2026-06-16T18:38:33">Jun '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
