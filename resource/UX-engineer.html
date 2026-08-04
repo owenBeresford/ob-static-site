@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/UX-engineer" />
 <meta property="og:description" content="Discussion about my work at HLL.  I iterated data visualisation, developed the UI, built REST API to drive it, and created database schema; whilst a backend team wrote really precise distributed timing." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Feb 2026, 13:57:10" />
-<meta property="article:modified_time" content="Feb '26" />
+<meta property="article:published_time" content="5th of Jul 2026, 13:52:53" />
+<meta property="article:modified_time" content="Jun '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/UX-engineer" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "UX Engineer",
-	"article:published_time":"10th of Feb 2026, 13:57:10", 
-    "article:modified_time":"Feb '26",
+	"article:published_time":"5th of Jul 2026, 13:52:53", 
+    "article:modified_time":"Jun '26",
     "article:section":"technology",
 
     "author": {
@@ -62,10 +62,11 @@ TODO: magic tune selection against some index/DB -->
 <ul class="ulbasic">
     <li>The MIFID2 terms state that data must be held for seven years, and as these companies trade all the time, every second must be covered. This requires a volume of data for every relevant machine, sampled on each metric, each second.  I designed most of the DB Schema.  The DB is written to continuously, and reads are aggregate operations.</li>
     <li>Being able to interactively render a medium volume of data (e.g. a 10^6 recordset); as most platforms allow over a month to be on screen.  For the analysts or auditors to be able to see this data in a clear numerically-valid fashion.</li>
+    <li>My initial requirements stated this needed to work in an entirely isolated network.  This implies that many services that other companies rent are not allowed.</li>
     <li>A clear challenge was being able to perform statistics on fairly large datasets, without exceeding “maximum user wait time”, or available RAM.  This is hard  development and needs to be very test first process.   Secondly that volume of data exceeds the datastore query capacities; so the read queries have to be done in “sips” of data (see fire hydrant analogy).</li>
     <li>Convert all the raw numbers (which it is essential to keep); into summaries, as they are more useful in the visualiser.</li>
     <li>To do necessary statistics, so that the viewer has a clear vision of the trends, and therefore the visualiser must do calculations to display this. </li>
-    <li>Another standard feature of platforms like this, is the creation of alerts.  Hoptroff London also has configurable alert generator to report when the current state exceeds various boundaries.  Obviously I took care that the data which resembles white noise a) raises enough alerts, b) doesn't raise too many (more stats).  This means that alerts that I am making are actionable.</li>
+    <li>Like other compliance systems,  Hoptroff London has a configurable alert generator to report when the current state exceeds various boundaries.  Obviously I took care that the data which resembles white noise a) raises enough alerts, b) doesn't raise too many (more stats).  This means that alerts that I am making are actionable.</li>
     <li>To require less user attention; the data in the client-side automatically updates. </li>
     <li>As each section of the UI requires alot of stats; each section is loaded as a different API call. Very carefully organised everything so each API didn't block the others; and the most conspicuous ones were done first.</li>
     <li>Least impressive: most user stories; I increased the levels of code maturity, for example automated build scripts to reduce repeated testing on deployment configuration.  </li>
@@ -81,14 +82,14 @@ TODO: magic tune selection against some index/DB -->
     <li>I smoothed the interactions, so context is clear; and system state is coherent.    </li>
     <li>Regardless if the current interaction leaves the browser session; the user journey must be joined up.</li>
     <li>To make the volume of data easier to see, I integrated a client side graphing library.  I accumulatively spent months improving mathematical presentation and added some UX-optimisations.</li>
-    <li>Set  URLs to match the current terminology; despite that the product pivoted; and changed the words.   In line with REST, I allowed most settings to be set via the URL, so links can easily be shared/ reloaded. </li>
+    <li>Update URLs to match the current terminology; despite that the product pivoted; and changed the words.   In line with REST, I allowed most settings to be set via the URL, so links can easily be shared/ reloaded. </li>
     <li>For some users, alerts are the most frequent interaction point on the autonomous system.  The wording on these has been carefully optimised so that it fits without wrapping or scrolling on a older iphone5 (a reference phone with longevity).  Secondly I revised the first draft of another developer, so that the white-space made the other content much more clear, again important for small screens. </li>
     <li>I created the whole process to allow users to evaluate the first product (i.e. the non-core user stories).  This is quite heavy in people management and release management.  </li>
     <li>On the first product, implemented a smooth content infill; so a inline graph placeholder is on screen and then swapped with real data.</li>
     <li>In later products, I am using SVG graphs, which are obviously good for RWD.  I didn't do this in the early iterations of the first product, as a director was keen for a type of stacked graph, which I could only find in 1 OSS library (but it is also available in Highcharts and Google Charts).</li>
 </ul>
 
-<p>As this is a small company roster, I was doing a wide range of professional behaviour as is common in small companies.  This is not a demotion from my previous job title, unless you look at the title alone.  After 3rd quarter of 2018, HLL has expanded, and recruited more staff.  My initial title was “full stack developer”, and my activities where quite broad.   The brochure website was outsourced, and not done by me.   By 2021, my work in the company then referred to multiple products, in a more narrow domain.  I have performed the same types of work in each case.   Further note, that if you read the whole of my site, on this resource I am using the term “User”, on other resources, I am not.  This a different project, in a different situation.<br />
+<p>As this is a small company roster, I was doing a wide range of professional behaviour.  This is not a demotion from my previous job title, unless you look at the title alone.  After 3rd quarter of 2018, HLL has expanded, and recruited more staff.  My initial title was “full stack developer”, and my activities where quite broad.   The brochure website was outsourced, and not done by me.   By 2021, my work in the company then referred to multiple products, in a more narrow domain.  I have performed the same types of work in each case.   Further note, that if you read the whole of my site, on this resource I am using the term “User”, on other resources, I am not.  This a different project, in a different situation.<br />
 Retrospectively, this startup had a fairly high rate of churn amongst senior non-share owning employees.   After I left, I have been called back once for some contracting; as the 'static' business requirements were changing.  I will not let this interfere with later contracts.</p>
 
 
@@ -132,7 +133,7 @@ Retrospectively, this startup had a fairly high rate of churn amongst senior non
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
+						<span>Edited <time title="Page edited on 2026-06-27T16:05:17" datetime="2026-06-27T16:05:17">Jun '26</time>
 						</span>
 						<span>Created <time datetime="2020-06-08T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jun '20</time> </span>
 					</span>
@@ -180,7 +181,7 @@ Retrospectively, this startup had a fairly high rate of churn amongst senior non
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-02-10T13:57:10" datetime="2026-02-10T13:57:10">10th of Feb 2026, 13:57:10</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-07-05T13:52:53" datetime="2026-07-05T13:52:53">5th of Jul 2026, 13:52:53</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-06-27T16:05:17" datetime="2026-06-27T16:05:17">Jun '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
