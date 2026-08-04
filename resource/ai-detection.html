@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>AI detection</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="Article to look at structures for detecting content made by an LLM.  LLM/ AI detection is very maths heavy." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="AI detection" />
+<meta itemprop="description" content="Article to look at structures for detecting content made by an LLM.  LLM/ AI detection is very maths heavy." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="AI detection" />
+<meta name="twitter:description" content="Article to look at structures for detecting content made by an LLM.  LLM/ AI detection is very maths heavy." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="AI detection" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ai-detection" />
+<meta property="og:description" content="Article to look at structures for detecting content made by an LLM.  LLM/ AI detection is very maths heavy." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="4th of Aug 2026, 17:00:54" />
+<meta property="article:modified_time" content="Aug '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/ai-detection" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "AI detection",
+	"article:published_time":"4th of Aug 2026, 17:00:54", 
+    "article:modified_time":"Aug '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p class="buttonBar"> 
+<a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM Concepts </a>
+<a href="/resource/ai-dictionary" class="button" title="All the atypical language pulled out into one location, to make the other test read better." > DICTIONARY </a>
+<a href="/resource/ai-retrieval-augmented-generation" class="button" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</a>
+<a href="/resource/ai-vector-stores" class="button" title="Examines the specialised storage needed for LLM data.">Vector stores </a>
+<a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
+<a href="/resource/ai-test-prompt" class="button" title="Article to supply data on managing and testing prompts.">Test prompt </a>
+<a href="/resource/ai-classifiers" class="button" title=" About a data management feature called classifiers, testing them and relevant algorithms.">Classifiers </a>
+<a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic </a>
+<span href="/resource/ai-detection" class="button disabled" title="This article.  Article to look at structures for detecting content made by an LLM.  LLM/ AI detection is very maths heavy.">Detection</span>
+<a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
+<a href="/resource/ai-agent-architecture" class="button" title="A short review of howto make an AI agent, the common architectures and howto test them.  Testing is critical as agents can create many changes very quickly.">Agents</a>
+</p>
+<div class="lotsOfWords addReferences">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Scope <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>For a system that processes input, which is supposed to be created by a human, it is now necessary to add a check for “is this made by an LLM?&quot;.   For some systems (eg IT managed exams), this is critical.   For others like a selfie upload feature, it's just corrected meta data, as that image shouldn't be used for AI training.   There are commercial services available, but “how” is more useful than another aging listicle.<br />
+This article is of most use to me.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Approaches (2026) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This list should be updated or replaced every year, as this is likely to evolve faster than the LLM themselves.   I have tagged the implementations with the type of data they review.</p>
+
+<ul class="ulbasic">
+    <li>[TEXT] AI detectors like text that meets “average education US citizen” vocab, and the US version of “engrish”.   Some internet notes prefer to emphasise “predictable”, which might be another way to express that if you are a US citizen.  <ul class="ulbasic">
+        <li>For micro-blogging platforms, I suspect matching would be quite flaky.  There isn't enough letters to have stats distribution in 120char.   This would be harder again if the text was in Mandarin or similar pictographic (assuming the message wasn't in poetry with its more obscure words). </li>
+        <li>The writing style of a piece needs to be known to use the correct AI detection process.  Academic writing, sounding more formal and less chatty is most likely to be miss-classified as an LLM creation <sup><a href="https://justdone.com/blog/ai/how-accurate-is-justdone" target="_blank">1</a></sup>.   According to <sup><a href="https://arxiv.org/html/2510.18774v4" target="_blank">2</a></sup> in 2026, the use of LLM to generate news content is uneven but common in some topics in US news agencies.   They state news agencies in the SW of the USA are much more likely to be AI than the NE.  </li>
+        <li>The ability to spot LLM text is a trainable skill for humans (says anecdotal evidence and) <sup><a href="https://arxiv.org/html/2501.15654v2" target="_blank">3</a></sup> <sup><a href="https://aclanthology.org/2025.acl-long.267/" target="_blank">4</a></sup>.   Both published in 2025.    </li>
+        <li><del>AI do not make spelling errors, humans <i>shouldn't</i>.   Not a reliable filter, and THBOMK, not used, as spellcheck is common. </del></li>
+    </ul></li>
+    <li>Intro to stats approaches <sup><a href="https://www.grammarly.com/blog/ai/ai-detectors-accuracy/" target="_blank">5</a></sup>.   A more advanced version is covered in this benchmark <sup><a href="https://arxiv.org/abs/2603.17522" target="_blank">6</a></sup>, which looks at many of the older LLM algorithms.  Read this paper <sup><a href="https://arxiv.org/abs/2603.23146" target="_blank">7</a></sup>, as it shows a long list crude analysis failing (and the graphs are pretty).  </li>
+    <li>My goal is more code centric, as I am a dev not an academic.  I can implement the algorithms they name-check, but I am more likely to import than from a library.   Their aim is proof-of-new-code in a comp-sci PhD study, and as 'new' is essential for the PhD, the authors will write the code out. </li>
+    <li>[TEXT] A long list of maths to look at data distribution for human text vs AI text, for LLM from 2022 <sup><a href="https://arxiv.org/pdf/2304.04736" target="_blank">8</a></sup>.  This paper may have less impact with newer LLM, although the experimental technique should be copied.  Published in 2023.   A second process, also including NLP <sup><a href="https://www.researchgate.net/publication/391326641_Detecting_AI-Generated_Text_Through_NLP_and_Machine_Learning_Methodologies" target="_blank">9</a></sup>, published in 2025.</li>
+    <li>[TEXT] There have been custom ML stacks for discriminating between human text and stats created text <sup><a href="https://arxiv.org/abs/2410.20964" target="_blank">10</a></sup>.  From current technology, this solution is the best.   Most of the forks on the project <a href="https://github.com/heyongxin233/DeTeCtive" target="_blank">git</a> are private, and I cannot see them.   I do not have relevant tools to discover if there is a commercial SaaS made with this, but there is an image on <a href="https://huggingface.co/heyongxin233/DeTeCtive" target="_blank">huggingFace</a>.   Published in 2024.   </li>
+    <li>[TEXT] A commercial service that showed up in my implementation centric searches <sup><a href="https://justdone.com/" target="_blank">11</a></sup>, and they offer a free service <sup><a href="https://justdone.com/ai-detector" target="_blank">12</a></sup>.  This <sup><a href="https://justdone.com/blog/ai/how-accurate-is-justdone" target="_blank">13</a></sup> makes claims to be the best on the market from 2026 (a cautious person would look for further products they didn't compare to).  </li>
+    <li>[TEXT] A different implementation <sup><a href="https://arxiv.org/abs/2505.11550" target="_blank">14</a></sup> from 2025, that they show works, but there is no code published.   Another 2025 implementation <sup><a href="https://arxiv.org/abs/2502.15666" target="_blank">15</a></sup>, without code.   A third paper <sup><a href="https://arxiv.org/pdf/2011.01314" target="_blank">16</a></sup> from 2020, that mentions algorithms but no commercial services as this pre-dates them (also differing terminology).   Published in 2023 <sup><a href="https://arxiv.org/abs/2304.04736" target="_blank">17</a></sup>, this relevant paper doesn't list algorithms, or a code repo. </li>
+    <li>I am a visual person, and the imgGen before 2023 where useless from my perspective.  They had varying amounts of data on differing topics, and plainly could not see or abstract beyond the training data.   Maybe viewers without life-drawing qualifications or practice would not notice the errors.  I think imgGen would have a better success rate if they used Bone modeling <sup><a href="https://en.wikipedia.org/wiki/Skeletal_animation" target="_blank">18</a></sup> the way 3d games do ~ this has a large impact on the way a creature or human moves.   Secondly, I am atypical as I have been looking at software lighting models <sup><a href="https://en.wikipedia.org/wiki/Computer_graphics_lighting" target="_blank">19</a></sup> since my second year at University.  As CPU cycles increased, the amount of maths available per second increased and lighting models got much much better.</li>
+    <li>A useful conversation to have is “does a human edited image, with loads of filters” count as <i>“real”</i>, or <i>“AI/ synthetic”</i>.   Often filters use AI.   A <i>“real”</i> image should imply that a particular event actually happened, which after the editing is incorrect.  Synthetic images are also discussed in <sup><a href="https://arxiv.org/abs/2412.17671" target="_blank">20</a></sup> (2026), but  the paper is mostly “automated handling on initial real images”.  If an image in JPEG has been composited, the JPEG cell boundaries would look weird due to the different sources, and the JPEG algorithm cannot smooth the cell boundaries unless the image data is similar.  Most LLM do not use this technique.  </li>
+    <li>[IMAGE] For images, look for the digital watermarks some generators append (very easy detection).   Also look for copyright notices that don't seem to match current context.   This item is pure application of ML, and training data must be relevant and focussed.  A paper discussing creating these <sup><a href="https://arxiv.org/abs/2411.18479v2" target="_blank">21</a></sup>.</li>
+</ul>
+
+
+</div>
+<br />
+<div class="lotsOfWords addReferences">
+<ul class="ulbasic">
+    <li>[IMAGE] Paper <sup><a href="https://arxiv.org/abs/2507.18640" target="_blank">1</a></sup> (2025) shows that on average humans are best at detecting LLM-made humans, and less good for LLM-made cityscapes.  Focused on human faces, <sup><a href="https://arxiv.org/abs/2311.08577" target="_blank">2</a></sup> from end of 2023, explore the range of errors that can happen.       </li>
+    <li>[IMAGE] An implementation for detecting LLM-made images is <sup><a href="https://arxiv.org/abs/2604.03555" target="_blank">3</a></sup>, but unfortunately no source was included.  A second implementation <sup><a href="https://arxiv.org/abs/2505.14359v3" target="_blank">4</a></sup>, no code.  This PDF loaded more slowly (15s on fibreDSL), I think the images in it must be oversize.  </li>
+    <li>[AUDIO] Audio has less volume of LLM created material, but potentially more impact if used for crime etc.    A paper <sup><a href="https://arxiv.org/abs/2107.09667" target="_blank">5</a></sup> on human perception vs AI perception of “real” vs “synthetic” tracks.   A paper with a different implementation <sup><a href="https://arxiv.org/abs/2607.12584v1" target="_blank">6</a></sup>, called “explainable by design”.   </li>
+</ul>
+
+
+<h5 id="toc2"> Areas that SHOULD use AI detector</h5>
+<p>This is a list of characteristics, not names</p>
+
+<ul class="ulbasic">
+    <li>Data input for [human] ID purposes, just like no makeup on ID photos</li>
+    <li>Data input that is under contract / law as 'created by a human' (eg many publishers and fiction books)</li>
+    <li>Actual court documents, as judges are rightfully annoyed by AI hallucinations (or some accountability process to make this not happen).</li>
+    <li>Data input that has limited / restricted copies.</li>
+    <li>Data where there are large real world impacts, as an AI cannot currently by taken to court for failure (eg the architects plan for a large bridge in a motorway).</li>
+    <li>Business would say the form where they profile punters to create individual pricing.</li>
+</ul>
+
+
+<h5 id="toc3"> Areas that do not need an AI detector</h5>
+<p>[Repeat same intro]</p>
+
+<ul class="ulbasic">
+    <li>Rigid inputs in a form (an AI generated production selection from your catalogue is exactly the same as a human, and may lead to a sale) </li>
+    <li>An input that is used very often, and has little impact per use (eg mobile current location marker, derived from GPS data) </li>
+    <li>Data that is expected to be in a language that AI platforms do not support (eg Icelandic, Australian, etc)</li>
+    <li>Inputs to an AI...</li>
+    <li>[List to be extended]</li>
+</ul>
+
+
+<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > This is not a listicle <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>No actual TLDR section here.  I normally read pages like one to achieve a solution.   So I include solution type content  to support these readers.   In this case, the landing pages on the AI detection services do not give enough detail so bother linking to them.  Everything they say about bland and has no attributions, they are replicating, as though they do not consider it a failure.   As a comparison, my listicle for JS test tools can describe architecture and docs.   <br />
+As a theoretical idea, the one that states it merges results to support a wider range of AI detection and input styles is better.  But I have no data to support that statement.   A list of anecdotal data on AI detectors <sup><a href="https://www.reddit.com/r/humanizeAIwriting/comments/1ocuen9/best_ai_detection_tools_ive_actually_used/" target="_blank">7</a></sup>.<br />
+The initial paper I downloaded included a github link, NONE of the other ones I read did.  Source is nice.   Relative success/ fail metrics are also nice, and absent from landing-pages.</p>
+
+
+</div>
+</div>
+<br />
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>AI detection</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-detection" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-detection" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-detection" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-detection&amp;t=AI+detection"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-detection" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-08-04T16:47:33" datetime="2026-08-04T16:47:33">Aug '26</time>
+						</span>
+						<span>Created <time datetime="2026-08-01T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Aug '26</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fai-detection" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Scope</a></li>
+<li><a href="#toc1">Approaches (2026)</a></li>
+<li><a href="#toc2">This is not a listicle</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-08-04T17:00:54" datetime="2026-08-04T17:00:54">4th of Aug 2026, 17:00:54</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-08-04T16:47:33" datetime="2026-08-04T16:47:33">Aug '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>

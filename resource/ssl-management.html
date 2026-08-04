@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ssl-management" />
 <meta property="og:description" content="A list of different methods to get a SSL cert." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="16th of Jun 2026, 18:38:49" />
-<meta property="article:modified_time" content="Jun '26" />
+<meta property="article:published_time" content="1st of Aug 2026, 16:30:00" />
+<meta property="article:modified_time" content="Jul '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ssl-management" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "SSL/SSH management",
-	"article:published_time":"16th of Jun 2026, 18:38:49", 
-    "article:modified_time":"Jun '26",
+	"article:published_time":"1st of Aug 2026, 16:30:00", 
+    "article:modified_time":"Jul '26",
     "article:section":"technology",
 
     "author": {
@@ -53,7 +53,13 @@ TODO: magic tune selection against some index/DB -->
     <article>
      <div class="blocker">
 <div class="halferWords addBashSamples popOverWidget ">
-<p>This is just an accumulation of notes, as certs/ SSL tech always takes me too long.</p>
+<p>This is just an accumulation of notes, as certs/ SSL tech always takes me too long.<br />
+I have two dominant use-cases for SSL certs</p>
+
+<ul class="ulbasic">
+    <li>SSH ident (used for SSH and PG login)</li>
+    <li>TLS domain ident on public URLs </li>
+</ul>
 
 <p>I am using:</p>
 
@@ -95,10 +101,27 @@ openssl req -x509 -key PRIVAAT.key -in CSR.pem -out NIEUWE-SERVER.crt -days 365 
     </ul></li>
 </ul>
 
-<p>There is some discussion on algorithms in <a href="https://owenberesford.me.uk/resource/ancient-TLS#">ancient-TLS</a>.   Note 'fingerprints' made by these different tools do not seem compatible, which is annoying, as it should be the same maths.  <br />
-If you use OpenSSL to create certs, it is convenient to be able to test via the same tool.  The following pretends to be a HTTP server on a TLS connection, so testing RootCAs and cert build options.   <br />
+<p>There is some discussion on algorithms in <a href="https://owenberesford.me.uk/resource/ancient-TLS#">ancient-TLS</a>.   Note 'fingerprints' made by these different tools do not seem compatible, which is annoying, as it should be the same maths.   If you use OpenSSL to create certs, it is convenient to be able to test via the same tool.  The following pretends to be a HTTP server on a TLS connection, so testing RootCAs and cert build options.   <br />
    ` openssl s_server -key $APP_KEY -cert $APP_CERT -accept 3001 -HTTP $APP_FIXTURE -4 -tls1_2 ` <br />
 See `man openssl` and `openssl s_server --help` for an explanation.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Test service certs <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>UPDATE: To build SSL certs for localhost as they are needed for many testing situations, try the links below.   As the links might expire, I have built a list rather than one option.   Note 'Localhost' cannot be used in many SSL vendors, as its not possible to show that you own it, so they cannot make a statement (the cert maths) that this SSL cert accountably and uniquely represents you.</p>
+
+<ul class="ulbasic">
+    <li><a href="https://dev.to/mechcloud_academy/stop-self-signing-use-lets-encrypt-for-localhost-ssl-4e5f" target="_blank">mechcloud</a>,  Requirements to use: use of Python, your own <strong>Cloudflare</strong> account.  </li>
+    <li><a href="https://ritesh-yadav.github.io/tech/getting-valid-ssl-certificate-for-localhost-from-letsencrypt/" target="_blank">Ritesh Yadav</a>, Requirements a <strong>Heroku</strong> account, but can use free version, use of recent Python, OpenSSL installed locally  </li>
+    <li><a href="https://certbot.eff.org/" target="_blank">Certbot from EFF</a> <a href="https://github.com/certbot/certbot" target="_blank">git</a>  Notes to make this service relevant to the problem <sup><a href="https://eamonnsullivan.co.uk/posts-output/ssl-setup/2024-04-01-setting-up-ssl-for-my-local-apps/" target="_blank">3</a></sup> </li>
+    <li>Make own rootCA, then the single domain certs. <a href="https://mkcert.org/" target="_blank">mkcert</a> automates the entire problem inside the constraint that you need to carefully install the rootCA to test devices. <a href="https://github.com/FiloSottile/mkcert" target="_blank">git</a>.  At point of print, use build 1.4.4, but the following guide is easy to follow <sup><a href="https://www.techrepublic.com/article/how-to-create-locally-signed-ssl-certificates-with-mkcert/" target="_blank">4</a></sup>.  With basic idea, this cheat-sheet is more useful <sup><a href="https://adhdecode.com/cheatsheets/mkcert/" target="_blank">5</a></sup>.  This is written in Golang, but distributed as compiled files. <ul class="ulbasic">
+        <li><b>⚠ WARNING: ⚠</b> I would advise not doing finance or email (ie 2FA account) on a browser with a “edited for test” SSL configs ~ but browsers can have multiple config, or use multiple browser vendors.   </li>
+    </ul></li>
+    <li><del>Concert <a href="https://github.com/minio/concert" target="_blank">git</a> ~ was created by Minio and seems to have been withdrawn.</del></li>
+    <li><del><a href="https://scribe.r4fo.com/@peterstirrup/serving-multiple-ssl-certificates-in-your-go-tests-2d1046002a64" target="_blank">Peter Stirrup</a>, Requirements Golang, this focusses on intermediate certs, rather than patching RootCA</del></li>
+    <li><del>Certin <a href="https://github.com/joemiller/certin" target="_blank">git</a>, Requirement: Golang 1.16+, Git, a rootCA </del></li>
+</ul>
+
+<p>Another approach is to make your own domain name that can either be x.x.x.x on the general internet, OR 192.168.x.x inside your own router's control.   Better done as a subdomain of a domain that you own.  Extend this idea</p>
 
 
 </div>
@@ -133,7 +156,7 @@ See `man openssl` and `openssl s_server --help` for an explanation.</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-06-16T18:38:33" datetime="2026-06-16T18:38:33">Jun '26</time>
+						<span>Edited <time title="Page edited on 2026-07-28T14:23:34" datetime="2026-07-28T14:23:34">Jul '26</time>
 						</span>
 						<span>Created <time datetime="2024-06-10T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jun '24</time> </span>
 					</span>
@@ -163,7 +186,11 @@ See `man openssl` and `openssl s_server --help` for an explanation.</p>
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
-		
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Test service certs</a></li>
+</menu>
+</details><br />
+
 	</div>
 	<!-- /div -->
 	</nav>
@@ -177,7 +204,7 @@ See `man openssl` and `openssl s_server --help` for an explanation.</p>
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-06-16T18:38:49" datetime="2026-06-16T18:38:49">16th of Jun 2026, 18:38:49</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-06-16T18:38:33" datetime="2026-06-16T18:38:33">Jun '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-08-01T16:30:00" datetime="2026-08-01T16:30:00">1st of Aug 2026, 16:30:00</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-07-28T14:23:34" datetime="2026-07-28T14:23:34">Jul '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
