@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/html-next-wishlist" />
 <meta property="og:description" content="A random idea piece.  The web in an evolving system.  These suggestions are small, affordable but reduce dev friction." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="14th of Jul 2026, 8:33:59" />
-<meta property="article:modified_time" content="Jul '26" />
+<meta property="article:published_time" content="25th of Aug 2026, 12:41:07" />
+<meta property="article:modified_time" content="Aug '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/html-next-wishlist" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "HTML++ wishlist",
-	"article:published_time":"14th of Jul 2026, 8:33:59", 
-    "article:modified_time":"Jul '26",
+	"article:published_time":"25th of Aug 2026, 12:41:07", 
+    "article:modified_time":"Aug '26",
     "article:section":"technology",
 
     "author": {
@@ -57,25 +57,27 @@ TODO: magic tune selection against some index/DB -->
 <h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Concept <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>From the position that the internet would be better if “essential SPA in JS” wasn't mentioned or thought.  In 2007, there where problems, and JS-SPA was a good solution THEN.   Today there are many solutions, so <i>JS-SPA isn't essential</i>.</p>
 
-<p>A JS minimalist approach leads to better accessibility on average, as there is more control to build #a11y and RWD and so-on.  Less JS is routinely leads to less bandwidth needed, and faster load times.   Storing application solutions in formats other than JS means it is easier to localise/ internationalise ~ IMO.  <br />
-Disclaimer: I use a large amount of JS and TS.</p>
+<p>A JS minimalist approach leads to better accessibility on average, as there is more control to build #a11y and RWD and so-on.  Less JS is routinely leads to less bandwidth needed, and faster load times.   Storing application solutions in formats other than JS means it is easier to localise/ internationalise ~ IMO and anecdotal experience.  <br />
+<strong>Disclaimer:</strong> I use a large amount of JS and TS.   There is no architecture reason that “a webapp” has less default platform features available than a Microsoft generated-code install wizard or help feature (I am aware of herding-cats problems to get every browser and language developer to agree to solving <i>mere app-dev cost</i> problems).</p>
 
 
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Requests <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<p>However, it would be easier when:</p>
+<p>However, developing systematic and holistic HTML5 apps and services would be easier and faster if devs had:</p>
 
 <ul class="ulbasic">
-    <li>Various HTML validators are updated to understand DIALOG element. #leSigh.</li>
-    <li>Search HTML element was globally supported.  As of 2024: this is available in Safari 17+</li>
-    <li>Forms in HTML supported encoding of JSON, to allow POST straight to a REST API.   I am kind-of-doing this via JS fetch() and JSON features.  See a related maquette, if everything is JSON ~ <a href="https://owenberesford.me.uk/resource/svg-in-api-response-maquette#">svg-in-api-response-maquette</a> ~ which isn't the best choice, but is widely supported. </li>
     <li>The 'open with' protocol looked less hacky.  Currently it looks dodgy/ security issue to open a Zoom call from a HTML email, it should be a standard tech by now.   This request is mostly UI changes, not much engineering.  If a user has Zoom installed, and registered it as a known media type, there should be no warning popups. Etc, etc for other video stream services.</li>
+    <li>Forms had a cancel Button type.  If we use less HTTP requests, we need 'Cancel' not an HTTP0.9 Anchor to other page.  This should work similar to a Details.open=false.  As forms are mobile centric and load with a user profile injected, a reset Button is less useful than during 1997.  I don't think I have ever used a reset Button.  I can implement this in JS, each time for each form, but an architecture solution would be better.  Most SPA libraries do not cleanly offer this simple feature.  </li>
+    <li>There was a common agreed format for client-side localisation persistence.  This item ignores a traditional DB in a server.   Probably any early edition would use YaML.  I see Vue has i18n block <sup><a href="https://simplelocalize.io/blog/posts/vue-i18n-localization/" target="_blank">1</a></sup> <sup><a href="https://dev.to/staaph/how-to-set-up-i18n-in-vue-3-1k2b" target="_blank">2</a></sup> in a SFC.   There is common i18n framework <sup><a href="https://www.i18next.com/overview/api" target="_blank">3</a></sup> <a href="https://www.npmjs.com/package/i18n" target="_blank">npmjs</a>, that React also integrates with.</li>
+    <li>Various HTML validators in use are updated to understand DIALOG element (and other more recent elements). #leSigh.</li>
+    <li>Role attrib was allowed to have multiple items, example: a UL of LI and navigation elements is a list role, and its navigation role.  The List role is probably less important in this example.</li>
+    <li>The ARIA attribs were better wired in to the rest of HTML and CSS,  Also better known states for absent ARIA atrtibs.  </li>
+    <li>Forms in HTML supported encoding of JSON, to allow POST straight to a REST API.   I am kind-of-doing this via JS fetch() and JSON features.  See a related maquette, if everything is JSON ~ <a href="https://owenberesford.me.uk/resource/svg-in-api-response-maquette#">svg-in-api-response-maquette</a> ~ which isn't the best choice, but is widely supported. </li>
+    <li>SEARCH HTML semantic element was globally supported.  As of 2024: this is available in Safari 17+</li>
+    <li>SPOILER HTML element, behaves similar to DETAILS/ SUMMARY <sup><a href="https://seirdy.one/posts/2023/11/12/spoiler-element/" target="_blank">4</a></sup>.</li>
+    <li>Some semantic element for ERROR or SHOWERROR.   This should be a type in HTML so it can be cleanly and consistently reported.  I can patch with ARIA attribs, but there isn't a single well-known usage.  Error reporting should be consistent and widely applied.  Ideally every version of microsoft outlook should be forcibly updated to show these tags correctly.</li>
+    <li>As there are many digital exam platforms, having a CODE text entry element would make these much better. As a normal person I do not do type tabs, my IDE injects them for me and manages indent.   However in a exam, tab will change UI component, <strong>and</strong> I have to type them.  </li>
     <li>Web manifest file format extended to support listing ALL files deployed, as in common in other languages.</li>
-    <li>Forms had a cancel Button type.  If we use less HTTP requests, we need 'Cancel' not an HTTP0.9 Anchor to other page.  This should work similar to a Dialog.open=false.  I can implement this in JS, each time for each form, but an architecture solution would be better.   </li>
-    <li>Role attrib was allowed to have multiple items, example: a UL of LI and navigation elements is a list role, and its navigation role.  The List role is probably less important.</li>
-    <li>The ARIA attribs were better wired in to the rest of HTML and CSS,</li>
-    <li>SPOILER HTML element, behaves similar to DETAILS/ SUMMARY <sup><a href="https://seirdy.one/posts/2023/11/12/spoiler-element/" target="_blank">1</a></sup>.</li>
-    <li>There was a common agreed format for client-side localisation persistence.  This item ignores a traditional DB in a server.   Probably any early edition would use YaML.  I see Vue has i18n block <sup><a href="https://simplelocalize.io/blog/posts/vue-i18n-localization/" target="_blank">2</a></sup> <sup><a href="https://dev.to/staaph/how-to-set-up-i18n-in-vue-3-1k2b" target="_blank">3</a></sup> [] in a SFC.   </li>
-    <li>Maybe out of scope, but JS tools being encouraged to report unknown values in config files as unknown values</li>
+    <li>Maybe out of scope, but JS tools being encouraged to report unknown values in config files as unknown values.  This would match other programming languages, and encourage faith by junior devs that JS was <i>deterministic, not ritualistic</i>.  </li>
 </ul>
 
 <p>Some of these are my initial idea, some are imports from others.   This list will be updated.</p>
@@ -95,7 +97,7 @@ Disclaimer: I use a large amount of JS and TS.</p>
 	<nav id="navBar" class="row">
 			<div class="column">
 				<div class="top-bar fullWidth">
-					<header><h1>HTML5, the Next, wishlist</h1></header>
+					<header><h1>the Next HTML, a wishlist</h1></header>
 			    	<p role="status" class="bigScreenOnly">    </p>
 				</div>
 				<div id="shareGroup" class="metaWidget row addReading">
@@ -113,7 +115,7 @@ Disclaimer: I use a large amount of JS and TS.</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-07-13T19:44:21" datetime="2026-07-13T19:44:21">Jul '26</time>
+						<span>Edited <time title="Page edited on 2026-08-19T17:09:13" datetime="2026-08-19T17:09:13">Aug '26</time>
 						</span>
 						<span>Created <time datetime="2026-04-12T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Apr '26</time> </span>
 					</span>
@@ -162,7 +164,7 @@ Disclaimer: I use a large amount of JS and TS.</p>
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-07-14T08:33:59" datetime="2026-07-14T08:33:59">14th of Jul 2026, 8:33:59</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-07-13T19:44:21" datetime="2026-07-13T19:44:21">Jul '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-08-25T12:41:07" datetime="2026-08-25T12:41:07">25th of Aug 2026, 12:41:07</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-08-19T17:09:13" datetime="2026-08-19T17:09:13">Aug '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
