@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<title>interactions for Image Zoom</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="Description" content="A demo / maquette for zoom interactions and discussion on UX interactions and needs.  This article offers a solution to both mobile and desktop." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="interactions for Image Zoom" />
+<meta itemprop="description" content="A demo / maquette for zoom interactions and discussion on UX interactions and needs.  This article offers a solution to both mobile and desktop." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="interactions for Image Zoom" />
+<meta name="twitter:description" content="A demo / maquette for zoom interactions and discussion on UX interactions and needs.  This article offers a solution to both mobile and desktop." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="interactions for Image Zoom" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/image-zoom-maquette" />
+<meta property="og:description" content="A demo / maquette for zoom interactions and discussion on UX interactions and needs.  This article offers a solution to both mobile and desktop." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="2nd of Sep 2026, 16:30:09" />
+<meta property="article:modified_time" content="Sep '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/image-zoom-maquette" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "interactions for Image Zoom",
+	"article:published_time":"2nd of Sep 2026, 16:30:09", 
+    "article:modified_time":"Sep '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker popOverWidget addCSSDebug">
+<div class="halferWords">
+<p>This is a part of a range of “visual samples / maquettes”. Since I started doing more front-end work, I have been making these to speed up browser testing. #boring My thought, I should add a snoring backtrack to these pages. <br />
+Each approach is duplicated for a different image, as different situations lead to differing expectations.<br />
+<strong>GDPR NOTICE:</strong> Nothing is uploaded to any servers, it's a UI demo.</p>
+
+
+</div>
+
+<div class="maquetteContainer">
+<div class="maquette">
+<aside class="zoom-notice bigger" role="alert" aria-live="assertive">CSS zoom statement is not supported here, so this demo will not work.</aside> 
+<br />
+<figure id="zoom2" class="zoomContainer rows" style="--_x:50; --_y:50;">
+<figcaption><h3>Sample 1: Interaction via controls (JS)</h3></figcaption>
+<p id="messageInABottle2">Fancy debug: </p>
+This maquette is different from the zoom components in Amazon or Ebay etc, as I am zooming the same image, not a cropped copy image.  You have awareness of the crop position due to the scroll-bars.
+
+<label class="row setZoom" title="Should the image be zoomed in?  Supports 100% (ie normal) to 5x magnification.">Zoom: 
+<input name="scale" type="range" min="1" max="5" step="0.25" style="--timeline:--_zz;" value="1" id="rng1" value="1.25" />
+</label>
+<div class="row">
+<label title="When the image is more than 100%, which section of the image should be prioritised? This slider is the Y axis." class="small-1 columns vertical">Y
+<input name="axisY" type="range" min="1" max="100" step="5" orient="vertical" style="--timeline:--_y;" id="rng2" />
+</label>
+<span class="large-10 columns zoomableHolder">
+<img class="zoomableImage" height="350" width="350" src="/asset/DEMO.png" loading="lazy" alt="A image sample of a mostly yellow plaid fabric." />
+</span>
+</div>
+<label class="row horizontal" title="When the image is more zoomed than 100%, the which section of the image should be prioritised.  This slider is the X axis input." >X:
+<input name="axisX" type="range" min="1" max="100" step="5" style="--timeline:--_x;" id="rng3"/>
+</label>
+</figure>
+<br />
+<br />
+
+<figure id="zoom4" class="zoomContainer rows" style="--_x:50; --_y:50;">
+<figcaption><h3>Sample 2: Interaction via controls (JS)</h3></figcaption>
+<p id="messageInABottle3">Fancy debug: </p>
+This is same tech as previous, but with a large image (image might load slower if slow internet).
+
+<label class="row setZoom" title="Should the image be zoomed in?  Supports 100% (ie normal) to 5x magnification.">Zoom: 
+<input name="scale" type="range" min="1" max="5" step="0.25" style="--timeline:--_zz;" value="1" id="rng4" value="1.25" />
+</label>
+<div class="row">
+<label title="When the image is more than 100%, which section of the image should be prioritised? This slider is the Y axis." class="small-1 columns vertical">Y
+<input name="axisY" type="range" min="1" max="100" step="5" orient="vertical" style="--timeline:--_y;" id="rng5" />
+</label>
+<span class="large-10 columns zoomableHolder">
+<img class="zoomableImage" height="350" width="350" src="/asset/winter_54_by_karinclaessonart_large.jpg" loading="lazy" alt="A test image. This is a Nordic snow scene, it has snow in the lower half, and a line of conifers below a pale blue sky" />
+</span>
+</div>
+<label class="row horizontal" title="When the image is more zoomed than 100%, the which section of the image should be prioritised.  This slider is the X axis input." >X:
+<input name="axisX" type="range" min="1" max="100" step="5" style="--timeline:--_x;" id="rng6"/>
+</label>
+</figure>
+<br />
+<br />
+
+<figure id="zoom3" class="zoomContainer rows" >
+<figcaption><h3>Sample 3: Direct Interaction (not preserved)</h3></figcaption>
+This is a standard mobile interaction, and is easier to use than slider bars on a smaller phone.   However it doesn't show current position vs limits, so it loses for usability.   This is zoom with a user selected center, like google maps and various shopping apps.   This interaction is not bracketed, and will capture any intended zoom of whole page interactions. 
+
+<div class="row">
+<span class="large-10 columns zoomableHolder">
+<img class="zoomableImage" height="350" width="350" src="/asset/DEMO.png" loading="lazy" alt="A image sample of a mostly yellow plaid fabric." />
+</span>
+</div>
+</figure>
+<br />
+<br />
+
+<figure id="zoom5" class="zoomContainer rows" >
+<figcaption><h3>Sample 4: Direct Interaction (not preserved)</h3></figcaption>
+This is same tech as previous, but with a large image (image might load slower if slow internet).
+
+<div class="row">
+<span class="large-10 columns zoomableHolder">
+<img class="zoomableImage" height="350" width="350" src="/asset/winter_54_by_karinclaessonart_med.jpg" loading="lazy" alt="A test image. This is a Nordic snow scene, it has snow in the lower half, and a line of conifers below a pale blue sky" />
+</span>
+</div>
+</figure>
+<br />
+<br />
+
+<figure id="zoom1" class="zoomContainer rows">
+<figcaption><h3>Sample 5: Interaction via controls (just CSS)</h3></figcaption>
+<p id="messageInABottle">Fancy debug: </p>
+This maquette is different from the zoom components in Amazon or Ebay etc, as I am zooming the same image, not a cropped copy image.  You have awareness of the crop position due to the scroll-bars.
+DISFUNCTIONAL to date, however see <a href="https://css-tip.com/css-variables-range-slider/" target="_blank">another worked example working</a>
+
+<label class="row setZoom" title="Should the image be zoomed in?  Supports 100% (ie normal) to 5x magnification.">Zoom: 
+<input name="scale" type="range" min="1" max="5" step="0.25" style="--timeline:--_zz;" value="1" />
+</label>
+<div class="row">
+<label title="When the image is more than 100%, which section of the image should be prioritised? This slider is the Y axis." class="small-1 columns vertical">Y
+<input name="axisY" type="range" min="1" max="100" step="5" orient="vertical" style="--timeline:--_y;"  />
+</label>
+<span class="large-10 columns zoomableHolder">
+<img class="zoomableImage" height="350" width="350" src="/asset/winter_54_by_karinclaessonart_large.jpg" loading="lazy" alt="A test image. This is a Nordic snow scene, it has snow in the lower half, and a line of conifers below a pale blue sky" />
+</span>
+</div>
+<label class="row horizontal" title="When the image is more zoomed than 100%, the which section of the image should be prioritised.  This slider is the X axis input." >X:
+<input name="axisX" type="range" min="1" max="100" step="5" style="--timeline:--_x;" />
+</label>
+</figure>
+
+<br />
+<br />
+</div>
+
+<details class="docs" name="longText" id="openMe"> 
+<summary>
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Zoom Interaction poll <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+
+</summary>
+<p>To set your currently preferred zoom level, would you choose:</p>
+
+<ul class="ulbasic">
+    <li>set a zoom steering control (manipulation via controls), </li>
+    <li>or try to make the image larger (direct manipulation)?  </li>
+</ul>
+
+<p>Do you have value in setting the zoom on lots of images in one motion?</p>
+
+<ul class="ulbasic">
+    <li>(YES | NO)</li>
+</ul>
+
+<p>How often do you zoom?</p>
+
+<ul class="ulbasic">
+    <li>its an essential and routine action for me (eg builders working on site from PDF plans on their phone).</li>
+    <li>Occasionally (eg to decide buying choices more easily).</li>
+</ul>
+
+<p>Does it add value if your device remembers your previous zoom usage?</p>
+
+<ul class="ulbasic">
+    <li>(YES | NO)</li>
+</ul>
+
+<p>If possible to answer, do you mostly use zoom features for (no A/B choice):</p>
+
+<ul class="ulbasic">
+    <li>static images (eg WEBP, PNG, JPEG2000, AVIF, GIF etc).</li>
+    <li>video feeds (portable MPEG, Apple MOV, Win32 AVI etc).</li>
+    <li>office PDF documents.</li>
+    <li>excessively large tables of data in webpages / HTML.</li>
+    <li>everything.</li>
+</ul>
+
+<p>How large is your normal screen, computational ability and power source?</p>
+
+<ul class="ulbasic">
+    <li>I'm a retail Buyer, large on each metric.  The cost of a PC is much less than accumulative flights to see produce directly.</li>
+    <li>This is a work phone, and my role isn't talking, tiny.</li>
+</ul>
+
+<p>If you mostly answered <strong>(A)</strong>, the zoom controls will probably work better for you.  <strong>(B)</strong> answers probably prefer direct interaction.  Noting cheap devices need to conserve screen space AND battery, and batteries can be recharged relatively easily.   <br />
+If you use zoom on everything, have you thought about a larger screen device?  There are many tablets that can be used as a phone, although a bit awkward due to size.</p>
+
+
+</details>
+<details class="addReferences docs withScroll" name="longText">
+<summary>
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Technical Notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+
+</summary>
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Interaction design  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>Human perception is inconsistent with lateral motion and vertical motion, or browser coordinate spaces and expectations of them.  I have inverted the Y axis in this demo, so it behaves like a software app, not a flight sim.   For a production UI, maybe this should be a config setting.   </li>
+    <li>Currently, many mobile features have zoom in to look, but automatically revert after the touch is released.  I copied this approach in the #zoom3 demo.   However it is less useful if you are trying to read and copy-type a serial number in fly-spec-3 font off a brochure.  </li>
+    <li>The #zoom3 doesn't let you choose the center point of the zooming, so isn't setup for very large images eg city maps.   I think I ought to extend the #zoom3 to have hot edges to change that.  Not added as that means the zoom needs to be a local state and not transitory.  #TODO.   For systems where zoom is used often, there should be some performance analysis to preserve battery life.</li>
+    <li>Image software on mobile implements often touch rotate support, but I don't think rotate is relevant here.   A spiral motion with diverging finger gap is still read as a zoom. </li>
+    <li>For production code, probably there is should be modality for haptic, and modality for WIMP inputs, as different interactions to deliver the same result.  Removing unnecessary controls on mobile is a good idea (ie the big-screen version).   </li>
+    <li>Some further notes for UX and zoom <sup><a href="https://www.numberanalytics.com/blog/ultimate-guide-to-zooming-in-ux-accessibility" target="_blank">1</a></sup></li>
+    <li>#TODO As a later edition, I think I need to add a sigil for “image that supports zoom has focus now”, and disable other touch events ~ most urgently for scroll ~ until the zoom is completed.  I need to innovate a clear set of symbols, I didn't find one during reading.   </li>
+    <li>If I open a larger image (larger than my screen) directly in the browser, I get scroll bars by default.  However the interaction between 3rd wheel button to zoom and scroll vertically isn't well thought out, and it fights.   If I had a nice-UX view-image-from-URL widget, I would use it for this action.  My local tools can only access local files.  </li>
+</ul>
+
+
+<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Existing tech and research <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<ul class="ulbasic">
+    <li>This tech isn't brand-new and should be widely reliable and available.   You will note the emphasis on how to use it  and when to use zoom features.  I have implemented this in production more than once, I assume you will have too.  </li>
+    <li>A standard technique to preserve quality is for a Zoom interaction to use a higher resolution image, so users get more data via their zooming.   Not done in the maquette, but double buffering is easy (suggest downloading the large image in advance of zooming for lower interaction latency).  JS for this would be routine.</li>
+    <li>Possibly I should use a double-tap to activate the zoom capacity (and the larger image) <sup><a href="https://uxplanet.org/mobile-ecommerce-product-details-28feba377a55" target="_blank">2</a></sup>.   The double-tap is a clear signal the user is focussing on this thing, and so adjust the layout to foreground it.   </li>
+    <li>The haptic zoom means user need to have clean screen etc to ensure a good experience.  </li>
+    <li>I like image zoom not affecting any text in the background, as these are different goals.  This is increasing common in recent Design Systems.</li>
+    <li>Many older systems have zoom item to whole of current window.  This was mostly used before zoom CSS instruction, and is an incomplete user-journey, especially for mobile.  If the large image is opened in a tab by itself, the OS level scroll and zoom features can be used.  However a dedicated interaction should be easier and faster to operate, and therefore encouraged.   </li>
+    <li>After that, and with fixed layouts, there was a button to have a larger view (not dynamic, and no control on centre of zoom).  I don't think that this historic option is useful.  </li>
+    <li>There is no implementation difference between zoom to see a new hair style on a “profesh” model (MPEG video) and zoom to look at an invoice (PDF), to check the delivery address.   There are many people looking at delivery addresses and similar needs.  When I bought a new kitchen in 2017, the delivery drivers had poor control of PDF invoices on their work phones.  <ul class="ulbasic">
+        <li>I was expecting to set touch-action CSS statement, as I did in other projects, a public example <a href="https://github.com/owenBeresford/craycray-dingbat" target="_blank">git</a>.  However there doesn't seem to be any need yet.  </li>
+    </ul></li>
+    <li>One of Google test suit for the then-new touch-action <sup><a href="https://googlechrome.github.io/samples/touch-action/index.html" target="_blank">3</a></sup>.   As a test it doesnt include a date unfortunately.   A second test suit <sup><a href="https://patrickhlauke.github.io/touch/" target="_blank">4</a></sup> by Patrick Lauke,   </li>
+    <li>A list of details and current product knowledge for doing zoom interactions, realistically <sup><a href="https://melin.vercel.app/blog/2026-08-28-practical-notes-on-javascript-events-for-two-finger-image-zoom-o" target="_blank">5</a></sup>.  My demo hasn't been run on a Mac, but the author has.   This author favours stateless interactions that revert to initial state. </li>
+    <li>Another persons demo for presentation adjustment <sup><a href="https://css-tip.com/css-variables-range-slider/" target="_blank">6</a></sup>.  They have successfully used purely CSS.   This author favours stateless interactions that revert to initial state. </li>
+    <li>A demo with worked example pinch events <a href="https://vmorneau.me/new-pinch-and-zoom/" target="_blank">V Morneau</a>, using plain JS.   Obviously this is only for haptic interfaces.  However work by <a href="https://turriate.com/articles/how-to-pinch-to-zoom-2-finger-pan-fabricjs-canvas" target="_blank">turriate</a> kind of works for mouse and touch.</li>
+    <li>The well-known limitations on creating events in JS, mean many of the OSS modules are shown working but have no tests.  These may not meet your work needs.   I also am constrained for make events in JS, and more-so, as I prefer to use TS rather than JS.    </li>
+</ul>
+
+<p>Attribution:</p>
+
+<ul class="ulbasic">
+    <li>The first image is a random roughly-plaid image taken from <a href="https://pixabay.com/illustrations/pattern-art-design-background-7039741/" target="_blank">Pixbay</a>.   It was listed as a free stock image, seen on Aug 2026.    </li>
+    <li>The second image is from <a href="https://www.deviantart.com/karinclaessonart/art/Winter-54-342813901" target="_blank">K Claesson's public collection</a>, as seen on March 2015.  I have used this image in multiple articles.</li>
+</ul>
+
+<p>To have better control on interactions (more than easily in a demo than for make production code), there are little imports to this maquette.</p>
+
+
+<h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Existing solutions <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>I have written this code as a worked demo, and a training exercise.  For production, I would import a library.   Reading discovered, filtering towards better SWE practice.</p>
+
+<ul class="ulbasic">
+    <li><strong>React native implementation</strong> in npm as react-native-zoom-toolkit <a href="https://github.com/Glazzes/react-native-zoom-toolkit" target="_blank">git</a> <a href="https://glazzes.github.io/react-native-zoom-toolkit/" target="_blank">docs</a></li>
+    <li><strong>Zingtouch</strong> <a href="https://zingchart.github.io/zingtouch/" target="_blank">docs</a> <a href="https://github.com/zingchart/zingtouch" target="_blank">docs</a> licence: MIT</li>
+    <li><strong>pinch-zoom-js</strong> same name in MPM <a href="https://github.com/manuelstofer/pinchzoom" target="_blank">git</a> <a href="https://github.com/manuelstofer/pinchzoom#pinchzoomjs" target="_blank">docs</a> licence: MIT</li>
+</ul>
+
+<p>#TODO discussion of features for a “a good solution”</p>
+
+
+<br /><br />
+<fieldset class="browsertestingcontainer">
+<legend> this feature has been tested on:</legend>
+<ul class="ulbasic">
+<li> ✔ <i class="fa fa-chrome"></i> win32/chrome </li>
+<li> ✔ <i class="fa fa-edge"></i> win32/edge </li>
+<li> ✔ <i class="fa fa-firefox"></i> win32/firefox (this is not a chrome codebase) </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-safari"></i> mac x/safari </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> mac x/chrome </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-chrome"></i> droid/chrome </li>
+<li> &nbsp;-&nbsp; <i class="fa fa-firefox"></i> droid/firefox </li>
+<li> ✖ <i class="fa fa-safari"></i> iphone/safari (untested) </li>
+<li> ✖ <i class="fa fa-chrome"></i> iphone/chrome (untested) </li>
+<li>my first batch of testing is on available linux browsers, as they are closer to hand.</li>
+</ul>
+
+<details class="singlepopup" >
+<summary>other browsers</summary>
+I am not testing on the following, as they use the chrome code-base as a starting point:
+<ul class="ulbasic">
+<li> samsung internet </li>
+<li> opera </li>
+<li> brave </li>
+</ul>
+i have never tested on (but for specific geo-markets should do):
+<ul class="ulbasic">
+<li> vivaldi </li>
+<li> kameleo</li>
+<li> yandex</li>
+<li> qq</li>
+<li> <i class="fa fa-internet-explorer"></i> win32/msie (unsupported legacy) (untested) </li>
+<li> blackberry browser (erm ok, not this one)</li>
+<li> soque explorer</li>
+</ul>
+</details>
+</fieldset>
+</details>
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Image Zoom, mobile and desktop</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+				<div id="shareGroup" class="metaWidget row addReading">
+					<span class="SMshareWidget"> 
+						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
+						<span class="bigScreenOnly">Share: </span>
+                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-zoom-maquette" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
+						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-zoom-maquette" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
+						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-zoom-maquette" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
+						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-zoom-maquette&amp;t=interactions+for+Image+Zoom"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
+						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-zoom-maquette" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
+					</span>
+
+					<span class="ultraSkinny bigScreenOnly"> 
+						<span>Edited <time title="Page edited on 2026-09-02T16:30:06" datetime="2026-09-02T16:30:06">Sep '26</time>
+						</span>
+						<span>Created <time datetime="2026-08-13T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Aug '26</time> </span>
+					</span>
+
+				</div>
+			</div>
+			<dialog id="popup" class="mastodonWidget bigScreenOnly">
+				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
+					<label for="mastodonserver">your server: 
+						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fimage-zoom-maquette" type="text" value="" placeholder="mastodon.social" />  
+					</label> 
+					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
+					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
+				</form>
+			</dialog>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+		<details  class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Zoom Interaction poll</a></li>
+<li><a href="#toc1">Technical Notes</a></li>
+<li><a href="#toc2">Interaction design</a></li>
+<li><a href="#toc3">Existing tech and research</a></li>
+<li><a href="#toc4">Existing solutions</a></li>
+<li><a href="#toc5">Sample 1: Interaction via controls (JS)</a></li>
+<li><a href="#toc6">Sample 2: Interaction via controls (JS)</a></li>
+<li><a href="#toc7">Sample 3: Direct Interaction (not preserved)</a></li>
+<li><a href="#toc8">Sample 4: Direct Interaction (not preserved)</a></li>
+<li><a href="#toc9">Sample 5: Interaction via controls (just CSS)</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-09-02T16:30:09" datetime="2026-09-02T16:30:09">2nd of Sep 2026, 16:30:09</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-02T16:30:06" datetime="2026-09-02T16:30:06">Sep '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+<script type="module">
+import { ready, log } from '/asset/ob1-202406.min.mjs';
+
+// Initial structure for the following JS was taken from:
+// https://vmorneau.me/new-pinch-and-zoom/
+// However I have improved the code quality.  I cannot use TS in webpages. :-(
+//
+// Real code should have a only-run-once check, or things will be screwy.
+function pinchZoom(id, dom) {
+	const SINK=dom.querySelector(id);
+	if(SINK==undefined) { throw new Error( "ERROR, broken image selector "+id+ " supplied, got null " ); }
+
+  let SINKScale = 1;
+  let start = {};
+
+  const hypotenue = function(t0, t1) {
+    return Math.hypot(t0.pageX - t1.pageX, t0.pageY - t1.pageY);
+  };
+
+// this is 1D
+  const delta = function(t0, t1, field) {
+ 	return (t0[field] + t1[field]) / 2;
+  }
+
+// this is also 1D, but with 3 points
+// see original source
+  const delta3 = function(t0, t1, field, start) {
+	return (delta(t0, t1, field) - start) *2;
+  }
+
+  const scale= function(evt, start) {
+	let scale=undefined;
+    if (evt.scale) {		// if Safari
+		scale = evt.scale;
+    } else {				// e'rybody else
+  	    const deltaDistance = hypotenue(evt.touches[0], evt.touches[1]);
+        scale = deltaDistance / start.distance;
+    }
+	// literal limits statically imported from ancestor code.  
+	// no semantic value known.
+	return Math.min(Math.max(1, scale), 4);
+  }
+
+  SINK.addEventListener('touchstart', (evt) => {
+    evt.preventDefault(); 
+    if (evt.touches.length !== 2) {
+		console.debug("Ignoring a multi-touch event, with "+evt.touches.length + " points.");
+		return;
+	}
+
+	// start is imported from outer function.
+    start.x = delta(evt.touches[0], evt.touches[1], 'pageX'); 
+    start.y = delta(evt.touches[0], evt.touches[1], 'pageY');
+    start.distance = hypotenue(evt.touches[0], evt.touches[1]);
+  });
+
+  SINK.addEventListener('touchmove', (evt) => {
+    evt.preventDefault(); 
+	if (evt.touches.length !== 2) {
+		console.debug("Ignoring a multi-touch event, with "+evt.touches.length + " points.");
+		return;
+	}
+    SINKScale = scale(evt, start);
+ 
+	const deltaX = delta3(evt.touches[0], evt.touches[1], 'pageX', start.x); 
+	const deltaY = delta3(evt.touches[0], evt.touches[1], 'pageY', start.y); 
+
+      // Transform the image to make it grow and move with fingers
+      const transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${SINKScale})`;
+      SINK.style.transform = transform;
+      SINK.style.WebkitTransform = transform;
+      SINK.style.zIndex = "9999";
+    
+  });
+
+  SINK.addEventListener('touchend', (evt) => {
+    SINK.style.transform = "";
+    SINK.style.WebkitTransform = "";
+    SINK.style.zIndex = "";
+  });
+}
+
+
+ready(function(){ // something breaks LIST[i].open set in the HTML from working.
+	const LIST=document.getElementsByTagName("DETAILS");
+	log("debug", "Running DETAILS fixer for the "+LIST.length+" elements found in page" );
+	for(let i=0; i<LIST.length; i++) {
+		if(LIST[i].id && LIST[i].id==="openMe" ) {
+		// excess long approach as may need to extend the boundary conditions.
+			LIST[i].open=true;
+		} else {
+			LIST[i].open=false;
+		}
+	}
+
+// I don't remember why I set the initial-scale, but its not helping this maquette
+//	content="width=device-width, initial-scale=1.06" => ...initial-scale=1.0" 
+	const LIST2=Array.from(document.getElementsByTagName("META"));
+	for(let i=0; i<LIST2.length; i++){
+		if(LIST2[i].name==="viewport" ) {
+			LIST2[i].setAttribute( "content", "width=device-width, initial-scale=1.0" );
+		}
+	}
+	
+
+	let mode={ passive:true};
+	document.querySelector("#rng1").addEventListener("change", (evt) => { return setValue( evt.srcElement.value, "--_zz", '#zoom2' ); }, mode);
+	document.querySelector("#rng2").addEventListener("change", (evt) => { return setValue( evt.srcElement.value, "--_y", '#zoom2' ); }, mode);
+    document.querySelector("#rng3").addEventListener("change", (evt) => { return setValue( evt.srcElement.value, "--_x", '#zoom2' ); }, mode);
+
+    document.querySelector("#rng4").addEventListener("change", (evt) => { return setValue( evt.srcElement.value, "--_zz", '#zoom4' ); }, mode);
+	document.querySelector("#rng5").addEventListener("change", (evt) => { return setValue( evt.srcElement.value, "--_y", '#zoom4' ); }, mode);
+	document.querySelector("#rng6").addEventListener("change", (evt) => { return setValue( evt.srcElement.value, "--_x", '#zoom4' ); }, mode);
+
+
+	// https://vmorneau.me/new-pinch-and-zoom/
+	pinchZoom('#zoom3 .zoomableImage', document);
+	pinchZoom('#zoom5 .zoomableImage', document);
+
+}, document);
+
+function setValue(eid, vnom, tnom) {
+	let val=0;
+	if(! Number.isNaN(parseFloat(eid, 10)) ) {
+		val=parseFloat(eid, 10);
+	} else {
+		let EL1=document.querySelector(eid );
+		val=parseFloat( EL1.value, 10);
+	}
+	// maybe should range clip this.
+	document.querySelector( tnom).style.setProperty(vnom, val);
+}
+
+</script>
+<style>
+/** https://vmorneau.me/new-pinch-and-zoom/  uses   overflow: visible */
+
+.maquetteContainer details summary a[href^="#"] { pointer-events: none; }
+.maquetteContainer details.addReferences summary a { padding:initial; } 
+figure.zoomContainer img { height:350px; width:350px; display:block; aspect-ratio: auto; }
+@supports (zoom: 1) {
+  .zoom-notice {
+    display: none;
+  }
+}
+.bigger { font-size:120%; }
+
+@media screen and (min-resolution: 150dpi) and (max-width: 800px) {
+   .maquetteContainer .maquette figure { display:block; width:100vw; max-width:100vw; }
+	/* add more */
+}
+@media screen and (max-width: 640px) {
+  .maquetteContainer .maquette:before {
+  		content:""; height:1px;
+  }
+}
+
+
+
+/* presentation CSS for the first maquette, the majority of the CSS is a foundation class. */
+/* derived from https://stackoverflow.com/questions/15935837/how-to-display-a-range-input-slider-vertically */
+.zoomContainer .vertical { width: var(--slider-space); }
+.zoomContainer .vertical > input[type="range"] { writing-mode: vertical-lr; direction: rtl; appearance: slider-vertical; width: 16px; vertical-align: bottom; height:390px; }
+
+.zoomContainer .horizontal { width: calc( 100% - 5em ); margin-left: var(--slider-space); padding-top:0.5em; height:var( --slider-space); }
+.zoomContainer .horizontal input[type="range"] { width:calc( 100% - var(--slider-space )); }
+
+.zoomContainer .setZoom { width: calc( 100% - 5em ); margin-left: 2.5em; padding-bottom:0.6em; height:var( --slider-space); }
+.zoomContainer .setZoom input[type="range"] { width:calc( 100% - 5em); margin-left:1em; }
+
+/* the following CSS is a rewrite from the idea in 
+https://css-tip.com/css-variables-range-slider/
+*/
+@property --_x {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 50;
+}
+@property --_y {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 50; 
+}
+@property --_zz {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1; 
+}
+@property --x {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 50;
+}
+@property --y {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 50 
+}
+@property --zz {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1; 
+}
+ @property --show {
+  syntax: "<number>| <length>";
+  inherits: true;
+  initial-value: 1; 
+}
+
+@property --x-lo {
+  syntax: "<length> | <percentage>";
+  inherits: true;
+  initial-value: 1; 
+}
+@property --x-hi {
+  syntax: "<length> | <percentage>";
+  inherits: true;
+  initial-value: 100; 
+}
+@property --y-lo {
+  syntax: "<length> | <percentage>";
+  inherits: true;
+  initial-value: 1; 
+}
+@property --y-hi {
+  syntax: "<length> | <percentage>";
+  inherits: true;
+  initial-value: 100; 
+}
+
+/* An ugly solution https://stackoverflow.com/questions/70617584/apply-styles-based-on-the-html-range-input-values-css-only */
+#zoom1.zoomContainer {
+  --axis-lo-limit:  1 ;
+  --axis-hi-limit:  100;
+  --zoom-min-limit: 1;
+  --zoom-max-limit: 5;
+  --image-size:     400;
+  --slider-space: 40px;
+
+  --axis-x-offset: calc(100 - var(--_x) );
+  --axis-y-offset: calc(100 - var(--_y) );
+  --current-zoom : var(--_zz);
+  --other-edge: calc( var( --image-size) / var(--current-zoom ) );
+
+	--x-lo: calc( calc( var( --image-size ) / 2 ) - calc( var(--axis-x-offset) / 2 ) );
+	--x-hi: calc( calc( var( --image-size ) / 2 ) + calc( var(--axis-x-offset) / 2 ) );
+	--y-lo: calc( calc( var( --image-size ) / 2 ) - calc( var(--axis-y-offset) / 2 ) );
+	--y-hi: calc( calc( var( --image-size ) / 2 ) + calc( var(--axis-y-offset) / 2 ) );
+
+  view-timeline-name: --_x,--_y,--_zz; 
+  animation-timeline: --_x,--_y,--_zz;
+  timeline-scope: --_x,--_y,--_zz;
+  animation: linear both;
+  animation-name: --_x,--_y,--_zz;
+  animation-range: entry 100% exit 0%;
+  animation-duration: 1ms;
+}
+@keyframes --_x {0%{--_x: 50} }
+@keyframes --_y {0%{--_y: 50} }
+@keyframes --_zz {0%{--_zz: 1} }
+
+input[type="range"]::-webkit-slider-thumb { 
+  view-timeline: var(--timeline) inline;
+}
+input[type="range"]::-moz-range-thumb {
+  view-timeline: var(--timeline) inline;
+}
+
+.zoomableHolder { overflow-x:hidden; overflow-y:hidden; width:calc( var( --image-size) * 1px); height: calc( calc( var( --slider-space) * 2 ) + calc( var(--image-size) * 1px ) ); }
+ 
+/* ACTION:  https://stackoverflow.com/questions/26488960/zoom-vs-scale-in-css3  */
+.zoomableImage {
+	transform-origin: 50% 50%;
+	transform:translate( calc( var(--x-lo) * 1px ), calc( var(--y-lo)  * 1px) )  scale( var(--current-zoom) );
+	will-change: transform;  
+}
+
+/* This is a debug feature, I will remove it at the end.
+https://stackoverflow.com/questions/40164169/css-variables-custom-properties-in-pseudo-element-content-property */
+#messageInABottle::after { 
+  counter-reset: X var(--_x, -99) Y var(--_y, -99) ZZ var( --_zz, -99);
+  content: "[ " counter(X) ", " counter(Y) ", " counter(ZZ) " ]"; 
+  will-change: content;
+}
+
+/* this has to be different variables, so the two demos do not lock sync.
+	These are component level vars, so mention a HTML id. */
+
+#zoom2.zoomContainer {
+  --axis-lo-limit:  1 ;
+  --axis-hi-limit:  100;
+  --zoom-min-limit: 1;
+  --zoom-max-limit: 5;
+  --image-size:     350;
+  --slider-space: 40px;
+
+  --axis-x-offset: calc(var(--image-size ) * calc( calc( var(--axis-hi-limit) - var(--_x) ) / 100 ));
+  --axis-y-offset: calc(var(--image-size ) * calc( calc( var(--axis-hi-limit) - var(--_y) ) / 100 ));
+  --current-zoom : var(--_zz);
+  --show: calc( calc( var( --image-size ) / var( --current-zoom ) ) / 2 );
+
+	--x-lo: calc( var(--show) - var( --axis-x-offset) );
+	--x-hi: calc( var(--show) + var( --axis-x-offset) );
+	--y-lo: calc( var(--show) - var( --axis-y-offset) );
+	--y-hi: calc( var(--show) + var( --axis-y-offset) );
+
+  view-timeline-name: --x,--y,--zz; 
+  animation-timeline: --x,--y,--zz;
+  timeline-scope: --x,--y,--zz;
+  animation: linear both;
+  animation-name: --x,--y,--zz;
+  animation-range: entry 100% exit 0%;
+  animation-duration: 1ms;
+}
+#zoom2.zoomContainer img { margin-top:calc( var(--slider-space) * 2 ); margin-left:var(--slider-space); }
+#zoom2.zoomContainer .vertical > input[type="range"] { height: calc( calc( var(--image-size) * 1px ) + 0.66em ); }
+
+@keyframes --x {0%{--x: 50} }
+@keyframes --y {0%{--y: 50} }
+@keyframes --zz {0%{--zz: 1} }
+
+input[type="range"]::-webkit-slider-thumb { 
+  view-timeline: var(--timeline) inline;
+}
+input[type="range"]::-moz-range-thumb {
+  view-timeline: var(--timeline) inline;
+}
+
+#zoom4.zoomContainer {
+  --axis-lo-limit:  1 ;
+  --axis-hi-limit:  100;
+  --zoom-min-limit: 1;
+  --zoom-max-limit: 5;
+  --image-size:     350;
+  --slider-space: 40px;
+
+  --axis-x-offset: calc(var(--image-size ) * calc( calc( var(--axis-hi-limit) - var(--_x) ) / 100 ));
+  --axis-y-offset: calc(var(--image-size ) * calc( calc( var(--axis-hi-limit) - var(--_y) ) / 100 ));
+  --current-zoom : var(--_zz);
+  --show: calc( calc( var( --image-size ) / var( --current-zoom ) ) / 2 );
+
+	--x-lo: calc( var(--show) - var( --axis-x-offset) );
+	--x-hi: calc( var(--show) + var( --axis-x-offset) );
+	--y-lo: calc( var(--show) - var( --axis-y-offset) );
+	--y-hi: calc( var(--show) + var( --axis-y-offset) );
+
+  view-timeline-name: --x,--y,--zz; 
+  animation-timeline: --x,--y,--zz;
+  timeline-scope: --x,--y,--zz;
+  animation: linear both;
+  animation-name: --x,--y,--zz;
+  animation-range: entry 100% exit 0%;
+  animation-duration: 1ms;
+}
+#zoom4.zoomContainer img { margin-top:calc( var(--slider-space) * 2 ); margin-left:var(--slider-space); }
+#zoom4.zoomContainer .vertical > input[type="range"] { height: calc( calc( var(--image-size) * 1px ) + 0.66em ); }
+
+
+
+/* Possibly update this, if more variables are added. */
+#messageInABottle2::after { 
+  counter-reset: X var(--_x, -99) Y var(--_y, -99) ZZ calc( var( --_zz, -99) * 100 ) dX var( --x-lo, -99) dY var( --y-lo, -99) SS var(--show, -99); 
+  content: "[ " counter(X) ", " counter(Y) ", " counter(ZZ) " (is 100x), " counter(dX) ", " counter(dY) ", " counter(SS) " ]"; 
+  will-change: content;
+}
+#messageInABottle3::after { 
+  counter-reset: X var(--_x, -99) Y var(--_y, -99) ZZ calc( var( --_zz, -99) * 100 ) dX var( --x-lo, -99) dY var( --y-lo, -99) SS var(--show, -99); 
+  content: "[ " counter(X) ", " counter(Y) ", " counter(ZZ) " (is 100x), " counter(dX) ", " counter(dY) ", " counter(SS) " ]"; 
+  will-change: content;
+}
+
+#messageInABottle, #messageInABottle2, #messageInABottle3 { display:none; }
+.addCSSDebug #messageInABottle, .addCSSDebug #messageInABottle2, .addCSSDebug #messageInABottle3 { display:block; }
+
+</style>
+</body>
+</html>
