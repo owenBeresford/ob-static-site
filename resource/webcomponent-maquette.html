@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/webcomponent-maquette" />
 <meta property="og:description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which are often absent from React." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="10th of Feb 2026, 13:57:10" />
-<meta property="article:modified_time" content="Feb '26" />
+<meta property="article:published_time" content="15th of Sep 2026, 23:04:14" />
+<meta property="article:modified_time" content="Sep '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/webcomponent-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "WebComponent.mjs",
-	"article:published_time":"10th of Feb 2026, 13:57:10", 
-    "article:modified_time":"Feb '26",
+	"article:published_time":"15th of Sep 2026, 23:04:14", 
+    "article:modified_time":"Sep '26",
     "article:section":"technology",
 
     "author": {
@@ -65,7 +65,7 @@ TODO: magic tune selection against some index/DB -->
 </div>
 <div class="maquetteContainer">
 <div class="maquette">
-<p>This is a maquette menu, made with a WebComponent.  Includes animation without JS, which is atypical for similar components in NPMJS. <br />BLAH BLAH BLah Blaj bojao fhfhss hsfhsf hg.</p>
+<p>This is a maquette menu, made with a WebComponent.  Includes animation without JS, which is atypical for similar components in NPMJS. <br />BLAH BLAH BLah Blaj bojao fhfhss hsfhsf hg.    </p>
 <span id="plainHTML"></span>
 <skinnable-menu id="fancyHTML" class="errorNoJs" data-flag="4">
 <!-- [
@@ -74,7 +74,7 @@ TODO: magic tune selection against some index/DB -->
 { "type":"a", "href":"/resource/appearance", "display":"Appearance", "title":"Edit the way the site looks, this link includes medical needs planning"}, 
 { "type":"a", "href":"/resource/contact-me", "display":"Contact me 📩", "title":"Send me a message."} 
 ] --></skinnable-menu>
-<p>BLAH BLAH BLah Blaj bojao fhfhss hsfhsf hg</p>
+<p>BLAH BLAH BLah Blaj bojao fhfhss hsfhsf hgi. <br /> I set the big gap to reduce doc redraws.  A more realistic solution would be to have the menu on top (higher Zindex value) of the content. </p>
 </div>
 <div>
 <details class="singlePopup withScroll" style="display:block;">
@@ -109,7 +109,8 @@ customElements.define("TAGNAME", TAGNAME);
 
 const SHADOW = thatElement.attachShadow({ mode: 'open' });
 
-// get the shadowDOM for a HTML element if there is one
+// Returns the root element in the current document, 
+// Not relevant a shadowDOM, but is included.  Probably null for HTMLIslands (didn't test)
 Node.getRootNode(options)
 </code>
 </details>
@@ -119,7 +120,7 @@ Node.getRootNode(options)
 </summary>
 <p>I do not expect to learn very much here for JS.   But knowing what breaks ahead of trying it in a sprint is a good idea.   I will aim to keep all the code in this file if it is still readable.   This is just a demo of the Webcomponent API, not intended a reusable component by itself.  I like this <a href="https://mdn.github.io/web-components-examples/" target="_blank">list of examples</a>.</p>
 
-<p>I have ideas about doing things with a Radial.   I suspect that Golden mean spiral (yes that spiral) will be better and more scalable than an actual circle.   I think it would be nice to add a “shake to unspiral”, like browsers have “put phone down should go back” interaction, and the official Gmap App has “shake to report error”, which unfortunately triggers whilst I am running.   The best washing machine UI is a part mechanical rotating selector, as people can use it in low light, or with poor vision, or impaired coordination.   It is still clear what state the washing machine is in, if there is a power cut, or similar.  #TODO find that UX article again<br />
+<p>I have ideas about doing things with a Radial display.   I suspect that Golden mean spiral (yes that spiral) will be better and more scalable than an actual circle.   I think it would be nice to add a “shake to unspiral”, like browsers have “put phone down should go back” interaction, and the official Gmap App has “shake to report error”, which unfortunately triggers whilst I am running.   The best washing machine UI is a part mechanical rotating selector, as people can use it in low light, or with poor vision, or impaired coordination.   It is still clear what state the washing machine is in, if there is a power cut, or similar.  #TODO find that UX article again<br />
 There are few Radial UI elements in the interwebs, as they do not pack well, and were not practical before 2012.  <br />
 If the technique shown here was used at scale, it would lead to smaller SPA.  The information density of the JSON blob to make the menu with is much higher than the flat HTML or worse, a React blob.   To balance the cost of downloading the extra couple of KB of the JS class, the JS class would need to be widely reusable, and include a mature CSS structure.  That exceeds the scope for a demo.  I could make the Component much smaller and simpler if I didn't make it support several render approaches concurrently.</p>
 
@@ -153,7 +154,8 @@ I think I should write v1.3 with plain CSS animation, rather than a transition.<
     <li>Useful: a lint plugin <strong>eslint-plugin-wc</strong> <a href="https://www.npmjs.com/package/eslint-plugin-wc" target="_blank">npm</a>.</li>
 </ul>
 
-<p>Pls see code sample in the API Popover.  UPDATE <del>Chrome seems to cancel transition animation that is 1s long.  Fixed by being slower.</del><ins>Boundary of problem misdiagnosed.  Chrome doesn't like Transition animation in sub-documents, especially when they may not be on screen / viewport.</ins>   Being shorter worked as I had Devtools open.</p>
+<p>Pls see code sample in the API Popover.  UPDATE <del>Chrome seems to cancel transition animation that is 1s long.  Fixed by being slower.</del><ins>Boundary of problem misdiagnosed.  Chrome doesn't like Transition animation in sub-documents, especially when they may not be on screen / viewport.</ins>   Being shorter worked as I had Devtools open.<br />
+UPDATE: The version 1.2 doesn't execute on Safari.  I will have a new version soon.</p>
 
 
 <h5 id="toc2"> Reflection</h5>
@@ -204,7 +206,7 @@ I think I should write v1.3 with plain CSS animation, rather than a transition.<
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
+						<span>Edited <time title="Page edited on 2026-09-15T09:53:31" datetime="2026-09-15T09:53:31">Sep '26</time>
 						</span>
 						<span>Created <time datetime="2024-11-16T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Nov '24</time> </span>
 					</span>
@@ -253,7 +255,7 @@ I think I should write v1.3 with plain CSS animation, rather than a transition.<
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-02-10T13:57:10" datetime="2026-02-10T13:57:10">10th of Feb 2026, 13:57:10</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-09-15T23:04:14" datetime="2026-09-15T23:04:14">15th of Sep 2026, 23:04:14</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-15T09:53:31" datetime="2026-09-15T09:53:31">Sep '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
@@ -363,8 +365,8 @@ class ChangeableMenu extends HTMLElement {
 		this.#ourDom.replaceChildren();	
 	}
 
-	log("debug", "Access to shadownDom rendered state (raw)");
-	log("debug", dom.querySelector('#fancyHTML' ).shadowRoot.innerHTML);
+//	log("debug", "Access to shadownDom rendered state (raw)");
+//	log("debug", dom.querySelector('#fancyHTML' ).shadowRoot.innerHTML);
 
   }
 
@@ -823,7 +825,11 @@ function init() {
 	}
 
 	document.querySelector('#fancyHTML').addEventListener('click', ()=>{ 
-		document.querySelector('#fancyHTML').shadowRoot.querySelector('#attentionHere').focus(); 
+		if(document.querySelector('#fancyHTML').shadowRoot && 
+		document.querySelector('#fancyHTML').shadowRoot.querySelector('#attentionHere')) {
+			document.querySelector('#fancyHTML').shadowRoot.querySelector('#attentionHere').focus();
+		}
+
 		}, false);
 
 

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/keyboard-menu-maquette" />
 <meta property="og:description" content="A demo of better keyboard input.  I wanted a means to tab to component/ blocks, rather than each element." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="16th of Jun 2026, 18:38:47" />
-<meta property="article:modified_time" content="Jun '26" />
+<meta property="article:published_time" content="17th of Sep 2026, 17:13:46" />
+<meta property="article:modified_time" content="Sep '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/keyboard-menu-maquette" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
@@ -35,8 +35,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Keyboard accessible menu",
-	"article:published_time":"16th of Jun 2026, 18:38:47", 
-    "article:modified_time":"Jun '26",
+	"article:published_time":"17th of Sep 2026, 17:13:46", 
+    "article:modified_time":"Sep '26",
     "article:section":"technology",
 
     "author": {
@@ -56,13 +56,30 @@ TODO: magic tune selection against some index/DB -->
 <p>This is a part of a range of “visual samples / maquettes”. Since I started doing more front-end work, I have been making these to speed up browser testing of features. #boring My thought, I should add a snoring backtrack to these pages.</p>
 
 <p>This is an engineering demo, not a UI demo.  Ideally the visible UI will look the same as normal. <br />
-I am unhappy with my current UI interactions for keyboard access, so I am making this as an iteration.   I don't think 'keyboard access' is a meaningful sentence on mobile view.    <br />
+I am unhappy with my current UI interactions for keyboard access, so I am making this article as an iteration.  For software “Inclusive” means meeting the user where they are, rather than saying “thou shalt buy the newest iPhone very 6months, to make my life simpler”.  <i>If a user needs to use keyboard input to access the internet, it wont be via mobile.</i>  I don't think 'keyboard access' is a meaningful sentence on mobile view. <br />
 <strong>⚠ WARN ⚠</strong> On this maquette, beware of standard page features which are not using the new code.</p>
 
 
 </div>
 <div class="maquetteContainer">
 <div class="maquette">
+<dialog class="foreGround" id="interstitial1" modal=true title="My non-static-HTML implementation in other projects is much more sophisticated, and improves usability">
+<p>This INTERSTITIAL can be closed with the focussed button.  It will only appear rarely (and if cookies are wiped)<br />
+You seem to be using keyboard access as an input modality.</p>
+
+<ul class="ulbasic">
+    <li>Using the keyboard on text input elements, works in normal fashion.</li>
+    <li>Using the TAB key will select a component, and it adds a border to it.  </li>
+    <li>The UP / DOWN arrows will cycle selectable items in that component.</li>
+    <li>SPACE or ENTER will trigger the selected item</li>
+    <li>This sites uses many DETAILS/ SUMMARY HTML elements, these should open/ close in a helpful fashion</li>
+    <li>The technical HTML structures should be hidden from you in the component choices, as that is not <i>your</i> problem.</li>
+    <li>Message me if you think of improvements... #TODO the cookie, maybe and add a framework</li>
+</ul>
+
+
+<p> <button class="button" type="button" commandfor="interstitial1" command="request-close">close me</button></p>
+</dialog>
 
 <p><strong>target 1.1 </strong>: a burger menu structure.  Note, no fold-up markup added
 <nav aria-label="maquette widget 1 (menu)">
@@ -102,43 +119,50 @@ I am unhappy with my current UI interactions for keyboard access, so I am making
 
 <br /><br />
 </div>
+<details class="singlePopup withScroll addReferences docs" open>
+<summary>
+<h4 id="toc0">Supported interactions.</h4>
+</summary>
+<ul class="ulbasic">
+    <li>I have implemented the recommended spec on w3c, I don't think this helps mobile/ haptic users (tab key? arrow keys?).</li>
+    <li>DEFAULT for mobile can use touch to open menu, but cycle selection modalities don't make sense.</li>
+    <li>Can cycle components / blocks by TAB key.</li>
+    <li>SHIFT &amp; TAB works as win32 (reverse list walking).</li>
+    <li>can cycle links or other single values by UP / DOWN arrow keys.   In European writing, LEFT and RIGHT cycle along letters in an INPUT element if relevant.   Yes, UP and DOWN to move along a horizontal row of options isn't great.  For a traditional Japanese text system (etc) these bindings would need to be edited.</li>
+    <li>can trigger the links with SPACE or ENTER (or a touch on mobile).</li>
+    <li>ESCAPE should close a menu (added item, as it common in other contexts).   I think that a mobile App should support swipe for the same result on a mobile, however that is not a keyboard controller class problem, so left for the reader.  </li>
+    <li>no item is focussed by default on page load.</li>
+</ul>
+
+
+</details>
 <details class="singlePopup withScroll addReferences docs">
 <summary>
-<h4 id="toc0">Technical Notes</h4>
+<h4 id="toc1">Technical Notes</h4>
 </summary>
 <p>Inventing your own interaction is rarely a good idea as even if you are genius, your users do not excitedly learn your UI/ tools.<br />
 BUT<br />
-I really need less long lists with keyboard access.  This Component / block idea means the UI is much faster to use.</p>
+I really need less long lists when using keyboard access.  This Component / block idea means the UI is much faster to use.</p>
 
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Desired behaviours <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
-<ul class="ulbasic">
-    <li>I have implemented the recommended spec on w3c, I don't think this helps mobile/ haptic users (tab key? arrow keys?).</li>
-    <li>DEFAULT for mobile can use touch to open menu, but cycle selection modalities don't make sense</li>
-    <li>can cycle components / blocks by tab key</li>
-    <li>can cycle links or other single values by UP / DOWN arrow keys</li>
-    <li>can trigger the links with SPACE or ENTER (or touch on mobile)</li>
-    <li>ESCAPE should close a menu (added item, as it common in other contexts)</li>
-    <li>no item is focussed by default on page load</li>
-    <li>shift-tab works as win32</li>
-</ul>
-
-
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Functional spec <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Functional spec <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>Work out if faster to auto-append “addKeyboard” CSS class to components, or leave it as hand mapping, so less scripting needs to be created.   </li>
-    <li>Create interstitial with a guide text, launch it ONCE when tab or arrow keys are used outside of text entry elements<ul class="ulbasic">
-        <li>It MUST have a visible close to remove it</li>
-        <li>Think about cookie for the above interstitial, so its only shown once per month by default</li>
+    <li>Create interstitial with a guide text, launch it ONCE when tab or arrow keys are used outside of text entry elements.<ul class="ulbasic">
+        <li>It MUST have a visible close to remove it.</li>
+        <li>Think about cookie for the above interstitial, so its only shown once per month by default.  Not currently implemented as I don't think user will look at this specific page very often.</li>
     </ul></li>
-    <li>Build process to apply to each component  and as real/ tidy code</li>
-    <li>Make above interactions nice </li>
-    <li>Iterate UI feedback enough, think about colour abit more</li>
-    <li>Something to view help/ alt texts via keyboard access</li>
+    <li>Build process to apply to each component and as real/ tidy code.</li>
+    <li>Make above interactions nice.  </li>
+    <li>Iterate UI feedback enough, think about colour abit more.</li>
+    <li>Review element with Focus, and exec correct trigger for it.</li>
+    <li>FOR LATER Something to view help/ alt texts via keyboard access.</li>
+    <li>FOR LATER: add localised key bindings, and auto detect if all mentioned keys are present (dunno how todate)</li>
+    <li>WARN with current code, the *.addKeyboard elements must each include a <em>valid id</em> attribute, as I need to add and remove event handlers.</li>
 </ul>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Local site components to affect if this adds value <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Local site components to affect if this adds value <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>SM share-bar, mobile and bigscreen</li>
     <li>article menu</li>
@@ -148,7 +172,7 @@ I really need less long lists with keyboard access.  This Component / block idea
 </ul>
 
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Further reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Further reading <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>basic react notes on react website <sup><a href="https://legacy.reactjs.org/docs/accessibility.html" target="_blank">1</a></sup> // lol.</li>
     <li>I found two general libraries that add keyboard access to a whole site/ app/ platform as a generic library: <strong>a11y project</strong> <a href="https://www.a11yproject.com/" target="_blank">docs</a> <a href="https://github.com/a11yproject/a11yproject.com" target="_blank">git</a> or <strong>a11ykit</strong> <a href="https://github.com/patrickfox/a11ykit" target="_blank">git</a> <a href="https://github.com/patrickfox/a11ykit/blob/master/README.md" target="_blank">docs</a> (this is in NPMJS).</li>
@@ -163,7 +187,7 @@ I really need less long lists with keyboard access.  This Component / block idea
     <li>If any UI feature triggers a modal, it is important that the current focus element is clear, and on screen <sup><a href="https://scribe.rip/@im_rahul/focus-trapping-looping-b3ee658e5177" target="_blank">14</a></sup>, so the user isn't trapped.   The same review should occur on tabbed UI.  TESTING is needed!</li>
 </ul>
 
-<p><strong>NOTE</strong>: using <em>enough</em> Aria attribs increases intent and accessibility for a wide range of users.   Also using <em>too many</em> Aria attribs adds no value and may confuse the poor screen-reader.   Whats the correct magic number of attribs?  Off the cuff: it depends, I think it varies per user.</p>
+<p><strong>NOTE</strong>: using <em>enough</em> Aria attribs increases intent and accessibility for a wide range of users.   Also using <em>too many</em> Aria attribs adds no value and may confuse the poor screen-reader.   Whats the correct magic number of attribs?  Off the cuff: <i>“it depends”</i>, I think it varies per user.</p>
 
 <p>I see <del>three</del><ins>four</ins> possible solutions</p>
 
@@ -172,6 +196,7 @@ I really need less long lists with keyboard access.  This Component / block idea
     <li>Direct key bindings, like in win32 Apps, save is often &lt;cntl-s&gt; [not on mobile as chords]</li>
     <li>A arrow key cursor, so re-inventing an awkward mouse            [not on mobile, AWKWARD]</li>
     <li>A minimal scripting language, a la vim or emacs.                [awkward on mobile] </li>
+    <li>OBVIOUSLY I am not suggesting omitting normal touch event handling, so normal people can get on with their day.</li>
 </ul>
 
 <p>For direct keybindings, this is not really guessable/ usable for websites <sup><a href="https://ux.stackexchange.com/questions/152282/are-html-accesskeys-still-terrible-in-2024" target="_blank">15</a></sup>.   For an App, heavy users might be able to gain, but how to make Chord sequences?   Do you, reader, use &lt;cntl-B&gt; in msft word to bold something, or a labourious menu crawl as its now Tuesday and MSFT have moved all the UI round again.   The tech is <sup><a href="https://learn.microsoft.com/en-us/windows/apps/develop/input/access-keys" target="_blank">16</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/accesskey" target="_blank">17</a></sup> <sup><a href="https://getwcag.com/en/accessibility-guide/accesskeys" target="_blank">18</a></sup> <sup><a href="https://www.accessibilitychecker.org/wcag-guides/ensure-every-accesskey-attribute-value-is-unique/" target="_blank">19</a></sup>.   Everything I read on this option mentions manual testing, as JS doesn't allow real keyboard events to be made (#leSigh).   Accessibility aXe (testing for keyboard input) <sup><a href="https://dequeuniversity.com/rules/axe/4.10" target="_blank">20</a></sup>.   It is necessary to have a visualisation process for your keyboard assignments.  Awareness of this API <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Keyboard_API" target="_blank">21</a></sup> when it becomes more widely supported is advised.</p>
@@ -181,7 +206,7 @@ I really need less long lists with keyboard access.  This Component / block idea
 <p>.</p>
 
 
-<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Interstitial text. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Interstitial text. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This INTERSTITIAL can be closed by the X on the right.  It will only appear rarely (and if cookies are wiped)<br />
 You seem to be using keyboard access as an input modality.</p>
 
@@ -231,7 +256,7 @@ You seem to be using keyboard access as an input modality.</p>
 					</span>
 
 					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-06-16T18:38:33" datetime="2026-06-16T18:38:33">Jun '26</time>
+						<span>Edited <time title="Page edited on 2026-09-17T14:08:00" datetime="2026-09-17T14:08:00">Sep '26</time>
 						</span>
 						<span>Created <time datetime="2026-02-02T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Feb '26</time> </span>
 					</span>
@@ -262,11 +287,11 @@ You seem to be using keyboard access as an input modality.</p>
 			</menu>
 		</details>
 		<details  class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
-<li><a href="#toc0">Desired behaviours</a></li>
-<li><a href="#toc1">Functional spec</a></li>
-<li><a href="#toc2">Local site components to affect if this adds value</a></li>
-<li><a href="#toc3">Further reading</a></li>
-<li><a href="#toc4">Interstitial text.</a></li>
+<li><a href="#toc0">Functional spec</a></li>
+<li><a href="#toc1">Local site components to affect if this adds value</a></li>
+<li><a href="#toc2">Further reading</a></li>
+<li><a href="#toc3">Interstitial text.</a></li>
+<li><a href="#toc4">Supported interactions.</a></li>
 <li><a href="#toc5">Technical Notes</a></li>
 </menu>
 </details><br />
@@ -284,7 +309,7 @@ You seem to be using keyboard access as an input modality.</p>
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-06-16T18:38:47" datetime="2026-06-16T18:38:47">16th of Jun 2026, 18:38:47</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-06-16T18:38:33" datetime="2026-06-16T18:38:33">Jun '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-09-17T17:13:46" datetime="2026-09-17T17:13:46">17th of Sep 2026, 17:13:46</time>, Copyright &copy; 2022 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-17T14:08:00" datetime="2026-09-17T14:08:00">Sep '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
@@ -292,31 +317,45 @@ You seem to be using keyboard access as an input modality.</p>
 <script type="module">
 import { ready, log } from '/asset/ob1-202406.min.mjs';
 const MARKER="addKeyboard";
+let haveInterstitial=0;
+// look at event duplication with Element.getEventListeners  in Chrome devtools 
+// https://stackoverflow.com/questions/10284120/how-to-know-how-many-event-listeners-there-are-on-the-page
 
-function _trigger(rootId, leafId, direct, dom) {
-	var menu=dom.querySelector(rootId);
-	var items = Array.from(dom.querySelectorAll( rootId+" "+ leafId ));
-	log("debug", "Binding keyboard "+direct+" events for "+rootId);
-	function focusItem(idx, items) {
-		for(let i=0; i<items.length; i++) {
-			items[i].tabIndex=-1;
-		}
-
-		items[idx].tabIndex = 0;
-		items[idx].focus();
+function focusItem(idx, items) {
+	for(let i=0; i<items.length; i++) {
+		items[i].tabIndex=-1;
 	}
 
-	menu[direct]("keydown", (evt) => {
+	items[idx].tabIndex = 0;
+	items[idx].focus();
+}
+
+function _trigger(rootId, leafId, action, dom) {
+	var menu=dom.querySelector(rootId);
+	var items = Array.from(dom.querySelectorAll( rootId+" "+ leafId ));
+	log("debug", "Binding keyboard "+action+" events for "+rootId);
+
+	menu[action]("keydown", function(evt) {
+		evt.preventDefault();
+
 		var menu=dom.querySelector(rootId);
 		var items = Array.from(dom.querySelectorAll( rootId+" "+ leafId ));
 	    var idx = items.indexOf(dom.activeElement);
 		
-		evt.preventDefault();
-	    if (idx === -1) { 
+		if(idx===-1 && dom.activeElement.tagName==="BODY" ) {
+			menu.focus();
+		}
+		if(dom.activeElement.tagName==="SUMMARY" ) {
+			dom.activeElement.parentNode.tabIndex=-1;
+			dom.activeElement.parentNode.focus();
+		}
+
+	    if (idx === -1 && dom.activeElement !== menu) { 
 			log("notice", "XXX received key event for unknown element XXX" );
 			return;
 		}
 
+		let otherKey=false;
 		switch (evt.key) {
 		case "ArrowDown":
 			focusItem((idx + 1) % items.length, items );
@@ -332,37 +371,35 @@ function _trigger(rootId, leafId, direct, dom) {
 			break;
 		case "Enter":
 		case " ":
-			items[idx].click();
+		case "Space":
+			_open(items[idx], rootId, leafId, dom );
 			break;
 		case "Tab":
-			var BLOBS=Array.from(dom.querySelectorAll('.'+MARKER ));
-			if( BLOBS.indexOf( menu) <0) {
-				log("warn", "[tab] can't find self lump, so can't tab to next lump correctly FAIL!");
-				return;
+			var direction=1;
+			if(evt.shiftKey ) {
+				direction=-1;
 			}
-			if(menu instanceof HTMLDetailsElement) {
-				menu.open=false;
-			}
-			_trigger( rootId, leafId, 'removeEventListener', dom);		
-		
-			let i = ((BLOBS.indexOf(menu)+1)%BLOBS.length);
-			if(BLOBS[i] instanceof HTMLDetailsElement) {
-				BLOBS[i].open=true;
-				BLOBS[i].focus();
-				_trigger( "#"+BLOBS[i].id, leafId, 'addEventListener', dom);
-			} else {
-				BLOBS[i].focus();
-				_trigger( "#"+BLOBS[i].id, leafId, 'addEventListener', dom);
-			}
+			_tab( menu, direction, leafId, dom );
 			break;
 		case "Escape":
 			_close(menu, rootId, leafId, dom ); 
 			break;
 		default:
+			otherKey=true;
 			log("debug", "Unhandled event happened "+evt.key+" AKA code="+evt.keyCode);
 		}
 
+		if (! haveInterstitial && !otherKey) {
+			haveInterstitial=1;
+			dom.querySelector('#interstitial1').showModal();
+		}
 	});
+
+		if( menu instanceof HTMLDetailsElement ) {
+			// if tabKey, the menu item is wrong selection
+			log("debug", "Activating #"+menu.id+" block.  Moved focus to input element");
+			focusItem(0, items);
+		}
 		if(dom.activeElement===menu) {
 			log("debug", "[menu] moved focus to actionable link");
 			focusItem(0, items);
@@ -370,16 +407,45 @@ function _trigger(rootId, leafId, direct, dom) {
 		if(dom.activeElement.tagName === "SUMMARY" ) {
 			log("debug", "[summary] moved focus to actionable link");		
 			focusItem(0, items);
-		}
-
-		if( menu instanceof HTMLDetailsElement ) {
-			log("debug", "Activating "+menu.id+" block.  Moved focus to input element");
-			focusItem(0, items);
+			// not setting menu.open state here
 		}
 
 }
 
-// maybe refactor menu out...
+function _tab( menu, dir, leafId, dom) {
+	var list= Array.from(dom.querySelectorAll('.'+MARKER ));
+	var idx2=list.indexOf( menu);
+	if( idx2<0) {
+		log("warn", "[tab] can't find self component, so can't tab to next component correctly FAIL!");
+		return;
+	}
+	_trigger( '#'+menu.id, leafId, 'removeEventListener', dom);
+		
+	let i = (( idx2+dir) % list.length);
+	if(i<0) { i=list.length-1; } 
+	if(menu instanceof HTMLDetailsElement) {
+		menu.open=false;
+	}
+	if(list[i] instanceof HTMLDetailsElement) {
+		list[i].open=true;
+	}
+	list[i].focus();
+	var items = Array.from(dom.querySelectorAll( "#"+list[i].id+" "+ leafId ));
+	focusItem(0, items);
+	_trigger( "#"+list[i].id, leafId, 'addEventListener', dom);
+}
+
+function _open(menu, rootId, leafId, dom ){
+	if(menu instanceof HTMLDetailsElement) {
+		_trigger(rootId, leafId, 'addEventListener', dom);
+		menu.open=true;
+		log("debug", "Activate event, opened the menu");
+	} else {     // Maybe add further HTML elements
+				// add awareness of MENU blocks
+		menu.click();
+	}
+}
+
 function _close(menu, rootId, leafId, dom ) {
 	_trigger(rootId, leafId, 'removeEventListener', dom);
 	if(menu instanceof HTMLDetailsElement) {
@@ -414,7 +480,7 @@ function _toggle(rootId, leafId, dom) {
 }
 
 // this function is coded for this page, and is non-generic
-// can build mapper in presence of .addKeyboard as alternative
+// can build mapper for iterating the presence of .addKeyboard as an alternative
 ready(()=> { 
 	_trigger("#blob1", '[role="menuitem"]', 'addEventListener', document);
 	_toggle("#blob2", '[role="menuitem"]', document);
@@ -426,6 +492,9 @@ ready(()=> {
 .maquette .linksWidget[open] { right:auto; position:inherit; }
 .maquette nav:focus-within { border:dashed 10px rgb(204, 255, 153); --fgcontrast: 1.2; --bgcontrast: 1; }
 .maquette nav:focus-within [role="menuitem"] { background:var(--attentionbg);  }
+
+.foreGround { width:50vw; height:max-content; /* left:25vw; */ top:20%;  position:fixed; z-index:1; border:solid 2px red; padding:1em;  }
+.foreGround button { margin-left: calc(50% - 5em); margin-top:1em; width: 10em; }
 
 </style>
 </body>
