@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
 <head>
-<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 280,000 words, please read some of them. -->
 <title>PHP benchmark 2017</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/php-benchmark-2017" />
 <meta property="og:description" content="Performance benchmark for PHP operations. A look at third party benchmarks along with my performance benchmark. 2017 edition of PHP" />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Sep 2026, 7:50:09" />
+<meta property="article:published_time" content="2026-09-24T17:56:51" />
 <meta property="article:modified_time" content="Feb '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/php-benchmark-2017" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -35,7 +35,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "PHP benchmark 2017",
-	"article:published_time":"21st of Sep 2026, 7:50:09", 
+	"article:published_time":"2026-09-24T17:56:51", 
     "article:modified_time":"Feb '26",
     "article:section":"technology",
 
@@ -71,84 +71,84 @@ TODO: magic tune selection against some index/DB -->
 <h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > My 2017 performance benchmark  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>These results are for PHP 7.1.3-3 (cli) (built: Jun 22 2013 06:27:20) running on Linux 4.4.0-36-generic.</p>
 
-<p>Array<table><thead><tr><th class="">Test of:</th><th class="">Duration (n=100000)</th><th class="">deltaRAM</th></tr></thead>
-<tr><td class="">PHP version:</td><td class="">7.1.3-3+deb.sury.org~xenial+1 3.1.0</td><td class="">Linux meow 4.4.0-36-generic</td></tr>
-<tr><td class="">When/ where:</td><td class="">2017-04-23</td><td class="">meow</td></tr>
-<tr><td class="">Stats for creating LD1 </td><td class="">0.0008s</td><td class="">0 MB</td></tr>
-<tr><td class="">Stats for creating LD2 </td><td class="">0.1014s</td><td class="">0 MB</td></tr>
-<tr><td class="">Stats for creating LD3 </td><td class="">0.0022s</td><td class="">0 MB</td></tr>
-<tr><td class="">Stats for creating LD4 </td><td class="">0.0020s</td><td class="">0 B</td></tr>
-<tr><td class="">[0] linear increment (1php byte code)</td><td class="">0.0022s</td><td class="">0 B</td></tr>
-<tr><td class="">[1] linear increment (1php byte code)</td><td class="">0.0017s</td><td class="">0 B</td></tr>
-<tr><td class="">[2] linear float addition</td><td class="">0.0025s</td><td class="">0 B</td></tr>
-<tr><td class="">[3] linear float increment</td><td class="">0.0027s</td><td class="">0 B</td></tr>
-<tr><td class="">[4] linear float increment (+1)</td><td class="">0.0027s</td><td class="">0 B</td></tr>
-<tr><td class="">[5] float increment (cast alot)</td><td class="">0.0032s</td><td class="">0 B</td></tr>
-<tr><td class="">[6] linear float increment(cast)</td><td class="">0.0028s</td><td class="">0 B</td></tr>
-<tr><td class="">[7] string creation</td><td class="">0.0020s</td><td class="">0 B</td></tr>
-<tr><td class="">[8] string concat (inc RAM)</td><td class="">0.0038s</td><td class="">0 B</td></tr>
-<tr><td class="">[9] html entities ~ plain</td><td class="">0.0157s</td><td class="">0 B</td></tr>
-<tr><td class="">[10] html entities ~ entities</td><td class="">0.0212s</td><td class="">0 B</td></tr>
-<tr><td class="">[11] func int addition</td><td class="">0.0043s</td><td class="">0 B</td></tr>
-<tr><td class="">[12] func float addition</td><td class="">0.0047s</td><td class="">0 B</td></tr>
-<tr><td class="">[13] func string creation</td><td class="">0.0036s</td><td class="">0 B</td></tr>
-<tr><td class="">[14] func string cat</td><td class="">0.5939s</td><td class="">0 B</td></tr>
-<tr><td class="">[15] reference string cat</td><td class="">0.0075s</td><td class="">0 B</td></tr>
-<tr><td class="">[16] reference int increment</td><td class="">0.0050s</td><td class="">0 B</td></tr>
-<tr><td class="">[17] EVAL linear float increment</td><td class="">0.1447s</td><td class="">0 B</td></tr>
-<tr><td class="">[18] EVAL linear int increment </td><td class="">0.1450s</td><td class="">0 B</td></tr>
-<tr><td class="">[19] EVAL linear float addition</td><td class="">0.1552s</td><td class="">0 B</td></tr>
-<tr><td class="">[20] EVAL string creation</td><td class="">0.1578s</td><td class="">0 B</td></tr>
-<tr><td class="">[21] EVAL string concat</td><td class="">0.1587s</td><td class="">0 B</td></tr>
-<tr><td class="">[22] for loop</td><td class="">1.2510s</td><td class="">0 B</td></tr>
-<tr><td class="">[23] foreach ($v only) loop</td><td class="">0.9106s</td><td class="">0 B</td></tr>
-<tr><td class="">[24] while list</td><td class="">0.0088s</td><td class="">0 B</td></tr>
-<tr><td class="">[25] foreach ($k=>$v) loop</td><td class="">1.4072s</td><td class="">0 B</td></tr>
-<tr><td class="">[26] simple array_key_exists</td><td class="">0.0041s</td><td class="">0 B</td></tr>
-<tr><td class="">[27] isset</td><td class="">0.0038s</td><td class="">0 B</td></tr>
-<tr><td class="">[28] in_array</td><td class="">0.0041s</td><td class="">0 B</td></tr>
-<tr><td class="">[29] empty</td><td class="">0.0027s</td><td class="">0 B</td></tr>
-<tr><td class="">[30] simple array_key_exists largeData</td><td class="">0.0041s</td><td class="">0 B</td></tr>
-<tr><td class="">[31] isset largeData</td><td class="">0.0027s</td><td class="">0 B</td></tr>
-<tr><td class="">[32] in_array largeData</td><td class="">1.3168s</td><td class="">0 B</td></tr>
-<tr><td class="">[33] empty largeData</td><td class="">0.0028s</td><td class="">0 B</td></tr>
-<tr><td class="">[34] largerData2 array_key_exists</td><td class="">0.0042s</td><td class="">0 B</td></tr>
-<tr><td class="">[35] isset largeData2</td><td class="">0.0027s</td><td class="">0 B</td></tr>
-<tr><td class="">[36] largerData2 in_array</td><td class="">30.8244s</td><td class="">0 B</td></tr>
-<tr><td class="">[37] empty largeData2</td><td class="">0.0029s</td><td class="">0 B</td></tr>
-<tr><td class="">[38] largerData3 array_key_exists</td><td class="">0.0054s</td><td class="">0 B</td></tr>
-<tr><td class="">[39] empty largeData3</td><td class="">0.0036s</td><td class="">0 B</td></tr>
-<tr><td class="">[40] largerData3 isset</td><td class="">0.0036s</td><td class="">0 B</td></tr>
-<tr><td class="">[41] largerData3 in_array</td><td class="">1.0048s</td><td class="">0 B</td></tr>
-<tr><td class="">[42] largerData4 array_key_exists</td><td class="">0.0050s</td><td class="">0 B</td></tr>
-<tr><td class="">[43] isset largeData4</td><td class="">0.0035s</td><td class="">0 B</td></tr>
-<tr><td class="">[44] largerData4 empty</td><td class="">0.0036s</td><td class="">0 B</td></tr>
-<tr><td class="">[45] largerData4 in_array</td><td class="">0.6312s</td><td class="">0 B</td></tr>
-<tr><td class="">[46] uniqid</td><td class="">5.5032s</td><td class="">0 B</td></tr>
-<tr><td class="">[47] md5</td><td class="">0.0358s</td><td class="">0 B</td></tr>
-<tr><td class="">[48] sha1</td><td class="">0.0448s</td><td class="">0 B</td></tr>
-<tr><td class="">[49] sha256</td><td class="">0.0790s</td><td class="">0 B</td></tr>
-<tr><td class="">[50] sha512</td><td class="">0.1939s</td><td class="">0 B</td></tr>
-<tr><td class="">[51] tiger128,3</td><td class="">0.0572s</td><td class="">0 B</td></tr>
-<tr><td class="">[52] adler32</td><td class="">0.0201s</td><td class="">0 B</td></tr>
-<tr><td class="">[53] crc32b</td><td class="">0.0222s</td><td class="">0 B</td></tr>
-<tr><td class="">[54] whirlpool</td><td class="">0.1592s</td><td class="">0 B</td></tr>
-<tr><td class="">[55] haval224,3</td><td class="">0.1048s</td><td class="">0 B</td></tr>
-<tr><td class="">[56] strcmp by == match</td><td class="">0.0031s</td><td class="">0 B</td></tr>
-<tr><td class="">[57] strcmp by == match 2vars</td><td class="">0.0030s</td><td class="">0 B</td></tr>
-<tr><td class="">[58] strcmp by == nomatch</td><td class="">0.0032s</td><td class="">0 B</td></tr>
-<tr><td class="">[59] strcmp by strcmp</td><td class="">0.0080s</td><td class="">0 B</td></tr>
-<tr><td class="">[60] strcmp by !strcmp</td><td class="">0.0081s</td><td class="">0 B</td></tr>
-<tr><td class="">[61] strcmp by strcmp 2vars</td><td class="">0.0081s</td><td class="">0 B</td></tr>
-<tr><td class="">[62] strcmp by strstr</td><td class="">0.0111s</td><td class="">0 B</td></tr>
-<tr><td class="">[63] strcmp by preg_match 1</td><td class="">0.0135s</td><td class="">0 B</td></tr>
-<tr><td class="">[64] global obj method call</td><td class="">0.0049s</td><td class="">0 B</td></tr>
-<tr><td class="">[65] local obj method call</td><td class="">0.0048s</td><td class="">0 B</td></tr>
-<tr><td class="">[66] local obj method call</td><td class="">0.0048s</td><td class="">0 B</td></tr>
-<tr><td class="">[67] via call_user_func_array</td><td class="">0.0214s</td><td class="">0 B</td></tr>
-<tr><td class="">[68] if statement</td><td class="">0.0018s</td><td class="">0 B</td></tr>
-<tr><td class="">[69] switch statement</td><td class="">0.0040s</td><td class="">0 B</td></tr>
-<tr><td class="">[70] ternary statement</td><td class="">0.0031s</td><td class="">0 B</td></tr>
+<p>Array<table><thead><tr><th >Test of:</th><th >Duration (n=100000)</th><th >deltaRAM</th></tr></thead>
+<tr><td >PHP version:</td><td >7.1.3-3+deb.sury.org~xenial+1 3.1.0</td><td >Linux meow 4.4.0-36-generic</td></tr>
+<tr><td >When/ where:</td><td >2017-04-23</td><td >meow</td></tr>
+<tr><td >Stats for creating LD1 </td><td >0.0008s</td><td >0 MB</td></tr>
+<tr><td >Stats for creating LD2 </td><td >0.1014s</td><td >0 MB</td></tr>
+<tr><td >Stats for creating LD3 </td><td >0.0022s</td><td >0 MB</td></tr>
+<tr><td >Stats for creating LD4 </td><td >0.0020s</td><td >0 B</td></tr>
+<tr><td >[0] linear increment (1php byte code)</td><td >0.0022s</td><td >0 B</td></tr>
+<tr><td >[1] linear increment (1php byte code)</td><td >0.0017s</td><td >0 B</td></tr>
+<tr><td >[2] linear float addition</td><td >0.0025s</td><td >0 B</td></tr>
+<tr><td >[3] linear float increment</td><td >0.0027s</td><td >0 B</td></tr>
+<tr><td >[4] linear float increment (+1)</td><td >0.0027s</td><td >0 B</td></tr>
+<tr><td >[5] float increment (cast alot)</td><td >0.0032s</td><td >0 B</td></tr>
+<tr><td >[6] linear float increment(cast)</td><td >0.0028s</td><td >0 B</td></tr>
+<tr><td >[7] string creation</td><td >0.0020s</td><td >0 B</td></tr>
+<tr><td >[8] string concat (inc RAM)</td><td >0.0038s</td><td >0 B</td></tr>
+<tr><td >[9] html entities ~ plain</td><td >0.0157s</td><td >0 B</td></tr>
+<tr><td >[10] html entities ~ entities</td><td >0.0212s</td><td >0 B</td></tr>
+<tr><td >[11] func int addition</td><td >0.0043s</td><td >0 B</td></tr>
+<tr><td >[12] func float addition</td><td >0.0047s</td><td >0 B</td></tr>
+<tr><td >[13] func string creation</td><td >0.0036s</td><td >0 B</td></tr>
+<tr><td >[14] func string cat</td><td >0.5939s</td><td >0 B</td></tr>
+<tr><td >[15] reference string cat</td><td >0.0075s</td><td >0 B</td></tr>
+<tr><td >[16] reference int increment</td><td >0.0050s</td><td >0 B</td></tr>
+<tr><td >[17] EVAL linear float increment</td><td >0.1447s</td><td >0 B</td></tr>
+<tr><td >[18] EVAL linear int increment </td><td >0.1450s</td><td >0 B</td></tr>
+<tr><td >[19] EVAL linear float addition</td><td >0.1552s</td><td >0 B</td></tr>
+<tr><td >[20] EVAL string creation</td><td >0.1578s</td><td >0 B</td></tr>
+<tr><td >[21] EVAL string concat</td><td >0.1587s</td><td >0 B</td></tr>
+<tr><td >[22] for loop</td><td >1.2510s</td><td >0 B</td></tr>
+<tr><td >[23] foreach ($v only) loop</td><td >0.9106s</td><td >0 B</td></tr>
+<tr><td >[24] while list</td><td >0.0088s</td><td >0 B</td></tr>
+<tr><td >[25] foreach ($k=>$v) loop</td><td >1.4072s</td><td >0 B</td></tr>
+<tr><td >[26] simple array_key_exists</td><td >0.0041s</td><td >0 B</td></tr>
+<tr><td >[27] isset</td><td >0.0038s</td><td >0 B</td></tr>
+<tr><td >[28] in_array</td><td >0.0041s</td><td >0 B</td></tr>
+<tr><td >[29] empty</td><td >0.0027s</td><td >0 B</td></tr>
+<tr><td >[30] simple array_key_exists largeData</td><td >0.0041s</td><td >0 B</td></tr>
+<tr><td >[31] isset largeData</td><td >0.0027s</td><td >0 B</td></tr>
+<tr><td >[32] in_array largeData</td><td >1.3168s</td><td >0 B</td></tr>
+<tr><td >[33] empty largeData</td><td >0.0028s</td><td >0 B</td></tr>
+<tr><td >[34] largerData2 array_key_exists</td><td >0.0042s</td><td >0 B</td></tr>
+<tr><td >[35] isset largeData2</td><td >0.0027s</td><td >0 B</td></tr>
+<tr><td >[36] largerData2 in_array</td><td >30.8244s</td><td >0 B</td></tr>
+<tr><td >[37] empty largeData2</td><td >0.0029s</td><td >0 B</td></tr>
+<tr><td >[38] largerData3 array_key_exists</td><td >0.0054s</td><td >0 B</td></tr>
+<tr><td >[39] empty largeData3</td><td >0.0036s</td><td >0 B</td></tr>
+<tr><td >[40] largerData3 isset</td><td >0.0036s</td><td >0 B</td></tr>
+<tr><td >[41] largerData3 in_array</td><td >1.0048s</td><td >0 B</td></tr>
+<tr><td >[42] largerData4 array_key_exists</td><td >0.0050s</td><td >0 B</td></tr>
+<tr><td >[43] isset largeData4</td><td >0.0035s</td><td >0 B</td></tr>
+<tr><td >[44] largerData4 empty</td><td >0.0036s</td><td >0 B</td></tr>
+<tr><td >[45] largerData4 in_array</td><td >0.6312s</td><td >0 B</td></tr>
+<tr><td >[46] uniqid</td><td >5.5032s</td><td >0 B</td></tr>
+<tr><td >[47] md5</td><td >0.0358s</td><td >0 B</td></tr>
+<tr><td >[48] sha1</td><td >0.0448s</td><td >0 B</td></tr>
+<tr><td >[49] sha256</td><td >0.0790s</td><td >0 B</td></tr>
+<tr><td >[50] sha512</td><td >0.1939s</td><td >0 B</td></tr>
+<tr><td >[51] tiger128,3</td><td >0.0572s</td><td >0 B</td></tr>
+<tr><td >[52] adler32</td><td >0.0201s</td><td >0 B</td></tr>
+<tr><td >[53] crc32b</td><td >0.0222s</td><td >0 B</td></tr>
+<tr><td >[54] whirlpool</td><td >0.1592s</td><td >0 B</td></tr>
+<tr><td >[55] haval224,3</td><td >0.1048s</td><td >0 B</td></tr>
+<tr><td >[56] strcmp by == match</td><td >0.0031s</td><td >0 B</td></tr>
+<tr><td >[57] strcmp by == match 2vars</td><td >0.0030s</td><td >0 B</td></tr>
+<tr><td >[58] strcmp by == nomatch</td><td >0.0032s</td><td >0 B</td></tr>
+<tr><td >[59] strcmp by strcmp</td><td >0.0080s</td><td >0 B</td></tr>
+<tr><td >[60] strcmp by !strcmp</td><td >0.0081s</td><td >0 B</td></tr>
+<tr><td >[61] strcmp by strcmp 2vars</td><td >0.0081s</td><td >0 B</td></tr>
+<tr><td >[62] strcmp by strstr</td><td >0.0111s</td><td >0 B</td></tr>
+<tr><td >[63] strcmp by preg_match 1</td><td >0.0135s</td><td >0 B</td></tr>
+<tr><td >[64] global obj method call</td><td >0.0049s</td><td >0 B</td></tr>
+<tr><td >[65] local obj method call</td><td >0.0048s</td><td >0 B</td></tr>
+<tr><td >[66] local obj method call</td><td >0.0048s</td><td >0 B</td></tr>
+<tr><td >[67] via call_user_func_array</td><td >0.0214s</td><td >0 B</td></tr>
+<tr><td >[68] if statement</td><td >0.0018s</td><td >0 B</td></tr>
+<tr><td >[69] switch statement</td><td >0.0040s</td><td >0 B</td></tr>
+<tr><td >[70] ternary statement</td><td >0.0031s</td><td >0 B</td></tr>
 </table>
 </p>
 
@@ -170,37 +170,7 @@ TODO: magic tune selection against some index/DB -->
 					<header><h1>PHP benchmark 2017</h1></header>
 			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;   </p>
 				</div>
-				<div id="shareGroup" class="metaWidget row addReading">
-					<span class="SMshareWidget"> 
-						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
-						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
-						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
-						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-benchmark-2017" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span> </a>
-						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-benchmark-2017" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit </span> </a>
-						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-benchmark-2017" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span> </a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-benchmark-2017&amp;t=PHP+benchmark+2017"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span> </a>
-						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-benchmark-2017" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
-					</span>
-
-					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
-						</span>
-						<span>Created <time datetime="2017-04-23T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Apr '17</time> </span>
-					</span>
-
-				</div>
 			</div>
-			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
-					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphp-benchmark-2017" type="text" value="" placeholder="mastodon.social" />  
-					</label> 
-					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
-					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
-				</form>
-			</dialog>
 	
 	<div class="bigScreenOnly column linksWidget" role="navigation">
 		<details class="linksWidget" id="pageMenu">
@@ -215,6 +185,15 @@ TODO: magic tune selection against some index/DB -->
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 		</details>
+
+			<div id="shareGroup" class="row">
+				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+		   </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time> </div>
+			<div class="row" id="addReading"></div>
+
+
 		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Third party benchmarks</a></li>
 <li><a href="#toc1">My 2017 performance benchmark</a></li>
@@ -234,7 +213,7 @@ TODO: magic tune selection against some index/DB -->
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-21T07:50:09" datetime="2026-09-21T07:50:09">21st of Sep 2026, 7:50:09</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-09-24T17:56:51" datetime="2026-09-24T17:56:51">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
  </footer>
