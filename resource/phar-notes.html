@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
 <title>PHAR notes</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,10 +22,11 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/phar-notes" />
 <meta property="og:description" content="Short article about compressed php bundles in order to make a PHAR file." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Sep 2026, 7:50:09" />
-<meta property="article:modified_time" content="Feb '26" />
+<meta property="article:published_time" content="2026-09-24T17:56:51" />
+<meta property="article:modified_time" content="Sep '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/phar-notes" />
-<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+<!-- the below track is just a generic cheese track, but the style fits.   Progressive + uplifting tone.  I do not own the rights or anything. 
+P
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
 
@@ -35,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "PHAR notes",
-	"article:published_time":"21st of Sep 2026, 7:50:09", 
-    "article:modified_time":"Feb '26",
+	"article:published_time":"2026-09-24T17:56:51", 
+    "article:modified_time":"Sep '26",
     "article:section":"technology",
 
     "author": {
@@ -68,7 +69,15 @@ If you use phpci <sup><a href="https://www.phptesting.org/" target="_blank">12</
 <ul class="ulbasic">
     <li>If you are using Box2, with compression enabled (recommended); due to the way the PHAR extension handles files; you need to set `ulimit -n` to a large number. Do not do this on production servers.  If you are using win16, win32 or win64; I have no idea if or how to set this.</li>
     <li>Some people report compression rates of 80%. For my scenarios, I get around 60% smaller (e.g. 3MB to 1MB).  </li>
-    <li>You need to be careful with build paths, as the filesystem paths are different pre-PHAR and post-PHAR. With symfony, you need to hack the AppKernel quite heavily, but fortunately, all the decision points are in this single file.  To access files inside the PHAR with fopen(), the paths should be in format “phar://directories/to/phar/file.phar/directories/inside/phar/file.php”. Fortunately modern class loaders can do most of this by magic.</li>
+    <li>You need to be careful with build paths, as the filesystem paths are different pre-PHAR and post-PHAR. With symfony, you need to hack the AppKernel quite heavily, but fortunately, all the decision points are in this single file.  To access files inside the PHAR with fopen(), the paths should be in format </li>
+</ul>
+
+<p><div class="row withScroll" >
+"phar://directories/to/phar/file.phar/directories/inside/phar/file.php". 
+</div><br />
+Fortunately modern class loaders can do most of this by magic.</p>
+
+<ul class="ulbasic">
     <li>Again, for Symfony, the config file “source” feature doesn't work, if you pack the config files. You can either keep all config outside of the PHAR, or inline everything into one big file. Or I suppose push a branch to symfony/config...</li>
     <li>Referencing symfony again, but this would be generically applicable, the boilerplate code for bin/console and app/AppKernel etc is cumbersome to carry around. For my PHAR of CLI tools I make a custom bootstrap file which inlines the above functionality, loads the reduced config files more simply.  As this bootstrap only applies to this CLI, there is no need for the user to pass in the vendor/command param.  The custom bootstrap should be checked in to the bundle and repo, and avoid symfony/create-project.</li>
     <li>When deploying to servers, your work should include a PHP version check; as old servers won't support PHAR.</li>
@@ -117,39 +126,9 @@ If you use phpci <sup><a href="https://www.phptesting.org/" target="_blank">12</
 					<header><h1>PHAR notes: compressed PHP bundles</h1></header>
 			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
 				</div>
-				<div id="shareGroup" class="metaWidget row addReading">
-					<span class="SMshareWidget"> 
-						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
-						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
-						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
-						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span></a>
-						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit</span></a>
-						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span></a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes&amp;t=PHAR+notes"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span></a>
-						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
-					</span>
-
-					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
-						</span>
-						<span>Created <time datetime="2018-01-28T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Jan '18</time> </span>
-					</span>
-
-				</div>
 			</div>
-			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
-					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fphar-notes" type="text" value="" placeholder="mastodon.social" />  
-					</label> 
-					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
-					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
-				</form>
-			</dialog>
 
-		<div class="bigScreenOnly column linksWidget" role="navigation">
+    	<div class="bigScreenOnly column linksWidget" role="navigation">
 			<details class="linksWidget" id="pageMenu">
 			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
@@ -162,6 +141,14 @@ If you use phpci <sup><a href="https://www.phptesting.org/" target="_blank">12</
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 			</details>
+
+			<div id="shareGroup" class="row">
+				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+		   </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-24T14:47:04" datetime="2026-09-24T14:47:04">Sep '26</time> </div>
+			<div class="row" id="addReading"></div>
+	
 		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
 <li><a href="#toc0">Gotchas of PHAR</a></li>
 <li><a href="#toc1">Sample Box config file to build my clone of phpunit-skelgen</a></li>
@@ -181,7 +168,7 @@ If you use phpci <sup><a href="https://www.phptesting.org/" target="_blank">12</
 	   <p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-21T07:50:09" datetime="2026-09-21T07:50:09">21st of Sep 2026, 7:50:09</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-09-24T17:56:51" datetime="2026-09-24T17:56:51">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-24T14:47:04" datetime="2026-09-24T14:47:04">Sep '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
 </footer>

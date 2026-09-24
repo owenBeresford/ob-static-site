@@ -4,7 +4,7 @@
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 240,000 words, please read some of them. -->
 <title>Performance GuessR</title>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.06" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
@@ -22,10 +22,11 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/performance-guesser" />
 <meta property="og:description" content="This is between a spoof and a serious proposition. It guesses server resources needed to serve a web project." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="21st of Sep 2026, 7:50:09" />
+<meta property="article:published_time" content="2026-09-24T17:56:51" />
 <meta property="article:modified_time" content="Feb '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/performance-guesser" />
-<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+<!-- the below track is just a generic cheese track, but the style fits.   Progressive + uplifting tone.  I do not own the rights or anything. 
+P
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
 
@@ -35,7 +36,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Performance GuessR",
-	"article:published_time":"21st of Sep 2026, 7:50:09", 
+	"article:published_time":"2026-09-24T17:56:51", 
     "article:modified_time":"Feb '26",
     "article:section":"technology",
 
@@ -61,25 +62,25 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 
 <br />
 <form method="get" name="values" id="values">
-<p id="totalPopWrapper" class=""><label for="totalPop" id="totalPopLabel" class="h4_label">Total number of users :</label><input type="number" name="totalPop" id="totalPop" value="" required  /></p>
-<p id="instantPopWrapper" class=""><label for="instantPop" id="instantPopLabel" class="h4_label">Avg concurrent users :</label><input type="number" name="instantPop" id="instantPop" value="" required  /></p>
-<p id="spikePopWrapper" class=""><label for="spikePop" id="spikePopLabel" class="h4_label">Burst concurrent users :</label><input type="number" name="spikePop" id="spikePop" value="" required  /></p>
-<p id="maxDelayWrapper" class=""><label for="maxDelay" id="maxDelayLabel" class="h4_label">Maximum acceptable render time (ms) :</label><input type="number" name="maxDelay" id="maxDelay" value="" required  /></p>
-<p id="langWrapper" class=""><label for="lang" id="langLabel" class="h4_label">The impl language is :</label><select name="lang" id="lang" required="required">
+<p id="totalPopWrapper" ><label for="totalPop" id="totalPopLabel" class="h4_label">Total number of users :</label><input type="number" name="totalPop" id="totalPop" value="" required  /></p>
+<p id="instantPopWrapper" ><label for="instantPop" id="instantPopLabel" class="h4_label">Avg concurrent users :</label><input type="number" name="instantPop" id="instantPop" value="" required  /></p>
+<p id="spikePopWrapper" ><label for="spikePop" id="spikePopLabel" class="h4_label">Burst concurrent users :</label><input type="number" name="spikePop" id="spikePop" value="" required  /></p>
+<p id="maxDelayWrapper" ><label for="maxDelay" id="maxDelayLabel" class="h4_label">Maximum acceptable render time (ms) :</label><input type="number" name="maxDelay" id="maxDelay" value="" required  /></p>
+<p id="langWrapper" ><label for="lang" id="langLabel" class="h4_label">The impl language is :</label><select name="lang" id="lang" required="required">
 <option selected="selected" value="php7">Sensible PHP</option><option value="php5">Legacy PHP</option><option value="node1">old NodeJS</option><option value="node4">new NodeJS</option><option value="wp">WordPress</option><option value="java">Java*</option><option value="perl">Perl*</option><option value="python">Python + Django</option><option value="pixies">Pixies</option>
 </select></p>
-<p id="langRAMWrapper" class=""><label for="langRAM" id="langRAMLabel" class="h4_label">RAM cost (MB) :</label><input type="number" name="langRAM" id="langRAM" value="" required  /></p>
-<p id="langTimeWrapper" class=""><label for="langTime" id="langTimeLabel" class="h4_label">Render time (ms) :</label><input type="number" name="langTime" id="langTime" value="" required  /></p>
-<p id="httpsWrapper" class=""><label for="https" id="httpsLabel" class="h4_label">Using HTTPS? :</label><select name="https" id="https" required="required">
+<p id="langRAMWrapper" ><label for="langRAM" id="langRAMLabel" class="h4_label">RAM cost (MB) :</label><input type="number" name="langRAM" id="langRAM" value="" required  /></p>
+<p id="langTimeWrapper" ><label for="langTime" id="langTimeLabel" class="h4_label">Render time (ms) :</label><input type="number" name="langTime" id="langTime" value="" required  /></p>
+<p id="httpsWrapper" ><label for="https" id="httpsLabel" class="h4_label">Using HTTPS? :</label><select name="https" id="https" required="required">
 <option value="HTTPS">yes</option><option value="HTTP">no</option>
 </select></p>
-<p id="btnSubmitWrapper" class=""><input type="button" name="btnSubmit" id="btnSubmit" value="Compute" class="button" /></p>
-<p id="avg_freqHostWrapper" class=""><label for="avg_freqHost" id="avg_freqHostLabel" class="h4_label">AVG Num of machines :</label><input type="number" name="avg_freqHost" id="avg_freqHost" value="" required  /></p>
-<p id="avg_RAMHostWrapper" class=""><label for="avg_RAMHost" id="avg_RAMHostLabel" class="h4_label">AVG How much RAM (on each)? :</label><input type="number" name="avg_RAMHost" id="avg_RAMHost" value="" required  /></p>
-<p id="avg_CPUHostWrapper" class=""><label for="avg_CPUHost" id="avg_CPUHostLabel" class="h4_label">AVG How fast? :</label><input type="number" name="avg_CPUHost" id="avg_CPUHost" value="" required  /></p>
-<p id="spike_freqHostWrapper" class=""><label for="spike_freqHost" id="spike_freqHostLabel" class="h4_label">SPIKE Num of machines :</label><input type="number" name="spike_freqHost" id="spike_freqHost" value="" required  /></p>
-<p id="spike_RAMHostWrapper" class=""><label for="spike_RAMHost" id="spike_RAMHostLabel" class="h4_label">SPIKE How much RAM (on each)? :</label><input type="number" name="spike_RAMHost" id="spike_RAMHost" value="" required  /></p>
-<p id="spike_CPUHostWrapper" class=""><label for="spike_CPUHost" id="spike_CPUHostLabel" class="h4_label">SPIKE How fast? :</label><input type="number" name="spike_CPUHost" id="spike_CPUHost" value="" required  /></p>
+<p id="btnSubmitWrapper" ><input type="button" name="btnSubmit" id="btnSubmit" value="Compute" class="button" /></p>
+<p id="avg_freqHostWrapper" ><label for="avg_freqHost" id="avg_freqHostLabel" class="h4_label">AVG Num of machines :</label><input type="number" name="avg_freqHost" id="avg_freqHost" value="" required  /></p>
+<p id="avg_RAMHostWrapper" ><label for="avg_RAMHost" id="avg_RAMHostLabel" class="h4_label">AVG How much RAM (on each)? :</label><input type="number" name="avg_RAMHost" id="avg_RAMHost" value="" required  /></p>
+<p id="avg_CPUHostWrapper" ><label for="avg_CPUHost" id="avg_CPUHostLabel" class="h4_label">AVG How fast? :</label><input type="number" name="avg_CPUHost" id="avg_CPUHost" value="" required  /></p>
+<p id="spike_freqHostWrapper" ><label for="spike_freqHost" id="spike_freqHostLabel" class="h4_label">SPIKE Num of machines :</label><input type="number" name="spike_freqHost" id="spike_freqHost" value="" required  /></p>
+<p id="spike_RAMHostWrapper" ><label for="spike_RAMHost" id="spike_RAMHostLabel" class="h4_label">SPIKE How much RAM (on each)? :</label><input type="number" name="spike_RAMHost" id="spike_RAMHost" value="" required  /></p>
+<p id="spike_CPUHostWrapper" ><label for="spike_CPUHost" id="spike_CPUHostLabel" class="h4_label">SPIKE How fast? :</label><input type="number" name="spike_CPUHost" id="spike_CPUHost" value="" required  /></p>
 
 </form>
 </div>
@@ -99,39 +100,9 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 					<header><h1>Performance GuessR</h1></header>
 			    	<p role="status" class="bigScreenOnly">Warning: this is old content. &nbsp; &nbsp;  </p>
 				</div>
-				<div id="shareGroup" class="metaWidget row addReading">
-					<span class="SMshareWidget"> 
-						<a id="siteChartLink" class="button smallScreenOnly" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
-						<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
-						<span class="button smallScreenOnly" id="shareMenuTrigger" rel="nofollow" aria-haspopup="menu" > Share </span>
-						<span class="bigScreenOnly">Share: </span>
-                        <a href="https://twitter.com/intent/tweet?text=I+think+this+is+important+https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" title="Share this resource on your twitter account." target="_blank" class="bigScreenOnly"> <i class="fa fa-twitter" aria-label="Share this resource on your twitter account." aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
-						<a href="#" id="mastoTrigger" class="masto bigScreenOnly" title="Share this article with *your* mastodon instance" aria-haspopup="dialog" >	<i class="fa fa-mastodon" aria-label="Share this article on *your* mastodon instance." aria-hidden="true"></i><span class="sr-only">Mastodon</span></a>
-						<a href="https://www.reddit.com/submit?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" target="_blank" title="Share this article with your Reddit audience" class="bigScreenOnly" ><i aria-label="Share this article with your Reddit audience." class="fa fa-reddit-square" aria-hidden="true"></i><span class="sr-only">Reddit</span></a>
-						<a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" target="_blank" class="bigScreenOnly" title="Share current article with your linked-in audience." ><i class="fa fa-linkedin-square" aria-hidden="true" aria-label="Share this article with your linked-in audience."></i><span class="sr-only">Linkedin</span></a>
-						<a title="Share current article with Hacker news/ Y combinator audience" target="_blank" class="bigScreenOnly" href="http://news.ycombinator.com/submitlink?u=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser&amp;t=Performance+GuessR"> <i class="fa fa-hacker-news" aria-label="Share this article with your Y combinator audience." aria-hidden="true"> </i><span class="sr-only">Hacker news</span></a>
-						<a title="Share this article with your Xing audience." href="https://www.xing.com/spi/shares/new?url=https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" target="_blank" class="bigScreenOnly" ><i class="fa fa-xing-square" aria-hidden="true" aria-label="Share this article with your Xing audience."></i><span class="sr-only">Xing</span> </a>
-					</span>
-
-					<span class="ultraSkinny bigScreenOnly"> 
-						<span>Edited <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>
-						</span>
-						<span>Created <time datetime="2017-04-21T00:00:00" title="If the value says 03-03-2015; its wrong but that is when this project was moved to the current git project" >Apr '17</time> </span>
-					</span>
-
-				</div>
 			</div>
-			<dialog id="popup" class="mastodonWidget bigScreenOnly">
-				<form method="dialog" enctype="multipart/form-data" action="." name="mastoSelection"  >
-					<label for="mastodonserver">your server: 
-						<input id="mastodonserver" maxlength="50" data-url="https%3A%2F%2Fowenberesford.me.uk%2Fresource%2Fperformance-guesser" type="text" value="" placeholder="mastodon.social" />  
-					</label> 
-					<input id="sendMasto" type="submit" class="button masto" title="Share article to *your* mastodon server" value="Share article now" />
-					<span class="button trimmed" id="hideMasto" title="Close popup"> <i class="fa fa-cancel" aria-hidden="true"></i> Cancel </span>
-				</form>
-			</dialog>
 
-		<div class="bigScreenOnly column linksWidget" role="navigation">
+    	<div class="bigScreenOnly column linksWidget" role="navigation">
 			<details class="linksWidget" id="pageMenu">
 			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
 
@@ -144,6 +115,14 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 <li><a href="#contentGroup">📜 Similar articles</a></li>
 			</menu>
 			</details>
+
+			<div id="shareGroup" class="row">
+				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+		   </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time> </div>
+			<div class="row" id="addReading"></div>
+	
 		
 		</div>
 		<!-- /div -->
@@ -158,7 +137,7 @@ The render speed and RAM needed are average numbers I have found, and may be wro
 	   <p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>  
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-21T07:50:09" datetime="2026-09-21T07:50:09">21st of Sep 2026, 7:50:09</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-09-24T17:56:51" datetime="2026-09-24T17:56:51">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-02-10T13:56:37" datetime="2026-02-10T13:56:37">Feb '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
 	</div>
 </footer>
