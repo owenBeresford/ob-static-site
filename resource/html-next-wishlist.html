@@ -3,11 +3,11 @@
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 280,000 words, please read some of them. -->
 <title>HTML++ wishlist</title>
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
+<meta name="text-scale" content="scale" />
 <meta name="Description" content="A random idea piece.  The web in an evolving system.  These suggestions are small, affordable but reduce dev friction." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
@@ -22,9 +22,10 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/html-next-wishlist" />
 <meta property="og:description" content="A random idea piece.  The web in an evolving system.  These suggestions are small, affordable but reduce dev friction." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-24T17:56:48" />
-<meta property="article:modified_time" content="Aug '26" />
+<meta property="article:published_time" content="2026-09-27T19:28:10" />
+<meta property="article:modified_time" content="Sep '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/html-next-wishlist" />
+<link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -35,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "HTML++ wishlist",
-	"article:published_time":"2026-09-24T17:56:48", 
-    "article:modified_time":"Aug '26",
+	"article:published_time":"2026-09-27T19:28:10", 
+    "article:modified_time":"Sep '26",
     "article:section":"technology",
 
     "author": {
@@ -66,7 +67,7 @@ TODO: magic tune selection against some index/DB -->
 
 <ul class="ulbasic">
     <li>The 'open with' protocol looked less hacky.  Currently it looks dodgy/ security issue to open a Zoom call from a HTML email, it should be a standard tech by now.   This request is mostly UI changes, not much engineering.  If a user has Zoom installed, and registered it as a known media type, there should be no warning popups. Etc, etc for other video stream services.</li>
-    <li>Forms had a cancel Button type.  If we use less HTTP requests, we need 'Cancel' not an HTTP0.9 Anchor to other page.  This should work similar to a Details.open=false.  As forms are mobile centric and load with a user profile injected, a reset Button is less useful than during 1997.  I don't think I have ever used a reset Button.  I can implement this in JS, each time for each form, but an architecture solution would be better.  Most SPA libraries do not cleanly offer this simple feature.  </li>
+    <li>Forms had a cancel Button type.  If we use less HTTP requests, we need 'Cancel' not an HTTP0.9 Anchor to other page.  This should work similar to a Details.open=false.  As forms are mobile centric and load with a user profile injected, a reset Button is less useful than during 1997.  I don't think I have ever used a reset Button.  I can implement this in JS, each time for each form, but an architecture solution would be better.  Most SPA libraries do not cleanly offer this simple feature. <strong>UPDATE:</strong> not quite ready for production, but BUTTON.command=“request-cancel” works but not enough population (need older safari, especially ios/safari) </li>
     <li>There was a common agreed format for client-side localisation persistence.  This item ignores a traditional DB in a server.   Probably any early edition would use YaML.  I see Vue has i18n block <sup><a href="https://simplelocalize.io/blog/posts/vue-i18n-localization/" target="_blank">1</a></sup> <sup><a href="https://dev.to/staaph/how-to-set-up-i18n-in-vue-3-1k2b" target="_blank">2</a></sup> in a SFC.   There is common i18n framework <sup><a href="https://www.i18next.com/overview/api" target="_blank">3</a></sup> <a href="https://www.npmjs.com/package/i18n" target="_blank">npmjs</a>, that React also integrates with.</li>
     <li>Various HTML validators in use are updated to understand DIALOG element (and other more recent elements). #leSigh.</li>
     <li>Role attrib was allowed to have multiple items, example: a UL of LI and navigation elements is a list role, and its navigation role.  The List role is probably less important in this example.</li>
@@ -75,7 +76,7 @@ TODO: magic tune selection against some index/DB -->
     <li>SEARCH HTML semantic element was globally supported.  As of 2024: this is available in Safari 17+</li>
     <li>SPOILER HTML element, behaves similar to DETAILS/ SUMMARY <sup><a href="https://seirdy.one/posts/2023/11/12/spoiler-element/" target="_blank">4</a></sup>.</li>
     <li>Some semantic element for ERROR or SHOWERROR.   This should be a type in HTML so it can be cleanly and consistently reported.  I can patch with ARIA attribs, but there isn't a single well-known usage.  Error reporting should be consistent and widely applied.  Ideally every version of microsoft outlook should be forcibly updated to show these tags correctly.</li>
-    <li>As there are many digital exam platforms, having a CODE text entry element would make these much better. As a normal person I do not do type tabs, my IDE injects them for me and manages indent.   However in a exam, tab will change UI component, <strong>and</strong> I have to type them.  </li>
+    <li>As there are many digital exam platforms, having a CODE text entry element would make these much better.   As a normal person I do not do type tabs, my IDE injects them for me and manages indent.   However in a exam, tab will change UI component, <strong>and</strong> I have to type them.  </li>
     <li>Web manifest file format extended to support listing ALL files deployed, as in common in other languages.</li>
     <li>Maybe out of scope, but JS tools being encouraged to report unknown values in config files as unknown values.  This would match other programming languages, and encourage faith by junior devs that JS was <i>deterministic, not ritualistic</i>.  </li>
 </ul>
@@ -120,7 +121,7 @@ TODO: magic tune selection against some index/DB -->
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-08-19T17:09:13" datetime="2026-08-19T17:09:13">Aug '26</time> </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
 			<div class="row" id="addReading"></div>
 
 
@@ -140,11 +141,11 @@ TODO: magic tune selection against some index/DB -->
  </div>
  <footer class="row footWidget"> 
 	<div class="column leftFooter"> 
-		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-24T17:56:48" datetime="2026-09-24T17:56:48">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-08-19T17:09:13" datetime="2026-08-19T17:09:13">Aug '26</time>.
-	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:10" datetime="2026-09-27T19:28:10">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2026-04-12T00:00:00" datetime="2026-04-12T00:00:00">Apr '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  

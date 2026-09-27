@@ -3,11 +3,11 @@
 <head>
 <!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 280,000 words, please read some of them. -->
 <title>PG recipes</title>
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-GB" />
 <meta name="Author" content="Owen Beresford" />
+<meta name="text-scale" content="scale" />
 <meta name="Description" content="A thorough analysis of PG and SQL admin recipes.  This group of articles includes Postgres features and tips how to use it optimally.   See related articles for SQL features." />
 <meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
 <link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
@@ -22,9 +22,10 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/postgres-recipes" />
 <meta property="og:description" content="A thorough analysis of PG and SQL admin recipes.  This group of articles includes Postgres features and tips how to use it optimally.   See related articles for SQL features." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-24T17:56:51" />
-<meta property="article:modified_time" content="Aug '26" />
+<meta property="article:published_time" content="2026-09-27T19:28:13" />
+<meta property="article:modified_time" content="Sep '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/postgres-recipes" />
+<link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
 TODO: magic tune selection against some index/DB -->
 <meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
@@ -35,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "PG recipes",
-	"article:published_time":"2026-09-24T17:56:51", 
-    "article:modified_time":"Aug '26",
+	"article:published_time":"2026-09-27T19:28:13", 
+    "article:modified_time":"Sep '26",
     "article:section":"technology",
 
     "author": {
@@ -71,7 +72,7 @@ This PG text is broken into:
     <li>In Postgres, DBA can set the disk management rate, via a feature called `VACUUM` <sup><a href="https://www.postgresql.org/docs/current/sql-vacuum.html" target="_blank">5</a></sup> ~ there are config options on this.   In many cases predictable workloads should be managed by `AUTOVACUUM` <sup><a href="https://www.postgresql.org/docs/current/routine-vacuuming.html#AUTOVACUUM" target="_blank">6</a></sup>.   There are edge-cases were a dedicated approach may help <sup><a href="https://www.commandprompt.com/blog/part-2-reproducing-and-diagnosing-autovacuum-failures/" target="_blank">7</a></sup> ~ often temp tables.   On larger data changes (changing disk size of data, not value of data), running `ANALYSE` manually is wise <sup><a href="https://postgres.ai/docs/postgres-howtos/database-administration/maintenance/how-to-run-analyze" target="_blank">8</a></sup>. </li>
     <li>Can load an editor inside psql, `\e` to type SQL with better formatting for readability.   Choose your editor ` \setenv PSQL_EDITOR vim`, or set as a bash variable <sup><a href="https://www.postgresql.org/docs/current/libpq-envars.html" target="_blank">9</a></sup>.  I prefer to use a full separate editor and paste, as that results in SQL text put in the DVCS. </li>
     <li>During development with psql, interactive sessions will probably want `\timing`.  Its common to use `\d+` to describe meta data on the tables.   Similarly `\df+` on functions.  These and more are listed in <sup><a href="https://dev.to/tigerdata/postgresql-cheat-sheet-essential-commands-queries-4eni" target="_blank">10</a></sup>.   To comply to SQL standards, there is also `INFORMATION_SCHEMA` to describe tables. </li>
-    <li>If, for some reason, you need to make your PK space larger, it's a headache.   In terms of runtime, it is faster to insert an entirely new column with a default value, as that doesn't move and repack every row.  See <details class="singlePopup withScroll">
+    <li>If, for some reason, you need to make your PK space larger, it's a headache.   In terms of runtime, it is faster to insert an entirely new column with a default value, as that doesn't move and repack every row.  See <details class="singlePopup withScroll keyWordsOnly">
 <summary>scale a PK cleanly </summary>
 <code lang="sql" class="highlight">-- for table ta, adding column pk2, 
 -- I have a house style that PKs are named _pk, so less easily confused with FKs which are _id
@@ -192,7 +193,7 @@ end $do$;
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-08-28T13:08:17" datetime="2026-08-28T13:08:17">Aug '26</time> </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
 			<div class="row" id="addReading"></div>
 
 
@@ -207,11 +208,11 @@ end $do$;
  </div>
  <footer class="row footWidget"> 
 	<div class="column leftFooter"> 
-		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr>
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-24T17:56:51" datetime="2026-09-24T17:56:51">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-08-28T13:08:17" datetime="2026-08-28T13:08:17">Aug '26</time>.
-	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>.  <a href="#pageMenu">Jump to menu</a>
+		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:13" datetime="2026-09-27T19:28:13">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2025-10-05T00:00:00" datetime="2025-10-05T00:00:00">Oct '25</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
