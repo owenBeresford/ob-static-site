@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 280,000 words, please read some of them. -->
+<title>sub-docs for fun and profit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="text-scale" content="scale" />
+<meta name="Description" content="Article describing means to control browser objects, as needed in tests.  Lists 9 ways to make a new browser and DOM object, and several fake methods.  Describes how they can be controlled afterwards, for data flow, not automation." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="sub-docs for fun and profit" />
+<meta itemprop="description" content="Article describing means to control browser objects, as needed in tests.  Lists 9 ways to make a new browser and DOM object, and several fake methods.  Describes how they can be controlled afterwards, for data flow, not automation." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="sub-docs for fun and profit" />
+<meta name="twitter:description" content="Article describing means to control browser objects, as needed in tests.  Lists 9 ways to make a new browser and DOM object, and several fake methods.  Describes how they can be controlled afterwards, for data flow, not automation." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="sub-docs for fun and profit" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/sub-doc-collection" />
+<meta property="og:description" content="Article describing means to control browser objects, as needed in tests.  Lists 9 ways to make a new browser and DOM object, and several fake methods.  Describes how they can be controlled afterwards, for data flow, not automation." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="2026-09-30T17:10:15" />
+<meta property="article:modified_time" content="Sep '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/sub-doc-collection" />
+<link rel="me" href="https://fosstodon.org/@channelOwen" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "sub-docs for fun and profit",
+	"article:published_time":"2026-09-30T17:10:15", 
+    "article:modified_time":"Sep '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<div class="lotsOfWords addReferences">
+<p>I want to call this article sub-DOM, but people will take that wrong.  My intent is adding a new DOM instance inside the first.   <br />
+Probably sole target audience: myself.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Create a DOM object <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>The following Elements create an extra DOM object (if this is new <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model" target="_blank">1</a></sup> maybe I need to add an intro again):</p>
+
+<ul class="ulbasic">
+    <li>IFRAME, and FRAMESET ~ use discouraged. </li>
+    <li>Adding an SVG image <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element" target="_blank">2</a></sup> as OBJECT or IMG elements ~ not inline tags. </li>
+    <li>MathML <sup><a href="https://developer.mozilla.org/en-US/docs/Web/MathML" target="_blank">3</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/MathML/Reference/Element" target="_blank">4</a></sup> as self declared is a type of XML used for rendering Maths equations, see example <a href="https://owenberesford.me.uk/resource/draw-equations-inline#">draw-equations-inline</a>.<ul class="ulbasic">
+        <li>something XML ~ I never used this in-page.  RSS etc is an XML doc, but that's a separate file and URL.</li>
+    </ul></li>
+    <li>WebComponent / ShadowDOM creates an extra DOM of sorts, see <a href="https://owenberesford.me.uk/resource/webcomponent-maquette#">webcomponent-maquette</a> as a worked example. <ul class="ulbasic">
+        <li>NB: a plain component via React, Vue or Angular etc isn't a sub document, its clearly in the main DOM. </li>
+    </ul></li>
+    <li>There are 3 more JS engine options.  This DOMParser().parseFromString() <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString" target="_blank">5</a></sup> is the best security choice.     </li>
+    <li>a HTMLIsland / TEMPLATE element <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template" target="_blank">6</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLTemplateElement" target="_blank">7</a></sup> <sup><a href="https://dev.to/sharique_siddiqui_8242dad/html-templates-shadow-dom-reusable-and-dynamic-content-for-modern-web-development-3ldb" target="_blank">8</a></sup> is like a sub document, but technically isn't complete.  Some people hydrate SSG HTMLIslands on the client side.  I assume they are doing the work in a  Worker Object then passing the HTMLElement back to the first DOM.</li>
+    <li>A different process is Range.createContextualFragment <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/createContextualFragment" target="_blank">9</a></sup>. <ul class="ulbasic">
+        <li>Looking at sub-page interactions, a TEMPLATE element can be used to transmit sub-documents eg a large interstitial containing a simplified user-guide.   That TEMPLATE object is written into the initial HTML doc inline.</li>
+    </ul></li>
+    <li>With an object in current scope, OBJECT.createClone(true) <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode" target="_blank">10</a></sup> will make a new one.   </li>
+    <li>A JS string template (ie with back-ticks) can be used to transmit data, but isn't a DOM object.  Relevant CSS and a container Element, OR DIALOG with modal, set can make a modal interaction, so feel like a separate DOM object (but its the same).</li>
+    <li>A legacy solution that was widely used, is to put a string containing HTML into a jQuery constructor.  This module API is deprecated.  </li>
+    <li>Something to create a new browser tab, as a full UI object (JS script, scripted input from Puppeteer etc).</li>
+</ul>
+
+<p>Aside: I have many UI tests that need to create or pass DOM objects, only these are hosted inside Node.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Applying that DOM object <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Obviously your DOM object will probably have a URL attached, and so a volume of data.   This section is blurry on tab vs window vs DOM object, but they are largely interchangeable.   In the same DOM object, we can use JS to inject further elements.   This is in 1 Domain / security context, and simple to visualise.  That sentence assumes the JS came from the same server that the page is from.   In most situations, only a single DOM implies less RAM is used.   Any solution that launches a separate Electron App is multi-DOM, and is also much less efficient.   <br />
+Some websites are designed to have multiple windows, my current bank for example loads secure data in a fresh tab/ DOM object.  Alternatively, we might need scale, remembering that features using multi-domain structures allows reselling, and SaaS.   Medium inc SaaS is a good example of this (and all the white-label websites that use its engine).   There are quite a few other web publisher that use multiple DOM objects to push their service to the clients own domain.  The Microsoft SSO, email and platform can easily cover several tabs and they are organised so this works.  In this context there are extra details apply:</p>
+
+<ul class="ulbasic">
+    <li>Correct security headers need to be applied.  Start with CSP <a href="https://owenberesford.me.uk/resource/commercial-website-features#">commercial-website-features</a> and add mentioned details.  The earlier model was CORs headers see <a href="https://owenberesford.me.uk/resource/cors-headers#">cors-headers</a> and X-Frame-Option for direct communication.   </li>
+    <li>There are settings for cookies that need to be configured, if they are used across the DOM objects, <sup><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/Cookies" target="_blank">11</a></sup>.  The legal standards are described in <sup><a href="https://www.cookiehub.com/blog/cookie-consent-management-guide-2026" target="_blank">12</a></sup> <sup><a href="https://www.gerrishlegal.com/blog/cookie-compliance-in-2026-where-gdpr-enforcement-stands-now" target="_blank">13</a></sup>, noting international regions must be considered,  Related reading <sup><a href="https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning" target="_blank">14</a></sup>, cookie partitioning.   Cookies are only important to talk back to the servers, and possibly to show authentication status.  <ul class="ulbasic">
+        <li>For realistic products in the UK or EU, it is essential to have a cookie audit.  These will probably be mostly made by third party services, and the audit must be current.</li>
+    </ul></li>
+    <li>To communicate between DOM objects that are loaded at present, when we control the source is a special protocol via postMessage <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank">15</a></sup>.  To control DOM objects at differing times, we could use localStorage, cookies or similar (ie for login component preferences).   </li>
+</ul>
+
+<p>In the olden days services identified user devices via cookies.   For over ten years, that has been legally difficult and there are other technologies.   Currently (in 2026) most services make a webGL fingerprint of your device.   For example <sup><a href="https://www.npmjs.com/package/browser-with-fingerprints" target="_blank">16</a></sup> <sup><a href="https://www.npmjs.com/package/get-browser-fingerprint" target="_blank">17</a></sup> <sup><a href="https://www.npmjs.com/package/fingerhash" target="_blank">18</a></sup>, these are device identifiers and do not contain any PII as defined by GDPR regulations.   If you mostly use the internet via a phone app, you can identify yourself by a “token you have”. . . your phone.   This certainty means there is less need for identification after an initial sign-up.</p>
+
+
+<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Inline Metrics for my interaction tests #leSigh <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<p>Threshold values will be set against these metrics.   The minimal observability is:</p>
+
+<ul class="ulbasic">
+    <li>memory benchmarking for sub-docs</li>
+    <li>spinup time for sub-docs </li>
+    <li>any scalability limits</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Options for sub docs</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+			</div>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+
+			<div id="shareGroup" class="row">
+				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+		   </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-30T15:48:10" datetime="2026-09-30T15:48:10">Sep '26</time> </div>
+			<div class="row" id="addReading"></div>
+
+
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Create a DOM object</a></li>
+<li><a href="#toc1">Applying that DOM object</a></li>
+<li><a href="#toc2">Inline Metrics for my interaction tests #leSigh</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-09-30T17:10:15" datetime="2026-09-30T17:10:15">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-30T15:48:10" datetime="2026-09-30T15:48:10">Sep '26</time>.  Created date <time title="Page modified on 2026-09-25T00:00:00" datetime="2026-09-25T00:00:00">Sep '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
