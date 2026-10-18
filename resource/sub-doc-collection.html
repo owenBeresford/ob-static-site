@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/sub-doc-collection" />
 <meta property="og:description" content="Article describing means to control browser objects, as needed in tests.  Lists 9 ways to make a new browser and DOM object, and several fake methods.  Describes how they can be controlled afterwards, for data flow, not automation." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-30T17:10:15" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-10-18T11:03:28" />
+<meta property="article:modified_time" content="Oct '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/sub-doc-collection" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "sub-docs for fun and profit",
-	"article:published_time":"2026-09-30T17:10:15", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-10-18T11:03:28", 
+    "article:modified_time":"Oct '26",
     "article:section":"technology",
 
     "author": {
@@ -71,11 +71,13 @@ Probably sole target audience: myself.</p>
         <li>NB: a plain component via React, Vue or Angular etc isn't a sub document, its clearly in the main DOM. </li>
     </ul></li>
     <li>There are 3 more JS engine options.  This DOMParser().parseFromString() <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString" target="_blank">5</a></sup> is the best security choice.     </li>
-    <li>a HTMLIsland / TEMPLATE element <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template" target="_blank">6</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLTemplateElement" target="_blank">7</a></sup> <sup><a href="https://dev.to/sharique_siddiqui_8242dad/html-templates-shadow-dom-reusable-and-dynamic-content-for-modern-web-development-3ldb" target="_blank">8</a></sup> is like a sub document, but technically isn't complete.  Some people hydrate SSG HTMLIslands on the client side.  I assume they are doing the work in a  Worker Object then passing the HTMLElement back to the first DOM.</li>
-    <li>A different process is Range.createContextualFragment <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/createContextualFragment" target="_blank">9</a></sup>. <ul class="ulbasic">
+    <li>a HTMLIsland / TEMPLATE element <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template" target="_blank">6</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLTemplateElement" target="_blank">7</a></sup> <sup><a href="https://dev.to/sharique_siddiqui_8242dad/html-templates-shadow-dom-reusable-and-dynamic-content-for-modern-web-development-3ldb" target="_blank">8</a></sup> is like a sub document, but technically isn't complete.  Some people hydrate SSG HTMLIslands on the client side.  I assume they are doing the work in a  Worker Object then passing the HTMLElement back to the first DOM.<ul class="ulbasic">
+        <li>It is possible to pass HTML declarations and a “for” attribute to a TEMPLATE, to tell the browser to add the TEMPLATE content to a different part of the DOM <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template#out-of-order_patching" target="_blank">9</a></sup>.  This is not a new DOM, but it seems useful for trying to achieve the results of an SPA without using much JS.   To swap the content multiple times the declarations must be present each time.  As an outcome, I'm not sure this adds any extra results than just reloading the entire DOM, when local caching is correctly setup.   The approach is currently only supported in Chrome family browsers.</li>
+    </ul></li>
+    <li>A different process is Range.createContextualFragment <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Range/createContextualFragment" target="_blank">10</a></sup>. <ul class="ulbasic">
         <li>Looking at sub-page interactions, a TEMPLATE element can be used to transmit sub-documents eg a large interstitial containing a simplified user-guide.   That TEMPLATE object is written into the initial HTML doc inline.</li>
     </ul></li>
-    <li>With an object in current scope, OBJECT.createClone(true) <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode" target="_blank">10</a></sup> will make a new one.   </li>
+    <li>With an object in current scope, OBJECT.createClone(true) <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode" target="_blank">11</a></sup> will make a new one.   </li>
     <li>A JS string template (ie with back-ticks) can be used to transmit data, but isn't a DOM object.  Relevant CSS and a container Element, OR DIALOG with modal, set can make a modal interaction, so feel like a separate DOM object (but its the same).</li>
     <li>A legacy solution that was widely used, is to put a string containing HTML into a jQuery constructor.  This module API is deprecated.  </li>
     <li>Something to create a new browser tab, as a full UI object (JS script, scripted input from Puppeteer etc).</li>
@@ -90,13 +92,13 @@ Some websites are designed to have multiple windows, my current bank for example
 
 <ul class="ulbasic">
     <li>Correct security headers need to be applied.  Start with CSP <a href="https://owenberesford.me.uk/resource/commercial-website-features#">commercial-website-features</a> and add mentioned details.  The earlier model was CORs headers see <a href="https://owenberesford.me.uk/resource/cors-headers#">cors-headers</a> and X-Frame-Option for direct communication.   </li>
-    <li>There are settings for cookies that need to be configured, if they are used across the DOM objects, <sup><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/Cookies" target="_blank">11</a></sup>.  The legal standards are described in <sup><a href="https://www.cookiehub.com/blog/cookie-consent-management-guide-2026" target="_blank">12</a></sup> <sup><a href="https://www.gerrishlegal.com/blog/cookie-compliance-in-2026-where-gdpr-enforcement-stands-now" target="_blank">13</a></sup>, noting international regions must be considered,  Related reading <sup><a href="https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning" target="_blank">14</a></sup>, cookie partitioning.   Cookies are only important to talk back to the servers, and possibly to show authentication status.  <ul class="ulbasic">
+    <li>There are settings for cookies that need to be configured, if they are used across the DOM objects, <sup><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/Cookies" target="_blank">12</a></sup>.  The legal standards are described in <sup><a href="https://www.cookiehub.com/blog/cookie-consent-management-guide-2026" target="_blank">13</a></sup> <sup><a href="https://www.gerrishlegal.com/blog/cookie-compliance-in-2026-where-gdpr-enforcement-stands-now" target="_blank">14</a></sup>, noting international regions must be considered,  Related reading <sup><a href="https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning" target="_blank">15</a></sup>, cookie partitioning.   Cookies are only important to talk back to the servers, and possibly to show authentication status.  <ul class="ulbasic">
         <li>For realistic products in the UK or EU, it is essential to have a cookie audit.  These will probably be mostly made by third party services, and the audit must be current.</li>
     </ul></li>
-    <li>To communicate between DOM objects that are loaded at present, when we control the source is a special protocol via postMessage <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank">15</a></sup>.  To control DOM objects at differing times, we could use localStorage, cookies or similar (ie for login component preferences).   </li>
+    <li>To communicate between DOM objects that are loaded at present, when we control the source is a special protocol via postMessage <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage" target="_blank">16</a></sup>.  To control DOM objects at differing times, we could use localStorage, cookies or similar (ie for login component preferences).   </li>
 </ul>
 
-<p>In the olden days services identified user devices via cookies.   For over ten years, that has been legally difficult and there are other technologies.   Currently (in 2026) most services make a webGL fingerprint of your device.   For example <sup><a href="https://www.npmjs.com/package/browser-with-fingerprints" target="_blank">16</a></sup> <sup><a href="https://www.npmjs.com/package/get-browser-fingerprint" target="_blank">17</a></sup> <sup><a href="https://www.npmjs.com/package/fingerhash" target="_blank">18</a></sup>, these are device identifiers and do not contain any PII as defined by GDPR regulations.   If you mostly use the internet via a phone app, you can identify yourself by a “token you have”. . . your phone.   This certainty means there is less need for identification after an initial sign-up.</p>
+<p>In the olden days services identified user devices via cookies.   For over ten years, that has been legally difficult and there are other technologies.   Currently (in 2026) most services make a webGL fingerprint of your device.   For example <sup><a href="https://www.npmjs.com/package/browser-with-fingerprints" target="_blank">17</a></sup> <sup><a href="https://www.npmjs.com/package/get-browser-fingerprint" target="_blank">18</a></sup> <sup><a href="https://www.npmjs.com/package/fingerhash" target="_blank">19</a></sup>, these are device identifiers and do not contain any PII as defined by GDPR regulations.   If you mostly use the internet via a phone app, you can identify yourself by a “token you have”. . . your phone.   This certainty means there is less need for identification after an initial sign-up.</p>
 
 
 <h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Inline Metrics for my interaction tests #leSigh <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
@@ -146,7 +148,7 @@ Some websites are designed to have multiple windows, my current bank for example
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-30T15:48:10" datetime="2026-09-30T15:48:10">Sep '26</time> </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-17T07:57:28" datetime="2026-10-17T07:57:28">Oct '26</time> </div>
 			<div class="row" id="addReading"></div>
 
 
@@ -170,7 +172,7 @@ Some websites are designed to have multiple windows, my current bank for example
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-30T17:10:15" datetime="2026-09-30T17:10:15">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-30T15:48:10" datetime="2026-09-30T15:48:10">Sep '26</time>.  Created date <time title="Page modified on 2026-09-25T00:00:00" datetime="2026-09-25T00:00:00">Sep '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-10-18T11:03:28" datetime="2026-10-18T11:03:28">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-17T07:57:28" datetime="2026-10-17T07:57:28">Oct '26</time>.  Created date <time title="Page modified on 2026-09-25T00:00:00" datetime="2026-09-25T00:00:00">Sep '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
  </footer>
