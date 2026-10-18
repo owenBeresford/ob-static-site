@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 280,000 words, please read some of them. -->
+<title>lint steps for web services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="text-scale" content="scale" />
+<meta name="Description" content="A long list (43 items) of of checks that would save time to validate a web services before it becomes live.  Intentionally doesn't list many WCAG items.  I ideate an implementation to verify each metric." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="lint steps for web services" />
+<meta itemprop="description" content="A long list (43 items) of of checks that would save time to validate a web services before it becomes live.  Intentionally doesn't list many WCAG items.  I ideate an implementation to verify each metric." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="lint steps for web services" />
+<meta name="twitter:description" content="A long list (43 items) of of checks that would save time to validate a web services before it becomes live.  Intentionally doesn't list many WCAG items.  I ideate an implementation to verify each metric." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="lint steps for web services" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/desired-lint-for-web" />
+<meta property="og:description" content="A long list (43 items) of of checks that would save time to validate a web services before it becomes live.  Intentionally doesn't list many WCAG items.  I ideate an implementation to verify each metric." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="2026-10-18T14:40:01" />
+<meta property="article:modified_time" content="Oct '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/desired-lint-for-web" />
+<link rel="me" href="https://fosstodon.org/@channelOwen" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "lint steps for web services",
+	"article:published_time":"2026-10-18T14:40:01", 
+    "article:modified_time":"Oct '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences">
+<div class="lotsOfWords addBashSamples">
+<p>I am writing this as a declarative list of wishes, <em>then</em> mapping options in ESlint manuals.   I expect this will grow longer across time.   Having coherent structures for what needs to be validated should lead to better quality.   Most of this can be achieved by strapping together several currently used tools, as my thoughts are not original here.  <br />
+I am using lint as a generic term for static analysis, if there is a tool that helps this list of goals that technically isn't a lint, it's still useful.    The goal of the described tool is to reduce the amount of knowledge needed to support users, possibly customers goals.  Just click the “run test suite” button.<br />
+In a mature solution, the output should be loggable in various channels (STDOUT, Jira, batched in email etc).   For this platform, as there will be multiple browsers running, reading the JS console is not a viable logging solution.  “Many of these items are obvious” is an obvious retort, however an actionable message ~ which is probably about generated text ~ adds value.  Dev staff are often moving quickly and tired.   The software will not blink, and the <em>devs should do</em>.  <br />
+As the article is basically a big list of validation ideas, if a site is good and passes all the tests, maybe emit a “all tests pass” like unit-tests frameworks do, but <em>not log the positive result</em> a million times.  Engineering these conditions is a large surface, to to delver, I would suggest recycling older OSS where possible.   I will do a literature survey for the current testable metrics  ~ ideas are presented inline to reduce total word count.</p>
+
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Outcomes of the tool <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>As a business process, if this was applied to an average wordpress branding site, and the tool discovered 8,000 errors, what next?   The wordpress administrator could see if there was a new version of plugins used, or swap to another theme that included quality.  A mature test platform would have a process for a list of devices, possibly more than a busy admin had time to test against personally.<br />
+Reference use-case (real-world experience): In 2012 I joined a web-agency who managed over 300 domains, as part of a batch of staff to increase quality and scale as they had an expanding client list.   This agency had some 25 YO code, and some 1 YO code.  Expectations and standards have gone a long way in that duration.   A tool to auto-log various sanity checks would have improved production process, and reduced hiccups.   <br />
+Could the checks be done via an LLM? Yes, sometimes, but non-determinism is a limit for validation checking.  If I built a 1,000 skills for an LLM agent, could the agent validate the site-under-test?   Yes, but the 1,000 skills would also allow validation via Jenkins or something.   Without this long list of skills OR a very long prompt, that would match this article, I wouldn't sign for a general LLM validating production code.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Tests via pre-deployment static-analysis <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>These checks/ tests do not need the domain name to operate.</p>
+
+<ul class="ulbasic">
+    <li>Does the source parse correctly? ~ a general malformed typing check.   BUT THIS CHECK HAS A FILE NAME AND LINE NUMBER, JS build tools often skip the details due to multi-stage parsing.  Direct unit-tests should catch this problem first ~ and execute faster ~ however it is essential to trap this before the users see it.</li>
+    <li>A generic “do all local or relative URLS work?&quot; check. <ul class="ulbasic">
+        <li>LightHouse may implement this.  Assuming platform has access to a CLI shell, `wget --spider` works very well <sup><a href="https://cybrkyd.com/post/wget-spider-to-find-broken-links/" target="_blank">1</a></sup>, and there are various SEO tools can offer this if needed.   The reason for using wget is the reporting is exactly as needed for this check.</li>
+        <li>This check was urgent for AI made websites in 2023-24, where the links often are not implemented.</li>
+    </ul></li>
+    <li>Are the HTML files using the most relevant JS loading method? ie a module, possibly defer attribute and encourage MJS suffix.  This check may need to vary on situation, so it needs to be nuanced.<ul class="ulbasic">
+        <li>This is HTML parsing, if in Node, would look at `node-html-parser`, or similar.  If in a browser use a new TEMPLATE element.   Extract attributes of the SCRIPT elements.</li>
+    </ul></li>
+    <li>Warn if same dependent URL imported more than once (in some cases like Google Analytics this might be correct). <ul class="ulbasic">
+        <li>See last check for process  </li>
+    </ul></li>
+    <li>Is correct version of HTML has been used?  AFAI-can-imagine, always use the current HTML5 edition, aside from people you know use old Outlook (modern Outlook uses a webrowser again, but not MSIE5, so users are safe).<ul class="ulbasic">
+        <li>See last check for process  </li>
+    </ul></li>
+    <li>Is the webpage furniture present?  ie a `robots.txt`, with correct file permissions.  See <a href="https://owenberesford.me.uk/resource/commercial-website-features#">commercial-website-features</a> for my 2023 recommendations. <ul class="ulbasic">
+        <li>Can use LightHouse for an implementation.   Or a manual built list.</li>
+    </ul></li>
+    <li>Is the HTML file size too large? As mobile view will be slower with larger files (guess over 100KB)<ul class="ulbasic">
+        <li>file system library, or HTTP header `content-length`</li>
+    </ul></li>
+    <li>Are there too many elements in HTML files?  As mobile view will be slower with larger counts (guess over 10,000 nodes).<ul class="ulbasic">
+        <li>in a browser this is easy.   In node again use `node-html-parser` and `querySelectorAll`</li>
+    </ul></li>
+    <li>Are there vast numbers of images?  As it will be slow for older machines, or slow internet users (guess over 100).<ul class="ulbasic">
+        <li>Use same approach as last</li>
+    </ul></li>
+    <li>Is there a large number of dependant files?   As it will be slow to download (guess over 100, note deps of CSS and deps of JS and direct deps, images and fonts).   This number will surprise devs and users.   <ul class="ulbasic">
+        <li>#TODO, laborious.</li>
+    </ul></li>
+    <li>Is all the human text spelt correctly? Extract all the human text, and spellcheck it.  This expression is to include the obvious paragraphs, alt-texts, title attributes, CSS Content injected from data-attributes, the Zoho style HTML islands in JS files etc.<ul class="ulbasic">
+        <li>Some spellcheck libraries in JS are `typo-js-ts`, `spellchecker`, `@cspell/eslint-plugin` etc. I see that most of these just appeared about 5-6 years ago.  Due to needing to manipulate files, the spellcheck libraries are normally Node only, but the text can be streamed to an API, and returned.   Wrapping Hunspell <a href="https://deepwiki.com/hunspell/hunspell/7-user-documentation" target="_blank">docs</a> <a href="https://hunspellcheck.readthedocs.io/en/latest/" target="_blank">docs</a> is common, although after win7 there is a module API for spellcheck available.  To support the return a patch format will need to be designed.   In historic PHP solutions that I used, this was a new HTML response page, with select boxes embedded for spelling alternatives.</li>
+    </ul></li>
+    <li>Is the HTML valid? <ul class="ulbasic">
+        <li>spelt `html-validate` :-)</li>
+    </ul></li>
+    <li>SEMrush style meta-data checks ie is the page title a sensible length?  <ul class="ulbasic">
+        <li>Look at `siva01c/seo-tools` or `SEOmator`</li>
+    </ul></li>
+</ul>
+
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords addBashSamples">
+<ul class="ulbasic">
+    <li>Taking the site-under-test as a whole, are the titles well selected / managed so users will go to their goal efficiently, rather than a random walk?  Unique feature, AFAIK.  Look for very similar titles, as this makes goal seeking hard.  Ideally look for very vague titles.   Likewise, but that the latter is abit subjective. <ul class="ulbasic">
+        <li>See `scikit-learn`, `TF-IDF` + cosine similarity for initial work. </li>
+    </ul></li>
+    <li>Do the UTF8 symbols chars work? There are known not to work symbols in Safari or Firefox etc (these are classes or planes of symbols).   See currency symbols, flags, emojis, checks/ ticks and copyright sign as initial check points.<ul class="ulbasic">
+        <li>Safari uses a different encoding to render for HTML symbols.  See <a href="https://owenberesford.me.uk/resource/colourise-emoji#">colourise-emoji</a></li>
+        <li>This will be a big data collation exercise, no solution to hand.  This item needs contribution capacity on day 0.</li>
+    </ul></li>
+    <li>Has text from a DB (or similar) included HTML which has been mangled by the render pipeline?  <ul class="ulbasic">
+        <li>A regex should work, looking for `&amp;lt;[A-Za-z]+ /&amp;gt;` and `&amp;lt;[A-Za-z]+&amp;lt;\w+&amp;lt;/[A-Za-z]+&amp;gt;`.  </li>
+    </ul></li>
+    <li>Has data read from a DB been mashed badly?   The result would be broken and unreadable letters, probably a empty square box.  Or other possible sources, but DB seem to be the most common failure point.  ...Its now 2064, we still need to check that big-corp legacy systems haven't still emitted old 2byte encodings, designed for countries that no longer exist...<ul class="ulbasic">
+        <li>Try the regex in <a href="https://www.w3.org/International/questions/qa-forms-utf-8" target="_blank">w3c</a> as first guess solution.</li>
+    </ul></li>
+    <li>Do images have sizes attrib set, to reduce screen reflows? <ul class="ulbasic">
+        <li>html parsing, see above</li>
+    </ul></li>
+    <li>Do images have RWD options to best support users across devices (eg a IMGSET or PICTURE)?  See <a href="https://owenberesford.me.uk/resource/html5-img#">html5-img</a> as a simple reference.<ul class="ulbasic">
+        <li>Unless SVG or other vector, as they will scale.   Unless the size settings in the SVG element are awkward.</li>
+        <li>html parsing, see above </li>
+    </ul></li>
+    <li>#TODO Work out if some sort of check for background-image CSS vs IMG is feasible or useful.   I use IMG for things I want to show in a B/W printout, and in a screen-reader.  So diagrams, not 'smiling man with coffee #44' from an image library.<ul class="ulbasic">
+        <li>Maybe, if you think an ARIA-hidden or role=decoration might be relevant, than the IMG should be a CSS background, and disabled in the above situations.   Taking an image from a image library does imply that its not a graphic for factual information.</li>
+    </ul></li>
+    <li>Are there duplicate CSS attributes? <ul class="ulbasic">
+        <li>as `Stylelint` does, and I assume `ESLint` with a config</li>
+    </ul></li>
+    <li>Is there deprecated CSS1 float? to be replaced with flexbox or grid. <ul class="ulbasic">
+        <li>`ESLint` can do this.</li>
+    </ul></li>
+    <li>Is the best colour notation used? Rewrite older colour notations for better ones.<ul class="ulbasic">
+        <li>`Stylelint` and `ESLint` do this.</li>
+    </ul></li>
+    <li>POSSIBLE CSS warning to deprecate absolute CSS length units for relative units that make RWD faster and easier.   Should be disableable, as might get annoying. <ul class="ulbasic">
+        <li>`Stylelint` and `ESLint` do this.</li>
+    </ul></li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Tests to automate at run-time <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>In theory, I can set the screen details (resolution, and dimensions) on a Chrome instance via CLI arguments.  In practice this didn't behave as I expected it, and this feature may have been soft-removed.  However, a Docker instance could have the screen details set, in it's basic hardware emulation.   A VMware or QMU instance would emulate better, but cost more real computer resources.</p>
+
+<ul class="ulbasic">
+    <li>As a test suite, this tool should either auto-explore the whole site-under-test, or check a supplied list of URLs.  The second approach is needed for incremental testing on incremental changes.</li>
+    <li>As a manual test detail, I conditionally add a extra line of CSS that sets the border on every element.  This makes it more clear which element is breaking the layout in a given situation, so faster to resolve.   </li>
+    <li>Are the URLs fast enough for good UX?  On each probable network option.<ul class="ulbasic">
+        <li>Look at LightHouse as a prototype of this test.</li>
+    </ul></li>
+    <li>Do the 3rd party URLs on deps work from that server (e.g. CDN assets)?  This needs to show valid auth steps and caching is correct. <ul class="ulbasic">
+        <li>The actual effective page load speed (recycled JS snippets are a good example of poor performance, especially loaded in sync mode).  </li>
+        <li>Again look at LightHouse for an implementation example.  </li>
+    </ul></li>
+    <li>Is a page on a site seems to be older than other pages?  This is not an error, and it must be possible to disable this.<ul class="ulbasic">
+        <li>Mapping the URL and `Last-Modified` headers is probably useful here.   Probably the value for “is this old?&quot; will be specific to each organisation, so need to be a config setting.</li>
+    </ul></li>
+    <li>Suggest legal notes warning, curated for the current country.   This must be disableable, and settings must somehow include setting the country.   Example a UK based fintech site should list relevant options from: Copyright owner, complete company name and a legal-process contact address, FCA number, the prudential registration, Privacy notice link, Cookie Policy link, Data Protection Policy link, Accessibility link, FSCS Protection statement, an anti-slavery statement and possibly a carbon reduction notice link.  Add a warning if the data is absent, or links to it do not work.   Also warning (not error) if these docs seem to be very old assets.<ul class="ulbasic">
+        <li>The above link checking code will work, but building a phrase detector to locate the links is needed.</li>
+    </ul></li>
+    <li>Does the content languages match the meta data tagging?<ul class="ulbasic">
+        <li>and does this match the culture expected in the domain ~ eg its reasonable an <strong>AF</strong> TLD would include some Afghan text, as its a country specific domain.   There should be no language assumptions about ISO TLD like '.com'.</li>
+    </ul></li>
+    <li>Is text a readable size? (on range of devices).<ul class="ulbasic">
+        <li>Select an element, select the currently active CSS against it, `getComputedStyle` <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle" target="_blank">1</a></sup></li>
+    </ul></li>
+    <li>Does the selected font have all the letters / glyths necessary in it?<ul class="ulbasic">
+        <li>An open tool that does this check <a href="https://www.thefancytext.com/font-character-checker" target="_blank">font-character-checker</a>.</li>
+        <li>If your site would like a font that omits a currency symbol or something, those specific glyths can be imported as CSS font-family override, so there are no hollow-boxes symbols in the result UI.   This can be looked up as <em>glyph‑level font fallback</em>, if editing the font isn't possible due to licensing.  </li>
+    </ul></li>
+    <li>Do you have FOUC <sup><a href="https://dev.to/stuffbreaker/reducing-fouc-with-web-components-1jnh" target="_blank">2</a></sup> ?  <ul class="ulbasic">
+        <li>LightHouse helps here.  JS support for this analysis offers “load” event <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event" target="_blank">3</a></sup>, and PerformanceNavigationTiming <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming" target="_blank">4</a></sup>.  I think LightHouse use LayoutShift API <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/LayoutShift" target="_blank">5</a></sup></li>
+    </ul></li>
+</ul>
+
+
+</div>
+<br /><hr /><br />
+<div class="lotsOfWords addBashSamples">
+<ul class="ulbasic">
+    <li>Are all the important artifacts “above the fold” in the first screen-full of data?   A wise dev-team would do this analysis in the wireframe stage, as its more clear about importance of each component at that point.  This is a means to guesstimate bounce rates ahead of publication.   <ul class="ulbasic">
+        <li>Some marketing teams add “cash value of page” notations, to measure impact of user actions.  If they did this with each component, rather than page, this data would be accurate and meaningful.</li>
+        <li>I can invent heuristics for detecting important items, but this has no defined implementation at present.   Feature not seen elsewhere, but must be performed manually by teams.</li>
+        <li>This check is harsh on small phones like an iphone5.</li>
+    </ul></li>
+    <li>Ia there a good “artifact density per page”?   Extremes are less good to read (no idea how, todate.  Possibly look at element screen volume vs total screen volume).   A wise dev-team would do this analysis in the wireframe stage.<ul class="ulbasic">
+        <li>If the lowest ARTICLE or similar element has a coloured background, and elements inside it had a reset background, this would be a visual guide.  But being able to convert this to  number makes it automatable.  </li>
+    </ul></li>
+    <li>Do your colours work in all browsers?  Noting Safari has some awkward maths limits on computed alpha channels being floats, not ints.  So being an example needing this check.<ul class="ulbasic">
+        <li>Render the page, ?? somehow detect if wrong.  Converting a HTML doc to a canvas will deliver data, and catch some errors, but not all of them.</li>
+    </ul></li>
+    <li>Is Colour contrast between FG and BG large enough? On a range of devices.<ul class="ulbasic">
+        <li>See <a href="https://owenberesford.me.uk/resource/css-palette-extractor#">css-palette-extractor</a> as a theory.  I wrote maths for the actual delta in <a href="https://github.com/owenBeresford/oab1-conf/blob/main/lib/PresentationAsserts.js" target="_blank">git</a>.</li>
+        <li>Via a $PROCESS, get a list of all the colours used in the software under test, and check the colours in 3rd party tools as well.   If GMap is the problem the colours can be overridden, I hope other systems would have a colour override too. </li>
+    </ul></li>
+    <li>Are any HTML elements superimposed? Especially when the lower one is or contains links.<ul class="ulbasic">
+        <li>This could be implemented by looking at the JS `getBoundingClientRect`.  In theory, I should use the intersection API <sup><a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API" target="_blank">1</a></sup> as it as now widely supported. </li>
+    </ul></li>
+    <li>Are there forms or similar data-entry with no visible or actionable submit sigil?  <ul class="ulbasic">
+        <li>If there are no hand-made forms, this shouldn't occur. </li>
+        <li>It will be possible to create a working UI that will fail this test, but that isn't the point.</li>
+    </ul></li>
+    <li>Are elements larger than browser size?  When browser is sensible size. <ul class="ulbasic">
+        <li>See last check, but the larger boundary is the window size.</li>
+    </ul></li>
+    <li>Are there pages of vertical scrolling with no content showing?   Important check, must be on range of devices.  This occurred to me in Safari with code that works in Chrome.<ul class="ulbasic">
+        <li>Note, the element location maybe the altered by CSS , JS or the general composition algorithm.</li>
+        <li>The location on every element would need to be checked.   It might be possible to make some assumptions to reduce the element count (in particular, skipping the LI of an UL or OL).   This can reliably be built from data the browser supplies, see `setScrollOffset`, `pageYOffset`, and `getBoundingClientRect`.  There is an older module in npm `in-viewport`.  </li>
+    </ul></li>
+    <li>All the WCAG check items not mentioned above.  Should be imported from an existing WCAG tool.  </li>
+</ul>
+
+<p>Quite a few of the unique items in this list are applying a number to design heuristics that the dev team probably applies without converting the current DOM state to a number.</p>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Existing OSS tools to reference <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This list is clearly marking current owners and licences.   The list length shows the need for a tool handling tool, to manage the config files at the least. <br />
+Before this sentence, the content is not a “listicle”, but maybe call it a “specticle”?.</p>
+
+<ul class="ulbasic">
+    <li><b>name, primary language, src, docs, license, installable</b></li>
+    <li>LightHouse/ PageSpeed, mostly JS, created by Google inc <a href="https://github.com/GoogleChrome/lighthouse" target="_blank">git</a>, <a href="https://developer.chrome.com/docs/lighthouse/" target="_blank">docs</a>, license: Apache2, in npm </li>
+    <li>ESlint, JS/ TS, <a href="https://github.com/eslint/eslint" target="_blank">git</a>, <a href="https://eslint.org" target="_blank">docs</a>, license: MIT, in NPM </li>
+    <li>Stylelint, modular JS, <a href="https://github.com/stylelint/stylelint" target="_blank">git</a>, <a href="https://stylelint.io" target="_blank">docs</a>, license MIT, in NPM,</li>
+    <li>html-validate, TS, <a href="https://gitlab.com/html-validate/html-validate" target="_blank">git</a>, <a href="https://html-validate.org/" target="_blank">docs</a>, license MIT, in NPM,</li>
+    <li>fontkit, TS, <a href="https://github.com/foliojs/fontkit" target="_blank">git</a>, <a href="https://fontkit.typogram.co/" target="_blank">docs</a> <a href="https://docs.jskit.dev/fontkit" target="_blank">docs</a>, license MIT, in NPM</li>
+    <li>opentype.js, <a href="https://github.com/opentypejs/opentype.js" target="_blank">git</a>, <a href="https://github.com/opentypejs/opentype.js#readme" target="_blank">docs</a>, <a href="https://opentype.js.org/" target="_blank">demo</a>, license MIT, in NPM </li>
+    <li>node-html-parser, TS, <a href="https://github.com/taoqf/node-fast-html-parser" target="_blank">git</a>, [no docs found], license MIT, in NPM</li>
+    <li>typo-js-ts, TS, <a href="https://github.com/Amourspirit/Typo.js" target="_blank">git</a>, <a href="https://github.com/Amourspirit/Typo.js#readme" target="_blank">docs</a>, <a href="https://amourspirit.github.io/Typo.js/spell.html" target="_blank">demo</a>, License BSD-3-Clause, in NPM</li>
+    <li>spellchecker, TS, <a href="https://github.com/atom/node-spellchecker" target="_blank">git</a>, <a href="https://atom.github.io/node-spellchecker" target="_blank">docs</a>, license MIT, has build issues, in NPM </li>
+    <li>seo-tools, TS, <a href="https://github.com/code-forge-io/seo-tools" target="_blank">git</a>, [ docs], license MIT there is a newer bot edition <a href="https://github.com/siva01c/seo-tools" target="_blank">git</a>, in NPM as @forge42/seo-tools</li>
+    <li>seomator, TS/JS, <a href="https://github.com/seo-skills/seo-audit-skill" target="_blank">git</a>, <a href="https://seomator.com/free-seo-audit-tool" target="_blank">docs</a>, license MIT, in NPM as @seomator/seo-audit</li>
+    <li>in-viewport, JS, <a href="https://github.com/vvo/in-viewport" target="_blank">git</a>, <a href="https://github.com/vvo/in-viewport#readme" target="_blank">docs</a>, license MIT </li>
+    <li>.</li>
+    <li>fontTools, Python, <a href="https://github.com/fonttools/fonttools" target="_blank">git</a>, <a href="https://deepwiki.com/fonttools/fonttools/2-installation-and-getting-started" target="_blank">docs</a>, license MIT, in Pypi</li>
+    <li>HarfBuzz, Python, <a href="https://github.com/harfbuzz/harfbuzz" target="_blank">git</a>, cPython binding <a href="https://github.com/harfbuzz/uharfbuzz" target="_blank">git</a> another set of bindings <a href="https://vharfbuzz.readthedocs.io/en/latest/" target="_blank">git</a>, <a href="https://harfbuzz.github.io/integration-python.html" target="_blank">docs</a> <a href="https://uharfbuzz.readthedocs.io/reference.html" target="_blank">docs</a> use to check advanced Arabic notations etc <a href="https://harfbuzz.github.io/" target="_blank">demo</a>. code in pypi </li>
+    <li>wget --spider, Clang, <a href="https://github.com/gitGNU/gnu_wget" target="_blank">git</a>, <a href="https://www.gnu.org/software/wget/" target="_blank">docs</a> see man pages, license GPL 3, available in OS level package managers</li>
+    <li>scikit-learn, <a href="https://github.com/scikit-learn/scikit-learn" target="_blank">git</a>, <a href="https://scikit-learn.org/stable/index.html" target="_blank">docs</a>, license BSd 3 clause,  in Pypi</li>
+    <li>TF-IDF</li>
+</ul>
+
+
+</div>
+
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering,uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Desired lint capacity for web projects</h1></header>
+			    	<p role="status" class="bigScreenOnly">  I was expecting this list would be longer.  v2 will need to happen I think.  </p>
+				</div>
+			</div>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+
+			<div id="shareGroup" class="row">
+				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+		   </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-18T13:19:36" datetime="2026-10-18T13:19:36">Oct '26</time> </div>
+			<div class="row" id="addReading"></div>
+
+
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Outcomes of the tool</a></li>
+<li><a href="#toc1">Tests via pre-deployment static-analysis</a></li>
+<li><a href="#toc2">Tests to automate at run-time</a></li>
+<li><a href="#toc3">Existing OSS tools to reference</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-10-18T14:40:01" datetime="2026-10-18T14:40:01">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-18T13:19:36" datetime="2026-10-18T13:19:36">Oct '26</time>.  Created date <time title="Page modified on 2026-10-05T00:00:00" datetime="2026-10-05T00:00:00">Oct '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
