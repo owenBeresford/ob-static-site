@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 280,000 words, please read some of them. -->
+<title>UX and NLP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="text-scale" content="scale" />
+<meta name="Description" content="The intersection of Natural Language Processing and User Experience.  Please look at the named code repo, for Python NLP code examples.  Here is a discussion about how to use NLP in an App." />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="UX and NLP" />
+<meta itemprop="description" content="The intersection of Natural Language Processing and User Experience.  Please look at the named code repo, for Python NLP code examples.  Here is a discussion about how to use NLP in an App." />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="UX and NLP" />
+<meta name="twitter:description" content="The intersection of Natural Language Processing and User Experience.  Please look at the named code repo, for Python NLP code examples.  Here is a discussion about how to use NLP in an App." />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="UX and NLP" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/nlp-with-ux-interactions" />
+<meta property="og:description" content="The intersection of Natural Language Processing and User Experience.  Please look at the named code repo, for Python NLP code examples.  Here is a discussion about how to use NLP in an App." />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="2026-10-27T15:43:34" />
+<meta property="article:modified_time" content="Oct '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/nlp-with-ux-interactions" />
+<link rel="me" href="https://fosstodon.org/@channelOwen" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "UX and NLP",
+	"article:published_time":"2026-10-27T15:43:34", 
+    "article:modified_time":"Oct '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker addReferences addBashSamples">
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Natural Language Processing <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Natural Language Processing or NLP is mostly a deterministic algorithm <sup><a href="https://en.wikipedia.org/wiki/Natural_language_processing" target="_blank">1</a></sup>.  This text is not about the other NLPs <sup><a href="https://en.wikipedia.org/wiki/Neuro-linguistic_programming" target="_blank">2</a></sup>, or <sup><a href="https://en.wikipedia.org/wiki/Natural_language_programming" target="_blank">3</a></sup>.   This article is discussing how to build NLP into a service or App.   The article stops when the user input has been transformed a bit and passed to the next software layer.  Some NLP libraries are complex, as human languages are complex, so slower to execute.   However, just as its not safe or reliable to use a Regexp to parse HTML <sup><a href="https://docs.bswen.com/blog/2026-05-12-parse-html-with-regex/" target="_blank">4</a></sup> <sup><a href="https://stackoverflow.com/questions/590747/using-regular-expressions-to-parse-html-why-not" target="_blank">5</a></sup>, Regexp are not useful in isolation for NLP.  I read quite a few “UI by free form messaging” design articles in 2022.  I think this is still relevant in 2026.<br />
+I maybe atypical, but I think a keyboard is faster and easier to use in a busy room than talking.   If I mostly used a mobile all day, I would invert my UI selection I think.   Many marketing and product-one-up-men (sic!, normally are male though) think a typical user doesn't like typing, but they like talking.   <br />
+A simple string tokeniser, or a embedding algorithm are like very weak version of NLP, but should be ignored in this discussion, as they omit the semantics.   I think NLP as a form of data sanitising is a useful first step with text-based LLM solutions.   <br />
+<aside class="pulloutWidget">
+<div class="g1 pullout3">
+<p>toUpdate: I have a very messy code repo exploring the options for NLP libraries in Python.  I will clean-up this code so people can read anything.  The code is the practical end of this text, as a more interesting and useful alternative to another listicle.</p>
+
+
+</div>
+</aside></p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Interaction limits for NLP <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>Some forms optimise on fixed value ranges to simplify and support automation, others have a chat interface.   If the user input is three select boxes and a CTA, there is no NLP is needed.   The fixed input approach adds value if its necessary to specify a long rigid sentence, and there is no value in the user typing it (e.g. specifying license being used).   </li>
+    <li>Most NLP modules / libraries I have seen are server-side, as they need a large volume of config data to operate.  </li>
+    <li>Concurrency must be managed carefully if the user input can be large.   The interpretation as a half-duplex step (ie not chat UI) means it can be performed in batch mode.   The UI will need to be appropriate.   As LLM services have conditioned people to accepting slow IT again, this is an easier sell than it used to be.</li>
+    <li>The language context needs to be known in advance, I hope its reasonable that a DE domain and DE prose in the signup would suggest a DE based interaction sequence.   A random ~ say RU ~ response will just not lead to any useful result as the system cannot understand it.   As a EN speaker I have privilege, as most libraries will still have EN parsing ability.   However, assuming the system was also launched in a RU domain (ignoring the current real-world sanctions here), the NLP should be configured and extended to assume RU by default on that domain.  </li>
+    <li>Many browsers support auto-complete features, there seems to be problems with some software not seeing content added by this autocomplete, as it doesn't trigger any input events.   This can be worked round, but please add a test here.   If a browser is restarted, a half completed form is likely to still have content, but that will not get any fresh events.</li>
+    <li>It would be useful if some code un-did tings like MSFT word “smart quotes” back to ASCII quotes.   This transform is also applied to text passed through common Mac OSX text-editing apps.   I was expecting the NLP library would recognise the token type, but not translate it by default.   There are options in NPM or Pypi etc for translating.   </li>
+    <li>If the expected outcome is several sentences, code can check if the last character is a dot/ full-stop.   Without the ending, nudge for more input, and delay any relatively slow computations.   Users may change focus to copy-and-paste or look something up, so a JS blur event may not the be the best trigger.   For languages written without a full-stop, some other structure would need to be used.</li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Major constraints  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>Obviously if the user input is voice or video, traditional NLP library have no relevance or impact.   An AI platform data import pipeline to a VectorDB would work better.   </li>
+    <li>I need to research how to do NLP in CJK architecture languages.  These are not covered in this article.   I am confident that the smart and dedicated dev-teams in that region have built solutions.   </li>
+    <li>Please check buffer sizes in the lower levels of your stack.   Accidental fractional UTF-8 char are fatal to many string libraries.   Abstraction leakage warning probably only present if your language isn't in UTF8 by default.</li>
+</ul>
+
+
+</div>
+<hr /><br / >
+<div class="lotsOfWords">
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Working Interactions <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>One of the strengths of an NLP support is, like conversational English, it should be feasible to have implicit objects (safely!).   As these are common in human languages, humans prefer to operate with them (it, this, them etc, and grammatical contractions).   I feel (but haven't built at 'time of print') it should be possible to create a simplified version of an LLM context window, probably a Python dictionary, to know what the prose meant better.    This models the short-term memory of humans, and the structure of English assumes this exists (and I blindly declare that other languages also follow this pattern, as humans are the same).   My first cut solution is a cheap symbol replacement, however the replacement value would be a NLP token/symbol list (possibly 1 value).  <ul class="ulbasic">
+        <li>The context will need careful persistence management.   </li>
+    </ul></li>
+    <li>The NLP module can tokenise the text entered, which might contain typos.   Assuming tokenisation happens correctly (see Deutsche compound phrases as an awkward case), the structure of the input allows error correction guesses reliably.   The offers of typo correction need to be different to applying the text input.   It is necessary to check with the user.   The following example for a restaurant ordering app, a typo of “special 2” rather than “special 3” alters the request intent by a large amount.   In this scenario, typo correction is not feasible.   However “speeeeeecial 3” or “sp3cial 3” could probably be corrected.   This could be spelling suggestion <sup><a href="https://en.wikipedia.org/wiki/Spelling_suggestion" target="_blank">1</a></sup>, I have read good results for Murmer <sup><a href="https://en.wikipedia.org/wiki/MurmurHash" target="_blank">2</a></sup> hash.</li>
+    <li>Not as a correction, but transformations are useful.   Example buying train tickets on mobile is easier if users can use a three letter station-code, and have it converted to the long name in the UI.   For this would need to happen, showing the station-codes in the general UI is needed.   A general completion feature would be able to offer options, but be less correct than if the user knew the station-code, and slower to operate.   As another interaction, the above chat based restaurant app would gain from having “Home” defined in a setup screen, as the default location for food deliveries.   The system would translate `“deliver special 3 to Home for 19:00”` to include the full address.  <ul class="ulbasic">
+        <li>As narrower concern, observing the next few tokens are a time/date, and translating them to absolute values will reduce cognitive load by busy staff ie in the restaurant example `“order 4x shellfish platter, 4x crab special, 4x vegan surprise, 2x steak tartare with veg for next friday, have to to be ready to eat at 5:30.&quot;`.  Is that 05:30 (not supported), or 17:30, as the first action after the kitchen opens?   To deliver on this precise request, it may be necessary to run an extra shift, as none of those items could be done the say before.  </li>
+    </ul></li>
+    <li>I would interpret a message in CAPS as shouting, and lowercase it.  Possibly annotate the user was shouting.   In the restaurant example, shouting at a restaurant won't make it change its opening hours.  Also the restaurant will probably not read the message until they are open.  A contrary-wise example is a list of keywords relating to IP networking, correctly written out in caps as they are abbreviations.   If internal systems are case sensitive (like PG is), cautious normalisation would help.   If they are not (as MySQL is), keeping what the user entered probably preserves semantics better.   </li>
+    <li>For a TEXTAREA input, it might add value to have a copy of last usage, tagged with the date it was used.   Design this as a popup menu/ overlay, that the user can cancel to hide easily.   In the context of mail templates, this helps the user.   This can be done via waiting for the user to stop typing, but that lacks semantic intent.   </li>
+    <li>For services where the user is expected to ask a question, linguistic analysis for “this is a complete question” would be useful feedback in the UI.   That requires a sentence with a subject noun and at  least one verb. </li>
+    <li>When given a free-text input some users will default to just entering keywords.   This should still work, if they entered enough keywords.   However, I feel the interaction style should be recorded and adapted to.  </li>
+    <li>Matching other free text input tools, this app could support UP arrow-key for repeat last message like bash does.  Alternatively, UP can be mapped to edit last message, as Signal does.   The relevant choice can be made with more data about the app. </li>
+    <li>An interaction to consider is also allowing free-text sign-on, so no forms at all.  This would make marketing people happy, but security and SRE less so.  As a text stream with a context, one of the details can be “logeed-in:boolean”.</li>
+    <li>As an solution implementation behind the NLP layer, a valid question that the App or service cannot meaningfully respond to, should either get a fixed “I don't think that is a service I can offer” template, or claim to escalate to a human (probably no actual change in implementation steps).   In a food delivery app, the app can't <em>do anything</em> about inflation or income tax for example.   There is no damage rejecting the request.   However that same app should escalate to a human if the user mentions “allergies” (in EU, JP or CN, but not needed the USA).    </li>
+</ul>
+
+
+<h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Code samples [XXX git] <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+
+</div>
+
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="uitools,engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in uitools </p>
+<div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+<p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Effective steps for UX and NLP</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+			</div>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+
+			<div id="shareGroup" class="row">
+				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+		   </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-27T15:40:34" datetime="2026-10-27T15:40:34">Oct '26</time> </div>
+			<div class="row" id="addReading"></div>
+
+
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Natural Language Processing</a></li>
+<li><a href="#toc1">Interaction limits for NLP</a></li>
+<li><a href="#toc2">Major constraints</a></li>
+<li><a href="#toc3">Working Interactions</a></li>
+<li><a href="#toc4">Code samples</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-10-27T15:43:34" datetime="2026-10-27T15:43:34">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-27T15:40:34" datetime="2026-10-27T15:40:34">Oct '26</time>.  Created date <time title="Page modified on 2026-10-20T00:00:00" datetime="2026-10-20T00:00:00">Oct '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
