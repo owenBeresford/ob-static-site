@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/desired-lint-for-web" />
 <meta property="og:description" content="A long list (43 items) of of checks that would save time to validate a web services before it becomes live.  Intentionally doesn't list many WCAG items.  I ideate an implementation to verify each metric." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-10-18T14:40:01" />
+<meta property="article:published_time" content="2026-10-20T21:34:14" />
 <meta property="article:modified_time" content="Oct '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/desired-lint-for-web" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
@@ -36,7 +36,7 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "lint steps for web services",
-	"article:published_time":"2026-10-18T14:40:01", 
+	"article:published_time":"2026-10-20T21:34:14", 
     "article:modified_time":"Oct '26",
     "article:section":"technology",
 
@@ -198,9 +198,9 @@ Could the checks be done via an LLM? Yes, sometimes, but non-determinism is a li
         <li>This check is harsh on small phones like an iphone5.</li>
     </ul></li>
     <li>Ia there a good “artifact density per page”?   Extremes are less good to read (no idea how, todate.  Possibly look at element screen volume vs total screen volume).   A wise dev-team would do this analysis in the wireframe stage.<ul class="ulbasic">
-        <li>If the lowest ARTICLE or similar element has a coloured background, and elements inside it had a reset background, this would be a visual guide.  But being able to convert this to  number makes it automatable.  </li>
+        <li>To visualise, if the “most parent node like” ARTICLE or similar element has a coloured background, and elements inside it had a reset background.  But being able to convert this to  number makes it automatable.   Maybe I could compute the area of that ARTICLE, then the sum of the areas of it's child elements.  The final number should be a percentage of area as white-space.   </li>
     </ul></li>
-    <li>Do your colours work in all browsers?  Noting Safari has some awkward maths limits on computed alpha channels being floats, not ints.  So being an example needing this check.<ul class="ulbasic">
+    <li>Do your colours work in all browsers?  An example of fail states that occur: Safari has some awkward maths limits on computed alpha channels being floats, not ints. <ul class="ulbasic">
         <li>Render the page, ?? somehow detect if wrong.  Converting a HTML doc to a canvas will deliver data, and catch some errors, but not all of them.</li>
     </ul></li>
     <li>Is Colour contrast between FG and BG large enough? On a range of devices.<ul class="ulbasic">
@@ -219,7 +219,7 @@ Could the checks be done via an LLM? Yes, sometimes, but non-determinism is a li
     </ul></li>
     <li>Are there pages of vertical scrolling with no content showing?   Important check, must be on range of devices.  This occurred to me in Safari with code that works in Chrome.<ul class="ulbasic">
         <li>Note, the element location maybe the altered by CSS , JS or the general composition algorithm.</li>
-        <li>The location on every element would need to be checked.   It might be possible to make some assumptions to reduce the element count (in particular, skipping the LI of an UL or OL).   This can reliably be built from data the browser supplies, see `setScrollOffset`, `pageYOffset`, and `getBoundingClientRect`.  There is an older module in npm `in-viewport`.  </li>
+        <li>The location on every element would need to be checked.   It might be possible to make some assumptions to reduce the element count (in particular, skipping the LI of an UL or OL).   This can reliably be built from data the browser supplies, see `setScrollOffset`, `pageYOffset`, and `getBoundingClientRect`.  There is an older JS module in npm `in-viewport`.  </li>
     </ul></li>
     <li>All the WCAG check items not mentioned above.  Should be imported from an existing WCAG tool.  </li>
 </ul>
@@ -294,7 +294,7 @@ Before this sentence, the content is not a “listicle”, but maybe call it a �
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-18T13:19:36" datetime="2026-10-18T13:19:36">Oct '26</time> </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-20T10:54:03" datetime="2026-10-20T10:54:03">Oct '26</time> </div>
 			<div class="row" id="addReading"></div>
 
 
@@ -319,7 +319,7 @@ Before this sentence, the content is not a “listicle”, but maybe call it a �
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-10-18T14:40:01" datetime="2026-10-18T14:40:01">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-18T13:19:36" datetime="2026-10-18T13:19:36">Oct '26</time>.  Created date <time title="Page modified on 2026-10-05T00:00:00" datetime="2026-10-05T00:00:00">Oct '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-10-20T21:34:14" datetime="2026-10-20T21:34:14">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-20T10:54:03" datetime="2026-10-20T10:54:03">Oct '26</time>.  Created date <time title="Page modified on 2026-10-05T00:00:00" datetime="2026-10-05T00:00:00">Oct '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
  </footer>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="noJS" itemscope itemtype="http://schema.org/Article">
+<head>
+<!-- This website is written by a guy who claims to have lots of specialised technical skills, but this website only partially demonstrates them.  This website is a vehicle for about 280,000 words, please read some of them. -->
+<title>AIops: add observability</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-GB" />
+<meta name="Author" content="Owen Beresford" />
+<meta name="text-scale" content="scale" />
+<meta name="Description" content="Which metrics to show your AI feature or product is healthy and servicing customers" />
+<meta name="google-site-verification" content="lSgIe7Nm0H0RYQ2ktQ4vr5Jz0iYGhQd7cTWoVDg3Xss" />
+<link href="/asset/favicon-32x32.png" rel="icon" type="image/png" />
+<meta itemprop="name" content="AIops: add observability" />
+<meta itemprop="description" content="Which metrics to show your AI feature or product is healthy and servicing customers" />
+<meta name="twitter:site" content="@channelOwen" />
+<meta name="twitter:title" content="AIops: add observability" />
+<meta name="twitter:description" content="Which metrics to show your AI feature or product is healthy and servicing customers" />
+<meta name="twitter:creator" content="@channelOwen" />
+<meta property="og:title" content="AIops: add observability" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://owenberesford.me.uk/resource/ai-observability" />
+<meta property="og:description" content="Which metrics to show your AI feature or product is healthy and servicing customers" />
+<meta property="og:site_name" content="OwenBeresford's very wordy site" />
+<meta property="article:published_time" content="2026-10-26T13:45:40" />
+<meta property="article:modified_time" content="Oct '26" />
+<link rel="canonical" href="https://owenberesford.me.uk/resource/ai-observability" />
+<link rel="me" href="https://fosstodon.org/@channelOwen" />
+<!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
+TODO: magic tune selection against some index/DB -->
+<meta property="og:audio" content="https://www.youtube.com/watch?v=Brl7WmHDG-E" />
+
+<link rel="stylesheet" href="/asset/ob1.min.css" />
+<script type="application/ld+json">
+  {
+    "@context": "https://ogp.me/ns/article#",
+    "@type": "Article",
+    "name": "AIops: add observability",
+	"article:published_time":"2026-10-26T13:45:40", 
+    "article:modified_time":"Oct '26",
+    "article:section":"technology",
+
+    "author": {
+      "@type": "Person",
+      "name": "Owen Beresford"
+    }
+  }
+</script>
+</head>
+<body id="body" class="annoyingBody" data-access="0">
+ <div class="h4_page wholeArticle">
+  <div class="after_menu articleContent">
+   <main id="main">
+    <article>
+     <div class="blocker">
+<p class="buttonBar"> 
+<a href="/resource/ai-launching-llm" class="button" title="An article looking at the LLM algorithms and related software bits." >LLM Concepts </a>
+<a href="/resource/ai-dictionary" class="button" title="All the atypical language pulled out into one location, to make the other test read better." > DICTIONARY </a>
+<a href="/resource/ai-retrieval-augmented-generation" class="button" title="An article looking at the RAG extension for LLM, its best practices and common implementations.">RAG Notes</a>
+<a href="/resource/ai-vector-stores" class="button" title="Examines the specialised storage needed for LLM data.">Vector stores </a>
+<a href="/resource/ai-testing" class="button" title="LLM are evolved, unlike other software.  However they still need testing.">AI testing </a>
+<a href="/resource/ai-synthetic-data" class="button" title="Article that concentrates on algorithms and available libraries to create test data aka synthetic data.">Synthetic data </a>
+<a href="/resource/ai-test-prompt" class="button" title="Article to supply data on managing and testing prompts.">Test prompt </a>
+<a href="/resource/ai-detection" class="button" title="Article to look at structures for detecting content made by an LLM.  LLM/ AI detection is very maths heavy.">Detection</a>
+<a href="/resource/ai-classifiers" class="button " title="About a data management feature called classifiers, testing them and relevant algorithms.">Classifiers </a>
+<a href="/resource/ai-tune-llm" class="button" title="A detailed list of actions that that deliver better LLM based products. ">Tuning LLM </a>
+<a href="/resource/ai-agent-architecture" class="button" title="A short review of howto make an AI agent, the common architectures and howto test them.  Testing is critical as agents can create many changes very quickly.">Agents</a>
+<span href="/resource/ai-observability" class="button disabled" title="This article.  Which metrics to show your AI feature or product is healthy and servicing customers.">Observability</span>
+</p>
+<div class="lotsOfWords addReferences">
+
+<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Generic intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>This article is just a SOP and detail article, that shouldn't be read as the first step.   As ever, mostly outbound links for this intro, as this idea isn't new.  Linkies for background reading <a href="https://owenberesford.me.uk/resource/ai-launching-llm#">ai-launching-llm</a>, <sup><a href="https://www.ibm.com/think/topics/ai-observability" target="_blank">1</a></sup>, <sup><a href="https://uptimerobot.com/knowledge-hub/observability/ai-observability-the-complete-guide/" target="_blank">2</a></sup>, <sup><a href="https://techsy.io/en/blog/ai-observability-guide" target="_blank">3</a></sup></p>
+
+<p>Observability on AI should be integrated into your other observability platforms.   <br />
+This list wasn't made by asking an AI, which is why some items start “if possible”.  I favour the acronym “LLM” over “AI”, as it's precise about what is happening and deflates marketing claims.   When a tool's output resembles a person with dementia, should it be called “intelligence”?  <br />
+If possible the behaviour metrics should be implemented without using another LLM, otherwise you are hedging volatile sources on each other.   As a last resort, use a low temp LLM, not a general one.</p>
+
+
+<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > My ideas for metrics <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>Initially “on the layer below behaviour” / traditional Devop plots, it is still necessary to measure the following.  Assuming the service is cloud hosted, these are very quick to observe, as the cloud service has the data already setup.</p>
+
+<ul class="ulbasic">
+    <li>Rolling average CPU load, probably 1min mean, and EWMA for longer term trends.</li>
+    <li>Unused storage for any DB with fixed volume, probably hourly is enough.</li>
+    <li>Network bandwidth utilisation, with clear alerts on thresholds.  If the LLM/ agent isn't “in training” this would just be customer traffic. </li>
+    <li>Distribution of client-side IPs.  Maybe more useful as Geolocation (ie region) to usage across time.  Use this data for marketing and better service delivery.</li>
+    <li>Response time of the AI data, as this is much more variable than a traditional REST API.  Common advise is graph each population segment for the response time separately.  Most data packages should be able to plot the data as a frequency curve (occurrence vs the time elapsed vs real-world time of events), and add slicing for a more detailed investigation.</li>
+    <li>Simple/ basic profiling of client devices, for better service delivery.</li>
+    <li>If possible, the UTF-8 letterset (ie language script) and the UTF-8 plane of the user actual input data.  I mention 'letterset' as 'alphabet' is a portmanteau of the first two letters of Greek “alpha-beta”, which is very Europe focused.   The training data will need to be in the same letterset and plane.   A message written by an urban Chinese culture person could be typed in Mandarin letters, or Pinjin latin1 letters.  The two options are in different planes.  Not everyone is a en-US speaker (ie ASCII 127), and there are better customer satisfaction levels, by reaching towards the customer and their culture.  </li>
+    <li>Quite a few tools support several different LLM models.  If this is true, logging which LLM is used.</li>
+</ul>
+
+<p>Like a finance platform, I would suggest keeping an audit of LLM actions.   This is useful for any compliance and legal discussions.   When the LLM is structured more like an LLM agent, the skills/ tools should also be audited.   The audit needs to be kept securely.</p>
+
+<p>The actual “AI behaviour” should somehow count</p>
+
+<ul class="ulbasic">
+    <li>The actual customer activity, as daily and monthly plots.</li>
+    <li>Same again for users (ie no active login).</li>
+    <li>If feasible, the above again against public IP and time.   Many different logins with the same public IP probably means a simple client / server model isn't the best approach.</li>
+    <li>Account signups across time (ie users becoming customers), with annotation for marketing events on the timeline.</li>
+    <li>The number of queries to answer the user's overarching question.   To use this data will require correlation with other plots, but numerically shows a strong product “working”.   </li>
+    <li>If possible, a plot of abandonment events. </li>
+    <li>If the UI includes feedback streams per user query, are these used, and positively or negatively?  Across time.   This shows the quality of your product ~ so it's value ~ in real-time.</li>
+    <li>Tokens used per-request and per-response, across time.   If the same service can be delivered with less tokens, this increases efficiency.   There often is no need to explain terms on each query. </li>
+    <li>If the product is a LLM supporting tool, profiling on aggregate tokens used per product feature.</li>
+    <li>If possible, the average age of data sent to the customer.  Is this mostly just regurgitation of the training data?  If the data is often newer than the training data, is more retraining needed?</li>
+    <li>Rolling average query duration, probably sampled on 1min mean, and EWMA for longer term trends.</li>
+    <li>An important metric is “AI safety” being enforced, this should be an event stream, but not a graph.  See &quot;JonSnowLabs AI conference” as a vendor discussing this.  </li>
+    <li>Note different regions will have different legislation, so LLM needs to be tuned per region.   </li>
+    <li>As a followup, on humanist/ subjective data-categories, is the outputted generated data biased? Would suggest an event stream, not a graph.  </li>
+    <li>For objective data-categories, the amount of invented data, that factually doesn't exist.   I think any time an LLM outputs a reference webpage/ paper / software version / manual etc it should include the source of that data.   The UI can minimise or remove items without a source.   This matches agile-planning practices.   </li>
+    <li>Important, are user sessions “learned from”, as that leaks PII and degrades data quality.  Even more urgent for a general or chatbot LLM, rather than a narrow function LLM.   </li>
+    <li>If renting the LLM, the tokens used across time.  If a software update in a common phone changes the default voice or video settings, alerting and a suitable response need to occur before the next billing cycle.  Users (not customers) should only be supported for a max volume of running costs, and the cost per query isn't consistent.  </li>
+</ul>
+
+
+<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > TL;DR rentable solutions <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<p>You want observability, more than discussion try the following.  This section is present to be a goal directed response, but I think its less use than a search engine response.  Also a listicle <sup><a href="https://ai-coding-tools-guide.vercel.app/agent-observability-tools/" target="_blank">4</a></sup>.   <i>If I expand this listicle section, I suppose I should add social proofs. </i></p>
+
+<ul class="ulbasic">
+    <li>CNCF AI <sup><a href="https://cncf.io/" target="_blank">5</a></sup> <sup><a href="https://horovits.scribe.rip/observability-for-ai-workloads-a-new-paradigm-for-a-new-era-b8972ba1b6ba#" target="_blank">6</a></sup></li>
+    <li>Microsoft foundry <sup><a href="https://learn.microsoft.com/en-us/azure/foundry/how-to/evaluate-generative-ai-app" target="_blank">7</a></sup> <sup><a href="https://learn.microsoft.com/en-us/azure/foundry/how-to/evaluate-results" target="_blank">8</a></sup> </li>
+    <li>MonteCarlo AI <sup><a href="https://montecarlo.ai/" target="_blank">9</a></sup>  advert: <sup><a href="https://montecarlo.ai/blog-best-ai-observability-tools" target="_blank">10</a></sup></li>
+    <li>Braintrust <sup><a href="https://www.braintrust.dev/" target="_blank">11</a></sup> this is more agent focused. <sup><a href="https://aiwiki.io/tools/braintrust" target="_blank">12</a></sup> <sup><a href="https://buildrlabs.ai/tool-guide/braintrust/" target="_blank">13</a></sup> <sup><a href="https://aitoolsbakery.com/blog/braintrust-review/" target="_blank">14</a></sup> </li>
+    <li>Datadog LLM Observability <sup><a href="https://docs.datadoghq.com/llm_observability/" target="_blank">15</a></sup> this is part of a bigger suite, and probably never used by itself.   <sup><a href="https://aitoolsatlas.ai/tools/tool-datadog-ai-observability/review" target="_blank">16</a></sup></li>
+    <li>LangSmith <sup><a href="https://www.smith.langchain.com/" target="_blank">17</a></sup> <sup><a href="https://www.langchain.com/langsmith-platform" target="_blank">18</a></sup> this is part of the Langfuse family  <sup><a href="https://aicoolies.com/reviews/langsmith-review" target="_blank">19</a></sup> <sup><a href="https://aitoolsbakery.com/blog/langsmith-review/" target="_blank">20</a></sup></li>
+</ul>
+
+
+<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > OSS options <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<ul class="ulbasic">
+    <li>Langfuse (license MIT), </li>
+    <li>Arize Phoenix (license Elastic License 2.0, source-available), </li>
+    <li>Helicone (license Apache-2.0)</li>
+</ul>
+
+
+</div>
+</div>
+    </article>
+   </main>
+	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+<div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
+ </div>
+
+  </div>
+  <fieldset class="articleHeader" role="navigation">
+	<legend></legend>
+	<nav id="navBar" class="row">
+			<div class="column">
+				<div class="top-bar fullWidth">
+					<header><h1>Add observability to AI tools</h1></header>
+			    	<p role="status" class="bigScreenOnly">    </p>
+				</div>
+			</div>
+	
+	<div class="bigScreenOnly column linksWidget" role="navigation">
+		<details class="linksWidget" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+
+			<menu class="dfl">
+			<li>Additional features</li>
+<li><a href="/resource/home"><i class="fa fa-angle-left" aria-hidden="true"></i> Home</a> </li> 
+<li><a href="/resource/search">Search 🔎 </a></li>
+<li><a href="/resource/appearance">Appearance </a></li>
+<li><a href="/resource/contact-me">Contact me 📞 </a></li>
+<li><a href="#contentGroup">📜 Similar articles</a></li>
+			</menu>
+		</details>
+
+			<div id="shareGroup" class="row">
+				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
+				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
+		   </div>
+			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-23T18:05:16" datetime="2026-10-23T18:05:16">Oct '26</time> </div>
+			<div class="row" id="addReading"></div>
+
+
+		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+<li><a href="#toc0">Generic intro</a></li>
+<li><a href="#toc1">My ideas for metrics</a></li>
+<li><a href="#toc2">TL;DR rentable solutions</a></li>
+<li><a href="#toc3">OSS options</a></li>
+</menu>
+</details><br />
+
+	</div>
+	<!-- /div -->
+	</nav>
+</fieldset>
+ </div> 
+ <div id="biblio" style="display:none;">
+    <br class="blocker" />
+ </div>
+ <footer class="row footWidget"> 
+	<div class="column leftFooter"> 
+		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
+	</div> 
+	<div class="column bigColumn">
+		<p> Page rendered <time title="Page rendered on 2026-10-26T13:45:40" datetime="2026-10-26T13:45:40">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-23T18:05:16" datetime="2026-10-23T18:05:16">Oct '26</time>.  Created date <time title="Page modified on 2026-10-20T00:00:00" datetime="2026-10-20T00:00:00">Oct '26</time>.
+	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
+	</div>
+ </footer>
+<script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
+
+</body>
+</html>
