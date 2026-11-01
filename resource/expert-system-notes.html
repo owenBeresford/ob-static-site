@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/expert-system-notes" />
 <meta property="og:description" content="Background data on machine decision making, its goals and references." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:09" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:17" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/expert-system-notes" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Expert Systems",
-	"article:published_time":"2026-09-27T19:28:09", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:17", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -62,7 +62,7 @@ Pls isolate this into a module etc so it has a clear interface; we will be rewri
 This feature doesn't need to be the fastest code; but can Node fork() (yes <sup><a href="https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options" target="_blank">2</a></sup> ), to avoid blocking the 1 thread HTTP/S server. <b>UPDATE 2020:</b> Also one can link other languages into a Node interpreter, see <a href="https://owenberesford.me.uk/resource/nodejs-linking#">nodejs-linking</a>.</p>
 
 
-<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Goal: SC requested step1 version <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc0">  Goal: SC requested step1 version <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
     <li>Static set of heuristics</li>
     <li>Have the 'weights', to apply in each metric; adjustable ideally by the user (likely to be something like 1.1).</li>
@@ -74,7 +74,7 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 </ul>
 
 
-<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Goal: Step2, make the code workout new metrics <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc1">  Goal: Step2, make the code workout new metrics <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
     <li>This is the valuable bit.</li>
     <li>US people like to use the word “deep”.  AFAIA this means pure/ abstract.  The famous google 'deep learning' is a tweak on neural nets.</li>
@@ -83,7 +83,7 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 </ul>
 
 
-<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > References <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc2">  References <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
     <li>Some work on decision trees <sup><a href="https://en.wikipedia.org/wiki/Decision_tree_learning" target="_blank">3</a></sup> <sup><a href="https://www.csun.edu/~twang/595DM/Slides/Week4.pdf" target="_blank">4</a></sup> <sup><a href="https://arxiv.org/pdf/1301.7384.pdf" target="_blank">5</a></sup></li>
     <li>A Node neural net lib <sup><a href="https://caza.la/synaptic/" target="_blank">6</a></sup><ul class="ulbasic">
@@ -100,7 +100,7 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 </ul>
 
 
-<h2 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Appendix A: Initial list of metrics (SC to extend) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc3">  Appendix A: Initial list of metrics (SC to extend) <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
     <li>current bookings for that day</li>
     <li>day of week</li>
@@ -119,7 +119,7 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 </ul>
 
 
-<h2 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Appendix B: reference impl notes  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc4">  Appendix B: reference impl notes  <a href="#toc4" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
     <li>define a rule as an object holding a weight (a float), a name (a string) and a JS function, which takes a booking object &amp; returns true or false</li>
     <li>define a venue as a set of tables, (in addition to current attributes)</li>
@@ -134,14 +134,14 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="legacy" title="Use the first link to get the complete range of the group." > <p>Some similar articles in legacy </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="legacy" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in legacy </p>
 <div id="grouplegacy" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=legacy" aria-label="This article lists all items in legacy group.">All of <br />legacy<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Expert Systems Notes</h1></header>
@@ -149,9 +149,9 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -163,22 +163,21 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Goal: SC requested step1 version</a></li>
 <li><a href="#toc1">Goal: Step2, make the code workout new metrics</a></li>
 <li><a href="#toc2">References</a></li>
 <li><a href="#toc3">Appendix A: Initial list of metrics (SC to extend)</a></li>
 <li><a href="#toc4">Appendix B: reference impl notes</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -188,14 +187,16 @@ This feature doesn't need to be the fastest code; but can Node fork() (yes <sup>
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>   <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:09" datetime="2026-09-27T19:28:09">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2016-11-23T00:00:00" datetime="2016-11-23T00:00:00">Nov '16</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:17" datetime="2026-11-01T13:37:17">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2016-11-23T00:00:00" datetime="2016-11-23T00:00:00">Nov '16</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

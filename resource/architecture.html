@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/architecture" />
 <meta property="og:description" content="Notes from a course presented by T Gilb, an Agile coach, on Architectures & engineering tools in an Agile environment.  This article attempts to push an important and vast set of ideas and processes into text." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-29T18:33:04" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:15" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/architecture" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Agile Architectures",
-	"article:published_time":"2026-09-29T18:33:04", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:15", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker acceptablePRE">
@@ -59,7 +59,7 @@ The course notes and quite a few papers are provided free access via <a href="ht
 
 <div class="lotsOfWords">
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Core precepts <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  Core precepts <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>T Gilb is an Agile coach; that is he encourages business to revise architecture so it is compliant to Agile process.   I claim to be able to follow Agile, which is the majority of what T Gilb's activity objectives are, and has been paid for doing them.  However T Gilb is doing them on a scale substantially larger than me; apparently on the scale that he is contracted for, failure is quite common.  I normally justify my expense.  He states that this is mostly to do with the first level documentation, which people are very busy writing, but they write wrongly/ with an ineffective approach.<br />
 In all of his experience, it is always necessary to model a large number of stakeholders, all of whom want different things.  His process is numerically focussed, so he can state he only fails when there is data not supplied to him.  To clarify that, he will focus his budget on the best known method to build the most important thing; but if he is mis-communicated the most important thing, he will fail to produce a valuable outcome.   The large number of stakeholders mean any requirements and process will be quite complex to compute.  Again his analytical technique carries this concept.  He focusses on the most important stakeholder, and their most important ten goals.  This provides a known improvement, on the biggest thing.  As he normally controls his budget situation, further objectives can be pursued afterwards.  I will supply this document to my paperwork-shy “agile” colleges (as an example of paperwork being a useful tool to generate the right results, inside an Agile environment.  If you can't type, docs are slow, but so is coding).   As an extension of this, correctness is important, accuracy is important, precision isn't.  My idea which is <em>roughly</em> four times faster, is still worth investing in; but if it costs more than the return to work out precisely the gain, it isn't worth investing in, not even the paperwork.</p>
 
@@ -74,7 +74,7 @@ In all of his experience, it is always necessary to model a large number of stak
 <p>There should be no attachment to solutions, and these should not be listed in the requirements.  If this process is followed, one may try a solution, if it doesn't work, swap it out for a second.  It was not discussed how this plays with iterative development.  T Gilb's process goal is the biggest known-cost changes come first, so there is some visible improvement to the system, this occurs at the start.  K Gilb states that all features can be free at a really low quality, so small quick alterations allow “a solution”.  The iterative structures were designed for “new systems”, so whatever solution one presented was a new thing.</p>
 
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > What are my words/ communication? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc1">  What are my words/ communication? <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This section is under this title, as T Gilb uses more structured language than I do.  He adds emphasis to certain terms.  The words he uses are to reduce length, and after good definition, quite orthogonal to each other.</p>
 
 <p>For the last several years, I have been doing implementation planning with the titles “whut”, “why”, “how”.  About 60 or 70% of “how” is how to test.   These documents are as concise as practical; not massively formal; and support the fact I write better English when I do it at a separate time to writing code.  They either live in the code repository along with the source, or in the project tracking software.<br />
@@ -90,7 +90,7 @@ The biggest difference between this and other processes that I have read is the 
 <p>T Gilb dislikes the terms “MUST” and “SHALL” (with “MUST NOT” and “SHALL NOT”).  He states these are inflexible, and fail to support the number of different concurrent requirements that need consideration.  Looking at his stakeholder analysis, I would tend to agree with that.  I have only seen these terms used in RFC, where I think they are justified.  If all parties are going to communicate, they MUST talk the same language (pun intentional).  Sensible RFC do not constrain your implementation (e.g. RFC 2866 <sup><a href="https://www.rfc-editor.org/rfc/rfc2866" target="_blank">1</a></sup>), but some of the commercially created ones are someone's implementation plan, with the confidential bits stripped <a href="https://owenberesford.me.uk/resource/architecture#note1" target="_blank">1</a>.  RFC are not supposed to be implementation plans, or requirements lists.  They are supposed to be detailed contracts for the boundaries between entities.  A document on what software MUST do, so any any piece of compliant software may talk with any other compliant software.  What use is SQL if we don't agree how to say things?</p>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > What do I gain <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc2">  What do I gain <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>For writing requirements (not implementation plans), one lists impacts (not transforms).  Having a written quantified scale on what change is needed, T Gilb does a few estimates on what change could be performed to effect these.  The documents he uses have many conditional clauses in them, and resemble CSS.  Where the proposed solutions and the supplied resources don't match, he renegotiates ~ early before much is spent.  His paperwork process allows this type of discussion after a few days.  One of other terms is “ambition”.  Due to there being a large number of stakeholders, renegotiation is quite common.  For example, if one is commissioned to rebuild the interior of a public use mansion, and the owner is thinking of a large spiral staircase in marble; the stakeholder for legal compliance will need to be consulted for the best way to still keep them happy for wheelchair access.  The person paying is clearly the most important stakeholder, but legal requirements cannot be avoided.</p>
 
 
@@ -122,16 +122,16 @@ As previously stated everything is accurate, but not necessarily precise.  A goo
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="engineering,research" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="engineering,research" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in research </p>
 <div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Architectures and Agile</h1></header>
@@ -139,9 +139,9 @@ As previously stated everything is accurate, but not necessarily precise.  A goo
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -153,20 +153,19 @@ As previously stated everything is accurate, but not necessarily precise.  A goo
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:55:59" datetime="2026-09-27T19:55:59">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Core precepts</a></li>
 <li><a href="#toc1">What are my words/ communication?</a></li>
 <li><a href="#toc2">What do I gain</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -176,14 +175,16 @@ As previously stated everything is accurate, but not necessarily precise.  A goo
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>   <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-29T18:33:04" datetime="2026-09-29T18:33:04">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:55:59" datetime="2026-09-27T19:55:59">Sep '26</time>.  Created date <time title="Page modified on 2015-03-03T00:00:00" datetime="2015-03-03T00:00:00"><strong> &gt;7 Years ago</strong></time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:15" datetime="2026-11-01T13:37:15">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2015-03-03T00:00:00" datetime="2015-03-03T00:00:00"><strong> &gt;7 Years ago</strong></time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <style>

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/svg-format-notes" />
 <meta property="og:description" content="SVG file format notes: its definition, structure, history; the colour spaces.  This is the initial article that covers how to make the file and the programs the files can be opened with. More advanced areas are discussed in separate articles." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-10-18T11:03:28" />
-<meta property="article:modified_time" content="Oct '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:25" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/svg-format-notes" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "SVG file format notes",
-	"article:published_time":"2026-10-18T11:03:28", 
-    "article:modified_time":"Oct '26",
+	"article:published_time":"2026-11-01T13:37:25", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -66,7 +66,7 @@ TODO: magic tune selection against some index/DB -->
 </div>
 <div class="lotsOfWords">
 
-<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Concise intro (links mostly) <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc0">  Concise intro (links mostly) <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>SVG aka Scalable Vector Graphics <sup><a href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" target="_blank">1</a></sup> is a nice image format for multiple screen sizes, as is its vector <sup><a href="https://en.wikipedia.org/wiki/Vector_graphics" target="_blank">2</a></sup>; secondly it's XML, so hackable from JS <a href="https://www.creativebloq.com/design/examples-svg-7112785" target="_blank">examples</a>, <a href="https://www.bestdevlist.com/best-jquery-svg-plugins/" target="_blank">examples of capacity from JS</a>, <a href="https://upload.wikimedia.org/wikipedia/commons/e/e4/Oceans_and_seas_boundaries_map-en.svg" target="_blank">a real world map</a>, and <a href="https://www.gbmaps.com/UK_County_Maps.htm" target="_blank">another</a>.  In 2017 all browsers support SVG without awkward tech problems <sup><a href="https://caniuse.com/#search=svg" target="_blank">3</a></sup>.  SVG is better than HTML5 Canvas, as it supports events better.   There is more discussion <sup><a href="https://msdn.microsoft.com/en-us/library/gg193983(v=vs.85).aspx" target="_blank">4</a></sup> <sup><a href="https://www.html5rocks.com/en/tutorials/raphael/intro/" target="_blank">5</a></sup>.  SVG images are seen by the browser as a small subdocument, with an editable DOM <sup><a href="https://www.w3.org/TR/SVG/svgdom.html" target="_blank">6</a></sup>.   As SVG is a w3C invention, a good source of spec news is of course w3c <sup><a href="https://www.w3.org/Graphics/SVG/" target="_blank">7</a></sup> <sup><a href="https://www.researchgate.net/profile/Jon-Ferraiolo" target="_blank">8</a></sup> .  By 2023, there have been no updates to the SVG spec since SVG2 in 2018 <sup><a href="https://www.w3.org/TR/SVG2/" target="_blank">9</a></sup>.</p>
 
 <p>However this boring info that can be gained from any wordpress techblog is dull, and easy.  Pls refer to the examples link if you are after a visual inspiration.</p>
@@ -74,7 +74,7 @@ TODO: magic tune selection against some index/DB -->
 <p>Reading this far will improve comprehension on SVG.</p>
 
 
-<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Overview on SVG editors <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc1">  Overview on SVG editors <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>I did this research as I needed to adjust an SVG already created in JS.  There is a wide variety of libraries, mostly written to address a particular problem, this article is quite narrow in that sense.  Practical demonstration shows that SVGs are a less stable technology for complex activities (maybe they always will be, as what I am doing is quite complex). For comparison it took JS + CSS about 10 years to mature; and that is much more widely used scenario.  In order to update the SVG element, inside an image, without graphical glitches; I needed to delete the element and inject a new one.  Generic discussion on SVG <sup><a href="https://www.vecta.io/blog/5-most-common-problems-faced-by-svg-users" target="_blank">10</a></sup>.   After 'a book apart' collapsed, the authors have taken back their content, including “Practical SVG” which is now available as <a href="https://github.com/chriscoyier/practical-svg" target="_blank">git</a> <sup><a href="https://chriscoyier.net/2024/07/22/practical-svg-is-now-free-to-read-online/" target="_blank">11</a></sup> <br />
 The notes on SVG animation have been moved to <a href="https://owenberesford.me.uk/resource/svg-animation#">svg-animation</a>, as that is not editing.</p>
 
@@ -82,7 +82,7 @@ The notes on SVG animation have been moved to <a href="https://owenberesford.me.
 A while ago, there was a thing called SMIL ~ Synchronized Multimedia Integration Language <sup><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/SVG_animation_with_SMIL" target="_blank">23</a></sup> <sup><a href="https://css-tricks.com/guide-svg-animations-smil/" target="_blank">24</a></sup> <sup><a href="https://www.corel.com/6763/psp_downloads/pub/SVGChpt08.pdf" target="_blank">25</a></sup>. Microsoft helpfully publish “how to SMIL on ms browsers” <sup><a href="https://msdn.microsoft.com/en-us/library/gg193979(v=vs.85).aspx" target="_blank">26</a></sup>  This still seems to exist <sup><a href="https://caniuse.com/?search=smil" target="_blank">27</a></sup>, but I haven't heard of it being used.  It did get deprecated <sup><a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/5o0yiO440LM/m/YGEJBsjUAwAJ?pli=1" target="_blank">28</a></sup>, then undeprecated in Chrome.  Notes from 2016 that look fairly thorough on the SMIL <sup><a href="https://graphicdesign.stackexchange.com/questions/68314/how-do-you-animate-svg-for-the-web" target="_blank">29</a></sup></p>
 
 
-<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > SVG structure <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc2">  SVG structure <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>The following section is fitting SVG into the structures/ architecture of other graphics systems.</p>
 
 <ul class="ulbasic">
@@ -110,14 +110,14 @@ Recent CSS adds many features to SVG, for example <sup><a href="https://frontend
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="images" title="Use the first link to get the complete range of the group." > <p>Some similar articles in images </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="images" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in images </p>
 <div id="groupimages" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=images" aria-label="This article lists all items in images group.">All of <br />images<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>SVG file format notes</h1></header>
@@ -125,9 +125,9 @@ Recent CSS adds many features to SVG, for example <sup><a href="https://frontend
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -139,20 +139,19 @@ Recent CSS adds many features to SVG, for example <sup><a href="https://frontend
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-08T22:46:09" datetime="2026-10-08T22:46:09">Oct '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Concise intro (links mostly)</a></li>
 <li><a href="#toc1">Overview on SVG editors</a></li>
 <li><a href="#toc2">SVG structure</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -162,14 +161,16 @@ Recent CSS adds many features to SVG, for example <sup><a href="https://frontend
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-10-18T11:03:28" datetime="2026-10-18T11:03:28">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-08T22:46:09" datetime="2026-10-08T22:46:09">Oct '26</time>.  Created date <time title="Page modified on 2023-02-02T00:00:00" datetime="2023-02-02T00:00:00">Feb '23</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:25" datetime="2026-11-01T13:37:25">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2023-02-02T00:00:00" datetime="2023-02-02T00:00:00">Feb '23</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

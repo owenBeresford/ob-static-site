@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/draw-equations-inline" />
 <meta property="og:description" content="A look at rendering nice-looking maths equations as part of a webpage.  This text mentions supporting tools, as this language is quite niche.  Favoured solution is MathML, but mentions 7 additional concepts." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-29T18:33:05" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:17" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/draw-equations-inline" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Draw equations inline",
-	"article:published_time":"2026-09-29T18:33:05", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:17", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,13 +49,13 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker drawEquationsContainer addReferences">
 <div class="halferWords">
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Some examples <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  Some examples <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Occasionally you may need to display an equation in a webpage.   I prefer to use function names rather than classical notation; but tastes vary.   This technology allows smart typesetting for that equation; and it can adapt to any screen size and it works for blind users.   This is built as HTML is, from tags.  This Q&amp;A page is ademo opf real equations <sup><a href="https://math.stackexchange.com/questions/5119443/an-integral-that-wolfram-alpha-can-compute-but-i-want-to-know-the-steps" target="_blank">1</a></sup> <br />
 Note these Greek letters are perfectly normal Greek letters in UTF-8.  This approach is very transparent to speech readers and in this context saying the letters name is normal (i.e. Delta, Epsilon etc).</p>
 
@@ -150,7 +150,7 @@ Note these Greek letters are perfectly normal Greek letters in UTF-8.  This appr
 </div>
 
 
-<h5 id="toc1"> Background/ legacy</h5>
+<h5 id="toc1">  Background/ legacy <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <p>A long time ago there was a tool called <i>tex</i> <sup><a href="https://en.wikipedia.org/wiki/Computers_and_Typesetting" target="_blank">1</a></sup> <sup><a href="https://en.wikibooks.org/wiki/TeX" target="_blank">2</a></sup>.   This was first published in 1978 by a Maths doctorate for writing maths papers/ proofs/ equations via a computer.   The doctor is famous for his other publications such as <sup><a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html" target="_blank">3</a></sup> and publishing an idea <a href="https://owenberesford.me.uk/resource/literate-programming#">literate-programming</a>.   This is a product of its time, and by modern standards not an easy to use tool. <br />
 There is an earlier format called <i>troff</i> that is still used to make <i>man pages</i>.   This is a simple typesetting language, outputting to text terminals that were normally used with computers in the 1960s/1970s.   Troff is not optimised for displaying complex typography, and neither are mono-space text terminals ~ which are also limited to monochrome in the 1970s.   <br />
 More recently, 'internet generation' people who aren't limited to 1970's tech, can use <b>MathML</b> <sup><a href="https://en.wikipedia.org/wiki/MathML" target="_blank">4</a></sup> <sup><a href="https://developer.mozilla.org/en-US/docs/Web/MathML" target="_blank">5</a></sup> spec <sup><a href="https://www.w3.org/TR/MathML2/chapter2.html" target="_blank">6</a></sup>.  Although the spec has been around for a long time, the support in browsers is lower than I would have expected <sup><a href="https://caniuse.com/?search=mathml" target="_blank">7</a></sup> (<strong>at 90%;</strong> not available for the deceased MSIE, or minority mobile browsers).   There is a W3C JS polyfill <sup><a href="https://github.com/w3c/mathml-polyfills" target="_blank">8</a></sup> and also a thing in NPM ~ which doesn't have much traction <sup><a href="https://www.npmjs.com/package/mathml" target="_blank">9</a></sup>.   An article on further background on MathML, and examples in Arabic <sup><a href="https://conflor.es/blog/2025-11-27-interop-and-mathml/" target="_blank">10</a></sup>.</p>
@@ -162,7 +162,7 @@ More recently, 'internet generation' people who aren't limited to 1970's tech, c
 
 
 
-<h5 id="toc2"> Details on MathML</h5>
+<h5 id="toc2">  Details on MathML <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <ul class="ulbasic">
     <li>Look at your equation in an online tool <a href="https://fred-wang.github.io/TeXZilla/" target="_blank">TeXZilla</a> or <a href="https://www.mathmlcentral.com/Tools/FromMathML.jsp" target="_blank">MathMLcentral</a> as a viewer external to your stack, and for <i>testing</i> what you typed.  </li>
     <li>A handy online tool that will show errors in your XML <sup><a href="https://www.mathmlcentral.com/Tools/ValidateMathML.jsp" target="_blank">1</a></sup>.   The W3C validator is claimed to do MathML <sup><a href="https://validator.w3.org/#validate_by_input" target="_blank">2</a></sup>, and it does have detailed errors.   </li>
@@ -173,7 +173,7 @@ More recently, 'internet generation' people who aren't limited to 1970's tech, c
 </ul>
 
 
-<h5 id="toc3"> Other options for rendering complex typography</h5>
+<h5 id="toc3">  Other options for rendering complex typography <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <ul class="ulbasic">
     <li><i>Hair splitting option:</i> use MathML in an ANNOTATION XML element, rather than a complete XML sub-document. </li>
     <li>A more widely supported version is a SVG containing the letter outlines of the equation (96% of users).  Care will be needed designing the SVG.</li>
@@ -194,14 +194,14 @@ More recently, 'internet generation' people who aren't limited to 1970's tech, c
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="research" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="research" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in research </p>
 <div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Draw equations inline</h1></header>
@@ -209,9 +209,9 @@ More recently, 'internet generation' people who aren't limited to 1970's tech, c
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -223,18 +223,17 @@ More recently, 'internet generation' people who aren't limited to 1970's tech, c
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:59:17" datetime="2026-09-27T19:59:17">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Some examples</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -244,14 +243,16 @@ More recently, 'internet generation' people who aren't limited to 1970's tech, c
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-29T18:33:05" datetime="2026-09-29T18:33:05">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:59:17" datetime="2026-09-27T19:59:17">Sep '26</time>.  Created date <time title="Page modified on 2023-09-18T00:00:00" datetime="2023-09-18T00:00:00">Sep '23</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:17" datetime="2026-11-01T13:37:17">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2023-09-18T00:00:00" datetime="2023-09-18T00:00:00">Sep '23</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <style>

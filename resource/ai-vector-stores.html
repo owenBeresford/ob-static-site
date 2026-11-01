@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-vector-stores" />
 <meta property="og:description" content="A compilation of information about Vector searches, stores and Vector DB, along with Vector store recommendations.  The text has a focus on architectures and algorithms, so that, for these topics, the article remains relevant." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-10-20T21:34:14" />
-<meta property="article:modified_time" content="Oct '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:15" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-vector-stores" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "LLM / AI vectors",
-	"article:published_time":"2026-10-20T21:34:14", 
-    "article:modified_time":"Oct '26",
+	"article:published_time":"2026-11-01T13:37:15", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -69,7 +69,7 @@ TODO: magic tune selection against some index/DB -->
 </p>
 <div class="lotsOfWords">
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Intro &amp; theory <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  Intro &amp; theory <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>If you start with loose data made by a human, and you need to search with it or against it, then a traditional RDB isn't great technology.   But if you spend more time on loading the data into a VectorDB, better grade of search can be achieved.  Quite a few search engines built a version of vector search a long time ago.<br />
 To service these, there is a large group of data storage engines that I currently am learning about, so I am discovering.   In this article and the attached ones, it is necessary to avoid content made via AI #leSigh.   These are currently used for LLM-based Chatbots (etc.).   In the following paragraph Types are capitalised, if I make them italic as in other articles, most of the paragraph would be in italic.   A Vector-store is just software to store Vectors dot dot dot.   A Vector ~ when used for AI ~ is an Array of Floats <sup><a href="https://www.ibm.com/topics/vector-database" target="_blank">1</a></sup> ~ <sub>this doc is long, but has no internal ids, so I can't reference “pages”</sub>.   Each Float represents a position in a Dimension, and is supposed to model the meaning of the source text, in a fashion that associates random letter / Char Strings which are similar things ~ e.g., a car is similar to a taxi and a truck <sup><a href="https://thenewstack.io/how-large-language-models-fuel-the-rise-of-vector-databases/" target="_blank">2</a></sup>, but textual based analysis can't tell you that.   Notes say the only valuable Vectors are non-zero and are Dense.   I guess they must be a SparseArray, or it wouldn't be possible not to store the zeros, OR the Dimensions are set in advance, and it's a large Struct.   TODO: IOIO I should read source code to confirm this.<br />
 According to <sup><a href="https://www.ciopages.com/vector-databases/" target="_blank">3</a></sup> Vector DB are sometimes used for 3D model data, or geometric information.  They also state fraud detection, but graph databases are a better structure for that.  They do not mention any dedicated Vector stores, favouring pgVector, MongoDB arrays and similar.   The long text <sup><a href="https://www.ibm.com/topics/vector-database" target="_blank">4</a></sup> offers LLM backing and search indices.   According to <sup><a href="https://myscale.com/blog/vector-store-vs-vector-database-comparison-guide/" target="_blank">5</a></sup>, there are Vector DB and Vector Stores <sup><a href="https://myscale.com/blog/vector-store-vs-vector-database-comparison-guide/" target="_blank">6</a></sup> <sup><a href="https://learn.microsoft.com/en-us/azure/search/vector-store" target="_blank">7</a></sup> <sup><a href="https://scribe.rip/predict/vector-store-anlysis-exploring-popular-solutions-63eba05f27a7" target="_blank">8</a></sup>, and most people will want the DB as they gain from the extra features.  Simplicity will help the remaining users as the need <del>giga-scale</del><ins>tera-scale</ins> operations (same principal as ColumnDB).   <sup><a href="https://malaikannan.github.io/2024/08/31/VectorDB/" target="_blank">9</a></sup> observes that “capacity” for Vector searches isn't the same quality as “built and optimised for” Vector searches ~ although the PG team release slowly and optimise a lot.</p>
@@ -107,7 +107,7 @@ I have moved the terminology log to the <a href="https://owenberesford.me.uk/res
 </ul>
 
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Query structures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc1">  Query structures <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Due to the more “knowledge-based search” approach of a VectorDB, the query languages seem to be simpler (compared to “data-based search” of an RDB).   Unlike traditional RDB, it's advisable to have a terminate-early structure on queries (like a recursion-algo break-clause, or a SQL LIMIT clause), since there is an indeterminate list of values that match the query.</p>
 
 <ul class="ulbasic">
@@ -126,7 +126,7 @@ I have moved the terminology log to the <a href="https://owenberesford.me.uk/res
 There is a VectorDB bench project for comparing search via VectorDB <sup><a href="https://zilliz.com/learn/open-source-vector-database-benchmarking-your-way" target="_blank">26</a></sup> <sup><a href="https://zilliz.com/learn/benchmark-vector-database-performance-techniques-and-insights" target="_blank">27</a></sup> ~ note it is made by one of the DB manufacturers <a href="https://github.com/zilliztech/VectorDBBench" target="_blank">git</a>, or <a href="https://github.com/erikbern/ann-benchmarks/" target="_blank">git</a>.</p>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Vector store recommendations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc2">  Vector store recommendations <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Most successful DB projects can do a Vector index these days, and there are some niche ones that only store Vectors.   Note: content did not include libraries to convert user input to Vectors for the vector matching.  I pulled some performance graphs for the different DB <sup><a href="https://github.com/zilliztech/VectorDBBench?tab=readme-ov-file" target="_blank">28</a></sup> <sup><a href="https://jina.ai/news/benchmark-vector-search-databases-with-one-million-data/" target="_blank">29</a></sup> <sup><a href="https://redis.io/blog/benchmarking-results-for-vector-databases/" target="_blank">30</a></sup> <sup><a href="https://qdrant.tech/benchmarks/" target="_blank">31</a></sup> ~ note the last two are made by a Vendor.</p>
 
 
@@ -142,13 +142,13 @@ There is a VectorDB bench project for comparing search via VectorDB <sup><a href
 <p>When basic speed is your highest value metric, I think Redis will always win, and definitely questions <i>why pay for a niche DB</i>.  There will need to be a more complex and multi-step process for a larger data scale.  Maybe a really big Redis would need to be sharded to support that scale of data.  If the data is too large to fit in RAM (notes on larger scale operations <sup><a href="https://blog.scottlogic.com/2023/11/24/llm-mem.html" target="_blank">2</a></sup>), the dedicated Vector DB may also need some sharding process too.  As LLM are built in layers and iterations, a slower speed LLM can run each section separately on recycled RAM <sup><a href="https://verdagon.dev/blog/llm-throughput-not-ram-limited" target="_blank">3</a></sup>.   The numbers from the last link exclude many phones, and the process wold flatten the batteries quickly.</p>
 
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Value Prop <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc3">  Value Prop <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Many of the adverts for the Vector specific software state they have very optimised performance compared to a RDB for Vectors at expected usage volumes.   The established DB vendors reviewed, then agreed, and added a new feature, just like they did for GIS index, and queriable XML storage.   Until the dedicated Vector stores have enough maturity to not use HTTP as a inter-process comms mechanism (as its not fast enough), a cautious engineer should test all options carefully when trying to scale.</p>
 
 <p>Having a storage optimised for Vectors in useful for projects and products using vectors.   This should be achievable with additional money if that is important to the project.   Processes with Vectors do consume noticeable amounts of power, whichever strategy is used.   Vectors DB are an extreme version of BASE architecture <sup><a href="https://en.wikipedia.org/wiki/Eventual_consistency" target="_blank">4</a></sup>.</p>
 
 
-<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Testing Vectors <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc4">  Testing Vectors <a href="#toc4" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>An attempt at a comparative test <sup><a href="https://myscale.github.io/benchmark/#/" target="_blank">5</a></sup> <sup><a href="https://scribe.rip/tr-labs-ml-engineering-blog/evaluating-vector-databases-101-5f87a2366bb1" target="_blank">6</a></sup><br />
 <strong>TODO: add more data here</strong></p>
 
@@ -162,14 +162,14 @@ There is a VectorDB bench project for comparing search via VectorDB <sup><a href
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="engineering" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Vector stores for LLM / AI</h1></header>
@@ -177,9 +177,9 @@ There is a VectorDB bench project for comparing search via VectorDB <sup><a href
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -191,22 +191,21 @@ There is a VectorDB bench project for comparing search via VectorDB <sup><a href
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-20T20:32:10" datetime="2026-10-20T20:32:10">Oct '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Intro &amp; theory</a></li>
 <li><a href="#toc1">Query structures</a></li>
 <li><a href="#toc2">Vector store recommendations</a></li>
 <li><a href="#toc3">Value Prop</a></li>
 <li><a href="#toc4">Testing Vectors</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -216,14 +215,16 @@ There is a VectorDB bench project for comparing search via VectorDB <sup><a href
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-10-20T21:34:14" datetime="2026-10-20T21:34:14">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-20T20:32:10" datetime="2026-10-20T20:32:10">Oct '26</time>.  Created date <time title="Page modified on 2024-08-30T00:00:00" datetime="2024-08-30T00:00:00">Aug '24</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:15" datetime="2026-11-01T13:37:15">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2024-08-30T00:00:00" datetime="2024-08-30T00:00:00">Aug '24</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

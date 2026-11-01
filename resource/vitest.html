@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/vitest" />
 <meta property="og:description" content="A review of another JS test framework, called Vitest.  This article outlines a list of useful features and a few issues to know about." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:17" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:26" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/vitest" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Vitest",
-	"article:published_time":"2026-09-27T19:28:17", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:26", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,20 +49,20 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
 <div class="lotsOfWords">
 
-<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Warp-speed Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc0">  Warp-speed Intro <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>Obviously: <a href="https://www.npmjs.com/package/vitest" target="_blank">NPM</a>, <a href="https://github.com/vitest-dev/vitest" target="_blank">git</a>, <a href="https://vitest.dev/" target="_blank">docs</a><br />
 <a href="https://vitest.dev/" target="_blank">Vitest</a> is a test framework that shares features with, and integrates very cleanly with Vite.  Both tools use the newer JS module handling techniques, so do less work than older tools.   This means they run faster, and are probably more stable.  There is quite a few legacy assumptions implicit in older tools that no longer hold true.    People using the Jetbrains suite <sup><a href="https://www.jetbrains.com/help/webstorm/using-webpack.html" target="_blank">1</a></sup> get an integrated experience.  Also there is a VS code extension <sup><a href="https://lo-victoria.com/vitest-blazing-fast-unit-test-framework#heading-vitest-vs-code-extension" target="_blank">2</a></sup>.   <br />
 A few intros, as this is supposed to be the intro <sup><a href="https://vueschool.io/articles/vuejs-tutorials/start-testing-with-vitest-beginners-guide/" target="_blank">3</a></sup> <sup><a href="https://dev.to/songta17/vue-3-with-jest-and-vue-tests-utils-introduction-5h5i" target="_blank">4</a></sup> <sup><a href="https://dev.to/mayashavin/react-component-testing-with-vitest-efficiently-296c" target="_blank">5</a></sup> <sup><a href="https://lo-victoria.com/vitest-blazing-fast-unit-test-framework" target="_blank">6</a></sup>.   From a dev.to blog, I have this chart <sup><a href="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/kfnko5uypqozhi7x8ixd.png?test" target="_blank">7</a></sup>, uploaded as a PNG for some reason.    <br />
 Perpetual prompt: My biggest gain from using Typescript is being able to see what hash/ dictionary names are when creating Options blocks.  In JS they reword or rename things at a fairly high rate, compared to POSIX or HTTP/HTML etc.</p>
 
 
-<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Features/ Use-cases <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc1">  Features/ Use-cases <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>I am motivated to use Vitest as I do not have a time efficient process to put events into a component test similar to <sup><a href="https://blog.logrocket.com/visual-debugging-vitest-preview" target="_blank">8</a></sup> in Storybook.<br />
 The tools docs are quite good and are accessible <sup><a href="https://vitest.dev/guide/features.html" target="_blank">9</a></sup>.   Atypically for a JS tool, Vitest is happy with in-module testing common in Perl, Python and (they advertise) Rust <sup><a href="https://vitest.dev/guide/features.html#in-source-testing" target="_blank">10</a></sup>.   <br />
 Vitest includes a namespace/ module called <i>test</i> <sup><a href="https://vitest.dev/api/#test" target="_blank">11</a></sup> which feels very similar to a TDD test base class in more strict OO centric languages/ frameworks (so <i>todo()</i> and <i>skip()</i> etc).   There is also <i>describe</i> common from BDD and JS test tools <sup><a href="https://vitest.dev/api/#describe" target="_blank">12</a></sup>, which supplies methods for manipulating tests (i.e. <i>concurrent()</i>).   In more strict OO languages, I normally have an extra <i>init()</i> step to setup DB or whatever; in JS test tools this gets called <i>beforeEach()</i> <sup><a href="https://vitest.dev/api/#setup-and-teardown" target="_blank">13</a></sup>.  Features listed in this paragraph are very common and well understood.   To have good integration of Vitest into other tools, access package <i>vitest/node</i> and the bootstrap features <sup><a href="https://vitest.dev/advanced/api.html#createvitest" target="_blank">14</a></sup>.   <br />
@@ -90,7 +90,7 @@ I find this test framework easier to build component tests with, <b>and test</b>
 </ul>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Limitations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc2">  Limitations <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>According to <sup><a href="https://www.sobyte.net/post/2023-02/vitest/" target="_blank">34</a></sup>, Vitest tests can use variables such as _ _dirname/ _ _filename which are not actually in recent versions of Node.  There are some surprising things about filename globbing <sup><a href="https://stackoverflow.com/questions/76179780/vitest-loading-absolute-path-working-for-some-components-but-not-all" target="_blank">35</a></sup> (I have seen awkward bits like this also).<br />
 Vitest is a well designed tool, I can not find many things to put on this list.</p>
 
@@ -113,14 +113,14 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="testing" title="Use the first link to get the complete range of the group." > <p>Some similar articles in testing </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="testing" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in testing </p>
 <div id="grouptesting" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=testing" aria-label="This article lists all items in testing group.">All of <br />testing<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Vitest: a JS framework</h1></header>
@@ -128,9 +128,9 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -142,20 +142,19 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Warp-speed Intro</a></li>
 <li><a href="#toc1">Features/ Use-cases</a></li>
 <li><a href="#toc2">Limitations</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -165,14 +164,16 @@ Vitest is a well designed tool, I can not find many things to put on this list.<
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:17" datetime="2026-09-27T19:28:17">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2023-11-04T00:00:00" datetime="2023-11-04T00:00:00">Nov '23</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:26" datetime="2026-11-01T13:37:26">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2023-11-04T00:00:00" datetime="2023-11-04T00:00:00">Nov '23</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

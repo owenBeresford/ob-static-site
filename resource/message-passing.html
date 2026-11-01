@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/message-passing" />
 <meta property="og:description" content="Libraries and protocols to pass information between processes: Message brokers, message queues, event buses. Lists metrics to improve selection." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:12" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:20" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/message-passing" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "MB, MQ, AMPQ etc",
-	"article:published_time":"2026-09-27T19:28:12", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:20", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -57,7 +57,7 @@ TODO: magic tune selection against some index/DB -->
 <p>An article for the boring category.  I lead with the terminology as RabbitMQ gets called a MessageBroker these days and implements AMPQ, even though the name contains MessageQueue.   As the terminology in common use is badly factored, I add examples of usage, with aim for clarity.   As a developer I use each of these ~ when they are the best solution ~ rather than just reaching for a brand label.</p>
 
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Architectures <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  Architectures <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 
 </div>
 <div class="quiteWide">
@@ -111,7 +111,7 @@ The most important feature of the comms mechanism should select your mechanism u
 Redis seems to be an entry in every data centric article I have written recently <sup><a href="https://stackoverflow.com/questions/23307864/redis-pubsub-vs-blocking-operations" target="_blank">2</a></sup>.  So having a Redis node may save money as a large number of other tools can be deprecated to Redis.</p>
 
 
-<h5 id="toc1"> Comparison Metrics</h5>
+<h5 id="toc1">  Comparison Metrics <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <ul class="ulbasic">
     <li>scale of transactions/ time</li>
     <li>security capacity</li>
@@ -124,7 +124,7 @@ Redis seems to be an entry in every data centric article I have written recently
 </ul>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Software products <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc2">  Software products <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li><b><a href="https://redis.io/" target="_blank">Redis</a></b> licence is complicated <sup><a href="https://github.com/RedisLabsModules/licenses/blob/master/REDIS-SOURCE-AVAILABLE-LICENSE.txt" target="_blank">3</a></sup>, Redis <a href="https://github.com/orgs/RedisLabsModules/repositories?type=all&amp;amp;q=redis" target="_blank">git</a>, extensions by same team <a href="https://github.com/RedisLabsModules/redex" target="_blank">git</a>.   Redis can be used as a MessageQueue <sup><a href="https://dev.to/chanh_le/setting-up-redis-as-a-message-queue-a-step-by-step-guide-5gj0" target="_blank">4</a></sup>  ✔ Active community.</li>
     <li><b><a href="https://kafka.apache.org/" target="_blank">Kafka</a></b> <a href="https://github.com/apache/kafka" target="_blank">git</a>  <sup><a href="https://www.pluralsight.com/resources/blog/ai-and-data/what-is-apache-kafka" target="_blank">5</a></sup> project initially started by Linkedin <sup><a href="https://estafet.com/simple-guide-to-message-brokers/" target="_blank">6</a></sup> [apache]   ✔ Active community.</li>
@@ -144,7 +144,7 @@ Redis seems to be an entry in every data centric article I have written recently
 <aside class="pulloutWidget">
 <div class="g1 pullout3">
 
-<h4 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Web History <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc3">  Web History <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>In terms of “time on the internet”, a generation is ~3 Y, so 35 Y is roughly equivalent to 1700s in <em>human time</em>.  At the start of the 90s and late 80s a majority of <em>web sites</em> were run by university departments.   This was a research project on information spaces.  There was no HTTPS, no e-commerce, little-to-no JS and UX wasn't really a discipline yet as “the web” was too small.   The University depts liked the idea of non-commercial software, and tended towards a Unix (with 32bits) as win3.1 is not a <em>server OS</em>.   As part of information space research, a project called Apache was popular.   The name is a corruption of “a patchy server”, due to its creation by students emailing the project owner with code patches in patch format.   Most code sharing and management tools hadn't been invented as there was no scale for code sharing yet.<br />
 Since that date, <strong>Apache has become a foundation</strong> and has respectability for “internet things”.   The foundation has become an organisation that looks after server-side software.  Many of the tools in this list started as a RnD project at a large corporation, then migrated to Apache.  The web is not the internet, but many people confabulate the terms.</p>
 
@@ -155,14 +155,14 @@ Since that date, <strong>Apache has become a foundation</strong> and has respect
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="research" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="research" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in research </p>
 <div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Message brokers etc.</h1></header>
@@ -170,9 +170,9 @@ Since that date, <strong>Apache has become a foundation</strong> and has respect
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -184,20 +184,19 @@ Since that date, <strong>Apache has become a foundation</strong> and has respect
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Architectures</a></li>
 <li><a href="#toc1">Software products</a></li>
 <li><a href="#toc2">Web History</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -207,14 +206,16 @@ Since that date, <strong>Apache has become a foundation</strong> and has respect
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>   <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:12" datetime="2026-09-27T19:28:12">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2024-10-05T00:00:00" datetime="2024-10-05T00:00:00">Oct '24</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:20" datetime="2026-11-01T13:37:20">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2024-10-05T00:00:00" datetime="2024-10-05T00:00:00">Oct '24</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

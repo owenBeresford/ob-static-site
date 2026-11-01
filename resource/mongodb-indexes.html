@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/mongodb-indexes" />
 <meta property="og:description" content="A utility article focusing on indexes in MongoDB and how indexes affects your Mongo search." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:12" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:20" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/mongodb-indexes" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "MongoDB indexes",
-	"article:published_time":"2026-09-27T19:28:12", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:20", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,13 +49,13 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
 <div class="halferWords">
 
-<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc0">  Context  <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>With most databases, to have correct indexes is essential for reasonable performance.  There are more complications when you move to a multi-host model which is common in larger MongoDB installations.  If you have an RDB and you have replication, it is simpler as there is ACID consistency <sup><a href="https://en.wikipedia.org/wiki/ACID" target="_blank">1</a></sup>.  NoSQL architectures offer no such securities, to better support datasets that require an address space/ key space <sup><a href="https://en.wikipedia.org/wiki/Keyspace_%28distributed_data_store%29" target="_blank">2</a></sup> larger than any actual computer has.</p>
 
 <p>The MongoDB v5 shell supports: <i>createIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/createIndexes/" target="_blank">3</a></sup> and <i>dropIndexes()</i> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/command/dropIndexes/" target="_blank">4</a></sup>.  Note this version removes <i>ensureIndex()</i>.   Either of these commands can be run on the DB or the collection levels.  It is strongly not advisable to run either of these commands whilst the DB is in operational service, as changing indexes will lock the DB for while.   With practical observation, if a collection has less than a million documents and is completely hosted on a single server; the outage is a few seconds.  Compare this to your required uptime metrics.  Indexes created and used by Mongo do not normally use a auto-increment algorithm (like Postgres or MySQL uses), as sharded systems wouldn't know the largest previous value.  The official notes for auto-increment <sup><a href="https://www.mongodb.com/basics/mongodb-auto-increment" target="_blank">5</a></sup>.</p>
@@ -68,7 +68,7 @@ As a defensive coding warning; it is advisable to add sanity checking for manipu
 The best optimisation is more RAM, a faster disk, or sometimes adjusting how the data is written to the disk is a good idea, but far too specific for a webpage; this is true of all databases.  All the indexes that I have seen details for are a standard B* tree, just like modern filesystems.   Anything involving selection against timestamps, or ranges of timestamps benefits from an <em>sort() -ed</em> index <sup><a href="https://www.mongodb.com/docs/manual/tutorial/optimize-query-performance-with-indexes-and-projections/" target="_blank">16</a></sup>.  I have used ISODate() attributes previously, so I had access to the Date methods; in BSON, Dates are stored as a number, with a type of 'Date'.   In some situations, <em>hint()</em> will manually optimise a <em>find()</em> <sup><a href="https://www.mongodb.com/docs/v5.0/reference/method/cursor.hint/#mongodb-method-cursor.hint" target="_blank">17</a></sup> where there are multiple index options that could be used.  In some situations, you may want a <em>tailable cursor</em> <sup><a href="https://www.mongodb.com/docs/v5.0/core/tailable-cursors/" target="_blank">18</a></sup>, rather than a Resultset; these happen when you run find() on a Capped collection; and have search terms that return a population of results.   For any complex operations, and definitely for aggregates, knowledge of how to use '$' and '.' is essential <sup><a href="https://www.mongodb.com/docs/v5.0/core/dot-dollar-considerations/" target="_blank">19</a></sup>.  Some generic performance tricks <sup><a href="https://www.mongodb.com/basics/best-practices" target="_blank">20</a></sup>; but firstly use <em>explain()</em> to see if the data volumes and indexes can be optimised for a given business need <sup><a href="https://www.mongodb.com/docs/manual/reference/command/explain/" target="_blank">21</a></sup>.</p>
 
 
-<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Flavours of index  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc1">  Flavours of index  <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>MongoDB v5 supports the following types of index:</p>
 
 <ul class="ulbasic">
@@ -91,14 +91,14 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="engineering" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>MongoDB indexes</h1></header>
@@ -106,9 +106,9 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -120,19 +120,18 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Context</a></li>
 <li><a href="#toc1">Flavours of index</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -142,14 +141,16 @@ The best optimisation is more RAM, a faster disk, or sometimes adjusting how the
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:12" datetime="2026-09-27T19:28:12">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2023-01-20T00:00:00" datetime="2023-01-20T00:00:00">Jan '23</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:20" datetime="2026-11-01T13:37:20">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2023-01-20T00:00:00" datetime="2023-01-20T00:00:00">Jan '23</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

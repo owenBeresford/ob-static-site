@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/java-toolkit" />
 <meta property="og:description" content="What is the best toolchain for development in Java in July 2024? A look at today's Java as an IT development language target, along with a list of useful tools to go with it.   This article is part of a series for recent tooling for languages." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:11" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:19" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/java-toolkit" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Java toolkit.",
-	"article:published_time":"2026-09-27T19:28:11", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:19", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addBashSamples addReferences">
@@ -57,7 +57,7 @@ TODO: magic tune selection against some index/DB -->
 <p>This is a part of a quick range of “preferred tools” articles, setting up server-side languages.   It will need to be updated every 2-3 years.    #boring I'm starting to think I should add a snoring backtrack to these pages.   I do not have a “project starter” project / scripts for Java.   So notes are here, as plan B...</p>
 
 
-<h5 id="toc0"> Language target</h5>
+<h5 id="toc0">  Language target <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <p>Java is more of an open spec than other languages, there are many implementations of the JVM <sup><a href="https://en.wikipedia.org/wiki/List_of_Java_virtual_machines" target="_blank">1</a></sup>.  A discussion of Java history <sup><a href="https://tomgregory.com/gradle/which-jdk-version-and-vendor/" target="_blank">2</a></sup> <sup><a href="https://incusdata.com/blog/which-java-jdk-should-you-use" target="_blank">3</a></sup> <sup><a href="https://foojay.io/today/fantastic-jvms-and-where-to-find-them/" target="_blank">4</a></sup>.  In my personal experience avoid the RHEL Java and the Oracle Java as the licence terms make doing business more hard.   It is part of the language contract that a Java byte code file should be runnable on the vast majority of JVM / runtimes without any extra effort.  The edge case in some cases is that smaller editions may lack some libraries.<br />
 Java as a language has been in existence sine the early 90s.   The first version was called Oak, made by Sun microsystems.   Typically, there are standard editions <sup><a href="https://en.wikipedia.org/wiki/Java_Platform,_Standard_Edition" target="_blank">5</a></sup> for servers, the phone editions <sup><a href="https://en.wikipedia.org/wiki/Comparison_of_Java_and_Android_API" target="_blank">6</a></sup>, and some micro editions <sup><a href="https://en.wikipedia.org/wiki/Java_Platform,_Micro_Edition" target="_blank">7</a></sup> <sup><a href="https://en.wikipedia.org/wiki/Java_Card" target="_blank">8</a></sup> for smaller devices like DVD players.   For current server use <sup><a href="https://en.wikipedia.org/wiki/Java_version_history" target="_blank">9</a></sup>, something around “Java SE 19” for server-side work (most servers lag two years behind bleeding edge release in my experience). <br />
 Actual computer magazines are recommending installing random binaries from the internet, rather than a vetted edition <sup><a href="https://www.linode.com/docs/guides/how-to-install-openjdk-ubuntu-22-04/" target="_blank">10</a></sup>.   As many people use Java whilst learning programming, there is a lot of low grade notes on the internet.   There is no clear trend for “best compiler”, many people say use “javac”, and just assume you have JRE installed.   The normal Java run-times use a JIT translator to the local ASM instructions (avoiding the use of 'compiler' in this second step for clarity).  Many people claim this is also a good optimiser <sup><a href="https://www.infoworld.com/article/2077647/make-java-fast-optimize.html" target="_blank">11</a></sup> <sup><a href="https://scribe.rip/@sakshee_agrawal/understanding-just-in-time-jit-compilation-in-java-ae2a6b9fa931" target="_blank">12</a></sup> <sup><a href="https://scribe.rip/@sakshee_agrawal/understanding-just-in-time-jit-compilation-in-java-ae2a6b9fa931" target="_blank">13</a></sup>.   Some useful but tangential notes on Java JIT <sup><a href="https://dev.to/yousef_zook/java-performance-4-working-with-the-jit-compiler-1ak4" target="_blank">14</a></sup>.   For low powered phones, it is recommended to optimise the code statically, and practical way to do that is Proguard <sup><a href="https://www.guardsquare.com/proguard" target="_blank">15</a></sup>.<br />
@@ -66,7 +66,7 @@ My current Ubuntu machine has Java v21, apparently by default (the OpenJDK versi
 </p>
 
 
-<h5 id="toc1"> Tools</h5>
+<h5 id="toc1">  Tools <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <ul class="ulbasic">
     <li>An IDE: many TogetherJ, Eclipse, Netbeans, IntelliJ, Sublime or VScode. ..Probably more..  Get packages from your standard OS package manager.<ul class="ulbasic">
         <li>Add IDE plugins...</li>
@@ -87,14 +87,14 @@ My current Ubuntu machine has Java v21, apparently by default (the OpenJDK versi
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="worklog" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in worklog </p>
 <div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Java toolkit.</h1></header>
@@ -102,9 +102,9 @@ My current Ubuntu machine has Java v21, apparently by default (the OpenJDK versi
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -116,13 +116,12 @@ My current Ubuntu machine has Java v21, apparently by default (the OpenJDK versi
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
-
 
 		
 	</div>
@@ -133,14 +132,16 @@ My current Ubuntu machine has Java v21, apparently by default (the OpenJDK versi
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:11" datetime="2026-09-27T19:28:11">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2024-06-28T00:00:00" datetime="2024-06-28T00:00:00">Jun '24</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:19" datetime="2026-11-01T13:37:19">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2024-06-28T00:00:00" datetime="2024-06-28T00:00:00">Jun '24</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

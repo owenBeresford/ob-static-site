@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/webcomponent-maquette" />
 <meta property="og:description" content="A demo / maquette for a browser feature "web components".  A discussion of context to build it, and accessibility ideas, which are often absent from React." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-29T18:33:09" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:26" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/webcomponent-maquette" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "WebComponent.mjs",
-	"article:published_time":"2026-09-29T18:33:09", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:26", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker popOverWidget">
@@ -81,7 +81,7 @@ TODO: magic tune selection against some index/DB -->
 <div>
 <details class="singlePopup withScroll" style="display:block;">
 <summary>
-<h4 id="toc0">Webcomponent API </h4>
+<h4 id="toc0"> Webcomponent API  <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 </summary>
 <p> Building this was annoying as I can't find a single single doc that shows all the API points for a WebComponent.   All the blogs just mention 3 functions and use words like "complete", "ultimate", "whole lifecycle".   I could read the webrowser source, but that will be a slow process.   Most of the below functions are used in this demo.  To-date, I do not have a use-case for migrating DOM nodes between Documents. </p> 
 <code lang="javascript" class="highlight" style="margin-left:3em;">
@@ -118,7 +118,7 @@ Node.getRootNode(options)
 </details>
 <details class="singlePopup withScroll docs">
 <summary>
-<h4 id="toc1">Technical Notes </h4>
+<h4 id="toc1"> Technical Notes  <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 </summary>
 <p>I do not expect to learn very much here for JS.   But knowing what breaks ahead of trying it in a sprint is a good idea.   I will aim to keep all the code in this file if it is still readable.   This is just a demo of the Webcomponent API, not intended a reusable component by itself.  I like this <a href="https://mdn.github.io/web-components-examples/" target="_blank">list of examples</a>.</p>
 
@@ -140,13 +140,13 @@ If the technique shown here was used at scale, it would lead to smaller SPA.  Th
 </ul>
 
 
-<h5 id="toc0"> V1.2</h5>
+<h5 id="toc0">  V1.2 <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <p>I have added an event handler for motion events.  As this demo will be accessible on a HTTPS website, it will execute. <br />
 The transition CSS will only execute in Chrome family when there is a focus on the element (logical when you think about the words used).  This is more complex than normal due to the sub-document.<br />
 I think I should write v1.3 with plain CSS animation, rather than a transition.</p>
 
 
-<h5 id="toc1"> Existing work.</h5>
+<h5 id="toc1">  Existing work. <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <p>I normally do a trawl of NPMJS to see what exists already with tests.  This maquette is a browser feature, this may be less useful in this case.  However:</p>
 
 <ul class="ulbasic">
@@ -160,7 +160,7 @@ I think I should write v1.3 with plain CSS animation, rather than a transition.<
 UPDATE: The version 1.2 doesn't execute on Safari.  I will have a new version soon.</p>
 
 
-<h5 id="toc2"> Reflection</h5>
+<h5 id="toc2">  Reflection <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <ul class="ulbasic">
     <li>Given that I convert the string of HTML to a HTMLIsland of HTML via a TEMPLATE element, I am not sure of the value of this demo.   Using the TEMPLATE is much more concise than issuing DOM calls to set each HTML attribute as a JS instruction.  </li>
     <li>It would be good if I made the CSS more tidy.   For reusable code, I would add its own namespace ~ [now added].</li>
@@ -178,16 +178,16 @@ UPDATE: The version 1.2 doesn't execute on Safari.  I will have a new version so
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="worklog, uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="worklog, uitools" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in worklog </p>
 <div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in uitools </p>
 <div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Web Component Maquette</h1></header>
@@ -195,9 +195,9 @@ UPDATE: The version 1.2 doesn't execute on Safari.  I will have a new version so
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -209,19 +209,18 @@ UPDATE: The version 1.2 doesn't execute on Safari.  I will have a new version so
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-28T16:53:11" datetime="2026-09-28T16:53:11">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Webcomponent API</a></li>
 <li><a href="#toc1">Technical Notes</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -231,14 +230,16 @@ UPDATE: The version 1.2 doesn't execute on Safari.  I will have a new version so
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-29T18:33:09" datetime="2026-09-29T18:33:09">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-28T16:53:11" datetime="2026-09-28T16:53:11">Sep '26</time>.  Created date <time title="Page modified on 2024-11-16T00:00:00" datetime="2024-11-16T00:00:00">Nov '24</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:26" datetime="2026-11-01T13:37:26">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2024-11-16T00:00:00" datetime="2024-11-16T00:00:00">Nov '24</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <script type="module" >

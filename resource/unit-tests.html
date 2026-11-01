@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/unit-tests" />
 <meta property="og:description" content="Following my talk on low level testing at PHPhants, requirements and a list of "whys", as to why use low level testing structures." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:17" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:26" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/unit-tests" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Low-level Unit tests",
-	"article:published_time":"2026-09-27T19:28:17", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:26", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -60,7 +60,7 @@ TODO: magic tune selection against some index/DB -->
 Many people encourage writing unit-tests before the code deliverable.  A very clear benefit for doing this for more complex code is that if you can't write tests for what you intend to do, it will be very hard to write it (try to simplify the design).   Secondly as tests are supposed to be “simple code” so they themselves do not contain errors, this allows you to check your understanding on the goal, and the boundary limits.   If Maths is described as 'building crystal castles in the air', one of the responsibilities for engineering is building a process to get crystals in bulk high into the atmosphere without breaking them.</p>
 
 
-<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Unit-test tools <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc0">  Unit-test tools <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>In good PHP codebases, you are likely to be using DI, as its easier to manage a project.  It makes testing a lot easier, as you can inject static stubs.  For current practice (i.e. using <a href="https://packagist.org/packages/pimple/pimple" target="_blank">Pimple</a> and <a href="https://getcomposer.org/" target="_blank">composer</a>), I make <i>some tests</i> (but not all) using the DI and the config file (e.g. <a href="https://symfony.com/doc/current/book/service_container.html" target="_blank">services.yml in Symfony</a>) which allows you to <i>test the config file</i>.  To repeat, for most tests, having isolated unit tests encourages stability and test speed. <br />
 There are measures about isolation <sup><a href="https://nabla-containers.github.io/2018/08/03/metrics/" target="_blank">1</a></sup>, or talking about why <sup><a href="https://circleci.com/blog/benefits-of-testing-in-isolation/#" target="_blank">2</a></sup>, and use of frameworks.  If you are writing inside a good OO framework, you will find it hard to be completely isolated.  Assuming the framework is well maintained, using small bits of the framework should a manageable risk.  Generally you want to avoid using non-maintained frameworks.  For expanding projects, there should be an expanding test population.  This means you are likely to be duplicating things in your tests.  Refactoring at this point is valuable, for general code hygiene.  This follows normal code practice.   <br />
 If your objects emit primitives (e.g. ints, strings in some languages but not in others), it is easier to test. This is considered poor OO by many OO people <sup><a href="https://softwareengineering.stackexchange.com/questions/194739/why-do-some-of-object-oriented-languages-let-programmer-use-primitive-types" target="_blank">3</a></sup> <sup><a href="https://stackoverflow.com/questions/5199359/why-do-people-still-use-primitive-types-in-java" target="_blank">4</a></sup> <sup><a href="https://stackoverflow.com/questions/2509025/when-to-use-primitive-and-when-reference-types-in-java" target="_blank">5</a></sup>.  There are reasons for both positions.  Ensuring that types are objects is easier to manage in PHP, due to limitations in the interpreter <sup><a href="https://php.net/manual/en/language.oop5.typehinting.php" target="_blank">6</a></sup>.  It is easier to extend functionality when using objects than primitives.  <b>EDIT:</b> Obviously the use of PHP7+ allows more type hinting capacity, and return type hinting; and is encouraged.<br />
@@ -68,7 +68,7 @@ Short OO code uses exceptions, as it reduces the code volume needed.  People fro
 I think the best balance on technology is to have dense tests, that is to have a high number of assertions per method.   It is obviously good practice to only have one unit (e.g. a method call) per test, but this made need may several assertions.   If you have a function that returns an array, you should check that the call result is an array, it has content, and hopefully the content is as expected. If the call has any exceptions that is at last one more. The array content step may not be possible, but in total that is at least three assertions.  A very factored code base will be describable with less assertions per method, as the methods will be doing less each.   But will need more methods and more unit test object for each.  This trend leads to functional programming.  The amount of factoring depends on available time budget, and complexity of the problem space.  My first approach to working out what methods are necessary is to do traditional object and responsibility mappings.  Method calls should be seen as messages to the object.</p>
 
 
-<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > TDD notes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc1">  TDD notes <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>Practically, if you want to TDD, the most important feature of low-level unit tests is that they are fast.  You are supposed to run these quite often, and waiting for more than 30s will kill this idea.  You can run unit tests whilst still writing the code, as long as you manage writing files correctly.  This is still more cognitively difficult, unless you are writing slowly.  There are a number of other people who have done talks or written on this subject.  I mention <a href="https://twitter.com/everset" target="_blank">@everset</a>, due to the work he did on Behat (try <a href="https://github.com/Behat/Behat" target="_blank">git</a>, I can't find the presentation notes from Feb 2015 that he did on high speed tests, but where the tests not being parallel).   Unit-tests should be simple code, with a high level of isolation to make them more reliable.  Isolation in terms of other libraries, for example, the ORM.  It is good to hardcode things in unit tests <sup><a href="https://symfony.com/doc/2.8/best_practices/tests.html" target="_blank">10</a></sup> <sup><a href="https://developer.salesforce.com/page/How_to_Write_Good_Unit_Tests" target="_blank">11</a></sup> <sup><a href="https://softwareengineering.stackexchange.com/questions/126652/should-unit-test-expected-results-be-hardcoded" target="_blank">12</a></sup>, as this makes them smaller and faster.  Avoiding code duplication is valuable, as it makes them faster to refactor.   Those statements are deduceable, and engineering; so I haven't found a reference.   <br />
 When I'm writing code properly, I use alot of optional configuration.  This means the code is easier to reuse.  It should be optional with a sensible default (via the config class, preferably). Reading the config file should tell you everything the class does ~ as the config is editable, it should be annotated/documented.  The logical state space should be tested for the object.  This will need to be injected from the Config.  This can normally be assembled quickly, as Config classes either Mock or can be given test data to load (a fixture).  This is fast to test.  Some people prefer to keep the code simpler by just generating many minimal objects (and no config).  This means that everyone using the code has to be a developer.   The person using the code writes Factory that chooses to import the desired library class.  If you are doing <a href="https://en.wikipedia.org/wiki/Design_by_contract" target="_blank">design-by-contract style development</a> this means you need to write many tests to demonstrate that the contract is complied to. <br />
 Some developers use lots of Mock objects.  There are a couple of different PHP Mock libraries.  For example <sup><a href="https://docs.mockery.io/en/latest/" target="_blank">13</a></sup> <sup><a href="https://github.com/sebastianbergmann/phpunit-mock-objects" target="_blank">14</a></sup> <sup><a href="https://bestofphp.com/repo/mlively-Phake-php-testing" target="_blank">15</a></sup>.  With newer versions of PHP, Mocks will generate a child class of the Mocked class; so <i>should</i> work with all the type hinting on params.  There are a couple of things to think about when choosing a Mock library.   The developers time it take to build the Mock object; and the execution time, if you want to run these tests really frequently (remember Mock Factories returning Mock Services, and therefore Mock Entities is a long chain of fake code).  For quite a lot of the code that I write, the class that I would be mocking is a system class from the platform/ framework.  I am not sure the value in mocking these; as they already exist, and are asserted to be correct.  <br />
@@ -79,14 +79,14 @@ Business level people are more interested in API tests than unit tests. They see
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="testing" title="Use the first link to get the complete range of the group." > <p>Some similar articles in testing </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="testing" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in testing </p>
 <div id="grouptesting" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=testing" aria-label="This article lists all items in testing group.">All of <br />testing<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Low-Level Unit Tests</h1></header>
@@ -94,9 +94,9 @@ Business level people are more interested in API tests than unit tests. They see
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -108,19 +108,18 @@ Business level people are more interested in API tests than unit tests. They see
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Unit-test tools</a></li>
 <li><a href="#toc1">TDD notes</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -130,14 +129,16 @@ Business level people are more interested in API tests than unit tests. They see
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:17" datetime="2026-09-27T19:28:17">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2015-04-11T00:00:00" datetime="2015-04-11T00:00:00">Apr '15</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:26" datetime="2026-11-01T13:37:26">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2015-04-11T00:00:00" datetime="2015-04-11T00:00:00">Apr '15</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

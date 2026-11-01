@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/golang-notes" />
 <meta property="og:description" content="Over 30 quick fixes are listed that I needed to find out, pulled out from blogs in a hurry for Golang buildchain." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:09" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:18" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/golang-notes" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits.   Progressive + uplifting tone.  I do not own the rights or anything. 
@@ -37,8 +37,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Golang binary",
-	"article:published_time":"2026-09-27T19:28:09", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:18", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -50,7 +50,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences addBashSamples">
@@ -62,7 +62,7 @@ I do not know if it is considered better in prose to write “golang” or “go
 Before I started using Golang; I was focussing on “how to type in this language”.  When I started the project I suddenly realised I need to manage the build chain.   Referencing C++ with UTF-8 and POSIX &amp; win32 API; If I add a thread library to that problem spec; this is the sweet spot for Golang.</p>
 
 
-<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > How to manage Golang projects  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc0">  How to manage Golang projects  <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <ul class="ulbasic">
     <li>For Ubuntu/Debian people, the OS doesn't prioritise new releases of Golang; but if you use <sup><a href="https://launchpad.net/%7Elongsleep/+archive/ubuntu/golang-backports" target="_blank">1</a></sup> <sup><a href="https://askubuntu.com/questions/513/any-ppas-for-googles-go-language" target="_blank">2</a></sup> you can use go1.16 and a package manager.  Do not follow any of the tonnes of webpages saying “download tarball now”, its not the 1980s.</li>
     <li>As a general note, `go help X` will detail all options for X; like a poly-platform man page <sup><a href="https://golang.org/cmd/go/" target="_blank">3</a></sup>.  The blog articles omit this point.</li>
@@ -128,7 +128,7 @@ Before I started using Golang; I was focussing on “how to type in this languag
 </ul>
 
 
-<h3 class="dontend" id="toc1"> Preferred Source tree referencing <sup><a href="https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md" target="_blank">34</a></sup></h3>
+<h3 id="toc1"> Preferred Source tree referencing <sup><a href="https://github.com/go-modules-by-example/index/blob/master/009_submodules/README.md" target="_blank">34</a></sup></h3>
 <ul class="ulbasic">
     <li>situation: I have business objectives to make a small app; I have half of the features in existing libraries.  I do not wish to upload non-compilable half typed code to git; but I need to do test builds.</li>
     <li>solution: I start a new project dir; I create sub modules/ directories as seems appropriate; in the very small sub module that holds main(), I create a vendor with `go mod vendor`; I create a symlink from the current project root dir to a new same name directory symlink in the system lib dir. </li>
@@ -148,14 +148,14 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="research" title="Use the first link to get the complete range of the group." > <p>Some similar articles in research </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="research" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in research </p>
 <div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles</a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class="row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth" >
 					<header><h1>How to make a Golang binary</h1></header>
@@ -163,9 +163,9 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 				</div>
 			</div>
 
-    	<div class="bigScreenOnly column linksWidget" role="navigation">
-			<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+    	<div class="column linksWidget" role="navigation">
+			<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -177,18 +177,18 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
 			</menu>
 			</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 	
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">How to manage Golang projects</a></li>
 <li><a href="#toc1">Preferred Source tree referencing</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 		</div>
 		<!-- /div -->
@@ -198,15 +198,17 @@ Go test: <sup><a href="https://github.com/jaswdr/faker/tree/master" target="_bla
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 	   <p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:09" datetime="2026-09-27T19:28:09">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2021-05-31T00:00:00" datetime="2021-05-31T00:00:00">May '21</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:18" datetime="2026-11-01T13:37:18">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2021-05-31T00:00:00" datetime="2021-05-31T00:00:00">May '21</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 		</div>
+	</nav>	
 </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <link rel="stylesheet" href="/asset/hljs.min.css" />
