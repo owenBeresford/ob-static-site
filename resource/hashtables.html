@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/hashtables" />
 <meta property="og:description" content="Some notes about and what are hash tables? Discussion on those and historical requirements." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:10" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:18" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/hashtables" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits.   Progressive + uplifting tone.  I do not own the rights or anything. 
@@ -37,8 +37,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Hashtables",
-	"article:published_time":"2026-09-27T19:28:10", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:18", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -50,7 +50,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -58,7 +58,7 @@ TODO: magic tune selection against some index/DB -->
 <p>This is an article for a meeting.  I am primarily putting this up to be able to display the images.  This is necessary, as to draw a tidy diagram with readable handwriting will take longer than I am supposed to spend during the contact time.</p>
 
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > What are hash tables? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  What are hash tables? <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Hash_table_5_0_1_1_1_1_0_SP.svg/1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" alt="1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" /></p>
 
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Hash_table_5_0_1_1_1_1_0_SP.svg/1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" alt="1000px-Hash_table_5_0_1_1_1_1_0_SP.svg.png" /><br />
@@ -83,14 +83,14 @@ First variant: O( X + Y ) degrading to O( X + nY )</p>
 </ul>
 
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Historical requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc1">  Historical requirements <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>When hashes where being designed as an algorithm, computers where much slower.  Secondly storage media on large amounts of data was considerably slower than it is currently.   Tricks to avoid any type of sequential search where considered valuable.  The algorithm was designed <sup><a href="https://www.perl.com/pub/2002/10/01/hashes.html" target="_blank">1</a></sup> in the early 1950s, before computers reliably had harddisks.<br />
 The basic idea of “do a extra step of computation” which would be a fixed cost, to void any other lookup overheads was appealing. There are a lot of possible algorithms to make a hash, some are outlined <sup><a href="http://www.cs.princeton.edu/courses/archive/spr10/cos226/lectures/10-34HashTables-2x2.pdf" target="_blank">2</a></sup>.</p>
 
 <p>These days, expensive machines could just use a flat address space of 2^32 (signed) offsets, and an array.  Which is faster and simpler to compute.</p>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > References <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc2">  References <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>I pulled up some references as I only have 10m to talk about this.  These articles are longer and more detailed.</p>
 
 <ul class="ulbasic">
@@ -105,7 +105,7 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 </ul>
 
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Some common implementations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc3">  Some common implementations <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <ul class="ulbasic">
     <li>Python has dictionaries, see <a href="https://github.com/python/cpython/blob/main/Objects/dictobject.c" target="_blank">src</a></li>
     <li>Perl has hashes, see a relevant file inside <a href="https://github.com/Perl/perl5" target="_blank">src</a> couldn't find a readable source inside reasonable time.</li>
@@ -118,14 +118,14 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="worklog" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="worklog" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in worklog </p>
 <div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles</a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class="row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth" >
 					<header><h1>Hash table notes</h1></header>
@@ -133,9 +133,9 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 				</div>
 			</div>
 
-    	<div class="bigScreenOnly column linksWidget" role="navigation">
-			<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+    	<div class="column linksWidget" role="navigation">
+			<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -147,20 +147,20 @@ The basic idea of “do a extra step of computation” which would be a fixed co
 			</menu>
 			</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 	
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">What are hash tables?</a></li>
 <li><a href="#toc1">Historical requirements</a></li>
 <li><a href="#toc2">References</a></li>
 <li><a href="#toc3">Some common implementations</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 		</div>
 		<!-- /div -->
@@ -170,15 +170,17 @@ The basic idea of “do a extra step of computation” which would be a fixed co
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 	   <p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a>   <a href="#pageMenu">Jump to menu</a>
 
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:10" datetime="2026-09-27T19:28:10">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2015-03-03T00:00:00" datetime="2015-03-03T00:00:00"><strong> &gt;7 Years ago</strong></time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:18" datetime="2026-11-01T13:37:18">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2015-03-03T00:00:00" datetime="2015-03-03T00:00:00"><strong> &gt;7 Years ago</strong></time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 		</div>
+	</nav>	
 </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

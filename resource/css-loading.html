@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/css-loading" />
 <meta property="og:description" content="Notes on options for splitting CSS up away from minified monolith assets, a discussion on the features." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:08" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:16" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/css-loading" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "More media tricks for CSS",
-	"article:published_time":"2026-09-27T19:28:08", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:16", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,18 +49,18 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
 <div class="fewWords">
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." >Intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0"> Intro <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>As most sites are using big CSS frameworks the amount of CSS downloaded is increasing.  Secondly as phone resolutions (and fixed media pixel density is also increasing) are increasing, old screen detection methods will fail.  It is convenient to be able to split the CSS blobs, so a mobile doesn't download desktop or tablet CSS.  Alternatively if you have no care about download volumes, this can also be used to have a mobile brand pack separate to a tablet brand pack or a big-screen brand pack. <br />
 I'm writing this as I have been using webpack to manage CSS namespacing too much recently.</p>
 
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." >Discussion  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc1"> Discussion  <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Please note that using media rules to change which CSS is active is abit over-engineered; as a better system is to use a flex-grid, as described <sup><a href="https://css-tricks.com/look-ma-no-media-queries-responsive-layouts-using-css-grid/" target="_blank">1</a></sup>. For any type of fluid design, this is likely to be better.   I frequently achieve this using Foundation CSS (other CSS frameworks should also work).   For changes that change content, media queries are still needed.<br />
 For supporting browsers, just using CSS <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@import" target="_blank">2</a></sup>, I could download an extra CSS file after I have detected the current screen size and orientation in CSS.  Probably; the first batch of CSS is statically present in the HTML file, so there is less iteration on parse more -&gt; download more; so the delay time to first user interaction is reduced (discussed here <sup><a href="https://thecontentworks.uk/css-import/" target="_blank">3</a></sup>, but avoiding download queues is important for page render speed).   Things that aren't likely to change often like <i>“prefers-reduce-data”</i> or <i>“dynamic-range”</i> Feature support is good <sup><a href="https://caniuse.com/?search=%40import" target="_blank">4</a></sup>.   This approach is managed using media queries.   For CSS to manage the users chosen means of access (mouse, keyboard, haptic etc), <i>media (hover:hover)</i> and related items <sup><a href="https://drafts.csswg.org/mediaqueries/#pointer" target="_blank">5</a></sup> seems smart <sup><a href="https://stackoverflow.com/a/45820289/2375161" target="_blank">6</a></sup> <sup><a href="https://ferie.scribe.rip/detect-a-touch-device-with-only-css-9f8e30fa1134" target="_blank">7</a></sup>.  Support for this last item is quite good <sup><a href="https://caniuse.com/?search=%2540media%20pointer" target="_blank">8</a></sup>.  Note that getting this correct is abit tricky, if you support a wide number of devices <sup><a href="https://css-tricks.com/interaction-media-features-and-their-potential-for-incorrect-assumptions/" target="_blank">9</a></sup>.<br />
 If your only need is to detect device type (i.e. screen, print), or static properties of the webpage, attributes on link declaration is allowed <sup><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link" target="_blank">10</a></sup> <sup><a href="https://stackoverflow.com/questions/10036977/best-way-to-include-css-why-use-import" target="_blank">11</a></sup>.  Feature support is very common <sup><a href="https://caniuse.com/?search=link.media" target="_blank">12</a></sup>.  This version probably has shorter loading time.   As noted <sup><a href="https://stackoverflow.com/a/45155429/2375161" target="_blank">13</a></sup>, if you have any business need to support browsers released before 2008, @import will isolate them.</p>
@@ -75,14 +75,14 @@ Most of this can also be managed via JS as an alternative.  Pretty much all desk
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="images" title="Use the first link to get the complete range of the group." > <p>Some similar articles in images </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="images" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in images </p>
 <div id="groupimages" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=images" aria-label="This article lists all items in images group.">All of <br />images<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>More media tricks for CSS</h1></header>
@@ -90,9 +90,9 @@ Most of this can also be managed via JS as an alternative.  Pretty much all desk
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -104,19 +104,18 @@ Most of this can also be managed via JS as an alternative.  Pretty much all desk
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Intro</a></li>
 <li><a href="#toc1">Discussion</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -126,14 +125,16 @@ Most of this can also be managed via JS as an alternative.  Pretty much all desk
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:08" datetime="2026-09-27T19:28:08">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2022-03-04T00:00:00" datetime="2022-03-04T00:00:00">Mar '22</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:16" datetime="2026-11-01T13:37:16">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2022-03-04T00:00:00" datetime="2022-03-04T00:00:00">Mar '22</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

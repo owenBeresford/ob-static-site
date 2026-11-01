@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/timezone-testing" />
 <meta property="og:description" content="Test plan for timezones (and when they change), focused on JS and REST API. A look at test tools and process." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:17" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:25" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/timezone-testing" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Timezone testing",
-	"article:published_time":"2026-09-27T19:28:17", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:25", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -57,7 +57,7 @@ TODO: magic tune selection against some index/DB -->
 <p>This is a fairly boring article, as I am trying to reduce the cost of doing something boring but is an important responsibility.  For some background reading, I reference <sup><a href="https://unix4lyfe.org/time/" target="_blank">1</a></sup> <sup><a href="https://codeofmatt.com/" target="_blank">2</a></sup> <sup><a href="https://jj09.net/javascript-date-a-bad-part/" target="_blank">3</a></sup>.</p>
 
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Test tools and process <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  Test tools and process <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>For older projects, all date manipulation was done on server-side; where I can easily control the timezone. This means I can write unit tests that execute “in a different TZ” to the current real world.  In PHP its a config setting <sup><a href="https://secure.php.net/manual/en/function.date-default-timezone-set.php" target="_blank">4</a></sup>, which can be injected at runtime.  Similarly in Perl, it can be set <sup><a href="https://stackoverflow.com/questions/753346/how-do-i-set-the-timezone-for-perls-localtime" target="_blank">5</a></sup> with an @ENV variable. Solution for Python, resembles Perl <sup><a href="https://stackoverflow.com/questions/1301493/setting-timezone-in-python" target="_blank">6</a></sup>, for comparison of timezones, use <sup><a href="https://stackoverflow.com/questions/10997577/python-timezone-conversion/18646797#186467970" target="_blank">7</a></sup>.  With Node, the TZ can be set <sup><a href="https://stackoverflow.com/questions/8083410/how-can-i-set-the-default-timezone-in-node-js" target="_blank">8</a></sup>, but only once, as the results are cached inside Node. The above are trivial, and not worth the effort of writing an article about.  It should be also noted, that most normal servers run in UTC TZ all year, so shifting TZ  is needed to normalise dates that have been sent in an encoding.<br />
 With fat client applications, features are executed on the client side, in JS. As JS is a restricted environment, with intentionally less access to the system; features like setting the timezone are not available.  Timezones do shift during the year; your product may be used in different country to where it was made; and not all timezones are full hours.  The basic objective of this article is to be able to efficiently test random values for the timezones; including the client not having the same timezone as the server.   In my current projects, the TZ isn't a user input, there is no attention to TZ locale parsing eg <sup><a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank">9</a></sup>.<br />
 The Date object in JS (either node or browsers) doesn't support setting the TZ <sup><a href="https://stackoverflow.com/questions/20834411/how-do-i-specify-the-time-zone-when-creating-a-javascript-date" target="_blank">10</a></sup> <sup><a href="https://codeofmatt.com/javascript-date-type-is-horribly-broken/" target="_blank">11</a></sup>. There are hacks that give the effect of setting the TZ <sup><a href="https://stackoverflow.com/a/439871" target="_blank">12</a></sup>, but these are hacks.  If you are constrained to using ms-windows, the following is more useful <sup><a href="https://stackoverflow.com/questions/16656229/how-do-i-set-the-timezone-from-command-line" target="_blank">13</a></sup>.  As a non-hacky solution, it is possible to set how the rendering of Dates works with DateTimeFormat <sup><a href="https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat" target="_blank">14</a></sup>.  Scroll to the end for a chart of current browser compatibility.  Moment.js <sup><a href="https://momentjs.com/docs/" target="_blank">15</a></sup>, as ever, is a huge library packed with features, including management of TZ.   I also found a list of other libraries <sup><a href="https://stackoverflow.com/a/15171030" target="_blank">16</a></sup>, but this list was written in 2013.  As a different reference, pls think carefully about timing in JS, as its not very accurate <sup><a href="https://johnresig.com/blog/accuracy-of-javascript-time/" target="_blank">17</a></sup><br />
@@ -78,14 +78,14 @@ I assert that for testing, I am using a Node process for JS; which is much easie
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="testing" title="Use the first link to get the complete range of the group." > <p>Some similar articles in testing </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="testing" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in testing </p>
 <div id="grouptesting" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=testing" aria-label="This article lists all items in testing group.">All of <br />testing<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Timezone testing</h1></header>
@@ -93,9 +93,9 @@ I assert that for testing, I am using a Node process for JS; which is much easie
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -107,18 +107,17 @@ I assert that for testing, I am using a Node process for JS; which is much easie
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Test tools and process</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -128,14 +127,16 @@ I assert that for testing, I am using a Node process for JS; which is much easie
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:17" datetime="2026-09-27T19:28:17">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2018-12-26T00:00:00" datetime="2018-12-26T00:00:00">Dec '18</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:25" datetime="2026-11-01T13:37:25">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2018-12-26T00:00:00" datetime="2018-12-26T00:00:00">Dec '18</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

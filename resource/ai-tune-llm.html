@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/ai-tune-llm" />
 <meta property="og:description" content="A research and analysis of 12 techniques to fine-tune and improve an LLM in order to obtain a creative and generative product-making process." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-10-20T21:34:14" />
-<meta property="article:modified_time" content="Oct '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:15" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/ai-tune-llm" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Tune LLM",
-	"article:published_time":"2026-10-20T21:34:14", 
-    "article:modified_time":"Oct '26",
+	"article:published_time":"2026-11-01T13:37:15", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -76,7 +76,7 @@ TODO: magic tune selection against some index/DB -->
 </div>
 </aside>
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Context / intro <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  Context / intro <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>As a statement about software interactions, a LLM-based platform can: measure, predict, recommend, create (I am roughly quoting a lecture by OSDC pulled from Youtube).   The basic approach has different levels of ability at each behaviour.  Some hype by an AI company <sup><a href="https://situational-awareness.ai/from-gpt-4-to-agi/" target="_blank">1</a></sup> ~ I would be interested in the same output with a constant amount of hardware, to show the software improvements, rather than budget improvements.   Power-scaling notes with good graphs <sup><a href="https://angelxuanchang.github.io/nlp-class/assets/lecture-slides/scaling.pdf" target="_blank">2</a></sup> ~ this is a 50 page PDF &amp; it loads slowly.   To set expectations, learning is not a smooth rate of change in many situations <sup><a href="https://www.fast.ai/posts/2023-09-04-learning-jumps/" target="_blank">3</a></sup> <sup><a href="https://arxiv.org/abs/1712.09913" target="_blank">4</a></sup>.   A systematic review of LLM and handling of them (43 pages) <sup><a href="https://arxiv.org/pdf/2402.06196" target="_blank">5</a></sup>. <br />
 When you buy access to an off-the-shelf LLM, it will likely need tuning.   The process to build an LLM is composed of vast amounts of Vector building from source content, but OpenAI seem to use less productisation than I would use.   There are more dedicated and contextual AI, which seems a more valuable route to go along.  Organisations with deep pockets can make their own LLM, but that does seem a very large investment (roughly the same a building your own roads, rather than using the national ones).   According to <sup><a href="https://scalexm.ai/storage/2023/10/White-Paper-LLM.pdf" target="_blank">6</a></sup>, OpenAI have spent over 100,000,000.00 USD on renting cloud servers (this number wasn't given with a timespan).  There is a leaked breakdown <sup><a href="https://scribe.rip/version-1/running-your-own-dedicated-openai-instance-60a93555dbd0" target="_blank">7</a></sup> with time.  A book on tuning a GPT model <sup><a href="https://sebastianraschka.com/blog/2024/building-a-gpt-style-llm-classifier.html" target="_blank">8</a></sup><br />
 From a standard LLM, there is a list of techniques that have been developed to improve relevance of the output.   Depending on your AI vendor, these will already be present.   However, an LLM will need configuration to align with your product.   I analyse a number of hyperparameters, however Cohere do not use that term <sup><a href="https://cohere.com/blog/llm-parameters-best-outputs-language-ai" target="_blank">9</a></sup>, but reference diagrams are good.  Probably the first technical process is adding <a href="https://owenberesford.me.uk/resource/ai-testing#">unit tests</a> on the LLM, but that is outside of scope for this document.   The outputs can be adjusted by appending to the “known data” for the initial generation, adding a <a href="https://owenberesford.me.uk/resource/ai-retrieval-augmented-generation#">RAG</a> as a parallel data source or thirdly by adjusting the operating context.   I think the first option requires renting your own LLM software model (not cheap) from the LLM vendor.   Or theoretically buying the Vendor (as you are Microsoft) would also work.  <br />
@@ -91,7 +91,7 @@ Hopefully it is clear that “prompting” isn't “training” <sup><a href="ht
 </div>
 </aside>
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Techniques available <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc1">  Techniques available <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 
 <aside class="pulloutWidget">
 <div class="g1 pullout3">
@@ -133,7 +133,7 @@ Apple have released a proper OSS LLM (that is, it includes its source data) <sup
 <p>[1] NLP is sometimes 'natural language programming', 'natural language processing' and 'natural language parsing', but these cover the same area.</p>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Value prop  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc2">  Value prop  <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>A tuned LLM will create the appropriate content a much higher percentage of the time, and is likely to use less hardware resources.  This means it is a better product.  Compared to a base 3rd party LLM, your tuned one may add more features, and deliver better.  Tuning can reduce your hardware requirements, so reduce [excessive for OpenAI] running costs.<br />
 An LLM trained for translation <sup><a href="https://arxiv.org/pdf/2302.09210" target="_blank">9</a></sup> as an example of derived value.  Some further carefully tuned models <sup><a href="https://blog.jetbrains.com/ai/2025/02/why-and-how-jetbrains-built-mellum-the-llm-designed-for-code-completion/" target="_blank">10</a></sup> <sup><a href="https://www.theregister.com/2025/01/07/ai_can_write_improved_code_research/" target="_blank">11</a></sup> <sup><a href="https://www.techradar.com/computing/artificial-intelligence/best-large-language-models-llms-for-coding" target="_blank">12</a></sup></p>
 
@@ -163,14 +163,14 @@ Quote:</p>
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="engineering" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Tune and Improve LLM</h1></header>
@@ -178,9 +178,9 @@ Quote:</p>
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -192,20 +192,19 @@ Quote:</p>
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-20T20:31:56" datetime="2026-10-20T20:31:56">Oct '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Context / intro</a></li>
 <li><a href="#toc1">Techniques available</a></li>
 <li><a href="#toc2">Value prop</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -215,14 +214,16 @@ Quote:</p>
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-10-20T21:34:14" datetime="2026-10-20T21:34:14">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-20T20:31:56" datetime="2026-10-20T20:31:56">Oct '26</time>.  Created date <time title="Page modified on 2024-09-14T00:00:00" datetime="2024-09-14T00:00:00">Sep '24</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:15" datetime="2026-11-01T13:37:15">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2024-09-14T00:00:00" datetime="2024-09-14T00:00:00">Sep '24</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

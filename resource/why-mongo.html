@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/why-mongo" />
 <meta property="og:description" content="Why use mongoDB (or NoSQL)?  Because of documentation. The article also concisely looks at a list of pros and cons about using a NoSQL system." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-29T18:33:09" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:26" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/why-mongo" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Why MongoDB?",
-	"article:published_time":"2026-09-29T18:33:09", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:26", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker whyMongoContainer addReferences addImages">
@@ -69,7 +69,7 @@ TODO: magic tune selection against some index/DB -->
 
 <div class="lotsOfWords">
 
-<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > The answer to “Why MongoDB?&quot; is “because of documentation”. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc0">  The answer to “Why MongoDB?&quot; is “because of documentation”. <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>The wider question being: “why NoSQL?&quot;, but MongoDB is a good concrete example.  RDB are an established solution to managing and reporting volumes of data on slow hardware, needing access restrictions. This is an introduction to the concept of nosql db and for a couple of later articles (see links at end).</p>
 
 <p>The first version of SQL was built in the 1970s, targeting 1970s machines.  The operational platform for information systems is about 10^3 times faster than in the 1970s [ <a href="https://owenberesford.me.uk/resource/why-mongo#note1" target="_blank">1</a> ]. Firstly, we have new faster hardware so why do we need architecture like the SQL system from 50’s – 70’s? In fact SQL works better with faster hardware. A byte of storage cost around 1p back then. Today the cost of storage has dropped by a factor of 3: it just means that today you optimise different dimensions. Strict control on data structures and types is less important, when one quotes “computer operations per second” in 10^9 and human operations per second ~ unchanged since the 1970s ~ at about 10^-2 (e.g. 1 thing per 100seconds ).  Structuring concepts in mutable 'documents' rather than normalised 'entities' achieves a functional solution faster. Computing now is different to what it was then. If your data looks like a document i.e a big blob of data that you can access via a single key; then the advantage of mongoDB wins: it is more efficient for documents.  If data looks like excel cells, then SQL is more efficient.<br />
@@ -92,14 +92,14 @@ Taking <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-use
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="architecture" title="Use the first link to get the complete range of the group." > <p>Some similar articles in architecture </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="architecture" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in architecture </p>
 <div id="grouparchitecture" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=architecture" aria-label="This article lists all items in architecture group.">All of <br />architecture<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>What are the advantages of MongoDB?</h1></header>
@@ -107,9 +107,9 @@ Taking <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-use
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -121,18 +121,17 @@ Taking <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-use
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T20:18:49" datetime="2026-09-27T20:18:49">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">The answer to “Why MongoDB?&quot; is “because of documentation”.</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -142,14 +141,16 @@ Taking <sup><a href="https://www.digitalocean.com/community/tutorials/how-to-use
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-29T18:33:09" datetime="2026-09-29T18:33:09">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T20:18:49" datetime="2026-09-27T20:18:49">Sep '26</time>.  Created date <time title="Page modified on 2015-03-03T00:00:00" datetime="2015-03-03T00:00:00"><strong> &gt;7 Years ago</strong></time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:26" datetime="2026-11-01T13:37:26">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2015-03-03T00:00:00" datetime="2015-03-03T00:00:00"><strong> &gt;7 Years ago</strong></time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <script type="module">

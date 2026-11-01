@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/docs-for-js-ts" />
 <meta property="og:description" content="The best IMO docs generators for JS and TS.  A look at options, requirements, its history and literature." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-29T18:33:05" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:17" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/docs-for-js-ts" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Docs for JS and TS",
-	"article:published_time":"2026-09-29T18:33:05", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:17", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -60,7 +60,7 @@ TODO: magic tune selection against some index/DB -->
 I prefer to have the test and docs headers extracted from the source code to make the single source of truth / SRP <sup><a href="https://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank">1</a></sup> the one that people pay for.   It is easier to have the docs updated from the same file and similar line number, that several different files.  Encouraging thinking in English for part of the dev process probably leads to better code, or at least better labelled code (variable and method names).</p>
 
 
-<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc0">  Requirements <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li>Resultant docs must be current with the source code, but at the level of current to build-numbers.   It should be practical for the docs process to have several editions of docs depending on what edition of your product that you are looking at.</li>
     <li>Resultant docs must be readable in likely read devices (modern mobile, modern laptop, possibly a overhead size screen).   <b>Note in 2017</b>, Redhat docs were still poor from Android default browser. </li>
@@ -71,13 +71,13 @@ I prefer to have the test and docs headers extracted from the source code to mak
 </ul>
 
 
-<h5 id="toc1"> History</h5>
+<h5 id="toc1">  History <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <p>This section exists for “why do I write this file now? Not in 2012...&quot;<br />
 In about 2012 I made myself a quick hack, in vimscript <sup><a href="http://vimscript.org/" target="_blank">2</a></sup> to generate most of the text for docs headers, using Javadoc <sup><a href="https://en.wikipedia.org/wiki/Javadoc" target="_blank">3</a></sup> notation.  I have been using this hack since, but it's less use for TS, as it can't read types.  I don't always edit the source code in vim, but the auto-generation features are useful.  Vim does have a backup indent algorithm if the one in my IDE doesn't work for some reason (i.e. minified JSON).   I am retiring this as it doesn't understand ES6 classes well enough, and Typescript completely flummuxes it.  The docs need to be on the source that a dev would edit, not a compiled down ES15.<br />
 In 2015, I was building docs from comment blocks in JS source code using swagger <sup><a href="https://en.wikipedia.org/wiki/Swagger_%28software%29" target="_blank">4</a></sup> <a href="https://www.npmjs.com/package/swagger" target="_blank">npm</a>.  Modern versions of Swagger start with a spec file, and generate an empty template JS file for your files.   I am unable to find source to docs generation in current editions.  The failpoint is that they also want you to host the docs on their webhosting platform.</p>
 
 
-<h5 id="toc2"> Literature crawl</h5>
+<h5 id="toc2">  Literature crawl <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <p>Initially I look at what I can do inside an IDE, mostly install a external plugin (as different dev languages..):</p>
 
 <ul class="ulbasic">
@@ -106,7 +106,7 @@ I don't see any need for documentation tools to be written in the same language 
 <hr />
 <div class="lotsOfWords popOverWidget">
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > JSDoc in detail <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc3">  JSDoc in detail <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p><i>[Several paragraphs of fact scrapping]</i> <b>JSdoc</b> <a href="https://jsdoc.app/" target="_blank">docs</a> <a href="https://github.com/jsdoc/jsdoc" target="_blank">git</a> <a href="https://en.wikipedia.org/wiki/JSDoc" target="_blank">wiki</a> <a href="https://devhints.io/jsdoc" target="_blank">cheetsheet</a> is shiny standard specifically for JS.   It is over 10 years old, and has legal representation since 2011 (says the jsdoc.app site).   Please scroll down the first two links for the range of supported Decorators.   The current defacto tool in npmjs supports all the tags I guess.   The versions in npm go back to v3 codebase, which a bit over 12 years old.   <br />
 It was a feature of the google closure compiler <sup><a href="https://developers.google.com/closure/compiler/" target="_blank">1</a></sup> <sup><a href="https://github.com/google/closure-compiler" target="_blank">2</a></sup>, and probably still is; but they were an early user.  Article involving current ~ 2021 ~ use of JSDoc, in a workflow with related tools <sup><a href="https://dev.to/essentialrandom/documenting-express-rest-apis-with-openapi-and-jsdoc-m68" target="_blank">3</a></sup>.  This dev workflow puts docs more centrally, like <a href="https://owenberesford.me.uk/resource/literate-programming#">literate-programming</a> does.   <i>If my sole work responsibility was making API in Node, I would be closer to working like this.</i>   A second workflow example showing JSdoc, as integrated with VScode <sup><a href="https://dev.to/paulasantamaria/document-your-javascript-code-with-jsdoc-2fbf" target="_blank">4</a></sup>.</p>
 
@@ -145,7 +145,7 @@ Docs on how to use the JSDoc config <sup><a href="https://jsdoc.app/about-config
 </code >
 </details>
 
-<h3 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > TypeDoc in detail <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc4">  TypeDoc in detail <a href="#toc4" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>If you have a TS codebase, you have entered a lot more information than the same codebase in JS.   It is parsimonious to use the type text to build your docs, thus <b>TypeDoc</b> (worked example <sup><a href="https://blog.cloudflare.com/generating-documentation-for-typescript-projects/#whynotjsdoc" target="_blank">1</a></sup> ):<br />
 Introducing TypeDoc <a href="https://typedoc.org/" target="_blank">docs</a> <a href="https://github.com/TypeStrong/typedoc" target="_blank">wiki</a> <a href="https://www.npmjs.com/package/typedoc" target="_blank">npm</a>.   The minimal docs are very quick to build <sup><a href="https://dev.to/sarcxd/document-your-typescript-project-in-5-mins-typedoc-3ilm" target="_blank">2</a></sup>, compared to JSdoc (although plugin based workrounds can be used).   Starting with grammar cheatsheets <sup><a href="https://github.com/TypeStrong/typedoc/blob/main/example/README.md" target="_blank">3</a></sup>, that are very similar to JSDoc.   A second cheatsheet/ tutorial <sup><a href="https://waynestalk.com/en/typedoc-tutorial-en/" target="_blank">4</a></sup>, which seems more advanced (e.g. @typeParam).   The ability to include a README.md in the result HTML was added in 0.4 edition <sup><a href="https://github.com/TypeStrong/typedoc/issues/153" target="_blank">5</a></sup>.   TypeDoc seems to lack the ability to pull version data from the anywhere.  Configuration is similar <sup><a href="https://typedoc.org/options/configuration/" target="_blank">6</a></sup>.  <br />
 Typedoc supports a range of Tags/ Decorators (look at menu on left) <sup><a href="https://typedoc.org/guides/tags/" target="_blank">7</a></sup>, but also locally defined Tags/ Decorators, same link.   It also has @link...  TypeDoc supports Themes <sup><a href="https://typedoc.org/guides/themes/" target="_blank">8</a></sup> ~ typedoc-theme-* in npm, rather than templates.   TypeDoc supports a range of output categorisation <sup><a href="https://typedoc.org/options/organization/" target="_blank">9</a></sup>, probably only useful for larger projects.   Like quite a few JS tools, TypeDoc can read most config via CLI options <sup><a href="https://typedoc.org/options/" target="_blank">10</a></sup>.   It supports TS based overloading <sup><a href="https://typedoc.org/example/functions/overloadedFunction.html" target="_blank">11</a></sup>, but the examples are less complex than the JSdoc ones.   There is a plugin to build MDN links <sup><a href="https://www.npmjs.com/package/typedoc-plugin-mdn-links" target="_blank">12</a></sup>.  <br />
@@ -186,7 +186,7 @@ Note TypeDoc doesn't include a minimal webserver to display the docs, however th
 </details>
 <hr />
 
-<h3 class="dontend" id="toc5"> <a href="#toc5" title="Jump to this section." > What is useful information? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc5">  What is useful information? <a href="#toc5" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Code docs should cover all useful information, in a fashion that is useful to your expected audience. Look at the following examples.  These express two extremes for the approach.</p>
 
 
@@ -230,14 +230,14 @@ function sum(first, second) {
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="engineering" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="engineering" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Tools for docs in JS and TS</h1></header>
@@ -245,9 +245,9 @@ function sum(first, second) {
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -259,21 +259,20 @@ function sum(first, second) {
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:59:05" datetime="2026-09-27T19:59:05">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Requirements</a></li>
 <li><a href="#toc1">JSDoc in detail</a></li>
 <li><a href="#toc2">TypeDoc in detail</a></li>
 <li><a href="#toc3">What is useful information?</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -283,14 +282,16 @@ function sum(first, second) {
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-29T18:33:05" datetime="2026-09-29T18:33:05">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:59:05" datetime="2026-09-27T19:59:05">Sep '26</time>.  Created date <time title="Page modified on 2023-12-15T00:00:00" datetime="2023-12-15T00:00:00">Dec '23</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:17" datetime="2026-11-01T13:37:17">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2023-12-15T00:00:00" datetime="2023-12-15T00:00:00">Dec '23</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <link rel="stylesheet" href="/asset/hljs.min.css" />

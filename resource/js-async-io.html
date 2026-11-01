@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/js-async-io" />
 <meta property="og:description" content="Article outlining my solution for not having generators in browsers JS." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:11" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:19" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/js-async-io" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits.   Progressive + uplifting tone.  I do not own the rights or anything. 
@@ -37,8 +37,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Better JS Async IO",
-	"article:published_time":"2026-09-27T19:28:11", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:19", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -50,7 +50,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -179,7 +179,7 @@ const SearchAPIService ={
 // stateless
 </code>
 
-<h5 id="toc0"> Why use this rather than a Promise?</h5>
+<h5 id="toc0">  Why use this rather than a Promise? <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <p>This structure is to interact with async REST API without making messy unreadable code.  This has features in common with Promises; except this this is tidy callbacks to deal with responses, and has better support for chains of async events than Promises.  Promises do not have a section for response processing.  I have been told that Promises shouldn't be used in vast numbers, as they use some CPU time whilst waiting for the resolve call (problem probably limited to games, and rich real-time data visualisation tools).   This API does nothing whilst waiting.   NB: You could use Promises to build this structure....</p>
 
 <p>This is fairly real error handling, and the code is <strong>readable, and async</strong>. All of the domain logic is isolated into the structs, and as this uses DI, it can be easily tested.  Networking and timing code is a hard combination to test reliably.  The structs could be held outside of the function, but I think its clearer with respect the local variables doing it as such.  <br />
@@ -187,7 +187,7 @@ If your usecase is literally a(), b(), c() API calls; then set the tick to be re
 If your usecase is a(), allow user action, b(), allow action, c(); then setting the tick to a few seconds, and don't trigger anything; is more sensible.</p>
 
 
-<h5 id="toc1"> Conclusion of this simplifying JS tool</h5>
+<h5 id="toc1">  Conclusion of this simplifying JS tool <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <p>After 3months, I used this all the way up to UAT.   I added a serial() method to AJAJStack, which is very similar to Node Async.serial(), just calling each registered function in sequence.  The above code was designed to get data into a tab, or to get fresh data in response to user input.  For this it works fine; I only wrote the library as the target API was async.  <br />
 Then I had to do some re-architecting (for reasons that have nothing to do with this small couple of classes).   The new REST API structure scaled better, but this above library doesn't work very well when each SPA page is making 50+ calls, in bunches especially if the retry logic is hit.  Any blip in WIFI, forces security tokens to become scrambled abruptly reduces performance; and the only escape is to reload the whole page. <br />
 I made a second version of this queueing class, where a single queue is shared across the entire page.  This means all networking requests can be aborted in one API point (without page reload); the most urgent item can be done first; the security tokens don't get scrambled.</p>
@@ -197,16 +197,16 @@ I made a second version of this queueing class, where a single queue is shared a
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="uitools,legacy" title="Use the first link to get the complete range of the group." > <p>Some similar articles in uitools </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="uitools,legacy" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in uitools </p>
 <div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles</a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in legacy </p>
 <div id="grouplegacy" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=legacy" aria-label="This article lists all items in legacy group.">All of <br />legacy<br /> articles</a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class="row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth" >
 					<header><h1>Better JS Async IO</h1></header>
@@ -214,9 +214,9 @@ I made a second version of this queueing class, where a single queue is shared a
 				</div>
 			</div>
 
-    	<div class="bigScreenOnly column linksWidget" role="navigation">
-			<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+    	<div class="column linksWidget" role="navigation">
+			<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -228,11 +228,11 @@ I made a second version of this queueing class, where a single queue is shared a
 			</menu>
 			</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 	
 		
@@ -244,15 +244,17 @@ I made a second version of this queueing class, where a single queue is shared a
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 	   <p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:11" datetime="2026-09-27T19:28:11">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2018-10-28T00:00:00" datetime="2018-10-28T00:00:00">Oct '18</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:19" datetime="2026-11-01T13:37:19">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2018-10-28T00:00:00" datetime="2018-10-28T00:00:00">Oct '18</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 		</div>
+	</nav>	
 </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <link rel="stylesheet" href="/asset/hljs.min.css" />

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/accessible-css" />
 <meta property="og:description" content="Research on making apps / websites be accessible to the full spectrum of users, supporting different perception and different sensory capacity." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:06" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:14" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/accessible-css" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Accessibility & CSS",
-	"article:published_time":"2026-09-27T19:28:06", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:14", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences addBashSamples">
@@ -58,13 +58,13 @@ TODO: magic tune selection against some index/DB -->
 My site early on has a page that allows users to choose preferred font and font size; but that was implemented with JS.   It does this by setting a requested size in the root HTML element, and the other HTML elements inherit that size or are scaled from that size.  I would like a system that pulls the users current preferences from their browser.</p>
 
 
-<h4 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > User populations <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc0">  User populations <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>A question I am unable to get any answers for is “how much time do people spend on badly setup PCs/ laptops”, and “how many PCs/ laptops are badly setup?&quot;.   If you just have a badly setup PC and never try to fix the issue, my CSS tricks cannot help you, when the CSS doesn't know that you are colour blind for example.   Clearly if a user is coming from a net-cafe, a university PC or a library PC etc, they will not have their user preferences entered.   <br />
 Following my ambiguity about whether people had machines setup correctly, is it useful to add a prompt to websites herding users towards the accessibility adaption features?  I could create an interstitial saying “is this site comfortable?&quot;, for users with no local cookies; then write the cookies.   Red/green colour blindness is sufficiently common that I would assume that users were in that category.    <br />
 The accessibility banner would be annoying if it comes up wrong; and I would like to avoid any search penalties if I am just trying to force good accessibility.</p>
 
 
-<h4 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Control planes <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc1">  Control planes <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <p>A primer to using media queries (MQ), as this doc will need many of them <sup><a href="https://css-tricks.com/a-complete-guide-to-css-media-queries/" target="_blank">1</a></sup>.  Note v4 for MQ is quite convenient, but currently not supported by Safari <sup><a href="https://caniuse.com/?search=%40media" target="_blank">2</a></sup>, may be I can use it next year. <br />
 A list of accessibility checks that this page should solve (also see <sup><a href="https://automaticcss.com/accessibility-features/" target="_blank">3</a></sup> ):</p>
 
@@ -127,7 +127,7 @@ A list of accessibility checks that this page should solve (also see <sup><a hre
 </ol>
 
 
-<h4 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > WCAG items to skip for CSS adaption <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc2">  WCAG items to skip for CSS adaption <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li>Anything in WCAG relating to sound preferences.</li>
     <li>Anything in WCAG relating to video preferences.</li>
@@ -141,13 +141,13 @@ A list of accessibility checks that this page should solve (also see <sup><a hre
 <hr />
 <div class="halferWords">
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > I am applying the results of this to this site  <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc3">  I am applying the results of this to this site  <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Code has been added to project, in colours.css (pre-minify filename, not visible in the JAM site).  The approaches have been derived from <sup><a href="https://stackoverflow.com/a/55128970" target="_blank">1</a></sup> <sup><a href="https://stackoverflow.com/a/55267265" target="_blank">2</a></sup>, but with no copy and pasting.   I have organised all fonts at the head of the compiled CSS via fonts.css similarly.   Also there is a duplicate font-loading resource-request on the home page for better “grades” in Google.  <br />
 Note: most CSS frameworks have a prepared palette, but maybe not using this colour notation.  Obviously it is desirable to have a clean integration, but that is left as an exercise for the user.<br />
 <i>Note:</i> It is important to test/review a new colour palette in a variety of lighting conditions, perception will change a lot depending on situation.</p>
 
 
-<h4 class="dontend" id="toc4"> <a href="#toc4" title="Jump to this section." > Existing OSS <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
+<h4 id="toc4">  Existing OSS <a href="#toc4" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h4>
 <ul class="ulbasic">
     <li><b>UPDATE:</b> for new code, please review <a href="https://userway.org" target="_blank">userway</a> as a drop-in capacity for your current app.  This is an org site, but I would expect to pay for a tool this good.</li>
     <li><a href="https://turretcss.com/color/" target="_blank">TurretCSS</a> ~ is an accessible CSS framework</li>
@@ -165,16 +165,16 @@ Note: most CSS frameworks have a prepared palette, but maybe not using this colo
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="uitools, research" title="Use the first link to get the complete range of the group." > <p>Some similar articles in uitools </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="uitools, research" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in uitools </p>
 <div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in research </p>
 <div id="groupresearch" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=research" aria-label="This article lists all items in research group.">All of <br />research<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Accessibility via CSS #A11y</h1></header>
@@ -182,9 +182,9 @@ Note: most CSS frameworks have a prepared palette, but maybe not using this colo
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -196,22 +196,21 @@ Note: most CSS frameworks have a prepared palette, but maybe not using this colo
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">User populations</a></li>
 <li><a href="#toc1">Control planes</a></li>
 <li><a href="#toc2">WCAG items to skip for CSS adaption</a></li>
 <li><a href="#toc3">I am applying the results of this to this site</a></li>
 <li><a href="#toc4">Existing OSS</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -221,14 +220,16 @@ Note: most CSS frameworks have a prepared palette, but maybe not using this colo
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:06" datetime="2026-09-27T19:28:06">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2023-05-05T00:00:00" datetime="2023-05-05T00:00:00">May '23</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:14" datetime="2026-11-01T13:37:14">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2023-05-05T00:00:00" datetime="2023-05-05T00:00:00">May '23</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

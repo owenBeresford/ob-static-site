@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/desired-lint-for-web" />
 <meta property="og:description" content="A long list (43 items) of of checks that would save time to validate a web services before it becomes live.  Intentionally doesn't list many WCAG items.  I ideate an implementation to verify each metric." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-10-20T21:34:14" />
-<meta property="article:modified_time" content="Oct '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:16" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/desired-lint-for-web" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "lint steps for web services",
-	"article:published_time":"2026-10-20T21:34:14", 
-    "article:modified_time":"Oct '26",
+	"article:published_time":"2026-11-01T13:37:16", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences">
@@ -60,13 +60,13 @@ In a mature solution, the output should be loggable in various channels (STDOUT,
 As the article is basically a big list of validation ideas, if a site is good and passes all the tests, maybe emit a “all tests pass” like unit-tests frameworks do, but <em>not log the positive result</em> a million times.  Engineering these conditions is a large surface, to to delver, I would suggest recycling older OSS where possible.   I will do a literature survey for the current testable metrics  ~ ideas are presented inline to reduce total word count.</p>
 
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Outcomes of the tool <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  Outcomes of the tool <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>As a business process, if this was applied to an average wordpress branding site, and the tool discovered 8,000 errors, what next?   The wordpress administrator could see if there was a new version of plugins used, or swap to another theme that included quality.  A mature test platform would have a process for a list of devices, possibly more than a busy admin had time to test against personally.<br />
 Reference use-case (real-world experience): In 2012 I joined a web-agency who managed over 300 domains, as part of a batch of staff to increase quality and scale as they had an expanding client list.   This agency had some 25 YO code, and some 1 YO code.  Expectations and standards have gone a long way in that duration.   A tool to auto-log various sanity checks would have improved production process, and reduced hiccups.   <br />
 Could the checks be done via an LLM? Yes, sometimes, but non-determinism is a limit for validation checking.  If I built a 1,000 skills for an LLM agent, could the agent validate the site-under-test?   Yes, but the 1,000 skills would also allow validation via Jenkins or something.   Without this long list of skills OR a very long prompt, that would match this article, I wouldn't sign for a general LLM validating production code.</p>
 
 
-<h3 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Tests via pre-deployment static-analysis <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc1">  Tests via pre-deployment static-analysis <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>These checks/ tests do not need the domain name to operate.</p>
 
 <ul class="ulbasic">
@@ -153,7 +153,7 @@ Could the checks be done via an LLM? Yes, sometimes, but non-determinism is a li
 </ul>
 
 
-<h3 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Tests to automate at run-time <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc2">  Tests to automate at run-time <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>In theory, I can set the screen details (resolution, and dimensions) on a Chrome instance via CLI arguments.  In practice this didn't behave as I expected it, and this feature may have been soft-removed.  However, a Docker instance could have the screen details set, in it's basic hardware emulation.   A VMware or QMU instance would emulate better, but cost more real computer resources.</p>
 
 <ul class="ulbasic">
@@ -197,6 +197,7 @@ Could the checks be done via an LLM? Yes, sometimes, but non-determinism is a li
         <li>I can invent heuristics for detecting important items, but this has no defined implementation at present.   Feature not seen elsewhere, but must be performed manually by teams.</li>
         <li>This check is harsh on small phones like an iphone5.</li>
     </ul></li>
+    <li>Is the string “Lorem ipsum dolor” found anywhere?   This is trivial technology.</li>
     <li>Ia there a good “artifact density per page”?   Extremes are less good to read (no idea how, todate.  Possibly look at element screen volume vs total screen volume).   A wise dev-team would do this analysis in the wireframe stage.<ul class="ulbasic">
         <li>To visualise, if the “most parent node like” ARTICLE or similar element has a coloured background, and elements inside it had a reset background.  But being able to convert this to  number makes it automatable.   Maybe I could compute the area of that ARTICLE, then the sum of the areas of it's child elements.  The final number should be a percentage of area as white-space.   </li>
     </ul></li>
@@ -227,7 +228,7 @@ Could the checks be done via an LLM? Yes, sometimes, but non-determinism is a li
 <p>Quite a few of the unique items in this list are applying a number to design heuristics that the dev team probably applies without converting the current DOM state to a number.</p>
 
 
-<h3 class="dontend" id="toc3"> <a href="#toc3" title="Jump to this section." > Existing OSS tools to reference <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc3">  Existing OSS tools to reference <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This list is clearly marking current owners and licences.   The list length shows the need for a tool handling tool, to manage the config files at the least. <br />
 Before this sentence, the content is not a “listicle”, but maybe call it a “specticle”?.</p>
 
@@ -259,16 +260,16 @@ Before this sentence, the content is not a “listicle”, but maybe call it a �
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="engineering,uitools" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="engineering,uitools" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in uitools </p>
 <div id="groupuitools" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=uitools" aria-label="This article lists all items in uitools group.">All of <br />uitools<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Desired lint capacity for web projects</h1></header>
@@ -276,9 +277,9 @@ Before this sentence, the content is not a “listicle”, but maybe call it a �
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -290,21 +291,20 @@ Before this sentence, the content is not a “listicle”, but maybe call it a �
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-10-20T10:54:03" datetime="2026-10-20T10:54:03">Oct '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Outcomes of the tool</a></li>
 <li><a href="#toc1">Tests via pre-deployment static-analysis</a></li>
 <li><a href="#toc2">Tests to automate at run-time</a></li>
 <li><a href="#toc3">Existing OSS tools to reference</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -314,14 +314,16 @@ Before this sentence, the content is not a “listicle”, but maybe call it a �
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-10-20T21:34:14" datetime="2026-10-20T21:34:14">Oct '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-10-20T10:54:03" datetime="2026-10-20T10:54:03">Oct '26</time>.  Created date <time title="Page modified on 2026-10-05T00:00:00" datetime="2026-10-05T00:00:00">Oct '26</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:16" datetime="2026-11-01T13:37:16">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2026-10-05T00:00:00" datetime="2026-10-05T00:00:00">Oct '26</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 

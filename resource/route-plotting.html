@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/route-plotting" />
 <meta property="og:description" content="About a library that can manage customer access to geographical distributed available stock." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:15" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:23" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/route-plotting" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "GIS route plotting",
-	"article:published_time":"2026-09-27T19:28:15", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:23", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker">
@@ -57,14 +57,14 @@ TODO: magic tune selection against some index/DB -->
 <p><b>I wrote this in 2013; but the maths will not have changed</b></p>
 
 
-<h2 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Business problem <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc0">  Business problem <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>An organisation of resellers scattered in urban areas scattered across the continent.  Or in some cases across several continents.  Your main products are high value low volume objects, normally only purchased in planned scenarios, frequently with financial packages.  As customers don't make this type of purchase often (once every few years, sometimes once  decade), so they normally want to look at the SKU before purchase and think about it.   <br />
 Due to the relative durability of your main product, and its high initial sales figure, there is a strong second hand market.  Buyers definitely want to physically look at the “pre-owned” market due to the more variable goods.</p>
 
 <p><b>As such the business problem to solve is a locator service, allowing potential customers visibility of SKU across the continent.</b>  Without a tool to match stock to customers, customers will buy from a competitor.  The locator service was presented as a HTML web service, as it was targeted for end users.  The primary organisation holds stock levels and location of each of the stock item (“you” in this article).</p>
 
 
-<h2 class="dontend" id="toc1"> <a href="#toc1" title="Jump to this section." > Outline of requirements <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc1">  Outline of requirements <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>Under this scenario you need a process to match your buyer to the nearest occurrence of what they would like to purchase.  As you are representing the entire chain, there is no favouritism between each franchise unit (otherwise the entire definition of closest starts to get contested).</p>
 
 <p>Behavioural requirements :</p>
@@ -86,7 +86,7 @@ Due to the relative durability of your main product, and its high initial sales 
 </ol>
 
 
-<h2 class="dontend" id="toc2"> <a href="#toc2" title="Jump to this section." > Discussion <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
+<h2 id="toc2">  Discussion <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h2>
 <p>There are several mapping and route plotting service providers.  The biggest are Google inc and Bing (part of Microsoft inc).  The architecturally simplest means to build this would be run the routing services from the web-host.  This structure would mean less trips between the client and server (so theoretically faster results).  The way these are built requires code downloaded to the web-client.  Its not possible to run these services on a server-side copy of Node.js.   <br />
 The mapping data vendors can convert the users stated location to a [long,lat].  From a set of co-ordinates it is possible to compute distance to the stock and dealers.  This isn't a trivial computation for figures in excess of fifty miles, as the planet isn't a sphere, its an ellipsoid.  The following equation is the cartographers normalised solution. <br />
 <code lang="javascript" class="highlight">
@@ -128,16 +128,16 @@ It is not sensible to push the entire stock catalogues to the client.  Its comme
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="worklog,legacy" title="Use the first link to get the complete range of the group." > <p>Some similar articles in worklog </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="worklog,legacy" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in worklog </p>
 <div id="groupworklog" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=worklog" aria-label="This article lists all items in worklog group.">All of <br />worklog<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in legacy </p>
 <div id="grouplegacy" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=legacy" aria-label="This article lists all items in legacy group.">All of <br />legacy<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>GIS route plotting</h1></header>
@@ -145,9 +145,9 @@ It is not sensible to push the entire stock catalogues to the client.  Its comme
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -159,20 +159,19 @@ It is not sensible to push the entire stock catalogues to the client.  Its comme
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Business problem</a></li>
 <li><a href="#toc1">Outline of requirements</a></li>
 <li><a href="#toc2">Discussion</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -182,14 +181,16 @@ It is not sensible to push the entire stock catalogues to the client.  Its comme
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:15" datetime="2026-09-27T19:28:15">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2015-03-03T00:00:00" datetime="2015-03-03T00:00:00"><strong> &gt;7 Years ago</strong></time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:23" datetime="2026-11-01T13:37:23">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2015-03-03T00:00:00" datetime="2015-03-03T00:00:00"><strong> &gt;7 Years ago</strong></time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 <link rel="stylesheet" href="/asset/hljs.min.css" />

@@ -22,8 +22,8 @@
 <meta property="og:url" content="https://owenberesford.me.uk/resource/architectures-for-css" />
 <meta property="og:description" content="A review of different ways to assemble CSS, along with a description of methodologies.  With modern apps and tools, good management of CSS is essential.   There are 5 code layouts, and 9 architectures compared." />
 <meta property="og:site_name" content="OwenBeresford's very wordy site" />
-<meta property="article:published_time" content="2026-09-27T19:28:07" />
-<meta property="article:modified_time" content="Sep '26" />
+<meta property="article:published_time" content="2026-11-01T13:37:15" />
+<meta property="article:modified_time" content="Nov '26" />
 <link rel="canonical" href="https://owenberesford.me.uk/resource/architectures-for-css" />
 <link rel="me" href="https://fosstodon.org/@channelOwen" />
 <!-- the below track is just a generic cheese track, but the style fits. progressive + uplifting tone.  I do not own the rights or anything. 
@@ -36,8 +36,8 @@ TODO: magic tune selection against some index/DB -->
     "@context": "https://ogp.me/ns/article#",
     "@type": "Article",
     "name": "Architectures CSS",
-	"article:published_time":"2026-09-27T19:28:07", 
-    "article:modified_time":"Sep '26",
+	"article:published_time":"2026-11-01T13:37:15", 
+    "article:modified_time":"Nov '26",
     "article:section":"technology",
 
     "author": {
@@ -49,7 +49,7 @@ TODO: magic tune selection against some index/DB -->
 </head>
 <body id="body" class="annoyingBody" data-access="0">
  <div class="h4_page wholeArticle">
-  <div class="after_menu articleContent">
+  <div class="articleContent">
    <main id="main">
     <article>
      <div class="blocker addReferences archi4CSSContainer">
@@ -59,11 +59,11 @@ TODO: magic tune selection against some index/DB -->
 <p><strong>Intended Audience: </strong> Everyone who did not have CSS in their education, but now does have it in their workflows.  Also myself, to harmonise terminology.</p>
 
 
-<h3 class="dontend" id="toc0"> <a href="#toc0" title="Jump to this section." > Code layouts <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc0">  Code layouts <a href="#toc0" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>I'm not sure abut the wording used to describe these, but these are not <em>architectures</em>.</p>
 
 
-<h5 id="toc1"> Legacy inline styles</h5>
+<h5 id="toc1">  Legacy inline styles <a href="#toc1" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Code standards from the 90s, absolutely no FE tooling.   For this approach, I would expect mostly <strong>CSS 1</strong>.</dd>
@@ -76,7 +76,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc2"> Just flat files...</h5>
+<h5 id="toc2">  Just flat files... <a href="#toc2" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Very simple and common, the default way to do CSS.   Just plain selectors written in <strong>CSS 2</strong></dd>
@@ -89,7 +89,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc3"> Static CSS without CSS classes</h5>
+<h5 id="toc3">  Static CSS without CSS classes <a href="#toc3" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>For smaller projects, just define the CSS onto the DOM structure without classes being defined.  Cannot be used with most CSS frameworks.</dd>
@@ -102,7 +102,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc4"> “CSS-in-JS” </h5>
+<h5 id="toc4">  “CSS-in-JS”  <a href="#toc4" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Setting CSS attributes via JS.   Note this isn't setting a class name attribute, but each CSS option, as though you never heard of CSS.   Often used for Reactnative projects, and this idea has leaked sideways to other areas.</dd>
@@ -115,7 +115,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc5"> Nested CSS</h5>
+<h5 id="toc5">  Nested CSS <a href="#toc5" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Use a <strong>CSS 4</strong> structure, where selectors can be written inside other CSS selectors.  To get best value from this, use the nesting selector <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Nesting_selector" target="_blank">5</a></sup>  This currently has quite low support, especially on mobile, BUT is in the baseline since dec-2023 <sup><a href="https://caniuse.com/?search=nested%20css" target="_blank">6</a></sup>. WARN: I think <a href="https://caniuse.com" target="_blank">'can I use'</a> data is out of date on this point <sup><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_nesting" target="_blank">7</a></sup>.</dd>
@@ -128,7 +128,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc6"> Layered CSS</h5>
+<h5 id="toc6">  Layered CSS <a href="#toc6" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Uses <strong>CSS 5</strong> features, but needs to be used with another code structure.  Extra notes <a href="https://www.w3.org/TR/css-cascade-5/#layering" target="_blank">docs</a> <sup><a href="https://css-tricks.com/css-cascade-layers/#use-cases-when-would-i-want-to-use-cascade-layers" target="_blank">8</a></sup> <sup><a href="https://www.smashingmagazine.com/2022/01/introduction-css-cascade-layers/" target="_blank">9</a></sup>.   Having CSS in layers should increase the odds that the product is more adaptive.</dd>
@@ -141,7 +141,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h3 class="dontend" id="toc7"> <a href="#toc7" title="Jump to this section." > Listicle about CSS archs <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc7">  Listicle about CSS archs <a href="#toc7" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 
 <h5 id="toc8"><del>Idiot style</del><ins>Cascade suppressed</ins></h5>
 <dl>
@@ -160,7 +160,7 @@ TODO: magic tune selection against some index/DB -->
 <hr />
 <div class="lotsOfWords betterDL">
 
-<h5 id="toc9"> Standard framework limited</h5>
+<h5 id="toc9">  Standard framework limited <a href="#toc9" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Only use CSS included in that framework.</dd>
@@ -173,7 +173,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc10"> Unstructured CSS</h5>
+<h5 id="toc10">  Unstructured CSS <a href="#toc10" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>All CSS classes are put in a single file, and probably authored locally.</dd>
@@ -186,7 +186,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc11"> BEM CSS</h5>
+<h5 id="toc11">  BEM CSS <a href="#toc11" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>No, not <i>“bug-eyed monster”</i>. “block, element, modifier” CSS.   This is designed for bigger systems where the design doesn't change quickly <sup><a href="https://en.bem.info/methodology/" target="_blank">1</a></sup>.   This option resembles general OO done poorly IMO.   <ins>Design notes for BEM state that the structure is designed to manage use of specificity <sup><a href="https://snipcart.com/blog/organize-css-modular-architecture" target="_blank">2</a></sup> </ins>   There are few frameworks that boast being BEM, but <a href="https://trykickoff.com/" target="_blank">Kickoff</a> <a href="https://github.com/TryKickoff/kickoff" target="_blank">git</a> does.</dd>
@@ -199,7 +199,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc12"> Reduced cascade / “utility CSS” / “atomic CSS”</h5>
+<h5 id="toc12">  Reduced cascade / “utility CSS” / “atomic CSS” <a href="#toc12" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Define highly orthogonal / narrow purpose CSS classes.  You will like this if you want to use functional programming; noting that declarative CSS is fairly functional already.  Bootstrap leans towards this, Tailwind strongly implements it.</dd>
@@ -212,7 +212,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc13"> OO-CSS </h5>
+<h5 id="toc13">  OO-CSS  <a href="#toc13" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>A style of writing CSS that builds separation of concerns <sup><a href="https://www.keycdn.com/blog/oocss" target="_blank">3</a></sup>.   So the CSS that forms branding for a button is not in the same file OR not in the same area of a file as the basic structuring and typesetting aspects.   I would combine this with <strong>CSS 4</strong> nested selectors to generate encapsulation, but that isn't considered in the online references.  I think OOCSS <a href="https://github.com/stubbornella/oocss" target="_blank">git</a> <a href="https://www.stubbornella.org/" target="_blank">docs</a> <sup><a href="https://www.bennadel.com/blog/1633-object-oriented-css-oocss-by-nicole-sullivan.htm" target="_blank">4</a></sup> or iotaCSS <a href="https://www.iotacss.com/" target="_blank">docs</a> <a href="https://github.com/iotacss/" target="_blank">git</a></dd>
@@ -225,7 +225,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc14"> Isolated Component CSS</h5>
+<h5 id="toc14">  Isolated Component CSS <a href="#toc14" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Each web-component includes a CSS island with its styles.  These should be written with selectors that only apply to the current elements to avoid vast amounts of splash damage..  Example, every React component with CSS you have met.</dd>
@@ -238,7 +238,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc15"> ITCSS aka “invert triangle” / SMACSS</h5>
+<h5 id="toc15">  ITCSS aka “invert triangle” / SMACSS <a href="#toc15" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>SMACSS is clearly documented <sup><a href="https://smacss.com/" target="_blank">7</a></sup>.   ITCSS is described <sup><a href="https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/" target="_blank">8</a></sup>, as the official-looking URL has no content <sup><a href="https://itcss.io/" target="_blank">9</a></sup>.  Both these structures are quite similar, so I am grouping them (so do other writers).</dd>
@@ -251,7 +251,7 @@ TODO: magic tune selection against some index/DB -->
 </dl>
 
 
-<h5 id="toc16"> Hybrid</h5>
+<h5 id="toc16">  Hybrid <a href="#toc16" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h5>
 <dl>
     <dt>what</dt>
         <dd>Slap two or more of the above together, to meet your needs, and then <i>say “jobzagoodurn”</i>.  The metrics of good CSS are usability, adaptability, maintainability, readability and scalability.   This doesn't mention strict architecture.</dd>
@@ -268,7 +268,7 @@ TODO: magic tune selection against some index/DB -->
 <hr />
 <div class="halferWords">
 
-<h3 class="dontend" id="toc17"> <a href="#toc17" title="Jump to this section." > Example iteration: building dark-mode. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc17">  Example iteration: building dark-mode. <a href="#toc17" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>There are quite a few products that gain dark-mode in version 2 or something.   This is just an isolated change that is quite easy to manage and see.   In recent CSS, there are numerous methods to annotate a colour.  Those are off-topic to this article.</p>
 
 <ul class="ulbasic">
@@ -286,7 +286,7 @@ TODO: magic tune selection against some index/DB -->
 </ul>
 
 
-<h3 class="dontend" id="toc18"> <a href="#toc18" title="Jump to this section." > Example iteration: building new screen size. <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc18">  Example iteration: building new screen size. <a href="#toc18" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>This is slightly contrived.  Marketing say your product would be twice as cool on some large screen watch.   This watch has 200px by 200px screen and a low refresh rate.   Marketing may notice you turned <strong>off</strong> animations on the watch in a few months, even though you did email them about this.</p>
 
 <ul class="ulbasic">
@@ -304,7 +304,7 @@ TODO: magic tune selection against some index/DB -->
 </ul>
 
 
-<h3 class="dontend" id="toc19"> <a href="#toc19" title="Jump to this section." > Why write this? <sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
+<h3 id="toc19">  Why write this? <a href="#toc19" title="Jump to this section." ><sup><i class="fa fa-link invert" aria-label="Jump this to this section." aria-hidden="true"></i></sup> </a></h3>
 <p>Before 2012 I rarely used CSS at work, so didn't need to keep it tidy.   Any personal projects didn't have scale, and rarely cross 5 pages.   After 2012 I was using more CSS, and <em>frameworks</em> ~ so wasn't getting experience architecting CSS or talking about it.   If I need to talk about how to build CSS, I thought being able to use standard terminology would help.   None of these options were available choices when I graduated, and by default, I pay more attention to structures than words to describe structures.   <br />
 Yes, it is intensional that the negative reasons are before the positive reasons, project failure is worse than some chaos and eventual delivery.</p>
 
@@ -313,16 +313,16 @@ Yes, it is intensional that the negative reasons are before the positive reasons
 </div>
     </article>
    </main>
-	<div id="contentGroup" class="adjacentWidget" data-group="engineering, architecture" title="Use the first link to get the complete range of the group." > <p>Some similar articles in engineering </p>
+	<nav id="contentGroup" class="adjacentWidget" data-group="engineering, architecture" aria-label="Articles related to this one by theme/ activity"> <div id="injectionPoint"></div> <p>Some similar articles in engineering </p>
 <div id="groupengineering" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=engineering" aria-label="This article lists all items in engineering group.">All of <br />engineering<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
 <p>Some similar articles in architecture </p>
 <div id="grouparchitecture" class="adjacentList"><a class="adjacentItem button" href="/resource/group-XXX?first=architecture" aria-label="This article lists all items in architecture group.">All of <br />architecture<br /> articles </a> <noscript>Seeing this means the Adjacent feature is <strong>disabled</strong><br /> Try the full page link on the left </noscript></div>
- </div>
+ </nav>
 
   </div>
   <fieldset class="articleHeader" role="navigation">
 	<legend></legend>
-	<nav id="navBar" class="row">
+	<nav id="navBar" class=" row" aria-label="Site utilities.">
 			<div class="column">
 				<div class="top-bar fullWidth">
 					<header><h1>Architectures for CSS</h1></header>
@@ -330,9 +330,9 @@ Yes, it is intensional that the negative reasons are before the positive reasons
 				</div>
 			</div>
 	
-	<div class="bigScreenOnly column linksWidget" role="navigation">
-		<details class="linksWidget" id="pageMenu">
-			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Menu</span> </summary>
+	<div class="column linksWidget" role="navigation">
+		<details class="linksWidget bigScreenOnly" id="pageMenu">
+			<summary class="defaultLinksTrigger fa-" aria-haspopup="menu"> <span class="sr-only">Site Menu</span> </summary>
 
 			<menu class="dfl">
 			<li>Additional features</li>
@@ -344,22 +344,21 @@ Yes, it is intensional that the negative reasons are before the positive reasons
 			</menu>
 		</details>
 
-			<div id="shareGroup" class="row">
+			<div id="shareGroup" class="row bigScreenOnly">
 				<a id="siteChartLink" href="/resource/site-chart" title="open a webpage of what articles this site holds.">Sitemap</a>
 				<a id="rssLink" href="https://owenberesford.me.uk/resource/rss" title="Access the sites RSS feed."> <i class="fa fa-rss" aria-label="Open the RSS for this site." aria-hidden="true"></i><span class="sr-only">RSS</span></a> 
 		   </div>
-			<div class="row">Edited&nbsp; <time title="Page edited on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time> </div>
+			<div class="row bigScreenOnly">Edited&nbsp; <time title="Page edited on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time> </div>
 			<div class="row" id="addReading"></div>
 
-
-		<details open class="headingsWidget"><summary class="fa-"><div>Chapters</div></summary><menu class="titleList">
+		<details open class="headingsWidget"><summary class="fa-"><div aria-label="Open table of contents">Content</div></summary><nav aria-label="Table of contents of current article."><menu class="titleList">
 <li><a href="#toc0">Code layouts</a></li>
 <li><a href="#toc1">Listicle about CSS archs</a></li>
 <li><a href="#toc2">Example iteration: building dark-mode.</a></li>
 <li><a href="#toc3">Example iteration: building new screen size.</a></li>
 <li><a href="#toc4">Why write this?</a></li>
 </menu>
-</details><br />
+</nav></details><br />
 
 	</div>
 	<!-- /div -->
@@ -369,14 +368,16 @@ Yes, it is intensional that the negative reasons are before the positive reasons
  <div id="biblio" style="display:none;">
     <br class="blocker" />
  </div>
- <footer class="row footWidget"> 
+ <footer class="footWidget"> 
+ 	<nav aria-label="Utility links and traditional footer notes" class="row" >
 	<div class="column leftFooter"> 
 		<p>My profile: <a href="https://www.linkedin.com/in/owen-beresford-bb6ab030/" target="_blank" aria-label="my linked-in" title="Load my linked-in profile" ><i class="fixLinkedSq fa fa-linkedin-square" aria-hidden="true" aria-label="Open my linked in profile" ></i><span class="sr-only">linkedin</span></a> ~ <abbr title="This content wasn't covered in my education, as it didn't exist at that point.">Young tech</abbr> <a href="#pageMenu">Jump to menu</a>
 	</div> 
 	<div class="column bigColumn">
-		<p> Page rendered <time title="Page rendered on 2026-09-27T19:28:07" datetime="2026-09-27T19:28:07">Sep '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-09-27T19:27:53" datetime="2026-09-27T19:27:53">Sep '26</time>.  Created date <time title="Page modified on 2024-04-09T00:00:00" datetime="2024-04-09T00:00:00">Apr '24</time>.
+		<p> Page rendered <time title="Page rendered on 2026-11-01T13:37:15" datetime="2026-11-01T13:37:15">Nov '26</time>, Copyright &copy; 2026 Owen Beresford, <a href="https://owenberesford.me.uk/resource/contact-me">contact me</a>.  Last modified <time title="Page modified on 2026-11-01T13:34:48" datetime="2026-11-01T13:34:48">Nov '26</time>.  Created date <time title="Page modified on 2024-04-09T00:00:00" datetime="2024-04-09T00:00:00">Apr '24</time>.
 	    <p>Read the generous <a rel="license" href="https://owenberesford.me.uk/resource/licence" title="Load the license term; but not that interesting">licence terms</a>, if you feel the need, there is a <a href="https://owenberesford.me.uk/resource/privacy#" title="Load the privacy terms" >privacy here</a>.    View the <a href="https://owenberesford.me.uk/resource/site-chart#" title="Load a page showing all the articles on this site">site map</a>. 
 	</div>
+ 	</nav>
  </footer>
 <script type="module" src="/asset/ob1-202406.min.mjs" ></script>  
 
